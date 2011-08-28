@@ -52,9 +52,15 @@ abstract class WebDriverBase {
         $url,
         $error)));
     }
-
     curl_close($curl);
-    return array('value' => $results['value'], 'info' => $info);
+
+    if ($results['status'] !== 0) {
+      $results['value'] = null;
+    }
+
+    return array(
+      'value' => $results['status'] === 0 ? $results['value'] : null,
+      'info' => $info);
   }
 
   public function __call($name, $arguments) {
