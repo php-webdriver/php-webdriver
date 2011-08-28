@@ -42,7 +42,7 @@ class WebDriverSession extends WebDriverContainer {
   }
 
   // /session/:sessionId (DELETE)
-  public function delete() {
+  public function close() {
     return $this->curl('DELETE', '');
   }
 
