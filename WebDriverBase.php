@@ -43,7 +43,7 @@ abstract class WebDriverBase {
     }
 
     $raw_results = trim(curl_exec($curl));
-    $results = fb_json_decode($raw_results);
+    $results = json_decode($raw_results, true);
 
     $info = curl_getinfo($curl);
     if ($error = curl_error($curl)) {
