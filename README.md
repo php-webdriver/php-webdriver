@@ -53,5 +53,5 @@ Each command is just the name of a function call, and each additional path is ju
 ## A few Element/Cookie/Session convenience exceptions.
 
 * Use element($using, $value) and elements($using, $value)
-* Use getAllCookies(), setCookie(), deleteAllCookies(), and deleteCookie($name)
+* Use getAllCookies(), setCookie($cookie_json), deleteAllCookies(), and deleteCookie($name)
 * Visit pages with open(), close the browser window with close()
