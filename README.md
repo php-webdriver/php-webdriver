@@ -15,6 +15,7 @@ Each command is just the name of a function call, and each additional path is ju
 * Get a session (opens a new browser window)
 
   $web_driver = new WebDriver(); // could pass a host besides localhost
+
   $session = $web_driver->session(); // could pass a browser name
 
 * Move to a specific spot on the screen
