@@ -12,18 +12,22 @@ abstract class WebDriverBase {
 
   protected function curl($http_method,
                           $command,
-                          $json_params = null,
+                          $params = null,
                           $extra_opts = array()) {
-    if ($json_params && $http_method !== 'POST') {
+    if ($params && is_array($params) && $http_method !== 'POST') {
       throw(new Exception(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
         $command,
         $http_method,
-        json_encode($json_params)));
+        json_encode($params)));
     }
 
     $url = sprintf('%s%s', $this->url, $command);
+    if ($params && !is_array($params)) {
+      $url .= '/' . $params;
+    }
+
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
@@ -31,8 +35,8 @@ abstract class WebDriverBase {
 
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
-      if ($json_params) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($json_params));
+      if ($params && is_array($params)) {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
       }
     } else if ($http_method == 'DELETE') {
       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
@@ -54,13 +58,7 @@ abstract class WebDriverBase {
     }
     curl_close($curl);
 
-    if ($results['status'] !== 0) {
-      $results['value'] = null;
-    }
-
-    return array(
-      'value' => $results['status'] === 0 ? $results['value'] : null,
-      'info' => $info);
+    return array('value' => $results['value'], 'info' => $info);
   }
 
   public function __call($name, $arguments) {

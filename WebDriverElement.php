@@ -13,9 +13,12 @@ class WebDriverElement extends WebDriverContainer {
       'clear' => 'POST',
       'selected' => 'GET',
       'enabled' => 'GET',
+      'attribute' => 'GET',
+      'equals' => 'GET',
       'location' => 'GET',
       'location_in_view' => 'GET',
       'size' => 'GET',
+      'css' => 'GET',
     );
   }
 
@@ -27,21 +30,6 @@ class WebDriverElement extends WebDriverContainer {
 
   public function getID() {
     return $this->id;
-  }
-
-  // /session/:sessionId/element/:id/attribute/:name (GET)
-  public function attribute($name) {
-    return $this->curl('GET', '/attribute/' . $name);
-  }
-
-  // /session/:sessionId/element/:id/equals/:other (GET)
-  public function equals($other_element) {
-    return $this->curl('GET', '/equals/' . $other_element->getID());
-  }
-
-  // /session/:sessionId/element/:id/css/:propertyName (GET)
-  public function css($property_name) {
-    return $this->curl('GET', '/css/' . $property_name);
   }
 
   protected function getElementPath($element_id) {
