@@ -8,11 +8,15 @@ class WebDriver extends WebDriverBase {
     );
   }
 
-  public function session($browser = 'firefox') {
+  public function session($browser = 'firefox', $additional_capabilities) {
+    $desired_capabilities = array_merge(
+      $additional_capabilities,
+      array('browserName' => $browser));
+
     $results = $this->curl(
       'POST',
       '/session',
-      array('desiredCapabilities' => array('browserName' => $browser)),
+      array('desiredCapabilities' => $desired_capabilities),
       array(CURLOPT_HEADER => true,
             CURLOPT_FOLLOWLOCATION => true));
 
