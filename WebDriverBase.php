@@ -83,7 +83,7 @@ abstract class WebDriverBase {
         throw(new Exception(sprintf(
           '%s is not an available http method for the command %s.',
           $http_method,
-          $webdriver_method)));
+          $webdriver_command)));
       }
     } else {
       $webdriver_command = $name;
@@ -99,11 +99,9 @@ abstract class WebDriverBase {
 
   private function getHTTPMethod($webdriver_command) {
     if (!array_key_exists($webdriver_command, $this->methods())) {
-      if (!$http_methods) {
-        throw(new Exception(sprintf(
-          '%s is not a valid webdriver command.',
-          $webdriver_command)));
-      }
+      throw(new Exception(sprintf(
+        '%s is not a valid webdriver command.',
+        $webdriver_command)));
     }
 
     $http_methods = $this->methods()[$webdriver_command];

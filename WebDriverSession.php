@@ -70,36 +70,36 @@ class WebDriverSession extends WebDriverContainer {
   }
 
   public function timeouts() {
-    return id(new WebDriverSimpleItem($this->url .
-      '/timeouts'))->setMethods(array(
-        'async_script' => 'POST',
-        'implicit_wait' => 'POST',
-      ));
+    $item = new WebDriverSimpleItem($this->url . '/timeouts');
+    return $item->setMethods(array(
+      'async_script' => 'POST',
+      'implicit_wait' => 'POST',
+    ));
   }
 
   public function ime() {
-    return id(new WebDriverSimpleItem($this->url .
-      '/ime'))->setMethods(array(
-        'available_engines' => 'GET',
-        'active_engine' => 'GET',
-        'activated' => 'GET',
-        'deactivate' => 'POST',
-        'activate' => 'POST',
-      ));
+    $item = new WebDriverSimpleItem($this->url . '/ime');
+    return $item->setMethods(array(
+      'available_engines' => 'GET',
+      'active_engine' => 'GET',
+      'activated' => 'GET',
+      'deactivate' => 'POST',
+      'activate' => 'POST',
+    ));
   }
 
   public function touch() {
-    return id(new WebDriverSimpleItem($this->url .
-      '/touch'))->setMethods(array(
-        'click' => 'POST',
-        'down' => 'POST',
-        'up' => 'POST',
-        'move' => 'POST',
-        'scroll' => 'POST',
-        'doubleclick' => 'POST',
-        'longclick' => 'POST',
-        'flick' => 'POST',
-      ));
+    $item = new WebDriverSimpleItem($this->url . '/touch');
+    return $item->setMethods(array(
+      'click' => 'POST',
+      'down' => 'POST',
+      'up' => 'POST',
+      'move' => 'POST',
+      'scroll' => 'POST',
+      'doubleclick' => 'POST',
+      'longclick' => 'POST',
+      'flick' => 'POST',
+    ));
   }
 
   protected function getElementPath($element_id) {

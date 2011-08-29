@@ -5,7 +5,7 @@ abstract class WebDriverContainer extends WebDriverBase {
   public function element($using, $value) {
     $results = $this->curl(
       'POST',
-      '/element', 
+      '/element',
       array(
         'using' => $using,
         'value' => $value));
