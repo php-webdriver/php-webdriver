@@ -8,7 +8,8 @@ class WebDriver extends WebDriverBase {
     );
   }
 
-  public function session($browser = 'firefox', $additional_capabilities) {
+  public function session($browser = 'firefox',
+                          $additional_capabilities = array()) {
     $desired_capabilities = array_merge(
       $additional_capabilities,
       array('browserName' => $browser));
