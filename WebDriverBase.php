@@ -5,7 +5,6 @@ abstract class WebDriverBase {
   abstract protected function methods();
 
   protected $url;
-
   public function __construct($url = 'http://localhost:4444/wd/hub') {
     $this->url = $url;
   }
