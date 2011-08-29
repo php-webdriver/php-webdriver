@@ -32,7 +32,7 @@ Each command is just the name of a function call, and each additional path is ju
 
 * Check if two elements are equal
 
-  $element->equals($other_element)
+  $element->equals($other_element->getID()))
 
 * Get value of css property on element
 
