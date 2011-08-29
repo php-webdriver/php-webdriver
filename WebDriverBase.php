@@ -15,12 +15,12 @@ abstract class WebDriverBase {
                           $params = null,
                           $extra_opts = array()) {
     if ($params && is_array($params) && $http_method !== 'POST') {
-      throw(new Exception(
+      throw(new Exception(sprintf(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
         $command,
         $http_method,
-        json_encode($params)));
+        json_encode($params))));
     }
 
     $url = sprintf('%s%s', $this->url, $command);
@@ -69,7 +69,7 @@ abstract class WebDriverBase {
     }
 
     if (preg_match('/^(get|post|delete)/', $name, $matches)) {
-      $http_method = strtoupper(head($matches));
+      $http_method = strtoupper($matches[0]);
       $webdriver_command = strtolower(substr($name, strlen($http_method)));
       $default_http_method = $this->getHTTPMethod($webdriver_command);
       if ($http_method === $default_http_method) {
@@ -92,7 +92,7 @@ abstract class WebDriverBase {
 
     $results = $this->curl($http_method,
                            '/' . $webdriver_command,
-                           head($arguments));
+                           $arguments[0]);
 
     return $results['value'];
   }
@@ -104,6 +104,6 @@ abstract class WebDriverBase {
         '%s is not a valid webdriver command.',
         $webdriver_command)));
     }
-    return is_array($http_methods) ? head($http_methods) : $http_methods;
+    return is_array($http_methods) ? $http_methods[0] : $http_methods;
   }
 }
