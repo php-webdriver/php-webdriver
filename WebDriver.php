@@ -18,8 +18,7 @@ class WebDriver extends WebDriverBase {
       'POST',
       '/session',
       array('desiredCapabilities' => $desired_capabilities),
-      array(CURLOPT_HEADER => true,
-            CURLOPT_FOLLOWLOCATION => true));
+      array(CURLOPT_FOLLOWLOCATION => true));
 
     return new WebDriverSession($results['info']['url']);
   }
