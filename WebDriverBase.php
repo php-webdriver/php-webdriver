@@ -9,6 +9,15 @@ abstract class WebDriverBase {
     $this->url = $url;
   }
 
+  /**
+   * Curl request to webdriver server.
+   *
+   * $http_method  'GET', 'POST', or 'DELETE'
+   * $command      If not defined in methods() this function will throw.
+   * $params       If an array(), they will be posted as JSON parameters
+   *               If a number or string, "/$params" is appended to url
+   * $extra_opts   key=>value pairs of curl options to pass to curl_setopt()
+   */
   protected function curl($http_method,
                           $command,
                           $params = null,
