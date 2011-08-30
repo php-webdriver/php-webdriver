@@ -100,7 +100,7 @@ abstract class WebDriverBase {
 
     $results = $this->curl($http_method,
                            '/' . $webdriver_command,
-                           $arguments[0]);
+                           array_shift($arguments));
 
     return $results['value'];
   }
@@ -112,7 +112,7 @@ abstract class WebDriverBase {
         $webdriver_command)));
     }
 
-    $http_methods = $this->methods()[$webdriver_command];
-    return is_array($http_methods) ? $http_methods[0] : $http_methods;
+    $http_methods = (array) $this->methods()[$webdriver_command];
+    return array_shift($http_methods);
   }
 }
