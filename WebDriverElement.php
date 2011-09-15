@@ -1,7 +1,7 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
 
-class WebDriverElement extends WebDriverContainer {
+final class WebDriverElement extends WebDriverContainer {
   protected function methods() {
     return array(
       'active' => 'POST',

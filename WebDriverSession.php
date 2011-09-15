@@ -1,7 +1,7 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
 
-class WebDriverSession extends WebDriverContainer {
+final class WebDriverSession extends WebDriverContainer {
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)

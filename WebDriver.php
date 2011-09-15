@@ -1,7 +1,7 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
 
-class WebDriver extends WebDriverBase {
+final class WebDriver extends WebDriverBase {
   protected function methods() {
     return array(
       'status' => 'GET',
