@@ -9,6 +9,10 @@ abstract class WebDriverBase {
     $this->url = $url;
   }
 
+  public function getURL() {
+    return $this->url;
+  }
+
   /**
    * Curl request to webdriver server.
    *
