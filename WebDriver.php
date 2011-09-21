@@ -1,4 +1,5 @@
 <?php
+namespace WebDriver;
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 final class WebDriver extends WebDriverBase {
