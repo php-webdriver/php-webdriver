@@ -28,7 +28,7 @@ abstract class WebDriverBase {
                           $params = null,
                           $extra_opts = array()) {
     if ($params && is_array($params) && $http_method !== 'POST') {
-      throw(new Exception(sprintf(
+      throw(new \Exception(sprintf(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
         $command,
@@ -64,7 +64,7 @@ abstract class WebDriverBase {
 
     $info = curl_getinfo($curl);
     if ($error = curl_error($curl)) {
-      throw(new Exception(sprintf(
+      throw(new \Exception(sprintf(
         'Curl error for request %s: %s',
         $url,
         $error)));
@@ -76,7 +76,7 @@ abstract class WebDriverBase {
 
   public function __call($name, $arguments) {
     if (count($arguments) > 1) {
-      throw(new Exception(
+      throw(new \Exception(
         'Commands should have at most only one parameter,' .
         ' which should be the JSON Parameter object'));
     }
@@ -86,7 +86,7 @@ abstract class WebDriverBase {
       $webdriver_command = strtolower(substr($name, strlen($http_method)));
       $default_http_method = $this->getHTTPMethod($webdriver_command);
       if ($http_method === $default_http_method) {
-        throw(new Exception(sprintf(
+        throw(new \Exception(sprintf(
           '%s is the default http method for %s.  Please just call %s().',
           $http_method,
           $webdriver_command,
@@ -94,7 +94,7 @@ abstract class WebDriverBase {
       }
       $my_methods = $this->methods();
       if (!in_array($http_method, $my_methods[$webdriver_command])) {
-        throw(new Exception(sprintf(
+        throw(new \Exception(sprintf(
           '%s is not an available http method for the command %s.',
           $http_method,
           $webdriver_command)));
@@ -113,7 +113,7 @@ abstract class WebDriverBase {
 
   private function getHTTPMethod($webdriver_command) {
     if (!array_key_exists($webdriver_command, $this->methods())) {
-      throw(new Exception(sprintf(
+      throw(new \Exception(sprintf(
         '%s is not a valid webdriver command.',
         $webdriver_command)));
     }
