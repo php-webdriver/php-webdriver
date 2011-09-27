@@ -31,6 +31,7 @@ final class WebDriverElement extends WebDriverContainer {
       'location_in_view' => 'GET',
       'size' => 'GET',
       'css' => 'GET',
+      'displayed' => 'GET',
     );
   }
 

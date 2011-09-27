@@ -82,7 +82,12 @@ abstract class WebDriverBase {
     }
     curl_close($curl);
 
-    return array('value' => $results['value'], 'info' => $info);
+    $value = null;
+    if (is_array($results) && array_key_exists('value', $results)) {
+      $value = $results['value'];
+    }
+
+    return array('value' => $value, 'info' => $info);
   }
 
   public function __call($name, $arguments) {
