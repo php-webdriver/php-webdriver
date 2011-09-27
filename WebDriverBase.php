@@ -70,7 +70,7 @@ abstract class WebDriverBase {
       curl_setopt($curl, $option, $value);
     }
 
-    $raw_results = trim(curl_exec($curl));
+    $raw_results = trim(WebDriverEnvironment::CurlExec($curl));
     $results = json_decode($raw_results, true);
 
     $info = curl_getinfo($curl);
