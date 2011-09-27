@@ -27,11 +27,11 @@ final class WebDriverElement extends WebDriverContainer {
       'enabled' => 'GET',
       'attribute' => 'GET',
       'equals' => 'GET',
+      'displayed' => 'GET',
       'location' => 'GET',
       'location_in_view' => 'GET',
       'size' => 'GET',
       'css' => 'GET',
-      'displayed' => 'GET',
     );
   }
 
