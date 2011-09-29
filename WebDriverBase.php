@@ -1,6 +1,18 @@
 <?php
 namespace WebDriver;
 // Copyright 2004-present Facebook. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 abstract class WebDriverBase {
   abstract protected function methods();
@@ -59,7 +71,7 @@ abstract class WebDriverBase {
       curl_setopt($curl, $option, $value);
     }
 
-    $raw_results = trim(curl_exec($curl));
+    $raw_results = trim(WebDriverEnvironment::CurlExec($curl));
     $results = json_decode($raw_results, true);
 
     $info = curl_getinfo($curl);
@@ -71,7 +83,12 @@ abstract class WebDriverBase {
     }
     curl_close($curl);
 
-    return array('value' => $results['value'], 'info' => $info);
+    $value = null;
+    if (is_array($results) && array_key_exists('value', $results)) {
+      $value = $results['value'];
+    }
+
+    return array('value' => $value, 'info' => $info);
   }
 
   public function __call($name, $arguments) {
@@ -92,9 +109,9 @@ abstract class WebDriverBase {
           $webdriver_command,
           $webdriver_command)));
       }
-      $my_methods = $this->methods();
-      if (!in_array($http_method, $my_methods[$webdriver_command])) {
-        throw(new \Exception(sprintf(
+      $methods = $this->methods();
+      if (!in_array($http_method, $methods[$webdriver_command])) {
+        throw(new Exception(sprintf(
           '%s is not an available http method for the command %s.',
           $http_method,
           $webdriver_command)));
@@ -117,8 +134,9 @@ abstract class WebDriverBase {
         '%s is not a valid webdriver command.',
         $webdriver_command)));
     }
-    $my_methods = $this->methods();
-    $http_methods = (array) $my_methods[$webdriver_command];
+
+    $methods = $this->methods();
+    $http_methods = (array) $methods[$webdriver_command];
     return array_shift($http_methods);
   }
 }

@@ -1,5 +1,4 @@
 <?php
-namespace WebDriver;
 // Copyright 2004-present Facebook. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,25 +13,13 @@ namespace WebDriver;
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class WebDriver extends WebDriverBase {
-  protected function methods() {
-    return array(
-      'status' => 'GET',
-    );
-  }
+// For security reasons some enterprises don't allow the use of some built-in
+// php functions.  This class is meant to be a proxy for these functions.
+// Modify these as necessary for your enviroment, and then .gitignore this file
+// so you can still easily git pull other changes from the main github repo.
 
-  public function session($browser = 'firefox',
-                          $additional_capabilities = array()) {
-    $desired_capabilities = array_merge(
-      $additional_capabilities,
-      array('browserName' => $browser));
-
-    $results = $this->curl(
-      'POST',
-      '/session',
-      array('desiredCapabilities' => $desired_capabilities),
-      array(CURLOPT_FOLLOWLOCATION => true));
-
-    return new WebDriverSession($results['info']['url']);
+final class WebDriverEnvironment {
+  public static function CurlExec($ch) {
+    return curl_exec($ch);
   }
 }
