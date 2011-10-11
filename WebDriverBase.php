@@ -120,9 +120,10 @@ abstract class WebDriverBase {
       $http_method = $this->getHTTPMethod($webdriver_command);
     }
 
-    $results = $this->curl($http_method,
-                           '/' . $webdriver_command,
-                           array_shift($arguments));
+    $results = $this->curl(
+      $http_method,
+      '/' . $webdriver_command,
+      array_shift($arguments));
 
     return $results['value'];
   }
