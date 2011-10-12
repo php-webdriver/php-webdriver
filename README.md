@@ -52,7 +52,6 @@ Each command is just the name of a function call, and each additional path is ju
 
 ## A few Element/Cookie/Session convenience exceptions.
 
-* To find elements, use element($using, $value) and elements($using, $value)
-** Where $using is the locator strategy ('xpath', 'id', 'name', etc)
+* To find elements, use element($using, $value) and elements($using, $value), where $using is the locator strategy ('xpath', 'id', 'name', etc)
 * Use getAllCookies(), setCookie($cookie_json), deleteAllCookies(), and deleteCookie($name)
 * Visit pages with open(), close the browser window with close()
