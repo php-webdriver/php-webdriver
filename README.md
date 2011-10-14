@@ -23,7 +23,7 @@ The -f is needed as the stability of the package is listed as beta which pear li
 
 * Get a session (opens a new browser window)
 
-  $web_driver = new WebDriver(); // could pass a host besides localhost
+  $web_driver = new PHPWebDriver_WebDriver(); // could pass a host besides localhost
 
   $session = $web_driver->session(); // could pass a browser name
 
