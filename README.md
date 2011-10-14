@@ -9,6 +9,15 @@ Most clients require you to first read the protocol to see what's possible, then
 
 Each command is just the name of a function call, and each additional path is just another chained function call.  The function parameter is then either an array() if the command takes JSON parameters, or an individual primitive if it takes a URL parameter.
 
+## INSTALL
+
+This driver has been packaged for distribution via PEAR. So...
+
+pear channel-discover element-34.github.com/pear
+pear install -f element-34/PHPWebDriver
+
+The -f is needed as the stability of the package is listed as beta which pear likes to whinge about.
+
 ## SIMPLE EXAMPLES
 ### Note that all of these match the Protocol exactly
 
