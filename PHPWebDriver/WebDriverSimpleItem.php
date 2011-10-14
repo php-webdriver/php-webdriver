@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class WebDriverSimpleItem extends WebDriverBase {
+final class PHPWebDriver_WebDriverSimpleItem extends PHPWebDriver_WebDriverBase {
   private $_methods = array();
   protected function methods() {
     return $this->_methods;

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-abstract class WebDriverContainer extends WebDriverBase {
+abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBase {
   public function element($using, $value) {
     $results = $this->curl(
       'POST',

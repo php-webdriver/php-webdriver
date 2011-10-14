@@ -13,13 +13,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// For security reasons some enterprises don't allow the use of some built-in
-// php functions.  This class is meant to be a proxy for these functions.
-// Modify these as necessary for your enviroment, and then .gitignore this file
-// so you can still easily git pull other changes from the main github repo.
+final class PHPWebDriver_WebDriver extends WebDriverBase {
+  protected function methods() {
+    return array(
+      'status' => 'GET',
+    );
+  }
 
-final class WebDriverEnvironment {
-  public static function CurlExec($ch) {
-    return curl_exec($ch);
+  public function session($browser = 'firefox',
+                          $additional_capabilities = array()) {
+    $desired_capabilities = array_merge(
+      $additional_capabilities,
+      array('browserName' => $browser));
+
+    $results = $this->curl(
+      'POST',
+      '/session',
+      array('desiredCapabilities' => $desired_capabilities),
+      array(CURLOPT_FOLLOWLOCATION => true));
+
+    return new WebDriverSession($results['info']['url']);
   }
 }

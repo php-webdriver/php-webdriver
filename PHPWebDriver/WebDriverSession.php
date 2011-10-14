@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class WebDriverSession extends WebDriverContainer {
+final class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)
