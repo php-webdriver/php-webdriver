@@ -14,6 +14,75 @@
 // limitations under the License.
 
 abstract class WebDriverBase {
+
+  public static function throwException($status_code, $message) {
+    switch ($status_code) {
+      case 0:
+        // Success
+        break;
+      case 1:
+        throw new IndexOutOfBoundsWebDriverError($message);
+      case 2:
+        throw new NoCollectionWebDriverError($message);
+      case 3:
+        throw new NoStringWebDriverError($message);
+      case 4:
+        throw new NoStringLengthWebDriverError($message);
+      case 5:
+        throw new NoStringWrapperWebDriverError($message);
+      case 6:
+        throw new NoSuchDriverWebDriverError($message);
+      case 7:
+        throw new NoSuchElementWebDriverError($message);
+      case 8:
+        throw new NoSuchFrameWebDriverError($message);
+      case 9:
+        throw new UnknownCommandWebDriverError($message);
+      case 10:
+        throw new ObsoleteElementWebDriverError($message);
+      case 11:
+        throw new ElementNotDisplayedWebDriverError($message);
+      case 12:
+        throw new InvalidElementStateWebDriverError($message);
+      case 13:
+        throw new UnhandledWebDriverError($message);
+      case 14:
+        throw new ExpectedWebDriverError($message);
+      case 15:
+        throw new ElementNotSelectableWebDriverError($message);
+      case 16:
+        throw new NoSuchDocumentWebDriverError($message);
+      case 17:
+        throw new UnexpectedJavascriptWebDriverError($message);
+      case 18:
+        throw new NoScriptResultWebDriverError($message);
+      case 19:
+        throw new XPathLookupWebDriverError($message);
+      case 20:
+        throw new NoSuchCollectionWebDriverError($message);
+      case 21:
+        throw new TimeOutWebDriverError($message);
+      case 22:
+        throw new NullPointerWebDriverError($message);
+      case 23:
+        throw new NoSuchWindowWebDriverError($message);
+      case 24:
+        throw new InvalidCookieDomainWebDriverError($message);
+      case 25:
+        throw new UnableToSetCookieWebDriverError($message);
+      case 26:
+      case 27:
+        // Not used
+        break;
+      case 28:
+        throw new TimeOutWebDriverError($message);
+      case 29:
+        throw new InvalidElementCoordinatesWebDriverError($message);
+      case 32:
+        throw new InvalidSelectorWebDriverError($message);
+    }
+  }
+
   abstract protected function methods();
 
   protected $url;
@@ -71,9 +140,8 @@ abstract class WebDriverBase {
     }
 
     $raw_results = trim(WebDriverEnvironment::CurlExec($curl));
-    $results = json_decode($raw_results, true);
-
     $info = curl_getinfo($curl);
+
     if ($error = curl_error($curl)) {
       throw(new Exception(sprintf(
         'Curl error for request %s: %s',
@@ -82,10 +150,19 @@ abstract class WebDriverBase {
     }
     curl_close($curl);
 
+    $results = json_decode($raw_results, true);
+
     $value = null;
     if (is_array($results) && array_key_exists('value', $results)) {
       $value = $results['value'];
     }
+
+    $message = null;
+    if (is_array($value) && array_key_exists('message', $value)) {
+      $message = $value['message'];
+    }
+
+    self::throwException($results['status'], $message);
 
     return array('value' => $value, 'info' => $info);
   }

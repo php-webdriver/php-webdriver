@@ -46,5 +46,6 @@ abstract class WebDriverContainer extends WebDriverBase {
       null;
   }
 
+
   abstract protected function getElementPath($element_id);
 }
