@@ -71,13 +71,17 @@ abstract class WebDriverBase {
       case 25:
         throw new UnableToSetCookieWebDriverError($message);
       case 26:
+        throw new UnexpectedAlertOpenWebDriverError($message);
       case 27:
-        // Not used
-        break;
+        throw new NoAlertOpenWebDriverError($message);
       case 28:
-        throw new TimeOutWebDriverError($message);
+        throw new ScriptTimeoutWebDriverError($message);
       case 29:
         throw new InvalidElementCoordinatesWebDriverError($message);
+      case 30:
+        throw new IMENotAvailableWebDriverError($message);
+      case 31:
+        throw new IMEEngineActivationFailedWebDriverError($message);
       case 32:
         throw new InvalidSelectorWebDriverError($message);
     }
