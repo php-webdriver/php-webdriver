@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+require_once('WebDriverElement.php');
+
 abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBase {
   public function element($using, $value) {
     $results = $this->curl(
@@ -40,7 +42,7 @@ abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBas
 
   private function webDriverElement($value) {
     return (array_key_exists('ELEMENT', (array) $value)) ?
-      new WebDriverElement(
+      new PHPWebDriver_WebDriverElement(
         $this->getElementPath($value['ELEMENT']),
         $value['ELEMENT']) :
       null;

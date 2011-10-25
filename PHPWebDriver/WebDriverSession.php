@@ -13,7 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
+require_once('WebDriverContainer.php');
+require_once('WebDriverSimpleItem.php');
+
+class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)
@@ -82,7 +85,7 @@ final class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContaine
   }
 
   public function timeouts() {
-    $item = new WebDriverSimpleItem($this->url . '/timeouts');
+    $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/timeouts');
     return $item->setMethods(array(
       'async_script' => 'POST',
       'implicit_wait' => 'POST',
@@ -90,7 +93,7 @@ final class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContaine
   }
 
   public function ime() {
-    $item = new WebDriverSimpleItem($this->url . '/ime');
+    $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/ime');
     return $item->setMethods(array(
       'available_engines' => 'GET',
       'active_engine' => 'GET',
@@ -101,7 +104,7 @@ final class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContaine
   }
 
   public function touch() {
-    $item = new WebDriverSimpleItem($this->url . '/touch');
+    $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/touch');
     return $item->setMethods(array(
       'click' => 'POST',
       'down' => 'POST',

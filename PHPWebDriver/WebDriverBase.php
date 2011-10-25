@@ -13,7 +13,81 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+require_once('WebDriverEnvironment.php');
+require_once('WebDriverExceptions.php');
+
 abstract class PHPWebDriver_WebDriverBase {
+  public static function throwException($status_code, $message) {
+      switch ($status_code) {
+        case 0:
+          // Success
+          break;
+        case 1:
+          throw new PHPWebDriver_IndexOutOfBoundsWebDriverError($message);
+        case 2:
+          throw new PHPWebDriver_NoCollectionWebDriverError($message);
+        case 3:
+          throw new PHPWebDriver_NoStringWebDriverError($message);
+        case 4:
+          throw new PHPWebDriver_NoStringLengthWebDriverError($message);
+        case 5:
+          throw new PHPWebDriver_NoStringWrapperWebDriverError($message);
+        case 6:
+          throw new PHPWebDriver_NoSuchDriverWebDriverError($message);
+        case 7:
+          throw new PHPWebDriver_NoSuchElementWebDriverError($message);
+        case 8:
+          throw new PHPWebDriver_NoSuchFrameWebDriverError($message);
+        case 9:
+          throw new PHPWebDriver_UnknownCommandWebDriverError($message);
+        case 10:
+          throw new PHPWebDriver_ObsoleteElementWebDriverError($message);
+        case 11:
+          throw new PHPWebDriver_ElementNotDisplayedWebDriverError($message);
+        case 12:
+          throw new PHPWebDriver_InvalidElementStateWebDriverError($message);
+        case 13:
+          throw new PHPWebDriver_UnhandledWebDriverError($message);
+        case 14:
+          throw new PHPWebDriver_ExpectedWebDriverError($message);
+        case 15:
+          throw new PHPWebDriver_ElementNotSelectableWebDriverError($message);
+        case 16:
+          throw new PHPWebDriver_NoSuchDocumentWebDriverError($message);
+        case 17:
+          throw new PHPWebDriver_UnexpectedJavascriptWebDriverError($message);
+        case 18:
+          throw new PHPWebDriver_NoScriptResultWebDriverError($message);
+        case 19:
+          throw new PHPWebDriver_XPathLookupWebDriverError($message);
+        case 20:
+          throw new PHPWebDriver_NoSuchCollectionWebDriverError($message);
+        case 21:
+          throw new PHPWebDriver_TimeOutWebDriverError($message);
+        case 22:
+          throw new PHPWebDriver_NullPointerWebDriverError($message);
+        case 23:
+          throw new PHPWebDriver_NoSuchWindowWebDriverError($message);
+        case 24:
+          throw new PHPWebDriver_InvalidCookieDomainWebDriverError($message);
+        case 25:
+          throw new PHPWebDriver_UnableToSetCookieWebDriverError($message);
+        case 26:
+          throw new PHPWebDriver_UnexpectedAlertOpenWebDriverError($message);
+        case 27:
+         throw new PHPWebDriver_NoAlertOpenWebDriverError($message);
+        case 28:
+          throw new PHPWebDriver_TimeOutWebDriverError($message);
+        case 29:
+          throw new PHPWebDriver_InvalidElementCoordinatesWebDriverError($message);
+        case 30:
+          throw new PHPWebDriver_IMENotAvailableWebDriverError($message);
+        case 31:
+          throw new PHPWebDriver_IMEEngineActivationFailedWebDriverError($message);
+        case 32:
+          throw new PHPWebDriver_InvalidSelectorWebDriverError($message);
+      }
+    }
   abstract protected function methods();
 
   protected $url;
@@ -70,10 +144,10 @@ abstract class PHPWebDriver_WebDriverBase {
       curl_setopt($curl, $option, $value);
     }
 
-    $raw_results = trim(WebDriverEnvironment::CurlExec($curl));
-    $results = json_decode($raw_results, true);
+    $raw_results = trim(PHPWebDriver_WebDriverEnvironment::CurlExec($curl));
 
     $info = curl_getinfo($curl);
+    
     if ($error = curl_error($curl)) {
       throw(new Exception(sprintf(
         'Curl error for request %s: %s',
@@ -82,11 +156,20 @@ abstract class PHPWebDriver_WebDriverBase {
     }
     curl_close($curl);
 
+    $results = json_decode($raw_results, true);
+
     $value = null;
     if (is_array($results) && array_key_exists('value', $results)) {
       $value = $results['value'];
     }
 
+    $message = null;
+    if (is_array($value) && array_key_exists('message', $value)) {
+      $message = $value['message'];
+    }
+
+    self::throwException($results['status'], $message);
+    
     return array('value' => $value, 'info' => $info);
   }
 

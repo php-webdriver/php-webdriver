@@ -13,7 +13,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-final class PHPWebDriver_WebDriver extends WebDriverBase {
+require_once('WebDriverBase.php');
+require_once('WebDriverSession.php');
+
+class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
+
+  function __construct($executor = "") {
+    parent::__construct($executor);
+  }
+
   protected function methods() {
     return array(
       'status' => 'GET',
@@ -32,6 +40,6 @@ final class PHPWebDriver_WebDriver extends WebDriverBase {
       array('desiredCapabilities' => $desired_capabilities),
       array(CURLOPT_FOLLOWLOCATION => true));
 
-    return new WebDriverSession($results['info']['url']);
+    return new PHPWebDriver_WebDriverSession($results['info']['url']);
   }
 }
