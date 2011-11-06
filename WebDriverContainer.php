@@ -15,12 +15,20 @@
 
 abstract class WebDriverContainer extends WebDriverBase {
   public function element($using, $value) {
-    $results = $this->curl(
-      'POST',
-      '/element',
-      array(
-        'using' => $using,
-        'value' => $value));
+    try {
+      $results = $this->curl(
+        'POST',
+        '/element',
+        array(
+          'using' => $using,
+          'value' => $value));
+    } catch (NoSuchElementWebDriverError $e) {
+      throw new NoSuchElementWebDriverError(
+        sprintf(
+          'Element not found with %s, %s',
+          $using,
+          $value) . "\n\n" . $e->getMessage());
+    }
 
     return $this->webDriverElement($results['value']);
   }

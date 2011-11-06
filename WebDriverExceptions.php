@@ -13,7 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WebDriverException extends Exception {}
+final class WebDriverCurlException extends Exception {} // When curls fail
+
+abstract class WebDriverException extends Exception {}
 class IndexOutOfBoundsWebDriverError extends WebDriverException {} // 1
 class NoCollectionWebDriverError extends WebDriverException {} // 2
 class NoStringWebDriverError extends WebDriverException {} // 3
