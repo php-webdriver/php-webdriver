@@ -18,8 +18,8 @@
     </lead>
     <date>2011-10-14</date>
     <version>
-        <release>0.9.2</release>
-        <api>0.9.2</api>
+        <release>0.9.3</release>
+        <api>0.9.3</api>
     </version>
     <stability>
         <release>beta</release>
@@ -55,6 +55,9 @@
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
                 <file baseinstalldir="/" name="WebDriverSimpleItem.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="WebDriverWait.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
             </dir>
