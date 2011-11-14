@@ -198,6 +198,13 @@ abstract class WebDriverBase {
           $webdriver_command));
       }
       $methods = $this->methods();
+      if (!is_array($methods[$webdriver_command])) {
+          throw new Exception(sprintf(
+            '%s is the only valid http method for %s.  %s is unsupported.',
+            $methods[$webdriver_command],
+            $webdriver_command,
+            $http_method));
+      }
       if (!in_array($http_method, $methods[$webdriver_command])) {
         throw new Exception(sprintf(
           '%s is not an available http method for the command %s.',

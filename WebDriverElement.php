@@ -20,7 +20,7 @@ final class WebDriverElement extends WebDriverContainer {
       'click' => 'POST',
       'submit' => 'POST',
       'text' => 'GET',
-      'value' => 'POST',
+      'value' => array('POST', 'GET'),
       'name' => 'GET',
       'clear' => 'POST',
       'selected' => 'GET',
