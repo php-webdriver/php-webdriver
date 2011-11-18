@@ -29,7 +29,7 @@ final class WebDriverSession extends WebDriverContainer {
       'window' => array('POST', 'DELETE'),
       'source' => 'GET',
       'title' => 'GET',
-      'modifier' => 'POST',
+      'keys' => 'POST',
       'orientation' => array('GET', 'POST'),
       'alert_text' => array('GET', 'POST'),
       'accept_alert' => 'POST',
@@ -97,6 +97,23 @@ final class WebDriverSession extends WebDriverContainer {
       'activated' => 'GET',
       'deactivate' => 'POST',
       'activate' => 'POST',
+    ));
+  }
+
+  // /session/:sessionId/window (POST)
+  public function focusWindow($name) {
+    $this->curl(
+      'POST',
+      '/window',
+      array('name' => $name));
+    return $this;
+  }
+
+  public function window($window_handle = 'current') {
+    $item = new WebDriverSimpleItem($this->url . '/window/' . $window_handle);
+    return $item->setMethods(array(
+      'size' => array('GET', 'POST'),
+      'position' => array('GET', 'POST'),
     ));
   }
 

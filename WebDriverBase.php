@@ -15,75 +15,75 @@
 
 abstract class WebDriverBase {
 
-  public static function throwException($status_code, $message) {
+  public static function throwException($status_code, $message, $results) {
     switch ($status_code) {
       case 0:
         // Success
         break;
       case 1:
-        throw new IndexOutOfBoundsWebDriverError($message);
+        throw new IndexOutOfBoundsWebDriverError($message, $results);
       case 2:
-        throw new NoCollectionWebDriverError($message);
+        throw new NoCollectionWebDriverError($message, $results);
       case 3:
-        throw new NoStringWebDriverError($message);
+        throw new NoStringWebDriverError($message, $results);
       case 4:
-        throw new NoStringLengthWebDriverError($message);
+        throw new NoStringLengthWebDriverError($message, $results);
       case 5:
-        throw new NoStringWrapperWebDriverError($message);
+        throw new NoStringWrapperWebDriverError($message, $results);
       case 6:
-        throw new NoSuchDriverWebDriverError($message);
+        throw new NoSuchDriverWebDriverError($message, $results);
       case 7:
-        throw new NoSuchElementWebDriverError($message);
+        throw new NoSuchElementWebDriverError($message, $results);
       case 8:
-        throw new NoSuchFrameWebDriverError($message);
+        throw new NoSuchFrameWebDriverError($message, $results);
       case 9:
-        throw new UnknownCommandWebDriverError($message);
+        throw new UnknownCommandWebDriverError($message, $results);
       case 10:
-        throw new ObsoleteElementWebDriverError($message);
+        throw new ObsoleteElementWebDriverError($message, $results);
       case 11:
-        throw new ElementNotDisplayedWebDriverError($message);
+        throw new ElementNotDisplayedWebDriverError($message, $results);
       case 12:
-        throw new InvalidElementStateWebDriverError($message);
+        throw new InvalidElementStateWebDriverError($message, $results);
       case 13:
-        throw new UnhandledWebDriverError($message);
+        throw new UnhandledWebDriverError($message, $results);
       case 14:
-        throw new ExpectedWebDriverError($message);
+        throw new ExpectedWebDriverError($message, $results);
       case 15:
-        throw new ElementNotSelectableWebDriverError($message);
+        throw new ElementNotSelectableWebDriverError($message, $results);
       case 16:
-        throw new NoSuchDocumentWebDriverError($message);
+        throw new NoSuchDocumentWebDriverError($message, $results);
       case 17:
-        throw new UnexpectedJavascriptWebDriverError($message);
+        throw new UnexpectedJavascriptWebDriverError($message, $results);
       case 18:
-        throw new NoScriptResultWebDriverError($message);
+        throw new NoScriptResultWebDriverError($message, $results);
       case 19:
-        throw new XPathLookupWebDriverError($message);
+        throw new XPathLookupWebDriverError($message, $results);
       case 20:
-        throw new NoSuchCollectionWebDriverError($message);
+        throw new NoSuchCollectionWebDriverError($message, $results);
       case 21:
-        throw new TimeOutWebDriverError($message);
+        throw new TimeOutWebDriverError($message, $results);
       case 22:
-        throw new NullPointerWebDriverError($message);
+        throw new NullPointerWebDriverError($message, $results);
       case 23:
-        throw new NoSuchWindowWebDriverError($message);
+        throw new NoSuchWindowWebDriverError($message, $results);
       case 24:
-        throw new InvalidCookieDomainWebDriverError($message);
+        throw new InvalidCookieDomainWebDriverError($message, $results);
       case 25:
-        throw new UnableToSetCookieWebDriverError($message);
+        throw new UnableToSetCookieWebDriverError($message, $results);
       case 26:
-        throw new UnexpectedAlertOpenWebDriverError($message);
+        throw new UnexpectedAlertOpenWebDriverError($message, $results);
       case 27:
-        throw new NoAlertOpenWebDriverError($message);
+        throw new NoAlertOpenWebDriverError($message, $results);
       case 28:
-        throw new ScriptTimeoutWebDriverError($message);
+        throw new ScriptTimeoutWebDriverError($message, $results);
       case 29:
-        throw new InvalidElementCoordinatesWebDriverError($message);
+        throw new InvalidElementCoordinatesWebDriverError($message, $results);
       case 30:
-        throw new IMENotAvailableWebDriverError($message);
+        throw new IMENotAvailableWebDriverError($message, $results);
       case 31:
-        throw new IMEEngineActivationFailedWebDriverError($message);
+        throw new IMEEngineActivationFailedWebDriverError($message, $results);
       case 32:
-        throw new InvalidSelectorWebDriverError($message);
+        throw new InvalidSelectorWebDriverError($message, $results);
     }
   }
 
@@ -174,7 +174,7 @@ abstract class WebDriverBase {
       $message = $value['message'];
     }
 
-    self::throwException($results['status'], $message);
+    self::throwException($results['status'], $message, $results);
 
     return array('value' => $value, 'info' => $info);
   }

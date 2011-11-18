@@ -34,4 +34,11 @@ final class WebDriver extends WebDriverBase {
 
     return new WebDriverSession($results['info']['url']);
   }
+
+  // TODO(jubishop): Create WebDriverSession instances
+  public function sessions() {
+    return $this->curl(
+      'GET',
+      '/sessions');
+  }
 }

@@ -27,7 +27,8 @@ abstract class WebDriverContainer extends WebDriverBase {
         sprintf(
           'Element not found with %s, %s',
           $using,
-          $value) . "\n\n" . $e->getMessage());
+          $value) . "\n\n" . $e->getMessage(),
+        $e->getResults());
     }
 
     return $this->webDriverElement($results['value']);

@@ -15,7 +15,19 @@
 
 final class WebDriverCurlException extends Exception {} // When curls fail
 
-abstract class WebDriverException extends Exception {}
+abstract class WebDriverException extends Exception {
+  private $results;
+
+  public function __construct($message, $results = null) {
+    parent::__construct($message);
+    $this->results = $results;
+  }
+
+  public function getResults() {
+    return $this->results;
+  }
+}
+
 class IndexOutOfBoundsWebDriverError extends WebDriverException {} // 1
 class NoCollectionWebDriverError extends WebDriverException {} // 2
 class NoStringWebDriverError extends WebDriverException {} // 3
