@@ -55,4 +55,5 @@ Each command is just the name of a function call, and each additional path is ju
 * To find elements, use element($using, $value) and elements($using, $value), where $using is the locator strategy ('xpath', 'id', 'name', etc)
 * Use getAllCookies(), setCookie($cookie_json), deleteAllCookies(), and deleteCookie($name)
 * To focus a window, use focusWindow($name)
-* Visit pages with open(), close the browser window with close()
+* To close the current window, use deleteWindow()
+* Visit pages with open(), close a session with close()

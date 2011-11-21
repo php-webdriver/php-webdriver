@@ -26,7 +26,6 @@ final class WebDriverSession extends WebDriverContainer {
       'window_handle' => 'GET',
       'window_handles' => 'GET',
       'frame' => 'POST',
-      'window' => array('POST', 'DELETE'),
       'source' => 'GET',
       'title' => 'GET',
       'keys' => 'POST',
@@ -100,12 +99,15 @@ final class WebDriverSession extends WebDriverContainer {
     ));
   }
 
+  // /session/:sessionId/window (DELETE)
+  public function deleteWindow() {
+    $this->curl('DELETE', '/window');
+    return $this;
+  }
+
   // /session/:sessionId/window (POST)
   public function focusWindow($name) {
-    $this->curl(
-      'POST',
-      '/window',
-      array('name' => $name));
+    $this->curl('POST', '/window', array('name' => $name));
     return $this;
   }
 
