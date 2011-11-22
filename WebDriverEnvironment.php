@@ -20,6 +20,6 @@
 
 final class WebDriverEnvironment {
   public static function CurlExec($ch) {
-    return curl_exec_internal_DEPRECATED($ch);
+    return curl_exec($ch);
   }
 }
