@@ -9,7 +9,7 @@ Most clients require you to first read the protocol to see what's possible, then
 
 Each command is just the name of a function call, and each additional path is just another chained function call.  The function parameter is then either an array() if the command takes JSON parameters, or an individual primitive if it takes a URL parameter.
 
-The functions return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
+The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
 
 ##  SIMPLE EXAMPLES
 
@@ -82,10 +82,13 @@ The functions return value is exactly what is returned from the server as part o
         // GET /session/:sessionId/orientation
         $session->orientation();
 
-*   Set current window size with 'POST'
+*   Set size of window that has $window_handle with 'POST'
 
+        // If excluded, $window_handle defaults to 'current'
         // POST /session/:sessionId/window/:windowHandle/size
-        $session->window()->postSize(array('width' => 10, 'height' => 10));
+        $session
+          ->window($window_handle)
+          ->postSize(array('width' => 10, 'height' => 10));
 
 *   Get current window size with 'GET'
 
