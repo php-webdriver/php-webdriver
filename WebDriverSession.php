@@ -49,17 +49,20 @@ final class WebDriverSession extends WebDriverContainer {
 
   // /session/:sessionId (GET)
   public function capabilities() {
-    return $this->curl('GET', '');
+    $result = $this->curl('GET', '');
+    return $result['value'];
   }
 
   // /session/:sessionId (DELETE)
   public function close() {
-    return $this->curl('DELETE', '');
+    $result = $this->curl('DELETE', '');
+    return $result['value'];
   }
 
   // /session/:sessionId/cookie (GET)
   public function getAllCookies() {
-    return $this->curl('GET', '/cookie');
+    $result = $this->curl('GET', '/cookie');
+    return $result['value'];
   }
 
   // /session/:sessionId/cookie (POST)
