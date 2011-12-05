@@ -15,7 +15,7 @@ The function's return value is exactly what is returned from the server as part 
 
 *   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
 
-*   Just download that file, then run it, replacing # with the current server version.
+*   Download and run that file, replacing # with the current server version.
 
         java -jar selenium-server-standalone-#.jar
 
