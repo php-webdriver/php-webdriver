@@ -11,18 +11,29 @@ Each command is just the name of a function call, and each additional path is ju
 
 The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
 
+##  GETTING STARTED
+
+*   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
+
+*   Just download that file, then run it, replacing # with the current server version.
+
+        java -jar selenium-server-standalone-#.jar
+
+*   Then when you create a session, be sure to pass the url to where your server is running.
+
+        // This would be the url of the host running the server-standalone.jar
+        $wd_host = 'http://localhost:4444/wd/hub';
+        $web_driver = new WebDriver($wd_host);
+
+        // First param to session() is the 'browserName' (default = 'firefox')
+        // Second param is a JSON object of additional 'desiredCapabilities'
+
+        // POST /session
+        $session = $web_driver->session('firefox');
+
 ##  SIMPLE EXAMPLES
 
 ### Note that all of these match the Protocol exactly
-
-*   Get a session (opens a new browser window)
-
-        $wd_host = 'http://localhost:4444/wd/hub'; // this is the default
-        $web_driver = new WebDriver($wd_host);
-
-        // POST /session
-        $session = $web_driver->session('firefox'); // firefox is default
-
 *   Move to a specific spot on the screen
 
         // POST /session/:sessionId/moveto

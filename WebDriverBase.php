@@ -110,10 +110,12 @@ abstract class WebDriverBase {
    *               If a number or string, "/$params" is appended to url
    * $extra_opts   key=>value pairs of curl options to pass to curl_setopt()
    */
-  protected function curl($http_method,
-                          $command,
-                          $params = null,
-                          $extra_opts = array()) {
+  protected function curl(
+    $http_method,
+    $command,
+    $params = null,
+    $extra_opts = array()) {
+
     if ($params && is_array($params) && $http_method !== 'POST') {
       throw new Exception(sprintf(
         'The http method called for %s is %s but it has to be POST' .
