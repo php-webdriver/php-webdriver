@@ -1,11 +1,12 @@
 <?php
 // Copyright 2004-present Facebook. All Rights Reserved.
+require_module('http/curl');
 
-require_once('WebDriverBase.php');
-require_once('WebDriver.php');
-require_once('WebDriverContainer.php');
-require_once('WebDriverSession.php');
-require_once('WebDriverElement.php');
-require_once('WebDriverEnvironment.php');
-require_once('WebDriverSimpleItem.php');
-require_once('WebDriverWait.php');
+require_source('WebDriverBase.php');
+require_source('WebDriver.php');
+require_source('WebDriverContainer.php');
+require_source('WebDriverSession.php');
+require_source('WebDriverElement.php');
+require_source('WebDriverEnvironment.php');
+require_source('WebDriverSimpleItem.php');
+require_source('WebDriverWait.php');

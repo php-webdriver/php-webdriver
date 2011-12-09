@@ -29,7 +29,6 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'window_handle' => 'GET',
       'window_handles' => 'GET',
       'frame' => 'POST',
-      'window' => array('POST', 'DELETE'),
       'source' => 'GET',
       'title' => 'GET',
       'keys' => 'POST',
@@ -105,10 +104,7 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
 
   // /session/:sessionId/window (POST)
   public function focusWindow($name) {
-    $this->curl(
-      'POST',
-      '/window',
-      array('name' => $name));
+    $this->curl('POST', '/window', array('name' => $name));
     return $this;
   }
 
