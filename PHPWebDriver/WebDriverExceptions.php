@@ -12,8 +12,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+final class WebDriverCurlException extends Exception {} // When curls fail
 
-class PHPWebDriver_WebDriverException extends Exception {}
+abstract class PHPWebDriver_WebDriverException extends Exception {}
 class PHPWebDriver_IndexOutOfBoundsWebDriverError extends PHPWebDriver_WebDriverException {}        // 1
 class PHPWebDriver_NoCollectionWebDriverError extends PHPWebDriver_WebDriverException {}            // 2
 class PHPWebDriver_NoStringWebDriverError extends PHPWebDriver_WebDriverException {}                // 3

@@ -95,6 +95,11 @@ abstract class PHPWebDriver_WebDriverBase {
     $this->url = $url;
   }
 
+
+  public function __toString() {
+    return $this->url;
+  }
+
   public function getURL() {
     return $this->url;
   }
@@ -113,12 +118,12 @@ abstract class PHPWebDriver_WebDriverBase {
                           $params = null,
                           $extra_opts = array()) {
     if ($params && is_array($params) && $http_method !== 'POST') {
-      throw(new Exception(sprintf(
+      throw new Exception(sprintf(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
         $command,
         $http_method,
-        json_encode($params))));
+        json_encode($params)));
     }
 
     $url = sprintf('%s%s', $this->url, $command);
@@ -127,6 +132,7 @@ abstract class PHPWebDriver_WebDriverBase {
     }
 
     $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 60);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
                 array('application/json;charset=UTF-8'));
@@ -149,10 +155,14 @@ abstract class PHPWebDriver_WebDriverBase {
     $info = curl_getinfo($curl);
     
     if ($error = curl_error($curl)) {
-      throw(new Exception(sprintf(
-        'Curl error for request %s: %s',
-        $url,
-        $error)));
+      $msg = sprintf(
+        'Curl error thrown for http %s to %s',
+        $http_method,
+        $url);
+      if ($params && is_array($params)) {
+        $msg .= sprintf(' with params: %s', json_encode($params));
+      }
+      throw new WebDriverCurlException($msg . "\n\n" . $error);
     }
     curl_close($curl);
 
@@ -175,9 +185,9 @@ abstract class PHPWebDriver_WebDriverBase {
 
   public function __call($name, $arguments) {
     if (count($arguments) > 1) {
-      throw(new Exception(
+      throw new Exception(
         'Commands should have at most only one parameter,' .
-        ' which should be the JSON Parameter object'));
+        ' which should be the JSON Parameter object');
     }
 
     if (preg_match('/^(get|post|delete)/', $name, $matches)) {
@@ -185,18 +195,18 @@ abstract class PHPWebDriver_WebDriverBase {
       $webdriver_command = strtolower(substr($name, strlen($http_method)));
       $default_http_method = $this->getHTTPMethod($webdriver_command);
       if ($http_method === $default_http_method) {
-        throw(new Exception(sprintf(
+        throw new Exception(sprintf(
           '%s is the default http method for %s.  Please just call %s().',
           $http_method,
           $webdriver_command,
-          $webdriver_command)));
+          $webdriver_command));
       }
       $methods = $this->methods();
       if (!in_array($http_method, $methods[$webdriver_command])) {
-        throw(new Exception(sprintf(
+        throw new Exception(sprintf(
           '%s is not an available http method for the command %s.',
           $http_method,
-          $webdriver_command)));
+          $webdriver_command));
       }
     } else {
       $webdriver_command = $name;
@@ -213,9 +223,9 @@ abstract class PHPWebDriver_WebDriverBase {
 
   private function getHTTPMethod($webdriver_command) {
     if (!array_key_exists($webdriver_command, $this->methods())) {
-      throw(new Exception(sprintf(
+      throw new Exception(sprintf(
         '%s is not a valid webdriver command.',
-        $webdriver_command)));
+        $webdriver_command));
     }
 
     $methods = $this->methods();
