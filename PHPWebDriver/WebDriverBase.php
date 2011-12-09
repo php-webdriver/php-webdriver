@@ -17,75 +17,75 @@ require_once('WebDriverEnvironment.php');
 require_once('WebDriverExceptions.php');
 
 abstract class PHPWebDriver_WebDriverBase {
-  public static function throwException($status_code, $message) {
+  public static function throwException($status_code, $message, $results) {
       switch ($status_code) {
         case 0:
           // Success
           break;
         case 1:
-          throw new PHPWebDriver_IndexOutOfBoundsWebDriverError($message);
+          throw new PHPWebDriver_IndexOutOfBoundsWebDriverError($message, $results);
         case 2:
-          throw new PHPWebDriver_NoCollectionWebDriverError($message);
+          throw new PHPWebDriver_NoCollectionWebDriverError($message, $results);
         case 3:
-          throw new PHPWebDriver_NoStringWebDriverError($message);
+          throw new PHPWebDriver_NoStringWebDriverError($message, $results);
         case 4:
-          throw new PHPWebDriver_NoStringLengthWebDriverError($message);
+          throw new PHPWebDriver_NoStringLengthWebDriverError($message, $results);
         case 5:
-          throw new PHPWebDriver_NoStringWrapperWebDriverError($message);
+          throw new PHPWebDriver_NoStringWrapperWebDriverError($message, $results);
         case 6:
-          throw new PHPWebDriver_NoSuchDriverWebDriverError($message);
+          throw new PHPWebDriver_NoSuchDriverWebDriverError($message, $results);
         case 7:
-          throw new PHPWebDriver_NoSuchElementWebDriverError($message);
+          throw new PHPWebDriver_NoSuchElementWebDriverError($message, $results);
         case 8:
-          throw new PHPWebDriver_NoSuchFrameWebDriverError($message);
+          throw new PHPWebDriver_NoSuchFrameWebDriverError($message, $results);
         case 9:
-          throw new PHPWebDriver_UnknownCommandWebDriverError($message);
+          throw new PHPWebDriver_UnknownCommandWebDriverError($message, $results);
         case 10:
-          throw new PHPWebDriver_ObsoleteElementWebDriverError($message);
+          throw new PHPWebDriver_ObsoleteElementWebDriverError($message, $results);
         case 11:
-          throw new PHPWebDriver_ElementNotDisplayedWebDriverError($message);
+          throw new PHPWebDriver_ElementNotDisplayedWebDriverError($message, $results);
         case 12:
-          throw new PHPWebDriver_InvalidElementStateWebDriverError($message);
+          throw new PHPWebDriver_InvalidElementStateWebDriverError($message, $results);
         case 13:
-          throw new PHPWebDriver_UnhandledWebDriverError($message);
+          throw new PHPWebDriver_UnhandledWebDriverError($message, $results);
         case 14:
-          throw new PHPWebDriver_ExpectedWebDriverError($message);
+          throw new PHPWebDriver_ExpectedWebDriverError($message, $results);
         case 15:
-          throw new PHPWebDriver_ElementNotSelectableWebDriverError($message);
+          throw new PHPWebDriver_ElementNotSelectableWebDriverError($message, $results);
         case 16:
-          throw new PHPWebDriver_NoSuchDocumentWebDriverError($message);
+          throw new PHPWebDriver_NoSuchDocumentWebDriverError($message, $results);
         case 17:
-          throw new PHPWebDriver_UnexpectedJavascriptWebDriverError($message);
+          throw new PHPWebDriver_UnexpectedJavascriptWebDriverError($message, $results);
         case 18:
-          throw new PHPWebDriver_NoScriptResultWebDriverError($message);
+          throw new PHPWebDriver_NoScriptResultWebDriverError($message, $results);
         case 19:
-          throw new PHPWebDriver_XPathLookupWebDriverError($message);
+          throw new PHPWebDriver_XPathLookupWebDriverError($message, $results);
         case 20:
-          throw new PHPWebDriver_NoSuchCollectionWebDriverError($message);
+          throw new PHPWebDriver_NoSuchCollectionWebDriverError($message, $results);
         case 21:
-          throw new PHPWebDriver_TimeOutWebDriverError($message);
+          throw new PHPWebDriver_TimeOutWebDriverError($message, $results);
         case 22:
-          throw new PHPWebDriver_NullPointerWebDriverError($message);
+          throw new PHPWebDriver_NullPointerWebDriverError($message, $results);
         case 23:
-          throw new PHPWebDriver_NoSuchWindowWebDriverError($message);
+          throw new PHPWebDriver_NoSuchWindowWebDriverError($message, $results);
         case 24:
-          throw new PHPWebDriver_InvalidCookieDomainWebDriverError($message);
+          throw new PHPWebDriver_InvalidCookieDomainWebDriverError($message, $results);
         case 25:
-          throw new PHPWebDriver_UnableToSetCookieWebDriverError($message);
+          throw new PHPWebDriver_UnableToSetCookieWebDriverError($message, $results);
         case 26:
-          throw new PHPWebDriver_UnexpectedAlertOpenWebDriverError($message);
+          throw new PHPWebDriver_UnexpectedAlertOpenWebDriverError($message, $results);
         case 27:
-         throw new PHPWebDriver_NoAlertOpenWebDriverError($message);
+         throw new PHPWebDriver_NoAlertOpenWebDriverError($message, $results);
         case 28:
-          throw new PHPWebDriver_TimeOutWebDriverError($message);
+          throw new PHPWebDriver_TimeOutWebDriverError($message, $results);
         case 29:
-          throw new PHPWebDriver_InvalidElementCoordinatesWebDriverError($message);
+          throw new PHPWebDriver_InvalidElementCoordinatesWebDriverError($message, $results);
         case 30:
-          throw new PHPWebDriver_IMENotAvailableWebDriverError($message);
+          throw new PHPWebDriver_IMENotAvailableWebDriverError($message, $results);
         case 31:
-          throw new PHPWebDriver_IMEEngineActivationFailedWebDriverError($message);
+          throw new PHPWebDriver_IMEEngineActivationFailedWebDriverError($message, $results);
         case 32:
-          throw new PHPWebDriver_InvalidSelectorWebDriverError($message);
+          throw new PHPWebDriver_InvalidSelectorWebDriverError($message, $results);
       }
     }
   abstract protected function methods();
@@ -178,7 +178,7 @@ abstract class PHPWebDriver_WebDriverBase {
       $message = $value['message'];
     }
 
-    self::throwException($results['status'], $message);
+    self::throwException($results['status'], $message, $results);
     
     return array('value' => $value, 'info' => $info);
   }

@@ -14,7 +14,18 @@
 // limitations under the License.
 final class WebDriverCurlException extends Exception {} // When curls fail
 
-abstract class PHPWebDriver_WebDriverException extends Exception {}
+abstract class PHPWebDriver_WebDriverException extends Exception {
+  private $results;
+
+  public function __construct($message, $results = null) {
+    parent::__construct($message);
+    $this->results = $results;
+  }
+
+  public function getResults() {
+    return $this->results;
+  }
+}
 class PHPWebDriver_IndexOutOfBoundsWebDriverError extends PHPWebDriver_WebDriverException {}        // 1
 class PHPWebDriver_NoCollectionWebDriverError extends PHPWebDriver_WebDriverException {}            // 2
 class PHPWebDriver_NoStringWebDriverError extends PHPWebDriver_WebDriverException {}                // 3

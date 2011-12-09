@@ -32,7 +32,7 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'window' => array('POST', 'DELETE'),
       'source' => 'GET',
       'title' => 'GET',
-      'modifier' => 'POST',
+      'keys' => 'POST',
       'orientation' => array('GET', 'POST'),
       'alert_text' => array('GET', 'POST'),
       'accept_alert' => 'POST',
@@ -100,6 +100,23 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'activated' => 'GET',
       'deactivate' => 'POST',
       'activate' => 'POST',
+    ));
+  }
+
+  // /session/:sessionId/window (POST)
+  public function focusWindow($name) {
+    $this->curl(
+      'POST',
+      '/window',
+      array('name' => $name));
+    return $this;
+  }
+
+  public function window($window_handle = 'current') {
+    $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/window/' . $window_handle);
+    return $item->setMethods(array(
+      'size' => array('GET', 'POST'),
+      'position' => array('GET', 'POST'),
     ));
   }
 

@@ -42,4 +42,11 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
 
     return new PHPWebDriver_WebDriverSession($results['info']['url']);
   }
+  
+  // TODO(jubishop): Create WebDriverSession instances
+  public function sessions() {
+    return $this->curl(
+      'GET',
+      '/sessions');
+  }
 }
