@@ -132,7 +132,6 @@ abstract class PHPWebDriver_WebDriverBase {
     }
 
     $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_TIMEOUT, 60);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_HTTPHEADER,
                 array('application/json;charset=UTF-8'));
