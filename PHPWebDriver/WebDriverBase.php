@@ -161,7 +161,7 @@ abstract class PHPWebDriver_WebDriverBase {
       if ($params && is_array($params)) {
         $msg .= sprintf(' with params: %s', json_encode($params));
       }
-      throw new WebDriverCurlException($msg . "\n\n" . $error);
+      throw new PHPWebDriver_WebDriverCurlException($msg . "\n\n" . $error);
     }
     curl_close($curl);
 
