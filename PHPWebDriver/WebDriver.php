@@ -47,7 +47,7 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
     $result = $this->curl('GET', '/sessions');
     $sessions = array();
     foreach ($result['value'] as $session) {
-      $sessions[] = new WebDriverSession(
+      $sessions[] = new PHPWebDriver_WebDriverSession(
         $this->url . '/session/' . $session['id']);
     }
     return $sessions;
