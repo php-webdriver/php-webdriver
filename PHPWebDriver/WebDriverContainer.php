@@ -24,8 +24,8 @@ abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBas
         array(
           'using' => $using,
           'value' => $value));
-    } catch (NoSuchElementWebDriverError $e) {
-      throw new NoSuchElementWebDriverError(
+    } catch (PHPWebDriver_NoSuchElementWebDriverError $e) {
+      throw new PHPWebDriver_NoSuchElementWebDriverError(
         sprintf(
           'Element not found with %s, %s',
           $using,
