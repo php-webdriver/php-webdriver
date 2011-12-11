@@ -245,4 +245,8 @@ abstract class WebDriverBase {
       return array();
     }
   }
+
+  function setValue($text) {
+    $this->value(array('value' => str_split($text)));
+  }
 }
