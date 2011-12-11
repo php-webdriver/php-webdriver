@@ -229,4 +229,20 @@ abstract class WebDriverBase {
     $http_methods = (array) $methods[$webdriver_command];
     return array_shift($http_methods);
   }
+
+  function find($selector) {
+    $all = $this->findAll($selector);
+    if (count($all) > 1) {
+      throw new Exception("Selector returned more than one result");
+    }
+    return empty($all) ? null : $all[0];
+  }
+
+  function findAll($selector) {
+    try {
+      return $this->elements('xpath', $selector);
+    } catch (NoSuchElementWebDriverError $ex) {
+      return array();
+    }
+  }
 }
