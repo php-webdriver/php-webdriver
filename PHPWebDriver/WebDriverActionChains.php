@@ -17,10 +17,36 @@ class PHPWebDriver_WebDriverActionChains {
     }
   }
   
-  public function move_to_element($to_element) {
-    $this->actions[] = '$this->session->moveto(array("element" => "' . $to_element->getID() . '"));';
+  public function click($onElement = null) {}
+
+  public function clickAndHold($onElement) {}
+    
+  public function contextClick($onElement) {}
+    
+  public function doubleClick($onElement) {}
+    
+  public function dragAndDrop($source, $target) {}
+    
+  public function dragAndDropByOffset($source, $target, $xOffset, $yOffset) {}
+    
+  public function keyDown($value, $onElement = null) {}
+    
+  public function keyUp($value, $onElement = null) {}
+
+  public function moveByOffset($source, $xOffset, $yOffset) {}
+        
+  public function moveToElement($toElement) {
+    $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '"));';
     return $this;
   }  
+
+  public function moveToElementWithOffset($toElement, $xOffset, $yOffset) {}
+
+  public function release($onElement) {}
+    
+  public function sendKeys($keysToSend) {}
+    
+  public function sendKeysToElement($toElement, $keysToSend) {}
 }
 
 ?>
