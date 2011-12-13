@@ -31,6 +31,8 @@ The function's return value is exactly what is returned from the server as part 
         // POST /session
         $session = $web_driver->session('firefox');
 
+### See also [wiki page for launching different browsers](https://github.com/facebook/php-webdriver/wiki/Launching-Browsers).
+
 ##  SIMPLE EXAMPLES
 
 ### Note that all of these match the Protocol exactly
