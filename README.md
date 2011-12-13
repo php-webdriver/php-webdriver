@@ -22,7 +22,7 @@ The function's return value is exactly what is returned from the server as part 
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
         // This would be the url of the host running the server-standalone.jar
-        $wd_host = 'http://localhost:4444/wd/hub';
+        $wd_host = 'http://localhost:4444/wd/hub'; // this is the default
         $web_driver = new WebDriver($wd_host);
 
         // First param to session() is the 'browserName' (default = 'firefox')
@@ -31,7 +31,7 @@ The function's return value is exactly what is returned from the server as part 
         // POST /session
         $session = $web_driver->session('firefox');
 
-### See also [wiki page for launching different browsers](https://github.com/facebook/php-webdriver/wiki/Launching-Browsers).
+* See also [wiki page for launching different browsers](https://github.com/facebook/php-webdriver/wiki/Launching-Browsers).
 
 ##  SIMPLE EXAMPLES
 
