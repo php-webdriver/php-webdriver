@@ -156,3 +156,5 @@ The function's return value is exactly what is returned from the server as part 
 
         // DELETE /session/:sessionId/window
         $session->deleteWindow();
+
+### See also [wiki page of examples](https://github.com/facebook/php-webdriver/wiki/Example-command-reference).
