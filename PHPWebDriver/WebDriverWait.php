@@ -19,7 +19,10 @@ class PHPWebDriver_WebDriverWait {
             }
             sleep($this->poll);
         }
-        throw new PHPWebDriver_TimeOutWebDriverError();
+        throw new PHPWebDriver_TimeOutWebDriverError(
+          sprintf(
+            'Element wait timed out after %s',
+            $this->timeout) . "\n\n");
     }
 }
 
