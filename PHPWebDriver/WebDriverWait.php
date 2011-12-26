@@ -11,7 +11,8 @@ class PHPWebDriver_WebDriverWait {
     }
     
     public function until($func) {
-        foreach (range(0, max(1, $this->timeout/$this->poll)) as $iter) {
+        $end_time = time() + $this->timeout;
+        while($time < $end_time) {
             try {
                 return call_user_func($func, $this->session);
             } catch (PHPWebDriver_NoSuchElementWebDriverError $e) {
