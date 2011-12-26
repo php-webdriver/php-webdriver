@@ -14,7 +14,10 @@ class PHPWebDriver_WebDriverWait {
         $end_time = time() + $this->timeout;
         while($time < $end_time) {
             try {
-                return call_user_func($func, $this->session);
+                $value = call_user_func($func, $this->session);
+                if ($value) {
+                  return $value;
+                }
             } catch (PHPWebDriver_NoSuchElementWebDriverError $e) {
 
             }
