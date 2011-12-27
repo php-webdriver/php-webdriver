@@ -12,7 +12,7 @@ class PHPWebDriver_WebDriverWait {
     
     public function until($func) {
         $end_time = time() + $this->timeout;
-        while($time < $end_time) {
+        while(time() < $end_time) {
             try {
                 $value = call_user_func($func, $this->session);
                 if ($value) {
