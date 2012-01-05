@@ -11,6 +11,12 @@ Each command is just the name of a function call, and each additional path is ju
 
 The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
 
+##  INSTALLATION
+
+Through PEAR installer
+
+    $ pear install -f package.xml
+
 ##  GETTING STARTED
 
 *   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
@@ -22,6 +28,7 @@ The function's return value is exactly what is returned from the server as part 
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
         // This would be the url of the host running the server-standalone.jar
+        require 'WebDriverInit.php';
         $wd_host = 'http://localhost:4444/wd/hub'; // this is the default
         $web_driver = new WebDriver($wd_host);
 
@@ -160,3 +167,44 @@ The function's return value is exactly what is returned from the server as part 
         $session->deleteWindow();
 
 ### See also [wiki page of examples](https://github.com/facebook/php-webdriver/wiki/Example-command-reference).
+
+##  RELEASE PEAR PACKAGE
+
+The package.xml is really hard to maintain, and till now, no such reliable PEAR tool for this.
+
+By using Onion, we can generate the package.xml for PEAR installer very easily 
+through a 5~8 lines config file, then people can install it through Facebook's
+PEAR channel or install from command-line directly.
+
+    $ vim package.ini
+    $ curl -O https://github.com/c9s/Onion/raw/master/onion.phar
+    $ php onion.phar build 
+    $ pear install -f package.xml
+
+Or install through Facebook's PEAR channel:
+
+    $ pear install facebook/WebDriver
+
+To use WebDriver in one project as a dependency, can use Onion's bundle feature, for example:
+
+1. define package.ini
+2. run onion.phar bundle
+    
+    $ php onion.phar -d bundle
+
+3. then WebDriver will be installed into the path vendor/pear.
+
+### PEAR CHANNEL
+
+To release this package on PEAR channel, can use Prium (PEAR channel builder)
+
+1. define pirum pirum.xml (5~10 lines xml)
+2. run pirum add package
+3. run prium build
+
+Success!
+
+Reference:
+
+- https://github.com/c9s/Onion
+- http://pirum.sensiolabs.org/
