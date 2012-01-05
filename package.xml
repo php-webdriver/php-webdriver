@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.4.10" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0        http://pear.php.net/dtd/tasks-1.0.xsd        http://pear.php.net/dtd/package-2.0        http://pear.php.net/dtd/package-2.0.xsd">
+  <name>WebDriver</name>
+  <channel>pear.php.net</channel>
+  <summary>A very thin wrapper of WebDriver</summary>
+  <description>A very thin wrapper of WebDriver</description>
+  <lead>
+    <name>facebook</name>
+    <user/>
+    <email>facebook@facebook.com</email>
+    <active>yes</active>
+  </lead>
+  <date>2012-01-05</date>
+  <time>12:28:32</time>
+  <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+  </version>
+  <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+  </stability>
+  <license>PHP</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <file name="src/WebDriver.php" role="php" md5sum="8c8d4d3f6b766b2fb871a8329db804f8"/>
+      <file name="src/WebDriverBase.php" role="php" md5sum="28a88fd1aa1be906780a703cdc0cdf36"/>
+      <file name="src/WebDriverContainer.php" role="php" md5sum="c0c4ccef7a88e71cb1827dafd504114d"/>
+      <file name="src/WebDriverElement.php" role="php" md5sum="f799368c3817830723b5d1e70f2ececb"/>
+      <file name="src/WebDriverEnvironment.php" role="php" md5sum="5dd8d6d718338f34c66eb1c30a55b9e5"/>
+      <file name="src/WebDriverExceptions.php" role="php" md5sum="45d71a259fc177420e25edf3f583fde6"/>
+      <file name="src/WebDriverInit.php" role="php" md5sum="5c4fc4649c585f121f2ddb0ca317676a"/>
+      <file name="src/WebDriverSession.php" role="php" md5sum="115c68a26fc94a4f9360e4fa0aca98c0"/>
+      <file name="src/WebDriverSimpleItem.php" role="php" md5sum="86040c5a511d82724860e559131e6b8e"/>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3</min>
+      </php>
+      <pearinstaller>
+        <min>1.4</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <phprelease>
+    <filelist>
+      <install name="src/WebDriver.php" as="WebDriver.php"/>
+      <install name="src/WebDriverBase.php" as="WebDriverBase.php"/>
+      <install name="src/WebDriverContainer.php" as="WebDriverContainer.php"/>
+      <install name="src/WebDriverElement.php" as="WebDriverElement.php"/>
+      <install name="src/WebDriverEnvironment.php" as="WebDriverEnvironment.php"/>
+      <install name="src/WebDriverExceptions.php" as="WebDriverExceptions.php"/>
+      <install name="src/WebDriverInit.php" as="WebDriverInit.php"/>
+      <install name="src/WebDriverSession.php" as="WebDriverSession.php"/>
+      <install name="src/WebDriverSimpleItem.php" as="WebDriverSimpleItem.php"/>
+    </filelist>
+  </phprelease>
+</package>
