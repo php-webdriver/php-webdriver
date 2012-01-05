@@ -28,6 +28,7 @@ Through PEAR installer
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
         // This would be the url of the host running the server-standalone.jar
+        require 'WebDriverInit.php';
         $wd_host = 'http://localhost:4444/wd/hub'; // this is the default
         $web_driver = new WebDriver($wd_host);
 
