@@ -138,6 +138,7 @@ The function's return value is exactly what is returned from the server as part 
         $element->elements($using, $value);
 
 *   To get the active element
+
         // POST /session/:sessionId/element/active
         $session->activeElement();
 
