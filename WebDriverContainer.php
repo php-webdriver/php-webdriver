@@ -47,11 +47,11 @@ abstract class WebDriverContainer extends WebDriverBase {
       array($this, 'webDriverElement'), $results['value']));
   }
 
-  private function webDriverElement($value) {
-    return (array_key_exists('ELEMENT', (array) $value)) ?
+  protected function webDriverElement($value) {
+    return array_key_exists('ELEMENT', (array) $value) ?
       new WebDriverElement(
-        $this->getElementPath($value['ELEMENT']),
-        $value['ELEMENT']) :
+        $this->getElementPath($value['ELEMENT']), // url
+        $value['ELEMENT']) : // id
       null;
   }
 
