@@ -16,7 +16,6 @@
 final class WebDriverElement extends WebDriverContainer {
   protected function methods() {
     return array(
-      'active' => 'POST',
       'click' => 'POST',
       'submit' => 'POST',
       'text' => 'GET',
