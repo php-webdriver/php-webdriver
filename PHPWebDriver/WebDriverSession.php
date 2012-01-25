@@ -129,6 +129,12 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     ));
   }
 
+  // /session/:sessionId/element/active (POST)
+  public function activeElement() {
+    $results = $this->curl('POST', '/element/active');
+    return $this->webDriverElement($results['value']);
+  }
+  
   public function touch() {
     $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/touch');
     return $item->setMethods(array(

@@ -145,6 +145,11 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         // POST /session/:sessionId/element/:id/elements
         $element->elements($using, $value);
 
+*   To get the active element
+
+        // POST /session/:sessionId/element/active
+        $session->activeElement();
+
 *   To manipulate cookies
 
         // GET /session/:sessionId/cookie
