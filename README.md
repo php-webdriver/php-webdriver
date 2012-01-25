@@ -154,9 +154,22 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 
         // GET /session/:sessionId/cookie
         $session->getAllCookies();
+        
+        // GET /session/:sessionId/cookie
+        $session->getCookie($name);
 
         // POST /session/:sessionId/cookie
-        $session->setCookie($cookie_json);
+        //
+        // $cookie_array mandatory fields
+        // - name: string
+        // - vale: string
+        //
+        // $cookie_array optional fields
+        // - path: string
+        // - domain: string
+        // - secure: boolean
+        // - expiry: number (seconds since epoch)
+        $session->setCookie($cookie_array);
 
         // DELETE /session/:sessionId/cookie
         $session->deleteAllCookies()
