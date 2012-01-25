@@ -68,6 +68,16 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     return $result['value'];
   }
 
+  // /session/:sessionId/cookie (GET)
+  public function getCookie($name) {
+    $result = $this->curl('GET', '/cookie');
+    foreach ($result['value'] as $cookie) {
+      if ($cookie["name"] == $name) {
+        return $cookie;
+      }
+    }
+  }
+
   // /session/:sessionId/cookie (POST)
   public function setCookie($cookie_json) {
     $this->curl('POST', '/cookie', array('cookie' => $cookie_json));
