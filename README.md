@@ -201,5 +201,16 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         
 *   Sending characters a little nicer
 
-        $e1 = $this->session->element("id", "some id");
-        $e1->sendKeys("turtles");
+        $e2 = $this->session->element("id", "some id");
+        $e2->sendKeys("turtles");
+        
+*   Sending a 'special' character (see list at http://raw.github.com/element-34/php-webdriver/PHPWebDriverWebDriverKeys.php/)
+
+        $e3 = $this->session->element("id", "some id");
+        $e3->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
+        
+*   Advancing the page by using the space key
+
+        $e4 = $this->session->element("tag name", "body");
+        $e4->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
+

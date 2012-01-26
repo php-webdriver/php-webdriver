@@ -16,10 +16,10 @@
         <email>adam@element34.ca</email>
         <active>yes</active>
     </lead>
-    <date>2012-01-25</date>
+    <date>2012-01-26</date>
     <version>
-        <release>0.9.8</release>
-        <api>0.9.8</api>
+        <release>0.9.9</release>
+        <api>0.9.9</api>
     </version>
     <stability>
         <release>beta</release>
@@ -52,6 +52,9 @@
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
                 <file baseinstalldir="/" name="WebDriverExceptions.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="WebDriverKeys.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
                 <file baseinstalldir="/" name="WebDriverSession.php" role="php">
