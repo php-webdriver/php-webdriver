@@ -188,5 +188,18 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 ## Waiting
 
 *   To wait for an element
+
         $w = new PHPWebDriver_WebDriverWait($session);
         $w->until(function($session) {$session->element("id", "overlayPanelProfileovolp-pad");});
+        
+## Interacting with elements
+
+*   Sending characters per the protocol (yuck)
+
+        $e1 = $this->session->element("id", "some id");
+        $e1->value(array("value" => array("pumpkins")));
+        
+*   Sending characters a little nicer
+
+        $e1 = $this->session->element("id", "some id");
+        $e1->sendKeys("turtles");

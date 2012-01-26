@@ -48,4 +48,8 @@ final class PHPWebDriver_WebDriverElement extends PHPWebDriver_WebDriverContaine
   protected function getElementPath($element_id) {
     return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
   }
+  
+  public function sendKeys($keys) {
+    $results = $this->value(array("value" => array($keys)));
+  }
 }
