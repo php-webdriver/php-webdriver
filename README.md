@@ -200,12 +200,12 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 
 *   To wait for an element's presence
 
-     $w = new PHPWebDriver_WebDriverWait($session);
-     $w->until(
-        function($session) {
-          return count($session->elements("id", "overlayPanelProfileovolp-pad"));
-        }
-     );
+         $w = new PHPWebDriver_WebDriverWait($session);
+         $w->until(
+            function($session) {
+              return count($session->elements("id", "overlayPanelProfileovolp-pad"));
+            }
+         );
 
         
 ## Interacting with elements
