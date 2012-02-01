@@ -187,7 +187,7 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         
 ## Waiting
 
-## The until function will fire until it returns something PHP considers True
+### The until function will fire until it returns something PHP considers True
 
 *   To wait for an element that you want to use then
 
