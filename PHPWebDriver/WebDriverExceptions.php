@@ -58,3 +58,4 @@ class PHPWebDriver_InvalidElementCoordinatesWebDriverError extends PHPWebDriver_
 class PHPWebDriver_IMENotAvailableWebDriverError extends PHPWebDriver_WebDriverException {}         // 30
 class PHPWebDriver_IMEEngineActivationFailedWebDriverError extends PHPWebDriver_WebDriverException {}   // 31
 class PHPWebDriver_InvalidSelectorWebDriverError extends PHPWebDriver_WebDriverException {}         // 32
+class PHPWebDriver_InvalidProxyConfiguration extends PHPWebDriver_WebDriverException {}         // xx

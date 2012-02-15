@@ -230,3 +230,14 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         $e4 = $this->session->element("tag name", "body");
         $e4->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
 
+## Proxy
+
+*   Http proxying
+
+        $server = 'http://localhost:4444/wd/hub';
+        $driver = new PHPWebDriver_WebDriver($server);
+        $desired_capabilities = array();
+        $proxy = new PHPWebDriver_WebDriverProxy();
+        $proxy->httpProxy = '127.0.0.1:9091;
+        $proxy->add_to_capabilities($desired_capabilities);
+        $session = $driver->session('firefox', $desired_capabilities);

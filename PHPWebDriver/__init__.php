@@ -21,3 +21,4 @@ require_once('WebDriverEnvironment.php');
 require_once('WebDriverSimpleItem.php');
 require_once('WebDriverWait.php');
 require_once('WebDriverActionChains.php');
+require_once('WebDriverProxy.php');

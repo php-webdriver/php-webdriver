@@ -57,6 +57,9 @@
                 <file baseinstalldir="/" name="WebDriverKeys.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <file baseinstalldir="/" name="WebDriverProxy.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
                 <file baseinstalldir="/" name="WebDriverSession.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
