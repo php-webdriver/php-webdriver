@@ -18,8 +18,13 @@ require_once('WebDriverSession.php');
 
 class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
 
-  function __construct($executor = "") {
-    parent::__construct($executor);
+  function __construct($executor = null) {
+    if (! is_null($executor)) {
+      parent::__construct($executor);      
+    } else {
+      parent::__construct();
+    }
+
   }
 
   protected function methods() {
