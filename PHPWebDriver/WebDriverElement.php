@@ -36,9 +36,10 @@ final class PHPWebDriver_WebDriverElement extends PHPWebDriver_WebDriverContaine
   }
 
   private $id;
-  public function __construct($url, $id) {
+  public function __construct($url, $id, $session) {
     $this->id = $id;
     parent::__construct($url);
+    $this->session = $session;
   }
 
   public function getID() {
