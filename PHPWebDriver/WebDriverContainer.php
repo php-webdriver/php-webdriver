@@ -50,15 +50,13 @@ abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBas
   }
 
   protected function webDriverElement($value) {
-    
     if (array_key_exists('ELEMENT', (array) $value)) {
-      if (get_class($this) == "PHPWebDriver_WebDriverSession") {
+      if (is_a($this, "PHPWebDriver_WebDriverSession")) {
         return new PHPWebDriver_WebDriverElement(
               $this->getElementPath($value['ELEMENT']), // url
               $value['ELEMENT'],                        // id
               $this                                     // session
             );
-        
       }
     }
     return null;
