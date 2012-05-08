@@ -241,3 +241,13 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         $proxy->httpProxy = '127.0.0.1:9091;
         $proxy->add_to_capabilities($desired_capabilities);
         $session = $driver->session('firefox', $desired_capabilities);
+
+## Screenshotting
+
+*   Screenshots are returned as base64 strings from the server
+
+        $img = $session->screenshot();
+        $data = base64_decode($img);
+        $file = 'gramophon.com.png';
+        $success = file_put_contents($file, $data);
+        
