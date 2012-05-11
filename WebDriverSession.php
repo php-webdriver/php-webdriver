@@ -83,7 +83,27 @@ final class WebDriverSession extends WebDriverContainer {
     return $this;
   }
 
+  // /session/:sessionId/timeouts (POST)
   public function timeouts() {
+    // set timeouts
+    if (func_num_args() == 1) {
+      $arg = func_get_arg(0); // json
+      $this->curl('POST', '/timeouts', $arg);
+
+      return $this;
+    }
+
+    if (func_num_args() == 2) {
+      $arg = array(
+        'type' => func_get_arg(0), // 'script' or 'implicit'
+        'ms' => func_get_arg(1),   // timeout in milliseconds
+      );
+      $this->curl('POST', '/timeouts', $arg);
+
+      return $this;
+    }
+
+    // chaining
     $item = new WebDriverSimpleItem($this->url . '/timeouts');
     return $item->setMethods(array(
       'async_script' => 'POST',
