@@ -24,13 +24,10 @@ final class WebDriverElement extends WebDriverContainer {
       'clear' => 'POST',
       'selected' => 'GET',
       'enabled' => 'GET',
-      'attribute' => 'GET',
-      'equals' => 'GET',
       'displayed' => 'GET',
       'location' => 'GET',
       'location_in_view' => 'GET',
       'size' => 'GET',
-      'css' => 'GET',
     );
   }
 
@@ -42,6 +39,51 @@ final class WebDriverElement extends WebDriverContainer {
 
   public function getID() {
     return $this->id;
+  }
+
+  /**
+   * element method: /session/:sessionId/element/:id/attribute/:name (GET)
+   *
+   * Get the value of an element's attribute.
+   *
+   * @param string $attributeName
+   *
+   * @return string
+   */
+  public function attribute($attributeName) {
+    $result = $this->curl('GET', '/attribute/' . $attributeName);
+
+    return $result['value'];
+  }
+
+  /**
+   * element method: /session/:sessionId/element/:id/equals/:other (GET)
+   *
+   * Test if two element IDs refer to the same DOM element.
+   *
+   * @param string $otherId
+   *
+   * @return string
+   */
+  public function equals($otherId) {
+    $result = $this->curl('GET', '/equals/' . $otherId);
+
+    return $result['value'];
+  }
+
+  /**
+   * element method: /session/:sessionId/element/:id/css/:propertyName (GET)
+   *
+   * Query the value of an element's computed CSS property.
+   *
+   * @param string $propertyName
+   *
+   * @return string
+   */
+  public function css($propertyName) {
+    $result = $this->curl('GET', '/css/' . $propertyName);
+
+    return $result['value'];
   }
 
   protected function getElementPath($element_id) {
