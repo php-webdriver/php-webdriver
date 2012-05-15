@@ -69,11 +69,6 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         // POST /session/:sessionId/accept_alert
         $session->accept_alert();
 
-*   Change asynchronous script timeout
-
-        // POST /session/:sessionId/timeouts/async_script
-        $session->timeouts()->async_script(array('ms' => 2000));
-
 *   Doubleclick an element on a touch screen
 
         // POST session/:sessionId/touch/doubleclick
@@ -207,6 +202,29 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
             }
          );
 
+## Timeouts
+
+*   To configure implicit waits (in seconds)
+
+        $this->$session->implicitlyWait(3);
+
+*   To disable implicit waits
+
+        $this->$session->implicitlyWait(0);
+
+*   How long to wait for an execute or execute_async to (in seconds)
+
+        $this->$session->setScriptTimeout(3);
+
+*   How long to wait page loads to complete (in seconds)
+
+        $this->$session->setPageLoadTimeout(3);
+        
+*   How to set the above timeouts directly. Don't do this unless you really need ms granularity
+
+        $this->$session->setTimeouts(array('type' => 'implicit', 'ms' => 5));
+        $this->$session->setTimeouts(array('type' => 'script', 'ms' => 5));
+        $this->$session->setTimeouts(array('type' => 'page load', 'ms' => 5));
         
 ## Interacting with elements
 

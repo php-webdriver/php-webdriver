@@ -97,11 +97,36 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   public function timeouts() {
+    trigger_error("timeouts() is deprecated; use setTimeouts() instead", E_USER_DEPRECATED);
     $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/timeouts');
     return $item->setMethods(array(
       'async_script' => 'POST',
       'implicit_wait' => 'POST',
     ));
+  }
+
+  // /session/:sessionId/timeouts (POST)
+  public function setTimeouts($timeout) {
+    $this->curl('POST', '/timeouts', $timeout);
+    return $this;
+  }
+
+  public function implicitlyWait($s) {
+      $ms = $s * 1000;
+      $this->setTimeouts(array('type' => 'implicit', 'ms' => $ms));
+      return $this;
+  }
+
+  public function setScriptTimeout($s) {
+      $ms = $s * 1000;
+      $this->setTimeouts(array('type' => 'script', 'ms' => $ms));
+      return $this;
+  }
+  
+  public function setPageLoadTimeout($s) {
+      $ms = $s * 1000;
+      $this->setTimeouts(array('type' => 'page load', 'ms' => $ms));
+      return $this;
   }
 
   public function ime() {
