@@ -138,7 +138,9 @@ abstract class PHPWebDriver_WebDriverBase {
       CURLOPT_HTTPHEADER,
       array(
         'Content-Type: application/json;charset=UTF-8',
-        'Accept: application/json'));
+        'Accept: application/json',
+        'Expect:')
+    );
 
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
