@@ -16,14 +16,15 @@
 require_once('WebDriverElement.php');
 
 abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBase {
-  public function element($using, $value) {
+  public function element($using, $value, $curl_opts = array()) {
     try {
       $results = $this->curl(
         'POST',
         '/element',
         array(
           'using' => $using,
-          'value' => $value));
+          'value' => $value),
+        $curl_opts);
     } catch (PHPWebDriver_NoSuchElementWebDriverError $e) {
       throw new PHPWebDriver_NoSuchElementWebDriverError(
         sprintf(
@@ -32,18 +33,17 @@ abstract class PHPWebDriver_WebDriverContainer extends PHPWebDriver_WebDriverBas
           $value) . "\n\n" . $e->getMessage(),
           $e->getResults());
     }
-
     return $this->webDriverElement($results['value']);
   }
 
-  public function elements($using, $value) {
+  public function elements($using, $value, $curl_opts = array()) {
     $results = $this->curl(
       'POST',
       '/elements',
       array(
         'using' => $using,
-        'value' => $value
-      ));
+        'value' => $value)
+      , $curl_opts);
 
     return array_filter(array_map(
       array($this, 'webDriverElement'), $results['value']));

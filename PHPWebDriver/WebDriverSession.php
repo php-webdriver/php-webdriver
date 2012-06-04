@@ -45,32 +45,35 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   // /session/:sessionId/url (POST)
-  public function open($url) {
-    $this->curl('POST', '/url', array('url' => $url));
+  public function open($url, $curl_opts = array()) {
+    $this->curl('POST',
+                '/url',
+                array('url' => $url),
+                $curl_opts);
     return $this;
   }
 
   // /session/:sessionId (GET)
-  public function capabilities() {
-    $result = $this->curl('GET', '');
+  public function capabilities($curl_opts = array()) {
+    $result = $this->curl('GET', '', '', $curl_opts);
     return $result['value'];
   }
 
   // /session/:sessionId (DELETE)
-  public function close() {
-    $result = $this->curl('DELETE', '');
+  public function close($curl_opts = array()) {
+    $result = $this->curl('DELETE', '', '', $curl_opts);
     return $result['value'];
   }
 
   // /session/:sessionId/cookie (GET)
-  public function getAllCookies() {
-    $result = $this->curl('GET', '/cookie');
+  public function getAllCookies($curl_opts = array()) {
+    $result = $this->curl('GET', '/cookie', '', $curl_opts);
     return $result['value'];
   }
 
   // /session/:sessionId/cookie (GET)
-  public function getCookie($name) {
-    $result = $this->curl('GET', '/cookie');
+  public function getCookie($name, $curl_opts = array()) {
+    $result = $this->curl('GET', '/cookie', '', $curl_opts);
     foreach ($result['value'] as $cookie) {
       if ($cookie["name"] == $name) {
         return $cookie;
@@ -79,20 +82,20 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   // /session/:sessionId/cookie (POST)
-  public function setCookie($cookie_json) {
-    $this->curl('POST', '/cookie', array('cookie' => $cookie_json));
+  public function setCookie($cookie_json, $curl_opts = array()) {
+    $this->curl('POST', '/cookie', array('cookie' => $cookie_json), $curl_opts);
     return $this;
   }
 
   // /session/:sessionId/cookie (DELETE)
-  public function deleteAllCookies() {
-    $this->curl('DELETE', '/cookie');
+  public function deleteAllCookies($curl_opts = array()) {
+    $this->curl('DELETE', '/cookie', '', $curl_opts);
     return $this;
   }
 
   // /session/:sessionId/cookie/:name (DELETE)
-  public function deleteCookie($cookie_name) {
-    $this->curl('DELETE', '/cookie/' . $cookie_name);
+  public function deleteCookie($cookie_name, $curl_opts = array()) {
+    $this->curl('DELETE', '/cookie/' . $cookie_name, '', $curl_opts);
     return $this;
   }
 
@@ -106,8 +109,8 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   // /session/:sessionId/timeouts (POST)
-  public function setTimeouts($timeout) {
-    $this->curl('POST', '/timeouts', $timeout);
+  public function setTimeouts($timeout, $curl_opts = array()) {
+    $this->curl('POST', '/timeouts', $timeout, $curl_opts);
     return $this;
   }
 
@@ -141,8 +144,8 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   // /session/:sessionId/window (POST)
-  public function focusWindow($name) {
-    $this->curl('POST', '/window', array('name' => $name));
+  public function focusWindow($name, $curl_opts = array()) {
+    $this->curl('POST', '/window', array('name' => $name), $curl_opts);
     return $this;
   }
 
@@ -155,8 +158,8 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   // /session/:sessionId/element/active (POST)
-  public function activeElement() {
-    $results = $this->curl('POST', '/element/active');
+  public function activeElement($curl_opts = array()) {
+    $results = $this->curl('POST', '/element/active', $curl_opts);
     return $this->webDriverElement($results['value']);
   }
   

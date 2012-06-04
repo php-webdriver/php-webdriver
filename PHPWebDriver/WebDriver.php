@@ -34,22 +34,25 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
   }
 
   public function session($browser = 'firefox',
-                          $additional_capabilities = array()) {
+                          $additional_capabilities = array(),
+                          $curl_opts = array()) {
     $desired_capabilities = array_merge(
       $additional_capabilities,
       array('browserName' => $browser));
 
+    $curl_opts = $curl_opts + array(CURLOPT_FOLLOWLOCATION => true);
+      
     $results = $this->curl(
       'POST',
       '/session',
       array('desiredCapabilities' => $desired_capabilities),
-      array(CURLOPT_FOLLOWLOCATION => true));
+      $curl_opts);
 
     return new PHPWebDriver_WebDriverSession($results['info']['url']);
   }
   
-  public function sessions() {
-    $result = $this->curl('GET', '/sessions');
+  public function sessions($curl_opts = array()) {
+    $result = $this->curl('GET', '/sessions', null, $curl_opts);
     $sessions = array();
     foreach ($result['value'] as $session) {
       $sessions[] = new PHPWebDriver_WebDriverSession(

@@ -15,6 +15,19 @@
 
 include_once('WebDriverExceptions.php');
 
+function unwind_associated_array($arr) {
+    if (count($arr) > 0) {        
+        $u = "array(";
+        foreach ($arr as $k => $v) {
+            $u = $u . $k . " => " . $v . ",";
+        }
+        $u = $u . ")";
+        return $u;
+    } else {
+        return "array()";
+    }
+}
+
 class PHPWebDriver_WebDriverActionChains {
   private $session;
   private $actions = array();
@@ -48,8 +61,8 @@ class PHPWebDriver_WebDriverActionChains {
 
   public function moveByOffset($source, $xOffset, $yOffset) {}
         
-  public function moveToElement($toElement) {
-    $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '"));';
+  public function moveToElement($toElement, $curl_opts = array()) {
+    $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '"), ' . unwind_associated_array($curl_opts) . ');';
     return $this;
   }  
 

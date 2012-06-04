@@ -189,10 +189,11 @@ abstract class PHPWebDriver_WebDriverBase {
   }
 
   public function __call($name, $arguments) {
-    if (count($arguments) > 1) {
+    if (count($arguments) > 2) {
       throw new Exception(
-        'Commands should have at most only one parameter,' .
-        ' which should be the JSON Parameter object');
+        'Commands should have at most only two parameters,' .
+        ' normally just the JSON Parameter object,' .
+        ' but sometimes curl options as well (mainly for debugging)');
     }
 
     if (preg_match('/^(get|post|delete)/', $name, $matches)) {
@@ -218,10 +219,16 @@ abstract class PHPWebDriver_WebDriverBase {
       $http_method = $this->getHTTPMethod($webdriver_command);
     }
 
+    $params = array_shift($arguments);
+    $opts = array_shift($arguments);
+    if (count($opts) == 0) {
+        $opts = array();
+    }
     $results = $this->curl(
       $http_method,
       '/' . $webdriver_command,
-      array_shift($arguments));
+      $params,
+      $opts);
 
     return $results['value'];
   }
