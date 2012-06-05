@@ -146,6 +146,8 @@ abstract class PHPWebDriver_WebDriverBase {
       curl_setopt($curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+      }  else {
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-length: 0'));
       }
     } else if ($http_method == 'DELETE') {
       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
