@@ -132,8 +132,12 @@ abstract class WebDriverBase {
 
     $curl = curl_init($url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_HTTPHEADER,
-                array('application/json;charset=UTF-8'));
+    curl_setopt(
+      $curl,
+      CURLOPT_HTTPHEADER,
+      array(
+        'Content-Type: application/json;charset=UTF-8',
+        'Accept: application/json'));
 
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
