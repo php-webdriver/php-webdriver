@@ -178,6 +178,28 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     ));
   }
 
+  /**
+     * local_storage method chaining, e.g.,
+     * - $session->local_storage()->method()
+     *
+     * @return WebDriverStorage
+     */
+    public function local_storage()
+    {
+      return WebDriverStorage::factory('local', $this->url . '/local_storage');
+    }
+
+    /**
+     * session_storage method chaining, e.g.,
+     * - $session->session_storage()->method()
+     *
+     * @return WebDriverStorage
+     */
+    public function session_storage()
+    {
+      return WebDriverStorage::factory('session', $this->url . '/session_storage');
+    }
+    
   protected function getElementPath($element_id) {
     return sprintf('%s/element/%s', $this->url, $element_id);
   }
