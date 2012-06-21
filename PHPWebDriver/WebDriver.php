@@ -15,6 +15,7 @@
 
 require_once('WebDriverBase.php');
 require_once('WebDriverSession.php');
+require_once('WebDriverDesiredCapabilities.php');
 
 class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
 
@@ -36,10 +37,11 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
   public function session($browser = 'firefox',
                           $additional_capabilities = array(),
                           $curl_opts = array()) {
+    $capabilities = new PHPWebDriver_WebDriverDesiredCapabilities();
     $desired_capabilities = array_merge(
       $additional_capabilities,
-      array('browserName' => $browser));
-
+      $capabilities->$browser);
+    // var_dump($desired_capabilities);
     $curl_opts = $curl_opts + array(CURLOPT_FOLLOWLOCATION => true);
       
     $results = $this->curl(
@@ -47,7 +49,7 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
       '/session',
       array('desiredCapabilities' => $desired_capabilities),
       $curl_opts);
-
+    // var_dump($results);
     return new PHPWebDriver_WebDriverSession($results['info']['url']);
   }
   

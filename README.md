@@ -41,6 +41,18 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         // POST /session
         $session = $web_driver->session('firefox');
 
+*   Valid browser strings
+    * firefox
+    * chrome
+    * ie
+    * internet explorer
+    * opera
+    * htmlunit
+    * htmlunitjs
+    * iphone
+    * ipad
+    * android
+
 ##  SIMPLE EXAMPLES
 
 ### Note that all of these match the Protocol exactly
