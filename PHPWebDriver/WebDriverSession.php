@@ -41,6 +41,7 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'buttondown' => 'POST',
       'buttonup' => 'POST',
       'doubleclick' => 'POST',
+      'location' => array('GET', 'POST'),
     );
   }
 
