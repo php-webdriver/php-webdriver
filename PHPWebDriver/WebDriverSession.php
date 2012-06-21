@@ -154,6 +154,7 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     return $item->setMethods(array(
       'size' => array('GET', 'POST'),
       'position' => array('GET', 'POST'),
+      'maximize' => array('POST')
     ));
   }
 
