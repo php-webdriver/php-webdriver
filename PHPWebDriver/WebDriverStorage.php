@@ -28,7 +28,7 @@
  * @method void deleteKey($key) Delete a specific key.
  * @method integer size() Get the number of items in the storage.
  */
-abstract class WebDriverStorage extends WebDriverBase
+abstract class PHPWebDriver_WebDriverStorage extends WebDriverBase
 {
     /**
      * {@inheritdoc}
