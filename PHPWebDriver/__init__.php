@@ -12,13 +12,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-require_once('WebDriverBase.php');
 require_once('WebDriver.php');
+require_once('WebDriverActionChains.php');
+require_once('WebDriverBase.php');
 require_once('WebDriverContainer.php');
-require_once('WebDriverSession.php');
+require_once('WebDriverDesiredCapabilities.php');
 require_once('WebDriverElement.php');
 require_once('WebDriverEnvironment.php');
-require_once('WebDriverSimpleItem.php');
-require_once('WebDriverWait.php');
-require_once('WebDriverActionChains.php');
+require_once('WebDriverExceptions.php');
+require_once('WebDriverKeys.php');
 require_once('WebDriverProxy.php');
+require_once('WebDriverSession.php');
+require_once('WebDriverSimpleItem.php');
+require_once('WebDriverStorage.php');
+require_once('WebDriverWait.php');
+
