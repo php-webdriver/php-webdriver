@@ -18,8 +18,8 @@
     </lead>
     <date>2012-06-26</date>
     <version>
-        <release>0.9.13</release>
-        <api>0.9.13</api>
+        <release>1.0.0</release>
+        <api>1.0.0</api>
     </version>
     <stability>
         <release>stable</release>
