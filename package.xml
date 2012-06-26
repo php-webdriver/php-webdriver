@@ -16,14 +16,14 @@
         <email>adam@element34.ca</email>
         <active>yes</active>
     </lead>
-    <date>2012-06-21</date>
+    <date>2012-06-26</date>
     <version>
-        <release>0.9.11</release>
-        <api>0.9.11</api>
+        <release>0.9.13</release>
+        <api>0.9.13</api>
     </version>
     <stability>
-        <release>beta</release>
-        <api>beta</api>
+        <release>stable</release>
+        <api>stable</api>
     </stability>
     <license>Apache 2</license>
     <notes>Some notes go here</notes>
@@ -81,7 +81,7 @@
     <dependencies>
         <required>
             <php>
-                <min>5.2.7</min>
+                <min>5.3.3</min>
             </php>
             <pearinstaller>
                 <min>1.9.2</min>
