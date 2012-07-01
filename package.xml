@@ -39,6 +39,17 @@
                             <tasks:replace from="@package_version@" to="version" type="package-info" />
                         </file>
                     </dir>
+                    <dir name="HTML5">
+                        <file baseinstalldir="/" name="Audio.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info" />
+                        </file>
+                        <file baseinstalldir="/" name="Media.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info" />
+                        </file>
+                        <file baseinstalldir="/" name="Video.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info" />
+                        </file>
+                    </dir>
                 </dir>
                 <file baseinstalldir="/" name="WebDriver.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
