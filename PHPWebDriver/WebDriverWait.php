@@ -16,10 +16,11 @@
 include_once('WebDriverExceptions.php');
 
 class PHPWebDriver_WebDriverWait {
-    public function __construct($session, $timeout = 30, $poll_frequency = 0.5) {
+    public function __construct($session, $timeout = 30, $poll_frequency = 0.5, $extra_arguments = array()) {
       $this->session = $session;
       $this->timeout = $timeout;
       $this->poll = $poll_frequency;
+      $this->extra_arguments = $extra_arguments;
       return $this;
     }
     
@@ -27,7 +28,7 @@ class PHPWebDriver_WebDriverWait {
         $end_time = time() + $this->timeout;
         while(time() < $end_time) {
             try {
-                $value = call_user_func($func, $this->session);
+                $value = call_user_func($func, $this->session, $this->extra_arguments);
                 if ($value) {
                   return $value;
                 }

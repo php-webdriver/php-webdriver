@@ -33,6 +33,13 @@
                 <file baseinstalldir="/" name="__init__.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <dir name="Support">
+                    <dir name="FlashFlex">
+                        <file baseinstalldir="/" name="FlexPilot.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info" />
+                        </file>
+                    </dir>
+                </dir>
                 <file baseinstalldir="/" name="WebDriver.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
