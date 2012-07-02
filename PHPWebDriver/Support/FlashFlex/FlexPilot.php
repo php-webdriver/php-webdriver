@@ -103,4 +103,14 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
                                                     $options)
                                     ));    
   }
+
+  public function property($chain $property) {
+    $options = array("chain" => $chain, "attrName" => $property);
+    $r = $this->session->execute(array(
+                                    "script" => 'return arguments[0].fp_getPropertyValue(arguments[1]);',
+                                    "args" => array(array("ELEMENT" => $this->movie->getID()),
+                                                    $options)
+                                    ));    
+  }
+
 }
