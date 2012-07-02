@@ -30,7 +30,12 @@ class FlexTest extends PHPUnit_Framework_TestCase {
 
     $chain = "id:flexstore/name:VBox4/id:storeViews/id:homeView/name:HBox11/name:VBox12/name:Canvas13/name:Canvas14/name:Button18";
     self::$fp->click($chain);
-    sleep(5);
+
+    $chain = "name:OK";
+    self::$fp->wait_for_object($chain, 5);
+    self::$fp->click($chain);
+        
+    // sleep(3);
   }
 }
 
