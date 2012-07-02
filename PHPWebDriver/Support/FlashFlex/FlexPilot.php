@@ -85,4 +85,14 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
                                                     $options)
                                     ));    
   }
+  
+  public function double_click($chain) {
+    $options = array("chain" => $chain);
+    $r = $this->session->execute(array(
+                                    "script" => 'return arguments[0].fp_doubleClick(arguments[1]);',
+                                    "args" => array(array("ELEMENT" => $this->movie->getID()),
+                                                    $options)
+                                    ));    
+  }
+  
 }
