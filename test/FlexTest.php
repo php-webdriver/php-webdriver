@@ -27,6 +27,10 @@ class FlexTest extends PHPUnit_Framework_TestCase {
   public function test_type() {
     $chain = "id:flexstore/name:VBox4/id:storeViews/id:homeView/name:HBox11/name:VBox12/name:Canvas13/name:Canvas14/name:TextInput20/name:UITextField22";
     self::$fp->sendKeys($chain, "nokia");
+
+    $chain = "id:flexstore/name:VBox4/id:storeViews/id:homeView/name:HBox11/name:VBox12/name:Canvas13/name:Canvas14/name:Button18";
+    self::$fp->click($chain);
+    sleep(5);
   }
 }
 

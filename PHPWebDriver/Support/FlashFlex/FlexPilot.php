@@ -30,6 +30,31 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
          );
   }
   
+  // public function is_flex_object($chain) {
+  //   $options = array("chain" => $chain);
+  //   $r = $this->session->execute(array(
+  //                                   "script" => 'return arguments[0].fp_assertDisplayObject();',
+  //                                   "args" => array(array("ELEMENT" => $this->movie->getID()))
+  //                                   )
+  //                               );
+  //   var_dump($r);
+  //   if ($r == "function") {
+  //     return True;
+  //   }
+  //   return False;
+  // }
+  // 
+  // public function wait_for_object($chain, $timeout, $poll_frequency = 0.5) {
+  //   $options = array("chain" => $chain);
+  //   $w = new PHPWebDriver_WebDriverWait($this->session, $timeout, $poll_frequency, array("movie" => $this->movie));
+  //   $e = $w->until(
+  //           function($session, $extra_arguments) {
+  //             $fp = new PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot($session, $extra_arguments["movie"]);
+  //             return $fp->is_flex_ready();
+  //           }
+  //        );    
+  // }
+  
   public function sendKeys($chain, $text) {
     return $this->send_keys($chain, $text);
   }
@@ -41,5 +66,14 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
                                     "args" => array(array("ELEMENT" => $this->movie->getID()),
                                                     $options)
                                     ));
+  }
+
+  public function click($chain) {
+    $options = array("chain" => $chain);
+    $r = $this->session->execute(array(
+                                    "script" => 'arguments[0].fp_click(arguments[1]);',
+                                    "args" => array(array("ELEMENT" => $this->movie->getID()),
+                                                    $options)
+                                    ));    
   }
 }
