@@ -29,4 +29,17 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
             }
          );
   }
+  
+  public function sendKeys($chain, $text) {
+    return $this->send_keys($chain, $text);
+  }
+  
+  public function send_keys($chain, $text) {
+    $options = array("chain" => $chain, "text" => $text);
+    $r = $this->session->execute(array(
+                                    "script" => 'arguments[0].fp_type(arguments[1]);',
+                                    "args" => array(array("ELEMENT" => $this->movie->getID()),
+                                                    $options)
+                                    ));
+  }
 }

@@ -5,21 +5,28 @@ require_once(dirname(__FILE__) . '/../PHPWebDriver/Support/FlashFlex/FlexPilot.p
 
 class FlexTest extends PHPUnit_Framework_TestCase {
   protected static $session;
+  protected static $fp;
   
   public static function setUpBeforeClass() {
     $driver = new PHPWebDriver_WebDriver();
     self::$session = $driver->session(); // firefox
     self::$session->open("http://localhost:8000/flexstore/flexstore.html");
+    $e = self::$session->element("name", "flexstore");
+    self::$fp = new PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot(self::$session, $e);
+    self::$fp->wait_for_flex_ready();  
+
   }
   
   public static function tearDownAfterClass() {
-      self::$session->close();
+    self::$session->close();
   }
   
-  public function test_flex_ready() {
-    $e = self::$session->element("name", "flexstore");
-    $fp = new PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot(self::$session, $e);
-    $fp->wait_for_flex_ready(5);  
+  /**
+  * @group adam
+  */
+  public function test_type() {
+    $chain = "id:flexstore/name:VBox4/id:storeViews/id:homeView/name:HBox11/name:VBox12/name:Canvas13/name:Canvas14/name:TextInput20/name:UITextField22";
+    self::$fp->sendKeys($chain, "nokia");
   }
 }
 
