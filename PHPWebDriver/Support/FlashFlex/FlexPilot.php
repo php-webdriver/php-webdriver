@@ -112,5 +112,9 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
                                                         $options)
                                         ));    
   }
+  
+  public function date() {}
+    
+  public function select() {}
 
 }
