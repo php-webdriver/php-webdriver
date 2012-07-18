@@ -62,7 +62,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
             return $this->getKey(func_get_arg(0));
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
             return $this;
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
@@ -116,7 +116,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
             return $this->deleteKey(func_get_arg(0));
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
