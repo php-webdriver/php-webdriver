@@ -66,11 +66,6 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         // GET /session/:sessionId/url
         $session->url();
 
-*   Change focus to another frame
-
-        // POST /session/:sessionId/frame
-        $session->frame(array('id' => 'some_frame_id'));
-
 *   Get a list of window handles for all open windows
 
         // GET /session/:sessionId/window_handles
@@ -280,4 +275,18 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         $data = base64_decode($img);
         $file = 'gramophon.com.png';
         $success = file_put_contents($file, $data);
+        
+## Frames
+
+*   Change focus to another frame
+
+        // find your iframe
+        $iframe = self::$session->element("css selector", "iframe");
+        // switch context to it
+        self::$session->frame($iframe);
+        // interact
+        $ps = self::$session->elements("css selector", "p");
+        $this->assertEquals(count($ps), 6);
+        // switch back
+        self::$session->frame();
         
