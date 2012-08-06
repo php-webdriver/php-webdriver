@@ -30,7 +30,7 @@ class CapabilitiesTest extends PHPUnit_Framework_TestCase {
   */
   public function testGoogleChrome() {
       $driver = new PHPWebDriver_WebDriver();
-      $session = $driver->session("chrome"); // firefox
+      $session = $driver->session("chrome"); // chrome
       $session->close();      
   }
 
@@ -41,7 +41,7 @@ class CapabilitiesTest extends PHPUnit_Framework_TestCase {
   */
   public function testInternetExplorer() {
       $driver = new PHPWebDriver_WebDriver();
-      $session = $driver->session("ie"); // firefox
+      $session = $driver->session("ie"); // ie
       $session->close();      
   }
 
@@ -52,7 +52,7 @@ class CapabilitiesTest extends PHPUnit_Framework_TestCase {
   */
   public function testOpera() {
       $driver = new PHPWebDriver_WebDriver();
-      $session = $driver->session("opera"); // firefox
+      $session = $driver->session("opera"); // opera
       $session->close();      
   }
 
@@ -63,7 +63,7 @@ class CapabilitiesTest extends PHPUnit_Framework_TestCase {
   */
   public function testHTMLUnit() {
       $driver = new PHPWebDriver_WebDriver();
-      $session = $driver->session("htmlunit"); // firefox
+      $session = $driver->session("htmlunit"); // htmlunit
       $session->close();      
   }
 
@@ -74,7 +74,7 @@ class CapabilitiesTest extends PHPUnit_Framework_TestCase {
   */
   public function testHTMLUnitJS() {
       $driver = new PHPWebDriver_WebDriver();
-      $session = $driver->session("htmlunitjs"); // firefox
+      $session = $driver->session("htmlunitjs"); // htmlunitjs
       $session->close();      
   }
 }
