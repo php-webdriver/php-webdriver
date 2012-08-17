@@ -104,7 +104,7 @@ class PHPWebDriver_WebDriver_Support_FlashFlex_FlexPilot {
                                         ));
   }
 
-  public function attribute($chain $property) {
+  public function attribute($chain, $property) {
     $options = array("chain" => $chain, "attrName" => $property);
     return $this->session->execute(array(
                                         "script" => 'return arguments[0].fp_getPropertyValue(arguments[1]);',
