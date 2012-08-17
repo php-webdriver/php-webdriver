@@ -28,7 +28,7 @@
  * @method void deleteKey($key) Delete a specific key.
  * @method integer size() Get the number of items in the storage.
  */
-abstract class PHPWebDriver_WebDriverStorage extends WebDriverBase
+abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
 {
     /**
      * {@inheritdoc}
@@ -62,7 +62,7 @@ abstract class PHPWebDriver_WebDriverStorage extends WebDriverBase
             return $this->getKey(func_get_arg(0));
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
@@ -92,7 +92,7 @@ abstract class PHPWebDriver_WebDriverStorage extends WebDriverBase
             return $this;
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
@@ -116,7 +116,7 @@ abstract class PHPWebDriver_WebDriverStorage extends WebDriverBase
             return $this->deleteKey(func_get_arg(0));
         }
 
-        throw new UnhandledWebDriverError;
+        throw new PHPWebDriver_UnhandledWebDriverError;
     }
 
     /**
