@@ -150,6 +150,12 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     return $this;
   }
 
+  // /session/:sessionId/window (DELETE)
+  public function deleteWindow($curl_opts = array()) {
+    $this->curl('DELETE', '/window', $curl_opts);
+    return $this;
+  }
+
   public function window($window_handle = 'current') {
     $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/window/' . $window_handle);
     return $item->setMethods(array(
