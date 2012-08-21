@@ -39,8 +39,9 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
                           $curl_opts = array()) {
     $capabilities = new PHPWebDriver_WebDriverDesiredCapabilities();
     $desired_capabilities = array_merge(
-      $additional_capabilities,
-      $capabilities->$browser);
+      $capabilities->$browser,
+      $additional_capabilities
+    );
     // var_dump($desired_capabilities);
     $curl_opts = $curl_opts + array(CURLOPT_FOLLOWLOCATION => true);
       
