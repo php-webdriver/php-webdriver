@@ -36,6 +36,11 @@ class PHPWebDriver_WebDriverDesiredCapabilities {
                     "version" => "",
                     "platform" => "ANY",
                     "javascriptEnabled" => True);
+      case "safari":
+        return array("browserName" => "safari",
+                    "version" => "",
+                    "platform" => "ANY",
+                    "javascriptEnabled" => True);
       case "opera":
         return array("browserName" => "opera",
                     "version" => "",
