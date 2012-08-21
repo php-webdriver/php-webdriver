@@ -156,6 +156,11 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     return $this;
   }
 
+  public function switch_to_alert() {
+      require_once('WebDriverAlert.php');
+      return new PHPWebDriver_WebDriverAlert($this);
+  }
+
   public function window($window_handle = 'current') {
     $item = new PHPWebDriver_WebDriverSimpleItem($this->url . '/window/' . $window_handle);
     return $item->setMethods(array(
@@ -211,3 +216,4 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
     return sprintf('%s/element/%s', $this->url, $element_id);
   }
 }
+?>
