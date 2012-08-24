@@ -60,6 +60,9 @@
                 <file baseinstalldir="/" name="WebDriverBase.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <file baseinstalldir="/" name="WebDriverBy.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
                 <file baseinstalldir="/" name="WebDriverContainer.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>

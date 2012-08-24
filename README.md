@@ -53,6 +53,17 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
     * ipad
     * android
 
+*   You can either refer to a location method by its string value, or by a const defined in WebDriverBy.php. The
+    advantage to this is that you will know much faster (as in compile time) whether you have fat-fingered something.
+    * ID
+    * XPATH
+    * LINK_TEXT
+    * PARTIAL_LINK_TEXT
+    * NAME
+    * TAG_NAME
+    * CLASS_NAME
+    * CSS_SELECTOR
+
 ##  SIMPLE EXAMPLES
 
 ### Note that all of these match the Protocol exactly
@@ -196,7 +207,7 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         $w = new PHPWebDriver_WebDriverWait($session);
         $e = $w->until(
                 function($session) {
-                  return $session->element("id", "overlayPanelProfileovolp-pad");
+                  return $session->element(PHPWebDriver_WebDriverBy::ID, "overlayPanelProfileovolp-pad");
                 }
              );
 
@@ -205,7 +216,7 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
          $w = new PHPWebDriver_WebDriverWait($session);
          $w->until(
             function($session) {
-              return count($session->elements("id", "overlayPanelProfileovolp-pad"));
+              return count($session->elements(PHPWebDriver_WebDriverBy::ID, "overlayPanelProfileovolp-pad"));
             }
          );
 
@@ -237,22 +248,22 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 
 *   Sending characters per the protocol (yuck)
 
-        $e1 = $this->session->element("id", "some id");
+        $e1 = $this->session->element(PHPWebDriver_WebDriverBy::ID, "some id");
         $e1->value(array("value" => array("pumpkins")));
         
 *   Sending characters a little nicer
 
-        $e2 = $this->session->element("id", "some id");
+        $e2 = $this->session->element(PHPWebDriver_WebDriverBy::ID, "some id");
         $e2->sendKeys("turtles");
         
 *   Sending a 'special' character (see list at https://raw.github.com/Element-34/php-webdriver/master/PHPWebDriver/WebDriverKeys.php/)
 
-        $e3 = $this->session->element("id", "some id");
+        $e3 = $this->session->element(PHPWebDriver_WebDriverBy::ID, "some id");
         $e3->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
         
 *   Advancing the page by using the space key
 
-        $e4 = $this->session->element("tag name", "body");
+        $e4 = $this->session->element(PHPWebDriver_WebDriverBy::TAG_NAME, "body");
         $e4->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
 
 ## Proxy
@@ -281,11 +292,11 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 *   Change focus to another frame
 
         // find your iframe
-        $iframe = self::$session->element("css selector", "iframe");
+        $iframe = self::$session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "iframe");
         // switch context to it
         self::$session->frame($iframe);
         // interact
-        $ps = self::$session->elements("css selector", "p");
+        $ps = self::$session->elements(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "p");
         $this->assertEquals(count($ps), 6);
         // switch back
         self::$session->frame();

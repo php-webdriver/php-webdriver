@@ -16,6 +16,7 @@ require_once('WebDriver.php');
 require_once('WebDriverActionChains.php');
 require_once('WebDriverAlert.php');
 require_once('WebDriverBase.php');
+require_once('WebDriverBy.php');
 require_once('WebDriverContainer.php');
 require_once('WebDriverDesiredCapabilities.php');
 require_once('WebDriverElement.php');
