@@ -73,10 +73,18 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 
     /**
     * @group alert
+    * @group tuesday
     */
-    public function testAlertDecline() {
+    public function testAlertDismiss() {
         $this->session = self::$driver->session();
-        $this->session->open("https://github.com/element-34/php-webdriver");
+        $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
+        $e = $this->session->element("id", "alert");
+        $e->click();
+        $a = $this->session->switch_to_alert();
+        $a->accept();
+        
+        // If we can perform any action, we're good to go
+        assert("Testing Alerts" == $this->session->title());
     }
 
     /**

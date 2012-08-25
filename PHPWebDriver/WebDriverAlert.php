@@ -39,7 +39,7 @@ class PHPWebDriver_WebDriverAlert extends PHPWebDriver_WebDriverSession {
     }
 
     public function dismiss() {
-        
+        $this->session->dismiss_alert();
     }
 
     public function sendKeys($keys) {
