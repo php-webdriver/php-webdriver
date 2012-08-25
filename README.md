@@ -82,11 +82,6 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         // GET /session/:sessionId/window_handles
         $session->window_handles();
 
-*   Accept the currently displayed alert dialog
-
-        // POST /session/:sessionId/accept_alert
-        $session->accept_alert();
-
 *   Doubleclick an element on a touch screen
 
         // POST session/:sessionId/touch/doubleclick
@@ -300,4 +295,29 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
         $this->assertEquals(count($ps), 6);
         // switch back
         self::$session->frame();
+        
+## Alerts
+
+
+*   switch to an alert
+
+        $p = $this->session->switch_to_alert();
+
+*   get the text of an alert/prompt
+
+        $p->text;
+
+*   accept an alert/prompt
+
+        $p->accept();
+
+*   dismiss an alert/prompt
+
+        $p->dismiss();
+
+*   set some text on a prompt (doing this on an alert will throw PHPWebDriver_ElementNotDisplayedWebDriverError)
+
+        $p->sendKeys('cheese');
+        $p->accept();
+
         
