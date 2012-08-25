@@ -141,4 +141,21 @@ class AlertTest extends PHPUnit_Framework_TestCase {
         // If we can perform any action, we're good to go
         assert("Testing Alerts" == $this->session->title());
     }
+    
+    /**
+    * @group alert
+    * @group prompt
+    */
+    public function testPromptDismiss() {
+        $this->session = self::$driver->session();
+        $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
+        $e = $this->session->element("id", "prompt");
+        $e->click();
+        $p = $this->session->switch_to_alert();
+        $p->dismiss();
+        
+        // If we can perform any action, we're good to go
+        assert("Testing Alerts" == $this->session->title());
+    }
+
 }
