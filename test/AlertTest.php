@@ -90,7 +90,7 @@ class AlertTest extends PHPUnit_Framework_TestCase {
     /**
     * @group alert
     */
-    public function testAlertAcept() {
+    public function testAlertAccept() {
         $this->session = self::$driver->session();
         $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
         $e = $this->session->element("id", "alert");
