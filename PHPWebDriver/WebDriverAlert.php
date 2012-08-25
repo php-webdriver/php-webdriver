@@ -43,6 +43,6 @@ class PHPWebDriver_WebDriverAlert extends PHPWebDriver_WebDriverSession {
     }
 
     public function sendKeys($keys) {
-        
+        $result = $this->session->curl('POST', '/alert_text', array('text' => $keys), array());
     }
 }

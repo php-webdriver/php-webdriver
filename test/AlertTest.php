@@ -73,7 +73,6 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 
     /**
     * @group alert
-    * @group tuesday
     */
     public function testAlertDismiss() {
         $this->session = self::$driver->session();
@@ -104,9 +103,27 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 
     /**
     * @group alert
+    * @group tuesday
     */
     public function testAlertSendKeys() {
+        $fail = null;
+        
         $this->session = self::$driver->session();
-        $this->session->open("https://github.com/element-34/php-webdriver");
+        $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
+        $e = $this->session->element("id", "alert");
+        $e->click();
+        $a = $this->session->switch_to_alert();
+        try {
+            $a->sendKeys("cheese");
+            $fail = "PHPWebDriver_ElementNotDisplayedWebDriverError should have been thrown";
+        } catch (Exception $e) {
+            if (! is_a($e, "PHPWebDriver_ElementNotDisplayedWebDriverErro")) {
+                $fail = "exception should be PHPWebDriver_ElementNotDisplayedWebDriverError";
+            }
+        }
+        $a->dismiss();
+        if ($fail) {
+            $this->fail($fail);
+        }
     }
 }
