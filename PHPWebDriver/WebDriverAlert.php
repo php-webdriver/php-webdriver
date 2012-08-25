@@ -35,7 +35,7 @@ class PHPWebDriver_WebDriverAlert extends PHPWebDriver_WebDriverSession {
     }
     
     public function accept() {
-        
+        $this->session->accept_alert();
     }
 
     public function dismiss() {
