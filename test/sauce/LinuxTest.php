@@ -13,17 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace WebDriver;
+
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriver.php');
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriverWait.php');
+require_once(dirname(__FILE__) . '/pages/login.php');
 
-class AndroidTest extends PHPUnit_Framework_TestCase {
+class LinuxTest extends \PHPUnit_Framework_TestCase {
     protected static $driver;
 
     public function setUp() {
-        $username = "";
-        $key = "";
+        $username = "adamgoucher";
+        $key = "823e9ce7-e11d-4a40-897b-835fe48f43a0";
         $command_executor = "http://" . $username . ":" . $key . "@ondemand.saucelabs.com:80/wd/hub";
-        self::$driver = new PHPWebDriver_WebDriver($command_executor);
+        self::$driver = new \PHPWebDriver_WebDriver($command_executor);
     }
 
     public function tearDown() {
@@ -46,13 +49,32 @@ class AndroidTest extends PHPUnit_Framework_TestCase {
         $e->sendKeys("nonsense");
         $e = $this->session->element("id", "submit");
         $e->click();
-        $w = new PHPWebDriver_WebDriverWait($this->session);
+        $w = new \PHPWebDriver_WebDriverWait($this->session);
         $e = $w->until(
                 function($session) {
                   return $session->element("css selector", "error");
                 }
              );
         $this->assertEquals($e->text, "Incorrect username or password.");
+    }
+    
+    /**
+    * @group sauce
+    * @group firefox36
+    */
+    public function testFirefox36() {
+        $caps = array();
+        $caps["platform"] = 'LINUX';
+        $caps["version"] = '3.6';
+        $this->session = self::$driver->session("firefox", $caps);
+        var_dump($this->session);
+        
+        $p = new SauceLoginPage($this->session);
+        $p->open();
+        $p->wait_until_loaded();
+        $p->validate();
+        $p = $p->login_as("gobblygook", "nonsense", false);
+        $this->assertEquals($p->errors, "Incorrect username or password.");
     }
 
 }

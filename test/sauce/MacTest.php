@@ -13,17 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace WebDriver;
+
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriver.php');
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriverWait.php');
+require_once(dirname(__FILE__) . '/pages/login.php');
 
-class MacTest extends PHPUnit_Framework_TestCase {
+class MacTest extends \PHPUnit_Framework_TestCase {
     protected static $driver;
 
     public function setUp() {
         $username = "";
         $key = "";
         $command_executor = "http://" . $username . ":" . $key . "@ondemand.saucelabs.com:80/wd/hub";
-        self::$driver = new PHPWebDriver_WebDriver($command_executor);
+        self::$driver = new \PHPWebDriver_WebDriver($command_executor);
     }
 
     public function tearDown() {
@@ -39,20 +42,14 @@ class MacTest extends PHPUnit_Framework_TestCase {
         $caps["platform"] = 'MAC';
         $caps["version"] = '3.6';
         $this->session = self::$driver->session("firefox", $caps);
-        $this->session->open("https://saucelabs.com/login");
-        $e = $this->session->element("id", "username");
-        $e->sendKeys("gobblygook");
-        $e = $this->session->element("id", "password");
-        $e->sendKeys("nonsense");
-        $e = $this->session->element("id", "submit");
-        $e->click();
-        $w = new PHPWebDriver_WebDriverWait($this->session);
-        $e = $w->until(
-                function($session) {
-                  return $session->element("css selector", "error");
-                }
-             );
-        $this->assertEquals($e->text, "Incorrect username or password.");
+        var_dump($this->session);
+        
+        $p = new SauceLoginPage($this->session);
+        $p->open();
+        $p->wait_until_loaded();
+        $p->validate();
+        $p = $p->login_as("gobblygook", "nonsense", false);
+        $this->assertEquals($p->errors, "Incorrect username or password.");
     }
 
     /**
@@ -71,7 +68,7 @@ class MacTest extends PHPUnit_Framework_TestCase {
         $e->sendKeys("nonsense");
         $e = $this->session->element("id", "submit");
         $e->click();
-        $w = new PHPWebDriver_WebDriverWait($this->session);
+        $w = new \PHPWebDriver_WebDriverWait($this->session);
         $e = $w->until(
                 function($session) {
                   return $session->element("css selector", "error");
@@ -96,7 +93,7 @@ class MacTest extends PHPUnit_Framework_TestCase {
         $e->sendKeys("nonsense");
         $e = $this->session->element("id", "submit");
         $e->click();
-        $w = new PHPWebDriver_WebDriverWait($this->session);
+        $w = new \PHPWebDriver_WebDriverWait($this->session);
         $e = $w->until(
                 function($session) {
                   return $session->element("css selector", "error");
@@ -121,7 +118,7 @@ class MacTest extends PHPUnit_Framework_TestCase {
         $e->sendKeys("nonsense");
         $e = $this->session->element("id", "submit");
         $e->click();
-        $w = new PHPWebDriver_WebDriverWait($this->session);
+        $w = new \PHPWebDriver_WebDriverWait($this->session);
         $e = $w->until(
                 function($session) {
                   return $session->element("css selector", "error");
