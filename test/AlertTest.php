@@ -158,4 +158,22 @@ class AlertTest extends PHPUnit_Framework_TestCase {
         assert("Testing Alerts" == $this->session->title());
     }
 
+    /**
+    * @group alert
+    * @group prompt
+    */
+    public function testPromptSendKeys() {
+        $this->session = self::$driver->session();
+        $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
+        $e = $this->session->element("id", "prompt");
+        $e->click();
+        
+        $p = $this->session->switch_to_alert();
+        $p->sendKeys("cheese");
+        $p->accept();
+        
+        $e = $this->session->element("id", "text");
+        assert("cheese" == $e->text());
+    }
+
 }
