@@ -57,6 +57,9 @@
                 <file baseinstalldir="/" name="WebDriverActionChains.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <file baseinstalldir="/" name="WebDriverAlert.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
                 <file baseinstalldir="/" name="WebDriverBase.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
