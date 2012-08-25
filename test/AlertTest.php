@@ -103,7 +103,6 @@ class AlertTest extends PHPUnit_Framework_TestCase {
 
     /**
     * @group alert
-    * @group tuesday
     */
     public function testAlertSendKeys() {
         $fail = null;
@@ -125,5 +124,21 @@ class AlertTest extends PHPUnit_Framework_TestCase {
         if ($fail) {
             $this->fail($fail);
         }
+    }
+    
+    /**
+    * @group alert
+    * @group prompt
+    */
+    public function testPromptAccept() {
+        $this->session = self::$driver->session();
+        $this->session->open("http://127.0.0.1:" . self::$port . "/alerts.html");
+        $e = $this->session->element("id", "prompt");
+        $e->click();
+        $p = $this->session->switch_to_alert();
+        $p->accept();
+        
+        // If we can perform any action, we're good to go
+        assert("Testing Alerts" == $this->session->title());
     }
 }
