@@ -96,6 +96,9 @@
                 <file baseinstalldir="/" name="WebDriverStorage.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <file baseinstalldir="/" name="WebDriverTouchActions.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
                 <file baseinstalldir="/" name="WebDriverWait.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
