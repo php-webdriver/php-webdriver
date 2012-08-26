@@ -18,6 +18,7 @@ namespace WebDriver;
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriver.php');
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriverWait.php');
 require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriverSession.php');
+require_once(dirname(__FILE__) . '/../../PHPWebDriver/WebDriverTouchActions.php');
 require_once(dirname(__FILE__) . '/../sauce/pages/login.php');
 
 
@@ -78,14 +79,14 @@ class AndroidTest extends \PHPUnit_Framework_TestCase {
         $this->session = self::$driver->session("android");
         $this->session->open("http://www.illicitonion.com/selenium-web/longContentPage.html");
         $e = $this->session->element("id", "imagestart");
-        $this->session->touch()->down(array('element' => $e->getID(), 'x' => 100, 'y' => 0));
+        $this->session->touch()->scroll(array('element' => $e->getID(), 'xoffset' => 100, 'yoffset' => 0));
     }
 
     /**
     * @group android
     * @group scroll
     */
-    public function testAndroidScroll()) {
+    public function testAndroidScroll() {
         $this->session = self::$driver->session("android");
         $this->session->open("http://www.illicitonion.com/selenium-web/longContentPage.html");
 
@@ -95,7 +96,7 @@ class AndroidTest extends \PHPUnit_Framework_TestCase {
         $e = $this->session->element("id", "link4");        
         $bottom = $e->location();
 
-        $this->session->touch()->down(array('x' => $top['x'] + $bottom['x'], 'y' => 0));
+        $this->session->touch()->scroll(array('xoffset' => $top['x'] + $bottom['x'], 'yoffset' => 0));
     }
 
     /**
@@ -161,6 +162,29 @@ class AndroidTest extends \PHPUnit_Framework_TestCase {
 
         $after = $link->location();
         $this->assertTrue($after['x'] < 1500);
+    }
+
+    /**
+    * @group android
+    * @group chains
+    */
+    public function testAndroidChains() {
+        $this->session = self::$driver->session("android");
+        $this->session->open("http://www.illicitonion.com/selenium-web/clicks.html");
+        
+        $e = $this->session->element("id", "normal");
+        $a = new \PHPWebDriver_WebDriverTouchActions($this->session);
+        $a = $a->single_tap($e);
+        $a = $a->down(1000, 50);
+        $a = $a->move(-1000, 0);
+        $a = $a->up(-2000, 50);
+        $a = $a->element_scroll($e, -2000, 50);
+        $a = $a->scroll(-2000, 50);
+        $a = $a->double_tap($e);
+        $a = $a->long_tap($e);
+        $a = $a->flick(40, 400);
+        $a = $a->element_flick($e, 40, 400, \PHPWebDriver_WebDriverSession::FLICK_SPEED_NORMAL);
+        $a->perform();
     }
 
 }
