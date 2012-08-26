@@ -60,3 +60,5 @@ class PHPWebDriver_IMEEngineActivationFailedWebDriverError extends PHPWebDriver_
 class PHPWebDriver_InvalidSelectorWebDriverError extends PHPWebDriver_WebDriverException {}         // 32
 class PHPWebDriver_InvalidProxyConfiguration extends PHPWebDriver_WebDriverException {}         // xx
 class PHPWebDriver_UnexpectedTagNameException extends PHPWebDriver_WebDriverException {}         // xx
+class PHPWebDriver_InternalServerError extends PHPWebDriver_WebDriverException {}         // 500
+    

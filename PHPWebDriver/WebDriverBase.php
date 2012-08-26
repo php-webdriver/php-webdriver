@@ -86,6 +86,8 @@ abstract class PHPWebDriver_WebDriverBase {
           throw new PHPWebDriver_IMEEngineActivationFailedWebDriverError($message, $results);
         case 32:
           throw new PHPWebDriver_InvalidSelectorWebDriverError($message, $results);
+        case 500:
+          throw new PHPWebDriver_InternalServerError($message, $results);
       }
     }
   abstract protected function methods();
@@ -232,6 +234,18 @@ abstract class PHPWebDriver_WebDriverBase {
       '/' . $webdriver_command,
       $params,
       $opts);
+
+    $value = null;
+    if (is_array($results) && array_key_exists('value', $results)) {
+      $value = $results['value'];
+    }
+
+    $message = null;
+    if (is_array($value) && array_key_exists('message', $value)) {
+      $message = $value['message'];
+    }
+
+    self::throwException($results['info']['http_code'], $message, $results);
 
     return $results['value'];
   }
