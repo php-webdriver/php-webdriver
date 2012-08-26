@@ -17,6 +17,9 @@ require_once('WebDriverContainer.php');
 require_once('WebDriverSimpleItem.php');
 
 class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
+  const FLICK_SPEED_NORMAL = 0;
+  const FLICK_SPEED_FAST = 1;
+    
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)
