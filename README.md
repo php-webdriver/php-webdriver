@@ -16,6 +16,10 @@ Note - This is a maintained clone of https://github.com/facebook/php-webdriver w
 *   Class names being slightly different for packaging within PEAR
 *   Implementation of WebDriverWait
 
+## RELEASE NOTES
+
+What got added, what got removed and what got fixed is listed in the (Release Notes)[https://github.com/Element-34/php-webdriver/wiki/Release-Notes]. Well, to varying degrees of detail at any rate.
+
 ##  GETTING STARTED
 
 *   This driver has been packaged for distribution via PEAR. So...
