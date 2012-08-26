@@ -39,7 +39,11 @@ class PHPWebDriver_WebDriverActionChains {
   
   public function perform() {
     foreach ($this->actions as $action) {
-      eval($action);
+      $result = eval($action);
+      $error = error_get_last();
+      if ($error) {
+        throw new PHPWebDriver_ChainError($error['message']);
+      }
     }
   }
   
