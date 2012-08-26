@@ -29,8 +29,8 @@ function unwind_associated_array($arr) {
 }
 
 class PHPWebDriver_WebDriverActionChains {
-  private $session;
-  private $actions = array();
+  protected $session;
+  protected $actions = array();
 
   public function __construct($session) {
     $this->session = $session;
