@@ -28,6 +28,10 @@ class PHPWebDriver_Support_Color {
             array("pattern" => '/^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i', "name" => "hex"),
             // hex 3
             array("pattern" => '/^#([a-f0-9]{1})([a-f0-9]{1})([a-f0-9]{1})$/i', "name" => "hex 3"),
+            // hsl
+            array("pattern" => '/^\s*hsl\(\s*(\d{1,3})\s*,\s*(\d{1,3})\%\s*,\s*(\d{1,3})\%\s*\)\s*$/', "name" => "hsl"),
+            // hsla
+            array("pattern" => '/^\s*hsla\(\s*(\d{1,3})\s*,\s*(\d{1,3})\%\s*,\s*(\d{1,3})\%\s*,\s*(0|1|0\.\d+)\s*\)\s*$/', "name" => "hsla"),
         );
 
         $a = 1;        
