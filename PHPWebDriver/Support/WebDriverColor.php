@@ -15,17 +15,38 @@
 
 class PHPWebDriver_Support_Color {
     public function __construct($color) {
-        $this->color = $color;
+        $this->_color = $color;
+        
+        $a = '1.0';
+        
+        // rgb
+        if (substr($color, 0, 3) === "rgb" && substr($color, 3, 4) !== "a") {
+            $pattern = '/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/';
+            preg_match($pattern, $color, $matches);
+        }
+        
+        if (count($matches) != 0) {
+            $a = '1.0';
+            if (count($matches) == 5) {
+                $a = $matches[4];
+            }
+            $this->red = $matches[1];
+            $this->green = $matches[2];
+            $this->blue = $matches[3];
+            $this->alpha = $a;
+        } else {
+            throw new InvalidArgumentException('Did not know how to convert ' . $color . ' into a color');
+        }
         return $this;
     }
 
     public function rgb() {
-        if (substr($this->color, 0, 3) === "rgb" && substr($this->color, 3, 4) !== "a") {
-            return $this->color;
-        }
+        return 'rgb(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ')';
     }
         
-    public function rgba() {}
+    public function rgba() {
+
+    }
         
     public function hex() {}
         
