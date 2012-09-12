@@ -17,16 +17,18 @@ class PHPWebDriver_Support_Color {
     public function __construct($color) {
         $this->_color = $color;
         
-        $a = '1.0';
-        
-        // rgb
+
         if (substr($color, 0, 3) === "rgb" && substr($color, 3, 4) !== "a") {
+            // rgb
             $pattern = '/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/';
-            preg_match($pattern, $color, $matches);
+        } elseif (substr($color, 0, 4) === "rgba") {
+            // rgba
+            $pattern = '/^\s*rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0\.\d+)\s*\)\s*$/';
         }
         
+        preg_match($pattern, $color, $matches);
+        $a = 1;
         if (count($matches) != 0) {
-            $a = '1.0';
             if (count($matches) == 5) {
                 $a = $matches[4];
             }
@@ -45,7 +47,7 @@ class PHPWebDriver_Support_Color {
     }
         
     public function rgba() {
-
+        return 'rgba(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ', ' . $this->alpha . ')';
     }
         
     public function hex() {}
