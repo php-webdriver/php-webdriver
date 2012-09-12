@@ -13,15 +13,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-include_once('WebDriverExceptions.php');
-
 class PHPWebDriver_Support_Color {
     public function __construct($color) {
         $this->color = $color;
         return $this;
     }
 
-    public function rgb() {}
+    public function rgb() {
+        if (substr($this->color, 0, 3) === "rgb" && substr($this->color, 3, 4) !== "a") {
+            return $this->color;
+        }
+    }
         
     public function rgba() {}
         
