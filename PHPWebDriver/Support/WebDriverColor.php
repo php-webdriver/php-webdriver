@@ -17,13 +17,15 @@ class PHPWebDriver_Support_Color {
     public function __construct($color) {
         $matchers = array(
             // rgb %
-            array('/^\s*rgb\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*\)\s*$/', true),
+            array('/^\s*rgb\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*\)\s*$/', true, false),
             // rgb
-            array('/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/', false),
+            array('/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/', false, false),
             // rgba %
-            array('/^\s*rgba\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(0|1|0\.\d+)\s*\)\s*$/', true),
+            array('/^\s*rgba\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(0|1|0\.\d+)\s*\)\s*$/', true, false),
             // rgba
-            array('/^\s*rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0\.\d+)\s*\)\s*$/', false),
+            array('/^\s*rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0\.\d+)\s*\)\s*$/', false, false),
+            // hex
+            array('/^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i', false, true)
         );
 
         $a = 1;        
@@ -33,11 +35,23 @@ class PHPWebDriver_Support_Color {
                 if (count($matches) == 5) {
                     $a = $matches[4];
                 }
-                $this->red = $matches[1];
-                $this->green = $matches[2];
-                $this->blue = $matches[3];
+                if ($matcher[1]) {
+                    // deal with percent values
+                    $this->red = floor($matches[1] / 100 * 255);
+                    $this->green = floor($matches[2] / 100 * 255);
+                    $this->blue = floor($matches[3] / 100 * 255);
+                } elseif ($matcher[2]) {
+                    // deal with hex
+                    $this->red = intval($matches[1], 16);
+                    $this->green = intval($matches[2], 16);
+                    $this->blue = intval($matches[3], 16);
+                } else {
+                    // regular things
+                    $this->red = $matches[1];
+                    $this->green = $matches[2];
+                    $this->blue = $matches[3];
+                }
                 $this->alpha = $a;
-                $this->percent = $matcher[1];
             }
         }
         
@@ -45,21 +59,15 @@ class PHPWebDriver_Support_Color {
     }
 
     public function rgb() {
-        if ($this->percent) {
-            return 'rgb(' . floor($this->red / 100 * 255) . ', ' . floor($this->green / 100 * 255) . ', ' . floor($this->blue / 100 * 255) . ')';
-        } else {
-            return 'rgb(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ')';
-        }
+        return 'rgb(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ')';
     }
         
     public function rgba() {
-        if ($this->percent) {
-            return 'rgba(' . floor($this->red / 100 * 255) . ', ' . floor($this->green / 100 * 255) . ', ' . floor($this->blue / 100 * 255) . ', ' . $this->alpha . ')';
-        } else {
-            return 'rgba(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ', ' . $this->alpha . ')';
-        }
+        return 'rgba(' . $this->red . ', ' . $this->green . ', ' . $this->blue . ', ' . $this->alpha . ')';
     }
         
-    public function hex() {}
+    public function hex() {
+        return '#' . sprintf('%02x', $this->red) . sprintf('%02x', $this->green) . sprintf('%02x', $this->blue);
+    }
         
 }
