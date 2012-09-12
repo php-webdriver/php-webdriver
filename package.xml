@@ -50,6 +50,9 @@
                             <tasks:replace from="@package_version@" to="version" type="package-info" />
                         </file>
                     </dir>
+                    <file baseinstalldir="/" name="WebDriverColor.php" role="php">
+                           <tasks:replace from="@package_version@" to="version" type="package-info" />
+                    </file>
                 </dir>
                 <file baseinstalldir="/" name="WebDriver.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
