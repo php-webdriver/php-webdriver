@@ -83,7 +83,7 @@ class LocationTest extends PHPUnit_Framework_TestCase {
       $hex = "#01Ff03";
       $rgb = "rgb(1, 255, 3)";
       $c = new PHPWebDriver_Support_Color($hex);
-      $this->assertEquals($rgb, $c->hex());
+      $this->assertEquals($rgb, $c->rgb());
   }
   
   /**
@@ -94,13 +94,13 @@ class LocationTest extends PHPUnit_Framework_TestCase {
       $hex = "#01Ff03";
       $rgba = "rgba(1, 255, 3, 1)";
       $c = new PHPWebDriver_Support_Color($hex);
-      $this->assertEquals($rgba, $c->hex());
+      $this->assertEquals($rgba, $c->rgba());
 
       // same test data as hex3 below
       $hex = "#00ff33";
       $rgba = "rgba(0, 255, 51, 1)";
       $c = new PHPWebDriver_Support_Color($hex);
-      $this->assertEquals($rgba, $c->hex());
+      $this->assertEquals($rgba, $c->rgba());
   }
   
   /**
@@ -111,7 +111,7 @@ class LocationTest extends PHPUnit_Framework_TestCase {
       $hex = "#01ff03";
       $rgb = "rgb(1, 255, 3)";
       $c = new PHPWebDriver_Support_Color($rgb);
-      $this->assertEquals($hex, $c->rgb());
+      $this->assertEquals($hex, $c->hex());
   }
   
   /**
