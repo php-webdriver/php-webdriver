@@ -15,30 +15,31 @@
 
 class PHPWebDriver_Support_Color {
     public function __construct($color) {
-        $this->_color = $color;
-        
-
-        if (substr($color, 0, 3) === "rgb" && substr($color, 3, 4) !== "a") {
+        $patterns = array(
+            // rgb %
+            '/^\s*rgb\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*\)\s*$/',
             // rgb
-            $pattern = '/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/';
-        } elseif (substr($color, 0, 4) === "rgba") {
+            '/^\s*rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)\s*$/',
+            // rgba %
+            '/^\s*rgba\(\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(\d{1,3}|\d{1,2}\.\d+)%\s*,\s*(0|1|0\.\d+)\s*\)\s*$/',
             // rgba
-            $pattern = '/^\s*rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0\.\d+)\s*\)\s*$/';
+            '/^\s*rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0\.\d+)\s*\)\s*$/'
+        );
+
+        $a = 1;        
+        foreach($patterns as $pattern) {
+            preg_match($pattern, $color, $matches);
+            if (count($matches) != 0) {
+                if (count($matches) == 5) {
+                    $a = $matches[4];
+                }
+                $this->red = $matches[1];
+                $this->green = $matches[2];
+                $this->blue = $matches[3];
+                $this->alpha = $a;
+            }
         }
         
-        preg_match($pattern, $color, $matches);
-        $a = 1;
-        if (count($matches) != 0) {
-            if (count($matches) == 5) {
-                $a = $matches[4];
-            }
-            $this->red = $matches[1];
-            $this->green = $matches[2];
-            $this->blue = $matches[3];
-            $this->alpha = $a;
-        } else {
-            throw new InvalidArgumentException('Did not know how to convert ' . $color . ' into a color');
-        }
         return $this;
     }
 
