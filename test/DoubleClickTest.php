@@ -41,23 +41,22 @@ class DoubleClickTest extends PHPUnit_Framework_TestCase {
         // switch to our frame
         $iframe = $this->session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "iframe");
         $this->session->moveto(array("element" => $iframe->getID()));
-        $this->session->frame($iframe);
-        
+        $this->session->switch_to_frame($iframe);
+                
         // masure sure that things are in the state we want
         $e = $this->session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "div");
         $clazz = $e->attribute('class');
-        $this->assertEquals($clazz, null);
-        
+        $this->assertEquals(null, $clazz);
+
         $ac = new PHPWebDriver_WebDriverActionChains($this->session);
-        $ac->doubleClick($this->session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "div"), array(CURLOPT_VERBOSE => true));
+        $ac->doubleClick($this->session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "div"));
         $ac->perform();
 
         $e = $this->session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "div");
         $clazz = $e->attribute('class');
-        var_dump($clazz);
-        $this->assertEquals($clazz, 'dbl');
+        $this->assertEquals('dbl', $clazz);
         
-        $this->session->frame();
+        $this->session->switch_to_frame();
 
     }
 

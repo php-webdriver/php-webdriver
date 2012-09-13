@@ -20,7 +20,7 @@ class FrameTest extends PHPUnit_Framework_TestCase {
     // find your iframe
     $iframe = self::$session->element("css selector", "iframe");
     // switch context to it
-    self::$session->frame($iframe);
+    self::$session->switch_to_frame($iframe);
     // interact
     $ps = self::$session->elements("css selector", "p");
     $this->assertEquals(count($ps), 6);

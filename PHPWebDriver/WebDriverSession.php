@@ -28,10 +28,10 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'refresh' => 'POST',
       'execute' => 'POST',
       'execute_async' => 'POST',
+      'frame' => 'POST',
       'screenshot' => 'GET',
       'window_handle' => 'GET',
       'window_handles' => 'GET',
-      'frame' => 'POST',
       'source' => 'GET',
       'title' => 'GET',
       'keys' => 'POST',
@@ -191,6 +191,31 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
       'longclick' => 'POST',
       'flick' => 'POST',
     ));
+  }
+
+  public function switch_to_frame($frame = null, $curl_opts = array()) {
+    if (is_a($frame, "PHPWebDriver_WebDriverElement")) {
+      $frame_id = array("id" => (int)$frame->getId());
+    } else {
+      throw new InvalidArgumentException('$frame needs to be a webdriver element of a frame');
+    }
+    
+    $results = $this->curl('POST',
+                '/frame',
+                $frame_id,
+                $curl_opts);
+
+    $value = null;
+    if (is_array($results) && array_key_exists('value', $results)) {
+      $value = $results['value'];
+    }
+
+    $message = null;
+    if (is_array($value) && array_key_exists('message', $value)) {
+      $message = $value['message'];
+    }
+
+    self::throwException($results['info']['http_code'], $message, $results);
   }
 
   /**

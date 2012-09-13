@@ -293,12 +293,12 @@ What got added, what got removed and what got fixed is listed in the (Release No
         // find your iframe
         $iframe = self::$session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "iframe");
         // switch context to it
-        self::$session->frame($iframe);
+        self::$session->switch_to_frame($iframe);
         // interact
         $ps = self::$session->elements(PHPWebDriver_WebDriverBy::CSS_SELECTOR, "p");
         $this->assertEquals(count($ps), 6);
         // switch back
-        self::$session->frame();
+        self::$session->switch_to_frame();
         
 ## Alerts
 
