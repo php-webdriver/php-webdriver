@@ -53,7 +53,13 @@ class PHPWebDriver_WebDriverActionChains {
     
   public function contextClick($onElement) {}
     
-  public function doubleClick($onElement) {}
+  public function doubleClick($on_element=null, $curl_opts=array()) {
+    if ($on_element) {
+      $this->moveToElement($on_element, $curl_opts);
+    }
+    $this->actions[] = '$this->session->doubleclick(' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
     
   public function dragAndDrop($source, $target) {}
     
