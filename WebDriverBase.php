@@ -250,7 +250,47 @@ abstract class WebDriverBase {
     }
   }
 
+  function findVisible($selector) {
+    $all = $this->findAllVisible($selector);
+    if (count($all) > 1) {
+      throw new Exception("Selector returned more than one result");
+    }
+    return empty($all) ? null : $all[0];
+  }
+
+  function findAllVisible($selector) {
+    $result = array();
+    foreach ($this->findAll($selector) as $element) {
+      if ($element->displayed()) {
+        $result[] = $element;
+      }
+    }
+    return $result;
+  }
+
+  function waitForElementPresent($selector, $timeout = 10) {
+    while ($timeout) {
+      try {
+        $el = $this->find($selector);
+      } catch (ElementNotDisplayedWebDriverError $ex) { /* squelch */ }
+      if ($el) {
+        return $el;
+      }
+      sleep(1);
+      $timeout--;
+    }
+    throw new WaitForElementTimeOutWebDriverError("Element not found while waiting");
+  }
+
   function setValue($text) {
-    $this->value(array('value' => str_split($text)));
+    if ($text === "" || $text === null) {
+      $this->clear();
+    } else {
+      $this->value(array('value' => str_split($text)));
+    }
+  }
+
+  function getValue() {
+    return $this->attribute('value');
   }
 }
