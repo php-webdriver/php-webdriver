@@ -268,7 +268,7 @@ abstract class WebDriverBase {
     return $result;
   }
 
-  function waitForElementPresent($selector, $timeout = 10) {
+  function waitForElementPresent($selector, $timeout = 30) {
     while ($timeout) {
       try {
         $el = $this->find($selector);
