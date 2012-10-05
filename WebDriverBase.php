@@ -273,7 +273,7 @@ abstract class WebDriverBase {
       try {
         $el = $this->find($selector);
       } catch (ElementNotDisplayedWebDriverError $ex) { /* squelch */ }
-      if ($el) {
+      if ($el && $el->displayed()) {
         return $el;
       }
       sleep(1);
