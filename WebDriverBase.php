@@ -233,4 +233,67 @@ abstract class WebDriverBase {
     $http_methods = (array) $methods[$webdriver_command];
     return array_shift($http_methods);
   }
+
+  function find($selector) {
+    $all = $this->findAll($selector);
+    if (count($all) > 1) {
+      throw new Exception("Selector returned more than one result");
+    }
+    return empty($all) ? null : $all[0];
+  }
+
+  function findAll($selector) {
+    try {
+      return $this->elements('xpath', $selector);
+    } catch (NoSuchElementWebDriverError $ex) {
+      return array();
+    }
+  }
+
+  function findVisible($selector) {
+    $all = $this->findAllVisible($selector);
+    if (count($all) > 1) {
+      throw new Exception("Selector returned more than one result");
+    }
+    return empty($all) ? null : $all[0];
+  }
+
+  function findAllVisible($selector) {
+    $result = array();
+    foreach ($this->findAll($selector) as $element) {
+      if ($element->displayed()) {
+        $result[] = $element;
+      }
+    }
+    return $result;
+  }
+
+  function waitForElementPresent($selector, $timeout = 30) {
+    while ($timeout) {
+      try {
+        $el = $this->find($selector);
+      } catch (ElementNotDisplayedWebDriverError $ex) { /* squelch */ }
+      if ($el && $el->displayed()) {
+        usleep(100000); // .1s -> We wait because for some animations, the element might have a brief initial state of being visible, before it starts the transitioning. This pause makes the code more robust to that kind of cases.
+        if ($el && $el->displayed()) {
+          return $el;
+        }
+      }
+      sleep(1);
+      $timeout--;
+    }
+    throw new WaitForElementTimeOutWebDriverError("Element not found while waiting");
+  }
+
+  function setValue($text) {
+    if ($text === "" || $text === null) {
+      $this->clear();
+    } else {
+      $this->value(array('value' => str_split($text)));
+    }
+  }
+
+  function getValue() {
+    return $this->attribute('value');
+  }
 }

@@ -60,3 +60,4 @@ class InvalidElementCoordinatesWebDriverError extends WebDriverException {}// 29
 class IMENotAvailableWebDriverError extends WebDriverException {} // 30
 class IMEEngineActivationFailedWebDriverError extends WebDriverException {}// 31
 class InvalidSelectorWebDriverError extends WebDriverException {} // 32
+class WaitForElementTimeOutWebDriverError extends WebDriverException {} // 21
