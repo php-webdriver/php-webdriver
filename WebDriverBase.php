@@ -274,7 +274,10 @@ abstract class WebDriverBase {
         $el = $this->find($selector);
       } catch (ElementNotDisplayedWebDriverError $ex) { /* squelch */ }
       if ($el && $el->displayed()) {
-        return $el;
+        usleep(100000); // .1s -> We wait because for some animations, the element might have a brief initial state of being visible, before it starts the transitioning. This pause makes the code more robust to that kind of cases.
+        if ($el && $el->displayed()) {
+          return $el;
+        }
       }
       sleep(1);
       $timeout--;
