@@ -195,11 +195,10 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
 
   public function switch_to_frame($frame = null, $curl_opts = array()) {
     if (is_a($frame, "PHPWebDriver_WebDriverElement")) {
-      $frame_id = array("ELEMENT" => (int)$frame->getId());
+      $frame_id = array("id" => array("ELEMENT" => $frame->getId()));
     } else {
       throw new InvalidArgumentException('$frame needs to be a webdriver element of a frame');
     }
-    
     $results = $this->curl('POST',
                 '/frame',
                 $frame_id,
