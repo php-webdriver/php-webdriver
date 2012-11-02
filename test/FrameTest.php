@@ -17,6 +17,7 @@ class FrameTest extends PHPUnit_Framework_TestCase {
   }
   
   public function test_frame_stuff() {
+    $divs = self::$session->elements("css selector", "div");
     // find your iframe
     $iframe = self::$session->element("css selector", "iframe");
     // switch context to it
