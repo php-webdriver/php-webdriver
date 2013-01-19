@@ -41,16 +41,13 @@ class PHPWebDriver_WebDriverProxy {
           break;
         case "ftpProxy":
         case "httpProxy":
+        case "sslProxy":
         case "noProxy":
           $this->proxyType = PHPWebDriver_ProxyType::$MANUAL;
           $this->$property = $value;
           break;
         case "proxyAutoconfigUrl":
           $this->proxyType = PHPWebDriver_ProxyType::$PAC;
-          $this->$property = $value;
-          break;
-        case "sslProxy":
-          $this->proxyType = $value;
           $this->$property = $value;
           break;
         default:
