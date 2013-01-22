@@ -164,7 +164,7 @@ $element->element($using, $value);
 $element->elements($using, $value);
 ```
 
-$using its the location method either as a string value
+$using is the the location method either as a string value
     * id
     * xpath
     * link text
@@ -189,12 +189,12 @@ In other words, the following are equivilant
 ```php
 // POST /session/:sessionId/element
 $element = $session->element("id", $value);
-``
+```
 
 ```php
 // POST /session/:sessionId/element
 $element = $session->element(PHPWebDriver_WebDriverBy::ID, $value);
-``
+```
 
 *   To get the active element
 
