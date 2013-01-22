@@ -67,17 +67,6 @@ $session = $web_driver->session('firefox');
     * ipad
     * android
 
-*   You can either refer to a location method by its string value, or by a const defined in WebDriverBy.php. The
-    advantage to this is that you will know much faster (as in compile time) whether you have fat-fingered something.
-    * ID
-    * XPATH
-    * LINK_TEXT
-    * PARTIAL_LINK_TEXT
-    * NAME
-    * TAG_NAME
-    * CLASS_NAME
-    * CSS_SELECTOR
-
 ##  SIMPLE EXAMPLES
 
 ### Note that all of these match the Protocol exactly
@@ -155,17 +144,57 @@ $session = $web_driver->session('firefox');
         
 *   To find elements
 
-        // POST /session/:sessionId/element
-        $element = $session->element($using, $value);
+```php
+// POST /session/:sessionId/element
+$element = $session->element($using, $value);
+```
 
-        // POST /session/:sessionId/elements
-        $session->elements($using, $value);
+```php
+// POST /session/:sessionId/elements
+$session->elements($using, $value);
+```
 
-        // POST /session/:sessionId/element/:id/element
-        $element->element($using, $value);
+```php
+// POST /session/:sessionId/element/:id/element
+$element->element($using, $value);
+```
 
-        // POST /session/:sessionId/element/:id/elements
-        $element->elements($using, $value);
+```php
+// POST /session/:sessionId/element/:id/elements
+$element->elements($using, $value);
+```
+
+    $using its the location method either as a string value
+        * id
+        * xpath
+        * link text
+        * partial link text
+        * name
+        * tag name
+        * class name
+        * css selector
+
+    or by a const defined in WebDriverBy.php. The advantage to this is that you will know much faster (as in compile time) whether you have fat-fingered something.
+        * ID
+        * XPATH
+        * LINK_TEXT
+        * PARTIAL_LINK_TEXT
+        * NAME
+        * TAG_NAME
+        * CLASS_NAME
+        * CSS_SELECTOR
+
+    In other words, the following are equivilant
+
+```php
+// POST /session/:sessionId/element
+$element = $session->element("id", $value);
+``
+
+```php
+// POST /session/:sessionId/element
+$element = $session->element(PHPWebDriver_WebDriverBy::ID, $value);
+``
 
 *   To get the active element
 
