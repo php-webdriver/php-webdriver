@@ -29,7 +29,7 @@ pear channel-discover element-34.github.com/pear
 pear install -f element-34/PHPWebDriver
 ```
 
-    Note: if you recieve a 404 during the channel-discover set, check that you are using the current version of PEAR. If not you need to
+Note: if you recieve a 404 during the channel-discover set, check that you are using the current version of PEAR. If not you need to
 
 ```php
 pear upgrade pear
