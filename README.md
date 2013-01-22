@@ -24,8 +24,16 @@ What got added, what got removed and what got fixed is listed in the (Release No
 
 *   This driver has been packaged for distribution via PEAR. So...
 
-        pear channel-discover element-34.github.com/pear
-        pear install -f element-34/PHPWebDriver
+```php
+pear channel-discover element-34.github.com/pear
+pear install -f element-34/PHPWebDriver
+```
+
+    Note: if you recieve a 404 during the channel-discover set, check that you are using the current version of PEAR. If not you need to
+
+```php
+pear upgrade pear
+```
 
 *   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
 
@@ -35,15 +43,17 @@ What got added, what got removed and what got fixed is listed in the (Release No
 
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
-        // This would be the url of the host running the server-standalone.jar
-        $wd_host = 'http://localhost:4444/wd/hub';
-        $web_driver = new PHPWebDriver_WebDriver($wd_host);
+```php
+// This would be the url of the host running the server-standalone.jar
+$wd_host = 'http://localhost:4444/wd/hub';
+$web_driver = new PHPWebDriver_WebDriver($wd_host);
 
-        // First param to session() is the 'browserName' (default = 'firefox')
-        // Second param is a JSON object of additional 'desiredCapabilities'
+// First param to session() is the 'browserName' (default = 'firefox')
+// Second param is a JSON object of additional 'desiredCapabilities'
 
-        // POST /session
-        $session = $web_driver->session('firefox');
+// POST /session
+$session = $web_driver->session('firefox');
+```
 
 *   Valid browser strings
     * firefox
