@@ -62,4 +62,4 @@ class PHPWebDriver_InvalidProxyConfiguration extends PHPWebDriver_WebDriverExcep
 class PHPWebDriver_UnexpectedTagNameException extends PHPWebDriver_WebDriverException {}         // xx
 class PHPWebDriver_InternalServerError extends PHPWebDriver_WebDriverException {}         // 500
 class PHPWebDriver_ChainError extends PHPWebDriver_WebDriverException {}         // xx
-    
+class PHPWebDriver_NotImplementedError extends PHPWebDriver_WebDriverException {}         // xx
