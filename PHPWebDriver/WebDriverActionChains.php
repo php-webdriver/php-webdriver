@@ -48,7 +48,13 @@ class PHPWebDriver_WebDriverActionChains {
     }
   }
   
-  public function click($onElement = null) {}
+  public function click($on_element = null, $curl_opts=array()) {
+    if ($on_element) {
+      $this->moveToElement($on_element, $curl_opts);
+    }
+    $this->actions[] = '$this->session->click(' . unwind_associated_array($curl_opts) . ');';
+    return $this;    
+  }
 
   public function clickAndHold($onElement) {}
     
