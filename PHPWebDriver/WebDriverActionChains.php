@@ -39,9 +39,10 @@ class PHPWebDriver_WebDriverActionChains {
   
   public function perform() {
     foreach ($this->actions as $action) {
+      $before = error_get_last();
       $result = eval($action);
-      $error = error_get_last();
-      if ($error) {
+      $after = error_get_last();
+      if (count($after) > count($before)) {
         throw new PHPWebDriver_ChainError($error['message']);
       }
     }
