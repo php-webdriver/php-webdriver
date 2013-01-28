@@ -5,7 +5,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//		 http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,37 +14,37 @@
 // limitations under the License.
 
 final class WebDriverElement extends WebDriverContainer {
-  protected function methods() {
-    return array(
-      'click' => 'POST',
-      'submit' => 'POST',
-      'text' => 'GET',
-      'value' => 'POST',
-      'name' => 'GET',
-      'clear' => 'POST',
-      'selected' => 'GET',
-      'enabled' => 'GET',
-      'attribute' => 'GET',
-      'equals' => 'GET',
-      'displayed' => 'GET',
-      'location' => 'GET',
-      'location_in_view' => 'GET',
-      'size' => 'GET',
-      'css' => 'GET',
-    );
-  }
+	protected function methods() {
+		return array(
+			'click' => 'POST',
+			'submit' => 'POST',
+			'text' => 'GET',
+			'value' => 'POST',
+			'name' => 'GET',
+			'clear' => 'POST',
+			'selected' => 'GET',
+			'enabled' => 'GET',
+			'attribute' => 'GET',
+			'equals' => 'GET',
+			'displayed' => 'GET',
+			'location' => 'GET',
+			'location_in_view' => 'GET',
+			'size' => 'GET',
+			'css' => 'GET',
+		);
+	}
 
-  private $id;
-  public function __construct($url, $id) {
-    $this->id = $id;
-    parent::__construct($url);
-  }
+	private $id;
+	public function __construct($url, $id) {
+		$this->id = $id;
+		parent::__construct($url);
+	}
 
-  public function getID() {
-    return $this->id;
-  }
+	public function getID() {
+		return $this->id;
+	}
 
-  protected function getElementPath($element_id) {
-    return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
-  }
+	protected function getElementPath($element_id) {
+		return preg_replace(sprintf('/%s$/', $this->id), $element_id, $this->url);
+	}
 }

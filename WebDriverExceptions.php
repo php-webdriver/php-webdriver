@@ -5,7 +5,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//		 http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,16 +16,16 @@
 final class WebDriverCurlException extends Exception {} // When curls fail
 
 abstract class WebDriverException extends Exception {
-  private $results;
+	private $results;
 
-  public function __construct($message, $results = null) {
-    parent::__construct($message);
-    $this->results = $results;
-  }
+	public function __construct($message, $results = null) {
+		parent::__construct($message);
+		$this->results = $results;
+	}
 
-  public function getResults() {
-    return $this->results;
-  }
+	public function getResults() {
+		return $this->results;
+	}
 }
 
 class IndexOutOfBoundsWebDriverError extends WebDriverException {} // 1
