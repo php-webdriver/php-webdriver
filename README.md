@@ -1,4 +1,4 @@
-cphp-webdriver -- A very thin wrapper of WebDriver
+php-webdriver -- A very thin wrapper of WebDriver
 =================================================
 
 ##  DESCRIPTION
