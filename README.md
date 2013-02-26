@@ -1,4 +1,4 @@
-php-webdriver -- A very thin wrapper of WebDriver
+cphp-webdriver -- A very thin wrapper of WebDriver
 =================================================
 
 ##  DESCRIPTION
@@ -85,6 +85,11 @@ $session = $web_driver->session('firefox');
         // GET /session/:sessionId/window_handles
         $session->window_handles();
 
+*   Click an element
+
+        // POST session/:sessionId/element/:id/click
+        $session->element($using, $value)->click("")
+        
 *   Doubleclick an element on a touch screen
 
         // POST session/:sessionId/touch/doubleclick
