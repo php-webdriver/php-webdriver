@@ -42,8 +42,8 @@ class PHPWebDriver_WebDriverActionChains {
       $before = error_get_last();
       $result = eval($action);
       $after = error_get_last();
-      if (count($after) > count($before)) {
-        throw new PHPWebDriver_ChainError($error['message']);
+      if ($after !== $before) {
+        throw new PHPWebDriver_ChainError($after['message']);
       }
     }
   }
@@ -53,10 +53,16 @@ class PHPWebDriver_WebDriverActionChains {
       $this->moveToElement($on_element, $curl_opts);
     }
     $this->actions[] = '$this->session->click(' . unwind_associated_array($curl_opts) . ');';
-    return $this;    
+    return $this;
   }
 
-  public function clickAndHold($onElement) {}
+  public function clickAndHold($on_element = null, $curl_opts = array()) {
+    if ($on_element) {
+      $this->moveToElement($on_element, $curl_opts);
+    }
+    $this->actions[] = '$this->session->buttondown(' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
     
   public function contextClick($onElement) {}
     
@@ -68,7 +74,13 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }
     
-  public function dragAndDrop($source, $target) {}
+  public function dragAndDrop($source, $target, $curl_opts = array()) {
+    $this->moveToElement($source, $curl_opts);
+    $this->clickAndHold($source, $curl_opts);
+    $this->moveToElement($target, $curl_opts);
+    $this->release($target);
+    return $this;
+  }
     
   public function dragAndDropByOffset($source, $target, $xOffset, $yOffset) {}
     
@@ -88,7 +100,13 @@ class PHPWebDriver_WebDriverActionChains {
       return $this;
   }
 
-  public function release($onElement) {}
+  public function release($on_element = null, $curl_opts = array()) {
+    if ($on_element) {
+      $this->moveToElement($on_element, $curl_opts);
+    }
+    $this->actions[] = '$this->session->buttonup(' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
     
   public function sendKeys($keysToSend) {}
     
