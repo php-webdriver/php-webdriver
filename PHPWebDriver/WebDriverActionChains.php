@@ -39,6 +39,7 @@ class PHPWebDriver_WebDriverActionChains {
   
   public function perform() {
     foreach ($this->actions as $action) {
+      // var_dump($action);
       $before = error_get_last();
       $result = eval($action);
       $after = error_get_last();
@@ -64,7 +65,13 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }
     
-  public function contextClick($onElement) {}
+  public function contextClick($on_element = null, $curl_opts = array()) {
+    if ($on_element) {
+      $this->moveToElement($on_element, $curl_opts);
+    }
+    $this->actions[] = '$this->session->click(array("button" => 2), ' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
     
   public function doubleClick($on_element=null, $curl_opts=array()) {
     if ($on_element) {

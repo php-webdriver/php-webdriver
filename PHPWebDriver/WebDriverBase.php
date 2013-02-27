@@ -161,7 +161,7 @@ abstract class PHPWebDriver_WebDriverBase {
     }
 
     $raw_results = trim(PHPWebDriver_WebDriverEnvironment::CurlExec($curl));
-
+    // var_dump($raw_results);
     $info = curl_getinfo($curl);
     
     if ($error = curl_error($curl)) {
@@ -177,6 +177,7 @@ abstract class PHPWebDriver_WebDriverBase {
     curl_close($curl);
 
     $results = json_decode($raw_results, true);
+    // var_dump($results);
 
     $value = null;
     if (is_array($results) && array_key_exists('value', $results)) {

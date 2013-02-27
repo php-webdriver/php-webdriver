@@ -34,5 +34,21 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
     $this->AssertEquals($dropped->text(), 'Dropped!');
   }
 
+  /**
+  * @group chains
+  * @group elephant
+  */  
+  public function testRightClick() {
+    self::$session->open("http://www.javascripttoolbox.com/lib/contextmenu");
+
+    $default_theme = self::$session->element(PHPWebDriver_WebDriverBy::XPATH, '//div[text()="Default Theme"]');
+
+    $chain = new PHPWebDriver_WebDriverActionChains(self::$session);
+    $chain->contextClick($default_theme);
+    $chain->perform();
+
+    // this needs a better page, and an assert
+  }
+
 }
 ?>
