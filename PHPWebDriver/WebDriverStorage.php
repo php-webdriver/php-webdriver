@@ -68,7 +68,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
     /**
      * Set specific key/value pair
      *
-     * @return WebDriverStorage
+     * @return PHPWebDriver_WebDriverStorage
      *
      * @throw UnhandledWebDriverError
      */
@@ -98,7 +98,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
     /**
      * Delete storage or a specific key
      *
-     * @return WebDriverStorage
+     * @return PHPWebDriver_WebDriverStorage
      *
      * @throw UnhandledWebDriverError
      */
@@ -125,7 +125,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
      * @param string $type 'local' or 'session' storage
      * @param string $url  URL
      *
-     * @return WebDriverStorage
+     * @return PHPWebDriver_WebDriverStorage
      */
     public static function factory($type, $url)
     {
@@ -134,7 +134,7 @@ abstract class PHPWebDriver_WebDriverStorage extends PHPWebDriver_WebDriverBase
 
         if (!class_exists($className, false)) {
             eval(
-                'final class ' . $className.' extends WebDriverStorage {}'
+                'final class ' . $className.' extends PHPWebDriver_WebDriverStorage {}'
             );
         }
 
