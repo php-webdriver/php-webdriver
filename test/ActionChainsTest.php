@@ -36,7 +36,6 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
 
   /**
   * @group chains
-  * @group elephant
   */  
   public function testRightClick() {
     self::$session->open("http://www.javascripttoolbox.com/lib/contextmenu");
@@ -48,6 +47,26 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
     $chain->perform();
 
     // this needs a better page, and an assert
+  }
+
+  /**
+  * @group chains
+  * @group elephant
+  */  
+  public function testDragAndDropByOffset() {
+    self::$session->open("http://jqueryui.com/droppable");
+    $iframe = self::$session->element(PHPWebDriver_WebDriverBy::CSS_SELECTOR, ".demo-frame");
+    self::$session->switch_to_frame($iframe);
+
+    $draggable = self::$session->element(PHPWebDriver_WebDriverBy::ID, "draggable");
+    $droppable = self::$session->element(PHPWebDriver_WebDriverBy::ID, "droppable");
+
+    $chain = new PHPWebDriver_WebDriverActionChains(self::$session);
+    $chain->dragAndDropByOffset($draggable, $droppable, 450, -15);
+    $chain->perform();
+    
+    $dropped = self::$session->element(PHPWebDriver_WebDriverBy::ID, "droppable");
+    $this->AssertEquals($dropped->text(), 'Dropped!');
   }
 
 }

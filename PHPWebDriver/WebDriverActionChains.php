@@ -82,20 +82,27 @@ class PHPWebDriver_WebDriverActionChains {
   }
     
   public function dragAndDrop($source, $target, $curl_opts = array()) {
-    $this->moveToElement($source, $curl_opts);
     $this->clickAndHold($source, $curl_opts);
     $this->moveToElement($target, $curl_opts);
-    $this->release($target);
+    $this->release($target, $curl_opts);
     return $this;
   }
     
-  public function dragAndDropByOffset($source, $target, $xOffset, $yOffset) {}
+  public function dragAndDropByOffset($source, $target, $xOffset, $yOffset, $curl_opts = array()) {
+    $this->clickAndHold($source, $curl_opts);
+    $this->moveByOffset($xOffset, $yOffset, $curl_opts);
+    $this->release($target, $curl_opts);
+    return $this;
+  }
     
   public function keyDown($value, $onElement = null) {}
     
   public function keyUp($value, $onElement = null) {}
 
-  public function moveByOffset($source, $xOffset, $yOffset) {}
+  public function moveByOffset($xOffset, $yOffset, $curl_opts = array()) {
+    $this->actions[] = '$this->session->moveto(array("xoffset" => ' . $xOffset . ', "yoffset" => ' . $yOffset . '));';
+    return $this;
+  }
         
   public function moveToElement($toElement, $curl_opts = array()) {
     $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '"), ' . unwind_associated_array($curl_opts) . ');';
