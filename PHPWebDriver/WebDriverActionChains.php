@@ -83,7 +83,10 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }  
 
-  public function moveToElementWithOffset($toElement, $xOffset, $yOffset) {}
+  public function moveToElementWithOffset($toElement, $xOffset, $yOffset) {
+      $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '", "xoffset" => '.$xOffset.', "yoffset" => '.$yOffset.'));';
+      return $this;
+  }
 
   public function release($onElement) {}
     
