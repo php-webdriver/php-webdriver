@@ -160,7 +160,7 @@ class PHPWebDriver_WebDriverSession extends PHPWebDriver_WebDriverContainer {
   }
 
   public function switch_to_alert() {
-      $this->alert()
+      $this->alert();
       require_once('WebDriverAlert.php');
       return new PHPWebDriver_WebDriverAlert($this);
   }
