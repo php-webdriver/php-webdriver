@@ -26,6 +26,6 @@ class FrameTest extends PHPUnit_Framework_TestCase {
     $ps = self::$session->elements("css selector", "p");
     $this->assertEquals(count($ps), 6);
     // switch back
-    self::$session->frame();
+    self::$session->switch_to_frame();
   }
 }
