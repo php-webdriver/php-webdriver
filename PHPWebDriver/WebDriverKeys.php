@@ -60,7 +60,25 @@ class PHPWebDriver_WebDriverKeys {
     'MetaKey' => "\uE03D",
   );
   
+  function __construct($name = null) {
+    if ($name) {
+      $this->key = self::$keys[$name];
+    }
+  }
+
+  function __get($property) {
+    switch($property) {
+      case "key":
+        return json_decode('"' . $this->key . '"');
+      default:
+        if (isset($property)) {
+            return $this->$property;
+        }
+    }
+  }
+
   public static function __callStatic($name, $arguments) {
+    trigger_error("Use PHPWebDriver_WebDriverKeys('KeyName')", E_USER_DEPRECATED);
     if (isset(self::$keys[$name])) {
       return json_decode('"' . self::$keys[$name] . '"');
     } else {

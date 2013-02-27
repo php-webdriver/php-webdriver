@@ -147,8 +147,7 @@ abstract class PHPWebDriver_WebDriverBase {
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
-        // var_dump(json_encode($params));
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, str_replace('\\\\u', '\\u', json_encode($params)));
       }  else {
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-length: 0'));
       }

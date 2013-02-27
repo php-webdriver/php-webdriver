@@ -28,6 +28,19 @@ function unwind_associated_array($arr) {
     }
 }
 
+function unwind_array($arr) {
+    if (count($arr) > 0) {        
+        $u = "array(";
+        foreach ($arr as $a) {
+            $u = $u . '"' . $a . '"'  . ",";
+        }
+        $u = $u . ")";
+        return $u;
+    } else {
+        return "array()";
+    }
+}
+
 class PHPWebDriver_WebDriverActionChains {
   protected $session;
   protected $actions = array();
@@ -39,7 +52,7 @@ class PHPWebDriver_WebDriverActionChains {
   
   public function perform() {
     foreach ($this->actions as $action) {
-      // var_dump($action);
+      var_dump($action);
       $before = error_get_last();
       $result = eval($action);
       $after = error_get_last();
@@ -95,9 +108,41 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }
     
-  public function keyDown($value, $onElement = null) {}
-    
-  public function keyUp($value, $onElement = null) {}
+  public function keyDown($value, $curl_opts = array()) {
+    $typing = array();
+    if (is_a($value, 'PHPWebDriver_WebDriverKeys')) {
+      array_push($typing, $value->key);
+    // }
+    // if (is_int($value)) {
+    //   $val = strval($val);
+    //   foreach($val as $i) {
+    //     array_push($typing, $i);
+    //   }
+    } else {
+      array_push($typing, str_split($value));
+    }
+
+    $this->actions[] = '$this->session->keys(array("value" => ' . unwind_array($typing) . '), ' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
+
+  public function keyUp($value, $curl_opts = array()) {
+    $typing = array();
+    if (is_a($value, 'PHPWebDriver_WebDriverKeys')) {
+      array_push($typing, $value->key);
+    // }
+    // if (is_int($value)) {
+    //   $val = strval($val);
+    //   foreach($val as $i) {
+    //     array_push($typing, $i);
+    //   }
+    } else {
+      array_push($typing, str_split($value));
+    }
+
+    $this->actions[] = '$this->session->keys(array("value" => ' . unwind_array($typing) . '), ' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
 
   public function moveByOffset($xOffset, $yOffset, $curl_opts = array()) {
     $this->actions[] = '$this->session->moveto(array("xoffset" => ' . $xOffset . ', "yoffset" => ' . $yOffset . '));';
@@ -109,7 +154,7 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }  
 
-  public function moveToElementWithOffset($toElement, $xOffset, $yOffset) {
+  public function moveToElementWithOffset($toElement, $xOffset, $yOffset, $curl_opts = array()) {
       $this->actions[] = '$this->session->moveto(array("element" => "' . $toElement->getID() . '", "xoffset" => '.$xOffset.', "yoffset" => '.$yOffset.'));';
       return $this;
   }
@@ -122,7 +167,10 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }
     
-  public function sendKeys($keysToSend) {}
+  public function sendKeys($keysToSend, $curl_opts = array()) {
+    $this->actions[] = '$this->session->keys(array("value" => ' . unwind_array(str_split($keysToSend)) . '), ' . unwind_associated_array($curl_opts) . ');';
+    return $this;
+  }
     
   public function sendKeysToElement($toElement, $keysToSend) {}
 }

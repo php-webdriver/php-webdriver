@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriver.php');
 require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverActionChains.php');
 require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverBy.php');
+require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverKeys.php');
 
 class ProxyTest extends PHPUnit_Framework_TestCase {
   protected static $session;
@@ -51,7 +52,6 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
 
   /**
   * @group chains
-  * @group elephant
   */  
   public function testDragAndDropByOffset() {
     self::$session->open("http://jqueryui.com/droppable");
@@ -68,6 +68,25 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
     $dropped = self::$session->element(PHPWebDriver_WebDriverBy::ID, "droppable");
     $this->AssertEquals($dropped->text(), 'Dropped!');
   }
+
+  /**
+  * @group chains
+  */  
+  public function testTypingWithModifiers() {
+    self::$session->open("http://pastebin.com/");
+
+    $paste = self::$session->element(PHPWebDriver_WebDriverBy::ID, "paste_code");
+    $paste->click();
+
+    $chain = new PHPWebDriver_WebDriverActionChains(self::$session);
+    $chain->keyDown(new PHPWebDriver_WebDriverKeys('ShiftKey'), array(CURLOPT_VERBOSE => true));
+    $chain->sendKeys('monkey');
+    $chain->keyUp(new PHPWebDriver_WebDriverKeys('ShiftKey'));
+    $chain->sendKeys(' butt!');
+    $chain->perform();
+  }
+
+
 
 }
 ?>
