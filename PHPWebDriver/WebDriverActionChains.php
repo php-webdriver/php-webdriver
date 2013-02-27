@@ -112,12 +112,11 @@ class PHPWebDriver_WebDriverActionChains {
     $typing = array();
     if (is_a($value, 'PHPWebDriver_WebDriverKeys')) {
       array_push($typing, $value->key);
-    // }
-    // if (is_int($value)) {
-    //   $val = strval($val);
-    //   foreach($val as $i) {
-    //     array_push($typing, $i);
-    //   }
+    }
+    if (is_int($value)) {
+      $value = strval($value);
+      array_push($typing, str_split($value));
+      }
     } else {
       array_push($typing, str_split($value));
     }
@@ -130,12 +129,11 @@ class PHPWebDriver_WebDriverActionChains {
     $typing = array();
     if (is_a($value, 'PHPWebDriver_WebDriverKeys')) {
       array_push($typing, $value->key);
-    // }
-    // if (is_int($value)) {
-    //   $val = strval($val);
-    //   foreach($val as $i) {
-    //     array_push($typing, $i);
-    //   }
+    }
+    if (is_int($value)) {
+      $value = strval($value);
+      array_push($typing, str_split($value));
+      }
     } else {
       array_push($typing, str_split($value));
     }
