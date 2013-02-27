@@ -16,6 +16,7 @@
 require_once('WebDriverBase.php');
 require_once('WebDriverSession.php');
 require_once('WebDriverDesiredCapabilities.php');
+require_once('WebDriverDeprecationHandler.php');
 
 class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
 

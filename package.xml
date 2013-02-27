@@ -16,7 +16,7 @@
         <email>adam@element34.ca</email>
         <active>yes</active>
     </lead>
-    <date>2013-01-24</date>
+    <date>2013-01-27</date>
     <version>
         <release>1.6.0</release>
         <api>1.6.0</api>
@@ -73,6 +73,9 @@
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
                 <file baseinstalldir="/" name="WebDriverContainer.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
+                <file baseinstalldir="/" name="WebDriverDeprecationHandler.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
                 <file baseinstalldir="/" name="WebDriverDesiredCapabilities.php" role="php">
