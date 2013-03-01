@@ -14,6 +14,7 @@
 // limitations under the License.
 
 final class WebDriverSession extends WebDriverContainer {
+  private $zipArchive;
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)
@@ -38,6 +39,7 @@ final class WebDriverSession extends WebDriverContainer {
       'buttondown' => 'POST',
       'buttonup' => 'POST',
       'doubleclick' => 'POST',
+      'file' => 'POST',
     );
   }
 
@@ -142,7 +144,69 @@ final class WebDriverSession extends WebDriverContainer {
     ));
   }
 
+  public function file($file_path) {
+    $zipfile_path = $this->zipArchiveFile($file_path);
+    $file = @file_get_contents($zipfile_path);
+
+    if( $file === false ) {
+      return false;
+    }
+    $file = base64_encode($file);
+
+    $response = $this->curl('POST', '/file', array('file' => $file));
+
+    if( !isset( $response['value'] ) && unlink($zip_filepath) )
+      throw new Exception( __CLASS__ . '::' . __FUNCTION__ . ' - failed. No file path returned' );
+
+    if( !unlink( $zipfile_path ) )
+      throw new Exception( __CLASS__ . '::' . __FUNCTION__ . " - unlink( {$zipfile_path} failed" );
+
+    return $response;
+  }
+
   protected function getElementPath($element_id) {
     return sprintf('%s/element/%s', $this->url, $element_id);
+  }
+
+  private function zipArchiveFile( $file_path ) {
+
+    $file_extension = explode( '.', $file_path );
+    $file_extension = array_pop( $file_extension );
+
+    // create ZipArchive if necessary
+    if ( !$this->zipArchive )
+      $this->zipArchive = new ZipArchive();
+    $zip = $this->zipArchive;
+
+    // file sanity check
+    $file_data = @file_get_contents($file_path);
+    if( $file_data === false ) {
+      throw new Exception(__CLASS__ . '::' . __FUNCTION__ . ' - file_get_contents failed');
+    }
+
+    // create zip archive file
+    $filename_hash = sha1(time().$file_path);
+
+    $zip_filename = "{$filename_hash}_zip.zip";
+    if( $zip->open($zip_filename, ZIPARCHIVE::CREATE) === false ) {
+      echo __CLASS__ . '::' . __FUNCTION__ . ' - $zip->open failed' . PHP_EOL;
+      return false;
+    }
+
+    // write contents into archive
+    $filename = "{$filename_hash}.{$file_extension}";
+    if( @file_put_contents($filename, $file_data) === false ) {
+      throw new Exception(__CLASS__ . '::' . __FUNCTION__ . ' - file_put_contents failed');
+    }
+    $zip->addFile($filename, "{$filename_hash}.{$file_extension}");
+    $zip->close();
+
+    // zip file sanity check
+    $zip_file = @file_get_contents($zip_filename);
+    if( $zip_file === false ) {
+      throw new Exception(__CLASS__ . '::' . __FUNCTION__ . " - file_get_contents for {$zip_file} failed");
+    }
+
+    return $zip_filename;
   }
 }
