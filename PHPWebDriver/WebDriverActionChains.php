@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-include_once('WebDriverExceptions.php');
+require_once('WebDriverExceptions.php');
 
 function unwind_associated_array($arr) {
     if (count($arr) > 0) {        
@@ -52,7 +52,6 @@ class PHPWebDriver_WebDriverActionChains {
   
   public function perform() {
     foreach ($this->actions as $action) {
-      var_dump($action);
       $before = error_get_last();
       $result = eval($action);
       $after = error_get_last();
@@ -116,7 +115,6 @@ class PHPWebDriver_WebDriverActionChains {
     if (is_int($value)) {
       $value = strval($value);
       array_push($typing, str_split($value));
-      }
     } else {
       array_push($typing, str_split($value));
     }
@@ -133,7 +131,6 @@ class PHPWebDriver_WebDriverActionChains {
     if (is_int($value)) {
       $value = strval($value);
       array_push($typing, str_split($value));
-      }
     } else {
       array_push($typing, str_split($value));
     }
@@ -170,7 +167,15 @@ class PHPWebDriver_WebDriverActionChains {
     return $this;
   }
     
-  public function sendKeysToElement($toElement, $keysToSend) {}
+  public function sendKeysToElement($to_element, $keys_to_send, $curl_opts = array()) {
+    $r = $this->session->execute(array(
+                                "script" => 'return arguments[0].focus();',
+                                "args" => array(array("ELEMENT" => $to_element->getID()))
+                                )
+                            );
+    $this->sendKeys($keys_to_send, $curl_opts);
+    return $this;
+  }
 }
 
 ?>

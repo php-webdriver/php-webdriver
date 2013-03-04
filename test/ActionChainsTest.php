@@ -86,6 +86,21 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
     $chain->perform();
   }
 
+  /**
+  * @group chains
+  * @group elephant
+  */  
+  public function testTypingAtElement() {
+    self::$session->open("http://pastebin.com/");
+
+    $paste = self::$session->element(PHPWebDriver_WebDriverBy::ID, "paste_code");
+
+    $chain = new PHPWebDriver_WebDriverActionChains(self::$session);
+    $chain->sendKeysToElement($paste, 'monkey');
+    $chain->perform();
+
+    sleep(3);
+  }
 
 
 }
