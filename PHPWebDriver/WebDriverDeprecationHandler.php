@@ -1,6 +1,6 @@
 <?php
 
-function deprecation_handler($level, $message, $file, $line, $context) {
+function PHPWebDriver_deprecation_handler($level, $message, $file, $line, $context) {
     //Handle user errors, warnings, and notices ourself
     if($level === E_USER_DEPRECATED) {
         echo 'Deprecated Warning:'. $message . '\n';
@@ -9,4 +9,4 @@ function deprecation_handler($level, $message, $file, $line, $context) {
     return(false); //Otherwise, use PHP's error handler
 }
 
-set_error_handler('deprecation_handler');
+set_error_handler('PHPWebDriver_deprecation_handler');
