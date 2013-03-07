@@ -169,27 +169,27 @@ $element->element($using, $value);
 $element->elements($using, $value);
 ```
 
-$using is the the location method either as a string value
-    * id
-    * xpath
-    * link text
-    * partial link text
-    * name
-    * tag name
-    * class name
-    * css selector
+`$using` is the location method either as a string value like the following:
+* id
+* xpath
+* link text
+* partial link text
+* name
+* tag name
+* class name
+* css selector
 
-or by a const defined in WebDriverBy.php. The advantage to this is that you will know much faster (as in compile time) whether you have fat-fingered something.
-    * ID
-    * XPATH
-    * LINK_TEXT
-    * PARTIAL_LINK_TEXT
-    * NAME
-    * TAG_NAME
-    * CLASS_NAME
-    * CSS_SELECTOR
+or by a const defined in WebDriverBy.php (see below). The advantage to this is that you will know much faster (as in compile time) whether you have fat-fingered something.
+* `ID`
+* `XPATH`
+* `LINK_TEXT`
+* `PARTIAL_LINK_TEXT`
+* `NAME`
+* `TAG_NAME`
+* `CLASS_NAME`
+* `CSS_SELECTOR`
 
-In other words, the following are equivilant
+In other words, the following are equivilant:
 
 ```php
 // POST /session/:sessionId/element
