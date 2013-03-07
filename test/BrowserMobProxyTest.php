@@ -10,7 +10,7 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
   
   public function setUp() {
       self::$driver = new PHPWebDriver_WebDriver();
-      self::$client = new PHPBrowserMobProxy_Client("localhost:9090");
+      self::$client = new PHPBrowserMobProxy_Client("localhost:8080");
   }
   
   public function tearDown() {
@@ -42,6 +42,29 @@ class ProxyTest extends PHPUnit_Framework_TestCase {
       $proxy->add_to_capabilities($additional_capabilities);
       $this->session = self::$driver->session('firefox', $additional_capabilities);
       $this->session->open("http://github.com/adamgoucher");
+  }
+
+  /**
+  * @group proxy
+  * @group firefox
+  * @group auth
+  */  
+  public function testAuthentication() {
+      $additional_capabilities = array();
+      $proxy = new PHPWebDriver_WebDriverProxy();
+      $proxy->httpProxy = self::$client->url;
+      $proxy->add_to_capabilities($additional_capabilities);
+      $this->session = self::$driver->session('firefox', $additional_capabilities);
+      
+      self::$client->basic_auth('www.httpwatch.com', array('username' => 'httpwatch', 'password' => 'blah'));
+      $this->session->open("http://www.httpwatch.com/httpgallery/authentication/authenticatedimage/default.aspx?0.992212271085009");
+  
+      sleep(3);
+
+      self::$client->headers(array('monkey' => 'butt'));
+      $this->session->open("http://www.cylog.org/headers/");
+
+      sleep(4);
   }
 }
 ?>
