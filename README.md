@@ -5,20 +5,20 @@ php-webdriver -- A very thin wrapper of WebDriver
 
 This client aims to be as thin as possible, abusing the dynamic nature of PHP to allow almost all API calls to be a direct transformation of what is defined in the WebDriver protocol itself.
 
-Most clients require you to first read the protocol to see what's possible, then study the client itself to see how to call it.  This hopes to eliminate the latter step, and invites you to rely almost exclusively on http://code.google.com/p/selenium/wiki/JsonWireProtocol
+Most clients require you to first read the protocol to see what's possible, then study the client itself to see how to call it.  This hopes to eliminate the latter step, and invites you to rely almost exclusively on the [Selenium JSON Wire Protocol](http://code.google.com/p/selenium/wiki/JsonWireProtocol).
 
-Each command is just the name of a function call, and each additional path is just another chained function call.  The function parameter is then either an array() if the command takes JSON parameters, or an individual primitive if it takes a URL parameter.
+Each command is just the name of a function call, and each additional path is just another chained function call.  The function parameter is then either an `array()` if the command takes JSON parameters, or an individual primitive if it takes a URL parameter.
 
-The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
+The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate `WebDriverException` instance.
 
-Note - This is a maintained clone of https://github.com/facebook/php-webdriver with following differences
+Note - This is a maintained clone of [facebook/php-webdriver](https://github.com/facebook/php-webdriver) with following differences:
 
 *   Class names being slightly different for packaging within PEAR
 *   Implementation of WebDriverWait
 
 ## RELEASE NOTES
 
-What got added, what got removed and what got fixed is listed in the (Release Notes)[https://github.com/Element-34/php-webdriver/wiki/Release-Notes]. Well, to varying degrees of detail at any rate.
+What got added, what got removed and what got fixed is listed in the [Release Notes](https://github.com/Element-34/php-webdriver/wiki/Release-Notes). Well, to varying degrees of detail at any rate.
 
 ##  GETTING STARTED
 
@@ -35,7 +35,7 @@ Note: if you recieve a 404 during the channel-discover set, check that you are u
 pear upgrade pear
 ```
 
-*   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
+*   All you need as the server for this client is the [selenium-server-standalone-#.jar](http://code.google.com/p/selenium/downloads/list). 
 
 *   Download and run that file, replacing # with the current server version.
 
@@ -69,7 +69,7 @@ $session = $web_driver->session('firefox');
 
 ##  SIMPLE EXAMPLES
 
-### Note that all of these match the Protocol exactly
+### Note that all of these match the [protocol](http://code.google.com/p/selenium/wiki/JsonWireProtocol) exactly
 *   Move to a specific spot on the screen
 
         // POST /session/:sessionId/moveto
@@ -90,7 +90,7 @@ $session = $web_driver->session('firefox');
         // POST session/:sessionId/element/:id/click
         $session->element($using, $value)->click("")
         
-*   Doubleclick an element on a touch screen
+*   Double-click an element on a touch screen
 
         // POST session/:sessionId/touch/doubleclick
         $session->touch()->doubleclick(array('element' => $element->getID())
@@ -132,7 +132,7 @@ $session = $web_driver->session('firefox');
         // GET /session/:sessionId/window/:windowHandle/size
         $session->window()->size();
 
-## Some unavoidable exceptions to direct protocol translation.
+## Some unavoidable exceptions to direct [protocol](http://code.google.com/p/selenium/wiki/JsonWireProtocol) translation.
 
 *   Opening pages
 
@@ -299,7 +299,7 @@ $element = $session->element(PHPWebDriver_WebDriverBy::ID, $value);
         $e2 = $this->session->element(PHPWebDriver_WebDriverBy::ID, "some id");
         $e2->sendKeys("turtles");
         
-*   Sending a 'special' character (see list at https://raw.github.com/Element-34/php-webdriver/master/PHPWebDriver/WebDriverKeys.php/)
+*   Sending a 'special' character (see list at [WebDriverKeys.php](https://raw.github.com/Element-34/php-webdriver/master/PHPWebDriver/WebDriverKeys.php/))
 
         $e3 = $this->session->element(PHPWebDriver_WebDriverBy::ID, "some id");
         $e3->sendKeys(PHPWebDriver_WebDriverKeys::SpaceKey());
@@ -363,7 +363,7 @@ $element = $session->element(PHPWebDriver_WebDriverBy::ID, $value);
 
         $p->dismiss();
 
-*   set some text on a prompt (doing this on an alert will throw PHPWebDriver_ElementNotDisplayedWebDriverError)
+*   set some text on a prompt (doing this on an alert will throw `PHPWebDriver_ElementNotDisplayedWebDriverError`)
 
         $p->sendKeys('cheese');
         $p->accept();
