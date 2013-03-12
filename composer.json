@@ -1,5 +1,5 @@
 {
-	"name":        "Element-34/php-webdriver",
+	"name":        "element-34/php-webdriver",
 	"description": "Thin php client for webdriver",
 	"type":        "library",
 	"keywords":    [
