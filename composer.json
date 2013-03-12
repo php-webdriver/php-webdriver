@@ -15,6 +15,7 @@
 			"role":  "lead"
 		}
 	],
+	"license": "Apache-2.0",
 	"support":     {
 		"issues": "https://github.com/Element-34/php-webdriver/issues"
 	}
