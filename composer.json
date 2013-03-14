@@ -1,22 +1,25 @@
 {
-	"name":        "element-34/php-webdriver",
-	"description": "Thin php client for webdriver",
-	"type":        "library",
-	"keywords":    [
-		"PHP",
-		"Selenium",
-		"WebDriver"
-	],
-	"homepage":    "https://github.com/Element-34/php-webdriver",
-	"authors":     [
-		{
-			"name":  "Adam Goucher",
-			"email": "adam@element34.ca",
-			"role":  "lead"
-		}
-	],
-	"license": "Apache-2.0",
-	"support":     {
-		"issues": "https://github.com/Element-34/php-webdriver/issues"
-	}
+    "name": "element-34/php-webdriver",
+    "description": "Thin php client for webdriver",
+    "type": "library",
+    "keywords": [
+        "PHP",
+        "Selenium",
+        "WebDriver"
+    ],
+    "homepage": "https://github.com/Element-34/php-webdriver",
+    "authors": [
+        {
+            "name": "Adam Goucher",
+            "email": "adam@element34.ca",
+            "role": "lead"
+        }
+    ],
+    "autoload": {
+        "classmap": ["PHPWebDriver", "test", "www"]
+    },
+    "license": "Apache-2.0",
+    "support": {
+        "issues": "https://github.com/Element-34/php-webdriver/issues"
+    }
 }
