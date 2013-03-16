@@ -51,6 +51,34 @@ final class PHPWebDriver_WebDriverElement extends PHPWebDriver_WebDriverContaine
   }
   
   public function sendKeys($keys) {
+    if (file_exists($keys)) {
+      // get a new random name for our zip -- why php://memory doesn't work is a mystery and a pain
+      // ok, i know why, but definitly a pain
+      $filename = tempnam(sys_get_temp_dir(), 'wd-');
+
+      // make a zip of the file we want to send to the remote server
+      $zip = new ZipArchive();
+      $code_open = $zip->open($filename, ZIPARCHIVE::OVERWRITE);
+      if ($code_open === True) {
+        // without the basename() it adds the paths in the zip which doesn't work so well
+        $code_add = $zip->addFile($keys, basename($keys));
+        $zip->close();
+      }
+
+      // base64 the zip
+      $contents = fread(fopen($filename, 'r+b'), filesize($filename));
+      $encoded = base64_encode($contents);
+
+      // the response from the upload is the path on the remote server
+      $upload_result = $this->session->file(array('file' => $encoded));
+
+      // so act like it was always thus
+      $keys = $upload_result;
+
+      // oh, and cleanup
+      unlink($filename);
+    }
     $results = $this->value(array("value" => array($keys)));
+    return $results;
   }
 }
