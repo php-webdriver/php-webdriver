@@ -39,7 +39,6 @@ final class WebDriverSession extends WebDriverContainer {
       'buttondown' => 'POST',
       'buttonup' => 'POST',
       'doubleclick' => 'POST',
-      'file' => 'POST',
     );
   }
 
