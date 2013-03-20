@@ -69,6 +69,11 @@ class PHPWebDriver_WebDriverDesiredCapabilities {
                     "version" => "",
                     "platform" => "ANDROID",
                     "javascriptEnabled" => True);
+      case "phantomjs":
+        return array("browserName" => "phantomjs",
+                    "version" => "",
+                    "platform" => "ANY",
+                    "javascriptEnabled" => True);
       default:
         if (isset($property)) {
           return $this->$property;
