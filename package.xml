@@ -90,6 +90,9 @@
                 <file baseinstalldir="/" name="WebDriverExceptions.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
+                <file baseinstalldir="/" name="WebDriverFirefoxProfile.php" role="php">
+                    <tasks:replace from="@package_version@" to="version" type="package-info" />
+                </file>
                 <file baseinstalldir="/" name="WebDriverKeys.php" role="php">
                     <tasks:replace from="@package_version@" to="version" type="package-info" />
                 </file>
