@@ -368,4 +368,13 @@ $element = $session->element(PHPWebDriver_WebDriverBy::ID, $value);
         $p->sendKeys('cheese');
         $p->accept();
 
-        
+## Profiles
+
+*   To send a Firefox profile over the wire to a remote Se server. It is up to you to configure it how you want.
+
+```php
+$driver = new PHPWebDriver_WebDriver();
+$profile = new PHPWebDriver_WebDriverFirefoxProfile('path/to/a/firefox/profile');
+$session = $driver->session('firefox', array(), array(), $browser_profile=$profile);
+$session->close();
+```
