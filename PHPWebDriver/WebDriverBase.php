@@ -147,7 +147,15 @@ abstract class PHPWebDriver_WebDriverBase {
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, str_replace('\\\\u', '\\u', json_encode($params)));
+        // hurray for magic strings!
+        // due to how the remote server handles upload, they can stomp on special
+        // unicode denoting characters in the json. so, unescape \uXXXX in the json
+        // and then re-escape it if it is really \upload which is the prefix for temp
+        // dir where files uploaded get stashed.
+        $encoded_params = json_encode($params);
+        $encoded_params = str_replace('\\\\u', '\\u', $encoded_params);
+        $encoded_params = str_replace('\\upload', '\\\\upload', $encoded_params);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $encoded_params);
       }  else {
         curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-length: 0'));
       }
