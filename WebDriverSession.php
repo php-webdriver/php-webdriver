@@ -14,6 +14,7 @@
 // limitations under the License.
 
 final class WebDriverSession extends WebDriverContainer {
+  private $_zipArchive;
   protected function methods() {
     return array(
       'url' => 'GET', // for POST, use open($url)
@@ -38,6 +39,7 @@ final class WebDriverSession extends WebDriverContainer {
       'buttondown' => 'POST',
       'buttonup' => 'POST',
       'doubleclick' => 'POST',
+      'file' => 'POST'
     );
   }
 
@@ -145,4 +147,99 @@ final class WebDriverSession extends WebDriverContainer {
   protected function getElementPath($element_id) {
     return sprintf('%s/element/%s', $this->url, $element_id);
   }
+
+  /**
+   * Undocumented JSONWireProtocol :sessionId/file
+   *
+   * @param   string $file_path   FQ path to file to upload to RC
+   */
+  public function file( $file_path ) {
+
+    $zipfile_path = $this->_zipArchiveFile( $file_path );
+    $file         = @file_get_contents( $zipfile_path );
+
+    if( $file === false ) {
+
+      throw new Exception( "Unable to read generated zip file: {$zipfile_path}" );
+
+    } // if !file
+
+    $file     = base64_encode( $file );
+    $json     = array( 'file' => $file );
+    $response = $this->curl( 'POST', '/file', $json );
+
+    if( !unlink( $zipfile_path ) ) {
+
+      throw new Exception( __CLASS__ . '::' . __FUNCTION__ . " - unlink( {$zipfile_path} failed" );
+
+    } // if !unlink
+
+    return $response;
+
+  } // file
+
+  /**
+   * Creates a zip archive with the given file
+   *
+   * @param   string $file_path   FQ path to file
+   * @return  string              Generated zip file
+   */
+  protected function _zipArchiveFile( $file_path ) {
+
+    // file MUST be readable
+    if( !is_readable( $file_path ) ) {
+
+      throw new Exception( "Unable to read {$file_path}" );
+
+    } // if !file_data
+
+    $filename_hash  = sha1( time().$file_path );
+    $tmp_dir        = $this->_getTmpDir();
+    $zip_filename   = "{$tmp_dir}{$filename_hash}.zip";
+    $zip            = $this->_getZipArchiver();
+
+    if( $zip->open( $zip_filename, ZIPARCHIVE::CREATE ) === false ) {
+
+      throw new Exception( "Unable to create zip archive: {$zip_filename}" );
+
+    } // if !open
+
+    $zip->addFile( $file_path, basename( $file_path ) );
+    $zip->close();
+
+    return $zip_filename;
+
+  } // _zipArchiveFile
+
+  /**
+   * Returns a runtime instance of a ZipArchive
+   *
+   * @return ZipArchive
+   */
+  protected function _getZipArchiver() {
+
+    // create ZipArchive if necessary
+    if ( !$this->_zipArchive ) {
+
+      $this->_zipArchive = new ZipArchive();
+
+    } // if !zipArchive
+
+    return $this->_zipArchive;
+
+  } // _getZipArchiver
+
+  /**
+   * Calls sys_get_temp_dir and ensures that it has a trailing slash
+   * ( behavior varies across systems )
+   *
+   * @return string
+   */
+  protected function _getTmpDir() {
+
+    return rtrim( sys_get_temp_dir(), DIRECTORY_SEPARATOR ) . DIRECTORY_SEPARATOR;
+
+  } // _getTmpDir
+
+
 }
