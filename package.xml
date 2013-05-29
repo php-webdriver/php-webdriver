@@ -16,10 +16,10 @@
         <email>adam@element34.ca</email>
         <active>yes</active>
     </lead>
-    <date>2013-05-08</date>
+    <date>2013-05-29</date>
     <version>
-        <release>1.10.0</release>
-        <api>1.10.0</api>
+        <release>1.11.0</release>
+        <api>1.11.0</api>
     </version>
     <stability>
         <release>stable</release>
