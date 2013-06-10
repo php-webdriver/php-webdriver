@@ -11,6 +11,8 @@ Each command is just the name of a function call, and each additional path is ju
 
 The function's return value is exactly what is returned from the server as part of the protocol definition.  If an error is returned, the function will throw the appropriate WebDriverException instance.
 
+For general documentation about WebDriver, see http://docs.seleniumhq.org/docs/
+
 ##  GETTING STARTED
 
 *   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
