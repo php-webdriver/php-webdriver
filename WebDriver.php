@@ -178,6 +178,19 @@ class WebDriver {
   }
 
   /**
+   * An abstraction for managing stuff you would do in a browser menu. For
+   * example, adding and deleting cookies.
+   *
+   * @return WebDriverOptions
+   */
+  public function manage() {
+    return new WebDriverOptions(
+      $this->executor,
+      $this->sessionID
+    );
+  }
+
+  /**
    * An abstraction allowing the driver to access the browser's history and to
    * navigate to a given URL.
    *

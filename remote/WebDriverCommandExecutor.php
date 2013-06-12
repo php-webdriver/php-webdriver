@@ -20,6 +20,7 @@ class WebDriverCommandExecutor {
    *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
    */
   private $commands = array(
+    'addCookie' =>         array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     'clear' =>             array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
     'clickElement' =>      array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
     'executeScript' =>     array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
@@ -28,7 +29,7 @@ class WebDriverCommandExecutor {
     'findElement' =>       array('method' => 'POST', 'url' => '/session/:sessionId/element'),
     'findElements' =>      array('method' => 'POST', 'url' => '/session/:sessionId/elements'),
     'get' =>               array('method' => 'POST', 'url' => '/session/:sessionId/url'),
-    'getAllCookie' =>      array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
+    'getAllCookies' =>      array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
     'getElementAttribute' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/attribute/:name'),
     'getElementCSSValue' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/css/:propertyName'),
     'getCurrentURL' =>     array('method' => 'GET',  'url' => '/session/:sessionId/url'),
@@ -43,9 +44,11 @@ class WebDriverCommandExecutor {
     'isElementSelected'=>  array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/selected'),
     'newSession' =>        array('method' => 'POST', 'url' => '/session'),
     'refreshPage' =>       array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
+    'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
+    'setPageLoadTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
+    'setScriptTimeout' =>  array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),
     'quit' =>              array('method' => 'DELETE', 'url' => '/session/:sessionId'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
-    'setCookie' =>         array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     'submitElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
   );
 
