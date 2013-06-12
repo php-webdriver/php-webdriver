@@ -13,11 +13,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require_once('WebDriverBase.php');
 require_once('WebDriver.php');
-require_once('WebDriverContainer.php');
-require_once('WebDriverSession.php');
+require_once('WebDriverBy.php');
 require_once('WebDriverElement.php');
-require_once('WebDriverEnvironment.php');
 require_once('WebDriverExceptions.php');
-require_once('WebDriverSimpleItem.php');
+require_once('WebDriverExpectedCondition.php');
+require_once('WebDriverNavigation.php');
+require_once('WebDriverSelect.php');
+require_once('WebDriverWait.php');
+require_once('remote/WebDriverBrowserType.php');
+require_once('remote/WebDriverCapabilityType.php');
+require_once('remote/WebDriverCommandExecutor.php');
