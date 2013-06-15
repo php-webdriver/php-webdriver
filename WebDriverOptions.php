@@ -35,6 +35,19 @@ class WebDriverOptions {
     return new WebDriverTimeouts($this->executor, $this->sessionID);
   }
 
+  /**
+   * An abstraction allowing the driver to manipulate the browser's window
+   *
+   * @return WebDriverWindow
+   * @see WebDriverWindow
+   */
+  public function window() {
+    return new WebDriverWindow(
+      $this->executor,
+      $this->sessionID
+    );
+  }
+
   private function execute($name, array $params = array()) {
     $command = array(
       'sessionId' => $this->sessionID,
