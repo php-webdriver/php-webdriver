@@ -125,7 +125,8 @@ class WebDriver {
    * Return a set of window handles.
    */
   public function getWindowHandles() {
-    throw new Exception("getWindowHandles is unimplemented");
+    $raw = $this->execute('getWindowHandles');
+	return $raw['value'];
   }
 
   /**
