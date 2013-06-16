@@ -29,3 +29,10 @@ The PHP client was rewritten from scratch. Using the old version? Check out Adam
 ## MORE INFORMATION
 
 Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
+
+## CONTRIBUTING
+
+We love to have your help to make php-webdriver better. Feel free to 
+
+*   open an [issue](https://github.com/facebook/php-webdriver/issues) if you run into any problem. 
+*   fork the project and submit [pull request](https://github.com/facebook/php-webdriver/pulls). Before the pull requests can be accepted, a [Contributors Licensing Agreement](http://developers.facebook.com/opensource/cla) must be signed. 
