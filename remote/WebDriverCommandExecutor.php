@@ -23,6 +23,8 @@ class WebDriverCommandExecutor {
     'addCookie' =>         array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     'clear' =>             array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
     'clickElement' =>      array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
+    'deleteAllCookies' =>  array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie'),
+    'deleteCookie' =>      array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie/:name'),
     'executeScript' =>     array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
     'elementFindElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/element'),
     'elementFindElements' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),

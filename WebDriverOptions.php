@@ -27,6 +27,95 @@ class WebDriverOptions {
   }
 
   /**
+   * Add a specific cookie.
+   *
+   * Here are the valid attributes of a cookie array.
+   *  'name'  : string The name of the cookie; may not be null or an empty
+   *                    string.
+   *  'value' : string The cookie value; may not be null.
+   *  'path'  : string The path the cookie is visible to. If left blank or set
+   *                   to null, will be set to "/".
+   *  'domain': string The domain the cookie is visible to. It should be null or
+   *                   the same as the domain of the current URL.
+   *  'secure': bool   Whether this cookie requires a secure connection(https?).
+   *                   It should be null or equal to the security of the current
+   *                   URL.
+   *  'expiry': int    The cookie's expiration date; may be null.
+   *
+   * @param array $cookie An array with key as the attributes mentioned above.
+   * @return WebDriverOptions The current instance.
+   */
+  public function addCookie(array $cookie) {
+    $this->validate($cookie);
+    $this->execute('addCookie', array('cookie' => $cookie));
+    return $this;
+  }
+
+  /**
+   * Delete all the cookies that are currently visible.
+   *
+   * @return WebDriverOptions The current instance.
+   */
+  public function deleteAllCookies() {
+    $this->execute('deleteAllCookies');
+    return $this;
+  }
+
+  /**
+   * Delete the cookie with the give name.
+   *
+   * @return WebDriverOptions The current instance.
+   */
+  public function deleteCookieNamed($name) {
+    $this->execute('deleteCookie', array(':name' => $name));
+    return $this;
+  }
+
+  /**
+   * Get the cookie with a given name.
+   *
+   * @return array The cookie, or null if no cookie with the given name is
+   *               presented.
+   */
+  public function getCookieNamed($name) {
+    $cookies = $this->getCookies();
+    foreach ($cookies as $cookie) {
+      if ($cookie['name'] === $name) {
+        return $cookie;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Get all the cookies for the current domain.
+   *
+   * @return array The array of cookies presented.
+   */
+  public function getCookies() {
+    return $this->execute('getAllCookies');
+  }
+
+  protected function validate(array $cookie) {
+    if (!isset($cookie['name']) ||
+        $cookie['name'] === '' ||
+        strpos($cookie['name'], ';') !== false) {
+      throw new InvalidArgumentException(
+        '"name" should be non-empty and does not contain a ";"');
+    }
+
+    if (!isset($cookie['value'])) {
+      throw new InvalidArgumentException(
+        '"value" is required when setting a cookie.');
+    }
+
+    if (isset($cookie['domain']) && strpos($cookie['domain'], ':') !== false) {
+      throw new InvalidArgumentException(
+        '"domain" should not contain a port:'.(string)$cookie['domain']);
+    }
+  }
+
+  /**
    * Return the interface for managing driver timeouts.
    *
    * @return WebDriverTimeouts
