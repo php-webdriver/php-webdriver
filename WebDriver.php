@@ -228,5 +228,33 @@ class WebDriver {
   private function newElement($id) {
     return new WebDriverElement($this->executor, $this->sessionID, $id);
   }
+  
+  /**
+   * Returns an array of the client's cookies.
+   *
+   * @return Array
+   */
+  public function getAllCookies() {
+    $result = $this->execute('getAllCookies');
+    return $result['value'];
+  }
+  
+  /**
+   * Refresh the page
+   * 
+   */
+  public function refresh() {
+    $this->execute('refreshPage');
+  }
+  
+  /**
+   * Takes a screenshot and returns the image base64 encoded
+   * 
+   * @return string
+   */
+  public function screenshot(){
+    $result = $this->execute('screenshot');
+    return $result['value'];
+  }
 
 }
