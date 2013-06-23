@@ -57,6 +57,7 @@ class WebDriverCommandExecutor {
     'quit' =>              array('method' => 'DELETE', 'url' => '/session/:sessionId'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
     'submitElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
+	'getWindowHandles' => array('method' => 'GET', 'url' => '/session/:sessionId/window_handles')
   );
 
   protected $url;
