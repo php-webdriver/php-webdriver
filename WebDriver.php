@@ -132,6 +132,16 @@ class WebDriver {
   }
 
   /**
+   * Change focus to another window.
+   *
+   * @param $name
+   */
+  public function focusWindow($name)
+  {
+    $this->execute('focusWindow', array('name' => (string) $name));
+  }
+
+  /**
    * Quits this driver, closing every associated window.
    *
    * @return void

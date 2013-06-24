@@ -30,6 +30,7 @@ class WebDriverCommandExecutor {
     'elementFindElements' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),
     'findElement' =>       array('method' => 'POST', 'url' => '/session/:sessionId/element'),
     'findElements' =>      array('method' => 'POST', 'url' => '/session/:sessionId/elements'),
+    'focusWindow' => array('method' => 'POST', 'url' => '/session/:sessionId/window'),
     'get' =>               array('method' => 'POST', 'url' => '/session/:sessionId/url'),
     'getAllCookies' =>      array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
     'getElementAttribute' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/attribute/:name'),
