@@ -117,6 +117,16 @@ class WebDriverElement {
   }
 
   /**
+   * Return element value
+   *
+   * @return string Element value
+   */
+  public function getValue()
+  {
+    return $this->getAttribute('value');
+  }
+
+  /**
    * Get the value of a given CSS property.
    *
    * @param string $css_property_name The name of the CSS property.
