@@ -49,6 +49,7 @@ class WebDriverCommandExecutor {
     'maximizeWindow' =>    array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/maximize'),
     'newSession' =>        array('method' => 'POST', 'url' => '/session'),
     'refreshPage' =>       array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
+    'setElementValue' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
     'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
     'setPageLoadTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
     'setScriptTimeout' =>  array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),

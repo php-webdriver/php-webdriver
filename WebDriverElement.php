@@ -96,6 +96,27 @@ class WebDriverElement {
   }
 
   /**
+   * Set element value (e.g. input)
+   *
+   * @param array|string $value
+   * @return $this
+   * @throws Exception
+   */
+  public function setValue($value)
+  {
+    if(is_string($value)) {
+      $value = array($value);
+    }else{
+      if(!is_array($value)) {
+        throw new Exception('Parameter "value" must be string or array, but ' . gettype($value) . ' given.');
+      }
+    }
+
+    $this->execute('setElementValue', array('value' => $value));
+    return $this;
+  }
+
+  /**
    * Get the value of a given CSS property.
    *
    * @param string $css_property_name The name of the CSS property.
