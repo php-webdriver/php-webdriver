@@ -175,7 +175,12 @@ class WebDriverCommandExecutor {
 
     WebDriverException::throwException($results['status'], $message, $results);
 
-    return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
+    return array(
+      'value' => $value,
+      'parameters' => $params,
+      'info' => $info,
+      'sessionId' => $sessionId
+    );
   }
 
 }
