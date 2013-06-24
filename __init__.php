@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+require_once('WebContainer.php');
 require_once('WebDriver.php');
 require_once('WebDriverBy.php');
 require_once('WebDriverElement.php');

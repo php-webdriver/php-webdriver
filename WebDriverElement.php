@@ -16,15 +16,11 @@
 /**
  * Represents an HTML element.
  */
-class WebDriverElement {
-
-  protected $executor;
-  protected $sessionID;
+class WebDriverElement extends WebContainer {
   protected $id;
 
   public function __construct($executor, $session_id, $id) {
-    $this->executor = $executor;
-    $this->sessionID = $session_id;
+    parent::__construct($executor, $session_id);
     $this->id = $id;
   }
 
@@ -180,7 +176,7 @@ class WebDriverElement {
     return $this->id;
   }
 
-  private function execute($name, array $params = array()) {
+  protected function execute($name, array $params = array()) {
     $params[':id'] = $this->id;
     $command = array(
       'sessionId' => $this->sessionID,
@@ -196,7 +192,7 @@ class WebDriverElement {
    *
    * @return WebDriverElement
    */
-  private function newElement($id) {
+  protected function newElement($id) {
     return new WebDriverElement($this->executor, $this->sessionID, $id);
   }
 }
