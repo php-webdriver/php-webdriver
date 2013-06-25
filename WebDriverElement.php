@@ -163,6 +163,7 @@ class WebDriverElement {
   public function sendKeys($value) {
     $params = array('value' => array((string)$value));
     $this->execute('sendKeysToElement', $params);
+    return $this;
   }
 
   /**
