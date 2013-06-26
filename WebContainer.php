@@ -56,12 +56,10 @@ abstract class WebContainer
   public function hasElement(WebDriverBy $by)
   {
     try {
-      $this->findElement($by);
-      return true;
-    } catch (NoSuchElementWebDriverError $ex) {
+      return (bool) count($this->findElements($by));
+    }catch (\NoSuchElementWebDriverError $ex) {
+      return false;
     }
-
-    return false;
   }
 
   /**
