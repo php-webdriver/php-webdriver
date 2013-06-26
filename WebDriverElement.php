@@ -158,7 +158,7 @@ class WebDriverElement {
    * Simulate typing into an element, which may set its value.
    *
    * @param mixed $value The data to be typed.
-   * @return void
+   * @return WebDriverElement The current instance.
    */
   public function sendKeys($value) {
     $params = array('value' => array((string)$value));
