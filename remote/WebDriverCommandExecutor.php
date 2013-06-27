@@ -38,6 +38,7 @@ class WebDriverCommandExecutor {
     'getElementTagName' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/name'),
     'getElementText' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/text'),
     'getPageSource' =>     array('method' => 'GET',  'url' => '/session/:sessionId/source'),
+    'getSession' =>        array('method' => 'GET',  'url' => '/session/:sessionId'),
     'getTitle' =>          array('method' => 'GET',  'url' => '/session/:sessionId/title'),
     'getWindowPosition' => array('method' => 'GET',  'url' => '/session/:sessionId/window/:windowHandle/position'),
     'getWindowSize' =>     array('method' => 'GET',  'url' => '/session/:sessionId/window/:windowHandle/size'),
