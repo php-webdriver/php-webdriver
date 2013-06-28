@@ -34,9 +34,9 @@ class WebDriverWindow {
    */
   public function getPosition() {
     $position = $this->execute('getWindowPosition');
-    return array(
-      'x' => $position['value']['x'],
-      'y' => $position['value']['y'],
+    return new WebDriverPoint(
+      $position['value']['x'],
+      $position['value']['y']
     );
   }
 
@@ -48,9 +48,9 @@ class WebDriverWindow {
    */
   public function getSize() {
     $size = $this->execute('getWindowSize');
-    return array(
-      'width' => $size['value']['width'],
-      'height' => $size['value']['height'],
+    return new WebDriverDimension(
+      $size['value']['width'],
+      $size['value']['height']
     );
   }
 
@@ -72,10 +72,10 @@ class WebDriverWindow {
    * @param int $height The target height height.
    * @return WebDriverWindow The instance.
    */
-  public function setSize($width, $height) {
+  public function setSize(WebDriverDimension $size) {
     $params = array(
-      'width' => $width,
-      'height' => $height,
+      'width' => $size->getWidth(),
+      'height' => $size->getHeight(),
     );
     $this->execute('setWindowSize', $params);
     return $this;
@@ -89,10 +89,10 @@ class WebDriverWindow {
    * @param int $height The target height height.
    * @return WebDriverWindow The instance.
    */
-  public function setPosition($x, $y) {
+  public function setPosition(WebDriverPoint $position) {
     $params = array(
-      'x' => $x,
-      'y' => $y,
+      'x' => $position->getX(),
+      'y' => $position->getY(),
     );
     $this->execute('setWindowPosition', $params);
     return $this;

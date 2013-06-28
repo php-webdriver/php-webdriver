@@ -34,6 +34,8 @@ class WebDriverCommandExecutor {
     'getAllCookies' =>      array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
     'getElementAttribute' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/attribute/:name'),
     'getElementCSSValue' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/css/:propertyName'),
+    'getElementLocation' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/location'),
+    'getElementSize' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/size'),
     'getCurrentURL' =>     array('method' => 'GET',  'url' => '/session/:sessionId/url'),
     'getElementTagName' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/name'),
     'getElementText' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/text'),

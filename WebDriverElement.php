@@ -107,6 +107,26 @@ class WebDriverElement {
   }
 
   /**
+   * Get the location of element relative to the top-left corner of the page.
+   *
+   * @return WebDriverLocation The location of the element.
+   */
+  public function getLocation() {
+    $location = $this->execute('getElementLocation');
+    return new WebDriverPoint($location['x'], $location['y']);
+  }
+
+  /**
+   * Get the size of element.
+   *
+   * @return WebDriverDimension The dimension of the element.
+   */
+  public function getSize() {
+    $size = $this->execute('getElementSize');
+    return new WebDriverDimension($size['width'], $size['height']);
+  }
+
+  /**
    * Get the tag name of this element.
    *
    * @return string The tag name.
