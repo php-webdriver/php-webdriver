@@ -123,9 +123,22 @@ class WebDriver {
 
   /**
    * Return a set of window handles.
+   *
+   * @return array A list of opened windows or tabs
    */
   public function getWindowHandles() {
-    throw new Exception("getWindowHandles is unimplemented");
+    $raw = $this->execute('getWindowHandles');
+    return $raw['value'];
+  }
+
+  /**
+   * Change focus to another window.
+   *
+   * @param $name
+   */
+  public function focusWindow($name)
+  {
+    $this->execute('focusWindow', array('name' => (string) $name));
   }
 
   /**
