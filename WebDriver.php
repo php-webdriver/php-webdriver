@@ -13,10 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WebDriver {
+class WebDriver extends WebContainer {
 
-  protected $executor;
-  protected $sessionID;
   protected $capabilities;
 
   public function __construct(
@@ -31,7 +29,8 @@ class WebDriver {
 
     $response = $this->execute('newSession', $params);
     $this->capabilities = $response['value'];
-    $this->sessionID = $response['sessionId'];
+
+    parent::__construct($this->executor, $response['sessionId']);
   }
 
   /**
@@ -254,7 +253,7 @@ class WebDriver {
    * @param string $id The id of the element to be created.
    * @return WebDriverElement
    */
-  private function newElement($id) {
+  protected function newElement($id) {
     return new WebDriverElement($this->executor, $this->sessionID, $id);
   }
 
