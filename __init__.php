@@ -23,6 +23,7 @@ require_once('WebDriverNavigation.php');
 require_once('WebDriverOptions.php');
 require_once('WebDriverPoint.php');
 require_once('WebDriverSelect.php');
+require_once('WebDriverTargetLocator.php');
 require_once('WebDriverTimeouts.php');
 require_once('WebDriverWait.php');
 require_once('WebDriverWindow.php');

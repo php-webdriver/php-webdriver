@@ -34,8 +34,15 @@ class WebDriver {
     $this->sessionID = $response['sessionId'];
   }
 
+  /**
+   * Close the current window.
+   *
+   * @return WebDriver The current instance.
+   */
   public function close() {
-    throw new Exception("close() is unimplemented");
+    $this->execute('closeCurrentWindow', array());
+
+    return $this;
   }
 
   /**
@@ -76,11 +83,13 @@ class WebDriver {
   /**
    * Load a new web page in the current browser window.
    *
-   * @return void
+   * @return WebDriver The current instance.
    */
   public function get($url) {
     $params = array('url' => (string)$url);
     $this->execute('get', $params);
+
+    return $this;
   }
 
   /**
@@ -116,16 +125,22 @@ class WebDriver {
   /**
    * Return an opaque handle to this window that uniquely identifies it within
    * this driver instance.
+   *
+   * @return string The current window handle.
    */
   public function getWindowHandle() {
-    throw new Exception("getWindowHandle is unimplemented");
+    $raw = $this->execute('getCurrentWindowHandle', array());
+    return $raw['value'];
   }
 
   /**
-   * Return a set of window handles.
+   * Get all window handles available to the current session.
+   *
+   * @return array An array of string containing all available window handles.
    */
   public function getWindowHandles() {
-    throw new Exception("getWindowHandles is unimplemented");
+    $raw = $this->execute('getWindowHandles', array());
+    return $raw['value'];
   }
 
   /**
@@ -201,6 +216,20 @@ class WebDriver {
     return new WebDriverNavigation(
       $this->executor,
       $this->sessionID
+    );
+  }
+
+  /**
+   * Switch to a different window or frame.
+   *
+   * @return WebDriverTargetLocator
+   * @see WebDriverTargetLocator
+   */
+  public function switchTo() {
+    return new WebDriverTargetLocator(
+      $this->executor,
+      $this->sessionID,
+      $this
     );
   }
 
