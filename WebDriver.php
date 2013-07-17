@@ -23,6 +23,8 @@ class WebDriver {
       $url = 'http://localhost:4444/wd/hub',
       $desired_capabilities = array()) {
 
+    $url = preg_replace('#/+$#', '', $url);
+
     $this->executor = new WebDriverCommandExecutor($url);
 
     $params = array(
