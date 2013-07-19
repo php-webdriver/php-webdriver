@@ -62,6 +62,7 @@ class WebDriverCommandExecutor {
     'setScriptTimeout' =>  array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),
     'setWindowPosition' => array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/position'),
     'setWindowSize' =>     array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/size'),
+    'takeScreenshot' =>    array('method' => 'GET',  'url' => '/session/:sessionId/screenshot'),
     'quit' =>              array('method' => 'DELETE', 'url' => '/session/:sessionId'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
     'submitElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),

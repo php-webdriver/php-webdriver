@@ -195,6 +195,20 @@ class WebDriver {
   }
 
   /**
+   * Take a screenshot of the current page.
+   *
+   * @param $save_as The path of the screenshot to be saved.
+   * @return string The screenshot in PNG format.
+   */
+  public function takeScreenshot($save_as = null) {
+    $screenshot = base64_decode($this->execute('takeScreenshot')['value']);
+    if ($save_as) {
+      file_put_contents($save_as, $screenshot);
+    }
+    return $screenshot;
+  }
+
+  /**
    * An abstraction for managing stuff you would do in a browser menu. For
    * example, adding and deleting cookies.
    *
