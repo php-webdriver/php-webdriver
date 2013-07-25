@@ -19,12 +19,10 @@
 class WebDriverTargetLocator {
 
   protected $executor;
-  protected $sessionID;
-  private $driver;
+  protected $driver;
 
-  public function __construct($executor, $session_id, $driver) {
+  public function __construct($executor, $driver) {
     $this->executor = $executor;
-    $this->sessionID = $session_id;
     $this->driver = $driver;
   }
 
@@ -35,7 +33,7 @@ class WebDriverTargetLocator {
    * @return WebDriver The driver focused on the top window or the first frame.
    */
   public function defaultContent() {
-    $this->execute('focusFrame', array());
+    $this->executor->execute('focusFrame', array());
 
     return $this->driver;
   }
@@ -47,7 +45,7 @@ class WebDriverTargetLocator {
    */
   public function frame($id_or_name) {
     $params = array('id' => (string)$id_or_name);
-    $this->execute('focusFrame', $params);
+    $this->executor->execute('focusFrame', $params);
 
     return $this->driver;
   }
@@ -61,17 +59,8 @@ class WebDriverTargetLocator {
    */
   public function window($handle) {
     $params = array('name' => (string)$handle);
-    $this->execute('focusWindow', $params);
+    $this->executor->execute('focusWindow', $params);
 
     return $this->driver;
-  }
-
-  private function execute($name, array $params = array()) {
-    $command = array(
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
-    );
-    $this->executor->execute($command);
   }
 }

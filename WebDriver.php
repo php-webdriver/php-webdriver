@@ -16,24 +16,23 @@
 class WebDriver {
 
   protected $executor;
-  protected $sessionID;
-  protected $capabilities;
 
   public function __construct(
       $url = 'http://localhost:4444/wd/hub',
       $desired_capabilities = array()) {
-
     $url = preg_replace('#/+$#', '', $url);
 
-    $this->executor = new WebDriverCommandExecutor($url);
-
-    $params = array(
-      'desiredCapabilities' => $desired_capabilities,
+    $command = array(
+      'url' => $url,
+      'name' => 'newSession',
+      'parameters' => array('desiredCapabilities' => $desired_capabilities),
     );
+    $response = WebDriverCommandExecutor::remoteExecute($command);
 
-    $response = $this->execute('newSession', $params);
-    $this->capabilities = $response['value'];
-    $this->sessionID = $response['sessionId'];
+    $this->executor = new WebDriverCommandExecutor(
+      $url,
+      $response['sessionId']
+    );
   }
 
   /**
@@ -42,7 +41,7 @@ class WebDriver {
    * @return WebDriver The current instance.
    */
   public function close() {
-    $this->execute('closeCurrentWindow', array());
+    $this->executor->execute('closeCurrentWindow', array());
 
     return $this;
   }
@@ -57,9 +56,9 @@ class WebDriver {
    */
   public function findElement(WebDriverBy $by) {
     $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_element = $this->execute('findElement', $params);
+    $raw_element = $this->executor->execute('findElement', $params);
 
-    return $this->newElement($raw_element['value']['ELEMENT']);
+    return $this->newElement($raw_element['ELEMENT']);
   }
 
   /**
@@ -73,10 +72,10 @@ class WebDriver {
    */
   public function findElements(WebDriverBy $by) {
     $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_elements = $this->execute('findElements', $params);
+    $raw_elements = $this->executor->execute('findElements', $params);
 
     $elements = array();
-    foreach ($raw_elements['value'] as $raw_element) {
+    foreach ($raw_elements as $raw_element) {
       $elements[] = $this->newElement($raw_element['ELEMENT']);
     }
     return $elements;
@@ -89,7 +88,7 @@ class WebDriver {
    */
   public function get($url) {
     $params = array('url' => (string)$url);
-    $this->execute('get', $params);
+    $this->executor->execute('get', $params);
 
     return $this;
   }
@@ -100,8 +99,7 @@ class WebDriver {
    * @return string The current URL.
    */
   public function getCurrentURL() {
-    $raw = $this->execute('getCurrentURL');
-    return $raw['value'];
+    return $this->executor->execute('getCurrentURL');
   }
 
   /**
@@ -110,8 +108,7 @@ class WebDriver {
    * @return string The current page source.
    */
   public function getPageSource() {
-    $raw = $this->execute('getPageSource');
-    return $raw['value'];
+    return $this->executor->execute('getPageSource');
   }
 
   /**
@@ -120,8 +117,7 @@ class WebDriver {
    * @return string The title of the current page.
    */
   public function getTitle() {
-    $raw = $this->execute('getTitle');
-    return $raw['value'];
+    return $this->executor->execute('getTitle');
   }
 
   /**
@@ -131,8 +127,7 @@ class WebDriver {
    * @return string The current window handle.
    */
   public function getWindowHandle() {
-    $raw = $this->execute('getCurrentWindowHandle', array());
-    return $raw['value'];
+    return $this->executor->execute('getCurrentWindowHandle', array());
   }
 
   /**
@@ -141,8 +136,7 @@ class WebDriver {
    * @return array An array of string containing all available window handles.
    */
   public function getWindowHandles() {
-    $raw = $this->execute('getWindowHandles', array());
-    return $raw['value'];
+    return $this->executor->execute('getWindowHandles', array());
   }
 
   /**
@@ -151,8 +145,8 @@ class WebDriver {
    * @return void
    */
   public function quit() {
-    $this->execute('quit');
-    $this->sessionID = null;
+    $this->executor->execute('quit');
+    $this->executor = null;
   }
 
   /**
@@ -182,15 +176,15 @@ class WebDriver {
     }
 
     $params = array('script' => $script, 'args' => $args);
-    $response = $this->execute('executeScript', $params);
+    $response = $this->executor->execute('executeScript', $params);
 
-    if (is_array($response['value'])) {
+    if (is_array($response)) {
       // TODO: Handle this
       throw new Exception(
         "executeScript with collection response is unimplemented"
       );
     } else {
-      return $response['value'];
+      return $response;
     }
   }
 
@@ -201,7 +195,9 @@ class WebDriver {
    * @return string The screenshot in PNG format.
    */
   public function takeScreenshot($save_as = null) {
-    $screenshot = base64_decode($this->execute('takeScreenshot')['value']);
+    $screenshot = base64_decode(
+      $this->executor->execute('takeScreenshot')
+    );
     if ($save_as) {
       file_put_contents($save_as, $screenshot);
     }
@@ -215,10 +211,7 @@ class WebDriver {
    * @return WebDriverOptions
    */
   public function manage() {
-    return new WebDriverOptions(
-      $this->executor,
-      $this->sessionID
-    );
+    return new WebDriverOptions($this->executor);
   }
 
   /**
@@ -229,10 +222,7 @@ class WebDriver {
    * @see WebDriverNavigation
    */
   public function navigate() {
-    return new WebDriverNavigation(
-      $this->executor,
-      $this->sessionID
-    );
+    return new WebDriverNavigation($this->executor);
   }
 
   /**
@@ -242,26 +232,7 @@ class WebDriver {
    * @see WebDriverTargetLocator
    */
   public function switchTo() {
-    return new WebDriverTargetLocator(
-      $this->executor,
-      $this->sessionID,
-      $this
-    );
-  }
-
-  /**
-   * Execute command.
-   *
-   * @param string $name The name of the command.
-   * @return mixed
-   */
-  protected function execute($name, array $params = array()) {
-    $command = array(
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
-    );
-    return $this->executor->execute($command);
+    return new WebDriverTargetLocator($this->executor, $this);
   }
 
   /**
@@ -271,7 +242,7 @@ class WebDriver {
    * @return WebDriverElement
    */
   private function newElement($id) {
-    return new WebDriverElement($this->executor, $this->sessionID, $id);
+    return new WebDriverElement($this->executor, $id);
   }
 
 }

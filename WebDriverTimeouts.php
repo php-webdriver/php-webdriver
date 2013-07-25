@@ -19,11 +19,9 @@
 class WebDriverTimeouts {
 
   protected $executor;
-  protected $sessionID;
 
-  public function __construct($executor, $session_id) {
+  public function __construct($executor) {
     $this->executor = $executor;
-    $this->sessionID = $session_id;
   }
 
   /**
@@ -34,7 +32,10 @@ class WebDriverTimeouts {
    * @return WebDriverTimeouts The current instance.
    */
   public function implicitlyWait($seconds) {
-    $this->execute('setImplicitWaitTimeout', array('ms' => $seconds * 1000));
+    $this->executor->execute(
+      'setImplicitWaitTimeout',
+      array('ms' => $seconds * 1000)
+    );
     return $this;
   }
 
@@ -46,7 +47,10 @@ class WebDriverTimeouts {
    * @return WebDriverTimeouts The current instance.
    */
   public function setScriptTimeout($seconds) {
-    $this->execute('setScriptTimeout', array('ms' => $seconds * 1000));
+    $this->executor->execute(
+      'setScriptTimeout',
+      array('ms' => $seconds * 1000)
+    );
     return $this;
   }
 
@@ -58,19 +62,10 @@ class WebDriverTimeouts {
    * @return WebDriverTimeouts The current instance.
    */
   public function pageLoadTimeout($seconds) {
-    $this->execute('setPageLoadTimeout', array(
+    $this->executor->execute('setPageLoadTimeout', array(
       'type' => 'page load',
       'ms' => $seconds * 1000,
     ));
     return $this;
-  }
-
-  private function execute($name, array $params = array()) {
-    $command = array(
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
-    );
-    $raw = $this->executor->execute($command);
   }
 }

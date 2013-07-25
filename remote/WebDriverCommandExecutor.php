@@ -19,7 +19,7 @@ class WebDriverCommandExecutor {
    * @see
    *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
    */
-  private $commands = array(
+  private static $commands = array(
     'addCookie' =>         array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     'clear' =>             array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
     'clickElement' =>      array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
@@ -55,6 +55,8 @@ class WebDriverCommandExecutor {
     'isElementEnabled'=>   array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/enabled'),
     'isElementSelected'=>  array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/selected'),
     'maximizeWindow' =>    array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/maximize'),
+    'mouseClick' =>        array('method' => 'POST', 'url' => '/session/:sessionId/click'),
+    'mouseMoveTo' =>       array('method' => 'POST', 'url' => '/session/:sessionId/moveto'),
     'newSession' =>        array('method' => 'POST', 'url' => '/session'),
     'refreshPage' =>       array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
     'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
@@ -64,28 +66,59 @@ class WebDriverCommandExecutor {
     'setWindowSize' =>     array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/size'),
     'takeScreenshot' =>    array('method' => 'GET',  'url' => '/session/:sessionId/screenshot'),
     'quit' =>              array('method' => 'DELETE', 'url' => '/session/:sessionId'),
+    'sendKeys' =>          array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
     'submitElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
   );
 
   protected $url;
+  protected $sessionID;
+  protected $capabilities;
 
-  public function __construct($url) {
+  public function __construct($url, $session_id) {
     $this->url = $url;
+    $this->sessionID = $session_id;
+    $this->capabilities = $this->execute('getSession', array());
   }
 
-  public function execute($command) {
-    if (!isset($this->commands[$command['name']])) {
+  public function execute($name, array $params = array()) {
+    $command = array(
+      'url' => $this->url,
+      'sessionId' => $this->sessionID,
+      'name' => $name,
+      'parameters' => $params,
+    );
+    $raw = self::remoteExecute($command);
+    return $raw['value'];
+  }
+
+  /**
+   * Execute a command on a remote server. The command should be an array
+   * contains
+   *   url        : the url of the remote server
+   *   sessionId  : the session id if needed
+   *   name       : the name of the command
+   *   parameters : the parameters of the command required
+   *
+   * @return array The response of the command.
+   */
+  public static function remoteExecute($command) {
+    if (!isset(self::$commands[$command['name']])) {
       throw new Exception($command['name']." is not a valid command.");
     }
-    $raw = $this->commands[$command['name']];
+    $raw = self::$commands[$command['name']];
     $extra_opts = array();
 
     if ($command['name'] == 'newSession') {
       $extra_opts[CURLOPT_FOLLOWLOCATION] = true;
     }
 
-    return $this->curl($raw['method'], $raw['url'], $command, $extra_opts);
+    return self::curl(
+      $raw['method'],
+      sprintf("%s%s", $command['url'], $raw['url']),
+      $command,
+      $extra_opts
+    );
   }
 
   /**
@@ -96,14 +129,13 @@ class WebDriverCommandExecutor {
    * @param command      The Command object, modelled as a hash.
    * @param extra_opts   key => value pairs of curl options for curl_setopt()
    */
-  protected function curl(
+  protected static function curl(
     $http_method,
-    $suffix,
+    $url,
     $command,
     $extra_opts = array()) {
 
     $params = $command['parameters'];
-    $url = sprintf('%s%s', $this->url, $suffix);
 
     foreach ($params as $name => $value) {
       if ($name[0] === ':') {
@@ -114,13 +146,15 @@ class WebDriverCommandExecutor {
       }
     }
 
-    $url = str_replace(':sessionId', $command['sessionId'], $url);
+    if (isset($command['sessionId'])) {
+      $url = str_replace(':sessionId', $command['sessionId'], $url);
+    }
 
     if ($params && is_array($params) && $http_method !== 'POST') {
       throw new Exception(sprintf(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
-        $suffix,
+        $url,
         $http_method,
         json_encode($params)));
     }

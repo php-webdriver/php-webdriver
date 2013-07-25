@@ -19,12 +19,10 @@
 class WebDriverElement {
 
   protected $executor;
-  protected $sessionID;
   protected $id;
 
-  public function __construct($executor, $session_id, $id) {
+  public function __construct(WebDriverCommandExecutor $executor, $id) {
     $this->executor = $executor;
-    $this->sessionID = $session_id;
     $this->id = $id;
   }
 
@@ -35,7 +33,7 @@ class WebDriverElement {
    * @return WebDriverElement The current instance.
    */
   public function clear() {
-    $this->execute('clear');
+    $this->executor->execute('clear', array(':id' => $this->id));
     return $this;
   }
 
@@ -45,7 +43,7 @@ class WebDriverElement {
    * @return WebDriverElement The current instance.
    */
   public function click() {
-    $this->execute('clickElement');
+    $this->executor->execute('clickElement', array(':id' => $this->id));
     return $this;
   }
 
@@ -59,8 +57,12 @@ class WebDriverElement {
    * @see WebDriverBy
    */
   public function findElement(WebDriverBy $by) {
-    $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_element = $this->execute('elementFindElement', $params);
+    $params = array(
+      'using' => $by->getMechanism(),
+      'value' => $by->getValue(),
+      ':id'   => $this->id,
+    );
+    $raw_element = $this->executor->execute('elementFindElement', $params);
 
     return $this->newElement($raw_element['ELEMENT']);
   }
@@ -74,8 +76,12 @@ class WebDriverElement {
    * @see WebDriverBy
    */
   public function findElements(WebDriverBy $by) {
-    $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_elements = $this->execute('elementFindElements', $params);
+    $params = array(
+      'using' => $by->getMechanism(),
+      'value' => $by->getValue(),
+      ':id'   => $this->id,
+    );
+    $raw_elements = $this->executor->execute('elementFindElements', $params);
 
     $elements = array();
     foreach ($raw_elements as $raw_element) {
@@ -91,8 +97,11 @@ class WebDriverElement {
    * @return string The value of the attribute.
    */
   public function getAttribute($attribute_name) {
-    $params = array(':name' => $attribute_name);
-    return $this->execute('getElementAttribute', $params);
+    $params = array(
+      ':name' => $attribute_name,
+      ':id'   => $this->id,
+    );
+    return $this->executor->execute('getElementAttribute', $params);
   }
 
   /**
@@ -102,8 +111,11 @@ class WebDriverElement {
    * @return string The value of the CSS property.
    */
   public function getCSSValue($css_property_name) {
-    $params = array(':propertyName' => $css_property_name);
-    return $this->execute('getElementCSSValue', $params);
+    $params = array(
+      ':propertyName' => $css_property_name,
+      ':id'           => $this->id,
+    );
+    return $this->executor->execute('getElementCSSValue', $params);
   }
 
   /**
@@ -112,7 +124,10 @@ class WebDriverElement {
    * @return WebDriverLocation The location of the element.
    */
   public function getLocation() {
-    $location = $this->execute('getElementLocation');
+    $location = $this->executor->execute(
+      'getElementLocation',
+      array(':id' => $this->id)
+    );
     return new WebDriverPoint($location['x'], $location['y']);
   }
 
@@ -122,7 +137,10 @@ class WebDriverElement {
    * @return WebDriverDimension The dimension of the element.
    */
   public function getSize() {
-    $size = $this->execute('getElementSize');
+    $size = $this->executor->execute(
+      'getElementSize',
+      array(':id' => $this->id)
+    );
     return new WebDriverDimension($size['width'], $size['height']);
   }
 
@@ -132,7 +150,10 @@ class WebDriverElement {
    * @return string The tag name.
    */
   public function getTagName() {
-    return $this->execute('getElementTagName');
+    return $this->executor->execute(
+      'getElementTagName',
+      array(':id' => $this->id)
+    );
   }
 
   /**
@@ -142,7 +163,10 @@ class WebDriverElement {
    * @return string The visible innerText of this element.
    */
   public function getText() {
-    return $this->execute('getElementText');
+    return $this->executor->execute(
+      'getElementText',
+      array(':id' => $this->id)
+    );
   }
 
   /**
@@ -152,7 +176,10 @@ class WebDriverElement {
    * @return bool
    */
   public function isDisplayed() {
-    return $this->execute('isElementDisplayed');
+    return $this->executor->execute(
+      'isElementDisplayed',
+      array(':id' => $this->id)
+    );
   }
 
   /**
@@ -162,7 +189,10 @@ class WebDriverElement {
    * @return bool
    */
   public function isEnabled() {
-    return $this->execute('isElementEnabled');
+    return $this->executor->execute(
+      'isElementEnabled',
+      array(':id' => $this->id)
+    );
   }
 
   /**
@@ -171,7 +201,10 @@ class WebDriverElement {
    * @return bool
    */
   public function isSelected() {
-    return $this->execute('isElementSelected');
+    return $this->executor->execute(
+      'isElementSelected',
+      array(':id' => $this->id)
+    );
   }
 
   /**
@@ -181,8 +214,11 @@ class WebDriverElement {
    * @return WebDriverElement The current instance.
    */
   public function sendKeys($value) {
-    $params = array('value' => array((string)$value));
-    $this->execute('sendKeysToElement', $params);
+    $params = array(
+      'value' => array((string)$value),
+      ':id'   => $this->id,
+    );
+    $this->executor->execute('sendKeysToElement', $params);
     return $this;
   }
 
@@ -193,23 +229,18 @@ class WebDriverElement {
    * @return WebDriverElement The current instance.
    */
   public function submit() {
-    $this->execute('submitElement');
+    $this->executor->execute('submitElement', array(':id' => $this->id));
+
     return $this;
   }
 
+  /**
+   * Get the opaque ID of the element.
+   *
+   * @return string The opaque ID.
+   */
   public function getID() {
     return $this->id;
-  }
-
-  private function execute($name, array $params = array()) {
-    $params[':id'] = $this->id;
-    $command = array(
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
-    );
-    $raw = $this->executor->execute($command);
-    return $raw['value'];
   }
 
   /**
@@ -218,6 +249,6 @@ class WebDriverElement {
    * @return WebDriverElement
    */
   private function newElement($id) {
-    return new WebDriverElement($this->executor, $this->sessionID, $id);
+    return new WebDriverElement($this->executor, $id);
   }
 }
