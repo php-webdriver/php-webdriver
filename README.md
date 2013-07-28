@@ -9,6 +9,19 @@ Looking for documentation about Selenium WebDriver? See http://docs.seleniumhq.o
 
 The PHP client was rewritten from scratch. Using the old version? Check out Adam Goucher's fork of it at https://github.com/Element-34/php-webdriver
 
+##  GETTING THE CODE
+
+*   git clone git@github.com:facebook/php-webdriver.git
+
+*   If you are using Packagist, add the dependency.
+
+        {
+          "require": {
+            "facebook/webdriver": "dev-master"
+          }
+        }
+   
+
 ##  GETTING STARTED
 
 *   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list

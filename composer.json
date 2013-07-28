@@ -1,0 +1,12 @@
+{
+  "name": "facebook/webdriver",
+  "description": "A php client for WebDriver",  
+  "homepage": "https://github.com/facebook/php-webdriver",
+  "license": "Apache-2.0",
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-0": { "Selenium": "lib/"}
+  }
+}
