@@ -13,7 +13,7 @@ The PHP client was rewritten from scratch. Using the old version? Check out Adam
 
 *   git clone git@github.com:facebook/php-webdriver.git
 
-*   If you are using Packagist, add the dependency.
+*   If you are using Packagist, add the dependency. https://packagist.org/packages/facebook/webdriver
 
         {
           "require": {
