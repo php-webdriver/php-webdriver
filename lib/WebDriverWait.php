@@ -26,7 +26,7 @@ class WebDriverWait {
 
   public function __construct(
       WebDriver $driver,
-      int $timeout_in_second = null) {
+      $timeout_in_second = null) {
     $this->driver = $driver;
     $this->timeout = ($timeout_in_second) ? $timeout_in_second : 30;
   }
