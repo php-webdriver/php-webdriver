@@ -244,5 +244,14 @@ class WebDriver {
   private function newElement($id) {
     return new WebDriverElement($this->executor, $id);
   }
+ 
+  /**
+   * An abstraction for managing javascript alerts
+   *
+   * @return WebDriverAlert
+   */
+  public function alert() {
+    return new WebDriverAlert($this->executor);
+  }
 
 }

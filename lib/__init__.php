@@ -14,6 +14,7 @@
 // limitations under the License.
 
 require_once('WebDriver.php');
+require_once('WebDriverAlert.php');
 require_once('WebDriverBy.php');
 require_once('WebDriverDimension.php');
 require_once('WebDriverElement.php');

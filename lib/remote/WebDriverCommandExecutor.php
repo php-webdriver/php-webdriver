@@ -20,12 +20,14 @@ class WebDriverCommandExecutor {
    *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
    */
   private static $commands = array(
+    'acceptAlert' =>       array('method' => 'POST', 'url' => '/session/:sessionId/accept_alert'),
     'addCookie' =>         array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     'clear' =>             array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
     'clickElement' =>      array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
     'closeCurrentWindow' => array('method' => 'DELETE', 'url' => '/session/:sessionId/window'),
     'deleteAllCookies' =>  array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie'),
     'deleteCookie' =>      array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie/:name'),
+    'dismissAlert' =>       array('method' => 'POST',   'url' => '/session/:sessionId/dismiss_alert'),
     'elementFindElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/element'),
     'elementFindElements' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),
     'executeScript' =>     array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
@@ -34,6 +36,7 @@ class WebDriverCommandExecutor {
     'focusFrame' =>       array('method' => 'POST',  'url' => '/session/:sessionId/frame'),
     'focusWindow' =>       array('method' => 'POST',  'url' => '/session/:sessionId/window'),
     'get' =>               array('method' => 'POST', 'url' => '/session/:sessionId/url'),
+    'getAlertText' =>       array('method' => 'GET', 'url' => '/session/:sessionId/alert_text'),
     'getAllCookies' =>      array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
     'getCurrentURL' =>     array('method' => 'GET',  'url' => '/session/:sessionId/url'),
     'getCurrentWindowHandle' => array('method' => 'GET',  'url' => '/session/:sessionId/window_handle'),
@@ -62,6 +65,7 @@ class WebDriverCommandExecutor {
     'refreshPage' =>       array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
     'sendFile' =>          array('method' => 'POST', 'url' => '/session/:sessionId/file'), // undocumented
     'sendKeys' =>          array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
+    'sendKeysToAlert' =>    array('method' => 'POST', 'url' => '/session/:sessionId/alert_text'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
     'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
     'setPageLoadTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
