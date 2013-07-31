@@ -65,7 +65,8 @@ class WebDriverTargetLocator {
   }
 
   /**
-   * Switch to the currently active modal dialog for this particular driver instance
+   * Switch to the currently active modal dialog for this particular driver
+   * instance.
    *
    * @return WebDriverAlert
    */

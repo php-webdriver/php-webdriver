@@ -33,7 +33,7 @@ class WebDriverAlert {
     $this->executor->execute('acceptAlert');
     return $this;
   }
-  
+
   /**
    * Dismiss alert
    *
