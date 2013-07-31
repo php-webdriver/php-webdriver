@@ -63,4 +63,13 @@ class WebDriverTargetLocator {
 
     return $this->driver;
   }
+
+  /**
+   * Switch to the currently active modal dialog for this particular driver instance
+   *
+   * @return WebDriverAlert
+   */
+  public function alert() {
+    return new WebDriverAlert($this->executor);
+  }
 }
