@@ -5,7 +5,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+//   http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,49 +18,49 @@
  */
 class WebDriverAlert {
 
-    protected $executor;
+  protected $executor;
 
-    public function __construct($executor) {
-        $this->executor = $executor;
-    }
+  public function __construct($executor) {
+    $this->executor = $executor;
+  }
 
-    /**
-     * Accept alert
-     *
-     * @return WebDriverAlert The instance.
-     */
-    public function accept() {
-        $this->executor->execute('acceptAlert');
-        return $this;
-    }
-    
-    /**
-     * Dismiss alert
-     *
-     * @return WebDriverAlert The instance.
-     */
-    public function dismiss() {
-        $this->executor->execute('dismissAlert');
-        return $this;
-    }
+  /**
+   * Accept alert
+   *
+   * @return WebDriverAlert The instance.
+   */
+  public function accept() {
+    $this->executor->execute('acceptAlert');
+    return $this;
+  }
+  
+  /**
+   * Dismiss alert
+   *
+   * @return WebDriverAlert The instance.
+   */
+  public function dismiss() {
+    $this->executor->execute('dismissAlert');
+    return $this;
+  }
 
-    /**
-     * Get alert text
-     *
-     * @return string
-     */
-    public function getText() {
-        return $this->executor->execute('getAlertText');
-    }
+  /**
+   * Get alert text
+   *
+   * @return string
+   */
+  public function getText() {
+    return $this->executor->execute('getAlertText');
+  }
 
-    /**
-     * Send keystrokes to javascript prompt() dialog
-     *
-     * @return WebDriverAlert
-     */
-    public function sendKeys($value) {
-        $this->executor->execute('sendKeysToAlert', array('text' => $value));
-        return $this;
-    }
+  /**
+   * Send keystrokes to javascript prompt() dialog
+   *
+   * @return WebDriverAlert
+   */
+  public function sendKeys($value) {
+    $this->executor->execute('sendKeysToAlert', array('text' => $value));
+    return $this;
+  }
 
 }
