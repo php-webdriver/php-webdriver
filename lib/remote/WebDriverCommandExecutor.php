@@ -226,4 +226,8 @@ class WebDriverCommandExecutor {
     return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
   }
 
+  public function getSessionID() {
+    return $this->sessionID;
+  }
+
 }
