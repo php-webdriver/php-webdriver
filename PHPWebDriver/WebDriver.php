@@ -56,8 +56,8 @@ class PHPWebDriver_WebDriver extends PHPWebDriver_WebDriverBase {
       '/session',
       array('desiredCapabilities' => $desired_capabilities),
       $curl_opts);
-    // var_dump($results);
-    return new PHPWebDriver_WebDriverSession($results['info']['url']);
+      //var_dump($results);
+    return new PHPWebDriver_WebDriverSession($results['info']['url'].$results['sessionId']);
   }
   
   public function sessions($curl_opts = array()) {

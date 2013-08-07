@@ -196,9 +196,14 @@ abstract class PHPWebDriver_WebDriverBase {
       $message = $value['message'];
     }
 
+	$sessionId="";
+	  if (is_array($results) && array_key_exists('sessionId', $results)) {
+		  $sessionId = "/".$results['sessionId'];
+	  }
+
     self::throwException($results['status'], $message, $results);
     
-    return array('value' => $value, 'info' => $info);
+    return array('value' => $value, 'info' => $info, 'sessionId'=>$sessionId);
   }
 
   public function __call($name, $arguments) {
