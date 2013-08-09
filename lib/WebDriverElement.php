@@ -132,6 +132,20 @@ class WebDriverElement {
   }
 
   /**
+   * Try scrolling the element into the view port and return the location of
+   * element relative to the top-left corner of the page afterwards.
+   *
+   * @return WebDriverLocation The location of the element.
+   */
+  public function getLocationOnScreenOnceScrolledIntoView() {
+    $location = $this->executor->execute(
+      'getElementLocationOnceScrolledIntoView',
+      array(':id' => $this->id)
+    );
+    return new WebDriverPoint($location['x'], $location['y']);
+  }
+
+  /**
    * Get the size of element.
    *
    * @return WebDriverDimension The dimension of the element.

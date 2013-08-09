@@ -341,7 +341,7 @@ class WebDriverExpectedCondition {
       }
     );
   }
-  
+
   /**
    * An expectation with the logical opposite condition of the given condition.
    *

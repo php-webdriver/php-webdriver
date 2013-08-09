@@ -43,6 +43,7 @@ class WebDriverCommandExecutor {
     'getElementAttribute' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/attribute/:name'),
     'getElementCSSValue' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/css/:propertyName'),
     'getElementLocation' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/location'),
+    'getElementLocationOnceScrolledIntoView' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/location_in_view'),
     'getElementSize' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/size'),
     'getElementTagName' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/name'),
     'getElementText' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/text'),
