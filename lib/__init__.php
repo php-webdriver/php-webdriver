@@ -20,6 +20,7 @@ require_once('WebDriverDimension.php');
 require_once('WebDriverElement.php');
 require_once('WebDriverExceptions.php');
 require_once('WebDriverExpectedCondition.php');
+require_once('WebDriverKeys.php');
 require_once('WebDriverNavigation.php');
 require_once('WebDriverOptions.php');
 require_once('WebDriverPoint.php');
