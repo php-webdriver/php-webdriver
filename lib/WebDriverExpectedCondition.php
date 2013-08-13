@@ -57,7 +57,7 @@ class WebDriverExpectedCondition {
   public static function inTitle($title) {
     return new WebDriverExpectedCondition(
       function ($driver) use ($title) {
-        return strstr($driver->getTitle(),$title);
+        return strpos($driver->getTitle(),$title);
       }
     );
   }
