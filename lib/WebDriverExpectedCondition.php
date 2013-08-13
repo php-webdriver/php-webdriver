@@ -49,6 +49,20 @@ class WebDriverExpectedCondition {
   }
 
   /**
+   * An expectation for checking substring of a page Title.
+   *
+   * @param string title The expected substring of Title.
+   * @return bool True when in title, false otherwise.
+   */
+  public static function inTitle($title) {
+    return new WebDriverExpectedCondition(
+      function ($driver) use ($title) {
+        return strstr($driver->getTitle(),$title);
+      }
+    );
+  }
+
+  /**
    * An expectation for checking that an element is present on the DOM of a
    * page. This does not necessarily mean that the element is visible.
    *
