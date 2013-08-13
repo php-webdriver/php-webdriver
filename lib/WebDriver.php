@@ -205,6 +205,24 @@ class WebDriver {
   }
 
   /**
+   * Construct a new WebDriverWait by the current WebDriver instance.
+   * Sample usage:
+   *
+   *   $driver->wait(20, 1000)->until(
+   *     WebDriverExpectedCondition::titleIs('WebDriver Page')
+   *   );
+   *
+   * @return WebDriverWait
+   */
+  public function wait(
+      $timeout_in_second = 30,
+      $interval_in_millisecond = 250) {
+    return new WebDriverWait(
+      $this, $timeout_in_second, $interval_in_millisecond
+    );
+  }
+
+  /**
    * An abstraction for managing stuff you would do in a browser menu. For
    * example, adding and deleting cookies.
    *
