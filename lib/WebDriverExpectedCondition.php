@@ -54,10 +54,10 @@ class WebDriverExpectedCondition {
    * @param string title The expected substring of Title.
    * @return bool True when in title, false otherwise.
    */
-  public static function inTitle($title) {
+  public static function titleContains($title) {
     return new WebDriverExpectedCondition(
       function ($driver) use ($title) {
-        return strpos($driver->getTitle(),$title);
+        return strpos($driver->getTitle(), $title);
       }
     );
   }
