@@ -57,7 +57,7 @@ class WebDriverExpectedCondition {
   public static function titleContains($title) {
     return new WebDriverExpectedCondition(
       function ($driver) use ($title) {
-        return strpos($driver->getTitle(), $title) !== False;
+        return strpos($driver->getTitle(), $title) !== false;
       }
     );
   }
