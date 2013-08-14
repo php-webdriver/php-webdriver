@@ -222,7 +222,8 @@ class WebDriverCommandExecutor {
       $sessionId = $results['sessionId'];
     }
 
-    WebDriverException::throwException($results['status'], $message, $results);
+    $status = isset($results['status']) ? $results['status'] : 0;
+    WebDriverException::throwException($status, $message, $results);
 
     return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
   }
