@@ -35,6 +35,23 @@ class WebDriverExpectedCondition {
   }
 
   /**
+   * Allows creation of custom expectations
+   * while maintaining the protected constructor
+   *
+   * @param Closure closure is the closure function
+   *   used to instantiate WebDriverExpectedCondition
+   * @return new WebDriverExpectedCondition on pass,
+   *   throws exception on fail
+   */
+  public static function custom(Closure $closure) {
+    if (get_class($closure) == 'Closure' && is_callable($closure)) {
+      return new WebDriverExpectedCondition($closure);
+    }
+    //ToDo: make this a custom exception
+    throw new Exception('Closure cannot be executed!');
+  }
+
+  /**
    * An expectation for checking the title of a page.
    *
    * @param string title The expected title, which must be an exact match.
