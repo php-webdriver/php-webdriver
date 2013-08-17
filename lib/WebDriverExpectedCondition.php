@@ -178,35 +178,19 @@ class WebDriverExpectedCondition {
    * Expectation for checking if iFrame exists.
    * If iFrame exists switches driver's focus to the iFrame
    *
-   * @param WebDriverBy $by The locator used to find the iFrame
-   * @return bool true when frame is found and switched to
-   *              false otherwise
+   * @param String frame_locator The locator used to find the iFrame
+   *   expected to be either the id or name value of the i/frame
+   * @return WebDriver object focused on new frame when frame is found
+   *   bool false otherwise
   */
   public static function frameToBeAvailableAndSwitchToIt(String $frame_locator) {
     return new WebDriverExpectedCondition(
-      function (&$driver) use ($frame_locator) {
+      function ($driver) use ($frame_locator) {
         try {
-          //tries to find iFrame assuming provided locator is an id
-          $frame = $driver->findElement(WebDriverBy::id($frame_locator));
-          $compare_by = 'id';
-        } catch (ObsoleteElementWebDriverError $e) {
-          try {
-            //tries to find iFrame assuming provided locator is a name
-            $frame = $driver->findElement(WebDriverBy::name($frame_locator));
-            $compare_by = 'name';
-          } catch (ObsoleteElementWebDriverError $e) {
-            return false;
-          }
+          return $driver->switchTo()->frame($frame_locator);
+        } catch (NoSuchFrameWebDriverError $e) {
+          return false;
         }
-        //Checks to make sure element found is actually an iFrame
-        //before attempting to switchTo element.
-        foreach ($driver->findElement(WebDriverBy::tagName('iframe')) as $iframe) {
-          if ($iframe->getAttribute($compare_by) == $frame->getAttribute($compare_by)) {
-            $driver = $driver->switchTo()->frame($frame_locator); 
-            return true;
-          }
-        }
-        return false;
       }
     );
   }
