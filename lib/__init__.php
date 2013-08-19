@@ -14,10 +14,14 @@
 // limitations under the License.
 
 require_once('WebDriver.php');
+require_once('WebDriverDispatcher.php');
+require_once('WebDriverEventListener.php');
+require_once('EventFiringWebDriver.php');
 require_once('WebDriverAlert.php');
 require_once('WebDriverBy.php');
 require_once('WebDriverDimension.php');
 require_once('WebDriverElement.php');
+require_once('EventFiringWebElement.php');
 require_once('WebDriverExceptions.php');
 require_once('WebDriverExpectedCondition.php');
 require_once('WebDriverKeys.php');
