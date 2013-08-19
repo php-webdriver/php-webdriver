@@ -3,59 +3,59 @@
 abstract class WebDriverEventListener {
 
 	/**
-	 * @param           $url
-	 * @param WebDriver $driver
+	 * @param string               $url
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function beforeNavigateTo($url, EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param           $url
-	 * @param WebDriver $driver
+	 * @param string               $url
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function afterNavigateTo($url, EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param WebDriver $driver
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function beforeNavigateBack(EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param WebDriver $driver
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function afterNavigateBack(EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param WebDriver $driver
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function beforeNavigateForward(EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param WebDriver $driver
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function afterNavigateForward(EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param WebDriverBy $by
-	 * @param WebDriver   $driver
+	 * @param WebDriverBy          $by
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function beforeFindBy(WebDriverBy $by, EventFiringWebDriver $driver) { }
 
 	/**
 	 * @param WebDriverBy           $by
 	 * @param EventFiringWebElement $element
-	 * @param WebDriver             $driver
+	 * @param EventFiringWebDriver  $driver
 	 */
 	public function afterFindBy(WebDriverBy $by, EventFiringWebElement $element, EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param           $script
-	 * @param WebDriver $driver
+	 * @param string               $script
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function beforeScript($script, EventFiringWebDriver $driver) { }
 
 	/**
-	 * @param           $script
-	 * @param WebDriver $driver
+	 * @param string               $script
+	 * @param EventFiringWebDriver $driver
 	 */
 	public function afterScript($script, EventFiringWebDriver $driver) { }
 

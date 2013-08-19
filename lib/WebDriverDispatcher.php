@@ -5,7 +5,7 @@ class WebDriverDispatcher {
 	/**
 	 * @var array
 	 */
-	protected $_listeners = [];
+	protected $_listeners = array();
 
 	/**
 	 * @var EventFiringWebDriver

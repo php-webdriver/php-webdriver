@@ -30,7 +30,7 @@ class EventFiringWebElement {
 
 	}
 
-	public function __call($method, array $arguments = []) {
+	public function __call($method, array $arguments = array()) {
 
 		try {
 
@@ -131,7 +131,7 @@ class EventFiringWebElement {
 			':id'   => $this->id,
 		]);
 
-		$elements = [];
+		$elements = array();
 		foreach ($raw_elements as $raw_element)
 			$elements[] = $this->newElement($raw_element['ELEMENT']);
 

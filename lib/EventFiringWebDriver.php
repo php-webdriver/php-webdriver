@@ -28,7 +28,7 @@ class EventFiringWebDriver {
 
 	}
 
-	public function __call($method, array $arguments = []) {
+	public function __call($method, array $arguments = array()) {
 
 		try {
 
@@ -107,7 +107,7 @@ class EventFiringWebDriver {
 			'value' => $by->getValue()
 		]);
 
-		$elements = [];
+		$elements = array();
 		foreach ($raw_elements as $raw_element)
 			$elements[] = $this->newElement($raw_element['ELEMENT']);
 
@@ -142,7 +142,7 @@ class EventFiringWebDriver {
 	 * @param array  $arguments
 	 * @return mixed
 	 */
-	protected function executeScript($script, array $arguments = []) {
+	protected function executeScript($script, array $arguments = array()) {
 
 		$this->_dispatch('beforeScript', $script);
 		$result = $this->_webdriver->executeScript($script, $arguments);
