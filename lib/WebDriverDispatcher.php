@@ -48,7 +48,7 @@ class WebDriverDispatcher {
 	public function unregister(WebDriverEventListener $listener) {
 
 		$key = array_search($listener, $this->_listeners, true);
-		if ($key)
+		if ($key !== false)
 			unset($this->_listeners[$key]);
 
 		return $this;
