@@ -1,6 +1,6 @@
 <?php
 
-class EventFiringWebElement {
+class EventFiringWebElement extends EventFiringObject {
 
 	/**
 	 * @var WebDriverElement
@@ -8,48 +8,15 @@ class EventFiringWebElement {
 	protected $_element;
 
 	/**
-	 * @var WebDriverDispatcher
+	 * @param WebDriverElement    $element
+	 * @param WebDriverDispatcher $dispatcher
 	 */
-	protected $_dispatcher;
+	public function __construct(WebDriverElement $element,  WebDriverDispatcher $dispatcher = null) {
 
-	/**
-	 * @var EventFiringWebDriver
-	 */
-	protected $_driver;
-
-	/**
-	 * @param WebDriverCommandExecutor $executor
-	 * @param string                   $id
-	 * @param WebDriverDispatcher      $dispatcher
-	 */
-	public function __construct(WebDriverCommandExecutor $executor, $id,  WebDriverDispatcher $dispatcher = null) {
-
-		$this->_element = new WebDriverElement($executor, $id);
-		$this->_dispatcher = $dispatcher ?  $dispatcher : new WebDriverDispatcher();
+		$this->_element = $element;
+		$this->_dispatcher = $dispatcher;
 		return $this;
 
-	}
-
-	public function __call($method, array $arguments = array()) {
-
-		try {
-
-			return call_user_func_array([$this, $method], $arguments);
-
-		} catch (WebDriverException $exception) {
-
-			$this->_dispatch('onException', $exception, $this->getDispatcher()->getDefaultDriver());
-			throw $exception;
-
-		}
-
-	}
-
-	/**
-	 * @return WebDriverDispatcher
-	 */
-	public function getDispatcher() {
-		return $this->_dispatcher;
 	}
 
 	/**
@@ -60,17 +27,11 @@ class EventFiringWebElement {
 	}
 
 	/**
-	 * @param $method
+	 * @param WebDriverElement $element
+	 * @return EventFiringWebElement
 	 */
-	protected function _dispatch($method) {
-
-		$arguments = func_get_args();
-		unset($arguments[0]);
-		if($method != 'onException')
-			$arguments[] = $this;
-
-		$this->getDispatcher()->dispatch($method, $arguments);
-
+	private function newElement(WebDriverElement $element) {
+		return new EventFiringWebElement($element, $this->getDispatcher());
 	}
 
 	/**
@@ -105,16 +66,10 @@ class EventFiringWebElement {
 	protected function findElement(WebDriverBy $by) {
 
 		$this->_dispatch('beforeFindBy', $by);
-
-		$raw_element = $this->executor->execute('elementFindElement', [
-			'using' => $by->getMechanism(),
-			'value' => $by->getValue(),
-			':id'   => $this->id,
-		]);
-
+		$element = $this->newElement($this->_element->findElement($by));
 		$this->_dispatch('afterFindBy', $by);
 
-		return $this->newElement($raw_element['ELEMENT']);
+		return $element;
 	}
 
 	/**
@@ -125,15 +80,9 @@ class EventFiringWebElement {
 
 		$this->_dispatch('beforeFindBy', $by);
 
-		$raw_elements = $this->executor->execute('elementFindElements', [
-			'using' => $by->getMechanism(),
-			'value' => $by->getValue(),
-			':id'   => $this->id,
-		]);
-
 		$elements = array();
-		foreach ($raw_elements as $raw_element)
-			$elements[] = $this->newElement($raw_element['ELEMENT']);
+		foreach($this->_element->findElements($by) as $element)
+			$elements[] = $this->newElement($element);
 
 		$this->_dispatch('afterFindBy', $by);
 
