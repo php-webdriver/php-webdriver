@@ -378,3 +378,10 @@ $profile = new PHPWebDriver_WebDriverFirefoxProfile('path/to/a/firefox/profile')
 $session = $driver->session('firefox', array(), array(), $browser_profile=$profile);
 $session->close();
 ```
+
+## Full screen
+* To maximize the browser window, simply use the API. Now works in Chrome since ChromeDriver version 2.
+
+```php
+$session->window()->maximize();
+```
