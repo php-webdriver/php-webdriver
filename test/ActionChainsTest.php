@@ -4,7 +4,7 @@ require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverActionChains.php');
 require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverBy.php');
 require_once(dirname(__FILE__) . '/../PHPWebDriver/WebDriverKeys.php');
 
-class ProxyTest extends PHPUnit_Framework_TestCase {
+class ActionChainsTest extends PHPUnit_Framework_TestCase {
   protected static $session;
   
   public function setUp() {
