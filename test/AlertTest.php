@@ -116,7 +116,7 @@ class AlertTest extends PHPUnit_Framework_TestCase {
             $a->sendKeys("cheese");
             $fail = "PHPWebDriver_ElementNotDisplayedWebDriverError should have been thrown";
         } catch (Exception $e) {
-            if (! is_a($e, "PHPWebDriver_ElementNotDisplayedWebDriverErro")) {
+            if (! is_a($e, "PHPWebDriver_ElementNotDisplayedWebDriverError")) {
                 $fail = "exception should be PHPWebDriver_ElementNotDisplayedWebDriverError";
             }
         }
