@@ -14,7 +14,6 @@
 // limitations under the License.
 
 require_once('WebDriver.php');
-require_once('EventFiringObject.php');
 require_once('EventFiringWebDriverNavigation.php');
 require_once('WebDriverDispatcher.php');
 require_once('WebDriverEventListener.php');

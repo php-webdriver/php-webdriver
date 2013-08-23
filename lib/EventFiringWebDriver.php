@@ -1,11 +1,16 @@
 <?php
 
-class EventFiringWebDriver extends EventFiringObject {
+class EventFiringWebDriver {
 
 	/**
 	 * @var WebDriver
 	 */
 	protected $_webdriver;
+
+	/**
+	 * @var WebDriverDispatcher
+	 */
+	protected $_dispatcher;
 
 	/**
 	 * @param WebDriver           $webdriver
@@ -24,6 +29,27 @@ class EventFiringWebDriver extends EventFiringObject {
 	}
 
 	/**
+	 * @return WebDriverDispatcher
+	 */
+	public function getDispatcher() {
+		return $this->_dispatcher;
+	}
+
+	/**
+	 * @param $method
+	 */
+	protected function _dispatch($method) {
+
+		if(!$this->_dispatcher)
+			return;
+
+		$arguments = func_get_args();
+		unset($arguments[0]);
+		$this->_dispatcher->dispatch($method, $arguments);
+
+	}
+
+	/**
 	 * @return WebDriver
 	 */
 	public function getWebDriver() {
@@ -34,19 +60,27 @@ class EventFiringWebDriver extends EventFiringObject {
 	 * @param WebDriverElement $element
 	 * @return EventFiringWebElement
 	 */
-	protected function newElement(WebDriverElement $element) {
+	private function newElement(WebDriverElement $element) {
 		return new EventFiringWebElement($element, $this->getDispatcher());
 	}
 
 	/**
-	 * @param string $url
-	 * @return EventFiringWebDriver $this
+	 * @param $url
+	 * @return $this
+	 * @throws WebDriverException
 	 */
-	protected function get($url) {
+	public function get($url) {
 
-		$this->_dispatch('beforeNavigateTo', $url);
-		$this->_webdriver->get($url);
-		$this->_dispatch('afterNavigateTo', $url);
+		$this->_dispatch('beforeNavigateTo', $url, $this);
+		try {
+			$this->_webdriver->get($url);
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
+		$this->_dispatch('afterNavigateTo', $url, $this);
 
 		return $this;
 
@@ -54,17 +88,27 @@ class EventFiringWebDriver extends EventFiringObject {
 
 	/**
 	 * @param WebDriverBy $by
-	 * @return array A list of EventFiringWebDriver, or empty
+	 * @return array
+	 * @throws WebDriverException
 	 */
-	protected function findElements(WebDriverBy $by) {
+	public function findElements(WebDriverBy $by) {
 
-		$this->_dispatch('beforeFindBy', $by);
+		$this->_dispatch('beforeFindBy', $by, null, $this);
 
-		$elements = array();
-		foreach($this->_webdriver->findElements($by) as $element)
-			$elements[] = $this->newElement($element);
+		try {
 
-		$this->_dispatch('afterFindBy', $by, $elements);
+			$elements = array();
+			foreach($this->_webdriver->findElements($by) as $element)
+				$elements[] = $this->newElement($element);
+
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
+
+		$this->_dispatch('afterFindBy', $by, null, $this);
 
 		return $elements;
 
@@ -72,122 +116,230 @@ class EventFiringWebDriver extends EventFiringObject {
 
 	/**
 	 * @param WebDriverBy $by
-	 * @return EventFiringWebDriver
+	 * @return EventFiringWebElement
+	 * @throws WebDriverException
 	 */
-	protected function findElement(WebDriverBy $by) {
+	public function findElement(WebDriverBy $by) {
 
-		$this->_dispatch('beforeFindBy', $by);
-		$element = $this->newElement($this->_webdriver->findElement($by));
-		$this->_dispatch('afterFindBy', $by, $element);
+		$this->_dispatch('beforeFindBy', $by, null, $this);
+		try {
+			$element = $this->newElement($this->_webdriver->findElement($by));
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
+		$this->_dispatch('afterFindBy', $by, null, $this);
 
 		return $element;
 
 	}
 
 	/**
-	 * @param string $script
-	 * @param array  $arguments
+	 * @param       $script
+	 * @param array $arguments
 	 * @return mixed
+	 * @throws WebDriverException
 	 */
-	protected function executeScript($script, array $arguments = array()) {
+	public function executeScript($script, array $arguments = array()) {
 
-		$this->_dispatch('beforeScript', $script);
-		$result = $this->_webdriver->executeScript($script, $arguments);
-		$this->_dispatch('afterScript', $script);
+		$this->_dispatch('beforeScript', $script, $this);
+		try {
+			$result = $this->_webdriver->executeScript($script, $arguments);
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
+		$this->_dispatch('afterScript', $script, $this);
 
 		return $result;
 
 	}
 
-	// Implement the following from WebDriver as protected methods so __call catches exceptions
-
 	/**
-	 * @return EventFiringWebDriver
+	 * @return $this
+	 * @throws WebDriverException
 	 */
-	protected function close() {
-		$this->_webdriver->close();
+	public function close() {
+		try {
+			$this->_webdriver->close();
+			return $this;
+		} catch (WebDriverException $exception) {
 
-		return $this;
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return string
+	 * @throws WebDriverException
 	 */
-	protected function getCurrentURL() {
-		return $this->_webdriver->getCurrentURL();
+	public function getCurrentURL() {
+		try {
+			return $this->_webdriver->getCurrentURL();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return string
+	 * @throws WebDriverException
 	 */
-	protected function getPageSource() {
-		return $this->_webdriver->getPageSource();
+	public function getPageSource() {
+		try {
+			return $this->_webdriver->getPageSource();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return string
+	 * @throws WebDriverException
 	 */
-	protected function getTitle() {
-		return $this->_webdriver->getTitle();
+	public function getTitle() {
+		try {
+			return $this->_webdriver->getTitle();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return string
+	 * @throws WebDriverException
 	 */
-	protected function getWindowHandle() {
-		return $this->_webdriver->getWindowHandle();
+	public function getWindowHandle() {
+		try {
+			return $this->_webdriver->getWindowHandle();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return array
+	 * @throws WebDriverException
 	 */
-	protected function getWindowHandles() {
-		return $this->_webdriver->getWindowHandles();
+	public function getWindowHandles() {
+		try {
+			return $this->_webdriver->getWindowHandles();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
-	 * @return void
+	 * @throws WebDriverException
 	 */
-	protected function quit() {
-		$this->_webdriver->quit();
+	public function quit() {
+		try {
+			$this->_webdriver->quit();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
-	 * @param string|null $save_as
+	 * @param null $save_as
 	 * @return string
+	 * @throws WebDriverException
 	 */
-	protected function takeScreenshot($save_as = null) {
-		return $this->_webdriver->takeScreenshot($save_as);
+	public function takeScreenshot($save_as = null) {
+		try {
+			return $this->_webdriver->takeScreenshot($save_as);
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @param int $timeout_in_second
 	 * @param int $interval_in_millisecond
 	 * @return WebDriverWait
+	 * @throws WebDriverException
 	 */
-	protected function wait($timeout_in_second = 30, $interval_in_millisecond = 250) {
-		return $this->_webdriver->wait($timeout_in_second, $interval_in_millisecond);
+	public function wait($timeout_in_second = 30, $interval_in_millisecond = 250) {
+		try {
+			return $this->_webdriver->wait($timeout_in_second, $interval_in_millisecond);
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return WebDriverOptions
+	 * @throws WebDriverException
 	 */
-	protected function manage() {
-		return $this->_webdriver->manage();
+	public function manage() {
+		try {
+			return $this->_webdriver->manage();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
-	 * @return WebDriverNavigation
+	 * @return EventFiringWebDriverNavigation
+	 * @throws WebDriverException
 	 */
-	protected function navigate() {
-		return new EventFiringWebDriverNavigation($this->_webdriver->navigate(), $this->getDispatcher());
+	public function navigate() {
+		try {
+			return new EventFiringWebDriverNavigation($this->_webdriver->navigate(), $this->getDispatcher());
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 	/**
 	 * @return WebDriverTargetLocator
+	 * @throws WebDriverException
 	 */
-	protected function switchTo() {
-		return $this->_webdriver->switchTo();
+	public function switchTo() {
+		try {
+			return $this->_webdriver->switchTo();
+		} catch (WebDriverException $exception) {
+
+			$this->_dispatch('onException', $exception, $this);
+			throw $exception;
+
+		}
 	}
 
 }

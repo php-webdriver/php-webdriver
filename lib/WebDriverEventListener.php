@@ -36,16 +36,17 @@ abstract class WebDriverEventListener {
 
 	/**
 	 * @param WebDriverBy          $by
-	 * @param EventFiringWebDriver $driver
+	 * @param EventFiringWebElement|null $element
+	 * @param EventFiringWebDriver  $driver
 	 */
-	public function beforeFindBy(WebDriverBy $by, EventFiringWebDriver $driver) { }
+	public function beforeFindBy(WebDriverBy $by, $element, EventFiringWebDriver $driver) { }
 
 	/**
 	 * @param WebDriverBy           $by
-	 * @param EventFiringWebElement $element
+	 * @param EventFiringWebElement|null $element
 	 * @param EventFiringWebDriver  $driver
 	 */
-	public function afterFindBy(WebDriverBy $by, EventFiringWebElement $element, EventFiringWebDriver $driver) { }
+	public function afterFindBy(WebDriverBy $by, $element, EventFiringWebDriver $driver) { }
 
 	/**
 	 * @param string               $script
