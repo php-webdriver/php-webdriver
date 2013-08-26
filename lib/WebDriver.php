@@ -168,7 +168,7 @@ class WebDriver {
         // TODO: Handle the case where arg is a collection
         if (is_array($arg)) {
           throw new Exception(
-            "executeScript with collection paramatar is unimplemented"
+            "executeScript with collection parameter is unimplemented"
           );
         }
         array_push($args, $arg);
