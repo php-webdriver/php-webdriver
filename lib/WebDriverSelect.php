@@ -130,21 +130,8 @@ class WebDriverSelect {
    * @return void
    */
   public function selectByValue($value) {
-    $matched = false;
-    $xpath = './/option[@value = '.$this->escapeQuotes($value).']';
-    $options = $this->element->findElements(WebDriverBy::xpath($xpath));
-
-    foreach ($options as $option) {
-      if (!$option->isSelected()) {
-        $option->click();
-      }
-      if (!$this->isMultiple()) {
-        return;
-      }
-      $matched = true;
-    }
-
-    if (!$matched) {
+    $isMatched = $this->selectBy('@value', $value);
+    if (!$isMatched) {
       throw new NoSuchElementWebDriverError(
         sprintf('Cannot locate option with value: %s', $value)
       );
@@ -152,48 +139,25 @@ class WebDriverSelect {
   }
 
   /**
-   * Select all options that display text matching the argument. That is, when
-   * given "Bar" this would select an option like:
-   *
-   * <option value="foo">Bar</option>;
-   *
-   * @param string $text The visible text to match against.
-   * @return void
+   * @param string $name
    */
-  public function selectByVisibleText($text) {
-    $matched = false;
-    $xpath = './/option[normalize-space(.) = '.$this->escapeQuotes($text).']';
-    $options = $this->element->findElements(WebDriverBy::xpath($xpath));
-
-    foreach ($options as $option) {
-      if (!$option->isSelected()) {
-        $option->click();
-      }
-      if (!$this->isMultiple()) {
-        return;
-      }
-      $matched = true;
-    }
-
-    // Since the mechanism of getting the text in xpath is not the same as
-    // webdriver, use the expensive getText() to check if nothing is matched.
-    if (!$matched) {
-      foreach ($this->getOptions() as $option) {
-        if ($option->getText() === $text) {
-           if (!$option->isSelected()) {
-             $option->click();
-           }
-           if (!$this->isMultiple()) {
-             return;
-           }
-           $matched = true;
-        }
-      }
-    }
-
-    if (!$matched) {
+  public function selectByName($name) {
+    $isMatched = $this->selectBy('@name', $name);
+    if (!$isMatched) {
       throw new NoSuchElementWebDriverError(
-        sprintf('Cannot locate option with text: %s', $text)
+        sprintf('Cannot locate option with name: %s', $name)
+      );
+    }
+  }
+
+  /**
+   * @param string $id
+   */
+  public function selectById($id) {
+    $isMatched = $this->selectBy('@id', $id);
+    if (!$isMatched) {
+      throw new NoSuchElementWebDriverError(
+        sprintf('Cannot locate option with id: %s', $id)
       );
     }
   }
@@ -207,26 +171,7 @@ class WebDriverSelect {
   public function deselectByIndex($index) {
     foreach ($this->getOptions() as $option) {
       if ($option->getAttribute('index') === (string)$index &&
-          $option->isSelected()) {
-        $option->click();
-      }
-    }
-  }
-
-  /**
-   * Deselect all options that have value attribute matching the argument. That
-   * is, when given "foo" this would select an option like:
-   *
-   * <option value="foo">Bar</option>;
-   *
-   * @param string $value The value to match against.
-   * @return void
-   */
-  public function deselectByValue($value) {
-    $xpath = './/option[@value = '.$this->escapeQuotes($value).']';
-    $options = $this->element->findElements(WebDriverBy::xpath($xpath));
-    foreach ($options as $option) {
-      if ($option->isSelected()) {
+        $option->isSelected()) {
         $option->click();
       }
     }
@@ -242,7 +187,101 @@ class WebDriverSelect {
    * @return void
    */
   public function deselectByVisibleText($text) {
-    $xpath = './/option[normalize-space(.) = '.$this->escapeQuotes($text).']';
+    $this->deselectBy('normalize-space(.)', $text);
+  }
+
+  /**
+   * Deselect all options that have value attribute matching the argument. That
+   * is, when given "foo" this would select an option like:
+   *
+   * <option value="foo">Bar</option>;
+   *
+   * @param string $value The value to match against.
+   * @return void
+   */
+  public function deselectByValue($value) {
+    $this->deselectBy('@value', $value);
+  }
+
+  /**
+   * @param string $name
+   */
+  public function deselectByName($name) {
+    $this->deselectBy('@name', $name);
+  }
+
+  /**
+   * @param string $id
+   */
+  public function deselectById($id) {
+    $this->deselectBy('@id', $id);
+  }
+
+  /**
+   * Select all options that display text matching the argument. That is, when
+   * given "Bar" this would select an option like:
+   *
+   * <option value="foo">Bar</option>;
+   *
+   * @param string $text The visible text to match against.
+   * @return void
+   */
+  public function selectByVisibleText($text) {
+    $isMatched = $this->selectBy('normalize-space(.)', $text);
+
+    // Since the mechanism of getting the text in xpath is not the same as
+    // webdriver, use the expensive getText() to check if nothing is matched.
+    if (!$isMatched) {
+      foreach ($this->getOptions() as $option) {
+        if ($option->getText() === $text) {
+          if (!$option->isSelected()) {
+            $option->click();
+          }
+          if (!$this->isMultiple()) {
+            return;
+          }
+          $isMatched = true;
+        }
+      }
+    }
+
+    if (!$isMatched) {
+      throw new NoSuchElementWebDriverError(
+        sprintf('Cannot locate option with text: %s', $text)
+      );
+    }
+  }
+
+  /**
+   * @param string $locator
+   * @param string $value
+   *
+   * @return bool
+   */
+  private function selectBy($locator, $value) {
+    $isMatched = false;
+    $xpath = './/option['.$locator.' = '.$this->escapeQuotes($value).']';
+    $options = $this->element->findElements(WebDriverBy::xpath($xpath));
+
+    foreach ($options as $option) {
+      if (!$option->isSelected()) {
+        $option->click();
+      }
+      if (!$this->isMultiple()) {
+        return;
+      }
+      $isMatched = true;
+    }
+
+    return $isMatched;
+  }
+
+  /**
+   * @param string $locator
+   * @param string $value
+   */
+  private function deselectBy($locator, $value) {
+    $xpath = './/option['.$locator.' = '.$this->escapeQuotes($value).']';
     $options = $this->element->findElements(WebDriverBy::xpath($xpath));
     foreach ($options as $option) {
       if ($option->isSelected()) {
