@@ -29,6 +29,8 @@ require_once('WebDriverTargetLocator.php');
 require_once('WebDriverTimeouts.php');
 require_once('WebDriverWait.php');
 require_once('WebDriverWindow.php');
+require_once('remote/RemoteWebDriver.php');
+require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
 require_once('remote/WebDriverCommandExecutor.php');

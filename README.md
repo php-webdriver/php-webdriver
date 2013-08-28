@@ -35,9 +35,9 @@ Any complaint, question, idea? You can post it on the user group https://www.fac
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
         // This would be the url of the host running the server-standalone.jar
-        $wd_host = 'http://localhost:4444/wd/hub'; // this is the default
+        $host = 'http://localhost:4444/wd/hub'; // this is the default
         $capabilities = array(WebDriverCapabilityType::BROWSER_NAME => 'firefox');
-        $web_driver = new WebDriver($wd_host, $capabilities);
+        $driver = new RemoteWebDriver($host, $capabilities);
 
 *   The $capabilities array lets you specify (among other things) which browser to use. See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 

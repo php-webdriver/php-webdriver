@@ -183,7 +183,8 @@ class WebDriverExpectedCondition {
    * @return WebDriver object focused on new frame when frame is found
    *   bool false otherwise
   */
-  public static function frameToBeAvailableAndSwitchToIt(string $frame_locator) {
+  public static function frameToBeAvailableAndSwitchToIt(
+      string $frame_locator) {
     return new WebDriverExpectedCondition(
       function ($driver) use ($frame_locator) {
         try {
