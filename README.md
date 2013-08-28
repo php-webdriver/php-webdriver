@@ -9,6 +9,8 @@ Looking for documentation about Selenium WebDriver? See http://docs.seleniumhq.o
 
 The PHP client was rewritten from scratch. Using the old version? Check out Adam Goucher's fork of it at https://github.com/Element-34/php-webdriver
 
+Any complaint, question, idea? You can post it on the user group https://www.facebook.com/groups/459991440774500/.
+
 ##  GETTING THE CODE
 
 *   git clone git@github.com:facebook/php-webdriver.git
