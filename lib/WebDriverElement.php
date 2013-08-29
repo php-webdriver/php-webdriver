@@ -105,6 +105,24 @@ class WebDriverElement {
   }
 
   /**
+   * Set the value of a the given attribute of the element.
+   *
+   * @param string $attribute_name
+   * @param string $attribute_value
+   */
+  public function setAttribute($attribute_name, $attribute_value) {
+    $params = array(
+      'script' => "arguments[0].$attribute_name = '$attribute_value';",
+      'args' => array(
+        array(
+          'ELEMENT' => $this->id
+        )
+      )
+    );
+    $this->executor->execute('executeScript', $params);
+  }
+
+  /**
    * Get the value of a given CSS property.
    *
    * @param string $css_property_name The name of the CSS property.
@@ -164,10 +182,11 @@ class WebDriverElement {
    * @return string The tag name.
    */
   public function getTagName() {
-    return $this->executor->execute(
+    $tagName = $this->executor->execute(
       'getElementTagName',
       array(':id' => $this->id)
     );
+    return strtolower($tagName);
   }
 
   /**
@@ -181,6 +200,15 @@ class WebDriverElement {
       'getElementText',
       array(':id' => $this->id)
     );
+  }
+
+  /**
+   * Get the source code of the element.
+   *
+   * @return string
+   */
+  public function getSource() {
+    return $this->getAttribute('innerHTML');
   }
 
   /**
@@ -219,6 +247,30 @@ class WebDriverElement {
       'isElementSelected',
       array(':id' => $this->id)
     );
+  }
+
+  /**
+   * Find text (insensitive mode) in the visible text of the element.
+   *
+   * @param string $text
+   *
+   * @return bool
+   */
+  public function isTextPresent($text) {
+    $textQuoted = preg_quote($text, '/');
+    return (boolean) preg_match("/$textQuoted/i", $this->getText());
+  }
+
+  /**
+   * Find source string (insensitive mode) in the source code of element.
+   *
+   * @param string $source
+   *
+   * @return bool
+   */
+  public function isSourcePresent($source) {
+    $sourceQuoted = preg_quote($source, '/');
+    return (boolean) preg_match("/$sourceQuoted/i", $this->getSource());
   }
 
   /**
