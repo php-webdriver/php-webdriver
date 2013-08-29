@@ -14,14 +14,17 @@
 // limitations under the License.
 
 require_once('WebDriver.php');
+require_once('WebDriverAction.php');
 require_once('WebDriverAlert.php');
 require_once('WebDriverBy.php');
 require_once('WebDriverDimension.php');
 require_once('WebDriverElement.php');
 require_once('WebDriverExceptions.php');
 require_once('WebDriverExpectedCondition.php');
+require_once('WebDriverHasInputDevices.php');
 require_once('WebDriverKeys.php');
 require_once('WebDriverNavigation.php');
+require_once('WebDriverMouse.php');
 require_once('WebDriverOptions.php');
 require_once('WebDriverPoint.php');
 require_once('WebDriverSelect.php');
@@ -29,6 +32,19 @@ require_once('WebDriverTargetLocator.php');
 require_once('WebDriverTimeouts.php');
 require_once('WebDriverWait.php');
 require_once('WebDriverWindow.php');
+require_once('interactions/WebDriverActions.php');
+require_once('interactions/WebDriverCompositeAction.php');
+require_once('interactions/internal/WebDriverButtonReleaseAction.php');
+require_once('interactions/internal/WebDriverClickAction.php');
+require_once('interactions/internal/WebDriverClickAndHoldAction.php');
+require_once('interactions/internal/WebDriverContextClickAction.php');
+require_once('interactions/internal/WebDriverCoordinates.php');
+require_once('interactions/internal/WebDriverDoubleClickAction.php');
+require_once('interactions/internal/WebDriverMouseAction.php');
+require_once('interactions/internal/WebDriverMouseMoveAction.php');
+require_once('interactions/internal/WebDriverMoveToOffsetAction.php');
+require_once('internal/WebDriverLocatable.php');
+require_once('remote/RemoteMouse.php');
 require_once('remote/RemoteWebDriver.php');
 require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');

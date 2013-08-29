@@ -16,7 +16,7 @@
 /**
  * Represents an HTML element.
  */
-class RemoteWebElement implements WebDriverElement {
+class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
 
   protected $executor;
   protected $id;
@@ -143,6 +143,29 @@ class RemoteWebElement implements WebDriverElement {
       array(':id' => $this->id)
     );
     return new WebDriverPoint($location['x'], $location['y']);
+  }
+
+  /**
+   * @return WebDriverCoordinates
+   */
+  public function getCoordinates() {
+    $element = $this;
+
+    $on_screen = null; // planned but not yet implemented
+    $in_view_port = function () use ($element) {
+      return $element->getLocationOnScreenOnceScrolledIntoView();
+    };
+    $on_page = function () use ($element) {
+      return $element->getLocation();
+    };
+    $auxiliary = $this->getID();
+
+    return new WebDriverCoordinates(
+      $on_screen,
+      $in_view_port,
+      $on_page,
+      $auxiliary
+    );
   }
 
   /**

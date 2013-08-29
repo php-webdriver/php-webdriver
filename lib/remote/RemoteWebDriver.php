@@ -16,6 +16,8 @@
 class RemoteWebDriver implements WebDriver {
 
   protected $executor;
+  protected $mouse;
+  protected $keyboard;
 
   public function __construct(
       $url = 'http://localhost:4444/wd/hub',
@@ -251,6 +253,23 @@ class RemoteWebDriver implements WebDriver {
    */
   public function switchTo() {
     return new WebDriverTargetLocator($this->executor, $this);
+  }
+
+  /**
+   * @return WebDriverMouse
+   */
+  public function getMouse() {
+    if (!$this->mouse) {
+      $this->mouse = new RemoteMouse($this->executor);
+    }
+    return $this->mouse;
+  }
+
+  /**
+   * @return WebDriverKeyboard
+   */
+  public function getKeyboard() {
+    throw new UnsupportedOperationException('not yet implemented');
   }
 
   /**
