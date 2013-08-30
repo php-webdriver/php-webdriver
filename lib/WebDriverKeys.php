@@ -84,7 +84,7 @@ class WebDriverKeys {
   const COMMAND         = "\xEE\x80\xBD"; // ALIAS
   const ZENKAKU_HANKAKU = "\xEE\x80\xC0";
 
-  static function encode($keys)
+  static function encode(array $keys)
   {
     $encoded = array();
     foreach ($keys as $key)

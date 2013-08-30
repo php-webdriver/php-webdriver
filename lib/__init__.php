@@ -25,6 +25,7 @@ require_once('WebDriverHasInputDevices.php');
 require_once('WebDriverKeys.php');
 require_once('WebDriverNavigation.php');
 require_once('WebDriverMouse.php');
+require_once('WebDriverKeyboard.php');
 require_once('WebDriverOptions.php');
 require_once('WebDriverPoint.php');
 require_once('WebDriverSelect.php');
