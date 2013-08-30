@@ -18,7 +18,7 @@
  */
 class RemoteMouse implements WebDriverMouse {
 
-  private WebDriverCommandExecutor $executor;
+  private $executor;
 
   public function __construct($executor) {
     $this->executor = $executor;

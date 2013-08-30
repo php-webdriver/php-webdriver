@@ -18,8 +18,8 @@
  */
 class WebDriverMouseAction {
 
-  protected WebDriverMouse $mouse;
-  protected WebDriverLocatable $locationProvider;
+  protected $mouse;
+  protected $locationProvider;
 
   public function __construct(
       WebDriverMouse $mouse,

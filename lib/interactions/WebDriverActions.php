@@ -18,12 +18,12 @@
  */
 class WebDriverActions {
 
-  protected WebDriver $driver;
-  protected WebDriverMouse $mouse;
-  protected WebDriverCompositeAction $action;
+  protected $driver;
+  protected $mouse;
+  protected $action;
 
   // TODO: add keyboard actions
-  // protected WebDriverKeyboard $keyboard;
+  // protected $keyboard;
 
   public function __construct(WebDriver $driver) {
     $this->driver = $driver;
