@@ -265,11 +265,12 @@ class RemoteWebDriver implements WebDriver {
     return $this->mouse;
   }
 
-  /**
-   * @return WebDriverKeyboard
-   */
-  public function getKeyboard() {
-    throw new UnsupportedOperationException('not yet implemented');
+  public function getKeyboard()
+  {
+    if (!$this->keyboard) {
+      $this->keyboard = new RemoteKeyboard($this->executor);
+    }
+    return $this->keyboard;
   }
 
   /**

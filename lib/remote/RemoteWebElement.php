@@ -247,12 +247,19 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Simulate typing into an element, which may set its value.
    *
+   * ``` php
+   * $element->sendKeys('foo'); // => 'foo'
+   * $element->sendKeys('test', WebDriverKeys::ARROW_LEFT, 's' ); // => 'test'
+   * $element->sendKeys(array(WebDriverKeys::CONTROL, 'a'), WebDriverKeys::SPACE); // => ' '
+   * ```
+   *
    * @param mixed $value The data to be typed.
    * @return WebDriverElement The current instance.
    */
   public function sendKeys($value) {
+    $value = WebDriverKeys::encode(func_get_args());
     $params = array(
-      'value' => array((string)$value),
+      'value' => $value,
       ':id'   => $this->id,
     );
     $this->executor->execute('sendKeysToElement', $params);
