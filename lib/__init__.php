@@ -45,6 +45,7 @@ require_once('interactions/internal/WebDriverMouseMoveAction.php');
 require_once('interactions/internal/WebDriverMoveToOffsetAction.php');
 require_once('internal/WebDriverLocatable.php');
 require_once('remote/RemoteMouse.php');
+require_once('remote/RemoteKeyboard.php');
 require_once('remote/RemoteWebDriver.php');
 require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
