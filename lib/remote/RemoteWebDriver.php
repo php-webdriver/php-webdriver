@@ -29,9 +29,9 @@ class RemoteWebDriver implements WebDriver {
       'name' => 'newSession',
       'parameters' => array('desiredCapabilities' => $desired_capabilities),
     );
-    $response = WebDriverCommandExecutor::remoteExecute($command);
+    $response = HttpCommandExecutor::remoteExecute($command);
 
-    $this->executor = new WebDriverCommandExecutor(
+    $this->executor = new HttpCommandExecutor(
       $url,
       $response['sessionId']
     );
@@ -53,7 +53,7 @@ class RemoteWebDriver implements WebDriver {
    *
    * @param WebDriverBy $by
    * @return WebDriverElement NoSuchElementWebDriverError is thrown in
-   *    WebDriverCommandExecutor if no element is found.
+   *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */
   public function findElement(WebDriverBy $by) {
@@ -281,5 +281,4 @@ class RemoteWebDriver implements WebDriver {
   private function newElement($id) {
     return new RemoteWebElement($this->executor, $id);
   }
-
 }

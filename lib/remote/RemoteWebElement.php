@@ -21,7 +21,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   protected $executor;
   protected $id;
 
-  public function __construct(WebDriverCommandExecutor $executor, $id) {
+  public function __construct(HttpCommandExecutor $executor, $id) {
     $this->executor = $executor;
     $this->id = $id;
   }
@@ -53,7 +53,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    *
    * @param WebDriverBy $by
    * @return WebDriverElement NoSuchElementWebDriverError is thrown in
-   *    WebDriverCommandExecutor if no element is found.
+   *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */
   public function findElement(WebDriverBy $by) {

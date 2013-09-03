@@ -16,7 +16,7 @@
 /**
  * Interface for an HTML element in the WebDriver framework.
  */
-interface WebDriverElement {
+interface WebDriverElement extends WebDriverSearchContext {
 
   /**
    * If this element is a TEXTAREA or text INPUT element, this will clear the
@@ -37,22 +37,22 @@ interface WebDriverElement {
    * Find the first WebDriverElement within this element using the given
    * mechanism.
    *
-   * @param WebDriverBy $by
+   * @param WebDriverBy $locator
    * @return WebDriverElement NoSuchElementWebDriverError is thrown in
-   *    WebDriverCommandExecutor if no element is found.
+   *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */
-  public function findElement(WebDriverBy $by);
+  public function findElement(WebDriverBy $locator);
 
   /**
    * Find all WebDriverElements within this element using the given mechanism.
    *
-   * @param WebDriverBy $by
+   * @param WebDriverBy $locator
    * @return array A list of all WebDriverElements, or an empty array if
    *    nothing matches
    * @see WebDriverBy
    */
-  public function findElements(WebDriverBy $by);
+  public function findElements(WebDriverBy $locator);
 
   /**
    * Get the value of a the given attribute of the element.
