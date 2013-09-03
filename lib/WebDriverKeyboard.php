@@ -12,7 +12,7 @@ interface WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function press($key);
+  public function pressKey($key);
 
   /**
    * Release a modifier key
@@ -21,6 +21,6 @@ interface WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function release($key);
+  public function releaseKey($key);
 
 }

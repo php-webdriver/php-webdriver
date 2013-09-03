@@ -20,15 +20,6 @@ class RemoteKeyboard implements WebDriverKeyboard {
 
   private $executor;
 
-  protected $modifiers = array(
-    WebDriverKeys::CONTROL,
-    WebDriverKeys::SHIFT,
-    WebDriverKeys::ALT,
-    WebDriverKeys::COMMAND,
-    WebDriverKeys::META
-  );
-  
-  protected $modifierNames = array('control', 'shift', 'alt', 'command', 'meta');  
 
   public function __construct($executor) {
     $this->executor = $executor;
@@ -52,9 +43,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function press($key)
+  public function pressKey($key)
   {
-    $this->sendKeysToActiveElement($this->getModifierKey($key));
+    $this->sendKeysToActiveElement(array($key));
     return $this;
   }
 
@@ -65,9 +56,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function release($key)
+  public function releaseKey($key)
   {
-    $this->sendKeysToActiveElement($this->getModifierKey($key));
+    $this->sendKeysToActiveElement(array($key));
     return $this;
   }
 
@@ -76,14 +67,7 @@ class RemoteKeyboard implements WebDriverKeyboard {
     $params = array(
       'value' => $value
     );
-    $this->executor->execute('sendKeysToActiveElement', $params);   
+    $this->executor->execute('sendKeys', $params);
   }    
 
-  private function getModifierKey($key)
-  {
-    if (in_array($key, $this->modifierNames)) $key = constant('WebDriverKeys::'.strtoupper($key));  
-    if (!in_array($key, $this->modifiers))
-      throw new InvalidArgumentException("This is not a modifier key, expected ".implode(', ', $this->modifierNames));
-    return array($key);
-  }
 }

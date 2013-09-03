@@ -71,7 +71,6 @@ class WebDriverCommandExecutor {
     'sendKeys' =>          array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
     'sendKeysToAlert' =>    array('method' => 'POST', 'url' => '/session/:sessionId/alert_text'),
     'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
-    'sendKeysToActiveElement' => array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
     'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
     'setPageLoadTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
     'setScriptTimeout' =>  array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),
