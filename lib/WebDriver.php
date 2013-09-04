@@ -110,7 +110,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Take a screenshot of the current page.
    *
-   * @param $save_as The path of the screenshot to be saved.
+   * @param string $save_as The path of the screenshot to be saved.
    * @return string The screenshot in PNG format.
    */
   public function takeScreenshot($save_as = null);

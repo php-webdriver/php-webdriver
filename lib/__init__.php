@@ -57,3 +57,9 @@ require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
 require_once('remote/HttpCommandExecutor.php');
+
+require_once('EventFiringWebDriver.php');
+require_once('EventFiringWebDriverNavigation.php');
+require_once('WebDriverDispatcher.php');
+require_once('WebDriverEventListener.php');
+require_once('EventFiringWebElement.php');
