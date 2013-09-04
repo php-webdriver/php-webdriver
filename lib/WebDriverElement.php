@@ -14,17 +14,9 @@
 // limitations under the License.
 
 /**
- * Represents an HTML element.
+ * Interface for an HTML element in the WebDriver framework.
  */
-class WebDriverElement {
-
-  protected $executor;
-  protected $id;
-
-  public function __construct(WebDriverCommandExecutor $executor, $id) {
-    $this->executor = $executor;
-    $this->id = $id;
-  }
+interface WebDriverElement extends WebDriverSearchContext {
 
   /**
    * If this element is a TEXTAREA or text INPUT element, this will clear the
@@ -32,63 +24,35 @@ class WebDriverElement {
    *
    * @return WebDriverElement The current instance.
    */
-  public function clear() {
-    $this->executor->execute('clear', array(':id' => $this->id));
-    return $this;
-  }
+  public function clear();
 
   /**
    * Click this element.
    *
    * @return WebDriverElement The current instance.
    */
-  public function click() {
-    $this->executor->execute('clickElement', array(':id' => $this->id));
-    return $this;
-  }
+  public function click();
 
   /**
    * Find the first WebDriverElement within this element using the given
    * mechanism.
    *
-   * @param WebDriverBy $by
+   * @param WebDriverBy $locator
    * @return WebDriverElement NoSuchElementWebDriverError is thrown in
-   *    WebDriverCommandExecutor if no element is found.
+   *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */
-  public function findElement(WebDriverBy $by) {
-    $params = array(
-      'using' => $by->getMechanism(),
-      'value' => $by->getValue(),
-      ':id'   => $this->id,
-    );
-    $raw_element = $this->executor->execute('elementFindElement', $params);
-
-    return $this->newElement($raw_element['ELEMENT']);
-  }
+  public function findElement(WebDriverBy $locator);
 
   /**
    * Find all WebDriverElements within this element using the given mechanism.
    *
-   * @param WebDriverBy $by
+   * @param WebDriverBy $locator
    * @return array A list of all WebDriverElements, or an empty array if
    *    nothing matches
    * @see WebDriverBy
    */
-  public function findElements(WebDriverBy $by) {
-    $params = array(
-      'using' => $by->getMechanism(),
-      'value' => $by->getValue(),
-      ':id'   => $this->id,
-    );
-    $raw_elements = $this->executor->execute('elementFindElements', $params);
-
-    $elements = array();
-    foreach ($raw_elements as $raw_element) {
-      $elements[] = $this->newElement($raw_element['ELEMENT']);
-    }
-    return $elements;
-  }
+  public function findElements(WebDriverBy $locator);
 
   /**
    * Get the value of a the given attribute of the element.
@@ -96,13 +60,7 @@ class WebDriverElement {
    * @param string $attribute_name The name of the attribute.
    * @return string The value of the attribute.
    */
-  public function getAttribute($attribute_name) {
-    $params = array(
-      ':name' => $attribute_name,
-      ':id'   => $this->id,
-    );
-    return $this->executor->execute('getElementAttribute', $params);
-  }
+  public function getAttribute($attribute_name);
 
   /**
    * Get the value of a given CSS property.
@@ -110,26 +68,14 @@ class WebDriverElement {
    * @param string $css_property_name The name of the CSS property.
    * @return string The value of the CSS property.
    */
-  public function getCSSValue($css_property_name) {
-    $params = array(
-      ':propertyName' => $css_property_name,
-      ':id'           => $this->id,
-    );
-    return $this->executor->execute('getElementCSSValue', $params);
-  }
+  public function getCSSValue($css_property_name);
 
   /**
    * Get the location of element relative to the top-left corner of the page.
    *
    * @return WebDriverLocation The location of the element.
    */
-  public function getLocation() {
-    $location = $this->executor->execute(
-      'getElementLocation',
-      array(':id' => $this->id)
-    );
-    return new WebDriverPoint($location['x'], $location['y']);
-  }
+  public function getLocation();
 
   /**
    * Try scrolling the element into the view port and return the location of
@@ -137,38 +83,21 @@ class WebDriverElement {
    *
    * @return WebDriverLocation The location of the element.
    */
-  public function getLocationOnScreenOnceScrolledIntoView() {
-    $location = $this->executor->execute(
-      'getElementLocationOnceScrolledIntoView',
-      array(':id' => $this->id)
-    );
-    return new WebDriverPoint($location['x'], $location['y']);
-  }
+  public function getLocationOnScreenOnceScrolledIntoView();
 
   /**
    * Get the size of element.
    *
    * @return WebDriverDimension The dimension of the element.
    */
-  public function getSize() {
-    $size = $this->executor->execute(
-      'getElementSize',
-      array(':id' => $this->id)
-    );
-    return new WebDriverDimension($size['width'], $size['height']);
-  }
+  public function getSize();
 
   /**
    * Get the tag name of this element.
    *
    * @return string The tag name.
    */
-  public function getTagName() {
-    return $this->executor->execute(
-      'getElementTagName',
-      array(':id' => $this->id)
-    );
-  }
+  public function getTagName();
 
   /**
    * Get the visible (i.e. not hidden by CSS) innerText of this element,
@@ -176,12 +105,7 @@ class WebDriverElement {
    *
    * @return string The visible innerText of this element.
    */
-  public function getText() {
-    return $this->executor->execute(
-      'getElementText',
-      array(':id' => $this->id)
-    );
-  }
+  public function getText();
 
   /**
    * Is this element displayed or not? This method avoids the problem of having
@@ -189,12 +113,7 @@ class WebDriverElement {
    *
    * @return bool
    */
-  public function isDisplayed() {
-    return $this->executor->execute(
-      'isElementDisplayed',
-      array(':id' => $this->id)
-    );
-  }
+  public function isDisplayed();
 
   /**
    * Is the element currently enabled or not? This will generally return true
@@ -202,24 +121,14 @@ class WebDriverElement {
    *
    * @return bool
    */
-  public function isEnabled() {
-    return $this->executor->execute(
-      'isElementEnabled',
-      array(':id' => $this->id)
-    );
-  }
+  public function isEnabled();
 
   /**
    * Determine whether or not this element is selected or not.
    *
    * @return bool
    */
-  public function isSelected() {
-    return $this->executor->execute(
-      'isElementSelected',
-      array(':id' => $this->id)
-    );
-  }
+  public function isSelected();
 
   /**
    * Simulate typing into an element, which may set its value.
@@ -227,14 +136,7 @@ class WebDriverElement {
    * @param mixed $value The data to be typed.
    * @return WebDriverElement The current instance.
    */
-  public function sendKeys($value) {
-    $params = array(
-      'value' => array((string)$value),
-      ':id'   => $this->id,
-    );
-    $this->executor->execute('sendKeysToElement', $params);
-    return $this;
-  }
+  public function sendKeys($value);
 
   /**
    * If this current element is a form, or an element within a form, then this
@@ -242,27 +144,12 @@ class WebDriverElement {
    *
    * @return WebDriverElement The current instance.
    */
-  public function submit() {
-    $this->executor->execute('submitElement', array(':id' => $this->id));
-
-    return $this;
-  }
+  public function submit();
 
   /**
    * Get the opaque ID of the element.
    *
    * @return string The opaque ID.
    */
-  public function getID() {
-    return $this->id;
-  }
-
-  /**
-   * Return the WebDriverElement with $id
-   *
-   * @return WebDriverElement
-   */
-  private function newElement($id) {
-    return new WebDriverElement($this->executor, $id);
-  }
+  public function getID();
 }

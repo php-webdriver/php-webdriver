@@ -175,6 +175,28 @@ class WebDriverExpectedCondition {
   }
 
   /**
+   * Expectation for checking if iFrame exists.
+   * If iFrame exists switches driver's focus to the iFrame
+   *
+   * @param string frame_locator The locator used to find the iFrame
+   *   expected to be either the id or name value of the i/frame
+   * @return WebDriver object focused on new frame when frame is found
+   *   bool false otherwise
+  */
+  public static function frameToBeAvailableAndSwitchToIt(
+      string $frame_locator) {
+    return new WebDriverExpectedCondition(
+      function ($driver) use ($frame_locator) {
+        try {
+          return $driver->switchTo()->frame($frame_locator);
+        } catch (NoSuchFrameWebDriverError $e) {
+          return false;
+        }
+      }
+    );
+  }
+
+  /**
    * An expectation for checking that an element is either invisible or not
    * present on the DOM.
    *
