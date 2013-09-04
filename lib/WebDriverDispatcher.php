@@ -15,72 +15,66 @@
 
 class WebDriverDispatcher {
 
-	/**
-	 * @var array
-	 */
-	protected $_listeners = array();
+  /**
+   * @var array
+   */
+  protected $listeners = array();
 
-	/**
-	 * @var EventFiringWebDriver
-	 */
-	protected $_driver = null;
+  /**
+   * @var EventFiringWebDriver
+   */
+  protected $driver = null;
 
-	/**
-	 * this is needed so that EventFiringWebElement can pass the driver to the exception handling, so you take screenshots et al
-	 * @param EventFiringWebDriver $driver
-	 * @return $this
-	 */
-	public function setDefaultDriver(EventFiringWebDriver $driver) {
-		$this->_driver = $driver;
-		return $this;
-	}
+  /**
+   * this is needed so that EventFiringWebElement can pass the driver to the
+   * exception handling
+   *
+   * @param EventFiringWebDriver $driver
+   * @return $this
+   */
+  public function setDefaultDriver(EventFiringWebDriver $driver) {
+    $this->driver = $driver;
+    return $this;
+  }
 
-	/**
-	 * @return null|EventFiringWebDriver
-	 */
-	public function getDefaultDriver() {
-		return $this->_driver;
-	}
+  /**
+   * @return null|EventFiringWebDriver
+   */
+  public function getDefaultDriver() {
+    return $this->driver;
+  }
 
-	/**
-	 * @param WebDriverEventListener $listener
-	 * @return $this
-	 */
-	public function register(WebDriverEventListener $listener) {
+  /**
+   * @param WebDriverEventListener $listener
+   * @return $this
+   */
+  public function register(WebDriverEventListener $listener) {
+    $this->listeners[] = $listener;
+    return $this;
+  }
 
-		$this->_listeners[] = $listener;
+  /**
+   * @param WebDriverEventListener $listener
+   * @return $this
+   */
+  public function unregister(WebDriverEventListener $listener) {
+    $key = array_search($listener, $this->listeners, true);
+    if ($key !== false) {
+      unset($this->listeners[$key]);
+    }
+    return $this;
+  }
 
-		return $this;
-
-	}
-
-	/**
-	 * @param WebDriverEventListener $listener
-	 * @return $this
-	 */
-	public function unregister(WebDriverEventListener $listener) {
-
-		$key = array_search($listener, $this->_listeners, true);
-		if ($key !== false)
-			unset($this->_listeners[$key]);
-
-		return $this;
-
-
-	}
-
-	/**
-	 * @param $method
-	 * @param $arguments
-	 * @return $this
-	 */
-	public function dispatch($method, $arguments) {
-
-		foreach ($this->_listeners as $listener)
-			call_user_func_array([$listener, $method], $arguments);
-
-		return $this;
-
-	}
+  /**
+   * @param $method
+   * @param $arguments
+   * @return $this
+   */
+  public function dispatch($method, $arguments) {
+    foreach ($this->listeners as $listener) {
+      call_user_func_array(array($listener, $method), $arguments);
+    }
+    return $this;
+  }
 
 }
