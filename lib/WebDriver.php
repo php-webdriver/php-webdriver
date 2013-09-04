@@ -35,10 +35,6 @@ class WebDriver {
     );
   }
 
-	public function getExecutor() {
-		return $this->executor;
-	}
-
   /**
    * Close the current window.
    *

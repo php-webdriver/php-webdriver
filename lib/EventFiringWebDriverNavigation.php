@@ -54,7 +54,7 @@ class EventFiringWebDriverNavigation {
 
 	/**
 	 * @return $this
-	 * @throws Exception|WebDriverException
+	 * @throws WebDriverException
 	 */
 	public function back() {
 
@@ -74,7 +74,7 @@ class EventFiringWebDriverNavigation {
 
 	/**
 	 * @return $this
-	 * @throws Exception|WebDriverException
+	 * @throws WebDriverException
 	 */
 	public function forward() {
 
@@ -94,7 +94,7 @@ class EventFiringWebDriverNavigation {
 
 	/**
 	 * @return $this
-	 * @throws Exception|WebDriverException
+	 * @throws WebDriverException
 	 */
 	public function refresh() {
 		try {
@@ -111,7 +111,7 @@ class EventFiringWebDriverNavigation {
 	/**
 	 * @param $url
 	 * @return $this
-	 * @throws Exception|WebDriverException
+	 * @throws WebDriverException
 	 */
 	public function to($url) {
 
