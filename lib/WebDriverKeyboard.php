@@ -15,24 +15,29 @@
 
 interface WebDriverKeyboard {
 
+  /**
+   * Send a sequence of keys.
+   *
+   * @param string $keys
+   * @return $this
+   */
   public function sendKeys($keys);
 
   /**
-   * Press a modifier key
+   * Press a key
    *
    * @see WebDriverKeys
-   * @param $key
+   * @param string $key
    * @return $this
    */
   public function pressKey($key);
 
   /**
-   * Release a modifier key
+   * Release a key
    *
    * @see WebDriverKeys
-   * @param $key
+   * @param string $key
    * @return $this
    */
   public function releaseKey($key);
-
 }

@@ -20,7 +20,6 @@ class RemoteKeyboard implements WebDriverKeyboard {
 
   private $executor;
 
-
   public function __construct($executor) {
     $this->executor = $executor;
   }
@@ -32,7 +31,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * @return $this
    */
   public function sendKeys($keys) {
-    $this->sendKeysToActiveElement(WebDriverKeys::encode(func_get_args()));
+    $this->executor->execute('sendKeys', array(
+      'value' => array((string)$keys),
+    ));
     return $this;
   }
 
@@ -43,9 +44,10 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function pressKey($key)
-  {
-    $this->sendKeysToActiveElement(array($key));
+  public function pressKey($key) {
+    $this->executor->execute('sendKeys', array(
+      'value' => array((string)$key),
+    ));
     return $this;
   }
 
@@ -56,18 +58,10 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * @param $key
    * @return $this
    */
-  public function releaseKey($key)
-  {
-    $this->sendKeysToActiveElement(array($key));
+  public function releaseKey($key) {
+    $this->executor->execute('sendKeys', array(
+      'value' => array((string)$key),
+    ));
     return $this;
   }
-
-  private function sendKeysToActiveElement($value)
-  {
-    $params = array(
-      'value' => $value
-    );
-    $this->executor->execute('sendKeys', $params);
-  }    
-
 }
