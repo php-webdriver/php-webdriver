@@ -93,7 +93,7 @@ class WebDriverActions {
       new WebDriverMouseMoveAction($this->mouse, $target)
     );
     $this->action->addAction(
-      new WebDriverButtonReleaseAction($this->mouse, $source)
+      new WebDriverButtonReleaseAction($this->mouse, $target)
     );
     return $this;
   }
