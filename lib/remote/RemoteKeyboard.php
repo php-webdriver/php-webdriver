@@ -32,7 +32,7 @@ class RemoteKeyboard implements WebDriverKeyboard {
    */
   public function sendKeys($keys) {
     $this->executor->execute('sendKeys', array(
-      'value' => array((string)$keys),
+      'value' => WebDriverKeys::encode($keys),
     ));
     return $this;
   }
@@ -41,7 +41,7 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * Press a modifier key
    *
    * @see WebDriverKeys
-   * @param $key
+   * @param string $key
    * @return $this
    */
   public function pressKey($key) {
@@ -55,7 +55,7 @@ class RemoteKeyboard implements WebDriverKeyboard {
    * Release a modifier key
    *
    * @see WebDriverKeys
-   * @param $key
+   * @param string $key
    * @return $this
    */
   public function releaseKey($key) {

@@ -18,9 +18,14 @@ require_once('WebDriverSearchContext.php');
 require_once('WebDriver.php');
 require_once('WebDriverElement.php');
 require_once('WebDriverCommandExecutor.php');
+require_once('WebDriverAction.php');
+require_once('WebDriverEventListener.php');
+
+// abstract class
+require_once('interactions/internal/WebDriverKeysRelatedAction.php');
+require_once('interactions/internal/WebDriverSingleKeyAction.php');
 
 // class
-require_once('WebDriverAction.php');
 require_once('WebDriverAlert.php');
 require_once('WebDriverBy.php');
 require_once('WebDriverDimension.php');
@@ -57,9 +62,11 @@ require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
 require_once('remote/HttpCommandExecutor.php');
+require_once('interactions/internal/WebDriverSendKeysAction.php');
+require_once('interactions/internal/WebDriverKeyDownAction.php');
+require_once('interactions/internal/WebDriverKeyUpAction.php');
 
-require_once('EventFiringWebDriver.php');
-require_once('EventFiringWebDriverNavigation.php');
+require_once('support/events/EventFiringWebDriver.php');
+require_once('support/events/EventFiringWebDriverNavigation.php');
 require_once('WebDriverDispatcher.php');
-require_once('WebDriverEventListener.php');
-require_once('EventFiringWebElement.php');
+require_once('support/events/EventFiringWebElement.php');

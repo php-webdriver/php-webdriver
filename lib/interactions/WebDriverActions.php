@@ -19,14 +19,13 @@
 class WebDriverActions {
 
   protected $driver;
+  protected $keyboard;
   protected $mouse;
   protected $action;
 
-  // TODO: add keyboard actions
-  // protected $keyboard;
-
   public function __construct(WebDriver $driver) {
     $this->driver = $driver;
+    $this->keyboard = $driver->getKeyboard();
     $this->mouse = $driver->getMouse();
     $this->action = new WebDriverCompositeAction();
   }
@@ -137,6 +136,7 @@ class WebDriverActions {
     $this->action->addAction(new WebDriverMoveToOffsetAction(
       $this->mouse, $element, $x_offset, $y_offset
     ));
+    return $this;
   }
 
   /**
@@ -146,6 +146,47 @@ class WebDriverActions {
   public function release(WebDriverElement $element = null) {
     $this->action->addAction(
       new WebDriverButtonReleaseAction($this->mouse, $element)
+    );
+    return $this;
+  }
+
+  /**
+   * Press a key on keyboard.
+   * If $element is provided, focus on that element first.
+   *
+   * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   */
+  public function keyDown(WebDriverElement $element = null, $key) {
+    $this->action->addAction(
+      new WebDriverKeyDownAction($this->keyboard, $this->mouse, $element, $key)
+    );
+    return $this;
+  }
+
+  /**
+   * Release a key on keyboard.
+   * If $element is provided, focus on that element first.
+   *
+   * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   */
+  public function keyUp(WebDriverElement $element = null, $key) {
+    $this->action->addAction(
+      new WebDriverKeyUpAction($this->keyboard, $this->mouse, $element, $key)
+    );
+    return $this;
+  }
+
+  /**
+   * Send keys by keyboard.
+   * If $element is provided, focus on that element first.
+   *
+   * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   */
+  public function sendKeys(WebDriverElement $element = null, $keys) {
+    $this->action->addAction(
+      new WebDriverSendKeysAction(
+        $this->keyboard, $this->mouse, $element, $keys
+      )
     );
     return $this;
   }

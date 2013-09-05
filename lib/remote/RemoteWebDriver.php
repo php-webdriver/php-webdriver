@@ -276,6 +276,15 @@ class RemoteWebDriver implements WebDriver {
   }
 
   /**
+   * Construct a new action builder.
+   *
+   * @return WebDriverActions
+   */
+  public function action() {
+    return new WebDriverActions($this);
+  }
+
+  /**
    * Return the WebDriverElement with the given id.
    *
    * @param string $id The id of the element to be created.

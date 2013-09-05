@@ -252,7 +252,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function sendKeys($value) {
     $params = array(
-      'value' => array((string)$value),
+      'value' => WebDriverKeys::encode($value),
       ':id'   => $this->id,
     );
     $this->executor->execute('sendKeysToElement', $params);
