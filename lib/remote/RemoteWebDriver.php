@@ -179,15 +179,7 @@ class RemoteWebDriver implements WebDriver {
 
     $params = array('script' => $script, 'args' => $args);
     $response = $this->executor->execute('executeScript', $params);
-
-    if (is_array($response)) {
-      // TODO: Handle this
-      throw new Exception(
-        "executeScript with collection response is unimplemented"
-      );
-    } else {
-      return $response;
-    }
+    return $response;
   }
 
   /**
