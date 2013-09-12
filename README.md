@@ -51,7 +51,7 @@ Currently we offer support in two manners:
 
 ### Via our Facebook Group
 
-If you have questions or are an active contributor consider joining our facebook group and contributing to the communal discussion/support
+If you have questions or are an active contributor consider joining our facebook group and contributing to the communal discussion and support
 
 https://www.facebook.com/groups/phpwebdriver/
 
