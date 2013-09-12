@@ -43,6 +43,22 @@ The PHP client was rewritten from scratch. Using the old version? Check out Adam
 
 Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
 
+## SUPPORT
+
+We have a great community willing to try and help you!
+
+Currently we offer support in two manners:
+
+### Via our Facebook Group
+
+If you have questions or are an active contributor consider joining our facebook group and contributing to the communal discussion/support
+
+https://www.facebook.com/groups/phpwebdriver/
+
+### Via Github
+
+If you're reading this you've already found our Github repository. If you have a question, feel free to submit it as an issue and our staff will do their best to help you as soon as possible.
+
 ## CONTRIBUTING
 
 We love to have your help to make php-webdriver better. Feel free to 
