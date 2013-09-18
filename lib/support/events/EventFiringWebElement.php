@@ -317,6 +317,21 @@ class EventFiringWebElement implements WebDriverElement {
     }
   }
 
+
+  /**
+   * Test if two element IDs refer to the same DOM element.
+   *
+   * @param WebDriverElement $other
+   * @return boolean
+   */
+  public function equals(WebDriverElement $other) {
+    try {
+      return $this->element->equals($other);
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
   private function dispatchOnException($exception) {
     $this->dispatch(
       'onException',

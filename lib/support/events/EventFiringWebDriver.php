@@ -294,6 +294,19 @@ class EventFiringWebDriver implements WebDriver {
     }
   }
 
+  /**
+   * Get the element on the page that currently has focus.
+   *
+   * @return WebDriverElement
+   */
+  public function getActiveElement() {
+    try {
+      return $this->driver->getActiveElement();
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
   private function dispatchOnException($exception) {
     $this->dispatch('onException', $exception, $this);
     throw $exception;

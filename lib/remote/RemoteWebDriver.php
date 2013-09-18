@@ -277,6 +277,16 @@ class RemoteWebDriver implements WebDriver {
   }
 
   /**
+   * Get the element on the page that currently has focus.
+   *
+   * @return WebDriverElement
+   */
+  public function getActiveElement() {
+    $response = $this->executor->execute('getActiveElement');
+    return $this->newElement($response['ELEMENT']);
+  }
+
+  /**
    * Return the WebDriverElement with the given id.
    *
    * @param string $id The id of the element to be created.

@@ -106,4 +106,34 @@ class WebDriverWindow {
     $this->executor->execute('setWindowPosition', $params);
     return $this;
   }
+
+  /**
+   * Get the current browser orientation.
+   *
+   * @return string Either LANDSCAPE|PORTRAIT
+   */
+  public function getScreenOrientation() {
+    return $this->executor->execute('getScreenOrientation');
+  }
+
+
+  /**
+   * Set the browser orientation. The orientation should either LANDSCAPE|PORTRAIT
+   *
+   * @param string $orientation
+   * @return WebDriverWindow The instance.
+   * @throws IndexOutOfBoundsWebDriverError
+   */
+  public function setScreenOrientation($orientation) {
+
+    $orientation = strtoupper($orientation);
+    if (!in_array($orientation, array('PORTRAIT', 'LANDSCAPE')))
+      throw new IndexOutOfBoundsWebDriverError("Orientation must be either PORTRAIT, or LANDSCAPE");
+
+    $this->executor->execute('setScreenOrientation', array('orientation' => $orientation));
+
+    return $this;
+
+  }
+
 }
