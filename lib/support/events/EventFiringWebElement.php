@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class EventFiringWebElement implements WebDriverElement {
+class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
 
   /**
    * @var WebDriverElement
@@ -221,6 +221,18 @@ class EventFiringWebElement implements WebDriverElement {
   }
 
   /**
+   * @return WebDriverCoordinates
+   */
+  public function getCoordinates() {
+    try {
+      return $this->element->getCoordinates();
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
+
+  /**
    * @return WebDriverDimension
    * @throws WebDriverException
    */
@@ -340,4 +352,6 @@ class EventFiringWebElement implements WebDriverElement {
     );
     throw $exception;
   }
+
+
 }

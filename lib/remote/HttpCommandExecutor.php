@@ -87,6 +87,14 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     'setWindowSize' =>     array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/size'),
     'submitElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
     'takeScreenshot' =>    array('method' => 'GET',  'url' => '/session/:sessionId/screenshot'),
+    'touchTap'             => array('method' => 'POST', 'url' => '/session/:sessionId/touch/click'),
+    'touchDown'              => array('method' => 'POST', 'url' => '/session/:sessionId/touch/down'),
+    'touchDoubleTap'       => array('method' => 'POST', 'url' => '/session/:sessionId/touch/doubleclick'),
+    'touchFlick'             => array('method' => 'POST', 'url' => '/session/:sessionId/touch/flick'),
+    'touchLongPress'         => array('method' => 'POST', 'url' => '/session/:sessionId/touch/longclick'),
+    'touchMove'              => array('method' => 'POST', 'url' => '/session/:sessionId/touch/move'),
+    'touchScroll'            => array('method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'),
+    'touchUp'                => array('method' => 'POST', 'url' => '/session/:sessionId/touch/up'),
   );
 
   protected $url;
