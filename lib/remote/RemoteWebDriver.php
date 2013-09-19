@@ -268,12 +268,32 @@ class RemoteWebDriver implements WebDriver {
   }
 
   /**
+   * @return WebDriverTouchScreen
+   */
+  public function getTouch() {
+    if (!$this->touch) {
+      $this->touch = new RemoteTouchScreen($this->executor);
+    }
+    return $this->touch;
+  }
+
+  /**
    * Construct a new action builder.
    *
    * @return WebDriverActions
    */
   public function action() {
     return new WebDriverActions($this);
+  }
+
+  /**
+   * Get the element on the page that currently has focus.
+   *
+   * @return WebDriverElement
+   */
+  public function getActiveElement() {
+    $response = $this->executor->execute('getActiveElement');
+    return $this->newElement($response['ELEMENT']);
   }
 
   /**
