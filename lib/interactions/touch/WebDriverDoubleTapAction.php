@@ -13,11 +13,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class WebDriverDoubleTapAction
+  extends WebDriverTouchAction
+  implements WebDriverAction {
 
-  // $command and $params will be merged to an command object in the future.
-  public function execute($command, array $params =  array());
+  public function perform() {
+    $this->touchScreen->doubleTap($this->locationProvider);
+  }
 }

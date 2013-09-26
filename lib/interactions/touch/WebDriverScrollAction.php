@@ -13,11 +13,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class WebDriverScrollAction
+  extends WebDriverTouchAction
+  implements WebDriverAction {
 
-  // $command and $params will be merged to an command object in the future.
-  public function execute($command, array $params =  array());
+  private $x;
+  private $y;
+
+  public function __construct(WebDriverTouchScreen $touch_screen, $x, $y) {
+    $this->x = $x;
+    $this->y = $y;
+    parent::_construct($touch_screen);
+  }
+
+  public function perform() {
+    $this->touchScreen->scroll($this->x, $this->y);
+  }
 }

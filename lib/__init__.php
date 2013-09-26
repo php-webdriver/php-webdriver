@@ -70,3 +70,19 @@ require_once('support/events/EventFiringWebDriver.php');
 require_once('support/events/EventFiringWebDriverNavigation.php');
 require_once('WebDriverDispatcher.php');
 require_once('support/events/EventFiringWebElement.php');
+
+// touch
+require_once('interactions/WebDriverTouchScreen.php');
+require_once('remote/RemoteTouch.php');
+require_once('interactions/WebDriverTouchActions.php');
+require_once('interactions/touch/WebDriverTouchAction.php');
+require_once('interactions/touch/WebDriverDoubleTapAction.php');
+require_once('interactions/touch/WebDriverDownAction.php');
+require_once('interactions/touch/WebDriverFlickAction.php');
+require_once('interactions/touch/WebDriverFlickFromElementAction.php');
+require_once('interactions/touch/WebDriverLongPressAction.php');
+require_once('interactions/touch/WebDriverMoveAction.php');
+require_once('interactions/touch/WebDriverScrollAction.php');
+require_once('interactions/touch/WebDriverScrollFromElementAction.php');
+require_once('interactions/touch/WebDriverTapAction.php');
+require_once('interactions/touch/WebDriverUpAction.php');

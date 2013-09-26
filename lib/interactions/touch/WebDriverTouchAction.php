@@ -14,10 +14,27 @@
 // limitations under the License.
 
 /**
- * Interface for all command executor.
+ * Base class for all touch-related actions.
  */
-interface WebDriverCommandExecutor {
+abstract class WebDriverTouchAction {
 
-  // $command and $params will be merged to an command object in the future.
-  public function execute($command, array $params =  array());
+  /**
+   * @var WebDriverTouchScreen
+   */
+  protected $touchScreen;
+
+  /**
+   * @var WebDriverLocatable
+   */
+  protected $locationProvider;
+
+  public function __construct(WebDriverTouchScreen $touch_screen, WebDriverLocatable $location_provider = null) {
+    $this->touchScreen = $touch_screen;
+    $this->locationProvider = $location_provider;
+  }
+
+  protected function getActionLocation() {
+    return $this->locationProvider !== null ? $this->locationProvider->getCoordinates() : null;
+  }
+
 }

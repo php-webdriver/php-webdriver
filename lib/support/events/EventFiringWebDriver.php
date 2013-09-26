@@ -294,6 +294,31 @@ class EventFiringWebDriver implements WebDriver {
     }
   }
 
+  /**
+   * @return WebDriverTouchScreen
+   * @throws WebDriverException
+   */
+  public function getTouch() {
+    try {
+      return $this->driver->getTouch();
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
+  /**
+   * Get the element on the page that currently has focus.
+   *
+   * @return WebDriverElement
+   */
+  public function getActiveElement() {
+    try {
+      return $this->driver->getActiveElement();
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
   private function dispatchOnException($exception) {
     $this->dispatch('onException', $exception, $this);
     throw $exception;

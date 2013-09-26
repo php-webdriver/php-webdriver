@@ -13,11 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class WebDriverFlickFromElementAction
+  extends WebDriverTouchAction
+  implements WebDriverAction {
 
-  // $command and $params will be merged to an command object in the future.
-  public function execute($command, array $params =  array());
+  private $x;
+  private $y;
+  private $speed;
+
+  public function __construct(WebDriverTouchScreen $touch_screen, WebDriverElement $element, $x, $y, $speed) {
+    $this->x = $x;
+    $this->y = $y;
+    $this->speed = $speed;
+    parent::_construct($touch_screen, $element);
+  }
+
+  public function perform() {
+    $this->touchScreen->flickFromElement($this->locationProvider, $this->x, $this->y, $this->speed);
+  }
 }
