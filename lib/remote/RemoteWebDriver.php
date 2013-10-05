@@ -152,6 +152,28 @@ class RemoteWebDriver implements WebDriver {
   }
 
   /**
+   * Prepare arguments for JavaScript injection
+   *
+   * @param array $arguments
+   * @return array
+   */
+  private function prepareScriptArguments(array $arguments)
+  {
+    $args = array();
+    foreach ($arguments as $arg) {
+      if ($arg instanceof WebDriverElement) {
+        array_push($args, array('ELEMENT' => $arg->getID()));
+      } else {
+        if (is_array($arg)) {
+          $arg = $this->prepareScriptArguments($arg);
+        }
+        array_push($args, $arg);
+      }
+    }
+    return $args;
+  }
+
+  /**
    * Inject a snippet of JavaScript into the page for execution in the context
    * of the currently selected frame. The executed script is assumed to be
    * synchronous and the result of evaluating the script will be returned.
@@ -161,23 +183,7 @@ class RemoteWebDriver implements WebDriver {
    * @return mixed The return value of the script.
    */
   public function executeScript($script, array $arguments = array()) {
-    $script = str_replace('"', '\"', $script);
-    $args = array();
-    foreach ($arguments as $arg) {
-      if ($arg instanceof WebDriverElement) {
-        array_push($args, array('ELEMENT' => $arg->getID()));
-      } else {
-        // TODO: Handle the case where arg is a collection
-        if (is_array($arg)) {
-          throw new Exception(
-            "executeScript with collection paramatar is unimplemented"
-          );
-        }
-        array_push($args, $arg);
-      }
-    }
-
-    $params = array('script' => $script, 'args' => $args);
+    $params = array('script' => $script, 'args' => $this->prepareScriptArguments($arguments));
     $response = $this->executor->execute('executeScript', $params);
     return $response;
   }
