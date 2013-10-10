@@ -28,7 +28,7 @@ class WebDriverFlickFromElementAction
     $this->x = $x;
     $this->y = $y;
     $this->speed = $speed;
-    parent::_construct($touch_screen, $element);
+    parent::__construct($touch_screen, $element);
   }
 
   public function perform() {

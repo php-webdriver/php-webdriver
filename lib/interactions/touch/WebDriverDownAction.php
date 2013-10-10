@@ -23,7 +23,7 @@ class WebDriverDownAction
   public function __construct(WebDriverTouchScreen $touch_screen, $x, $y) {
     $this->x = $x;
     $this->y = $y;
-    parent::_construct($touch_screen);
+    parent::__construct($touch_screen);
   }
 
   public function perform() {
