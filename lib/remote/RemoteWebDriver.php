@@ -157,8 +157,7 @@ class RemoteWebDriver implements WebDriver {
    * @param array $arguments
    * @return array
    */
-  private function prepareScriptArguments(array $arguments)
-  {
+  private function prepareScriptArguments(array $arguments) {
     $args = array();
     foreach ($arguments as $arg) {
       if ($arg instanceof WebDriverElement) {
@@ -183,7 +182,10 @@ class RemoteWebDriver implements WebDriver {
    * @return mixed The return value of the script.
    */
   public function executeScript($script, array $arguments = array()) {
-    $params = array('script' => $script, 'args' => $this->prepareScriptArguments($arguments));
+    $params = array(
+      'script' => $script,
+      'args' => $this->prepareScriptArguments($arguments),
+    );
     $response = $this->executor->execute('executeScript', $params);
     return $response;
   }

@@ -28,13 +28,17 @@ abstract class WebDriverTouchAction {
    */
   protected $locationProvider;
 
-  public function __construct(WebDriverTouchScreen $touch_screen, WebDriverLocatable $location_provider = null) {
+  public function __construct(
+    WebDriverTouchScreen $touch_screen,
+    WebDriverLocatable $location_provider = null
+  ) {
     $this->touchScreen = $touch_screen;
     $this->locationProvider = $location_provider;
   }
 
   protected function getActionLocation() {
-    return $this->locationProvider !== null ? $this->locationProvider->getCoordinates() : null;
+    return $this->locationProvider !== null
+      ? $this->locationProvider->getCoordinates() : null;
   }
 
 }

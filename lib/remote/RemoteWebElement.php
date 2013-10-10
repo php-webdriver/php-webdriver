@@ -289,7 +289,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   public function equals(WebDriverElement $other) {
     return $this->executor->execute('elementEquals', array(
       ':id'    => $this->id,
-      ':other' => $other->getID()
+      ':other' => $other->getID(),
     ));
   }
 

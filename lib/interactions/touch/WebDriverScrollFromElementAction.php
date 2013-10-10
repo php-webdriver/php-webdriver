@@ -20,13 +20,19 @@ class WebDriverScrollFromElementAction
   private $x;
   private $y;
 
-  public function __construct(WebDriverTouchScreen $touch_screen, WebDriverElement $element, $x, $y) {
+  public function __construct(
+      WebDriverTouchScreen $touch_screen, WebDriverElement $element, $x, $y
+  ) {
     $this->x = $x;
     $this->y = $y;
     parent::_construct($touch_screen, $element);
   }
 
   public function perform() {
-    $this->touchScreen->scrollFromElement($this->locationProvider, $this->x, $this->y);
+    $this->touchScreen->scrollFromElement(
+      $this->locationProvider,
+      $this->x,
+      $this->y
+    );
   }
 }

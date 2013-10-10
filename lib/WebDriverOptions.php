@@ -135,19 +135,22 @@ class WebDriverOptions {
   /**
    * Get the log for a given log type. Log buffer is reset after each request.
    *
-   * @param The log type (https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type)
+   * @param $logType The log type.
    * @return array The list of log entries.
+   * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
    */
-  public function getLog($logType) {
-    return $this->executor->execute('getLog', array(
-      'type' => $logType
-    ));
+  public function getLog($log_type) {
+    return $this->executor->execute(
+      'getLog',
+      array('type' => $log_type)
+    );
   }
 
   /**
    * Get available log types.
    *
-   * @return array The list of available log types (https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type)
+   * @return array The list of available log types.
+   * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
    */
   public function getAvailableLogTypes() {
     return $this->executor->execute('getAvailableLogTypes');

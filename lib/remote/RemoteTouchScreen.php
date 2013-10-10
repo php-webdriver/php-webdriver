@@ -37,7 +37,10 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
    * @return RemoteTouchScreen The instance.
    */
   public function doubleTap(WebDriverElement $element) {
-    $this->executor->execute('touchDoubleTap', array('element' => $element->getID()));
+    $this->executor->execute(
+      'touchDoubleTap',
+      array('element' => $element->getID())
+    );
 
     return $this;
   }
@@ -70,7 +73,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   /**
    * @return RemoteTouchScreen The instance.
    */
-  public function flickFromElement(WebDriverElement $element, $xoffset, $yoffset, $speed) {
+  public function flickFromElement(
+    WebDriverElement $element, $xoffset, $yoffset, $speed
+  ) {
     $this->executor->execute('touchFlick', array(
       'xoffset' => $xoffset,
       'yoffset' => $yoffset,
@@ -85,7 +90,10 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
    * @return RemoteTouchScreen The instance.
    */
   public function longPress(WebDriverElement $element) {
-    $this->executor->execute('touchLongPress', array('element' => $element->getID()));
+    $this->executor->execute(
+      'touchLongPress',
+      array('element' => $element->getID())
+    );
 
     return $this;
   }
@@ -117,7 +125,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   /**
    * @return RemoteTouchScreen The instance.
    */
-  public function scrollFromElement(WebDriverElement $element, $xoffset, $yoffset) {
+  public function scrollFromElement(
+    WebDriverElement $element, $xoffset, $yoffset
+  ) {
     $this->executor->execute('touchScroll', array(
       'element' => $element->getID(),
       'xoffset' => $xoffset,

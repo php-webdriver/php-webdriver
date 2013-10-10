@@ -21,7 +21,10 @@ class WebDriverFlickFromElementAction
   private $y;
   private $speed;
 
-  public function __construct(WebDriverTouchScreen $touch_screen, WebDriverElement $element, $x, $y, $speed) {
+  public function __construct(
+    WebDriverTouchScreen $touch_screen,
+    WebDriverElement $element, $x, $y, $speed
+  ) {
     $this->x = $x;
     $this->y = $y;
     $this->speed = $speed;
@@ -29,6 +32,11 @@ class WebDriverFlickFromElementAction
   }
 
   public function perform() {
-    $this->touchScreen->flickFromElement($this->locationProvider, $this->x, $this->y, $this->speed);
+    $this->touchScreen->flickFromElement(
+      $this->locationProvider,
+      $this->x,
+      $this->y,
+      $this->speed
+    );
   }
 }

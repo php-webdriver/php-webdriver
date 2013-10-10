@@ -44,7 +44,8 @@ interface WebDriverTouchScreen {
   public function down($x, $y);
 
   /**
-   * Flick on the touch screen using finger motion events. Use this flick command if you don't care where the flick starts on the screen.
+   * Flick on the touch screen using finger motion events. Use this flick
+   * command if you don't care where the flick starts on the screen.
    *
    * @param int $xpeed
    * @param int $yspeed
@@ -53,7 +54,8 @@ interface WebDriverTouchScreen {
   public function flick($xspeed, $yspeed);
 
   /**
-   * Flick on the touch screen using finger motion events. This flickcommand starts at a particular screen location.
+   * Flick on the touch screen using finger motion events.
+   * This flickcommand starts at a particular screen location.
    *
    * @param WebDriverElement $element
    * @param int              $xoffset
@@ -61,7 +63,8 @@ interface WebDriverTouchScreen {
    * @param int              $speed
    * @return $this
    */
-  public function flickFromElement(WebDriverElement $element, $xoffset, $yoffset, $speed);
+  public function flickFromElement(
+    WebDriverElement $element, $xoffset, $yoffset, $speed);
 
   /**
    * Long press on the touch screen using finger motion events.
@@ -81,7 +84,8 @@ interface WebDriverTouchScreen {
 
 
   /**
-   * Scroll on the touch screen using finger based motion events. Use this command if you don't care where the scroll starts on the screen.
+   * Scroll on the touch screen using finger based motion events. Use this
+   * command if you don't care where the scroll starts on the screen.
    *
    * @param int $xoffset
    * @param int $yoffset
@@ -90,14 +94,16 @@ interface WebDriverTouchScreen {
   public function scroll($xoffset, $yoffset);
 
   /**
-   * Scroll on the touch screen using finger based motion events. Use this command to start scrolling at a particular screen location.
+   * Scroll on the touch screen using finger based motion events. Use this
+   * command to start scrolling at a particular screen location.
    *
    * @param WebDriverElement $element
    * @param int              $xoffset
    * @param int              $yoffset
    * @return $this
    */
-  public function scrollFromElement(WebDriverElement $element, $xoffset, $yoffset);
+  public function scrollFromElement(
+    WebDriverElement $element, $xoffset, $yoffset);
 
   /**
    * Finger up on the screen.

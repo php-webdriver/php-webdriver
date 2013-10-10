@@ -116,7 +116,9 @@ class WebDriverTouchActions {
 
   public function flickFromElement(WebDriverElement $element, $x, $y, $speed) {
     $this->action->addAction(
-      new WebDriverFlickFromElementAction($this->touchScreen, $element, $x, $y, $speed)
+      new WebDriverFlickFromElementAction(
+        $this->touchScreen, $element, $x, $y, $speed
+      )
     );
     return $this;
   }
