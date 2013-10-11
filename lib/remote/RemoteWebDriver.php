@@ -18,6 +18,7 @@ class RemoteWebDriver implements WebDriver {
   protected $executor;
   protected $mouse;
   protected $keyboard;
+  protected $touch;
 
   public function __construct(
       $url = 'http://localhost:4444/wd/hub',
