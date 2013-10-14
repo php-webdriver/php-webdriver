@@ -73,7 +73,7 @@ require_once('support/events/EventFiringWebElement.php');
 
 // touch
 require_once('interactions/WebDriverTouchScreen.php');
-require_once('remote/RemoteTouch.php');
+require_once('remote/RemoteTouchScreen.php');
 require_once('interactions/WebDriverTouchActions.php');
 require_once('interactions/touch/WebDriverTouchAction.php');
 require_once('interactions/touch/WebDriverDoubleTapAction.php');
