@@ -233,8 +233,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     }
 
     $message = null;
-    if (is_array($results) && array_key_exists('message', $results)) {
-      $message = $results['message'];
+    if (is_array($value) && array_key_exists('message', $value)) {
+      $message = $value['message'];
     }
 
     $sessionId = null;
