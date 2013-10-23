@@ -100,11 +100,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   protected $url;
   protected $sessionID;
   protected $capabilities;
+  protected $curl;
 
   public function __construct($url, $session_id) {
     $this->url = $url;
     $this->sessionID = $session_id;
     $this->capabilities = $this->execute('getSession', array());
+    $this->curl = curl_init($url);
   }
 
   public function execute($name, array $params = array()) {
@@ -114,7 +116,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       'name' => $name,
       'parameters' => $params,
     );
-    $raw = self::remoteExecute($command);
+    if(is_null($this->curl))
+      $this->curl = curl_init($this->url);
+    $raw = self::remoteExecute($command,$this->curl);
     return $raw['value'];
   }
 
@@ -128,10 +132,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    *
    * @return array The response of the command.
    */
-  public static function remoteExecute($command) {
+  public static function remoteExecute($command, $curl) {
     if (!isset(self::$commands[$command['name']])) {
       throw new Exception($command['name']." is not a valid command.");
     }
+    $flag = 0;
     $raw = self::$commands[$command['name']];
     $extra_opts = array();
 
@@ -143,8 +148,33 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       $raw['method'],
       sprintf("%s%s", $command['url'], $raw['url']),
       $command,
+      $curl,
       $extra_opts
     );
+  }
+
+  public static function remoteExecuteInit($command) {
+    if (!isset(self::$commands[$command['name']])) {
+      throw new Exception($command['name']." is not a valid command.");
+    }
+    $curl = curl_init();
+    $raw = self::$commands[$command['name']];
+    $extra_opts = array();
+
+    if ($command['name'] == 'newSession') {
+      $extra_opts[CURLOPT_FOLLOWLOCATION] = true;
+    }
+
+    $ret_value = self::curl(
+      $raw['method'],
+      sprintf("%s%s", $command['url'], $raw['url']),
+      $command,
+      $curl,
+      $extra_opts
+    );
+
+    curl_close($curl);
+    return $ret_value;
   }
 
   /**
@@ -155,10 +185,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @param command      The Command object, modelled as a hash.
    * @param extra_opts   key => value pairs of curl options for curl_setopt()
    */
+
+
   protected static function curl(
     $http_method,
     $url,
     $command,
+    $curl,
     $extra_opts = array()) {
 
     $params = $command['parameters'];
@@ -185,8 +218,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         json_encode($params)));
     }
 
-    $curl = curl_init($url);
-
+    curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_TIMEOUT, 300);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
@@ -223,8 +255,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
       throw new WebDriverCurlException($msg . "\n\n" . $error);
     }
-    curl_close($curl);
-
     $results = json_decode($raw_results, true);
 
     $value = null;
@@ -252,4 +282,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     return $this->sessionID;
   }
 
+  public function close(){
+    curl_close($this->curl);
+  }
 }
