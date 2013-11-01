@@ -221,7 +221,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       if ($params && is_array($params)) {
         $msg .= sprintf(' with params: %s', json_encode($params));
       }
-      throw new WebDriverCurlException($msg . "\n\n" . $error);
+      WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
     }
     curl_close($curl);
 

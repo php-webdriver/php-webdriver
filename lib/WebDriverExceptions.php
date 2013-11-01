@@ -28,8 +28,15 @@ abstract class WebDriverException extends Exception {
     return $this->results;
   }
 
+  /**
+   * Throw WebDriverExceptions.
+   * For $status_code >= 0, they are errors defined in the json wired protocol.
+   * For $status_code < 0, they are errors defined in php-webdriver.
+   */
   public static function throwException($status_code, $message, $results) {
     switch ($status_code) {
+      case -1:
+        throw new WebDriverCurlException($message);
       case 0:
         // Success
         break;
