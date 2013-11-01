@@ -136,7 +136,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     if (!isset(self::$commands[$command['name']])) {
       throw new Exception($command['name']." is not a valid command.");
     }
-    $flag = 0;
+    
     $raw = self::$commands[$command['name']];
     $extra_opts = array();
 
