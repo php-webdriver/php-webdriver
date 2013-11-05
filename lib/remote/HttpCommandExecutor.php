@@ -183,6 +183,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @param http_method 'GET', 'POST', or 'DELETE'
    * @param suffix       What to append to the base URL.
    * @param command      The Command object, modelled as a hash.
+   * @param curl         Curl object
    * @param extra_opts   key => value pairs of curl options for curl_setopt()
    */
 
@@ -228,6 +229,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       array(
         'Content-Type: application/json;charset=UTF-8',
         'Accept: application/json'));
+    if ($http_method === 'GET')
+      curl_setopt($curl, CURLOPT_POST, false);
 
     if ($http_method === 'POST') {
       curl_setopt($curl, CURLOPT_POST, true);
@@ -244,6 +247,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
     $raw_results = trim(curl_exec($curl));
     $info = curl_getinfo($curl);
+    self::reset_curl_options($curl, $http_method, $params, $extra_opts);
 
     if ($error = curl_error($curl)) {
       $msg = sprintf(
@@ -278,10 +282,36 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
   }
 
+  /**
+   * Reset curl options after current request.
+   * @param curl         curl object
+   * @param http_method  'GET', 'POST' or 'DELETE'
+   * @param params       command parameters
+   * @param extra_opts   key => value pairs of curl options for curl_setopt()
+   */
+
+  protected static function reset_curl_options($curl, $http_method, $params, $extra_opts) {
+  if ($http_method === 'POST') {
+      curl_setopt($curl, CURLOPT_POST, false);
+      if ($params && is_array($params)) {
+        curl_setopt($curl, CURLOPT_POSTFIELDS, "{}");
+      }
+    } else if ($http_method == 'DELETE') {
+      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, '');
+    }
+
+    foreach ($extra_opts as $option => $value) {
+      curl_setopt($curl, $option, '');
+    }    
+  }
+
   public function getSessionID() {
     return $this->sessionID;
   }
 
+  /**
+   * Close curl connection
+   */
   public function close(){
     curl_close($this->curl);
   }
