@@ -4,7 +4,7 @@
   "homepage": "https://github.com/facebook/php-webdriver",
   "license": "Apache-2.0",
   "require": {
-    "php": ">=5.4.20"
+    "php": ">=5.3.19"
   },
   "autoload": {
     "classmap": ["lib/"]
