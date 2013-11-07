@@ -11,6 +11,15 @@ $driver = new RemoteWebDriver($host, $capabilities);
 // navigate to 'http://docs.seleniumhq.org/'
 $driver->get('http://docs.seleniumhq.org/');
 
+// adding cookie
+$driver->manage()->deleteAllCookies();
+$driver->manage()->addCookie(array(
+  'name' => 'cookie_name',
+  'value' => 'cookie_value',
+));
+$cookies = $driver->manage()->getCookies();
+print_r($cookies);
+
 // click the link 'About'
 $link = $driver->findElement(
   WebDriverBy::id('menu_about')
