@@ -30,7 +30,7 @@ class RemoteWebDriver implements WebDriver {
       'name' => 'newSession',
       'parameters' => array('desiredCapabilities' => $desired_capabilities),
     );
-    $response = HttpCommandExecutor::remoteExecute($command);
+    $response = HttpCommandExecutor::remoteExecuteInit($command);
 
     $this->executor = new HttpCommandExecutor(
       $url,
@@ -45,7 +45,7 @@ class RemoteWebDriver implements WebDriver {
    */
   public function close() {
     $this->executor->execute('closeCurrentWindow', array());
-
+    $this->executor->close();
     return $this;
   }
 
