@@ -21,16 +21,17 @@ class RemoteWebDriver implements WebDriver {
   protected $touch;
 
   public function __construct(
-      $url = 'http://localhost:4444/wd/hub',
-      $desired_capabilities = array()) {
-    $url = preg_replace('#/+$#', '', $url);
+    $url = 'http://localhost:4444/wd/hub',
+    $desired_capabilities = array(),
+    $timeout = 300000) {
 
+    $url = preg_replace('#/+$#', '', $url);
     $command = array(
       'url' => $url,
       'name' => 'newSession',
       'parameters' => array('desiredCapabilities' => $desired_capabilities),
     );
-    $response = HttpCommandExecutor::remoteExecute($command);
+    $response = HttpCommandExecutor::remoteExecute($command, $timeout);
 
     $this->executor = new HttpCommandExecutor(
       $url,
