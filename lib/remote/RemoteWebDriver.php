@@ -23,7 +23,7 @@ class RemoteWebDriver implements WebDriver {
   public function __construct(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = array(),
-    $timeout = 300000) {
+    $timeout_in_ms = 300000) {
 
     $url = preg_replace('#/+$#', '', $url);
     $command = array(
@@ -31,7 +31,12 @@ class RemoteWebDriver implements WebDriver {
       'name' => 'newSession',
       'parameters' => array('desiredCapabilities' => $desired_capabilities),
     );
-    $response = HttpCommandExecutor::remoteExecute($command, $timeout);
+    $response = HttpCommandExecutor::remoteExecute(
+      $command,
+      array(
+        CURLOPT_CONNECTTIMEOUT_MS => $timeout_in_ms,
+      )
+    );
 
     $this->executor = new HttpCommandExecutor(
       $url,

@@ -131,26 +131,25 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    *                  sessionId  : the session id if needed
    *                  name       : the name of the command
    *                  parameters : the parameters of the command required
-   * @param timeout Milliseconds to wait while trying to connect (defaults to 5 minutes)
+   * @param curl_opts An array of curl options.
    *
    * @return array The response of the command.
    */
-  public static function remoteExecute($command, $timeout = 300000) {
+  public static function remoteExecute($command, $curl_opts = array()) {
     if (!isset(self::$commands[$command['name']])) {
       throw new Exception($command['name']." is not a valid command.");
     }
     $raw = self::$commands[$command['name']];
-    $extra_opts = array(CURLOPT_CONNECTTIMEOUT_MS => $timeout);
 
     if ($command['name'] == 'newSession') {
-      $extra_opts[CURLOPT_FOLLOWLOCATION] = true;
+      $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
     }
 
     return self::curl(
       $raw['method'],
       sprintf("%s%s", $command['url'], $raw['url']),
       $command,
-      $extra_opts
+      $curl_opts
     );
   }
 
