@@ -45,6 +45,8 @@ Any complaint, question, idea? You can post it on the user group https://www.fac
 
 Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
 
+Learn how to integrate it with PHPUnit [Blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) | [Demo Project](https://github.com/DavertMik/php-webdriver-demo)
+
 ## SUPPORT
 
 We have a great community willing to try and help you!
