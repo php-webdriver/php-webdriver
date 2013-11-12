@@ -37,7 +37,7 @@ Any complaint, question, idea? You can post it on the user group https://www.fac
         // This would be the url of the host running the server-standalone.jar
         $host = 'http://localhost:4444/wd/hub'; // this is the default
         $capabilities = array(WebDriverCapabilityType::BROWSER_NAME => 'firefox');
-        $driver = new RemoteWebDriver($host, $capabilities);
+        $driver = RemoteWebDriver::create($host, $capabilities);
 
 *   The $capabilities array lets you specify (among other things) which browser to use. See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
