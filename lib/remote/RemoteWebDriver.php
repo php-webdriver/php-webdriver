@@ -20,11 +20,21 @@ class RemoteWebDriver implements WebDriver {
   protected $keyboard;
   protected $touch;
 
-  public function __construct(
+  protected function __construct() {}
+
+  /**
+   * Construct the RemoteWebDriver by a desired capabilities.
+   *
+   * @param string $url The url of the remote server
+   * @param array $desired_capabilities The webdriver desired capabilities
+   * @param int $timeout_in_ms
+   * @return RemoteWebDriver
+   */
+  public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = array(),
-    $timeout_in_ms = 300000) {
-
+    $timeout_in_ms = 300000
+  ) {
     $url = preg_replace('#/+$#', '', $url);
     $command = array(
       'url' => $url,
@@ -38,10 +48,32 @@ class RemoteWebDriver implements WebDriver {
       )
     );
 
-    $this->executor = new HttpCommandExecutor(
+    $driver = new RemoteWebDriver();
+    $executor = new HttpCommandExecutor(
       $url,
       $response['sessionId']
     );
+    return $driver->setCommandExecutor($executor);
+  }
+
+  /**
+   * [Experimental] Construct the RemoteWebDriver by an existing session.
+   *
+   * This constructor can boost the performance a lot by reusing the same
+   * browser for the whole test suite. You do not have to pass the desired
+   * capabilities because the session was created before.
+   *
+   * @param string $url The url of the remote server
+   * @param string $session_id The existing session id
+   * @return RemoteWebDriver
+   */
+  public static function createBySessionID(
+    $session_id,
+    $url = 'http://localhost:4444/wd/hub'
+  ) {
+    $driver = new RemoteWebDriver();
+    $driver->setCommandExecutor(new HttpCommandExecutor($url, $session_id));
+    return $driver;
   }
 
   /**
@@ -319,5 +351,25 @@ class RemoteWebDriver implements WebDriver {
    */
   private function newElement($id) {
     return new RemoteWebElement($this->executor, $id);
+  }
+
+  /**
+   * Set the command executor of this RemoteWebdrver
+   *
+   * @param WebDriverCommandExecutor $executor
+   * @return WebDriver
+   */
+  public function setCommandExecutor(WebDriverCommandExecutor $executor) {
+    $this->executor = $executor;
+    return $this;
+  }
+
+  /**
+   * Set the command executor of this RemoteWebdriver
+   *
+   * @return WebDriverCommandExecutor
+   */
+  public function getCommandExecutor() {
+    return $this->executor;
   }
 }
