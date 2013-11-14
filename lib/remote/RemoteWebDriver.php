@@ -372,4 +372,11 @@ class RemoteWebDriver implements WebDriver {
   public function getCommandExecutor() {
     return $this->executor;
   }
+  /**
+   * Get current selenium sessionID
+   * @return sessionID
+   */
+  public function getSessionID() {
+    return $this->executor->getSessionID();
+  }
 }
