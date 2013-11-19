@@ -293,6 +293,24 @@ class RemoteWebDriver implements WebDriver {
   public function switchTo() {
     return new WebDriverTargetLocator($this->executor, $this);
   }
+  
+  /**
+   * Resizes the window.
+   *
+   * @param int $width Desired width of the window.
+   * @param int $height Desired height of the window.
+   * @return WebDriverTargetLocator
+   */
+  public function resize($width, $height) {
+    $params = array(
+        'width' => $width,
+        'height' => $height
+    ));
+    
+    $this->executor->execute('setWindowSize', $params);
+
+    return $this;
+  }
 
   /**
    * @return WebDriverMouse
