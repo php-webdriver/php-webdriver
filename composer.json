@@ -1,7 +1,7 @@
 {
-  "name": "facebook/webdriver",
+  "name": "andrejguran/webdriver",
   "description": "A php client for WebDriver",  
-  "homepage": "https://github.com/facebook/php-webdriver",
+  "homepage": "https://github.com/andrejguran/webdriver",
   "license": "Apache-2.0",
   "require": {
     "php": ">=5.3.19"
