@@ -48,7 +48,7 @@ class RemoteWebDriver implements WebDriver {
       )
     );
 
-    $driver = new RemoteWebDriver();
+    $driver = new static();
     $executor = new HttpCommandExecutor(
       $url,
       $response['sessionId']
@@ -71,7 +71,7 @@ class RemoteWebDriver implements WebDriver {
     $session_id,
     $url = 'http://localhost:4444/wd/hub'
   ) {
-    $driver = new RemoteWebDriver();
+    $driver = new static();
     $driver->setCommandExecutor(new HttpCommandExecutor($url, $session_id));
     return $driver;
   }
