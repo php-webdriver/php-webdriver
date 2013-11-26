@@ -1,10 +1,13 @@
 {
   "name": "facebook/webdriver",
-  "description": "A php client for WebDriver",  
+  "description": "A php client for WebDriver",
+  "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
+  "type": "library",
   "license": "Apache-2.0",
   "require": {
-    "php": ">=5.3.19"
+    "php": ">=5.3.19",
+    "phpunit/phpunit": "3.7.*"
   },
   "autoload": {
     "classmap": ["lib/"]
