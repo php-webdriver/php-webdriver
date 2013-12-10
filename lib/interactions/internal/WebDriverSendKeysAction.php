@@ -23,7 +23,7 @@ class WebDriverSendKeysAction
       WebDriverKeyboard $keyboard,
       WebDriverMouse $mouse,
       WebDriverLocatable $location_provider = null,
-      $keys) {
+      $keys = null) {
     parent::__construct($keyboard, $mouse, $location_provider);
     $this->keys = $keys;
   }

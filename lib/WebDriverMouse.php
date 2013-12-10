@@ -18,17 +18,35 @@
  */
 interface WebDriverMouse {
 
+  /**
+   * @return WebDriverMouse
+   */
   public function click(WebDriverCoordinates $where);
 
+  /**
+   * @return WebDriverMouse
+   */
   public function contextClick(WebDriverCoordinates $where);
 
+  /**
+   * @return WebDriverMouse
+   */
   public function doubleClick(WebDriverCoordinates $where);
 
+  /**
+   * @return WebDriverMouse
+   */
   public function mouseDown(WebDriverCoordinates $where);
 
+  /**
+   * @return WebDriverMouse
+   */
   public function mouseMove(WebDriverCoordinates $where,
                             $x_offset,
                             $y_offset);
 
+  /**
+   * @return WebDriverMouse
+   */
   public function mouseUp(WebDriverCoordinates $where);
 }

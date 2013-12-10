@@ -254,6 +254,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
   }
 
+  /**
+   * @return string
+   */
   public function getSessionID() {
     return $this->sessionID;
   }

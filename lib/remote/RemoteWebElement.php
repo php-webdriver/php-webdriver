@@ -284,7 +284,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Test if two element IDs refer to the same DOM element.
    *
    * @param WebDriverElement $other
-   * @return boolean
+   * @return bool
    */
   public function equals(WebDriverElement $other) {
     return $this->executor->execute('elementEquals', array(

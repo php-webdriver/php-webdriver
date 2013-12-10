@@ -26,6 +26,9 @@ class WebDriverExpectedCondition {
    */
   private $apply;
 
+  /**
+   * @return callable a closure function to be executed by WebDriverWait
+   */
   public function getApply() {
     return $this->apply;
   }

@@ -30,10 +30,16 @@ class WebDriverBy {
     $this->value = $value;
   }
 
+  /**
+   * @return string
+   */
   public function getMechanism() {
     return $this->mechanism;
   }
 
+  /**
+   * @return string
+   */
   public function getValue() {
     return $this->value;
   }
@@ -68,6 +74,7 @@ class WebDriverBy {
 
   /**
    * Locates elements whose NAME attribute matches the search value.
+   * @return WebDriverBy
    */
   public static function name($name) {
     return new WebDriverBy('name', $name);

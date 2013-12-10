@@ -51,6 +51,9 @@ class WebDriverTouchActions {
     $this->action = new WebDriverCompositeAction();
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function tap(WebDriverElement $element) {
     $this->action->addAction(
       new WebDriverTapAction($this->touchScreen, $element)
@@ -58,6 +61,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function down($x, $y) {
     $this->action->addAction(
       new WebDriverDownAction($this->touchScreen, $x, $y)
@@ -65,6 +71,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function up($x, $y) {
     $this->action->addAction(
       new WebDriverUpAction($this->touchScreen, $x, $y)
@@ -72,6 +81,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function move($x, $y) {
     $this->action->addAction(
       new WebDriverMoveAction($this->touchScreen, $x, $y)
@@ -79,6 +91,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function scroll($x, $y) {
     $this->action->addAction(
       new WebDriverScrollAction($this->touchScreen, $x, $y)
@@ -86,6 +101,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function scrollFromElement(WebDriverElement $element, $x, $y) {
     $this->action->addAction(
       new WebDriverScrollFromElementAction($this->touchScreen, $element, $x, $y)
@@ -93,6 +111,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function doubleTap(WebDriverElement $element) {
     $this->action->addAction(
       new WebDriverDoubleTapAction($this->touchScreen, $element)
@@ -100,6 +121,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function longPress(WebDriverElement $element) {
     $this->action->addAction(
       new WebDriverLongPressAction($this->touchScreen, $element)
@@ -107,6 +131,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function flick($x, $y) {
     $this->action->addAction(
       new WebDriverFlickAction($this->touchScreen, $x, $y)
@@ -114,6 +141,9 @@ class WebDriverTouchActions {
     return $this;
   }
 
+  /**
+   * @return WebDriverTouchActions
+   */
   public function flickFromElement(WebDriverElement $element, $x, $y, $speed) {
     $this->action->addAction(
       new WebDriverFlickFromElementAction(
