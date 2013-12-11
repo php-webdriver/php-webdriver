@@ -40,7 +40,7 @@ class WebDriverWait {
    * value is not falsey.
    *
    * @param (closure|WebDriverExpectedCondition)
-   * @return mixed The return value of $func_or_ec
+   * return mixed The return value of $func_or_ec
    */
   public function until($func_or_ec, $message = "") {
     $end = time() + $this->timeout;

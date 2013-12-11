@@ -90,6 +90,9 @@ class RemoteMouse implements WebDriverMouse {
     return $this;
   }
 
+  /**
+   * @return void
+   */
   protected function moveIfNeeded(WebDriverCoordinates $where = null) {
     if ($where) {
       $this->mouseMove($where);

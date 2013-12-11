@@ -48,6 +48,7 @@ class EventFiringWebDriver implements WebDriver {
 
   /**
    * @param $method
+   * @return void
    */
   protected function dispatch($method) {
     if (!$this->dispatcher) {

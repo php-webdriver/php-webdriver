@@ -42,8 +42,8 @@ interface WebDriverMouse {
    * @return WebDriverMouse
    */
   public function mouseMove(WebDriverCoordinates $where,
-                            $x_offset,
-                            $y_offset);
+                            $x_offset = null,
+                            $y_offset = null);
 
   /**
    * @return WebDriverMouse

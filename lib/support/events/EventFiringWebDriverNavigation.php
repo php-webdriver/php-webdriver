@@ -45,6 +45,7 @@ class EventFiringWebDriverNavigation {
 
   /**
    * @param $method
+   * @return void
    */
   protected function dispatch($method) {
     if (!$this->dispatcher) {

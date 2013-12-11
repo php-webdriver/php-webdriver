@@ -40,8 +40,8 @@ interface WebDriver extends WebDriverSearchContext {
    * mechanism.
    *
    * @param WebDriverBy $locator
-   * @return array A list of all WebDriverElements, or an empty array if
-   *    nothing matches
+   * @return array<WebDriverElement> A list of all WebDriverElements,
+   *    or an empty array if nothing matches
    * @see WebDriverBy
    */
   public function findElements(WebDriverBy $locator);
