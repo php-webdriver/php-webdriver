@@ -25,7 +25,7 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
   public function click(WebDriverCoordinates $where = null) {
     $this->moveIfNeeded($where);
@@ -36,7 +36,7 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
   public function contextClick(WebDriverCoordinates $where = null) {
     $this->moveIfNeeded($where);
@@ -47,7 +47,7 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
   public function doubleClick(WebDriverCoordinates $where = null) {
     $this->moveIfNeeded($where);
@@ -56,7 +56,7 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
   public function mouseDown(WebDriverCoordinates $where = null) {
     $this->moveIfNeeded($where);
@@ -65,12 +65,15 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
-  public function mouseMove(WebDriverCoordinates $where,
+  public function mouseMove(WebDriverCoordinates $where = null,
                             $x_offset = null,
                             $y_offset = null) {
-    $params = array('element' => $where->getAuxiliary());
+    $params = array();
+    if ($where !== null) {
+      $params['element'] = $where->getAuxiliary();
+    }
     if ($x_offset !== null) {
       $params['xoffset'] = $x_offset;
     }
@@ -82,7 +85,7 @@ class RemoteMouse implements WebDriverMouse {
   }
 
   /**
-   * @return @WebDriverMouse
+   * @return WebDriverMouse
    */
   public function mouseUp(WebDriverCoordinates $where = null) {
     $this->moveIfNeeded($where);

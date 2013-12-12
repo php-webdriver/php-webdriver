@@ -20,9 +20,9 @@ class WebDriverMoveToOffsetAction
   private $xOffset, $yOffset;
 
   public function __construct(WebDriverMouse $mouse,
-                              WebDriverLocatable $location_provider,
-                              $x_offset,
-                              $y_offset) {
+                              WebDriverLocatable $location_provider = null,
+                              $x_offset = null,
+                              $y_offset = null) {
     parent::__construct($mouse, $location_provider);
     $this->xOffset = $x_offset;
     $this->yOffset = $y_offset;
