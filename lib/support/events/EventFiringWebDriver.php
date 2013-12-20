@@ -47,7 +47,7 @@ class EventFiringWebDriver implements WebDriver {
   }
 
   /**
-   * @param $method
+   * @param mixed $method
    * @return void
    */
   protected function dispatch($method) {
@@ -76,7 +76,7 @@ class EventFiringWebDriver implements WebDriver {
   }
 
   /**
-   * @param $url
+   * @param mixed $url
    * @return $this
    * @throws WebDriverException
    */
@@ -229,7 +229,7 @@ class EventFiringWebDriver implements WebDriver {
   }
 
   /**
-   * @param null $save_as
+   * @param null|string $save_as
    * @return string
    * @throws WebDriverException
    */

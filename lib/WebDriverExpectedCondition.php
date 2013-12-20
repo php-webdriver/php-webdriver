@@ -347,7 +347,9 @@ class WebDriverExpectedCondition {
    * @return WebDriverExpectedCondition<bool> Whether the element is selected.
    */
   public static function elementSelectionStateToBe(
-      $element_or_by, bool $selected) {
+      $element_or_by,
+      $selected
+  ) {
     if ($element_or_by instanceof WebDriverElement) {
       return new WebDriverExpectedCondition(
         function ($driver) use ($element_or_by, $selected) {

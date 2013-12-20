@@ -66,8 +66,8 @@ class WebDriverDispatcher {
   }
 
   /**
-   * @param $method
-   * @param $arguments
+   * @param mixed $method
+   * @param mixed $arguments
    * @return $this
    */
   public function dispatch($method, $arguments) {
