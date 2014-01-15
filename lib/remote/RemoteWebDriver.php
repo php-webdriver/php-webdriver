@@ -200,12 +200,12 @@ class RemoteWebDriver implements WebDriver {
     $args = array();
     foreach ($arguments as $arg) {
       if ($arg instanceof WebDriverElement) {
-        array_push($args, array('ELEMENT' => $arg->getID()));
+        $args[] = array('ELEMENT'=>$arg->getID());
       } else {
         if (is_array($arg)) {
           $arg = $this->prepareScriptArguments($arg);
         }
-        array_push($args, $arg);
+        $args[] = $arg;
       }
     }
     return $args;

@@ -15,7 +15,7 @@
 
 final class WebDriverCurlException extends Exception {} // When curls fail
 
-abstract class WebDriverException extends Exception {
+class WebDriverException extends Exception {
 
   private $results;
 

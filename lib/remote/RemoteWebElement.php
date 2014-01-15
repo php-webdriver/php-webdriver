@@ -20,10 +20,12 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
 
   protected $executor;
   protected $id;
+  protected FileDetector $fileDetector;
 
   public function __construct(HttpCommandExecutor $executor, $id) {
     $this->executor = $executor;
     $this->id = $id;
+    $this->fileDetector = new UselessFileDetector();
   }
 
   /**
@@ -251,11 +253,63 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return WebDriverElement The current instance.
    */
   public function sendKeys($value) {
+    $local_file = $this->fileDetector->getLocalFile($value);
+    if ($local_file === null) {
+      $params = array(
+        'value' => WebDriverKeys::encode($value),
+        ':id'   => $this->id,
+      );
+      $this->executor->execute('sendKeysToElement', $params);
+    } else {
+      $remote_path = $this->upload($local_file);
+      $params = array(
+        'value' => WebDriverKeys::encode($remote_path),
+        ':id'   => $this->id,
+      );
+      $this->executor->execute('sendKeysToElement', $params);
+    }
+    return $this;
+  }
+
+  /**
+   * Upload a local file to the server
+   *
+   * @return string The remote path of the file.
+   */
+  private function upload($local_file) {
+    if (!is_file($local_file)) {
+      throw new WebDriverException("You may only upload files: " . $local_file);
+    }
+
+    $temp_zip = Filesystem::createTemporaryFile('WebDriverZip', 'true');
+    $zip = new ZipArchive();
+    if ($zip->open($temp_zip, ZIPARCHIVE::CREATE) !== true) {
+      return false;
+    }
+    $file_name = pathinfo($local_file)['basename'];
+    $zip->addFile($local_file, $file_name);
+    $zip->close();
     $params = array(
-      'value' => WebDriverKeys::encode($value),
-      ':id'   => $this->id,
+      'file' => base64_encode(Filesystem::readFile($temp_zip)),
     );
-    $this->executor->execute('sendKeysToElement', $params);
+    return $this->executor->execute('sendFile', $params);
+  }
+
+  /**
+   * Set the fileDetector in order to let the RemoteWebElement to know that
+   * you are going to upload a file.
+   *
+   * Bascially, if you want WebDriver trying to send a file, set the fileDector
+   * to be LocalFileDetector. Otherwise, keep it UselessFileDetector.
+   *
+   *   eg. $element->setFileDetector(new LocalFileDetector);
+   *
+   * @see FileDetector
+   * @see LocalFileDetector
+   * @see UselessFileDetector
+   */
+  public function setFileDetector(FileDetector $detector) {
+    $this->fileDetector = $detector;
     return $this;
   }
 
