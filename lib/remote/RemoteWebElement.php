@@ -281,9 +281,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       throw new WebDriverException("You may only upload files: " . $local_file);
     }
 
-    $temp_zip = Filesystem::createTemporaryFile('WebDriverZip', 'true');
+    // Create a temperary file in the system temp directory.
+    $temp_zip = tempnam('', 'WebDriverZip');
     $zip = new ZipArchive();
-    if ($zip->open($temp_zip, ZIPARCHIVE::CREATE) !== true) {
+    if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
       return false;
     }
     $file_name = pathinfo($local_file)['basename'];
