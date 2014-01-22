@@ -291,9 +291,11 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     $zip->addFile($local_file, $file_name);
     $zip->close();
     $params = array(
-      'file' => base64_encode(Filesystem::readFile($temp_zip)),
+      'file' => base64_encode(file_get_contents($temp_zip)),
     );
-    return $this->executor->execute('sendFile', $params);
+    $remote_path = $this->executor->execute('sendFile', $params);
+    unlink($temp_zip);
+    return $remote_path;
   }
 
   /**
