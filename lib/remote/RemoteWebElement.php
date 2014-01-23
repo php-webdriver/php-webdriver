@@ -287,7 +287,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
       return false;
     }
-    $file_name = pathinfo($local_file)['basename'];
+    $info = pathinfo($local_file);
+    $file_name = $info['basename'];
     $zip->addFile($local_file, $file_name);
     $zip->close();
     $params = array(
