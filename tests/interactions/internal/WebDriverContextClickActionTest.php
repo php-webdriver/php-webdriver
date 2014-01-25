@@ -20,7 +20,7 @@ class WebDriverContextClickActionTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testPerformSendsMouseDownCommand()
+    public function testPerformSendsContextClickCommand()
     {
         $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
         $this->webDriverMouse->expects($this->once())->method('contextClick');
