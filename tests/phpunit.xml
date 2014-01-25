@@ -10,7 +10,8 @@
         convertWarningsToExceptions = "true"
         processIsolation            = "false"
         stopOnFailure               = "false"
-        syntaxCheck                 = "false" >
+        syntaxCheck                 = "false"
+        bootstrap                   = "bootstrap.php" >
 
     <testsuites>
         <testsuite name="Facebook PHP-Webdriver Testsuite">

@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . '/../../../lib/__init__.php';
-
 class WebDriverClickActionTest extends PHPUnit_Framework_TestCase
 {
     /**
