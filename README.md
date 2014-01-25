@@ -56,7 +56,7 @@ Install the library.
 
 To run unit tests simply run:
 
-./vendor/bin/phpunit  -c ./tests
+    ./vendor/bin/phpunit  -c ./tests
 
 ## MORE INFORMATION
 
