@@ -5,7 +5,7 @@ class WebDriverClickAndHoldActionTest extends PHPUnit_Framework_TestCase
   /**
    * @type WebDriverClickAndHoldAction
    */
-  private $webDriverClickAction;
+  private $webDriverClickAndHoldAction;
 
   private $webDriverMouse;
   private $locationProvider;
@@ -13,7 +13,7 @@ class WebDriverClickAndHoldActionTest extends PHPUnit_Framework_TestCase
   public function setUp() {
     $this->webDriverMouse = $this->getMock('WebDriverMouse');
     $this->locationProvider = $this->getMock('WebDriverLocatable');
-    $this->webDriverClickAction = new WebDriverClickAndHoldAction(
+    $this->webDriverClickAndHoldAction = new WebDriverClickAndHoldAction(
       $this->webDriverMouse,
       $this->locationProvider
     );
@@ -21,8 +21,8 @@ class WebDriverClickAndHoldActionTest extends PHPUnit_Framework_TestCase
 
   public function testPerformSendsMouseDownCommand() {
     $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('mouseDown');
+    $this->webDriverMouse->expects($this->once())->method('mouseDown')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverClickAction->perform();
+    $this->webDriverClickAndHoldAction->perform();
   }
 }

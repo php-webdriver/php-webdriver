@@ -21,7 +21,7 @@ class WebDriverContextClickActionTest extends PHPUnit_Framework_TestCase
 
   public function testPerformSendsContextClickCommand() {
     $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('contextClick');
+    $this->webDriverMouse->expects($this->once())->method('contextClick')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverContextClickAction->perform();
   }

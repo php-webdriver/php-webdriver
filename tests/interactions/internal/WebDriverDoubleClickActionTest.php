@@ -1,11 +1,11 @@
 <?php
 
-class WebDriverClickActionTest extends PHPUnit_Framework_TestCase
+class WebDriverDoubleClickActionTest extends PHPUnit_Framework_TestCase
 {
   /**
-   * @type WebDriverClickAction
+   * @type WebDriverDoubleClickAction
    */
-  private $webDriverClickAction;
+  private $webDriverDoubleClickAction;
 
   private $webDriverMouse;
   private $locationProvider;
@@ -13,16 +13,16 @@ class WebDriverClickActionTest extends PHPUnit_Framework_TestCase
   public function setUp() {
     $this->webDriverMouse = $this->getMock('WebDriverMouse');
     $this->locationProvider = $this->getMock('WebDriverLocatable');
-    $this->webDriverClickAction = new WebDriverClickAction(
+    $this->webDriverDoubleClickAction = new WebDriverDoubleClickAction(
       $this->webDriverMouse,
       $this->locationProvider
     );
   }
 
-  public function testPerformSendsClickCommand() {
+  public function testPerformSendsDoubleClickCommand() {
     $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
+    $this->webDriverMouse->expects($this->once())->method('doubleClick')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverClickAction->perform();
+    $this->webDriverDoubleClickAction->perform();
   }
 }
