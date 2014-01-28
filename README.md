@@ -52,6 +52,12 @@ Install the library.
 
 *   The $capabilities array lets you specify (among other things) which browser to use. See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
+## RUN UNIT TESTS
+
+To run unit tests simply run:
+
+    ./vendor/bin/phpunit -c ./tests
+
 ## MORE INFORMATION
 
 Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
