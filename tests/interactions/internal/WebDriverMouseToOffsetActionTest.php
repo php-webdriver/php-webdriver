@@ -1,11 +1,11 @@
 <?php
 
-class WebDriverClickActionTest extends PHPUnit_Framework_TestCase
+class WebDriverMouseToOffsetActionTest extends PHPUnit_Framework_TestCase
 {
   /**
-   * @type WebDriverClickAction
+   * @type WebDriverMoveToOffsetAction
    */
-  private $webDriverClickAction;
+  private $webDriverMoveToOffsetAction;
 
   private $webDriverMouse;
   private $locationProvider;
@@ -13,16 +13,18 @@ class WebDriverClickActionTest extends PHPUnit_Framework_TestCase
   public function setUp() {
     $this->webDriverMouse = $this->getMock('WebDriverMouse');
     $this->locationProvider = $this->getMock('WebDriverLocatable');
-    $this->webDriverClickAction = new WebDriverClickAction(
+    $this->webDriverMoveToOffsetAction = new WebDriverMoveToOffsetAction(
       $this->webDriverMouse,
-      $this->locationProvider
+      $this->locationProvider,
+      150,
+      200
     );
   }
 
-  public function testPerformSendsClickCommand() {
+  public function testPerformFocusesOnElementAndSendPressKeyCommand() {
     $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
+    $this->webDriverMouse->expects($this->once())->method('mouseMove')->with($coords, 150, 200);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverClickAction->perform();
+    $this->webDriverMoveToOffsetAction->perform();
   }
 }

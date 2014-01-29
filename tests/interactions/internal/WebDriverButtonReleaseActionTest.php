@@ -21,7 +21,7 @@ class WebDriverButtonReleaseActionTest extends PHPUnit_Framework_TestCase
 
   public function testPerformSendsMouseUpCommand() {
     $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('mouseUp');
+    $this->webDriverMouse->expects($this->once())->method('mouseUp')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverButtonReleaseAction->perform();
   }
