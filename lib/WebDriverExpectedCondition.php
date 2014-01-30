@@ -98,7 +98,7 @@ class WebDriverExpectedCondition {
         try {
           $element = $driver->findElement($by);
           return $element->isDisplayed() ? $element : null;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return null;
         }
       }
@@ -154,7 +154,7 @@ class WebDriverExpectedCondition {
         try {
           $element_text = $driver->findElement($by)->getText();
           return strpos($element_text, $text) !== false;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return null;
         }
       }
@@ -176,7 +176,7 @@ class WebDriverExpectedCondition {
         try {
           $element_text = $driver->findElement($by)->getAttribute('value');
           return strpos($element_text, $text) !== false;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return null;
         }
       }
@@ -197,7 +197,7 @@ class WebDriverExpectedCondition {
       function ($driver) use ($frame_locator) {
         try {
           return $driver->switchTo()->frame($frame_locator);
-        } catch (NoSuchFrameWebDriverError $e) {
+        } catch (NoSuchFrameException $e) {
           return false;
         }
       }
@@ -217,9 +217,9 @@ class WebDriverExpectedCondition {
       function ($driver) use ($by) {
         try {
           return !($driver->findElement($by)->isDisplayed());
-        } catch (NoSuchElementWebDriverError $e) {
+        } catch (NoSuchElementException $e) {
           return true;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return true;
         }
       }
@@ -241,9 +241,9 @@ class WebDriverExpectedCondition {
       function ($driver) use ($by, $text) {
         try {
           return !($driver->findElement($by)->getText() === $text);
-        } catch (NoSuchElementWebDriverError $e) {
+        } catch (NoSuchElementException $e) {
           return true;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return true;
         }
       }
@@ -273,7 +273,7 @@ class WebDriverExpectedCondition {
           } else {
             return null;
           }
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return null;
         }
       }
@@ -293,7 +293,7 @@ class WebDriverExpectedCondition {
         try {
           $element->isEnabled();
           return false;
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return true;
         }
       }
@@ -306,7 +306,7 @@ class WebDriverExpectedCondition {
    * This works around the problem of conditions which have two parts: find an
    * element and then check for some condition on it. For these conditions it is
    * possible that an element is located and then subsequently it is redrawn on
-   * the client. When this happens a ObsoleteElementWebDriverError is thrown
+   * the client. When this happens a StaleElementReferenceException is thrown
    * when the second part of the condition is checked.
    *
    * @param WebDriverExpectedCondition $condition The condition wrapped.
@@ -318,7 +318,7 @@ class WebDriverExpectedCondition {
       function ($driver) use ($condition) {
         try {
           return call_user_func($condition->getApply(), $driver);
-        } catch (ObsoleteElementWebDriverError $e) {
+        } catch (StaleElementReferenceException $e) {
           return null;
         }
       }
@@ -361,7 +361,7 @@ class WebDriverExpectedCondition {
           try {
             $element = $driver->findElement($element_or_by);
             return $element->isSelected === $selected;
-          } catch (ObsoleteElementWebDriverError $e) {
+          } catch (StaleElementReferenceException $e) {
             return null;
           }
         }
@@ -385,7 +385,7 @@ class WebDriverExpectedCondition {
           $alert = $driver->switchTo()->alert();
           $alert->getText();
           return $alert;
-        } catch (NoAlertOpenWebDriverError $e) {
+        } catch (NoAlertOpenException $e) {
           return null;
         }
       }
