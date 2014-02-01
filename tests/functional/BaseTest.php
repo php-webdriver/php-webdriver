@@ -30,4 +30,12 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::id('welcome'))->getText()
     );
   }
+
+  public function testGetById() {
+    $this->driver->get($this->getTestPath('index.html'));
+    $this->assertEquals(
+      'Test by ID',
+      $this->driver->findElement(WebDriverBy::id('css_selector_test'))->getText()
+    );
+  }
 }
