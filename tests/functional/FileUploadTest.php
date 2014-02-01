@@ -13,29 +13,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require_once('__init__.php');
-
 /**
  * An example test case for php-webdriver.
  * 
  * Try running it by 
  *   '../vendor/phpunit/phpunit/phpunit.php ExampleTestCase.php'
  */
-class ExampleTestCase extends BasePHPWebDriverTestCase {
+class FileUploadTest extends WebDriverTestCase {
   
   public function testFileUploading() {
     $this->driver->get($this->getTestPath('upload.html'));
     $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
     $file_input->setFileDetector(new LocalFileDetector())
                ->sendKeys(__DIR__ . '/files/FileUploadTestCaseFile.txt');
-    self::assertNotEquals($this->getFilePath(), $file_input->getAttribute('value'));
+    $this->assertNotEquals($this->getFilePath(), $file_input->getAttribute('value'));
   }
 
   public function testUselessFileDetectorSendKeys() {
     $this->driver->get($this->getTestPath('upload.html'));
     $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
     $file_input->sendKeys($this->getFilePath());
-    self::assertEquals($this->getFilePath(), $file_input->getAttribute('value'));
+    $this->assertEquals($this->getFilePath(), $file_input->getAttribute('value'));
   }
   
   private function getFilePath() {

@@ -14,8 +14,11 @@
         bootstrap                   = "bootstrap.php" >
 
     <testsuites>
-        <testsuite name="Facebook PHP-Webdriver Testsuite">
-            <directory>./</directory>
+        <testsuite name="Facebook PHP-Webdriver Unit Testsuite">
+            <directory>./unit</directory>
+        </testsuite>
+        <testsuite name="Facebook PHP-Webdriver Functional Testsuite">
+            <directory>./functional</directory>
         </testsuite>
     </testsuites>
 

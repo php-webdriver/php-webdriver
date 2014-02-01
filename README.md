@@ -58,6 +58,8 @@ To run unit tests simply run:
 
     ./vendor/bin/phpunit -c ./tests
 
+Note: For the functional test suite, a running selenium server is required.
+
 ## MORE INFORMATION
 
 Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki

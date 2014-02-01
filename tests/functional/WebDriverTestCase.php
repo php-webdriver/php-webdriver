@@ -16,8 +16,9 @@
 /**
  * The base class for test cases.
  */
-class BasePHPWebDriverTestCase extends PHPUnit_Framework_TestCase {
+class WebDriverTestCase extends PHPUnit_Framework_TestCase {
 
+  /** @var RemoteWebDriver $driver */
   protected $driver;
 
   protected function setUp() {
