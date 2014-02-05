@@ -17,7 +17,7 @@ class BaseTest extends WebDriverTestCase {
   
   public function testGetTitle() {
     $this->driver->get($this->getTestPath('index.html'));
-    $this->assertEquals(
+    self::assertEquals(
       'php-webdriver test page',
       $this->driver->getTitle()
     );
@@ -25,7 +25,7 @@ class BaseTest extends WebDriverTestCase {
   
   public function testGetText() {
     $this->driver->get($this->getTestPath('index.html'));
-    $this->assertEquals(
+    self::assertEquals(
       'Welcome to the facebook/php-webdriver testing page.',
       $this->driver->findElement(WebDriverBy::id('welcome'))->getText()
     );
@@ -33,7 +33,7 @@ class BaseTest extends WebDriverTestCase {
 
   public function testGetById() {
     $this->driver->get($this->getTestPath('index.html'));
-    $this->assertEquals(
+    self::assertEquals(
       'Test by ID',
       $this->driver->findElement(WebDriverBy::id('id_test'))->getText()
     );

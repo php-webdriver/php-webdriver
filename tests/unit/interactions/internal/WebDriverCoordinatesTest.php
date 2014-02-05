@@ -20,10 +20,10 @@ class WebDriverCoordinatesTest extends PHPUnit_Framework_TestCase {
 
     $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-    $this->assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
-    $this->assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
-    $this->assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
-    $this->assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
+    self::assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
+    self::assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
+    self::assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
+    self::assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
   }
 
   public function testGetAuxiliary()
@@ -33,6 +33,6 @@ class WebDriverCoordinatesTest extends PHPUnit_Framework_TestCase {
 
     $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-    $this->assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
+    self::assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
   }
 }

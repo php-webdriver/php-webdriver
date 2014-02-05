@@ -26,14 +26,14 @@ class FileUploadTest extends WebDriverTestCase {
     $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
     $file_input->setFileDetector(new LocalFileDetector())
                ->sendKeys(__DIR__ . '/files/FileUploadTestCaseFile.txt');
-    $this->assertNotEquals($this->getFilePath(), $file_input->getAttribute('value'));
+    self::assertNotEquals($this->getFilePath(), $file_input->getAttribute('value'));
   }
 
   public function testUselessFileDetectorSendKeys() {
     $this->driver->get($this->getTestPath('upload.html'));
     $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
     $file_input->sendKeys($this->getFilePath());
-    $this->assertEquals($this->getFilePath(), $file_input->getAttribute('value'));
+    self::assertEquals($this->getFilePath(), $file_input->getAttribute('value'));
   }
   
   private function getFilePath() {
