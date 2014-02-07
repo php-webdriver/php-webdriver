@@ -13,17 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require_once('__init__.php');
-
-/**
- * An example test case for php-webdriver.
- * 
- * Try running it by 
- *   '../vendor/phpunit/phpunit/phpunit.php ExampleTestCase.php'
- */
-class ExampleTestCase extends BasePHPWebDriverTestCase {
+class BaseTest extends WebDriverTestCase {
   
-  public function testTestPageTitle() {
+  public function testGetTitle() {
     $this->driver->get($this->getTestPath('index.html'));
     self::assertEquals(
       'php-webdriver test page',
@@ -31,11 +23,19 @@ class ExampleTestCase extends BasePHPWebDriverTestCase {
     );
   }
   
-  public function testTestPageWelcome() {
+  public function testGetText() {
     $this->driver->get($this->getTestPath('index.html'));
     self::assertEquals(
       'Welcome to the facebook/php-webdriver testing page.',
       $this->driver->findElement(WebDriverBy::id('welcome'))->getText()
+    );
+  }
+
+  public function testGetById() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test by ID',
+      $this->driver->findElement(WebDriverBy::id('id_test'))->getText()
     );
   }
 }

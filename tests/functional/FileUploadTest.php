@@ -13,15 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-require_once('__init__.php');
-
 /**
  * An example test case for php-webdriver.
  * 
  * Try running it by 
  *   '../vendor/phpunit/phpunit/phpunit.php ExampleTestCase.php'
  */
-class ExampleTestCase extends BasePHPWebDriverTestCase {
+class FileUploadTest extends WebDriverTestCase {
   
   public function testFileUploading() {
     $this->driver->get($this->getTestPath('upload.html'));
