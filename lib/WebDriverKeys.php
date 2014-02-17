@@ -95,7 +95,7 @@ class WebDriverKeys {
       $keys = '' . $keys;
 
     if (is_string($keys)) {
-      $keys = str_split($keys);
+      $keys = array($keys);
     }
 
     $encoded = array();
@@ -104,7 +104,8 @@ class WebDriverKeys {
         // handle modified keys
         $key = implode('', $key).self::NULL;
       }
-      $encoded[] = (string)$key;
+      //$encoded[] = (string)$key;
+      $encoded = array_merge($encoded, str_split((string)$key));
     }
 
     return $encoded;
