@@ -62,4 +62,12 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::linkText('Click here'))->getText()
     );
   }
+
+  public function testGetByName() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test Value',
+      $this->driver->findElement(WebDriverBy::name('test_name'))->getAttribute('value')
+    );
+  }
 }
