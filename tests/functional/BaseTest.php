@@ -70,4 +70,12 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::name('test_name'))->getAttribute('value')
     );
   }
+
+  public function testGetByXpath() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test Value',
+      $this->driver->findElement(WebDriverBy::xpath('//input[@name="test_name"]'))->getAttribute('value')
+    );
+  }
 }
