@@ -78,4 +78,12 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::xpath('//input[@name="test_name"]'))->getAttribute('value')
     );
   }
+
+  public function testGetByPartialLinkText() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Click here',
+      $this->driver->findElement(WebDriverBy::partialLinkText('Click'))->getText()
+    );
+  }
 }
