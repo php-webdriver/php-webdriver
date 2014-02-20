@@ -46,4 +46,12 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::className('test_class'))->getText()
     );
   }
+
+  public function testGetByCssSelector() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+     'Test by Class',
+     $this->driver->findElement(WebDriverBy::cssSelector('.test_class'))->getText()
+    );
+  }
 }
