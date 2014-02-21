@@ -352,7 +352,7 @@ class WebDriverExpectedCondition {
     if ($element_or_by instanceof WebDriverElement) {
       return new WebDriverExpectedCondition(
         function ($driver) use ($element_or_by, $selected) {
-          return $element_or_by->isSelected === $selected;
+          return $element_or_by->isSelected() === $selected;
         }
       );
     } else if ($element_or_by instanceof WebDriverBy) {
@@ -360,7 +360,7 @@ class WebDriverExpectedCondition {
         function ($driver) use ($element_or_by, $selected) {
           try {
             $element = $driver->findElement($element_or_by);
-            return $element->isSelected === $selected;
+            return $element->isSelected() === $selected;
           } catch (StaleElementReferenceException $e) {
             return null;
           }
