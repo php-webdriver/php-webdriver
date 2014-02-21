@@ -91,8 +91,9 @@ class WebDriverKeys {
    */
   public static function encode($keys) {
 
-    if(is_numeric($keys))
+    if (is_numeric($keys)) {
       $keys = '' . $keys;
+    }
 
     if (is_string($keys)) {
       $keys = array($keys);
@@ -104,7 +105,7 @@ class WebDriverKeys {
         // handle modified keys
         $key = implode('', $key).self::NULL;
       }
-      $encoded = array_merge($encoded, str_split((string)$key));
+      $encoded[] = (string)$key;
     }
 
     return $encoded;
