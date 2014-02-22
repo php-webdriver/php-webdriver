@@ -38,4 +38,60 @@ class BaseTest extends WebDriverTestCase {
       $this->driver->findElement(WebDriverBy::id('id_test'))->getText()
     );
   }
+
+  public function testGetByClassName() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test by Class',
+      $this->driver->findElement(WebDriverBy::className('test_class'))->getText()
+    );
+  }
+
+  public function testGetByCssSelector() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+     'Test by Class',
+     $this->driver->findElement(WebDriverBy::cssSelector('.test_class'))->getText()
+    );
+  }
+
+  public function testGetByLinkText() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Click here',
+      $this->driver->findElement(WebDriverBy::linkText('Click here'))->getText()
+    );
+  }
+
+  public function testGetByName() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test Value',
+      $this->driver->findElement(WebDriverBy::name('test_name'))->getAttribute('value')
+    );
+  }
+
+  public function testGetByXpath() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test Value',
+      $this->driver->findElement(WebDriverBy::xpath('//input[@name="test_name"]'))->getAttribute('value')
+    );
+  }
+
+  public function testGetByPartialLinkText() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Click here',
+      $this->driver->findElement(WebDriverBy::partialLinkText('Click'))->getText()
+    );
+  }
+
+  public function testGetByTagName() {
+    $this->driver->get($this->getTestPath('index.html'));
+    self::assertEquals(
+      'Test Value',
+      $this->driver->findElement(WebDriverBy::tagName('input'))->getAttribute('value')
+    );
+  }
 }
