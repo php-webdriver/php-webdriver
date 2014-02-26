@@ -37,7 +37,7 @@ class RemoteWebDriverTest extends PHPUnit_Framework_TestCase {
     $remoteWebDriver
       ->staticExpects($this->once())
       ->method('createHttpCommandExecutor')
-      ->with($url, $response)
+      ->with($url, $response['sessionId'])
       ->will($this->returnValue($executor))
     ;
 

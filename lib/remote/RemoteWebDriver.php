@@ -44,7 +44,7 @@ class RemoteWebDriver implements WebDriver {
 
     $response = static::remoteExecuteHttpCommand($timeout_in_ms, $command);
     $driver = new static();
-    $executor = static::createHttpCommandExecutor($url, $response);
+    $executor = static::createHttpCommandExecutor($url, $response['sessionId']);
 
     return $driver->setCommandExecutor($executor);
   }
@@ -71,13 +71,13 @@ class RemoteWebDriver implements WebDriver {
 
   /**
    * @param string $url
-   * @param array  $response
+   * @param string $session_id
    * @return HttpCommandExecutor
    */
-  public static function createHttpCommandExecutor($url, $response) {
+  public static function createHttpCommandExecutor($url, $session_id) {
     $executor = new HttpCommandExecutor(
       $url,
-      $response['sessionId']
+      $session_id
     );
     return $executor;
   }
@@ -395,7 +395,24 @@ class RemoteWebDriver implements WebDriver {
   }
 
   /**
+   * Set the session id of the RemoteWebDriver.
+   *
+   * @param string $session_id
+   * @return WebDriver
+   */
+  public function setSessionID($session_id) {
+    $this->setCommandExecutor(
+      new HttpCommandExecutor(
+        $this->executor->getAddressOfRemoteServer(),
+        $session_id
+      )
+    );
+    return $this;
+  }
+
+  /**
    * Get current selenium sessionID
+   *
    * @return sessionID
    */
   public function getSessionID() {

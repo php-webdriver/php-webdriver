@@ -258,6 +258,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   /**
    * @return string
    */
+  public function getAddressOfRemoteServer() {
+    return $this->url;
+  }
+
+  /**
+   * @return string
+   */
   public function getSessionID() {
     return $this->sessionID;
   }
