@@ -35,6 +35,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     'elementFindElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/element'),
     'elementFindElements' =>    array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),
     'executeScript' =>          array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
+    'executeAsyncScript' =>     array('method' => 'POST', 'url' => '/session/:sessionId/execute_async'),
     'findElement' =>            array('method' => 'POST', 'url' => '/session/:sessionId/element'),
     'findElements' =>           array('method' => 'POST', 'url' => '/session/:sessionId/elements'),
     'focusFrame' =>             array('method' => 'POST',  'url' => '/session/:sessionId/frame'),

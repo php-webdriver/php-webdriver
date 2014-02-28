@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class EventFiringWebDriver implements WebDriver {
+class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
 
   /**
    * @var WebDriver
@@ -134,9 +134,38 @@ class EventFiringWebDriver implements WebDriver {
    * @throws WebDriverException
    */
   public function executeScript($script, array $arguments = array()) {
+    if (!$this->driver instanceof JavaScriptExecutor) {
+      throw new UnsupportedOperationException(
+        'driver does not implement JavaScriptExecutor',
+      );
+    }
+
     $this->dispatch('beforeScript', $script, $this);
     try {
       $result = $this->driver->executeScript($script, $arguments);
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+    $this->dispatch('afterScript', $script, $this);
+    return $result;
+  }
+
+  /**
+   * @param       $script
+   * @param array $arguments
+   * @return mixed
+   * @throws WebDriverException
+   */
+  public function executeAsyncScript($script, array $arguments = array()) {
+    if (!$this->driver instanceof JavaScriptExecutor) {
+      throw new UnsupportedOperationException(
+        'driver does not implement JavaScriptExecutor',
+      );
+    }
+
+    $this->dispatch('beforeScript', $script, $this);
+    try {
+      $result = $this->driver->executeAsyncScript($script, $arguments);
     } catch (WebDriverException $exception) {
       $this->dispatchOnException($exception);
     }

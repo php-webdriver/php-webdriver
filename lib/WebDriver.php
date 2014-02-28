@@ -97,17 +97,6 @@ interface WebDriver extends WebDriverSearchContext {
   public function quit();
 
   /**
-   * Inject a snippet of JavaScript into the page for execution in the context
-   * of the currently selected frame. The executed script is assumed to be
-   * synchronous and the result of evaluating the script will be returned.
-   *
-   * @param string $script The script to inject.
-   * @param array $arguments The arguments of the script.
-   * @return mixed The return value of the script.
-   */
-  public function executeScript($script, array $arguments = array());
-
-  /**
    * Take a screenshot of the current page.
    *
    * @param string $save_as The path of the screenshot to be saved.

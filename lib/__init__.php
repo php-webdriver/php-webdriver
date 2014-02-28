@@ -15,6 +15,7 @@
 
 // interface
 require_once('WebDriverSearchContext.php');
+require_once('JavaScriptExecutor.php');
 require_once('WebDriver.php');
 require_once('WebDriverElement.php');
 require_once('WebDriverCommandExecutor.php');

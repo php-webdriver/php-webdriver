@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class RemoteWebDriver implements WebDriver {
+class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
 
   protected $executor;
   protected $mouse;
@@ -246,8 +246,28 @@ class RemoteWebDriver implements WebDriver {
       'script' => $script,
       'args' => $this->prepareScriptArguments($arguments),
     );
-    $response = $this->executor->execute('executeScript', $params);
-    return $response;
+    return $this->executor->execute('executeScript', $params);
+  }
+
+  /**
+   * Inject a snippet of JavaScript into the page for asynchronous execution in
+   * the context of the currently selected frame.
+   *
+   * The driver will pass a callback as the last argument to the snippet, and
+   * block until the callback is invoked.
+   *
+   * @see WebDriverExecuteAsyncScriptTestCase
+   *
+   * @param string $script The script to inject.
+   * @param array $arguments The arguments of the script.
+   * @return mixed The value passed by the script to the callback.
+   */
+  public function executeAsyncScript($script, array $arguments = array()) {
+    $params = array(
+      'script' => $script,
+      'args' => $this->prepareScriptArguments($arguments),
+    );
+    return $this->executor->execute('executeAsyncScript', $params);
   }
 
   /**
