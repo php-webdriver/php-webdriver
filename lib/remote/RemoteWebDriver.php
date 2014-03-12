@@ -219,14 +219,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   private function prepareScriptArguments(array $arguments) {
     $args = array();
-    foreach ($arguments as $arg) {
-      if ($arg instanceof WebDriverElement) {
-        $args[] = array('ELEMENT'=>$arg->getID());
+    foreach ($arguments as $key => $value) {
+      if ($value instanceof WebDriverElement) {
+        $args[$key] = array('ELEMENT'=>$value->getID());
       } else {
-        if (is_array($arg)) {
-          $arg = $this->prepareScriptArguments($arg);
+        if (is_array($value)) {
+          $value = $this->prepareScriptArguments($value);
         }
-        $args[] = $arg;
+        $args[$key] = $value;
       }
     }
     return $args;
