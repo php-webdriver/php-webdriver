@@ -218,6 +218,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return array
    */
   private function prepareScriptArguments(array $arguments) {
+    // If arguments is an associative array, don't do anything.
+    if ((bool)count(array_filter(array_keys($arguments), 'is_string'))) {
+      return $arguments;
+    }
+
     $args = array();
     foreach ($arguments as $arg) {
       if ($arg instanceof WebDriverElement) {
