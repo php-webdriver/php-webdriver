@@ -189,9 +189,11 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return string The tag name.
    */
   public function getTagName() {
-    return $this->executor->execute(
-      'getElementTagName',
-      array(':id' => $this->id)
+    return strtolower(
+      $this->executor->execute(
+        'getElementTagName',
+        array(':id' => $this->id)
+      )
     );
   }
 
