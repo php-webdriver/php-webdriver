@@ -26,27 +26,6 @@ interface WebDriver extends WebDriverSearchContext {
   public function close();
 
   /**
-   * Find the first WebDriverElement using the given mechanism.
-   *
-   * @param WebDriverBy $locator
-   * @return WebDriverElement NoSuchElementException is thrown in
-   *    HttpCommandExecutor if no element is found.
-   * @see WebDriverBy
-   */
-  public function findElement(WebDriverBy $locator);
-
-  /**
-   * Find all WebDriverElements within the current page using the given
-   * mechanism.
-   *
-   * @param WebDriverBy $locator
-   * @return array<WebDriverElement> A list of all WebDriverElements,
-   *    or an empty array if nothing matches
-   * @see WebDriverBy
-   */
-  public function findElements(WebDriverBy $locator);
-
-  /**
    * Load a new web page in the current browser window.
    *
    * @return WebDriver The current instance.
