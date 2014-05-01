@@ -34,27 +34,6 @@ interface WebDriverElement extends WebDriverSearchContext {
   public function click();
 
   /**
-   * Find the first WebDriverElement within this element using the given
-   * mechanism.
-   *
-   * @param WebDriverBy $locator
-   * @return WebDriverElement NoSuchElementException is thrown in
-   *    HttpCommandExecutor if no element is found.
-   * @see WebDriverBy
-   */
-  public function findElement(WebDriverBy $locator);
-
-  /**
-   * Find all WebDriverElements within this element using the given mechanism.
-   *
-   * @param WebDriverBy $locator
-   * @return array A list of all WebDriverElements, or an empty array if
-   *    nothing matches
-   * @see WebDriverBy
-   */
-  public function findElements(WebDriverBy $locator);
-
-  /**
    * Get the value of a the given attribute of the element.
    *
    * @param string $attribute_name The name of the attribute.
