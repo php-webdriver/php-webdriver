@@ -59,6 +59,7 @@ require_once('interactions/internal/WebDriverDoubleClickAction.php');
 require_once('interactions/internal/WebDriverMouseMoveAction.php');
 require_once('interactions/internal/WebDriverMoveToOffsetAction.php');
 require_once('internal/WebDriverLocatable.php');
+require_once('chrome/ChromeOptions.php');
 require_once('remote/LocalFileDetector.php');
 require_once('remote/UselessFileDetector.php');
 require_once('remote/RemoteMouse.php');

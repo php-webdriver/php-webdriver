@@ -69,7 +69,6 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this;
   }
 
-
   /**
    * @return bool Whether the value is not null and not false.
    */
@@ -90,6 +89,12 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   public function toArray() {
+    if (isset($this->capabilities[ChromeOptions::CAPABILITY]) &&
+      $this->capabilities[ChromeOptions::CAPABILITY] instanceof ChromeOptions) {
+      $this->capabilities[ChromeOptions::CAPABILITY] =
+        $this->capabilities[ChromeOptions::CAPABILITY]->toArray();
+    }
+
     return $this->capabilities;
   }
 
