@@ -16,138 +16,174 @@
 /**
  * Execute touch commands for RemoteWebDriver.
  */
-class RemoteTouchScreen implements WebDriverTouchScreen {
+class RemoteTouchScreen implements WebDriverTouchScreen
+{
 
-  private $executor;
+    private $executor;
 
-  public function __construct($executor) {
-    $this->executor = $executor;
-  }
+    public function __construct($executor)
+    {
+        $this->executor = $executor;
+    }
 
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function tap(WebDriverElement $element) {
-    $this->executor->execute('touchTap', array('element' => $element->getID()));
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function tap(WebDriverElement $element)
+    {
+        $this->executor->execute('touchTap', array('element' => $element->getID()));
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function doubleTap(WebDriverElement $element) {
-    $this->executor->execute(
-      'touchDoubleTap',
-      array('element' => $element->getID())
-    );
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function doubleTap(WebDriverElement $element)
+    {
+        $this->executor->execute(
+            'touchDoubleTap',
+            array('element' => $element->getID())
+        );
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function down($x, $y) {
-    $this->executor->execute('touchDown', array(
-      'x' => $x,
-      'y' => $y,
-    ));
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function down($x, $y)
+    {
+        $this->executor->execute(
+            'touchDown',
+            array(
+                'x' => $x,
+                'y' => $y,
+            )
+        );
 
-    return $this;
-  }
-
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function flick($xspeed, $yspeed) {
-    $this->executor->execute('touchFlick', array(
-      'xspeed' => $xspeed,
-      'yspeed' => $yspeed,
-    ));
-
-    return $this;
-  }
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function flickFromElement(
-    WebDriverElement $element, $xoffset, $yoffset, $speed
-  ) {
-    $this->executor->execute('touchFlick', array(
-      'xoffset' => $xoffset,
-      'yoffset' => $yoffset,
-      'element' => $element->getID(),
-      'speed'   => $speed,
-    ));
-
-    return $this;
-  }
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function longPress(WebDriverElement $element) {
-    $this->executor->execute(
-      'touchLongPress',
-      array('element' => $element->getID())
-    );
-
-    return $this;
-  }
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function move($x, $y) {
-    $this->executor->execute('touchMove', array(
-      'x' => $x,
-      'y' => $y,
-    ));
-
-    return $this;
-  }
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function scroll($xoffset, $yoffset) {
-    $this->executor->execute('touchScroll', array(
-      'xoffset' => $xoffset,
-      'yoffset' => $yoffset,
-    ));
-
-    return $this;
-  }
-
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function scrollFromElement(
-    WebDriverElement $element, $xoffset, $yoffset
-  ) {
-    $this->executor->execute('touchScroll', array(
-      'element' => $element->getID(),
-      'xoffset' => $xoffset,
-      'yoffset' => $yoffset,
-    ));
-
-    return $this;
-  }
+        return $this;
+    }
 
 
-  /**
-   * @return RemoteTouchScreen The instance.
-   */
-  public function up($x, $y) {
-    $this->executor->execute('touchUp', array(
-      'x' => $x,
-      'y' => $y,
-    ));
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function flick($xspeed, $yspeed)
+    {
+        $this->executor->execute(
+            'touchFlick',
+            array(
+                'xspeed' => $xspeed,
+                'yspeed' => $yspeed,
+            )
+        );
 
-    return $this;
-  }
+        return $this;
+    }
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function flickFromElement(
+        WebDriverElement $element,
+        $xoffset,
+        $yoffset,
+        $speed
+    ) {
+        $this->executor->execute(
+            'touchFlick',
+            array(
+                'xoffset' => $xoffset,
+                'yoffset' => $yoffset,
+                'element' => $element->getID(),
+                'speed' => $speed,
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function longPress(WebDriverElement $element)
+    {
+        $this->executor->execute(
+            'touchLongPress',
+            array('element' => $element->getID())
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function move($x, $y)
+    {
+        $this->executor->execute(
+            'touchMove',
+            array(
+                'x' => $x,
+                'y' => $y,
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function scroll($xoffset, $yoffset)
+    {
+        $this->executor->execute(
+            'touchScroll',
+            array(
+                'xoffset' => $xoffset,
+                'yoffset' => $yoffset,
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function scrollFromElement(
+        WebDriverElement $element,
+        $xoffset,
+        $yoffset
+    ) {
+        $this->executor->execute(
+            'touchScroll',
+            array(
+                'element' => $element->getID(),
+                'xoffset' => $xoffset,
+                'yoffset' => $yoffset,
+            )
+        );
+
+        return $this;
+    }
+
+
+    /**
+     * @return RemoteTouchScreen The instance.
+     */
+    public function up($x, $y)
+    {
+        $this->executor->execute(
+            'touchUp',
+            array(
+                'x' => $x,
+                'y' => $y,
+            )
+        );
+
+        return $this;
+    }
 
 }
