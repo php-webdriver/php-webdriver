@@ -22,6 +22,7 @@ require_once('WebDriverCommandExecutor.php');
 require_once('WebDriverAction.php');
 require_once('WebDriverEventListener.php');
 require_once('remote/FileDetector.php');
+require_once('WebDriverCapabilities.php');
 
 // abstract class
 require_once('interactions/internal/WebDriverKeysRelatedAction.php');
@@ -39,6 +40,7 @@ require_once('WebDriverNavigation.php');
 require_once('WebDriverMouse.php');
 require_once('WebDriverKeyboard.php');
 require_once('WebDriverOptions.php');
+require_once('WebDriverPlatform.php');
 require_once('WebDriverPoint.php');
 require_once('WebDriverSelect.php');
 require_once('WebDriverTargetLocator.php');
@@ -65,6 +67,7 @@ require_once('remote/RemoteWebDriver.php');
 require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
+require_once('remote/DesiredCapabilities.php');
 require_once('remote/HttpCommandExecutor.php');
 require_once('interactions/internal/WebDriverSendKeysAction.php');
 require_once('interactions/internal/WebDriverKeyDownAction.php');

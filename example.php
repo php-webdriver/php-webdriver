@@ -5,7 +5,7 @@ require_once('lib/__init__.php');
 
 // start Firefox with 5 second timeout
 $host = 'http://localhost:4444/wd/hub'; // this is the default
-$capabilities = array(WebDriverCapabilityType::BROWSER_NAME => 'firefox');
+$capabilities = DesiredCapabilities::firefox();
 $driver = RemoteWebDriver::create($host, $capabilities, 5000);
 
 // navigate to 'http://docs.seleniumhq.org/'

@@ -26,16 +26,23 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Construct the RemoteWebDriver by a desired capabilities.
    *
    * @param string $url The url of the remote server
-   * @param array $desired_capabilities The webdriver desired capabilities
+   * @param DesiredCapabilities $desired_capabilities The desired capabilities
    * @param int $timeout_in_ms
    * @return RemoteWebDriver
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
-    $desired_capabilities = array(),
+    $desired_capabilities = null,
     $timeout_in_ms = 300000
   ) {
     $url = preg_replace('#/+$#', '', $url);
+
+    // Passing DesiredCapabilities as $desired_capabilities is encourged but
+    // array is also accepted for legacy reason.
+    if ($desired_capabilities instanceof DesiredCapabilities) {
+      $desired_capabilities = $desired_capabilities->toArray();
+    }
+
     $command = array(
       'url' => $url,
       'name' => 'newSession',
