@@ -13,12 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class LocalFileDetector implements FileDetector {
+/**
+ * Class LocalFileDetector
+ */
+class LocalFileDetector implements FileDetector
+{
+    /**
+     * @param string $file
+     *
+     * @return null|string
+     */
+    public function getLocalFile($file)
+    {
+        if (is_file($file)) {
+            return $file;
+        }
 
-  public function getLocalFile($file) {
-    if (is_file($file)) {
-      return $file;
+        return null;
     }
-    return null;
-  }
 }
