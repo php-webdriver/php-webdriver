@@ -16,51 +16,74 @@
 /**
  * Execute keyboard commands for RemoteWebDriver.
  */
-class RemoteKeyboard implements WebDriverKeyboard {
+class RemoteKeyboard implements WebDriverKeyboard
+{
 
-  private $executor;
+    private $executor;
 
-  public function __construct($executor) {
-    $this->executor = $executor;
-  }
+    public function __construct($executor)
+    {
+        $this->executor = $executor;
+    }
 
-  /**
-   * Send keys to active element
-   * @param string|array $keys
-   * @return $this
-   */
-  public function sendKeys($keys) {
-    $this->executor->execute('sendKeys', array(
-      'value' => WebDriverKeys::encode($keys),
-    ));
-    return $this;
-  }
+    /**
+     * Send keys to active element
+     *
+     * @param string|array $keys
+     *
+     * @return $this
+     */
+    public function sendKeys($keys)
+    {
+        $this->executor->execute(
+            'sendKeys',
+            array(
+                'value' => WebDriverKeys::encode($keys),
+            )
+        );
 
-  /**
-   * Press a modifier key
-   *
-   * @see WebDriverKeys
-   * @param string $key
-   * @return $this
-   */
-  public function pressKey($key) {
-    $this->executor->execute('sendKeys', array(
-      'value' => array((string)$key),
-    ));
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Release a modifier key
-   *
-   * @see WebDriverKeys
-   * @param string $key
-   * @return $this
-   */
-  public function releaseKey($key) {
-    $this->executor->execute('sendKeys', array(
-      'value' => array((string)$key),
-    ));
-    return $this;
-  }
+    /**
+     * Press a modifier key
+     *
+     * @see WebDriverKeys
+     *
+     * @param string $key
+     *
+     * @return $this
+     */
+    public function pressKey($key)
+    {
+        $this->executor->execute(
+            'sendKeys',
+            array(
+                'value' => array((string)$key),
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Release a modifier key
+     *
+     * @see WebDriverKeys
+     *
+     * @param string $key
+     *
+     * @return $this
+     */
+    public function releaseKey($key)
+    {
+        $this->executor->execute(
+            'sendKeys',
+            array(
+                'value' => array((string)$key),
+            )
+        );
+
+        return $this;
+    }
 }
