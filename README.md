@@ -47,10 +47,22 @@ Install the library.
 
         // This would be the url of the host running the server-standalone.jar
         $host = 'http://localhost:4444/wd/hub'; // this is the default
-        $capabilities = array(WebDriverCapabilityType::BROWSER_NAME => 'firefox');
-        $driver = RemoteWebDriver::create($host, $capabilities);
 
-*   The $capabilities array lets you specify (among other things) which browser to use. See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
+*   Launch Firefox
+
+        $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+        
+*   Launch Chrome
+
+        $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+
+*   You can also customize the desired capabilities. 
+
+        $desired_capabilities = DesiredCapabilities::firefox();
+        $desired_capabilities->setJavascriptEnabled(false);
+        RemoteWebDriver::create($host, $desired_capabilities);
+
+*   See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
 ## RUN UNIT TESTS
 
