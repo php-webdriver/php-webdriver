@@ -18,11 +18,23 @@
  */
 class RemoteWebElement implements WebDriverElement, WebDriverLocatable
 {
-
+    /**
+     * @var HttpCommandExecutor
+     */
     protected $executor;
+    /**
+     * @var string
+     */
     protected $id;
+    /**
+     * @var UselessFileDetector
+     */
     protected $fileDetector;
 
+    /**
+     * @param HttpCommandExecutor $executor
+     * @param string $id
+     */
     public function __construct(HttpCommandExecutor $executor, $id)
     {
         $this->executor = $executor;
@@ -34,7 +46,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * If this element is a TEXTAREA or text INPUT element, this will clear the
      * value.
      *
-     * @return WebDriverElement The current instance.
+     * @return RemoteWebElement The current instance.
      */
     public function clear()
     {
@@ -46,7 +58,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Click this element.
      *
-     * @return WebDriverElement The current instance.
+     * @return RemoteWebElement The current instance.
      */
     public function click()
     {
@@ -61,8 +73,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      * @param WebDriverBy $by
      *
-     * @return WebDriverElement NoSuchElementException is thrown in
-     *    HttpCommandExecutor if no element is found.
+     * @return RemoteWebElement
+     * @throws NoSuchElementException if no element is found.
      * @see WebDriverBy
      */
     public function findElement(WebDriverBy $by)
@@ -82,7 +94,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      * @param WebDriverBy $by
      *
-     * @return array A list of all WebDriverElements, or an empty array if
+     * @return RemoteWebElement[] A list of all WebDriverElements, or an empty array if
      *    nothing matches
      * @see WebDriverBy
      */
@@ -140,7 +152,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Get the location of element relative to the top-left corner of the page.
      *
-     * @return WebDriverLocation The location of the element.
+     * @return WebDriverPoint The location of the element.
      */
     public function getLocation()
     {
@@ -156,7 +168,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * Try scrolling the element into the view port and return the location of
      * element relative to the top-left corner of the page afterwards.
      *
-     * @return WebDriverLocation The location of the element.
+     * @return WebDriverPoint The location of the element.
      */
     public function getLocationOnScreenOnceScrolledIntoView()
     {
@@ -278,9 +290,9 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Simulate typing into an element, which may set its value.
      *
-     * @param mixed $value The data to be typed.
+     * @param string $value The data to be typed.
      *
-     * @return WebDriverElement The current instance.
+     * @return RemoteWebElement The current instance.
      */
     public function sendKeys($value)
     {
@@ -312,6 +324,9 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      *   eg. $element->setFileDetector(new LocalFileDetector);
      *
+     * @param FileDetector $detector
+     *
+     * @return RemoteWebElement
      * @see FileDetector
      * @see LocalFileDetector
      * @see UselessFileDetector
@@ -327,7 +342,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * If this current element is a form, or an element within a form, then this
      * will be submitted to the remote server.
      *
-     * @return WebDriverElement The current instance.
+     * @return RemoteWebElement The current instance.
      */
     public function submit()
     {
@@ -367,6 +382,9 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Upload a local file to the server
      *
+     * @param string $local_file
+     *
+     * @throws WebDriverException
      * @return string The remote path of the file.
      */
     private function upload($local_file)
@@ -397,7 +415,9 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Return the WebDriverElement with $id
      *
-     * @return WebDriverElement
+     * @param string $id
+     *
+     * @return RemoteWebElement
      */
     private function newElement($id)
     {
