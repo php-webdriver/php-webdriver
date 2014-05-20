@@ -16,258 +16,296 @@
 /**
  * Command executor talking to the standalone server via HTTP.
  */
-class HttpCommandExecutor implements WebDriverCommandExecutor {
-
-  /**
-   * @see
-   *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
-   */
-  private static $commands = array(
-    'acceptAlert' =>            array('method' => 'POST', 'url' => '/session/:sessionId/accept_alert'),
-    'addCookie' =>              array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
-    'clear' =>                  array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
-    'clickElement' =>           array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
-    'closeCurrentWindow' =>     array('method' => 'DELETE', 'url' => '/session/:sessionId/window'),
-    'deleteAllCookies' =>       array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie'),
-    'deleteCookie' =>           array('method' => 'DELETE',  'url' => '/session/:sessionId/cookie/:name'),
-    'dismissAlert' =>           array('method' => 'POST',   'url' => '/session/:sessionId/dismiss_alert'),
-    'elementEquals' =>          array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/equals/:other'),
-    'elementFindElement' =>     array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/element'),
-    'elementFindElements' =>    array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),
-    'executeScript' =>          array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
-    'executeAsyncScript' =>     array('method' => 'POST', 'url' => '/session/:sessionId/execute_async'),
-    'findElement' =>            array('method' => 'POST', 'url' => '/session/:sessionId/element'),
-    'findElements' =>           array('method' => 'POST', 'url' => '/session/:sessionId/elements'),
-    'focusFrame' =>             array('method' => 'POST',  'url' => '/session/:sessionId/frame'),
-    'focusWindow' =>            array('method' => 'POST',  'url' => '/session/:sessionId/window'),
-    'get' =>                    array('method' => 'POST', 'url' => '/session/:sessionId/url'),
-    'getActiveElement' =>       array('method' => 'POST', 'url' => '/session/:sessionId/element/active'),
-    'getAlertText' =>           array('method' => 'GET', 'url' => '/session/:sessionId/alert_text'),
-    'getAllCookies' =>          array('method' => 'GET',  'url' => '/session/:sessionId/cookie'),
-    'getAvailableLogTypes' =>   array('method' => 'GET', 'url' => '/session/:sessionId/log/types'),
-    'getCurrentURL' =>          array('method' => 'GET',  'url' => '/session/:sessionId/url'),
-    'getCurrentWindowHandle' => array('method' => 'GET',  'url' => '/session/:sessionId/window_handle'),
-    'getElementAttribute' =>    array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/attribute/:name'),
-    'getElementCSSValue' =>     array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/css/:propertyName'),
-    'getElementLocation' =>     array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/location'),
-    'getElementLocationOnceScrolledIntoView' => array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/location_in_view'),
-    'getElementSize' =>         array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/size'),
-    'getElementTagName' =>      array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/name'),
-    'getElementText' =>         array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/text'),
-    'getLog' =>      array('method' => 'POST', 'url' => '/session/:sessionId/log'),
-    'getPageSource' =>          array('method' => 'GET',  'url' => '/session/:sessionId/source'),
-    'getScreenOrientation' =>   array('method' => 'GET',  'url' => '/session/:sessionId/orientation'),
-    'getSession' =>             array('method' => 'GET',  'url' => '/session/:sessionId'),
-    'getTitle' =>               array('method' => 'GET',  'url' => '/session/:sessionId/title'),
-    'getWindowHandles' =>       array('method' => 'GET',  'url' => '/session/:sessionId/window_handles'),
-    'getWindowPosition' =>      array('method' => 'GET',  'url' => '/session/:sessionId/window/:windowHandle/position'),
-    'getWindowSize' =>          array('method' => 'GET',  'url' => '/session/:sessionId/window/:windowHandle/size'),
-    'goBack' =>                 array('method' => 'POST',  'url' => '/session/:sessionId/back'),
-    'goForward' =>              array('method' => 'POST',  'url' => '/session/:sessionId/forward'),
-    'isElementDisplayed'=>      array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/displayed'),
-    'isElementEnabled'=>        array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/enabled'),
-    'isElementSelected'=>       array('method' => 'GET',  'url' => '/session/:sessionId/element/:id/selected'),
-    'maximizeWindow' =>         array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/maximize'),
-    'mouseButtonDown' =>        array('method' => 'POST', 'url' => '/session/:sessionId/buttondown'),
-    'mouseButtonUp' =>          array('method' => 'POST', 'url' => '/session/:sessionId/buttonup'),
-    'mouseClick' =>             array('method' => 'POST', 'url' => '/session/:sessionId/click'),
-    'mouseDoubleClick' =>       array('method' => 'POST', 'url' => '/session/:sessionId/doubleclick'),
-    'mouseMoveTo' =>            array('method' => 'POST', 'url' => '/session/:sessionId/moveto'),
-    'newSession' =>             array('method' => 'POST', 'url' => '/session'),
-    'quit' =>                   array('method' => 'DELETE', 'url' => '/session/:sessionId'),
-    'refreshPage' =>            array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
-    'sendFile' =>               array('method' => 'POST', 'url' => '/session/:sessionId/file'), // undocumented
-    'sendKeys' =>               array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
-    'sendKeysToAlert' =>        array('method' => 'POST', 'url' => '/session/:sessionId/alert_text'),
-    'sendKeysToElement' =>      array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
-    'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
-    'setScreenOrientation' =>   array('method' => 'POST', 'url' => '/session/:sessionId/orientation'),
-    'setPageLoadTimeout' =>     array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
-    'setScriptTimeout' =>       array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),
-    'setWindowPosition' =>      array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/position'),
-    'setWindowSize' =>          array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/size'),
-    'submitElement' =>          array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
-    'takeScreenshot' =>         array('method' => 'GET',  'url' => '/session/:sessionId/screenshot'),
-    'touchTap' =>               array('method' => 'POST', 'url' => '/session/:sessionId/touch/click'),
-    'touchDown' =>              array('method' => 'POST', 'url' => '/session/:sessionId/touch/down'),
-    'touchDoubleTap' =>         array('method' => 'POST', 'url' => '/session/:sessionId/touch/doubleclick'),
-    'touchFlick' =>             array('method' => 'POST', 'url' => '/session/:sessionId/touch/flick'),
-    'touchLongPress' =>         array('method' => 'POST', 'url' => '/session/:sessionId/touch/longclick'),
-    'touchMove' =>              array('method' => 'POST', 'url' => '/session/:sessionId/touch/move'),
-    'touchScroll' =>            array('method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'),
-    'touchUp' =>                array('method' => 'POST', 'url' => '/session/:sessionId/touch/up'),
-  );
-
-  protected $url;
-  protected $sessionID;
-  protected $capabilities;
-
-  public function __construct($url, $session_id) {
-    $this->url = $url;
-    $this->sessionID = $session_id;
-    $this->capabilities = $this->execute('getSession', array());
-  }
-
-  public function execute($name, array $params = array()) {
-    $command = array(
-      'url' => $this->url,
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
+class HttpCommandExecutor implements WebDriverCommandExecutor
+{
+    /**
+     * @var array
+     * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
+     */
+    private static $commands = array(
+        'acceptAlert' => array('method' => 'POST', 'url' => '/session/:sessionId/accept_alert'),
+        'addCookie' => array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
+        'clear' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
+        'clickElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/click'),
+        'closeCurrentWindow' => array('method' => 'DELETE', 'url' => '/session/:sessionId/window'),
+        'deleteAllCookies' => array('method' => 'DELETE', 'url' => '/session/:sessionId/cookie'),
+        'deleteCookie' => array('method' => 'DELETE', 'url' => '/session/:sessionId/cookie/:name'),
+        'dismissAlert' => array('method' => 'POST', 'url' => '/session/:sessionId/dismiss_alert'),
+        'elementEquals' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/equals/:other'),
+        'elementFindElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/element'),
+        'elementFindElements' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/elements'),
+        'executeScript' => array('method' => 'POST', 'url' => '/session/:sessionId/execute'),
+        'executeAsyncScript' => array('method' => 'POST', 'url' => '/session/:sessionId/execute_async'),
+        'findElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element'),
+        'findElements' => array('method' => 'POST', 'url' => '/session/:sessionId/elements'),
+        'focusFrame' => array('method' => 'POST', 'url' => '/session/:sessionId/frame'),
+        'focusWindow' => array('method' => 'POST', 'url' => '/session/:sessionId/window'),
+        'get' => array('method' => 'POST', 'url' => '/session/:sessionId/url'),
+        'getActiveElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/active'),
+        'getAlertText' => array('method' => 'GET', 'url' => '/session/:sessionId/alert_text'),
+        'getAllCookies' => array('method' => 'GET', 'url' => '/session/:sessionId/cookie'),
+        'getAvailableLogTypes' => array('method' => 'GET', 'url' => '/session/:sessionId/log/types'),
+        'getCurrentURL' => array('method' => 'GET', 'url' => '/session/:sessionId/url'),
+        'getCurrentWindowHandle' => array('method' => 'GET', 'url' => '/session/:sessionId/window_handle'),
+        'getElementAttribute' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/attribute/:name'),
+        'getElementCSSValue' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/css/:propertyName'),
+        'getElementLocation' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/location'),
+        'getElementLocationOnceScrolledIntoView' => array(
+            'method' => 'GET',
+            'url' => '/session/:sessionId/element/:id/location_in_view'
+        ),
+        'getElementSize' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/size'),
+        'getElementTagName' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/name'),
+        'getElementText' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/text'),
+        'getLog' => array('method' => 'POST', 'url' => '/session/:sessionId/log'),
+        'getPageSource' => array('method' => 'GET', 'url' => '/session/:sessionId/source'),
+        'getScreenOrientation' => array('method' => 'GET', 'url' => '/session/:sessionId/orientation'),
+        'getSession' => array('method' => 'GET', 'url' => '/session/:sessionId'),
+        'getTitle' => array('method' => 'GET', 'url' => '/session/:sessionId/title'),
+        'getWindowHandles' => array('method' => 'GET', 'url' => '/session/:sessionId/window_handles'),
+        'getWindowPosition' => array('method' => 'GET', 'url' => '/session/:sessionId/window/:windowHandle/position'),
+        'getWindowSize' => array('method' => 'GET', 'url' => '/session/:sessionId/window/:windowHandle/size'),
+        'goBack' => array('method' => 'POST', 'url' => '/session/:sessionId/back'),
+        'goForward' => array('method' => 'POST', 'url' => '/session/:sessionId/forward'),
+        'isElementDisplayed' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/displayed'),
+        'isElementEnabled' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/enabled'),
+        'isElementSelected' => array('method' => 'GET', 'url' => '/session/:sessionId/element/:id/selected'),
+        'maximizeWindow' => array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/maximize'),
+        'mouseButtonDown' => array('method' => 'POST', 'url' => '/session/:sessionId/buttondown'),
+        'mouseButtonUp' => array('method' => 'POST', 'url' => '/session/:sessionId/buttonup'),
+        'mouseClick' => array('method' => 'POST', 'url' => '/session/:sessionId/click'),
+        'mouseDoubleClick' => array('method' => 'POST', 'url' => '/session/:sessionId/doubleclick'),
+        'mouseMoveTo' => array('method' => 'POST', 'url' => '/session/:sessionId/moveto'),
+        'newSession' => array('method' => 'POST', 'url' => '/session'),
+        'quit' => array('method' => 'DELETE', 'url' => '/session/:sessionId'),
+        'refreshPage' => array('method' => 'POST', 'url' => '/session/:sessionId/refresh'),
+        'sendFile' => array('method' => 'POST', 'url' => '/session/:sessionId/file'), // undocumented
+        'sendKeys' => array('method' => 'POST', 'url' => '/session/:sessionId/keys'),
+        'sendKeysToAlert' => array('method' => 'POST', 'url' => '/session/:sessionId/alert_text'),
+        'sendKeysToElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'),
+        'setImplicitWaitTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/implicit_wait'),
+        'setScreenOrientation' => array('method' => 'POST', 'url' => '/session/:sessionId/orientation'),
+        'setPageLoadTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts'),
+        'setScriptTimeout' => array('method' => 'POST', 'url' => '/session/:sessionId/timeouts/async_script'),
+        'setWindowPosition' => array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/position'),
+        'setWindowSize' => array('method' => 'POST', 'url' => '/session/:sessionId/window/:windowHandle/size'),
+        'submitElement' => array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'),
+        'takeScreenshot' => array('method' => 'GET', 'url' => '/session/:sessionId/screenshot'),
+        'touchTap' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/click'),
+        'touchDown' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/down'),
+        'touchDoubleTap' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/doubleclick'),
+        'touchFlick' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/flick'),
+        'touchLongPress' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/longclick'),
+        'touchMove' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/move'),
+        'touchScroll' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'),
+        'touchUp' => array('method' => 'POST', 'url' => '/session/:sessionId/touch/up'),
     );
-    $raw = self::remoteExecute($command);
-    return $raw['value'];
-  }
 
-  /**
-   * Execute a command on a remote server. The command should be an array
-   * contains
-   *   url        : the url of the remote server
-   *   sessionId  : the session id if needed
-   *   name       : the name of the command
-   *   parameters : the parameters of the command required
-   *
-   * @param command An array that contains
-   *                  url        : the url of the remote server
-   *                  sessionId  : the session id if needed
-   *                  name       : the name of the command
-   *                  parameters : the parameters of the command required
-   * @param curl_opts An array of curl options.
-   *
-   * @return array The response of the command.
-   */
-  public static function remoteExecute($command, $curl_opts = array()) {
-    if (!isset(self::$commands[$command['name']])) {
-      throw new Exception($command['name']." is not a valid command.");
-    }
-    $raw = self::$commands[$command['name']];
+    /**
+     * @var
+     */
+    protected $url;
+    /**
+     * @var
+     */
+    protected $sessionID;
+    /**
+     * @var
+     */
+    protected $capabilities;
 
-    if ($command['name'] == 'newSession') {
-      $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
+    /**
+     * @param $url
+     * @param $session_id
+     */
+    public function __construct($url, $session_id)
+    {
+        $this->url = $url;
+        $this->sessionID = $session_id;
+        $this->capabilities = $this->execute('getSession', array());
     }
 
-    return self::curl(
-      $raw['method'],
-      sprintf("%s%s", $command['url'], $raw['url']),
-      $command,
-      $curl_opts
-    );
-  }
-
-  /**
-   * Curl request to webdriver server.
-   *
-   * @param http_method 'GET', 'POST', or 'DELETE'
-   * @param suffix       What to append to the base URL.
-   * @param command      The Command object, modelled as a hash.
-   * @param extra_opts   key => value pairs of curl options for curl_setopt()
-   * @return array
-   */
-  protected static function curl(
-    $http_method,
-    $url,
-    $command,
-    $extra_opts = array()) {
-
-    $params = $command['parameters'];
-
-    foreach ($params as $name => $value) {
-      if ($name[0] === ':') {
-        $url = str_replace($name, $value, $url);
-        if ($http_method != 'POST') {
-          unset($params[$name]);
+    /**
+     * Execute a command on a remote server. The command should be an array
+     * contains
+     *   url        : the url of the remote server
+     *   sessionId  : the session id if needed
+     *   name       : the name of the command
+     *   parameters : the parameters of the command required
+     *
+     * @param command An array that contains
+     *                  url        : the url of the remote server
+     *                  sessionId  : the session id if needed
+     *                  name       : the name of the command
+     *                  parameters : the parameters of the command required
+     * @param curl_opts An array of curl options.
+     *
+     * @return array The response of the command.
+     */
+    public static function remoteExecute($command, $curl_opts = array())
+    {
+        if (!isset(self::$commands[$command['name']])) {
+            throw new Exception($command['name'] . " is not a valid command.");
         }
-      }
+        $raw = self::$commands[$command['name']];
+
+        if ($command['name'] == 'newSession') {
+            $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
+        }
+
+        return self::curl(
+            $raw['method'],
+            sprintf("%s%s", $command['url'], $raw['url']),
+            $command,
+            $curl_opts
+        );
     }
 
-    if (isset($command['sessionId'])) {
-      $url = str_replace(':sessionId', $command['sessionId'], $url);
-    }
-
-    if ($params && is_array($params) && $http_method !== 'POST') {
-      throw new Exception(sprintf(
-        'The http method called for %s is %s but it has to be POST' .
-        ' if you want to pass the JSON params %s',
+    /**
+     * Curl request to webdriver server.
+     *
+     * @param http_method 'GET', 'POST', or 'DELETE'
+     * @param suffix       What to append to the base URL.
+     * @param command      The Command object, modelled as a hash.
+     * @param extra_opts   key => value pairs of curl options for curl_setopt()
+     *
+     * @return array
+     */
+    protected static function curl(
+        $http_method,
         $url,
-        $http_method,
-        json_encode($params)));
+        $command,
+        $extra_opts = array()
+    ) {
+
+        $params = $command['parameters'];
+
+        foreach ($params as $name => $value) {
+            if ($name[0] === ':') {
+                $url = str_replace($name, $value, $url);
+                if ($http_method != 'POST') {
+                    unset($params[$name]);
+                }
+            }
+        }
+
+        if (isset($command['sessionId'])) {
+            $url = str_replace(':sessionId', $command['sessionId'], $url);
+        }
+
+        if ($params && is_array($params) && $http_method !== 'POST') {
+            throw new Exception(
+                sprintf(
+                    'The http method called for %s is %s but it has to be POST' .
+                    ' if you want to pass the JSON params %s',
+                    $url,
+                    $http_method,
+                    json_encode($params)
+                )
+            );
+        }
+
+        $curl = curl_init($url);
+
+        curl_setopt($curl, CURLOPT_TIMEOUT, 300);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt(
+            $curl,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json;charset=UTF-8',
+                'Accept: application/json'
+            )
+        );
+
+        if ($http_method === 'POST') {
+            curl_setopt($curl, CURLOPT_POST, true);
+            if ($params && is_array($params)) {
+                curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+            }
+        } else {
+            if ($http_method == 'DELETE') {
+                curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            }
+        }
+
+        foreach ($extra_opts as $option => $value) {
+            curl_setopt($curl, $option, $value);
+        }
+
+        $raw_results = trim(curl_exec($curl));
+        $info = curl_getinfo($curl);
+
+        if ($error = curl_error($curl)) {
+            $msg = sprintf(
+                'Curl error thrown for http %s to %s',
+                $http_method,
+                $url
+            );
+            if ($params && is_array($params)) {
+                $msg .= sprintf(' with params: %s', json_encode($params));
+            }
+            WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
+        }
+        curl_close($curl);
+
+        $results = json_decode($raw_results, true);
+
+        $value = null;
+        if (is_array($results) && array_key_exists('value', $results)) {
+            $value = $results['value'];
+        }
+
+        $message = null;
+        if (is_array($value) && array_key_exists('message', $value)) {
+            $message = $value['message'];
+        }
+
+        $sessionId = null;
+        if (is_array($results) && array_key_exists('sessionId', $results)) {
+            $sessionId = $results['sessionId'];
+        }
+
+        $status = isset($results['status']) ? $results['status'] : 0;
+        WebDriverException::throwException($status, $message, $results);
+
+        return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
     }
 
-    $curl = curl_init($url);
+    /**
+     * @param $name
+     * @param array $params
+     *
+     * @return mixed
+     * @throws Exception
+     */
+    public function execute($name, array $params = array())
+    {
+        $command = array(
+            'url' => $this->url,
+            'sessionId' => $this->sessionID,
+            'name' => $name,
+            'parameters' => $params,
+        );
+        $raw = self::remoteExecute($command);
 
-    curl_setopt($curl, CURLOPT_TIMEOUT, 300);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt(
-      $curl,
-      CURLOPT_HTTPHEADER,
-      array(
-        'Content-Type: application/json;charset=UTF-8',
-        'Accept: application/json'));
-
-    if ($http_method === 'POST') {
-      curl_setopt($curl, CURLOPT_POST, true);
-      if ($params && is_array($params)) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
-      }
-    } else if ($http_method == 'DELETE') {
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        return $raw['value'];
     }
 
-    foreach ($extra_opts as $option => $value) {
-      curl_setopt($curl, $option, $value);
+    /**
+     * @return string
+     */
+    public function getAddressOfRemoteServer()
+    {
+        return $this->url;
     }
 
-    $raw_results = trim(curl_exec($curl));
-    $info = curl_getinfo($curl);
-
-    if ($error = curl_error($curl)) {
-      $msg = sprintf(
-        'Curl error thrown for http %s to %s',
-        $http_method,
-        $url);
-      if ($params && is_array($params)) {
-        $msg .= sprintf(' with params: %s', json_encode($params));
-      }
-      WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
+    /**
+     * @return string
+     */
+    public function getSessionID()
+    {
+        return $this->sessionID;
     }
-    curl_close($curl);
-
-    $results = json_decode($raw_results, true);
-
-    $value = null;
-    if (is_array($results) && array_key_exists('value', $results)) {
-      $value = $results['value'];
-    }
-
-    $message = null;
-    if (is_array($value) && array_key_exists('message', $value)) {
-      $message = $value['message'];
-    }
-
-    $sessionId = null;
-    if (is_array($results) && array_key_exists('sessionId', $results)) {
-      $sessionId = $results['sessionId'];
-    }
-
-    $status = isset($results['status']) ? $results['status'] : 0;
-    WebDriverException::throwException($status, $message, $results);
-
-    return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
-  }
-
-  /**
-   * @return string
-   */
-  public function getAddressOfRemoteServer() {
-    return $this->url;
-  }
-
-  /**
-   * @return string
-   */
-  public function getSessionID() {
-    return $this->sessionID;
-  }
-
 }
