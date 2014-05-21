@@ -96,7 +96,7 @@ class ChromeOptions {
    * @param string encoded_extension Base64 encoded of the extension.
    */
   private function addEncodedExtension($encoded_extension) {
-    $this->extension[] = $encoded_extension;
+    $this->extensions[] = $encoded_extension;
     return $this;
   }
 }
