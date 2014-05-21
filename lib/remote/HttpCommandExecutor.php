@@ -98,16 +98,35 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     'touchUp' =>                array('method' => 'POST', 'url' => '/session/:sessionId/touch/up'),
   );
 
+  /**
+   * @var string
+   */
   protected $url;
+  /**
+   * @var string
+   */
   protected $sessionID;
+  /**
+   * @var array
+   */
   protected $capabilities;
 
+  /**
+   * @param string $url
+   * @param string $session_id
+   */
   public function __construct($url, $session_id) {
     $this->url = $url;
     $this->sessionID = $session_id;
     $this->capabilities = $this->execute('getSession', array());
   }
 
+  /**
+   * @param string $name
+   * @param array $params
+   *
+   * @return mixed
+   */
   public function execute($name, array $params = array()) {
     $command = array(
       'url' => $this->url,
@@ -127,16 +146,17 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    *   name       : the name of the command
    *   parameters : the parameters of the command required
    *
-   * @param command An array that contains
+   * @param array $command An array that contains
    *                  url        : the url of the remote server
    *                  sessionId  : the session id if needed
    *                  name       : the name of the command
    *                  parameters : the parameters of the command required
-   * @param curl_opts An array of curl options.
+   * @param array $curl_opts An array of curl options.
    *
    * @return array The response of the command.
+   * @throws Exception
    */
-  public static function remoteExecute($command, $curl_opts = array()) {
+  public static function remoteExecute(array $command, array $curl_opts = array()) {
     if (!isset(self::$commands[$command['name']])) {
       throw new Exception($command['name']." is not a valid command.");
     }
@@ -157,17 +177,18 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   /**
    * Curl request to webdriver server.
    *
-   * @param http_method 'GET', 'POST', or 'DELETE'
-   * @param suffix       What to append to the base URL.
-   * @param command      The Command object, modelled as a hash.
-   * @param extra_opts   key => value pairs of curl options for curl_setopt()
+   * @param string $http_method 'GET', 'POST', or 'DELETE'
+   * @param string $url
+   * @param array $command      The Command object, modelled as a hash.
+   * @param array $extra_opts   key => value pairs of curl options for curl_setopt()
    * @return array
+   * @throws Exception
    */
   protected static function curl(
     $http_method,
     $url,
-    $command,
-    $extra_opts = array()) {
+    array $command,
+    array $extra_opts = array()) {
 
     $params = $command['parameters'];
 
