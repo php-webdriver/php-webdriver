@@ -7,3 +7,4 @@ vendor
 *.DS_Store
 *~
 *.swp
+.idea
