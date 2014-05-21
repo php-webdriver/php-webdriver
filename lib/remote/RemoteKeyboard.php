@@ -18,9 +18,15 @@
  */
 class RemoteKeyboard implements WebDriverKeyboard {
 
+  /**
+   * @var WebDriverCommandExecutor
+   */
   private $executor;
 
-  public function __construct($executor) {
+  /**
+   * @param WebDriverCommandExecutor $executor
+   */
+  public function __construct(WebDriverCommandExecutor $executor) {
     $this->executor = $executor;
   }
 
