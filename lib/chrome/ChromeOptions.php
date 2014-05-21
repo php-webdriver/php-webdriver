@@ -88,9 +88,7 @@ class ChromeOptions {
   public function toArray() {
     $options = array();
 
-    if ($this->binary) {
-      $options['binary'] = $this->binary;
-    }
+    $options['binary'] = $this->binary;
 
     if ($this->extensions) {
       $options['extensions'] = $this->extensions;
