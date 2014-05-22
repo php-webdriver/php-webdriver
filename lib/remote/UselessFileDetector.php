@@ -14,7 +14,11 @@
 // limitations under the License.
 
 class UselessFileDetector implements FileDetector {
-
+  /**
+   * @param string $file
+   *
+   * @return null
+   */
   public function getLocalFile($file) {
     return null;
   }
