@@ -18,13 +18,21 @@
  */
 class RemoteTouchScreen implements WebDriverTouchScreen {
 
+  /**
+   * @var WebDriverCommandExecutor
+   */
   private $executor;
 
-  public function __construct($executor) {
-    $this->executor = $executor;
+  /**
+   * @param WebDriverCommandExecutor $executor
+   */
+  public function __construct(WebDriverCommandExecutor $executor) {
+      $this->executor = $executor;
   }
 
   /**
+   * @param WebDriverElement $element
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function tap(WebDriverElement $element) {
@@ -34,6 +42,8 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param WebDriverElement $element
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function doubleTap(WebDriverElement $element) {
@@ -46,6 +56,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param int $x
+   * @param int $y
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function down($x, $y) {
@@ -59,6 +72,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
 
 
   /**
+   * @param int $xspeed
+   * @param int $yspeed
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function flick($xspeed, $yspeed) {
@@ -71,6 +87,11 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param WebDriverElement $element
+   * @param int $xoffset
+   * @param int $yoffset
+   * @param int $speed
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function flickFromElement(
@@ -87,6 +108,8 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param WebDriverElement $element
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function longPress(WebDriverElement $element) {
@@ -99,6 +122,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param int $x
+   * @param int $y
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function move($x, $y) {
@@ -111,6 +137,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param int $xoffset
+   * @param int $yoffset
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function scroll($xoffset, $yoffset) {
@@ -123,6 +152,10 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
+   * @param WebDriverElement $element
+   * @param int $xoffset
+   * @param int $yoffset
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function scrollFromElement(
@@ -139,6 +172,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
 
 
   /**
+   * @param int $x
+   * @param int $y
+   *
    * @return RemoteTouchScreen The instance.
    */
   public function up($x, $y) {

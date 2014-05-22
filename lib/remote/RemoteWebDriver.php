@@ -14,10 +14,21 @@
 // limitations under the License.
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
-
+  /**
+  * @var HttpCommandExecutor
+  */
   protected $executor;
+  /**
+   * @var RemoteMouse
+   */
   protected $mouse;
+  /**
+   * @var RemoteKeyboard
+   */
   protected $keyboard;
+  /**
+   * @var RemoteTouchScreen
+   */
   protected $touch;
 
   protected function __construct() {}
@@ -107,7 +118,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Close the current window.
    *
-   * @return WebDriver The current instance.
+   * @return RemoteWebDriver The current instance.
    */
   public function close() {
     $this->executor->execute('closeCurrentWindow', array());
@@ -119,7 +130,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Find the first WebDriverElement using the given mechanism.
    *
    * @param WebDriverBy $by
-   * @return WebDriverElement NoSuchElementException is thrown in
+   * @return RemoteWebElement NoSuchElementException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */
@@ -135,8 +146,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * mechanism.
    *
    * @param WebDriverBy $by
-   * @return array A list of all WebDriverElements, or an empty array if
-   *    nothing matches
+   * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
+   *    array if nothing matches
    * @see WebDriverBy
    */
   public function findElements(WebDriverBy $by) {
@@ -150,11 +161,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     return $elements;
   }
 
-  /**
-   * Load a new web page in the current browser window.
-   *
-   * @return WebDriver The current instance.
-   */
+    /**
+     * Load a new web page in the current browser window.
+     *
+     * @param string $url
+     *
+     * @return RemoteWebDriver The current instance.
+     */
   public function get($url) {
     $params = array('url' => (string)$url);
     $this->executor->execute('get', $params);
@@ -301,6 +314,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    *     WebDriverExpectedCondition::titleIs('WebDriver Page')
    *   );
    *
+   * @param int $timeout_in_second
+   * @param int $interval_in_millisecond
+   *
    * @return WebDriverWait
    */
   public function wait(
@@ -343,7 +359,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @return WebDriverMouse
+   * @return RemoteMouse
    */
   public function getMouse() {
     if (!$this->mouse) {
@@ -353,7 +369,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @return WebDriverKeyboard
+   * @return RemoteKeyboard
    */
   public function getKeyboard() {
     if (!$this->keyboard) {
@@ -363,7 +379,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @return WebDriverTouchScreen
+   * @return RemoteTouchScreen
    */
   public function getTouch() {
     if (!$this->touch) {
@@ -384,7 +400,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get the element on the page that currently has focus.
    *
-   * @return WebDriverElement
+   * @return RemoteWebElement
    */
   public function getActiveElement() {
     $response = $this->executor->execute('getActiveElement');
@@ -395,7 +411,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Return the WebDriverElement with the given id.
    *
    * @param string $id The id of the element to be created.
-   * @return WebDriverElement
+   * @return RemoteWebElement
    */
   private function newElement($id) {
     return new RemoteWebElement($this->executor, $id);
@@ -405,7 +421,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Set the command executor of this RemoteWebdrver
    *
    * @param WebDriverCommandExecutor $executor
-   * @return WebDriver
+   * @return RemoteWebDriver
    */
   public function setCommandExecutor(WebDriverCommandExecutor $executor) {
     $this->executor = $executor;
@@ -415,7 +431,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Set the command executor of this RemoteWebdriver
    *
-   * @return WebDriverCommandExecutor
+   * @return HttpCommandExecutor
    */
   public function getCommandExecutor() {
     return $this->executor;
@@ -425,7 +441,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Set the session id of the RemoteWebDriver.
    *
    * @param string $session_id
-   * @return WebDriver
+   * @return RemoteWebDriver
    */
   public function setSessionID($session_id) {
     $this->setCommandExecutor(
@@ -440,7 +456,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get current selenium sessionID
    *
-   * @return sessionID
+   * @return string sessionID
    */
   public function getSessionID() {
     return $this->executor->getSessionID();
