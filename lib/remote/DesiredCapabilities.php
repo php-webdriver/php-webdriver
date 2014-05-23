@@ -28,6 +28,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this->get(WebDriverCapabilityType::BROWSER_NAME, '');
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public function setBrowserName($browser_name) {
     $this->set(WebDriverCapabilityType::BROWSER_NAME, $browser_name);
     return $this;
@@ -40,6 +43,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this->get(WebDriverCapabilityType::VERSION, '');
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public function setVersion($version) {
     $this->set(WebDriverCapabilityType::VERSION, $version);
     return $this;
@@ -52,6 +58,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     $this->get($name);
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public function setCapability($name, $value) {
     $this->set($name, $value);
     return $this;
@@ -64,6 +73,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this->get(WebDriverCapabilityType::PLATFORM, '');
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public function setPlatform($platform) {
     $this->set(WebDriverCapabilityType::PLATFORM, $platform);
     return $this;
@@ -83,11 +95,17 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this->get(WebDriverCapabilityType::JAVASCRIPT_ENABLED, false);
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public function setJavascriptEnabled($enabled) {
     $this->set(WebDriverCapabilityType::JAVASCRIPT_ENABLED, $enabled);
     return $this;
   }
 
+  /**
+   * @return array
+   */
   public function toArray() {
     if (isset($this->capabilities[ChromeOptions::CAPABILITY]) &&
       $this->capabilities[ChromeOptions::CAPABILITY] instanceof ChromeOptions) {
@@ -98,17 +116,26 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $this->capabilities;
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   private function set($key, $value) {
     $this->capabilities[$key] = $value;
     return $this;
   }
 
+  /**
+   * @return mixed
+   */
   private function get($key, $default = null) {
     return isset($this->capabilities[$key])
            ? $this->capabilities[$key]
            : $default;
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function android() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::ANDROID,
@@ -116,6 +143,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function chrome() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::CHROME,
@@ -123,6 +153,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function firefox() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
@@ -130,6 +163,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function htmlUnit() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::HTMLUNIT,
@@ -137,6 +173,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function htmlUnitWithJS() {
     $caps = new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::HTMLUNIT,
@@ -145,6 +184,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     return $caps->setJavascriptEnabled(true);
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function internetExplorer() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IE,
@@ -152,6 +194,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function iphone() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IPHONE,
@@ -159,6 +204,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function ipad() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IPAD,
@@ -166,6 +214,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function opera() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::OPERA,
@@ -173,6 +224,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function safari() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::SAFARI,
@@ -180,6 +234,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
     ));
   }
 
+  /**
+   * @return DesiredCapabilities
+   */
   public static function phantomjs() {
     return new DesiredCapabilities(array(
       WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::PHANTOMJS,

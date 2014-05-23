@@ -26,6 +26,11 @@ class ChromeOptions {
   const CAPABILITY = "chromeOptions";
 
   /**
+   * @var array
+   */
+  private $arguments = array();
+
+  /**
    * @var string
    */
   private $binary = '';
@@ -36,6 +41,11 @@ class ChromeOptions {
   private $extensions = array();
 
   /**
+   * @var array
+   */
+  private $experimentalOptions = array();
+
+  /**
    * Sets the path of the Chrome executable. The path should be either absolute
    * or relative to the location running ChromeDriver server.
    *
@@ -44,6 +54,15 @@ class ChromeOptions {
    */
   public function setBinary($path) {
     $this->binary = $path;
+    return $this;
+  }
+
+  /**
+   * @param array $args
+   * @return ChromeOptions
+   */
+  public function addArguments(array $arguments) {
+    $this->arguments = array_merge($this->arguments, $arguments);
     return $this;
   }
 
@@ -64,11 +83,24 @@ class ChromeOptions {
   /**
    * @param array $encoded_extensions An array of base64 encoded of the
    *                                  extensions.
+   * @return ChromeOptions
    */
   public function addEncodedExtensions(array $encoded_extensions) {
     foreach ($encoded_extensions as $encoded_extension) {
       $this->addEncodedExtension($encoded_extension);
     }
+    return $this;
+  }
+
+  /**
+   * Sets an experimental option which has not exposed officially.
+   *
+   * @param string $name
+   * @parma mixed $value
+   * @return ChromeOptions
+   */
+  public function setExperimentalOption($name, $value) {
+    $this->experimentalOptions[$name] = $value;
     return $this;
   }
 
@@ -86,9 +118,13 @@ class ChromeOptions {
    * @return array
    */
   public function toArray() {
-    $options = array();
+    $options = $this->experimentOptions;
 
     $options['binary'] = $this->binary;
+
+    if ($this->arguments) {
+      $options['args'] = $this->arguments;
+    }
 
     if ($this->extensions) {
       $options['extensions'] = $this->extensions;
