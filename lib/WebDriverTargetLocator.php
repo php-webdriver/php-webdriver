@@ -33,7 +33,7 @@ class WebDriverTargetLocator {
    * @return WebDriver The driver focused on the top window or the first frame.
    */
   public function defaultContent() {
-    $this->executor->execute('focusFrame', array());
+    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, array());
 
     return $this->driver;
   }
@@ -53,7 +53,7 @@ class WebDriverTargetLocator {
     }
 
     $params = array('id' => $id);
-    $this->executor->execute('focusFrame', $params);
+    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
 
     return $this->driver;
   }
@@ -67,7 +67,7 @@ class WebDriverTargetLocator {
    */
   public function window($handle) {
     $params = array('name' => (string)$handle);
-    $this->executor->execute('focusWindow', $params);
+    $this->executor->execute(DriverCommand::SWITCH_TO_WINDOW, $params);
 
     return $this->driver;
   }

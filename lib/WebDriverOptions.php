@@ -45,7 +45,10 @@ class WebDriverOptions {
    */
   public function addCookie(array $cookie) {
     $this->validate($cookie);
-    $this->executor->execute('addCookie', array('cookie' => $cookie));
+    $this->executor->execute(
+      DriverCommand::ADD_COOKIE,
+      array('cookie' => $cookie)
+    );
     return $this;
   }
 
@@ -55,7 +58,7 @@ class WebDriverOptions {
    * @return WebDriverOptions The current instance.
    */
   public function deleteAllCookies() {
-    $this->executor->execute('deleteAllCookies');
+    $this->executor->execute(DriverCommand::DELETE_ALL_COOKIES);
     return $this;
   }
 
@@ -65,7 +68,10 @@ class WebDriverOptions {
    * @return WebDriverOptions The current instance.
    */
   public function deleteCookieNamed($name) {
-    $this->executor->execute('deleteCookie', array(':name' => $name));
+    $this->executor->execute(
+      DriverCommand::DELETE_COOKIE,
+      array(':name' => $name)
+    );
     return $this;
   }
 
@@ -91,7 +97,7 @@ class WebDriverOptions {
    * @return array The array of cookies presented.
    */
   public function getCookies() {
-    return $this->executor->execute('getAllCookies');
+    return $this->executor->execute(DriverCommand::GET_ALL_COOKIES);
   }
 
   private function validate(array $cookie) {
@@ -141,7 +147,7 @@ class WebDriverOptions {
    */
   public function getLog($log_type) {
     return $this->executor->execute(
-      'getLog',
+      DriverCommand::GET_LOG,
       array('type' => $log_type)
     );
   }
@@ -153,7 +159,7 @@ class WebDriverOptions {
    * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
    */
   public function getAvailableLogTypes() {
-    return $this->executor->execute('getAvailableLogTypes');
+    return $this->executor->execute(DriverCommand::GET_AVAILABLE_LOG_TYPES);
   }
 
 }

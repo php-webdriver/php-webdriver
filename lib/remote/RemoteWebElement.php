@@ -48,7 +48,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return RemoteWebElement The current instance.
    */
   public function clear() {
-    $this->executor->execute('clear', array(':id' => $this->id));
+    $this->executor->execute(
+      DriverCommand::CLEAR_ELEMENT,
+      array(':id' => $this->id)
+    );
     return $this;
   }
 
@@ -58,7 +61,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return RemoteWebElement The current instance.
    */
   public function click() {
-    $this->executor->execute('clickElement', array(':id' => $this->id));
+    $this->executor->execute(
+      DriverCommand::CLICK_ELEMENT,
+      array(':id' => $this->id)
+    );
     return $this;
   }
 
@@ -77,7 +83,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       'value' => $by->getValue(),
       ':id'   => $this->id,
     );
-    $raw_element = $this->executor->execute('elementFindElement', $params);
+    $raw_element = $this->executor->execute(
+      DriverCommand::FIND_CHILD_ELEMENT,
+      $params
+    );
 
     return $this->newElement($raw_element['ELEMENT']);
   }
@@ -96,7 +105,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       'value' => $by->getValue(),
       ':id'   => $this->id,
     );
-    $raw_elements = $this->executor->execute('elementFindElements', $params);
+    $raw_elements = $this->executor->execute(
+      DriverCommand::FIND_CHILD_ELEMENTS,
+      $params
+    );
 
     $elements = array();
     foreach ($raw_elements as $raw_element) {
@@ -116,7 +128,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       ':name' => $attribute_name,
       ':id'   => $this->id,
     );
-    return $this->executor->execute('getElementAttribute', $params);
+    return $this->executor->execute(
+      DriverCommand::GET_ELEMENT_ATTRIBUTE,
+      $params
+    );
   }
 
   /**
@@ -130,7 +145,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       ':propertyName' => $css_property_name,
       ':id'           => $this->id,
     );
-    return $this->executor->execute('getElementCSSValue', $params);
+    return $this->executor->execute(
+      DriverCommand::GET_ELEMENT_VALUE_OF_CSS_PROPERTY,
+      $params
+    );
   }
 
   /**
@@ -140,7 +158,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function getLocation() {
     $location = $this->executor->execute(
-      'getElementLocation',
+      DriverCommand::GET_ELEMENT_LOCATION,
       array(':id' => $this->id)
     );
     return new WebDriverPoint($location['x'], $location['y']);
@@ -154,7 +172,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function getLocationOnScreenOnceScrolledIntoView() {
     $location = $this->executor->execute(
-      'getElementLocationOnceScrolledIntoView',
+      DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW,
       array(':id' => $this->id)
     );
     return new WebDriverPoint($location['x'], $location['y']);
@@ -190,7 +208,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function getSize() {
     $size = $this->executor->execute(
-      'getElementSize',
+      DriverCommand::GET_ELEMENT_SIZE,
       array(':id' => $this->id)
     );
     return new WebDriverDimension($size['width'], $size['height']);
@@ -203,7 +221,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function getTagName() {
     return $this->executor->execute(
-      'getElementTagName',
+      DriverCommand::GET_ELEMENT_TAG_NAME,
       array(':id' => $this->id)
     );
   }
@@ -216,7 +234,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function getText() {
     return $this->executor->execute(
-      'getElementText',
+      DriverCommand::GET_ELEMENT_TEXT,
       array(':id' => $this->id)
     );
   }
@@ -229,7 +247,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function isDisplayed() {
     return $this->executor->execute(
-      'isElementDisplayed',
+      DriverCommand::IS_ELEMENT_DISPLAYED,
       array(':id' => $this->id)
     );
   }
@@ -242,7 +260,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function isEnabled() {
     return $this->executor->execute(
-      'isElementEnabled',
+      DriverCommand::IS_ELEMENT_ENABLED,
       array(':id' => $this->id)
     );
   }
@@ -254,7 +272,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    */
   public function isSelected() {
     return $this->executor->execute(
-      'isElementSelected',
+      DriverCommand::IS_ELEMENT_SELECTED,
       array(':id' => $this->id)
     );
   }
@@ -272,14 +290,14 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
         'value' => WebDriverKeys::encode($value),
         ':id'   => $this->id,
       );
-      $this->executor->execute('sendKeysToElement', $params);
+      $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);
     } else {
       $remote_path = $this->upload($local_file);
       $params = array(
         'value' => WebDriverKeys::encode($remote_path),
         ':id'   => $this->id,
       );
-      $this->executor->execute('sendKeysToElement', $params);
+      $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);
     }
     return $this;
   }
@@ -310,7 +328,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     $params = array(
       'file' => base64_encode(file_get_contents($temp_zip)),
     );
-    $remote_path = $this->executor->execute('sendFile', $params);
+    $remote_path = $this->executor->execute(
+      DriverCommand::UPLOAD_FILE,
+      $params
+    );
     unlink($temp_zip);
     return $remote_path;
   }
@@ -342,7 +363,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return RemoteWebElement The current instance.
    */
   public function submit() {
-    $this->executor->execute('submitElement', array(':id' => $this->id));
+    $this->executor->execute(
+      DriverCommand::SUBMIT_ELEMENT,
+      array(':id' => $this->id)
+    );
 
     return $this;
   }
@@ -363,7 +387,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return bool
    */
   public function equals(WebDriverElement $other) {
-    return $this->executor->execute('elementEquals', array(
+    return $this->executor->execute(DriverCommand::ELEMENT_EQUALS, array(
       ':id'    => $this->id,
       ':other' => $other->getID(),
     ));

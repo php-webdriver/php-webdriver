@@ -32,7 +32,7 @@ class WebDriverWindow {
    */
   public function getPosition() {
     $position = $this->executor->execute(
-      'getWindowPosition',
+      DriverCommand::GET_WINDOW_POSITION,
       array(':windowHandle' => 'current')
     );
     return new WebDriverPoint(
@@ -49,7 +49,7 @@ class WebDriverWindow {
    */
   public function getSize() {
     $size = $this->executor->execute(
-      'getWindowSize',
+      DriverCommand::GET_WINDOW_SIZE,
       array(':windowHandle' => 'current')
     );
     return new WebDriverDimension(
@@ -65,7 +65,7 @@ class WebDriverWindow {
    */
   public function maximize() {
     $this->executor->execute(
-      'maximizeWindow',
+      DriverCommand::MAXIMIZE_WINDOW,
       array(':windowHandle' => 'current')
     );
     return $this;
@@ -85,7 +85,7 @@ class WebDriverWindow {
       'height' => $size->getHeight(),
       ':windowHandle' => 'current',
     );
-    $this->executor->execute('setWindowSize', $params);
+    $this->executor->execute(DriverCommand::SET_WINDOW_SIZE, $params);
     return $this;
   }
 
@@ -103,7 +103,7 @@ class WebDriverWindow {
       'y' => $position->getY(),
       ':windowHandle' => 'current',
     );
-    $this->executor->execute('setWindowPosition', $params);
+    $this->executor->execute(DriverCommand::SET_WINDOW_POSITION, $params);
     return $this;
   }
 
@@ -113,7 +113,7 @@ class WebDriverWindow {
    * @return string Either LANDSCAPE|PORTRAIT
    */
   public function getScreenOrientation() {
-    return $this->executor->execute('getScreenOrientation');
+    return $this->executor->execute(DriverCommand::GET_SCREEN_ORIENTATION);
   }
 
 
@@ -134,7 +134,7 @@ class WebDriverWindow {
     }
 
     $this->executor->execute(
-      'setScreenOrientation',
+      DriverCommand::SET_SCREEN_ORIENTATION,
       array('orientation' => $orientation)
     );
 
