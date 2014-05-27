@@ -134,8 +134,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       'name' => $name,
       'parameters' => $params,
     );
-    $raw = self::remoteExecute($command);
-    return $raw['value'];
+    $response = self::remoteExecute($command);
+    return $response->getValue();
   }
 
   /**
@@ -244,7 +244,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     }
 
     $raw_results = trim(curl_exec($curl));
-    $info = curl_getinfo($curl);
 
     if ($error = curl_error($curl)) {
       $msg = sprintf(
@@ -278,7 +277,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     $status = isset($results['status']) ? $results['status'] : 0;
     WebDriverException::throwException($status, $message, $results);
 
-    return array('value' => $value, 'info' => $info, 'sessionId' => $sessionId);
+    return (new WebDriverResponse($sessionId))
+      ->setStatus($status)
+      ->setValue($value);
   }
 
   /**

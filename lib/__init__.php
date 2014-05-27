@@ -70,6 +70,7 @@ require_once('remote/RemoteWebElement.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
 require_once('remote/DesiredCapabilities.php');
+require_once('remote/WebDriverResponse.php');
 require_once('remote/HttpCommandExecutor.php');
 require_once('interactions/internal/WebDriverSendKeysAction.php');
 require_once('interactions/internal/WebDriverKeyDownAction.php');
