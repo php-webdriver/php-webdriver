@@ -25,6 +25,10 @@ class RemoteWebDriverTest extends PHPUnit_Framework_TestCase {
     $timeout = 1000;
     $url = 'http://localhost:4444/wd/hub';
     $response = array('value' => 'someValue', 'info' => 'someInfo', 'sessionId' => 'someSessionId');
+    $response = (new WebDriverResponse('someSessionId'))
+                  ->setStatus(0)
+                  ->setValue('someValue');
+
     $executor = $this->getMockBuilder('HttpCommandExecutor')->disableOriginalConstructor()->getMock();
 
     $remoteWebDriver
@@ -37,7 +41,7 @@ class RemoteWebDriverTest extends PHPUnit_Framework_TestCase {
     $remoteWebDriver
       ->staticExpects($this->once())
       ->method('createHttpCommandExecutor')
-      ->with($url, $response['sessionId'])
+      ->with($url, $response->getSessionID())
       ->will($this->returnValue($executor))
     ;
 
