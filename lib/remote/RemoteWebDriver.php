@@ -62,7 +62,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
 
     $response = static::remoteExecuteHttpCommand($timeout_in_ms, $command);
     $driver = new static();
-    $executor = static::createHttpCommandExecutor($url, $response['sessionId']);
+    $executor = static::createHttpCommandExecutor(
+      $url,
+      $response->getSessionID()
+    );
 
     return $driver->setCommandExecutor($executor);
   }
