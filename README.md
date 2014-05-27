@@ -37,7 +37,7 @@ Install the library.
 
 ##  GETTING STARTED
 
-*   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here:  http://code.google.com/p/selenium/downloads/list
+*   All you need as the server for this client is the selenium-server-standalone-#.jar file provided here: http://selenium-release.storage.googleapis.com/index.html
 
 *   Download and run that file, replacing # with the current server version.
 
