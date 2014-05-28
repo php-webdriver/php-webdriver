@@ -277,7 +277,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     $status = isset($results['status']) ? $results['status'] : 0;
     WebDriverException::throwException($status, $message, $results);
 
-    return (new WebDriverResponse($sessionId))
+    $response = new WebDriverResponse($sessionId);
+    return $response
       ->setStatus($status)
       ->setValue($value);
   }
