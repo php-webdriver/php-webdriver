@@ -110,6 +110,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @var array
    */
   protected $capabilities;
+  /**
+   * @var resource
+   */
+  protected static $curl;
 
   /**
    * @param string $url
@@ -119,6 +123,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     $this->url = $url;
     $this->sessionID = $session_id;
     $this->capabilities = $this->execute(DriverCommand::GET_CAPABILITIES);
+  }
+
+  /**
+   * Init curl.
+   */
+  public static function initCurl() {
+    if (self::$curl === null) {
+      self::$curl = curl_init();
+    }
   }
 
   /**
@@ -153,7 +166,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    *                  parameters : the parameters of the command required
    * @param array $curl_opts An array of curl options.
    *
-   * @return array The response of the command.
+   * @return WebDriverResponse The response of the command.
    * @throws Exception
    */
   public static function remoteExecute(
@@ -185,7 +198,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @param array $command      The Command object, modelled as a hash.
    * @param array $extra_opts   key => value pairs of curl options for
    *                            curl_setopt()
-   * @return array
+   * @return WebDriverResponse
    * @throws Exception
    */
   protected static function curl(
@@ -218,34 +231,33 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         json_encode($params)));
     }
 
-    $curl = curl_init($url);
-
-    curl_setopt($curl, CURLOPT_TIMEOUT, 300);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt(self::$curl, CURLOPT_URL, $url);
+    curl_setopt(self::$curl, CURLOPT_TIMEOUT, 300);
+    curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt(self::$curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt(
-      $curl,
+      self::$curl,
       CURLOPT_HTTPHEADER,
       array(
         'Content-Type: application/json;charset=UTF-8',
         'Accept: application/json'));
 
     if ($http_method === 'POST') {
-      curl_setopt($curl, CURLOPT_POST, true);
+      curl_setopt(self::$curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt(self::$curl, CURLOPT_POSTFIELDS, json_encode($params));
       }
     } else if ($http_method == 'DELETE') {
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+      curl_setopt(self::$curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
     }
 
     foreach ($extra_opts as $option => $value) {
-      curl_setopt($curl, $option, $value);
+      curl_setopt(self::$curl, $option, $value);
     }
 
-    $raw_results = trim(curl_exec($curl));
+    $raw_results = trim(curl_exec(self::$curl));
 
-    if ($error = curl_error($curl)) {
+    if ($error = curl_error(self::$curl)) {
       $msg = sprintf(
         'Curl error thrown for http %s to %s',
         $http_method,
@@ -255,7 +267,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
       WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
     }
-    curl_close($curl);
+    curl_reset(self::$curl);
 
     $results = json_decode($raw_results, true);
 

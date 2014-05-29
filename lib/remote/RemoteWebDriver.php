@@ -61,6 +61,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     );
 
     $response = static::remoteExecuteHttpCommand($timeout_in_ms, $command);
+    /** @var RemoteWebDriver $driver */
     $driver = new static();
     $executor = static::createHttpCommandExecutor(
       $url,
@@ -85,6 +86,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     $session_id,
     $url = 'http://localhost:4444/wd/hub'
   ) {
+    /** @var RemoteWebDriver $driver */
     $driver = new static();
     $driver->setCommandExecutor(new HttpCommandExecutor($url, $session_id));
     return $driver;
@@ -106,9 +108,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * @param int   $timeout_in_ms
    * @param array $command
-   * @return array
+   * @return WebDriverResponse
    */
   public static function remoteExecuteHttpCommand($timeout_in_ms, $command) {
+    HttpCommandExecutor::initCurl();
     $response = HttpCommandExecutor::remoteExecute(
       $command,
       array(
