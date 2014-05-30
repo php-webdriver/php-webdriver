@@ -27,6 +27,7 @@ class FirefoxProfile {
 
   /**
    * @param string $extension The path to the xpi extension.
+   * @return FirefoxProfile
    */
   public function addExtension($extension) {
     $this->extensions[] = $extension;
@@ -88,6 +89,11 @@ class FirefoxProfile {
     return $profile;
   }
 
+  /**
+   * @param string $extension The path to the extension.
+   * @param string $profile_dir The path to the profile directory.
+   * @return string The path to the directory of this extension.
+   */
   private function installExtension($extension, $profile_dir) {
     $temp_dir = $this->createTempDirectory();
 
@@ -96,6 +102,7 @@ class FirefoxProfile {
     $install_rdf_path = $temp_dir.'/install.rdf';
     // This is a hacky way to parse the id since there is no offical
     // RDF parser library.
+    $matches = array();
     $xml = file_get_contents($install_rdf_path);
     preg_match('#<em:id>([^<]+)</em:id>#', $xml, $matches);
     $ext_dir = $profile_dir.'/extensions/'.$matches[1];
@@ -106,6 +113,10 @@ class FirefoxProfile {
     return $ext_dir;
   }
 
+  /**
+   * @param string $prefix Prefix of the temp directory.
+   * @return string The path to the temp directory created.
+   */
   private function createTempDirectory($prefix = '') {
     $temp_dir = tempnam('', $prefix);
     if (file_exists($temp_dir)) {
@@ -118,6 +129,11 @@ class FirefoxProfile {
     return $temp_dir;
   }
 
+  /**
+   * @param string $xpi The path to the .xpi extension.
+   * @param string The path to the unzip directory.
+   * @return FirefoxProfile
+   */
   private function extractTo($xpi, $target_dir) {
     $zip = new ZipArchive();
     if ($zip->open($xpi)) {
@@ -126,6 +142,6 @@ class FirefoxProfile {
     } else {
       throw new Exception("Failed to open the firefox extension. '$xpi'");
     }
+    return $this;
   }
 }
-
