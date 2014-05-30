@@ -131,6 +131,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   public static function initCurl() {
     if (self::$curl === null) {
       self::$curl = curl_init();
+      curl_setopt(self::$curl, CURLOPT_TIMEOUT, 300);
+      curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt(self::$curl, CURLOPT_FOLLOWLOCATION, true);
+      curl_setopt(
+        self::$curl,
+        CURLOPT_HTTPHEADER,
+        array(
+          'Content-Type: application/json;charset=UTF-8',
+          'Accept: application/json'));
     }
   }
 
@@ -232,17 +241,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     }
 
     curl_setopt(self::$curl, CURLOPT_URL, $url);
-    curl_setopt(self::$curl, CURLOPT_TIMEOUT, 300);
-    curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt(self::$curl, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt(
-      self::$curl,
-      CURLOPT_HTTPHEADER,
-      array(
-        'Content-Type: application/json;charset=UTF-8',
-        'Accept: application/json'));
 
-    if ($http_method === 'POST') {
+    if ($http_method === 'GET') {
+        curl_setopt(self::$curl, CURLOPT_HTTPGET, true);
+    } else if ($http_method === 'POST') {
       curl_setopt(self::$curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
         curl_setopt(self::$curl, CURLOPT_POSTFIELDS, json_encode($params));
@@ -267,7 +269,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
       WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
     }
-    curl_reset(self::$curl);
+
+    curl_setopt(self::$curl, CURLOPT_POSTFIELDS, null);
+    curl_setopt(self::$curl, CURLOPT_CUSTOMREQUEST, null);
 
     $results = json_decode($raw_results, true);
 
