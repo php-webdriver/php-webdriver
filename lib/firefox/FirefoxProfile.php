@@ -76,6 +76,9 @@ class FirefoxProfile {
     $dir = new RecursiveDirectoryIterator($temp_dir);
     $files = new RecursiveIteratorIterator($dir);
     foreach ($files as $name => $object) {
+      if (is_dir($name)) {
+        continue;
+      }
       $path = preg_replace("#^{$temp_dir}/#", "", $name);
       $zip->addFile($name, $path);
     }
@@ -91,8 +94,12 @@ class FirefoxProfile {
     $this->extractTo($extension, $temp_dir);
 
     $install_rdf_path = $temp_dir.'/install.rdf';
-    $xml = simplexml_load_string(file_get_contents($install_rdf_path));
-    $ext_dir = $profile_dir.'/extensions/'.((string)($xml->Description->id));
+    // This is a hacky way to parse the id since there is no offical
+    // RDF parser library.
+    $xml = file_get_contents($install_rdf_path);
+    preg_match('#<em:id>([^<]+)</em:id>#', $xml, $matches);
+    $ext_dir = $profile_dir.'/extensions/'.$matches[1];
+
     mkdir($ext_dir, 0777, true);
 
     $this->extractTo($extension, $ext_dir);
@@ -121,3 +128,4 @@ class FirefoxProfile {
     }
   }
 }
+
