@@ -46,7 +46,7 @@ class WebDriverWait {
     $end = microtime(true) + $this->timeout;
     $last_exception = null;
 
-    while ($end > microtime(time)) {
+    while ($end > microtime(true)) {
       try {
         if ($func_or_ec instanceof WebDriverExpectedCondition) {
           $ret_val = call_user_func($func_or_ec->getApply(), $this->driver);
