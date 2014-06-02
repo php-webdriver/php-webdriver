@@ -13,13 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+interface ExecuteMethod {
 
   /**
-   * @return mixed
+   * @param string $command_name
+   * @param array $parameters
+   * @return WebDriverResponse
    */
-  public function execute(WebDriverCommand $command);
+  public function execute($command_name, array $parameters = array());
 }

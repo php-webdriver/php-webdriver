@@ -121,4 +121,11 @@ interface WebDriver extends WebDriverSearchContext {
    * @see WebDriverTargetLocator
    */
   public function switchTo();
+
+  /**
+   * @param string $name
+   * @param array $params
+   * @return mixed
+   */
+  public function execute($name, $params);
 }

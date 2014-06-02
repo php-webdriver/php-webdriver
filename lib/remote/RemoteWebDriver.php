@@ -15,9 +15,13 @@
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
-  * @var HttpCommandExecutor
-  */
+   * @var HttpCommandExecutor
+   */
   protected $executor;
+  /**
+   * @var string
+   */
+  protected $sessionID;
   /**
    * @var RemoteMouse
    */
@@ -30,6 +34,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @var RemoteTouchScreen
    */
   protected $touch;
+  /**
+   * @var RemoteExecuteMethod
+   */
+  protected $executeMethod;
 
   protected function __construct() {}
 
@@ -54,18 +62,21 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       $desired_capabilities = $desired_capabilities->toArray();
     }
 
-    $command = array(
-      'url' => $url,
-      'name' => DriverCommand::NEW_SESSION,
-      'parameters' => array('desiredCapabilities' => $desired_capabilities),
+    $command = new WebDriverCommand(
+      null,
+      DriverCommand::NEW_SESSION,
+      array('desiredCapabilities' => $desired_capabilities)
     );
 
-    $response = static::remoteExecuteHttpCommand($timeout_in_ms, $command);
-    $driver = new static();
-    $executor = static::createHttpCommandExecutor(
-      $url,
-      $response->getSessionID()
+    $response = static::remoteExecuteHttpCommand(
+      $timeout_in_ms,
+      $command,
+      $url
     );
+
+    $driver = new static();
+    $driver->setSessionID($response->getSessionID());
+    $executor = new HttpCommandExecutor($url);
 
     return $driver->setCommandExecutor($executor);
   }
@@ -86,21 +97,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     $url = 'http://localhost:4444/wd/hub'
   ) {
     $driver = new static();
-    $driver->setCommandExecutor(new HttpCommandExecutor($url, $session_id));
+    $driver->setSessionID($session_id)
+           ->setCommandExecutor(new HttpCommandExecutor($url));
     return $driver;
-  }
-
-  /**
-   * @param string $url
-   * @param string $session_id
-   * @return HttpCommandExecutor
-   */
-  public static function createHttpCommandExecutor($url, $session_id) {
-    $executor = new HttpCommandExecutor(
-      $url,
-      $session_id
-    );
-    return $executor;
   }
 
   /**
@@ -108,9 +107,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @param array $command
    * @return array
    */
-  public static function remoteExecuteHttpCommand($timeout_in_ms, $command) {
+  public static function remoteExecuteHttpCommand(
+    $timeout_in_ms, $command, $url
+  ) {
     $response = HttpCommandExecutor::remoteExecute(
       $command,
+      $url,
       array(
         CURLOPT_CONNECTTIMEOUT_MS => $timeout_in_ms,
       )
@@ -124,7 +126,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return RemoteWebDriver The current instance.
    */
   public function close() {
-    $this->executor->execute(DriverCommand::CLOSE, array());
+    $this->execute(DriverCommand::CLOSE, array());
 
     return $this;
   }
@@ -139,7 +141,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function findElement(WebDriverBy $by) {
     $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_element = $this->executor->execute(
+    $raw_element = $this->execute(
       DriverCommand::FIND_ELEMENT,
       $params
     );
@@ -158,7 +160,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function findElements(WebDriverBy $by) {
     $params = array('using' => $by->getMechanism(), 'value' => $by->getValue());
-    $raw_elements = $this->executor->execute(
+    $raw_elements = $this->execute(
       DriverCommand::FIND_ELEMENTS,
       $params
     );
@@ -179,7 +181,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
      */
   public function get($url) {
     $params = array('url' => (string)$url);
-    $this->executor->execute(DriverCommand::GET, $params);
+    $this->execute(DriverCommand::GET, $params);
 
     return $this;
   }
@@ -190,7 +192,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return string The current URL.
    */
   public function getCurrentURL() {
-    return $this->executor->execute(DriverCommand::GET_CURRENT_URL);
+    return $this->execute(DriverCommand::GET_CURRENT_URL);
   }
 
   /**
@@ -199,7 +201,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return string The current page source.
    */
   public function getPageSource() {
-    return $this->executor->execute(DriverCommand::GET_PAGE_SOURCE);
+    return $this->execute(DriverCommand::GET_PAGE_SOURCE);
   }
 
   /**
@@ -208,7 +210,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return string The title of the current page.
    */
   public function getTitle() {
-    return $this->executor->execute(DriverCommand::GET_TITLE);
+    return $this->execute(DriverCommand::GET_TITLE);
   }
 
   /**
@@ -218,7 +220,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return string The current window handle.
    */
   public function getWindowHandle() {
-    return $this->executor->execute(
+    return $this->execute(
       DriverCommand::GET_CURRENT_WINDOW_HANDLE,
       array()
     );
@@ -230,7 +232,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return array An array of string containing all available window handles.
    */
   public function getWindowHandles() {
-    return $this->executor->execute(DriverCommand::GET_WINDOW_HANDLES, array());
+    return $this->execute(DriverCommand::GET_WINDOW_HANDLES, array());
   }
 
   /**
@@ -239,7 +241,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return void
    */
   public function quit() {
-    $this->executor->execute(DriverCommand::QUIT);
+    $this->execute(DriverCommand::QUIT);
     $this->executor = null;
   }
 
@@ -278,7 +280,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       'script' => $script,
       'args' => $this->prepareScriptArguments($arguments),
     );
-    return $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, $params);
+    return $this->execute(DriverCommand::EXECUTE_SCRIPT, $params);
   }
 
   /**
@@ -299,7 +301,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       'script' => $script,
       'args' => $this->prepareScriptArguments($arguments),
     );
-    return $this->executor->execute(
+    return $this->execute(
       DriverCommand::EXECUTE_ASYNC_SCRIPT,
       $params
     );
@@ -313,7 +315,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function takeScreenshot($save_as = null) {
     $screenshot = base64_decode(
-      $this->executor->execute(DriverCommand::SCREENSHOT)
+      $this->execute(DriverCommand::SCREENSHOT)
     );
     if ($save_as) {
       file_put_contents($save_as, $screenshot);
@@ -349,7 +351,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return WebDriverOptions
    */
   public function manage() {
-    return new WebDriverOptions($this->executor);
+    return new WebDriverOptions($this->getExecuteMethod());
   }
 
   /**
@@ -360,7 +362,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @see WebDriverNavigation
    */
   public function navigate() {
-    return new WebDriverNavigation($this->executor);
+    return new WebDriverNavigation($this->getExecuteMethod());
   }
 
   /**
@@ -378,7 +380,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function getMouse() {
     if (!$this->mouse) {
-      $this->mouse = new RemoteMouse($this->executor);
+      $this->mouse = new RemoteMouse($this->getExecuteMethod());
     }
     return $this->mouse;
   }
@@ -388,7 +390,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function getKeyboard() {
     if (!$this->keyboard) {
-      $this->keyboard = new RemoteKeyboard($this->executor);
+      $this->keyboard = new RemoteKeyboard($this->getExecuteMethod());
     }
     return $this->keyboard;
   }
@@ -398,9 +400,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function getTouch() {
     if (!$this->touch) {
-      $this->touch = new RemoteTouchScreen($this->executor);
+      $this->touch = new RemoteTouchScreen($this->getExecuteMethod());
     }
     return $this->touch;
+  }
+
+  protected function getExecuteMethod() {
+    if (!$this->executeMethod) {
+      $this->executeMethod = new RemoteExecuteMethod($this);
+    }
+    return $this->executeMethod;
   }
 
   /**
@@ -418,7 +427,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return RemoteWebElement
    */
   public function getActiveElement() {
-    $response = $this->executor->execute(DriverCommand::GET_ACTIVE_ELEMENT);
+    $response = $this->execute(DriverCommand::GET_ACTIVE_ELEMENT);
     return $this->newElement($response['ELEMENT']);
   }
 
@@ -429,7 +438,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return RemoteWebElement
    */
   private function newElement($id) {
-    return new RemoteWebElement($this->executor, $id);
+    return new RemoteWebElement($this->getExecuteMethod(), $id);
   }
 
   /**
@@ -459,12 +468,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return RemoteWebDriver
    */
   public function setSessionID($session_id) {
-    $this->setCommandExecutor(
-      new HttpCommandExecutor(
-        $this->executor->getAddressOfRemoteServer(),
-        $session_id
-      )
-    );
+    $this->sessionID = $session_id;
     return $this;
   }
 
@@ -474,6 +478,17 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @return string sessionID
    */
   public function getSessionID() {
-    return $this->executor->getSessionID();
+    return $this->sessionID;
+  }
+
+  public function execute($command_name, $params = array()) {
+    $command = new WebDriverCommand(
+      $this->sessionID,
+      $command_name,
+      $params
+    );
+
+    $response = $this->executor->execute($command);
+    return $response->getValue();
   }
 }

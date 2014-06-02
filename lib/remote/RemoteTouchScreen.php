@@ -19,14 +19,14 @@
 class RemoteTouchScreen implements WebDriverTouchScreen {
 
   /**
-   * @var WebDriverCommandExecutor
+   * @var RemoteExecuteMethod
    */
   private $executor;
 
   /**
-   * @param WebDriverCommandExecutor $executor
+   * @param RemoteExecuteMethod $executor
    */
-  public function __construct(WebDriverCommandExecutor $executor) {
+  public function __construct(RemoteExecuteMethod $executor) {
       $this->executor = $executor;
   }
 

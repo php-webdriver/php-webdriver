@@ -26,7 +26,7 @@ class WebDriverNavigation {
 
   protected $executor;
 
-  public function __construct(WebDriverCommandExecutor $executor) {
+  public function __construct(ExecuteMethod $executor) {
     $this->executor = $executor;
   }
 

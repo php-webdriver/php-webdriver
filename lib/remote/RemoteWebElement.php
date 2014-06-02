@@ -19,7 +19,7 @@
 class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
 
   /**
-   * @var HttpCommandExecutor
+   * @var RemoteExecuteMethod
    */
   protected $executor;
   /**
@@ -32,10 +32,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   protected $fileDetector;
 
   /**
-   * @param HttpCommandExecutor $executor
+   * @param RemoteExecuteMethod $executor
    * @param string $id
    */
-  public function __construct(HttpCommandExecutor $executor, $id) {
+  public function __construct(RemoteExecuteMethod $executor, $id) {
     $this->executor = $executor;
     $this->id = $id;
     $this->fileDetector = new UselessFileDetector();
