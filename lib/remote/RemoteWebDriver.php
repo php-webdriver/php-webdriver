@@ -372,7 +372,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @see WebDriverTargetLocator
    */
   public function switchTo() {
-    return new WebDriverTargetLocator($this->executor, $this);
+    return new WebDriverTargetLocator($this->getExecuteMethod(), $this);
   }
 
   /**
