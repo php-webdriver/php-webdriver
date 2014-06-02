@@ -133,7 +133,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    */
   public static function remoteExecute(
     WebDriverCommand $command,
-    string $url,
+    $url,
     array $curl_opts = array()
   ) {
     if (!isset(self::$commands[$command->getName()])) {

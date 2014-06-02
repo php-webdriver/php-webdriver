@@ -15,7 +15,7 @@
 
 class RemoteExecuteMethod implements ExecuteMethod {
 
-  private RemoteWebDriver $driver;
+  private $driver;
 
   /**
    * @param RemoteWebDriver $driver
