@@ -151,7 +151,7 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
      *
      * @throws InvalidArgumentException
      * @throws BadMethodCallException
-     * @return mixed
+     * @return WebDriverResponse
      */
     public function execute($command, array $params = array())
     {
@@ -230,8 +230,6 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
 
         $response = new WebDriverResponse($sessionId);
 
-        return $response
-            ->setStatus($status)
-            ->setValue($value);
+        return $response->setStatus($status)->setValue($value);
     }
 }
