@@ -113,41 +113,23 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
   /**
    * @param WebDriverCommand $command
+   * @param array $curl_opts An array of curl options.
    *
    * @return mixed
    */
-  public function execute(WebDriverCommand $command) {
-    $response = self::remoteExecute($command, $this->url);
-    return $response;
-  }
-
-  /**
-   * This method is deprecated.
-   * Execute a command on a remote server.
-   *
-   * @param WebDriverCommand
-   * @param array $curl_opts An array of curl options.
-   *
-   * @return array The response of the command.
-   * @throws Exception
-   */
-  public static function remoteExecute(
-    WebDriverCommand $command,
-    $url,
-    array $curl_opts = array()
-  ) {
+  public function execute(WebDriverCommand $command, $curl_opts = array()) {
     if (!isset(self::$commands[$command->getName()])) {
       throw new Exception($command->getName()." is not a valid command.");
     }
     $raw = self::$commands[$command->getName()];
 
-    if ($command->getName() == DriverCommand::NEW_SESSION) {
+    if ($command->getName() === DriverCommand::NEW_SESSION) {
       $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
     }
 
     return self::curl(
       $raw['method'],
-      sprintf("%s%s", $url, $raw['url']),
+      sprintf("%s%s", $this->url, $raw['url']),
       $command,
       $curl_opts
     );
@@ -210,7 +192,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       if ($params && is_array($params)) {
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
       }
-    } else if ($http_method == 'DELETE') {
+    } else if ($http_method === 'DELETE') {
       curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
     }
 

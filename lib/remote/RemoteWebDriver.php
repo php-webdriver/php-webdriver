@@ -62,23 +62,25 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       $desired_capabilities = $desired_capabilities->toArray();
     }
 
+    $executor = new HttpCommandExecutor($url);
+
     $command = new WebDriverCommand(
       null,
       DriverCommand::NEW_SESSION,
       array('desiredCapabilities' => $desired_capabilities)
     );
 
-    $response = static::remoteExecuteHttpCommand(
-      $timeout_in_ms,
+    $response = $executor->execute(
       $command,
-      $url
+      array(
+        CURLOPT_CONNECTTIMEOUT_MS => $timeout_in_ms,
+      )
     );
 
     $driver = new static();
-    $driver->setSessionID($response->getSessionID());
-    $executor = new HttpCommandExecutor($url);
-
-    return $driver->setCommandExecutor($executor);
+    $driver->setSessionID($response->getSessionID())
+           ->setCommandExecutor($executor);
+    return $driver;
   }
 
   /**
@@ -100,24 +102,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     $driver->setSessionID($session_id)
            ->setCommandExecutor(new HttpCommandExecutor($url));
     return $driver;
-  }
-
-  /**
-   * @param int   $timeout_in_ms
-   * @param array $command
-   * @return array
-   */
-  public static function remoteExecuteHttpCommand(
-    $timeout_in_ms, $command, $url
-  ) {
-    $response = HttpCommandExecutor::remoteExecute(
-      $command,
-      $url,
-      array(
-        CURLOPT_CONNECTTIMEOUT_MS => $timeout_in_ms,
-      )
-    );
-    return $response;
   }
 
   /**
