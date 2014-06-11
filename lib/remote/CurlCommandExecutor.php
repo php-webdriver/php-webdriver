@@ -178,7 +178,7 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
                 json_encode($params)
             ));
         }
-        curl_setopt($this->curl, CURLOPT_URL, $url);
+        curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
 
         if ($method === 'GET') {
             curl_setopt($this->curl, CURLOPT_HTTPGET, true);
