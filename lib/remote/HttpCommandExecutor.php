@@ -123,10 +123,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     }
     $raw = self::$commands[$command->getName()];
 
-    if ($command->getName() === DriverCommand::NEW_SESSION) {
-      $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
-    }
-
     return self::curl(
       $raw['method'],
       sprintf("%s%s", $this->url, $raw['url']),
