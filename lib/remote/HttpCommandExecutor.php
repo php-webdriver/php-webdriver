@@ -105,7 +105,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
   /**
    * @param string $url
-   * @param string $session_id
    */
   public function __construct($url) {
     $this->url = $url;

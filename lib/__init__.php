@@ -31,6 +31,8 @@ require_once('interactions/internal/WebDriverSingleKeyAction.php');
 
 require_once('remote/WebDriverCommand.php');
 
+require_once('net/URLChecker.php');
+
 // class
 require_once('WebDriverAlert.php');
 require_once('WebDriverBy.php');
@@ -70,14 +72,23 @@ require_once('remote/LocalFileDetector.php');
 require_once('remote/UselessFileDetector.php');
 require_once('remote/RemoteMouse.php');
 require_once('remote/RemoteKeyboard.php');
+
+require_once('remote/service/DriverService.php');
+require_once('chrome/ChromeDriverService.php');
+
 require_once('remote/RemoteWebDriver.php');
+require_once('chrome/ChromeDriver.php');
+
 require_once('remote/RemoteWebElement.php');
 require_once('remote/RemoteExecuteMethod.php');
 require_once('remote/WebDriverBrowserType.php');
 require_once('remote/WebDriverCapabilityType.php');
 require_once('remote/DesiredCapabilities.php');
 require_once('remote/WebDriverResponse.php');
+
 require_once('remote/HttpCommandExecutor.php');
+require_once('remote/service/DriverCommandExecutor.php');
+
 require_once('interactions/internal/WebDriverSendKeysAction.php');
 require_once('interactions/internal/WebDriverKeyDownAction.php');
 require_once('interactions/internal/WebDriverKeyUpAction.php');
