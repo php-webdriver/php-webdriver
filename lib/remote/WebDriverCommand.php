@@ -13,13 +13,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class WebDriverCommand {
 
-  /**
-   * @return mixed
-   */
-  public function execute(WebDriverCommand $command);
+  private $sessionID;
+  private $name;
+  private $parameters;
+
+  public function __construct($session_id, $name, $parameters) {
+    $this->sessionID = $session_id;
+    $this->name = $name;
+    $this->parameters = $parameters;
+  }
+
+  public function getName() {
+    return $this->name;
+  }
+
+  public function getSessionID() {
+    return $this->sessionID;
+  }
+
+  public function getParameters() {
+    return $this->parameters;
+  }
 }

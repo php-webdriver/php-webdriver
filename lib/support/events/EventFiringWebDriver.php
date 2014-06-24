@@ -353,4 +353,12 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
     $this->dispatch('onException', $exception, $this);
     throw $exception;
   }
+
+  public function execute($name, $params) {
+    try {
+      return $this->driver->execute($name, $params);
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
 }

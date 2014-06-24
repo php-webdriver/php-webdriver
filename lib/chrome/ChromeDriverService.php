@@ -13,13 +13,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class ChromeDriverService extends DriverService {
 
-  /**
-   * @return mixed
-   */
-  public function execute(WebDriverCommand $command);
+  // The environment variable storing the path to the chrome driver executable.
+  const CHROME_DRIVER_EXE_PROPERTY = "webdriver.chrome.driver";
+
+  public static function createDefaultService() {
+    $exe = getenv(self::CHROME_DRIVER_EXE_PROPERTY);
+    $port = 9515; // TODO: Get another port if the default port is used.
+    $args = array("--port=$port");
+    $service = new ChromeDriverService($exe, $port, $args);
+    return $service;
+  }
+
 }

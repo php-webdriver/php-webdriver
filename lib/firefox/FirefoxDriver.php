@@ -13,13 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class FirefoxDriver {
 
-  /**
-   * @return mixed
-   */
-  public function execute(WebDriverCommand $command);
+  const PROFILE = 'firefox_profile';
 }

@@ -102,98 +102,29 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @var string
    */
   protected $url;
-  /**
-   * @var string
-   */
-  protected $sessionID;
-  /**
-   * @var array
-   */
-  protected $capabilities;
-  /**
-   * @var resource
-   */
-  protected static $curl;
 
   /**
    * @param string $url
-   * @param string $session_id
    */
-  public function __construct($url, $session_id) {
+  public function __construct($url) {
     $this->url = $url;
-    $this->sessionID = $session_id;
-    $this->capabilities = $this->execute(DriverCommand::GET_CAPABILITIES);
   }
 
   /**
-   * Init curl.
-   */
-  public static function initCurl() {
-    if (self::$curl === null) {
-      self::$curl = curl_init();
-      curl_setopt(self::$curl, CURLOPT_TIMEOUT, 300);
-      curl_setopt(self::$curl, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt(self::$curl, CURLOPT_FOLLOWLOCATION, true);
-      curl_setopt(
-        self::$curl,
-        CURLOPT_HTTPHEADER,
-        array(
-          'Content-Type: application/json;charset=UTF-8',
-          'Accept: application/json'));
-    }
-  }
-
-  /**
-   * @param string $name
-   * @param array $params
+   * @param WebDriverCommand $command
+   * @param array $curl_opts An array of curl options.
    *
    * @return mixed
    */
-  public function execute($name, array $params = array()) {
-    $command = array(
-      'url' => $this->url,
-      'sessionId' => $this->sessionID,
-      'name' => $name,
-      'parameters' => $params,
-    );
-    $response = self::remoteExecute($command);
-    return $response->getValue();
-  }
-
-  /**
-   * Execute a command on a remote server. The command should be an array
-   * contains
-   *   url        : the url of the remote server
-   *   sessionId  : the session id if needed
-   *   name       : the name of the command
-   *   parameters : the parameters of the command required
-   *
-   * @param array $command An array that contains
-   *                  url        : the url of the remote server
-   *                  sessionId  : the session id if needed
-   *                  name       : the name of the command
-   *                  parameters : the parameters of the command required
-   * @param array $curl_opts An array of curl options.
-   *
-   * @return WebDriverResponse The response of the command.
-   * @throws Exception
-   */
-  public static function remoteExecute(
-    array $command,
-    array $curl_opts = array()
-  ) {
-    if (!isset(self::$commands[$command['name']])) {
-      throw new Exception($command['name']." is not a valid command.");
+  public function execute(WebDriverCommand $command, $curl_opts = array()) {
+    if (!isset(self::$commands[$command->getName()])) {
+      throw new Exception($command->getName()." is not a valid command.");
     }
-    $raw = self::$commands[$command['name']];
-
-    if ($command['name'] == DriverCommand::NEW_SESSION) {
-      $curl_opts[CURLOPT_FOLLOWLOCATION] = true;
-    }
+    $raw = self::$commands[$command->getName()];
 
     return self::curl(
       $raw['method'],
-      sprintf("%s%s", $command['url'], $raw['url']),
+      sprintf("%s%s", $this->url, $raw['url']),
       $command,
       $curl_opts
     );
@@ -207,16 +138,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @param array $command      The Command object, modelled as a hash.
    * @param array $extra_opts   key => value pairs of curl options for
    *                            curl_setopt()
-   * @return WebDriverResponse
+   * @return array
    * @throws Exception
    */
   protected static function curl(
     $http_method,
     $url,
-    array $command,
+    WebDriverCommand $command,
     array $extra_opts = array()) {
-
-    $params = $command['parameters'];
+    $params = $command->getParameters();
 
     foreach ($params as $name => $value) {
       if ($name[0] === ':') {
@@ -227,8 +157,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
     }
 
-    if (isset($command['sessionId'])) {
-      $url = str_replace(':sessionId', $command['sessionId'], $url);
+    if ($command->getSessionID()) {
+      $url = str_replace(':sessionId', $command->getSessionID(), $url);
     }
 
     if ($params && is_array($params) && $http_method !== 'POST') {
@@ -240,26 +170,34 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         json_encode($params)));
     }
 
-    curl_setopt(self::$curl, CURLOPT_URL, $url);
+    $curl = curl_init($url);
 
-    if ($http_method === 'GET') {
-        curl_setopt(self::$curl, CURLOPT_HTTPGET, true);
-    } else if ($http_method === 'POST') {
-      curl_setopt(self::$curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 300);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt(
+      $curl,
+      CURLOPT_HTTPHEADER,
+      array(
+        'Content-Type: application/json;charset=UTF-8',
+        'Accept: application/json'));
+
+    if ($http_method === 'POST') {
+      curl_setopt($curl, CURLOPT_POST, true);
       if ($params && is_array($params)) {
-        curl_setopt(self::$curl, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
       }
-    } else if ($http_method == 'DELETE') {
-      curl_setopt(self::$curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+    } else if ($http_method === 'DELETE') {
+      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
     }
 
     foreach ($extra_opts as $option => $value) {
-      curl_setopt(self::$curl, $option, $value);
+      curl_setopt($curl, $option, $value);
     }
 
-    $raw_results = trim(curl_exec(self::$curl));
+    $raw_results = trim(curl_exec($curl));
 
-    if ($error = curl_error(self::$curl)) {
+    if ($error = curl_error($curl)) {
       $msg = sprintf(
         'Curl error thrown for http %s to %s',
         $http_method,
@@ -269,9 +207,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
       WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
     }
-
-    curl_setopt(self::$curl, CURLOPT_POSTFIELDS, null);
-    curl_setopt(self::$curl, CURLOPT_CUSTOMREQUEST, null);
+    curl_close($curl);
 
     $results = json_decode($raw_results, true);
 
@@ -304,12 +240,5 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    */
   public function getAddressOfRemoteServer() {
     return $this->url;
-  }
-
-  /**
-   * @return string
-   */
-  public function getSessionID() {
-    return $this->sessionID;
   }
 }

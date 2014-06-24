@@ -43,10 +43,10 @@ class WebDriverWait {
    * return mixed The return value of $func_or_ec
    */
   public function until($func_or_ec, $message = "") {
-    $end = time() + $this->timeout;
+    $end = microtime(true) + $this->timeout;
     $last_exception = null;
 
-    while ($end > time()) {
+    while ($end > microtime(true)) {
       try {
         if ($func_or_ec instanceof WebDriverExpectedCondition) {
           $ret_val = call_user_func($func_or_ec->getApply(), $this->driver);

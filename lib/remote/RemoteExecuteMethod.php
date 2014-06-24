@@ -13,13 +13,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Interface for all command executor.
- */
-interface WebDriverCommandExecutor {
+class RemoteExecuteMethod implements ExecuteMethod {
+
+  private $driver;
+
+  /**
+   * @param RemoteWebDriver $driver
+   */
+  public function __construct(RemoteWebDriver $driver) {
+    $this->driver = $driver;
+  }
 
   /**
    * @return mixed
    */
-  public function execute(WebDriverCommand $command);
+  public function execute(
+    $command_name,
+    array $parameters = array()
+  ) {
+    return $this->driver->execute($command_name, $parameters);
+  }
 }

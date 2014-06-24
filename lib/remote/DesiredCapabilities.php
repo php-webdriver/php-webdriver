@@ -113,6 +113,12 @@ class DesiredCapabilities implements WebDriverCapabilities {
         $this->capabilities[ChromeOptions::CAPABILITY]->toArray();
     }
 
+    if (isset($this->capabilities[FirefoxDriver::PROFILE]) &&
+      $this->capabilities[FirefoxDriver::PROFILE] instanceof FirefoxProfile) {
+      $this->capabilities[FirefoxDriver::PROFILE] =
+        $this->capabilities[FirefoxDriver::PROFILE]->encode();
+    }
+
     return $this->capabilities;
   }
 
