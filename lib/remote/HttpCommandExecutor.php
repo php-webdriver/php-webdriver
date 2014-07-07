@@ -211,6 +211,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
     $results = json_decode($raw_results, true);
 
+    if ($results === null && json_last_error() !== JSON_ERROR_NONE) {
+        throw new WebDriverException('JSON decoding of remote response failed. The response: \'' . $raw_results . '\'');
+    }
+
     $value = null;
     if (is_array($results) && array_key_exists('value', $results)) {
       $value = $results['value'];
