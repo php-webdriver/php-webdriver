@@ -27,9 +27,4 @@ abstract class WebDriverSingleKeyAction
     parent::__construct($keyboard, $mouse, $location_provider);
     $this->key = $key;
   }
-
-  /**
-   * @return void
-   */
-  abstract public function perform();
 }
