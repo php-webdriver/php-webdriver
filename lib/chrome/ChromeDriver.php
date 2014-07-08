@@ -15,7 +15,7 @@
 
 class ChromeDriver extends RemoteWebDriver {
 
-  public static function create(
+  public static function start(
     DesiredCapabilities $desired_capabilities = null
   ) {
     if ($desired_capabilities === null) {
@@ -39,5 +39,13 @@ class ChromeDriver extends RemoteWebDriver {
     );
     $response = $this->executor->execute($command);
     $this->setSessionID($response->getSessionID());
+  }
+
+  public static function create() {
+    throw new WebDriverException('Please use ChromeDriver::start() instead.');
+  }
+
+  public static function createBySessionID() {
+    throw new WebDriverException('Please use ChromeDriver::start() instead.');
   }
 }
