@@ -5,7 +5,7 @@ php-webdriver -- WebDriver bindings for PHP
 
 This WebDriver client aims to be as close as possible to bindings in other languages. The concepts are very similar to the Java, .NET, Python and Ruby bindings for WebDriver.
 
-Looking for documentation about Selenium WebDriver? See http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
+Looking for documentation about php-webdriver? See http://facebook.github.io/php-webdriver/
 
 The PHP client was rewritten from scratch. Using the old version? Check out Adam Goucher's fork of it at https://github.com/Element-34/php-webdriver
 
