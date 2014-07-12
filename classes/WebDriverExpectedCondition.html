@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">535</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2141707010"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-2141707010" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/ExecuteMethod.html">ExecuteMethod</a></li>
+                                                    <li class="interface"><a href="../classes/FileDetector.html">FileDetector</a></li>
+                                                    <li class="interface"><a href="../classes/JavaScriptExecutor.html">JavaScriptExecutor</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriver.html">WebDriver</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverAction.html">WebDriverAction</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverCapabilities.html">WebDriverCapabilities</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverCommandExecutor.html">WebDriverCommandExecutor</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverElement.html">WebDriverElement</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverEventListener.html">WebDriverEventListener</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverHasInputDevices.html">WebDriverHasInputDevices</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverKeyboard.html">WebDriverKeyboard</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverLocatable.html">WebDriverLocatable</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverMouse.html">WebDriverMouse</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverSearchContext.html">WebDriverSearchContext</a></li>
+                                                    <li class="interface"><a href="../classes/WebDriverTouchScreen.html">WebDriverTouchScreen</a></li>
+                                                                                                    <li class="class"><a href="../classes/ChromeDriver.html">ChromeDriver</a></li>
+                                                    <li class="class"><a href="../classes/ChromeDriverService.html">ChromeDriverService</a></li>
+                                                    <li class="class"><a href="../classes/ChromeOptions.html">ChromeOptions</a></li>
+                                                    <li class="class"><a href="../classes/DesiredCapabilities.html">DesiredCapabilities</a></li>
+                                                    <li class="class"><a href="../classes/DriverCommand.html">DriverCommand</a></li>
+                                                    <li class="class"><a href="../classes/DriverCommandExecutor.html">DriverCommandExecutor</a></li>
+                                                    <li class="class"><a href="../classes/DriverService.html">DriverService</a></li>
+                                                    <li class="class"><a href="../classes/ElementNotSelectableException.html">ElementNotSelectableException</a></li>
+                                                    <li class="class"><a href="../classes/ElementNotVisibleException.html">ElementNotVisibleException</a></li>
+                                                    <li class="class"><a href="../classes/EventFiringWebDriver.html">EventFiringWebDriver</a></li>
+                                                    <li class="class"><a href="../classes/EventFiringWebDriverNavigation.html">EventFiringWebDriverNavigation</a></li>
+                                                    <li class="class"><a href="../classes/EventFiringWebElement.html">EventFiringWebElement</a></li>
+                                                    <li class="class"><a href="../classes/ExpectedException.html">ExpectedException</a></li>
+                                                    <li class="class"><a href="../classes/FirefoxDriver.html">FirefoxDriver</a></li>
+                                                    <li class="class"><a href="../classes/FirefoxProfile.html">FirefoxProfile</a></li>
+                                                    <li class="class"><a href="../classes/HttpCommandExecutor.html">HttpCommandExecutor</a></li>
+                                                    <li class="class"><a href="../classes/IMEEngineActivationFailedException.html">IMEEngineActivationFailedException</a></li>
+                                                    <li class="class"><a href="../classes/IMENotAvailableException.html">IMENotAvailableException</a></li>
+                                                    <li class="class"><a href="../classes/IndexOutOfBoundsException.html">IndexOutOfBoundsException</a></li>
+                                                    <li class="class"><a href="../classes/InvalidCookieDomainException.html">InvalidCookieDomainException</a></li>
+                                                    <li class="class"><a href="../classes/InvalidCoordinatesException.html">InvalidCoordinatesException</a></li>
+                                                    <li class="class"><a href="../classes/InvalidElementStateException.html">InvalidElementStateException</a></li>
+                                                    <li class="class"><a href="../classes/InvalidSelectorException.html">InvalidSelectorException</a></li>
+                                                    <li class="class"><a href="../classes/LocalFileDetector.html">LocalFileDetector</a></li>
+                                                    <li class="class"><a href="../classes/MoveTargetOutOfBoundsException.html">MoveTargetOutOfBoundsException</a></li>
+                                                    <li class="class"><a href="../classes/NoAlertOpenException.html">NoAlertOpenException</a></li>
+                                                    <li class="class"><a href="../classes/NoCollectionException.html">NoCollectionException</a></li>
+                                                    <li class="class"><a href="../classes/NoScriptResultException.html">NoScriptResultException</a></li>
+                                                    <li class="class"><a href="../classes/NoStringException.html">NoStringException</a></li>
+                                                    <li class="class"><a href="../classes/NoStringLengthException.html">NoStringLengthException</a></li>
+                                                    <li class="class"><a href="../classes/NoStringWrapperException.html">NoStringWrapperException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchCollectionException.html">NoSuchCollectionException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchDocumentException.html">NoSuchDocumentException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchDriverException.html">NoSuchDriverException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchElementException.html">NoSuchElementException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchFrameException.html">NoSuchFrameException</a></li>
+                                                    <li class="class"><a href="../classes/NoSuchWindowException.html">NoSuchWindowException</a></li>
+                                                    <li class="class"><a href="../classes/NullPointerException.html">NullPointerException</a></li>
+                                                    <li class="class"><a href="../classes/RemoteExecuteMethod.html">RemoteExecuteMethod</a></li>
+                                                    <li class="class"><a href="../classes/RemoteKeyboard.html">RemoteKeyboard</a></li>
+                                                    <li class="class"><a href="../classes/RemoteMouse.html">RemoteMouse</a></li>
+                                                    <li class="class"><a href="../classes/RemoteTouchScreen.html">RemoteTouchScreen</a></li>
+                                                    <li class="class"><a href="../classes/RemoteWebDriver.html">RemoteWebDriver</a></li>
+                                                    <li class="class"><a href="../classes/RemoteWebElement.html">RemoteWebElement</a></li>
+                                                    <li class="class"><a href="../classes/ScriptTimeoutException.html">ScriptTimeoutException</a></li>
+                                                    <li class="class"><a href="../classes/SessionNotCreatedException.html">SessionNotCreatedException</a></li>
+                                                    <li class="class"><a href="../classes/StaleElementReferenceException.html">StaleElementReferenceException</a></li>
+                                                    <li class="class"><a href="../classes/TimeOutException.html">TimeOutException</a></li>
+                                                    <li class="class"><a href="../classes/UnableToSetCookieException.html">UnableToSetCookieException</a></li>
+                                                    <li class="class"><a href="../classes/UnexpectedAlertOpenException.html">UnexpectedAlertOpenException</a></li>
+                                                    <li class="class"><a href="../classes/UnexpectedJavascriptException.html">UnexpectedJavascriptException</a></li>
+                                                    <li class="class"><a href="../classes/UnexpectedTagNameException.html">UnexpectedTagNameException</a></li>
+                                                    <li class="class"><a href="../classes/UnknownCommandException.html">UnknownCommandException</a></li>
+                                                    <li class="class"><a href="../classes/UnknownServerException.html">UnknownServerException</a></li>
+                                                    <li class="class"><a href="../classes/UnrecognizedExceptionException.html">UnrecognizedExceptionException</a></li>
+                                                    <li class="class"><a href="../classes/UnsupportedOperationException.html">UnsupportedOperationException</a></li>
+                                                    <li class="class"><a href="../classes/URLChecker.html">URLChecker</a></li>
+                                                    <li class="class"><a href="../classes/UselessFileDetector.html">UselessFileDetector</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverActions.html">WebDriverActions</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverAlert.html">WebDriverAlert</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverBrowserType.html">WebDriverBrowserType</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverButtonReleaseAction.html">WebDriverButtonReleaseAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverBy.html">WebDriverBy</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverCapabilityType.html">WebDriverCapabilityType</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverClickAction.html">WebDriverClickAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverClickAndHoldAction.html">WebDriverClickAndHoldAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverCommand.html">WebDriverCommand</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverCompositeAction.html">WebDriverCompositeAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverContextClickAction.html">WebDriverContextClickAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverCoordinates.html">WebDriverCoordinates</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverCurlException.html">WebDriverCurlException</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverDimension.html">WebDriverDimension</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverDispatcher.html">WebDriverDispatcher</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverDoubleClickAction.html">WebDriverDoubleClickAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverDoubleTapAction.html">WebDriverDoubleTapAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverDownAction.html">WebDriverDownAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverException.html">WebDriverException</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverExpectedCondition.html">WebDriverExpectedCondition</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverFlickAction.html">WebDriverFlickAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverFlickFromElementAction.html">WebDriverFlickFromElementAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverKeyDownAction.html">WebDriverKeyDownAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverKeys.html">WebDriverKeys</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverKeysRelatedAction.html">WebDriverKeysRelatedAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverKeyUpAction.html">WebDriverKeyUpAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverLongPressAction.html">WebDriverLongPressAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverMouseAction.html">WebDriverMouseAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverMouseMoveAction.html">WebDriverMouseMoveAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverMoveAction.html">WebDriverMoveAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverMoveToOffsetAction.html">WebDriverMoveToOffsetAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverNavigation.html">WebDriverNavigation</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverOptions.html">WebDriverOptions</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverPlatform.html">WebDriverPlatform</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverPoint.html">WebDriverPoint</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverResponse.html">WebDriverResponse</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverScrollAction.html">WebDriverScrollAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverScrollFromElementAction.html">WebDriverScrollFromElementAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverSelect.html">WebDriverSelect</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverSendKeysAction.html">WebDriverSendKeysAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverSingleKeyAction.html">WebDriverSingleKeyAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverTapAction.html">WebDriverTapAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverTargetLocator.html">WebDriverTargetLocator</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverTimeouts.html">WebDriverTimeouts</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverTouchAction.html">WebDriverTouchAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverTouchActions.html">WebDriverTouchActions</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverUpAction.html">WebDriverUpAction</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverWait.html">WebDriverWait</a></li>
+                                                    <li class="class"><a href="../classes/WebDriverWindow.html">WebDriverWindow</a></li>
+                                                    <li class="class"><a href="../classes/XPathLookupException.html">XPathLookupException</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>WebDriverExpectedCondition</h1>
+                    <p><em>Canned ExpectedConditions which are generally useful within webdriver tests.</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_getApply" class="">getApply()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_titleIs" class="">titleIs()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_titleContains" class="">titleContains()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_presenceOfElementLocated" class="">presenceOfElementLocated()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_visibilityOfElementLocated" class="">visibilityOfElementLocated()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_visibilityOf" class="">visibilityOf()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_presenceOfAllElementsLocatedBy" class="">presenceOfAllElementsLocatedBy()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_textToBePresentInElement" class="">textToBePresentInElement()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_textToBePresentInElementValue" class="">textToBePresentInElementValue()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_frameToBeAvailableAndSwitchToIt" class="">frameToBeAvailableAndSwitchToIt()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_invisibilityOfElementLocated" class="">invisibilityOfElementLocated()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_invisibilityOfElementWithText" class="">invisibilityOfElementWithText()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_elementToBeClickable" class="">elementToBeClickable()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_stalenessOf" class="">stalenessOf()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_refreshed" class="">refreshed()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_elementToBeSelected" class="">elementToBeSelected()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_elementSelectionStateToBe" class="">elementSelectionStateToBe()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_alertIsPresent" class="">alertIsPresent()</a><br />
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method_not" class="">not()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#method___construct" class="">__construct()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/WebDriverExpectedCondition.html#property_apply" class="">$apply</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/WebDriverExpectedCondition.html"><div class="path-wrapper">WebDriverExpectedCondition.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Default</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\WebDriverExpectedCondition</div>
+                            </dd>
+
+                        
+                        
+                        
+                                                                            <dt>See also</dt>
+                                                                                    <dd><a href=""><div class="namespace-wrapper"></div></a></dd>
+                                                    
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr><td colspan="2"><em>None found</em></td></tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_apply" name="property_apply" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$apply</h3>
+                <pre class="signature">$apply : </pre>
+                <p><em>A closure function to be executed by WebDriverWait. It should return
+a truthy value, mostly boolean or a WebDriverElement, on success.</em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getApply" name="method_getApply" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getApply()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getApply() : \(function():T)</pre>
+                <p><em></em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \(function():T)
+                                            &mdash; <p>a closure function to be executed by WebDriverWait</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_titleIs" name="method_titleIs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">titleIs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">titleIs(  <span class="argument">$title</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking the title of a page.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$title </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>True when the title matches,</p>
+<pre><code>    false otherwise.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_titleContains" name="method_titleContains" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">titleContains()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">titleContains(  <span class="argument">$title</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking substring of a page Title.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$title </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>True when in title,</p>
+<pre><code>    false otherwise.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_presenceOfElementLocated" name="method_presenceOfElementLocated" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">presenceOfElementLocated()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">presenceOfElementLocated(\WebDriverBy  <span class="argument">$by</span>) : \WebDriverExpectedCondition&lt;WebDriverElement&gt;</pre>
+                <p><em>An expectation for checking that an element is present on the DOM of a
+page. This does not necessarily mean that the element is visible.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<WebDriverElement>
+                                            &mdash; <p>The element which</p>
+<pre><code>    is located.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visibilityOfElementLocated" name="method_visibilityOfElementLocated" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visibilityOfElementLocated()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visibilityOfElementLocated(\WebDriverBy  <span class="argument">$by</span>) : \WebDriverExpectedCondition&lt;WebDriverElement&gt;</pre>
+                <p><em>An expectation for checking that an element is present on the DOM of a page
+and visible. Visibility means that the element is not only displayed but
+also has a height and width that is greater than 0.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<WebDriverElement>
+                                            &mdash; <p>The element which is</p>
+<pre><code>    located and visible.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_visibilityOf" name="method_visibilityOf" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">visibilityOf()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">visibilityOf(\WebDriverElement  <span class="argument">$element</span>) : \WebDriverExpectedCondition&lt;WebDriverElement&gt;</pre>
+                <p><em>An expectation for checking that an element, known to be present on the DOM
+of a page, is visible. Visibility means that the element is not only
+displayed but also has a height and width that is greater than 0.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverElement.html">\WebDriverElement</a></td>
+                                <td>$element </td>
+                                <td><p>The element to be checked.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<WebDriverElement>
+                                            &mdash; <p>The same</p>
+<pre><code>    WebDriverElement once it is visible.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_presenceOfAllElementsLocatedBy" name="method_presenceOfAllElementsLocatedBy" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">presenceOfAllElementsLocatedBy()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">presenceOfAllElementsLocatedBy(\WebDriverBy  <span class="argument">$by</span>) : \WebDriverExpectedCondition&lt;array&gt;</pre>
+                <p><em>An expectation for checking that there is at least one element present on a
+web page.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<array>
+                                            &mdash; <p>An array of WebDriverElements</p>
+<pre><code>    once they are located.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_textToBePresentInElement" name="method_textToBePresentInElement" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">textToBePresentInElement()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">textToBePresentInElement(\WebDriverBy  <span class="argument">$by</span>, string  <span class="argument">$text</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking if the given text is present in the specified
+element.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>The text to be presented in the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>Whether the text is presented.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_textToBePresentInElementValue" name="method_textToBePresentInElementValue" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">textToBePresentInElementValue()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">textToBePresentInElementValue(\WebDriverBy  <span class="argument">$by</span>, string  <span class="argument">$text</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking if the given text is present in the specified
+elements value attribute.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>The text to be presented in the element value.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>Whether the text is presented.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_frameToBeAvailableAndSwitchToIt" name="method_frameToBeAvailableAndSwitchToIt" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">frameToBeAvailableAndSwitchToIt()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">frameToBeAvailableAndSwitchToIt(  <span class="argument">$frame_locator</span>) : \WebDriverExpectedCondition&lt;WebDriver&gt;</pre>
+                <p><em>Expectation for checking if iFrame exists.</em></p>
+                <p>If iFrame exists switches driver's focus to the iFrame</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$frame_locator </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<WebDriver>
+                                            &mdash; <p>object focused on new frame</p>
+<pre><code>    when frame is found bool false otherwise</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_invisibilityOfElementLocated" name="method_invisibilityOfElementLocated" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">invisibilityOfElementLocated()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">invisibilityOfElementLocated(\WebDriverBy  <span class="argument">$by</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking that an element is either invisible or not
+present on the DOM.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>Whether there is no element</p>
+<pre><code>    located.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_invisibilityOfElementWithText" name="method_invisibilityOfElementWithText" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">invisibilityOfElementWithText()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">invisibilityOfElementWithText(\WebdriverBy  <span class="argument">$by</span>, string  <span class="argument">$text</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking that an element with text is either invisible
+or not present on the DOM.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>\WebdriverBy</td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>string</td>
+                                <td>$text </td>
+                                <td><p>The text of the element.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>Whether the text is found in the</p>
+<pre><code>    element located.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_elementToBeClickable" name="method_elementToBeClickable" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">elementToBeClickable()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">elementToBeClickable(\WebDriverBy  <span class="argument">$by</span>) : \WebDriverExpectedCondition&lt;WebDriverElement&gt;</pre>
+                <p><em>An expectation for checking an element is visible and enabled such that you
+can click it.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverBy.html">\WebDriverBy</a></td>
+                                <td>$by </td>
+                                <td><p>The locator used to find the element</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<WebDriverElement>
+                                            &mdash; <p>The WebDriverElement</p>
+<pre><code>    once it is located, visible and clickable</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_stalenessOf" name="method_stalenessOf" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">stalenessOf()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">stalenessOf(\WebDriverElement  <span class="argument">$element</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>Wait until an element is no longer attached to the DOM.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverElement.html">\WebDriverElement</a></td>
+                                <td>$element </td>
+                                <td><p>The element to wait for.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>false if the element is still</p>
+<pre><code>    attached to the DOM, true otherwise.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_refreshed" name="method_refreshed" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">refreshed()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">refreshed(\WebDriverExpectedCondition  <span class="argument">$condition</span>) : \WebDriverExpectedCondition&lt;mixed&gt;</pre>
+                <p><em>Wrapper for a condition, which allows for elements to update by redrawing.</em></p>
+                <p>This works around the problem of conditions which have two parts: find an
+element and then check for some condition on it. For these conditions it is
+possible that an element is located and then subsequently it is redrawn on
+the client. When this happens a StaleElementReferenceException is thrown
+when the second part of the condition is checked.</p>
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverExpectedCondition.html">\WebDriverExpectedCondition</a></td>
+                                <td>$condition </td>
+                                <td><p>The condition wrapped.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<mixed>
+                                            &mdash; <p>The return value of the</p>
+<pre><code>    getApply() of the given condition.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_elementToBeSelected" name="method_elementToBeSelected" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">elementToBeSelected()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">elementToBeSelected(  <span class="argument">$element_or_by</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking if the given element is selected.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$element_or_by </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>whether the element is selected.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_elementSelectionStateToBe" name="method_elementSelectionStateToBe" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">elementSelectionStateToBe()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">elementSelectionStateToBe(mixed  <span class="argument">$element_or_by</span>, boolean  <span class="argument">$selected</span>) : \WebDriverExpectedCondition&lt;bool&gt;</pre>
+                <p><em>An expectation for checking if the given element is selected.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$element_or_by </td>
+                                <td><p>Either the element or the locator.</p></td>
+                            </tr>
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$selected </td>
+                                <td><p>The required state.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<bool>
+                                            &mdash; <p>Whether the element is selected.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_alertIsPresent" name="method_alertIsPresent" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">alertIsPresent()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">alertIsPresent() : \WebDriverExpectedCondition&lt;?WebDriverAlert&gt;</pre>
+                <p><em>An expectation for whether an alert() box is present.</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \WebDriverExpectedCondition<?WebDriverAlert>
+                                            &mdash; <p>if alert() is present,</p>
+<pre><code>    null otherwise.</code></pre>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_not" name="method_not" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">not()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">not(\WebDriverExpectedCondition  <span class="argument">$condition</span>) : mixed</pre>
+                <p><em>An expectation with the logical opposite condition of the given condition.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/WebDriverExpectedCondition.html">\WebDriverExpectedCondition</a></td>
+                                <td>$condition </td>
+                                <td><p>The condition to be negated.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                            &mdash; <p>The nagation of the result of the given condition.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$apply</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$apply </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">WebDriverExpectedCondition.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/WebDriverExpectedCondition.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on 
+Warning: date_default_timezone_get(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in /Users/whhone/github/php-webdriver/vendor/twig/twig/lib/Twig/Extension/Core.php on line 89
+July 12th, 2014 at 03:34.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
