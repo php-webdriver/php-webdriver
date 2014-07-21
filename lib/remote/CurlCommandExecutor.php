@@ -22,79 +22,79 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
      * @see http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
      */
     protected $commands = array(
-        DriverCommand::ACCEPT_ALERT => array('POST' => '/session/:sessionId/accept_alert'),
-        DriverCommand::ADD_COOKIE => array('POST' => '/session/:sessionId/cookie'),
-        DriverCommand::CLEAR_ELEMENT => array('POST' => '/session/:sessionId/element/:id/clear'),
-        DriverCommand::CLICK_ELEMENT => array('POST' => '/session/:sessionId/element/:id/click'),
-        DriverCommand::CLOSE => array('DELETE' => '/session/:sessionId/window'),
-        DriverCommand::DELETE_ALL_COOKIES => array('DELETE' => '/session/:sessionId/cookie'),
-        DriverCommand::DELETE_COOKIE => array('DELETE' => '/session/:sessionId/cookie/:name'),
-        DriverCommand::DISMISS_ALERT => array('POST' => '/session/:sessionId/dismiss_alert'),
-        DriverCommand::ELEMENT_EQUALS => array('GET' => '/session/:sessionId/element/:id/equals/:other'),
-        DriverCommand::FIND_CHILD_ELEMENT => array('POST' => '/session/:sessionId/element/:id/element'),
-        DriverCommand::FIND_CHILD_ELEMENTS => array('POST' => '/session/:sessionId/element/:id/elements'),
-        DriverCommand::EXECUTE_SCRIPT => array('POST' => '/session/:sessionId/execute'),
-        DriverCommand::EXECUTE_ASYNC_SCRIPT => array('POST' => '/session/:sessionId/execute_async'),
-        DriverCommand::FIND_ELEMENT => array('POST' => '/session/:sessionId/element'),
-        DriverCommand::FIND_ELEMENTS => array('POST' => '/session/:sessionId/elements'),
-        DriverCommand::SWITCH_TO_FRAME => array('POST' => '/session/:sessionId/frame'),
-        DriverCommand::SWITCH_TO_WINDOW => array('POST' => '/session/:sessionId/window'),
-        DriverCommand::GET => array('POST' => '/session/:sessionId/url'),
-        DriverCommand::GET_ACTIVE_ELEMENT => array('POST' => '/session/:sessionId/element/active'),
-        DriverCommand::GET_ALERT_TEXT => array('GET' => '/session/:sessionId/alert_text'),
-        DriverCommand::GET_ALL_COOKIES => array('GET' => '/session/:sessionId/cookie'),
-        DriverCommand::GET_AVAILABLE_LOG_TYPES => array('GET' => '/session/:sessionId/log/types'),
-        DriverCommand::GET_CURRENT_URL => array('GET' => '/session/:sessionId/url'),
-        DriverCommand::GET_CURRENT_WINDOW_HANDLE => array('GET' => '/session/:sessionId/window_handle'),
-        DriverCommand::GET_ELEMENT_ATTRIBUTE => array('GET' => '/session/:sessionId/element/:id/attribute/:name'),
-        DriverCommand::GET_ELEMENT_VALUE_OF_CSS_PROPERTY => array('GET' => '/session/:sessionId/element/:id/css/:propertyName'),
-        DriverCommand::GET_ELEMENT_LOCATION => array('GET' => '/session/:sessionId/element/:id/location'),
-        DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW => array('GET' => '/session/:sessionId/element/:id/location_in_view'),
-        DriverCommand::GET_ELEMENT_SIZE => array('GET' => '/session/:sessionId/element/:id/size'),
-        DriverCommand::GET_ELEMENT_TAG_NAME => array('GET' => '/session/:sessionId/element/:id/name'),
-        DriverCommand::GET_ELEMENT_TEXT => array('GET' => '/session/:sessionId/element/:id/text'),
-        DriverCommand::GET_LOG => array('POST' => '/session/:sessionId/log'),
-        DriverCommand::GET_PAGE_SOURCE => array('GET' => '/session/:sessionId/source'),
-        DriverCommand::GET_SCREEN_ORIENTATION => array('GET' => '/session/:sessionId/orientation'),
-        DriverCommand::GET_CAPABILITIES => array('GET' => '/session/:sessionId'),
-        DriverCommand::GET_TITLE => array('GET' => '/session/:sessionId/title'),
-        DriverCommand::GET_WINDOW_HANDLES => array('GET' => '/session/:sessionId/window_handles'),
-        DriverCommand::GET_WINDOW_POSITION => array('GET' => '/session/:sessionId/window/:windowHandle/position'),
-        DriverCommand::GET_WINDOW_SIZE => array('GET' => '/session/:sessionId/window/:windowHandle/size'),
-        DriverCommand::GO_BACK => array('POST' => '/session/:sessionId/back'),
-        DriverCommand::GO_FORWARD => array('POST' => '/session/:sessionId/forward'),
-        DriverCommand::IS_ELEMENT_DISPLAYED => array('GET' => '/session/:sessionId/element/:id/displayed'),
-        DriverCommand::IS_ELEMENT_ENABLED => array('GET' => '/session/:sessionId/element/:id/enabled'),
-        DriverCommand::IS_ELEMENT_SELECTED => array('GET' => '/session/:sessionId/element/:id/selected'),
-        DriverCommand::MAXIMIZE_WINDOW => array('POST' => '/session/:sessionId/window/:windowHandle/maximize'),
-        DriverCommand::MOUSE_DOWN => array('POST' => '/session/:sessionId/buttondown'),
-        DriverCommand::MOUSE_UP => array('POST' => '/session/:sessionId/buttonup'),
-        DriverCommand::CLICK => array('POST' => '/session/:sessionId/click'),
-        DriverCommand::DOUBLE_CLICK => array('POST' => '/session/:sessionId/doubleclick'),
-        DriverCommand::MOVE_TO => array('POST' => '/session/:sessionId/moveto'),
-        DriverCommand::NEW_SESSION => array('POST' => '/session'),
-        DriverCommand::QUIT => array('DELETE' => '/session/:sessionId'),
-        DriverCommand::REFRESH => array('POST' => '/session/:sessionId/refresh'),
-        DriverCommand::UPLOAD_FILE => array('POST' => '/session/:sessionId/file'), // undocumented
-        DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT => array('POST' => '/session/:sessionId/keys'),
-        DriverCommand::SET_ALERT_VALUE => array('POST' => '/session/:sessionId/alert_text'),
-        DriverCommand::SEND_KEYS_TO_ELEMENT => array('POST' => '/session/:sessionId/element/:id/value'),
-        DriverCommand::IMPLICITLY_WAIT => array('POST' => '/session/:sessionId/timeouts/implicit_wait'),
-        DriverCommand::SET_SCREEN_ORIENTATION => array('POST' => '/session/:sessionId/orientation'),
-        DriverCommand::SET_TIMEOUT => array('POST' => '/session/:sessionId/timeouts'),
-        DriverCommand::SET_SCRIPT_TIMEOUT => array('POST' => '/session/:sessionId/timeouts/async_script'),
-        DriverCommand::SET_WINDOW_POSITION => array('POST' => '/session/:sessionId/window/:windowHandle/position'),
-        DriverCommand::SET_WINDOW_SIZE => array('POST' => '/session/:sessionId/window/:windowHandle/size'),
-        DriverCommand::SUBMIT_ELEMENT => array('POST' => '/session/:sessionId/element/:id/submit'),
-        DriverCommand::SCREENSHOT => array('GET' => '/session/:sessionId/screenshot'),
-        DriverCommand::TOUCH_SINGLE_TAP => array('POST' => '/session/:sessionId/touch/click'),
-        DriverCommand::TOUCH_DOWN => array('POST' => '/session/:sessionId/touch/down'),
-        DriverCommand::TOUCH_DOUBLE_TAP => array('POST' => '/session/:sessionId/touch/doubleclick'),
-        DriverCommand::TOUCH_FLICK => array('POST' => '/session/:sessionId/touch/flick'),
-        DriverCommand::TOUCH_LONG_PRESS => array('POST' => '/session/:sessionId/touch/longclick'),
-        DriverCommand::TOUCH_MOVE => array('POST' => '/session/:sessionId/touch/move'),
-        DriverCommand::TOUCH_SCROLL => array('POST' => '/session/:sessionId/touch/scroll'),
-        DriverCommand::TOUCH_UP => array('POST' => '/session/:sessionId/touch/up'),
+        DriverCommand::ACCEPT_ALERT => array('POST', '/session/:sessionId/accept_alert'),
+        DriverCommand::ADD_COOKIE => array('POST', '/session/:sessionId/cookie'),
+        DriverCommand::CLEAR_ELEMENT => array('POST', '/session/:sessionId/element/:id/clear'),
+        DriverCommand::CLICK_ELEMENT => array('POST', '/session/:sessionId/element/:id/click'),
+        DriverCommand::CLOSE => array('DELETE', '/session/:sessionId/window'),
+        DriverCommand::DELETE_ALL_COOKIES => array('DELETE', '/session/:sessionId/cookie'),
+        DriverCommand::DELETE_COOKIE => array('DELETE', '/session/:sessionId/cookie/:name'),
+        DriverCommand::DISMISS_ALERT => array('POST', '/session/:sessionId/dismiss_alert'),
+        DriverCommand::ELEMENT_EQUALS => array('GET', '/session/:sessionId/element/:id/equals/:other'),
+        DriverCommand::FIND_CHILD_ELEMENT => array('POST', '/session/:sessionId/element/:id/element'),
+        DriverCommand::FIND_CHILD_ELEMENTS => array('POST', '/session/:sessionId/element/:id/elements'),
+        DriverCommand::EXECUTE_SCRIPT => array('POST', '/session/:sessionId/execute'),
+        DriverCommand::EXECUTE_ASYNC_SCRIPT => array('POST', '/session/:sessionId/execute_async'),
+        DriverCommand::FIND_ELEMENT => array('POST', '/session/:sessionId/element'),
+        DriverCommand::FIND_ELEMENTS => array('POST', '/session/:sessionId/elements'),
+        DriverCommand::SWITCH_TO_FRAME => array('POST', '/session/:sessionId/frame'),
+        DriverCommand::SWITCH_TO_WINDOW => array('POST', '/session/:sessionId/window'),
+        DriverCommand::GET => array('POST', '/session/:sessionId/url'),
+        DriverCommand::GET_ACTIVE_ELEMENT => array('POST', '/session/:sessionId/element/active'),
+        DriverCommand::GET_ALERT_TEXT => array('GET', '/session/:sessionId/alert_text'),
+        DriverCommand::GET_ALL_COOKIES => array('GET', '/session/:sessionId/cookie'),
+        DriverCommand::GET_AVAILABLE_LOG_TYPES => array('GET', '/session/:sessionId/log/types'),
+        DriverCommand::GET_CURRENT_URL => array('GET', '/session/:sessionId/url'),
+        DriverCommand::GET_CURRENT_WINDOW_HANDLE => array('GET', '/session/:sessionId/window_handle'),
+        DriverCommand::GET_ELEMENT_ATTRIBUTE => array('GET', '/session/:sessionId/element/:id/attribute/:name'),
+        DriverCommand::GET_ELEMENT_VALUE_OF_CSS_PROPERTY => array('GET', '/session/:sessionId/element/:id/css/:propertyName'),
+        DriverCommand::GET_ELEMENT_LOCATION => array('GET', '/session/:sessionId/element/:id/location'),
+        DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW => array('GET', '/session/:sessionId/element/:id/location_in_view'),
+        DriverCommand::GET_ELEMENT_SIZE => array('GET', '/session/:sessionId/element/:id/size'),
+        DriverCommand::GET_ELEMENT_TAG_NAME => array('GET', '/session/:sessionId/element/:id/name'),
+        DriverCommand::GET_ELEMENT_TEXT => array('GET', '/session/:sessionId/element/:id/text'),
+        DriverCommand::GET_LOG => array('POST', '/session/:sessionId/log'),
+        DriverCommand::GET_PAGE_SOURCE => array('GET', '/session/:sessionId/source'),
+        DriverCommand::GET_SCREEN_ORIENTATION => array('GET', '/session/:sessionId/orientation'),
+        DriverCommand::GET_CAPABILITIES => array('GET', '/session/:sessionId'),
+        DriverCommand::GET_TITLE => array('GET', '/session/:sessionId/title'),
+        DriverCommand::GET_WINDOW_HANDLES => array('GET', '/session/:sessionId/window_handles'),
+        DriverCommand::GET_WINDOW_POSITION => array('GET', '/session/:sessionId/window/:windowHandle/position'),
+        DriverCommand::GET_WINDOW_SIZE => array('GET', '/session/:sessionId/window/:windowHandle/size'),
+        DriverCommand::GO_BACK => array('POST', '/session/:sessionId/back'),
+        DriverCommand::GO_FORWARD => array('POST', '/session/:sessionId/forward'),
+        DriverCommand::IS_ELEMENT_DISPLAYED => array('GET', '/session/:sessionId/element/:id/displayed'),
+        DriverCommand::IS_ELEMENT_ENABLED => array('GET', '/session/:sessionId/element/:id/enabled'),
+        DriverCommand::IS_ELEMENT_SELECTED => array('GET', '/session/:sessionId/element/:id/selected'),
+        DriverCommand::MAXIMIZE_WINDOW => array('POST', '/session/:sessionId/window/:windowHandle/maximize'),
+        DriverCommand::MOUSE_DOWN => array('POST', '/session/:sessionId/buttondown'),
+        DriverCommand::MOUSE_UP => array('POST', '/session/:sessionId/buttonup'),
+        DriverCommand::CLICK => array('POST', '/session/:sessionId/click'),
+        DriverCommand::DOUBLE_CLICK => array('POST', '/session/:sessionId/doubleclick'),
+        DriverCommand::MOVE_TO => array('POST', '/session/:sessionId/moveto'),
+        DriverCommand::NEW_SESSION => array('POST', '/session'),
+        DriverCommand::QUIT => array('DELETE', '/session/:sessionId'),
+        DriverCommand::REFRESH => array('POST', '/session/:sessionId/refresh'),
+        DriverCommand::UPLOAD_FILE => array('POST', '/session/:sessionId/file'), // undocumented
+        DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT => array('POST', '/session/:sessionId/keys'),
+        DriverCommand::SET_ALERT_VALUE => array('POST', '/session/:sessionId/alert_text'),
+        DriverCommand::SEND_KEYS_TO_ELEMENT => array('POST', '/session/:sessionId/element/:id/value'),
+        DriverCommand::IMPLICITLY_WAIT => array('POST', '/session/:sessionId/timeouts/implicit_wait'),
+        DriverCommand::SET_SCREEN_ORIENTATION => array('POST', '/session/:sessionId/orientation'),
+        DriverCommand::SET_TIMEOUT => array('POST', '/session/:sessionId/timeouts'),
+        DriverCommand::SET_SCRIPT_TIMEOUT => array('POST', '/session/:sessionId/timeouts/async_script'),
+        DriverCommand::SET_WINDOW_POSITION => array('POST', '/session/:sessionId/window/:windowHandle/position'),
+        DriverCommand::SET_WINDOW_SIZE => array('POST', '/session/:sessionId/window/:windowHandle/size'),
+        DriverCommand::SUBMIT_ELEMENT => array('POST', '/session/:sessionId/element/:id/submit'),
+        DriverCommand::SCREENSHOT => array('GET', '/session/:sessionId/screenshot'),
+        DriverCommand::TOUCH_SINGLE_TAP => array('POST', '/session/:sessionId/touch/click'),
+        DriverCommand::TOUCH_DOWN => array('POST', '/session/:sessionId/touch/down'),
+        DriverCommand::TOUCH_DOUBLE_TAP => array('POST', '/session/:sessionId/touch/doubleclick'),
+        DriverCommand::TOUCH_FLICK => array('POST', '/session/:sessionId/touch/flick'),
+        DriverCommand::TOUCH_LONG_PRESS => array('POST', '/session/:sessionId/touch/longclick'),
+        DriverCommand::TOUCH_MOVE => array('POST', '/session/:sessionId/touch/move'),
+        DriverCommand::TOUCH_SCROLL => array('POST', '/session/:sessionId/touch/scroll'),
+        DriverCommand::TOUCH_UP => array('POST', '/session/:sessionId/touch/up'),
     );
 
     /**
@@ -146,21 +146,20 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
     }
 
     /**
-     * @param $command
-     * @param array $params
+     * @param WebDriverCommand $command
      *
      * @throws InvalidArgumentException
      * @throws BadMethodCallException
      * @return WebDriverResponse
      */
-    public function execute($command, array $params = array())
+    public function execute(WebDriverCommand $command)
     {
-        if (empty($this->commands[$command])) {
-            throw new InvalidArgumentException(sprintf('Command %s is unknown.', $command));
+        if (empty($this->commands[$command->getName()])) {
+            throw new InvalidArgumentException(sprintf('Command %s is unknown.', $command->getName()));
         }
-        reset($this->commands[$command]);
-        list($method, $url) = each($this->commands[$command]);
+        list($method, $url) = $this->commands[$command->getName()];
         $url = str_replace(':sessionId', $this->sessionID, $url);
+        $params = $command->getParameters();
         foreach ($params as $name => $value) {
             if ($name[0] === ':') {
                 $url = str_replace($name, $value, $url);
@@ -204,9 +203,6 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
             }
             WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
         }
-
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, null);
-        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, null);
 
         $results = json_decode($raw_results, true);
 
