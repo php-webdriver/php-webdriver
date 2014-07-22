@@ -118,7 +118,7 @@ class ChromeOptions {
    * @return array
    */
   public function toArray() {
-    $options = $this->experimentOptions;
+    $options = $this->experimentalOptions;
 
     $options['binary'] = $this->binary;
 
