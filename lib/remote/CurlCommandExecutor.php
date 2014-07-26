@@ -178,17 +178,13 @@ class CurlCommandExecutor implements WebDriverCommandExecutor
             ));
         }
         curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
-
-        if ($method === 'GET') {
-            curl_setopt($this->curl, CURLOPT_HTTPGET, true);
-        } elseif ($method === 'POST') {
-            curl_setopt($this->curl, CURLOPT_POST, true);
-            if ($params && is_array($params)) {
-                curl_setopt($this->curl, CURLOPT_POSTFIELDS, json_encode($params));
-            }
-        } elseif ($method == 'DELETE') {
-            curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
+        if ($method === 'POST' && $params && is_array($params)) {
+            $encoded_params = json_encode($params);
+        } else {
+            $encoded_params = null;
         }
+        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $encoded_params);
 
         $raw_results = trim(curl_exec($this->curl));
 
