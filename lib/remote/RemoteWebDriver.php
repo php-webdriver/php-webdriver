@@ -63,6 +63,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     }
 
     $executor = new HttpCommandExecutor($url);
+    $executor->setTimeout($timeout_in_ms);
 
     $command = new WebDriverCommand(
       null,
@@ -70,12 +71,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       array('desiredCapabilities' => $desired_capabilities)
     );
 
-    $response = $executor->execute(
-      $command,
-      array(
-        CURLOPT_CONNECTTIMEOUT_MS => $timeout_in_ms,
-      )
-    );
+    $response = $executor->execute($command);
 
     $driver = new static();
     $driver->setSessionID($response->getSessionID())

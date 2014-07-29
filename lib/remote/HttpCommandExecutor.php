@@ -22,7 +22,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @see
    *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
    */
-  private static $commands = array(
+  protected static $commands = array(
     DriverCommand::ACCEPT_ALERT =>            array('method' => 'POST', 'url' => '/session/:sessionId/accept_alert'),
     DriverCommand::ADD_COOKIE =>              array('method' => 'POST', 'url' => '/session/:sessionId/cookie'),
     DriverCommand::CLEAR_ELEMENT =>           array('method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'),
@@ -102,12 +102,37 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @var string
    */
   protected $url;
+  /**
+   * @var resource
+   */
+  protected $curl;
 
   /**
    * @param string $url
    */
   public function __construct($url) {
     $this->url = $url;
+    $this->curl = curl_init();
+    curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT_MS, 300000);
+    curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt(
+      $this->curl,
+      CURLOPT_HTTPHEADER,
+      array(
+        'Content-Type: application/json;charset=UTF-8',
+        'Accept: application/json',
+      )
+    );
+  }
+
+  /**
+   * @param int $timeout
+   * @return HttpCommandExecutor
+   */
+  public function setTimeout($timeout) {
+    curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+    return $this;
   }
 
   /**
@@ -116,38 +141,17 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    *
    * @return mixed
    */
-  public function execute(WebDriverCommand $command, $curl_opts = array()) {
+  public function execute(WebDriverCommand $command) {
     if (!isset(self::$commands[$command->getName()])) {
-      throw new Exception($command->getName()." is not a valid command.");
+      throw new InvalidArgumentException(
+        $command->getName()." is not a valid command."
+      );
     }
     $raw = self::$commands[$command->getName()];
-
-    return self::curl(
-      $raw['method'],
-      sprintf("%s%s", $this->url, $raw['url']),
-      $command,
-      $curl_opts
-    );
-  }
-
-  /**
-   * Curl request to webdriver server.
-   *
-   * @param string $http_method 'GET', 'POST', or 'DELETE'
-   * @param string $url
-   * @param array $command      The Command object, modelled as a hash.
-   * @param array $extra_opts   key => value pairs of curl options for
-   *                            curl_setopt()
-   * @return array
-   * @throws Exception
-   */
-  protected static function curl(
-    $http_method,
-    $url,
-    WebDriverCommand $command,
-    array $extra_opts = array()) {
+    $http_method = $raw['method'];
+    $url = $raw['url'];
+    $url = str_replace(':sessionId', $command->getSessionID(), $url);
     $params = $command->getParameters();
-
     foreach ($params as $name => $value) {
       if ($name[0] === ':') {
         $url = str_replace($name, $value, $url);
@@ -157,47 +161,27 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
     }
 
-    if ($command->getSessionID()) {
-      $url = str_replace(':sessionId', $command->getSessionID(), $url);
-    }
-
     if ($params && is_array($params) && $http_method !== 'POST') {
-      throw new Exception(sprintf(
+      throw new BadMethodCallException(sprintf(
         'The http method called for %s is %s but it has to be POST' .
         ' if you want to pass the JSON params %s',
         $url,
         $http_method,
-        json_encode($params)));
+        json_encode($params)
+      ));
     }
 
-    $curl = curl_init($url);
-
-    curl_setopt($curl, CURLOPT_TIMEOUT, 300);
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt(
-      $curl,
-      CURLOPT_HTTPHEADER,
-      array(
-        'Content-Type: application/json;charset=UTF-8',
-        'Accept: application/json'));
-
-    if ($http_method === 'POST') {
-      curl_setopt($curl, CURLOPT_POST, true);
-      if ($params && is_array($params)) {
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
-      }
-    } else if ($http_method === 'DELETE') {
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+    curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
+    curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $http_method);
+    $encoded_params = null;
+    if ($http_method === 'POST' && $params && is_array($params)) {
+      $encoded_params = json_encode($params);
     }
+    curl_setopt($this->curl, CURLOPT_POSTFIELDS, $encoded_params);
 
-    foreach ($extra_opts as $option => $value) {
-      curl_setopt($curl, $option, $value);
-    }
+    $raw_results = trim(curl_exec($this->curl));
 
-    $raw_results = trim(curl_exec($curl));
-
-    if ($error = curl_error($curl)) {
+    if ($error = curl_error($this->curl)) {
       $msg = sprintf(
         'Curl error thrown for http %s to %s',
         $http_method,
@@ -207,7 +191,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
       }
       WebDriverException::throwException(-1, $msg . "\n\n" . $error, array());
     }
-    curl_close($curl);
 
     $results = json_decode($raw_results, true);
 
@@ -254,3 +237,4 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     return $this->url;
   }
 }
+
