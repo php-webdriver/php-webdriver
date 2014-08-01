@@ -96,9 +96,20 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * This is a htmlUnit-only option.
+   *
    * @return DesiredCapabilities
+   * @see https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
    */
   public function setJavascriptEnabled($enabled) {
+    $browser = $this->getBrowserName();
+    if ($browser && $browser !== WebDriverBrowserType::HTMLUNIT) {
+      throw new Exception(
+        'isJavascriptEnable() is a htmlunit-only option. '.
+        'See https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities.'
+      );
+    }
+
     $this->set(WebDriverCapabilityType::JAVASCRIPT_ENABLED, $enabled);
     return $this;
   }

@@ -237,4 +237,3 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     return $this->url;
   }
 }
-
