@@ -41,11 +41,18 @@ class ChromeDriver extends RemoteWebDriver {
     $this->setSessionID($response->getSessionID());
   }
 
-  public static function create() {
+  public static function create(
+    $url = 'http://localhost:4444/wd/hub',
+    $desired_capabilities = null,
+    $timeout_in_ms = 300000
+  ) {
     throw new WebDriverException('Please use ChromeDriver::start() instead.');
   }
 
-  public static function createBySessionID() {
+  public static function createBySessionID(
+    $session_id,
+    $url = 'http://localhost:4444/wd/hub'
+  ) {
     throw new WebDriverException('Please use ChromeDriver::start() instead.');
   }
 }
