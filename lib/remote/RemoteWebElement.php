@@ -220,10 +220,14 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return string The tag name.
    */
   public function getTagName() {
-    return $this->executor->execute(
+    // Force tag name to be lowercase as expected by protocol for Opera driver
+    // until this issue is not resolved :
+    // https://github.com/operasoftware/operadriver/issues/102
+    // Remove it when fixed to be consistent with the protocol.
+    return strtolower($this->executor->execute(
       DriverCommand::GET_ELEMENT_TAG_NAME,
       array(':id' => $this->id)
-    );
+    ));
   }
 
   /**
