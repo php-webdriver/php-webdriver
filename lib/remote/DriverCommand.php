@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * This list of command defined in the WebDriver json wire protocol.
  */

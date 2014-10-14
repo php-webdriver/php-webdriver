@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * Representations of pressable keys that aren't text.
  * These are stored in the Unicode PUA (Private Use Area) code points.

@@ -13,6 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
+use \Exception;
+
 final class WebDriverCurlException extends Exception {} // When curls fail
 
 class WebDriverException extends Exception {

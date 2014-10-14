@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * The interface for WebDriver and WebDriverElement which is able to search for
  * WebDriverElement inside.
