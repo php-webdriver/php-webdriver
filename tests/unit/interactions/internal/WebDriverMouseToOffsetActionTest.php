@@ -13,7 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WebDriverMouseToOffsetActionTest extends PHPUnit_Framework_TestCase {
+namespace Selenium\WebDriver;
+
+class WebDriverMouseToOffsetActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverMoveToOffsetAction
    */
@@ -23,8 +25,8 @@ class WebDriverMouseToOffsetActionTest extends PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverMouse = $this->getMock('WebDriverMouse');
-    $this->locationProvider = $this->getMock('WebDriverLocatable');
+    $this->webDriverMouse = $this->getMock('Selenium\WebDriver\WebDriverMouse');
+    $this->locationProvider = $this->getMock('Selenium\WebDriver\WebDriverLocatable');
     $this->webDriverMoveToOffsetAction = new WebDriverMoveToOffsetAction(
       $this->webDriverMouse,
       $this->locationProvider,
@@ -34,7 +36,7 @@ class WebDriverMouseToOffsetActionTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testPerformFocusesOnElementAndSendPressKeyCommand() {
-    $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Selenium\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('mouseMove')->with($coords, 150, 200);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverMoveToOffsetAction->perform();

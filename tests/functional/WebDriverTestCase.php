@@ -13,10 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * The base class for test cases.
  */
-class WebDriverTestCase extends PHPUnit_Framework_TestCase {
+class WebDriverTestCase extends \PHPUnit_Framework_TestCase {
 
   /** @var RemoteWebDriver $driver */
   protected $driver;

@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 class ChromeDriverService extends DriverService {
 
   // The environment variable storing the path to the chrome driver executable.

@@ -1,6 +1,8 @@
 <?php
 // An example of using php-webdriver.
 
+namespace Selenium\WebDriver;
+
 require_once('lib/__init__.php');
 
 // start Firefox with 5 second timeout

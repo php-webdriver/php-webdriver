@@ -13,7 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WebDriverCoordinatesTest extends PHPUnit_Framework_TestCase {
+namespace Selenium\WebDriver;
+
+class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase {
   public function testConstruct() {
     $in_view_port = function() { };
     $on_page = function() { };

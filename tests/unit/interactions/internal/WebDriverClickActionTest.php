@@ -13,7 +13,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class WebDriverClickActionTest extends PHPUnit_Framework_TestCase {
+namespace Selenium\WebDriver;
+
+class WebDriverClickActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverClickAction
    */
@@ -23,8 +25,8 @@ class WebDriverClickActionTest extends PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverMouse = $this->getMock('WebDriverMouse');
-    $this->locationProvider = $this->getMock('WebDriverLocatable');
+    $this->webDriverMouse = $this->getMock('Selenium\WebDriver\WebDriverMouse');
+    $this->locationProvider = $this->getMock('Selenium\WebDriver\WebDriverLocatable');
     $this->webDriverClickAction = new WebDriverClickAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -32,7 +34,7 @@ class WebDriverClickActionTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testPerformSendsClickCommand() {
-    $coords = $this->getMockBuilder('WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Selenium\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverClickAction->perform();

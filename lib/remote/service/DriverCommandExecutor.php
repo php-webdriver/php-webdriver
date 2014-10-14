@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * A HttpCommandExecutor that talks to a local driver service instead of
  * a remote server.
