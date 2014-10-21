@@ -68,7 +68,7 @@ class FirefoxProfile {
     foreach ($this->preferences as $key => $value) {
       $content .= sprintf("user_pref(\"%s\", %s);\n", $key, $value);
     }
-    file_put_contents($temp_dir.'/user.js', $content);
+    file_put_contents($temp_dir.'/prefs.js', $content);     // We should name this prefs.js as these settings will be loaded in prefs.js anyway.
 
     $zip = new ZipArchive();
     $temp_zip = tempnam('', 'WebDriverFirefoxProfileZip');
@@ -80,8 +80,16 @@ class FirefoxProfile {
       if (is_dir($name)) {
         continue;
       }
-      $path = preg_replace("#^{$temp_dir}/#", "", $name);
-      $zip->addFile($name, $path);
+      if(strcmp(basename($name), "prefs.js") == 0) {
+        // addFromString is used instead for adding prefs.js as addFile fails on Windows machines
+        $zip->addFromString(basename($name), file_get_contents($name));
+      }
+      else {
+        // It seems that this function always returns null as a path on Windows?
+        // Should probably try to fix this preg_replace to work on Windows as well.
+        $path = preg_replace("#^{$temp_dir}/#", "", $name);
+        $zip->addFile($name, $path);
+      }
     }
     $zip->close();
 
