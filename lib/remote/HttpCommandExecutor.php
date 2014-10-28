@@ -113,7 +113,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   public function __construct($url) {
     $this->url = $url;
     $this->curl = curl_init();
-    curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT_MS, 300000);
     curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt(
@@ -124,6 +123,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         'Accept: application/json',
       )
     );
+    $this->setTimeout(300000);
   }
 
   /**
@@ -131,7 +131,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @return HttpCommandExecutor
    */
   public function setTimeout($timeout) {
-    curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT_MS, $timeout);
+    // There is a PHP bug in some versions which didn't define the constant.
+    curl_setopt($this->curl, /* CURLOPT_CONNECTTIMEOUT_MS */ 156, $timeout);
     return $this;
   }
 
