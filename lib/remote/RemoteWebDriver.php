@@ -95,8 +95,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   public static function createBySessionID(
     $session_id,
     $url = 'http://localhost:4444/wd/hub',
-	$auth_method = null,
-	$auth_creds = null
+    $auth_method = null,
+    $auth_creds = null
   ) {
     $driver = new static();
     $driver->setSessionID($session_id)
