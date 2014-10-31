@@ -112,7 +112,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    */
   public function __construct($url, $auth_method, $auth_creds) {
   
-  preg_match("/^http[s]?\/\/(.*):(.*)@.*/", $url, $matches);
+  preg_match("/^https?:\/\/(.*):(.*)@.*/U", $url, $matches);
   
   print "matches:\n";
   print_r($matches);
