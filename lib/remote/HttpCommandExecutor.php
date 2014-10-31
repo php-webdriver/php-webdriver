@@ -118,16 +118,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     $url = $matches[1].$matches[4];
     $auth_creds = $matches[2].":".$matches[3];
   }
-  print "url:\n$url\n";
-  print "matches:\n";
-  print_r($matches);
 
   $this->url = $url;
     $this->curl = curl_init();
     curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($this->curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-    curl_setopt($this->curl, CURLOPT_USERPWD, $auth_creds);
+    if(strlen($auth_creds) > 0){
+      curl_setopt($this->curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+      curl_setopt($this->curl, CURLOPT_USERPWD, $auth_creds);
+    }
     curl_setopt(
       $this->curl,
       CURLOPT_HTTPHEADER,
