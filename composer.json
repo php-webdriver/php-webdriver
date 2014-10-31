@@ -1,14 +1,13 @@
 {
-  "name": "facebook/webdriver",
-  "description": "A php client for WebDriver",
-  "keywords": ["webdriver", "selenium", "php", "facebook"],
-  "homepage": "https://github.com/facebook/php-webdriver",
+  "name": "janoszen/webdriver",
+  "description": "A php client for WebDriver (fork of facebook/webdriver)",
+  "keywords": ["webdriver", "selenium", "php"],
+  "homepage": "https://github.com/janoszen/php-webdriver",
   "type": "library",
   "license": "Apache-2.0",
   "support": {
-    "issues": "https://github.com/facebook/php-webdriver/issues",
-    "forum": "https://www.facebook.com/groups/phpwebdriver/",
-    "source": "https://github.com/facebook/php-webdriver"
+    "issues": "https://github.com/janoszen/php-webdriver/issues",
+    "source": "https://github.com/janoszen/php-webdriver"
   },
   "require": {
     "php": ">=5.3.19"
