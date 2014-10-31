@@ -80,7 +80,12 @@ class FirefoxProfile {
       if (is_dir($name)) {
         continue;
       }
-      $path = preg_replace("#^{$temp_dir}/#", "", $name);
+      $dir_prefix = preg_replace(
+        '#\\\\#',
+        '\\\\\\\\',
+        $temp_dir.DIRECTORY_SEPARATOR
+      );
+      $path = preg_replace("#^{$dir_prefix}#", "", $name);
       $zip->addFile($name, $path);
     }
     $zip->close();
