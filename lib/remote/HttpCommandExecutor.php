@@ -113,6 +113,16 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   public function __construct($url) {
     $this->url = $url;
     $this->curl = curl_init();
+
+    // Get credentials from $url (if any)
+    $matches = null;
+    if (preg_match("/^(https?:\/\/)(.*):(.*)@(.*?)/U", $url, $matches)) {
+      $this->url = $matches[1].$matches[4];
+      $auth_creds = $matches[2].":".$matches[3];
+      curl_setopt($this->curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+      curl_setopt($this->curl, CURLOPT_USERPWD, $auth_creds);
+    }
+
     curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt(
