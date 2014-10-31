@@ -114,7 +114,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   
   preg_match("/^http[s]?//(.*):(.*)@.*/", $url, $matches);
   
-  print "matches:\n"
+  print "matches:\n";
   print_r($matches);
 
   $this->url = $url;
