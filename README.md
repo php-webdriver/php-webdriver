@@ -1,6 +1,8 @@
 php-webdriver -- WebDriver bindings for PHP
 ===========================================
 
+Attention! This is a fork of facebook/webdriver and has been altered to include namespacing to avoid naming collisions.
+
 ##  DESCRIPTION
 
 This WebDriver client aims to be as close as possible to bindings in other languages. The concepts are very similar to the Java, .NET, Python and Ruby bindings for WebDriver.
