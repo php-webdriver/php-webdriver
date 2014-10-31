@@ -55,38 +55,46 @@ class FirefoxProfile {
   }
 
   /**
-   * @return string
-   */
+     * @return string
+     */
   public function encode() {
-    $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
+	$temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
 
-    foreach ($this->extensions as $extension) {
+	foreach ($this->extensions as $extension) {
       $this->installExtension($extension, $temp_dir);
-    }
+	}
 
-    $content = "";
-    foreach ($this->preferences as $key => $value) {
+	$content = "";
+	foreach ($this->preferences as $key => $value) {
       $content .= sprintf("user_pref(\"%s\", %s);\n", $key, $value);
-    }
-    file_put_contents($temp_dir.'/user.js', $content);
+	}
+	file_put_contents($temp_dir.'/user.js', $content);
 
     $zip = new ZipArchive();
     $temp_zip = tempnam('', 'WebDriverFirefoxProfileZip');
     $zip->open($temp_zip, ZipArchive::CREATE);
 
-    $dir = new RecursiveDirectoryIterator($temp_dir);
-    $files = new RecursiveIteratorIterator($dir);
-    foreach ($files as $name => $object) {
+	$dir = new RecursiveDirectoryIterator($temp_dir);
+	$files = new RecursiveIteratorIterator($dir);
+	foreach ($files as $name => $object) {
       if (is_dir($name)) {
         continue;
       }
-      $path = preg_replace("#^{$temp_dir}/#", "", $name);
-      $zip->addFile($name, $path);
-    }
-    $zip->close();
+      if(strcmp(basename($name), "user.js") == 0) {
+        // addFromString is used instead for adding users.js as addFile fails on Windows machines
+        $zip->addFromString(basename($name), file_get_contents($name));
+      }
+      else {
+        // It seems that this function always returns null as a path on Windows?
+        // Should probably try to fix this preg_replace to work on Windows as well.
+        $path = preg_replace("#^{$temp_dir}/#", "", $name);
+        $zip->addFile($name, $path);
+      }
+	}
+	$zip->close();
 
-    $profile = base64_encode(file_get_contents($temp_zip));
-    return $profile;
+	$profile = base64_encode(file_get_contents($temp_zip));
+	return $profile;
   }
 
   /**
