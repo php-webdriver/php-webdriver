@@ -52,9 +52,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
-    $timeout_in_ms = 300000,
-    $auth_method = null,
-    $auth_creds = null
+    $timeout_in_ms = 300000
   ) {
     $url = preg_replace('#/+$#', '', $url);
 
@@ -64,7 +62,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       $desired_capabilities = $desired_capabilities->toArray();
     }
 
-    $executor = new HttpCommandExecutor($url, $auth_method, $auth_creds);
+    $executor = new HttpCommandExecutor($url);
     $executor->setTimeout($timeout_in_ms);
 
     $command = new WebDriverCommand(
@@ -94,13 +92,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public static function createBySessionID(
     $session_id,
-    $url = 'http://localhost:4444/wd/hub',
-    $auth_method = null,
-    $auth_creds = null
+    $url = 'http://localhost:4444/wd/hub'
   ) {
     $driver = new static();
     $driver->setSessionID($session_id)
-           ->setCommandExecutor(new HttpCommandExecutor($url, $auth_method, $auth_creds));
+           ->setCommandExecutor(new HttpCommandExecutor($url));
     return $driver;
   }
 
