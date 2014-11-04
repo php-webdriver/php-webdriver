@@ -63,7 +63,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     }
 
     $executor = new HttpCommandExecutor($url);
-    $executor->setTimeout($timeout_in_ms);
+    $executor->setConnectionTimeout($timeout_in_ms);
 
     $command = new WebDriverCommand(
       null,

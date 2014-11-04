@@ -133,14 +133,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         'Accept: application/json',
       )
     );
-    $this->setTimeout(300000);
+    curl_setopt($this->curl, CURLOPT_TIMEOUT_MS, 300000);
+    $this->setConnectionTimeout(300000);
   }
 
   /**
    * @param int $timeout
    * @return HttpCommandExecutor
    */
-  public function setTimeout($timeout) {
+  public function setConnectionTimeout($timeout) {
     // There is a PHP bug in some versions which didn't define the constant.
     curl_setopt($this->curl, /* CURLOPT_CONNECTTIMEOUT_MS */ 156, $timeout);
     return $this;
