@@ -184,7 +184,16 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
     }
 
     curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
-    curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $http_method);
+
+    // https://github.com/facebook/php-webdriver/issues/173
+    switch ($command->getName()) {
+      case DriverCommand::NEW_SESSION:
+        curl_setopt($this->curl, CURLOPT_POST, 1);
+        break;
+      default:
+        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $http_method);
+    }
+
     $encoded_params = null;
     if ($http_method === 'POST' && $params && is_array($params)) {
       $encoded_params = json_encode($params);
