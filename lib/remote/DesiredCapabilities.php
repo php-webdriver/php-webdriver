@@ -55,7 +55,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
    * @return mixed The value of a capability.
    */
   public function getCapability($name) {
-    $this->get($name);
+    return $this->get($name);
   }
 
   /**
