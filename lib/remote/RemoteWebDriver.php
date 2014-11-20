@@ -461,6 +461,29 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     return $this->sessionID;
   }
 
+  /**
+   * Get all selenium sessions.
+   *
+   * @param string $url The url of the remote server
+   * @param int $timeout_in_ms
+   * @return array
+   */
+  public static function getAllSessions(
+    $url = 'http://localhost:4444/wd/hub',
+    $timeout_in_ms = 300000
+  ) {
+    $executor = new HttpCommandExecutor($url);
+    $executor->setConnectionTimeout($timeout_in_ms);
+
+    $command = new WebDriverCommand(
+      null,
+      DriverCommand::GET_ALL_SESSIONS,
+      array()
+    );
+
+    return $executor->execute($command)->getValue();
+  }
+
   public function execute($command_name, $params = array()) {
     $command = new WebDriverCommand(
       $this->sessionID,
