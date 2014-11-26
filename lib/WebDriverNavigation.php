@@ -63,6 +63,7 @@ class WebDriverNavigation {
   /**
    * Navigate to the given URL.
    *
+   * @param string $url
    * @return WebDriverNavigation The instance.
    */
   public function to($url) {

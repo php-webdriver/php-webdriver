@@ -29,6 +29,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $browser_name
    * @return DesiredCapabilities
    */
   public function setBrowserName($browser_name) {
@@ -44,6 +45,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $version
    * @return DesiredCapabilities
    */
   public function setVersion($version) {
@@ -52,6 +54,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $name
    * @return mixed The value of a capability.
    */
   public function getCapability($name) {
@@ -59,6 +62,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $name
+   * @param mixed $value
    * @return DesiredCapabilities
    */
   public function setCapability($name, $value) {
@@ -74,6 +79,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $platform
    * @return DesiredCapabilities
    */
   public function setPlatform($platform) {
@@ -82,10 +88,11 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $capability_name
    * @return bool Whether the value is not null and not false.
    */
   public function is($capability_name) {
-    return (bool)$this->get($capability_name);
+    return (bool) $this->get($capability_name);
   }
 
   /**
@@ -98,6 +105,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   /**
    * This is a htmlUnit-only option.
    *
+   * @param bool $enabled
    * @return DesiredCapabilities
    * @see https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
    */
@@ -134,6 +142,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $key
+   * @param mixed $value
    * @return DesiredCapabilities
    */
   private function set($key, $value) {
@@ -142,6 +152,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @param string $key
+   * @param mixed $default
    * @return mixed
    */
   private function get($key, $default = null) {

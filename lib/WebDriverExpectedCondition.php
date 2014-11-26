@@ -40,7 +40,7 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking the title of a page.
    *
-   * @param string title The expected title, which must be an exact match.
+   * @param string $title The expected title, which must be an exact match.
    * @return WebDriverExpectedCondition<bool> True when the title matches,
    *         false otherwise.
    */
@@ -55,7 +55,7 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking substring of a page Title.
    *
-   * @param string title The expected substring of Title.
+   * @param string $title The expected substring of Title.
    * @return WebDriverExpectedCondition<bool> True when in title,
    *         false otherwise.
    */
@@ -187,7 +187,7 @@ class WebDriverExpectedCondition {
    * Expectation for checking if iFrame exists.
    * If iFrame exists switches driver's focus to the iFrame
    *
-   * @param string frame_locator The locator used to find the iFrame
+   * @param string $frame_locator The locator used to find the iFrame
    *   expected to be either the id or name value of the i/frame
    * @return WebDriverExpectedCondition<WebDriver> object focused on new frame
    *         when frame is found bool false otherwise
@@ -328,7 +328,7 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking if the given element is selected.
    *
-   * @param mixed element_or_by Either the element or the locator.
+   * @param mixed $element_or_by Either the element or the locator.
    * @return WebDriverExpectedCondition<bool> whether the element is selected.
    */
   public static function elementToBeSelected($element_or_by) {

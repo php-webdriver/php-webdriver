@@ -149,8 +149,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
   /**
    * @param WebDriverCommand $command
-   * @param array $curl_opts An array of curl options.
-   *
    * @return mixed
    */
   public function execute(WebDriverCommand $command) {

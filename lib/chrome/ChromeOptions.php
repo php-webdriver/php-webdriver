@@ -58,7 +58,7 @@ class ChromeOptions {
   }
 
   /**
-   * @param array $args
+   * @param array $arguments
    * @return ChromeOptions
    */
   public function addArguments(array $arguments) {
@@ -96,7 +96,7 @@ class ChromeOptions {
    * Sets an experimental option which has not exposed officially.
    *
    * @param string $name
-   * @parma mixed $value
+   * @param mixed $value
    * @return ChromeOptions
    */
   public function setExperimentalOption($name, $value) {

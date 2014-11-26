@@ -136,7 +136,7 @@ class FirefoxProfile {
 
   /**
    * @param string $xpi The path to the .xpi extension.
-   * @param string The path to the unzip directory.
+   * @param string $target_dir The path to the unzip directory.
    * @return FirefoxProfile
    */
   private function extractTo($xpi, $target_dir) {

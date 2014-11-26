@@ -25,6 +25,8 @@ class RemoteExecuteMethod implements ExecuteMethod {
   }
 
   /**
+   * @param string $command_name
+   * @param array $parameters
    * @return mixed
    */
   public function execute(
