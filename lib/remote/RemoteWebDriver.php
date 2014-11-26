@@ -422,7 +422,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * Set the command executor of this RemoteWebdrver
+   * Set the command executor of this RemoteWebdriver
    *
    * @param WebDriverCommandExecutor $executor
    * @return RemoteWebDriver

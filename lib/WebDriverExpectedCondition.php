@@ -396,7 +396,7 @@ class WebDriverExpectedCondition {
    * An expectation with the logical opposite condition of the given condition.
    *
    * @param WebDriverExpectedCondition $condition The condition to be negated.
-   * @return mixed The nagation of the result of the given condition.
+   * @return mixed The negation of the result of the given condition.
    */
   public static function not(WebDriverExpectedCondition $condition) {
     return new WebDriverExpectedCondition(
