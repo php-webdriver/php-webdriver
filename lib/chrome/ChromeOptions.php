@@ -120,7 +120,9 @@ class ChromeOptions {
   public function toArray() {
     $options = $this->experimentalOptions;
 
-    $options['binary'] = $this->binary;
+    if ($this->binary) {
+      $options['binary'] = $this->binary;
+    }
 
     if ($this->arguments) {
       $options['args'] = $this->arguments;
