@@ -46,13 +46,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    *
    * @param string $url The url of the remote server
    * @param DesiredCapabilities $desired_capabilities The desired capabilities
-   * @param int $timeout_in_ms
+   * @param int $connection_timeout_in_ms
    * @return RemoteWebDriver
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
-    $timeout_in_ms = 300000
+    $connection_timeout_in_ms = 300000
   ) {
     $url = preg_replace('#/+$#', '', $url);
 
@@ -63,7 +63,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     }
 
     $executor = new HttpCommandExecutor($url);
-    $executor->setConnectionTimeout($timeout_in_ms);
+    $executor->setConnectionTimeout($connection_timeout_in_ms);
 
     $command = new WebDriverCommand(
       null,
