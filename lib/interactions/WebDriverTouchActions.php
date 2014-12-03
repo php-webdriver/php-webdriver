@@ -16,39 +16,16 @@
 /**
  * WebDriver action builder for touch events
  */
-class WebDriverTouchActions {
+class WebDriverTouchActions extends WebDriverActions {
 
   /**
    * @var WebDriverTouchScreen
    */
   protected $touchScreen;
 
-  /**
-   * @var WebDriver
-   */
-  protected $driver;
-
-  /**
-   * @var WebDriverKeyboard
-   */
-  protected $keyboard;
-
-  /**
-   * @var WebDriverMouse
-   */
-  protected $mouse;
-
-  /**
-   * @var WebDriverCompositeAction
-   */
-  protected $action;
-
   public function __construct(WebDriver $driver) {
-    $this->driver = $driver;
-    $this->keyboard = $driver->getKeyboard();
-    $this->mouse = $driver->getMouse();
+    parent::__construct($driver);
     $this->touchScreen = $driver->getTouch();
-    $this->action = new WebDriverCompositeAction();
   }
 
   /**
