@@ -26,7 +26,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   protected $dispatcher;
 
   /**
-   * @param WebDriver           $webdriver
+   * @param WebDriver $driver
    * @param WebDriverDispatcher $dispatcher
    */
   public function __construct(WebDriver $driver,

@@ -319,7 +319,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       throw new WebDriverException("You may only upload files: " . $local_file);
     }
 
-    // Create a temperary file in the system temp directory.
+    // Create a temporary file in the system temp directory.
     $temp_zip = tempnam('', 'WebDriverZip');
     $zip = new ZipArchive();
     if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
@@ -344,7 +344,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Set the fileDetector in order to let the RemoteWebElement to know that
    * you are going to upload a file.
    *
-   * Bascially, if you want WebDriver trying to send a file, set the fileDector
+   * Basically, if you want WebDriver trying to send a file, set the fileDetector
    * to be LocalFileDetector. Otherwise, keep it UselessFileDetector.
    *
    *   eg. $element->setFileDetector(new LocalFileDetector);

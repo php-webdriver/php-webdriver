@@ -33,8 +33,6 @@ class URLChecker {
       $url,
       $timeout_in_ms
     ));
-
-    return $this;
   }
 
   public function waitUntilUnavailable($timeout_in_ms, $url) {

@@ -23,6 +23,7 @@ class WebDriverCompositeAction implements WebDriverAction {
   /**
    * Add an WebDriverAction to the sequence.
    *
+   * @param WebDriverAction $action
    * @return WebDriverCompositeAction The current instance.
    */
   public function addAction(WebDriverAction $action) {
