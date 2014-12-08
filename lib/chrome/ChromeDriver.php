@@ -16,12 +16,15 @@
 class ChromeDriver extends RemoteWebDriver {
 
   public static function start(
-    DesiredCapabilities $desired_capabilities = null
+    DesiredCapabilities $desired_capabilities = null,
+    ChromeDriverService $service = null
   ) {
     if ($desired_capabilities === null) {
       $desired_capabilities = DesiredCapabilities::chrome();
     }
-    $service = ChromeDriverService::createDefaultService();
+    if ($service === null) {
+        $service = ChromeDriverService::createDefaultService();
+    }
     $executor = new DriverCommandExecutor($service);
     $driver = new static();
     $driver->setCommandExecutor($executor)
