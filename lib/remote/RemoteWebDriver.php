@@ -348,11 +348,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Switch to a different window or frame.
    *
-   * @return WebDriverTargetLocator
-   * @see WebDriverTargetLocator
+   * @return RemoteTargetLocator
+   * @see RemoteTargetLocator
    */
   public function switchTo() {
-    return new WebDriverTargetLocator($this->getExecuteMethod(), $this);
+    return new RemoteTargetLocator($this->getExecuteMethod(), $this);
   }
 
   /**
@@ -399,16 +399,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function action() {
     return new WebDriverActions($this);
-  }
-
-  /**
-   * Get the element on the page that currently has focus.
-   *
-   * @return RemoteWebElement
-   */
-  public function getActiveElement() {
-    $response = $this->execute(DriverCommand::GET_ACTIVE_ELEMENT);
-    return $this->newElement($response['ELEMENT']);
   }
 
   /**

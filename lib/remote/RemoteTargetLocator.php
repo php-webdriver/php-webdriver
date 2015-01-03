@@ -14,9 +14,17 @@
 // limitations under the License.
 
 /**
- * Used to locate a given frame or window.
+ * Used to locate a given frame or window for RemoteWebDriver.
  */
-interface WebDriverTargetLocator {
+class RemoteTargetLocator implements WebDriverTargetLocator {
+
+  protected $executor;
+  protected $driver;
+
+  public function __construct($executor, $driver) {
+    $this->executor = $executor;
+    $this->driver = $driver;
+  }
 
   /**
    * Switch to the main document if the page contains iframes. Otherwise, switch
@@ -24,16 +32,31 @@ interface WebDriverTargetLocator {
    *
    * @return WebDriver The driver focused on the top window or the first frame.
    */
-  public function defaultContent();
+  public function defaultContent() {
+    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, array());
+
+    return $this->driver;
+  }
 
   /**
    * Switch to the iframe by its id or name.
    *
    * @param WebDriverElement|string $frame The WebDriverElement,
-   *                                       the id or the name of the frame.
+                                           the id or the name of the frame.
    * @return WebDriver The driver focused on the given frame.
    */
-  public function frame($frame);
+  public function frame($frame) {
+    if ($frame instanceof WebDriverElement) {
+      $id = array('ELEMENT' => $frame->getID());
+    } else {
+      $id = (string)$frame;
+    }
+
+    $params = array('id' => $id);
+    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
+
+    return $this->driver;
+  }
 
   /**
    * Switch the focus to another window by its handle.
@@ -42,7 +65,12 @@ interface WebDriverTargetLocator {
    * @return WebDriver Tge driver focused on the given window.
    * @see WebDriver::getWindowHandles
    */
-  public function window($handle);
+  public function window($handle) {
+    $params = array('name' => (string)$handle);
+    $this->executor->execute(DriverCommand::SWITCH_TO_WINDOW, $params);
+
+    return $this->driver;
+  }
 
   /**
    * Switch to the currently active modal dialog for this particular driver
@@ -50,13 +78,19 @@ interface WebDriverTargetLocator {
    *
    * @return WebDriverAlert
    */
-  public function alert();
+  public function alert() {
+    return new WebDriverAlert($this->executor);
+  }
 
   /**
    * Switches to the element that currently has focus within the document
    * currently "switched to", or the body element if this cannot be detected.
    *
-   * @return WebDriverElement
+   * @return RemoteWebElement
    */
-  public function activeElement();
+  public function activeElement() {
+    $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT);
+    $method = new RemoteExecuteMethod($this->driver);
+    return new RemoteWebElement($method, $response['ELEMENT']);
+  }
 }
