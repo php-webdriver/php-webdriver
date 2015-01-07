@@ -33,7 +33,8 @@ class RemoteTargetLocator implements WebDriverTargetLocator {
    * @return WebDriver The driver focused on the top window or the first frame.
    */
   public function defaultContent() {
-    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, array());
+    $params = array('id' => null);
+    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
 
     return $this->driver;
   }
