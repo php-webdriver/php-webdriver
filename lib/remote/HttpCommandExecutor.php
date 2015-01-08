@@ -161,7 +161,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
    * @return HttpCommandExecutor
    */
   public function setRequestTimeout($timeout_in_ms) {
-    curl_setopt($this->curl, CURLOPT_TIMEOUT_MS, $timeout_in_ms);
+    // There is a PHP bug in some versions (at least for PHP 5.3.3) which
+    // didn't define the constant.
+    curl_setopt(
+      $this->curl,
+      /* CURLOPT_TIMEOUT_MS */ 155,
+      $timeout_in_ms
+    );
     return $this;
   }
 
