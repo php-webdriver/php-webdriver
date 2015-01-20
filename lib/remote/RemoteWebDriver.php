@@ -467,7 +467,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public static function getAllSessions(
     $url = 'http://localhost:4444/wd/hub',
-    $timeout_in_ms = 300000
+    $timeout_in_ms = 30000
   ) {
     $executor = new HttpCommandExecutor($url);
     $executor->setConnectionTimeout($timeout_in_ms);
