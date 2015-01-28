@@ -134,6 +134,14 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     );
   }
 
+  public function hasClass($class_name) {
+    $classAttr = $this->getAttribute("class");
+    if (! $classAttr ) 
+      return false;
+
+    return in_array(strtolower($class_name), array_map('trim', explode(" ", strtolower($classAttr))));
+  }
+
   /**
    * Get the value of a given CSS property.
    *
@@ -228,6 +236,21 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       DriverCommand::GET_ELEMENT_TAG_NAME,
       array(':id' => $this->id)
     ));
+  }
+
+  public function getComputedStyle($styleProp = null)
+  {
+    $script = <<<SCRIPT
+      (function getStyle(el, styleProp) {
+          if (el.currentStyle)
+              var y = el.currentStyle[styleProp];
+          else if (window.getComputedStyle)
+              var y = document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
+          return y;
+      }(arguments[0], "$styleProp"));
+SCRIPT;
+
+    return $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, array('script' => $script, 'args'=> $this));
   }
 
   /**
