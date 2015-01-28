@@ -134,6 +134,14 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     );
   }
 
+  public function hasClass($class_name) {
+    $classAttr = $this->getAttribute("class");
+    if (! $classAttr ) 
+      return false;
+
+    return in_array(strtolower($class_name), array_map('trim', explode(" ", strtolower($classAttr))));
+  }
+
   /**
    * Get the value of a given CSS property.
    *
