@@ -238,21 +238,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
     ));
   }
 
-  public function getComputedStyle($styleProp = null)
-  {
-    $script = <<<SCRIPT
-      (function getStyle(el, styleProp) {
-          if (el.currentStyle)
-              var y = el.currentStyle[styleProp];
-          else if (window.getComputedStyle)
-              var y = document.defaultView.getComputedStyle(el, null).getPropertyValue(styleProp);
-          return y;
-      }(arguments[0], "$styleProp"));
-SCRIPT;
-
-    return $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, array('script' => $script, 'args'=> $this));
-  }
-
   /**
    * Get the visible (i.e. not hidden by CSS) innerText of this element,
    * including sub-elements, without any leading or trailing whitespace.
