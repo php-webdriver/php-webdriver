@@ -259,7 +259,7 @@ class WebDriverSelect {
    * @return string The escaped string.
    */
   protected function escapeQuotes($to_escape) {
-    if (strpos($to_escape, '"') !== false && strpos($to_escape, "'" != false)) {
+    if (strpos($to_escape, '"') !== false && strpos($to_escape, "'") !== false) {
       $substrings = explode('"', $to_escape);
 
       $escaped = "concat(";
@@ -274,7 +274,7 @@ class WebDriverSelect {
       return $escaped;
     }
 
-    if (strpos($to_escape, '"' !== false)) {
+    if (strpos($to_escape, '"') !== false) {
       return sprintf("'%s'", $to_escape);
     }
 
