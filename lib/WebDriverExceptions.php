@@ -120,7 +120,7 @@ class WebDriverException extends Exception {
       case 34:
         throw new MoveTargetOutOfBoundsWebDriverException($message, $results);
       default:
-        throw new UnrecognizedExceptionException($message, $results);
+        throw new UnrecognizedExceptionWebDriverException($message, $results);
     }
   }
 }
@@ -161,9 +161,9 @@ class SessionNotCreatedWebDriverException extends WebDriverException {} // 33
 class MoveTargetOutOfBoundsWebDriverException extends WebDriverException {} // 34
 
 // Fallback
-class UnrecognizedExceptionException extends WebDriverException {}
+class UnrecognizedExceptionWebDriverException extends WebDriverException {}
 
-class UnexpectedTagNameException extends WebDriverException {
+class UnexpectedTagNameWebDriverException extends WebDriverException {
 
   /**
    * @param string $expected_tag_name
@@ -181,4 +181,4 @@ class UnexpectedTagNameException extends WebDriverException {
   }
 }
 
-class UnsupportedOperationException extends WebDriverException {}
+class UnsupportedOperationWebDriverException extends WebDriverException {}

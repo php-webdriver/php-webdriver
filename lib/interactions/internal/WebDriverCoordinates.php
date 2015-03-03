@@ -40,7 +40,7 @@ class WebDriverCoordinates {
    * @return WebDriverPoint
    */
   public function onScreen() {
-    throw new UnsupportedOperationException(
+    throw new UnsupportedOperationWebDriverException(
       'onScreen is planned but not yet supported by Selenium'
     );
   }

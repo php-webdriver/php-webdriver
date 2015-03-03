@@ -135,7 +135,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function executeScript($script, array $arguments = array()) {
     if (!$this->driver instanceof JavaScriptExecutor) {
-      throw new UnsupportedOperationException(
+      throw new UnsupportedOperationWebDriverException(
         'driver does not implement JavaScriptExecutor'
       );
     }
@@ -158,7 +158,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function executeAsyncScript($script, array $arguments = array()) {
     if (!$this->driver instanceof JavaScriptExecutor) {
-      throw new UnsupportedOperationException(
+      throw new UnsupportedOperationWebDriverException(
         'driver does not implement JavaScriptExecutor'
       );
     }
