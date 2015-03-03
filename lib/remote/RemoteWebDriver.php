@@ -122,7 +122,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Find the first WebDriverElement using the given mechanism.
    *
    * @param WebDriverBy $by
-   * @return RemoteWebElement NoSuchElementException is thrown in
+   * @return RemoteWebElement NoSuchElementWebDriverException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */

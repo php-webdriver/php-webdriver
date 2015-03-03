@@ -52,113 +52,113 @@ class WebDriverException extends Exception {
         // Success
         break;
       case 1:
-        throw new IndexOutOfBoundsException($message, $results);
+        throw new IndexOutOfBoundsWebDriverException($message, $results);
       case 2:
-        throw new NoCollectionException($message, $results);
+        throw new NoCollectionWebDriverException($message, $results);
       case 3:
-        throw new NoStringException($message, $results);
+        throw new NoStringWebDriverException($message, $results);
       case 4:
-        throw new NoStringLengthException($message, $results);
+        throw new NoStringLengthWebDriverException($message, $results);
       case 5:
-        throw new NoStringWrapperException($message, $results);
+        throw new NoStringWrapperWebDriverException($message, $results);
       case 6:
-        throw new NoSuchDriverException($message, $results);
+        throw new NoSuchDriverWebDriverException($message, $results);
       case 7:
-        throw new NoSuchElementException($message, $results);
+        throw new NoSuchElementWebDriverException($message, $results);
       case 8:
-        throw new NoSuchFrameException($message, $results);
+        throw new NoSuchFrameWebDriverException($message, $results);
       case 9:
-        throw new UnknownCommandException($message, $results);
+        throw new UnknownCommandWebDriverException($message, $results);
       case 10:
-        throw new StaleElementReferenceException($message, $results);
+        throw new StaleElementReferenceWebDriverException($message, $results);
       case 11:
-        throw new ElementNotVisibleException($message, $results);
+        throw new ElementNotVisibleWebDriverException($message, $results);
       case 12:
-        throw new InvalidElementStateException($message, $results);
+        throw new InvalidElementStateWebDriverException($message, $results);
       case 13:
-        throw new UnknownServerException($message, $results);
+        throw new UnknownServerWebDriverException($message, $results);
       case 14:
-        throw new ExpectedException($message, $results);
+        throw new ExpectedWebDriverException($message, $results);
       case 15:
-        throw new ElementNotSelectableException($message, $results);
+        throw new ElementNotSelectableWebDriverException($message, $results);
       case 16:
-        throw new NoSuchDocumentException($message, $results);
+        throw new NoSuchDocumentWebDriverException($message, $results);
       case 17:
-        throw new UnexpectedJavascriptException($message, $results);
+        throw new UnexpectedJavascriptWebDriverException($message, $results);
       case 18:
-        throw new NoScriptResultException($message, $results);
+        throw new NoScriptResultWebDriverException($message, $results);
       case 19:
-        throw new XPathLookupException($message, $results);
+        throw new XPathLookupWebDriverException($message, $results);
       case 20:
-        throw new NoSuchCollectionException($message, $results);
+        throw new NoSuchCollectionWebDriverException($message, $results);
       case 21:
-        throw new TimeOutException($message, $results);
+        throw new TimeOutWebDriverException($message, $results);
       case 22:
-        throw new NullPointerException($message, $results);
+        throw new NullPointerWebDriverException($message, $results);
       case 23:
-        throw new NoSuchWindowException($message, $results);
+        throw new NoSuchWindowWebDriverException($message, $results);
       case 24:
-        throw new InvalidCookieDomainException($message, $results);
+        throw new InvalidCookieDomainWebDriverException($message, $results);
       case 25:
-        throw new UnableToSetCookieException($message, $results);
+        throw new UnableToSetCookieWebDriverException($message, $results);
       case 26:
-        throw new UnexpectedAlertOpenException($message, $results);
+        throw new UnexpectedAlertOpenWebDriverException($message, $results);
       case 27:
-        throw new NoAlertOpenException($message, $results);
+        throw new NoAlertOpenWebDriverException($message, $results);
       case 28:
-        throw new ScriptTimeoutException($message, $results);
+        throw new ScriptTimeoutWebDriverException($message, $results);
       case 29:
-        throw new InvalidCoordinatesException($message, $results);
+        throw new InvalidCoordinatesWebDriverException($message, $results);
       case 30:
-        throw new IMENotAvailableException($message, $results);
+        throw new IMENotAvailableWebDriverException($message, $results);
       case 31:
-        throw new IMEEngineActivationFailedException($message, $results);
+        throw new IMEEngineActivationFailedWebDriverException($message, $results);
       case 32:
-        throw new InvalidSelectorException($message, $results);
+        throw new InvalidSelectorWebDriverException($message, $results);
       case 33:
-        throw new SessionNotCreatedException($message, $results);
+        throw new SessionNotCreatedWebDriverException($message, $results);
       case 34:
-        throw new MoveTargetOutOfBoundsException($message, $results);
+        throw new MoveTargetOutOfBoundsWebDriverException($message, $results);
       default:
         throw new UnrecognizedExceptionException($message, $results);
     }
   }
 }
 
-class IndexOutOfBoundsException extends WebDriverException {} // 1
-class NoCollectionException extends WebDriverException {} // 2
-class NoStringException extends WebDriverException {} // 3
-class NoStringLengthException extends WebDriverException {} // 4
-class NoStringWrapperException extends WebDriverException {} // 5
-class NoSuchDriverException extends WebDriverException {} // 6
-class NoSuchElementException extends WebDriverException {} // 7
-class NoSuchFrameException extends WebDriverException {} // 8
-class UnknownCommandException extends WebDriverException {} // 9
-class StaleElementReferenceException extends WebDriverException {} // 10
-class ElementNotVisibleException extends WebDriverException {} // 11
-class InvalidElementStateException extends WebDriverException {} // 12
-class UnknownServerException extends WebDriverException {} // 13
-class ExpectedException extends WebDriverException {} // 14
-class ElementNotSelectableException extends WebDriverException {} // 15
-class NoSuchDocumentException extends WebDriverException {} // 16
-class UnexpectedJavascriptException extends WebDriverException {} // 17
-class NoScriptResultException extends WebDriverException {} // 18
-class XPathLookupException extends WebDriverException {} // 19
-class NoSuchCollectionException extends WebDriverException {} // 20
-class TimeOutException extends WebDriverException {} // 21
-class NullPointerException extends WebDriverException {} // 22
-class NoSuchWindowException extends WebDriverException {} // 23
-class InvalidCookieDomainException extends WebDriverException {} // 24
-class UnableToSetCookieException extends WebDriverException {} // 25
-class UnexpectedAlertOpenException extends WebDriverException {} // 26
-class NoAlertOpenException extends WebDriverException {} // 27
-class ScriptTimeoutException extends WebDriverException {} // 28
-class InvalidCoordinatesException extends WebDriverException {}// 29
-class IMENotAvailableException extends WebDriverException {} // 30
-class IMEEngineActivationFailedException extends WebDriverException {}// 31
-class InvalidSelectorException extends WebDriverException {} // 32
-class SessionNotCreatedException extends WebDriverException {} // 33
-class MoveTargetOutOfBoundsException extends WebDriverException {} // 34
+class IndexOutOfBoundsWebDriverException extends WebDriverException {} // 1
+class NoCollectionWebDriverException extends WebDriverException {} // 2
+class NoStringWebDriverException extends WebDriverException {} // 3
+class NoStringLengthWebDriverException extends WebDriverException {} // 4
+class NoStringWrapperWebDriverException extends WebDriverException {} // 5
+class NoSuchDriverWebDriverException extends WebDriverException {} // 6
+class NoSuchElementWebDriverException extends WebDriverException {} // 7
+class NoSuchFrameWebDriverException extends WebDriverException {} // 8
+class UnknownCommandWebDriverException extends WebDriverException {} // 9
+class StaleElementReferenceWebDriverException extends WebDriverException {} // 10
+class ElementNotVisibleWebDriverException extends WebDriverException {} // 11
+class InvalidElementStateWebDriverException extends WebDriverException {} // 12
+class UnknownServerWebDriverException extends WebDriverException {} // 13
+class ExpectedWebDriverException extends WebDriverException {} // 14
+class ElementNotSelectableWebDriverException extends WebDriverException {} // 15
+class NoSuchDocumentWebDriverException extends WebDriverException {} // 16
+class UnexpectedJavascriptWebDriverException extends WebDriverException {} // 17
+class NoScriptResultWebDriverException extends WebDriverException {} // 18
+class XPathLookupWebDriverException extends WebDriverException {} // 19
+class NoSuchCollectionWebDriverException extends WebDriverException {} // 20
+class TimeOutWebDriverException extends WebDriverException {} // 21
+class NullPointerWebDriverException extends WebDriverException {} // 22
+class NoSuchWindowWebDriverException extends WebDriverException {} // 23
+class InvalidCookieDomainWebDriverException extends WebDriverException {} // 24
+class UnableToSetCookieWebDriverException extends WebDriverException {} // 25
+class UnexpectedAlertOpenWebDriverException extends WebDriverException {} // 26
+class NoAlertOpenWebDriverException extends WebDriverException {} // 27
+class ScriptTimeoutWebDriverException extends WebDriverException {} // 28
+class InvalidCoordinatesWebDriverException extends WebDriverException {}// 29
+class IMENotAvailableWebDriverException extends WebDriverException {} // 30
+class IMEEngineActivationFailedWebDriverException extends WebDriverException {}// 31
+class InvalidSelectorWebDriverException extends WebDriverException {} // 32
+class SessionNotCreatedWebDriverException extends WebDriverException {} // 33
+class MoveTargetOutOfBoundsWebDriverException extends WebDriverException {} // 34
 
 // Fallback
 class UnrecognizedExceptionException extends WebDriverException {}
