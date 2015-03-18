@@ -73,7 +73,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * mechanism.
    *
    * @param WebDriverBy $by
-   * @return RemoteWebElement NoSuchElementException is thrown in
+   * @return RemoteWebElement NoSuchElementWebDriverException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */

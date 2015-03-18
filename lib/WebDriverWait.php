@@ -57,7 +57,7 @@ class WebDriverWait {
         if ($ret_val) {
           return $ret_val;
         }
-      } catch (NoSuchElementException $e) {
+      } catch (NoSuchElementWebDriverException $e) {
         $last_exception = $e;
       }
       usleep($this->interval * 1000);
@@ -66,6 +66,6 @@ class WebDriverWait {
     if ($last_exception) {
       throw $last_exception;
     }
-    throw new TimeOutException($message);
+    throw new TimeOutWebDriverException($message);
   }
 }
