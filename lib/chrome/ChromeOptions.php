@@ -58,7 +58,7 @@ class ChromeOptions {
   }
 
   /**
-   * @param array $args
+   * @param array $arguments
    * @return ChromeOptions
    */
   public function addArguments(array $arguments) {
@@ -96,7 +96,7 @@ class ChromeOptions {
    * Sets an experimental option which has not exposed officially.
    *
    * @param string $name
-   * @parma mixed $value
+   * @param mixed $value
    * @return ChromeOptions
    */
   public function setExperimentalOption($name, $value) {
@@ -120,6 +120,10 @@ class ChromeOptions {
   public function toArray() {
     $options = $this->experimentalOptions;
 
+    // The selenium server expects a 'dictionary' instead of a 'list' when
+    // reading the chrome option. However, an empty array in PHP will be
+    // converted to a 'list' instead of a 'dictionary'. To fix it, we always
+    // set the 'binary' to avoid returning an empty array.
     $options['binary'] = $this->binary;
 
     if ($this->arguments) {

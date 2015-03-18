@@ -16,42 +16,20 @@
 /**
  * WebDriver action builder for touch events
  */
-class WebDriverTouchActions {
+class WebDriverTouchActions extends WebDriverActions {
 
   /**
    * @var WebDriverTouchScreen
    */
   protected $touchScreen;
 
-  /**
-   * @var WebDriver
-   */
-  protected $driver;
-
-  /**
-   * @var WebDriverKeyboard
-   */
-  protected $keyboard;
-
-  /**
-   * @var WebDriverMouse
-   */
-  protected $mouse;
-
-  /**
-   * @var WebDriverCompositeAction
-   */
-  protected $action;
-
   public function __construct(WebDriver $driver) {
-    $this->driver = $driver;
-    $this->keyboard = $driver->getKeyboard();
-    $this->mouse = $driver->getMouse();
+    parent::__construct($driver);
     $this->touchScreen = $driver->getTouch();
-    $this->action = new WebDriverCompositeAction();
   }
 
   /**
+   * @param WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function tap(WebDriverElement $element) {
@@ -62,6 +40,8 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function down($x, $y) {
@@ -72,6 +52,8 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function up($x, $y) {
@@ -82,6 +64,8 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function move($x, $y) {
@@ -92,6 +76,8 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function scroll($x, $y) {
@@ -102,6 +88,9 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param WebDriverElement $element
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function scrollFromElement(WebDriverElement $element, $x, $y) {
@@ -112,6 +101,7 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function doubleTap(WebDriverElement $element) {
@@ -122,6 +112,7 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function longPress(WebDriverElement $element) {
@@ -132,6 +123,8 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param int $x
+   * @param int $y
    * @return WebDriverTouchActions
    */
   public function flick($x, $y) {
@@ -142,6 +135,10 @@ class WebDriverTouchActions {
   }
 
   /**
+   * @param WebDriverElement $element
+   * @param int $x
+   * @param int $y
+   * @param int $speed
    * @return WebDriverTouchActions
    */
   public function flickFromElement(WebDriverElement $element, $x, $y, $speed) {

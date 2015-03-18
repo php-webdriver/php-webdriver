@@ -46,13 +46,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    *
    * @param string $url The url of the remote server
    * @param DesiredCapabilities $desired_capabilities The desired capabilities
-   * @param int $timeout_in_ms
+   * @param int|null $connection_timeout_in_ms
+   * @param int|null $request_timeout_in_ms
    * @return RemoteWebDriver
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
-    $timeout_in_ms = 300000
+    $connection_timeout_in_ms = null,
+    $request_timeout_in_ms = null
   ) {
     $url = preg_replace('#/+$#', '', $url);
 
@@ -63,7 +65,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     }
 
     $executor = new HttpCommandExecutor($url);
-    $executor->setConnectionTimeout($timeout_in_ms);
+    if ($connection_timeout_in_ms !== null) {
+      $executor->setConnectionTimeout($connection_timeout_in_ms);
+    }
+    if ($request_timeout_in_ms !== null) {
+      $executor->setRequestTimeout($request_timeout_in_ms);
+    }
 
     $command = new WebDriverCommand(
       null,
@@ -348,11 +355,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Switch to a different window or frame.
    *
-   * @return WebDriverTargetLocator
-   * @see WebDriverTargetLocator
+   * @return RemoteTargetLocator
+   * @see RemoteTargetLocator
    */
   public function switchTo() {
-    return new WebDriverTargetLocator($this->getExecuteMethod(), $this);
+    return new RemoteTargetLocator($this->getExecuteMethod(), $this);
   }
 
   /**
@@ -402,16 +409,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * Get the element on the page that currently has focus.
-   *
-   * @return RemoteWebElement
-   */
-  public function getActiveElement() {
-    $response = $this->execute(DriverCommand::GET_ACTIVE_ELEMENT);
-    return $this->newElement($response['ELEMENT']);
-  }
-
-  /**
    * Return the WebDriverElement with the given id.
    *
    * @param string $id The id of the element to be created.
@@ -422,7 +419,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * Set the command executor of this RemoteWebdrver
+   * Set the command executor of this RemoteWebdriver
    *
    * @param WebDriverCommandExecutor $executor
    * @return RemoteWebDriver
@@ -459,6 +456,29 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    */
   public function getSessionID() {
     return $this->sessionID;
+  }
+
+  /**
+   * Get all selenium sessions.
+   *
+   * @param string $url The url of the remote server
+   * @param int $timeout_in_ms
+   * @return array
+   */
+  public static function getAllSessions(
+    $url = 'http://localhost:4444/wd/hub',
+    $timeout_in_ms = 30000
+  ) {
+    $executor = new HttpCommandExecutor($url);
+    $executor->setConnectionTimeout($timeout_in_ms);
+
+    $command = new WebDriverCommand(
+      null,
+      DriverCommand::GET_ALL_SESSIONS,
+      array()
+    );
+
+    return $executor->execute($command)->getValue();
   }
 
   public function execute($command_name, $params = array()) {

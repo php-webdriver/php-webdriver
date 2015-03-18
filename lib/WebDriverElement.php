@@ -52,7 +52,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the location of element relative to the top-left corner of the page.
    *
-   * @return WebDriverLocation The location of the element.
+   * @return WebDriverPoint The location of the element.
    */
   public function getLocation();
 
@@ -60,7 +60,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * Try scrolling the element into the view port and return the location of
    * element relative to the top-left corner of the page afterwards.
    *
-   * @return WebDriverLocation The location of the element.
+   * @return WebDriverPoint The location of the element.
    */
   public function getLocationOnScreenOnceScrolledIntoView();
 

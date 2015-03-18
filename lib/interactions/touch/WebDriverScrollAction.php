@@ -20,6 +20,11 @@ class WebDriverScrollAction
   private $x;
   private $y;
 
+  /**
+   * @param WebDriverTouchScreen $touch_screen
+   * @param int $x
+   * @param int $y
+   */
   public function __construct(WebDriverTouchScreen $touch_screen, $x, $y) {
     $this->x = $x;
     $this->y = $y;

@@ -17,7 +17,7 @@ abstract class WebDriverSingleKeyAction
     extends WebDriverKeysRelatedAction
     implements WebDriverAction {
 
-  private $keys;
+  protected $key;
 
   public function __construct(
       WebDriverKeyboard $keyboard,
