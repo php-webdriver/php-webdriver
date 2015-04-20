@@ -26,8 +26,9 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   protected $dispatcher;
 
   /**
-   * @param WebDriver $driver
-   * @param WebDriverDispatcher $dispatcher
+   * @access public
+   * @param  WebDriver $driver
+   * @param  WebDriverDispatcher $dispatcher
    */
   public function __construct(WebDriver $driver,
                               WebDriverDispatcher $dispatcher = null) {
@@ -40,6 +41,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return WebDriverDispatcher
    */
   public function getDispatcher() {
@@ -47,7 +49,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param mixed $method
+   * @access public
+   * @param  mixed $method
    * @return void
    */
   protected function dispatch($method) {
@@ -61,6 +64,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return WebDriver
    */
   public function getWebDriver() {
@@ -68,7 +72,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    * @return EventFiringWebElement
    */
   private function newElement(WebDriverElement $element) {
@@ -76,7 +81,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param mixed $url
+   * @access public
+   * @param  mixed $url
    * @return $this
    * @throws WebDriverException
    */
@@ -92,7 +98,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return array
    * @throws WebDriverException
    */
@@ -112,7 +119,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return EventFiringWebElement
    * @throws WebDriverException
    */
@@ -128,8 +136,9 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param       $script
-   * @param array $arguments
+   * @access public
+   * @param        $script
+   * @param  array $arguments
    * @return mixed
    * @throws WebDriverException
    */
@@ -151,8 +160,9 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param       $script
-   * @param array $arguments
+   * @access public
+   * @param        $script
+   * @param  array $arguments
    * @return mixed
    * @throws WebDriverException
    */
@@ -174,6 +184,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -187,6 +198,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -199,6 +211,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -211,6 +224,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -223,6 +237,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -235,6 +250,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return array
    * @throws WebDriverException
    */
@@ -247,6 +263,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @throws WebDriverException
    */
   public function quit() {
@@ -258,7 +275,8 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param null|string $save_as
+   * @access public
+   * @param  null|string $save_as
    * @return string
    * @throws WebDriverException
    */
@@ -271,8 +289,9 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
-   * @param int $timeout_in_second
-   * @param int $interval_in_millisecond
+   * @access public
+   * @param  int $timeout_in_second
+   * @param  int $interval_in_millisecond
    * @return WebDriverWait
    * @throws WebDriverException
    */
@@ -286,6 +305,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return WebDriverOptions
    * @throws WebDriverException
    */
@@ -298,6 +318,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return EventFiringWebDriverNavigation
    * @throws WebDriverException
    */
@@ -313,6 +334,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return WebDriverTargetLocator
    * @throws WebDriverException
    */
@@ -325,6 +347,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return WebDriverTouchScreen
    * @throws WebDriverException
    */

@@ -26,8 +26,10 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   protected $dispatcher;
 
   /**
-   * @param WebDriverElement    $element
-   * @param WebDriverDispatcher $dispatcher
+   * @access public
+   * @param  WebDriverElement    $element
+   * @param  WebDriverDispatcher $dispatcher
+   * @return $this
    */
   public function __construct(WebDriverElement $element,
                               WebDriverDispatcher $dispatcher) {
@@ -37,6 +39,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverDispatcher
    */
   public function getDispatcher() {
@@ -44,7 +47,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param mixed $method
+   * @access protected
+   * @param  mixed $method
    * @return void
    */
   protected function dispatch($method) {
@@ -57,6 +61,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverElement
    */
   public function getElement() {
@@ -64,7 +69,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    * @return EventFiringWebElement
    */
   private function newElement(WebDriverElement $element) {
@@ -72,7 +78,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param mixed $value
+   * @access public
+   * @param  mixed $value
    * @return $this
    * @throws WebDriverException
    */
@@ -90,6 +97,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -105,7 +113,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return EventFiringWebElement
    * @throws WebDriverException
    */
@@ -130,7 +139,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return array
    * @throws WebDriverException
    */
@@ -159,6 +169,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -172,7 +183,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param string $attribute_name
+   * @access public
+   * @param  string $attribute_name
    * @return string
    * @throws WebDriverException
    */
@@ -185,7 +197,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @param string $css_property_name
+   * @access public
+   * @param  string $css_property_name
    * @return string
    * @throws WebDriverException
    */
@@ -198,6 +211,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverPoint
    * @throws WebDriverException
    */
@@ -210,6 +224,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverPoint
    * @throws WebDriverException
    */
@@ -222,6 +237,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverCoordinates
    */
   public function getCoordinates() {
@@ -234,6 +250,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
 
 
   /**
+   * @access public
    * @return WebDriverDimension
    * @throws WebDriverException
    */
@@ -246,6 +263,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -258,6 +276,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -270,6 +289,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return bool
    * @throws WebDriverException
    */
@@ -282,6 +302,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return bool
    * @throws WebDriverException
    */
@@ -294,6 +315,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return bool
    * @throws WebDriverException
    */
@@ -306,6 +328,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -319,6 +342,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return string
    * @throws WebDriverException
    */
@@ -334,7 +358,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Test if two element IDs refer to the same DOM element.
    *
-   * @param WebDriverElement $other
+   * @access public
+   * @param  WebDriverElement $other
    * @return bool
    */
   public function equals(WebDriverElement $other) {

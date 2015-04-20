@@ -15,8 +15,8 @@
 
 class UselessFileDetector implements FileDetector {
   /**
-   * @param string $file
-   *
+   * @access public
+   * @param  string $file
    * @return null
    */
   public function getLocalFile($file) {

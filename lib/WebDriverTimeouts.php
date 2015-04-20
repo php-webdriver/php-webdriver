@@ -28,7 +28,8 @@ class WebDriverTimeouts {
    * Specify the amount of time the driver should wait when searching for an
    * element if it is not immediately present.
    *
-   * @param int $seconds Wait time in second.
+   * @access public
+   * @param  int $seconds Wait time in second.
    * @return WebDriverTimeouts The current instance.
    */
   public function implicitlyWait($seconds) {
@@ -43,7 +44,8 @@ class WebDriverTimeouts {
    * Set the amount of time to wait for an asynchronous script to finish
    * execution before throwing an error.
    *
-   * @param int $seconds Wait time in second.
+   * @access public
+   * @param  int $seconds Wait time in second.
    * @return WebDriverTimeouts The current instance.
    */
   public function setScriptTimeout($seconds) {

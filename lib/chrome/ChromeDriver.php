@@ -45,10 +45,11 @@ class ChromeDriver extends RemoteWebDriver {
   }
 
   /**
-   * @param string $url The url of the remote server
-   * @param DesiredCapabilities $desired_capabilities The desired capabilities
-   * @param int|null $connection_timeout_in_ms
-   * @param int|null $request_timeout_in_ms
+   * @access public
+   * @param  string $url The url of the remote server
+   * @param  DesiredCapabilities $desired_capabilities The desired capabilities
+   * @param  int|null $connection_timeout_in_ms
+   * @param  int|null $request_timeout_in_ms
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',

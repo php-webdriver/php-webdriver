@@ -20,10 +20,13 @@ class WebDriverSendKeysAction
   private $keys;
 
   /**
-   * @param WebDriverKeyboard $keyboard
-   * @param WebDriverMouse $mouse
-   * @param WebDriverLocatable $location_provider
-   * @param string $keys
+   * Class constructor
+   *
+   * @access public
+   * @param  WebDriverKeyboard $keyboard
+   * @param  WebDriverMouse $mouse
+   * @param  WebDriverLocatable $location_provider
+   * @param  string $keys
    */
   public function __construct(
       WebDriverKeyboard $keyboard,

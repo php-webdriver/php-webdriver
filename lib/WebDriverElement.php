@@ -22,6 +22,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * If this element is a TEXTAREA or text INPUT element, this will clear the
    * value.
    *
+   * @access public
    * @return WebDriverElement The current instance.
    */
   public function clear();
@@ -29,6 +30,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Click this element.
    *
+   * @access public
    * @return WebDriverElement The current instance.
    */
   public function click();
@@ -36,7 +38,8 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the value of a the given attribute of the element.
    *
-   * @param string $attribute_name The name of the attribute.
+   * @access public
+   * @param  string $attribute_name The name of the attribute.
    * @return string The value of the attribute.
    */
   public function getAttribute($attribute_name);
@@ -44,7 +47,8 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the value of a given CSS property.
    *
-   * @param string $css_property_name The name of the CSS property.
+   * @access public
+   * @param  string $css_property_name The name of the CSS property.
    * @return string The value of the CSS property.
    */
   public function getCSSValue($css_property_name);
@@ -52,6 +56,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the location of element relative to the top-left corner of the page.
    *
+   * @access public
    * @return WebDriverPoint The location of the element.
    */
   public function getLocation();
@@ -60,6 +65,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * Try scrolling the element into the view port and return the location of
    * element relative to the top-left corner of the page afterwards.
    *
+   * @access public
    * @return WebDriverPoint The location of the element.
    */
   public function getLocationOnScreenOnceScrolledIntoView();
@@ -67,6 +73,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the size of element.
    *
+   * @access public
    * @return WebDriverDimension The dimension of the element.
    */
   public function getSize();
@@ -74,6 +81,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the tag name of this element.
    *
+   * @access public
    * @return string The tag name.
    */
   public function getTagName();
@@ -82,6 +90,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * Get the visible (i.e. not hidden by CSS) innerText of this element,
    * including sub-elements, without any leading or trailing whitespace.
    *
+   * @access public
    * @return string The visible innerText of this element.
    */
   public function getText();
@@ -90,6 +99,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * Is this element displayed or not? This method avoids the problem of having
    * to parse an element's "style" attribute.
    *
+   * @access public
    * @return bool
    */
   public function isDisplayed();
@@ -98,6 +108,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * Is the element currently enabled or not? This will generally return true
    * for everything but disabled input elements.
    *
+   * @access public
    * @return bool
    */
   public function isEnabled();
@@ -105,6 +116,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Determine whether or not this element is selected or not.
    *
+   * @access public
    * @return bool
    */
   public function isSelected();
@@ -112,7 +124,8 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Simulate typing into an element, which may set its value.
    *
-   * @param mixed $value The data to be typed.
+   * @access public
+   * @param  mixed $value The data to be typed.
    * @return WebDriverElement The current instance.
    */
   public function sendKeys($value);
@@ -121,6 +134,7 @@ interface WebDriverElement extends WebDriverSearchContext {
    * If this current element is a form, or an element within a form, then this
    * will be submitted to the remote server.
    *
+   * @access public
    * @return WebDriverElement The current instance.
    */
   public function submit();
@@ -128,6 +142,7 @@ interface WebDriverElement extends WebDriverSearchContext {
   /**
    * Get the opaque ID of the element.
    *
+   * @access public
    * @return string The opaque ID.
    */
   public function getID();

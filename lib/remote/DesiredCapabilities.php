@@ -17,11 +17,16 @@ class DesiredCapabilities implements WebDriverCapabilities {
 
   private $capabilities;
 
+  /**
+   * @access public
+   * @param  array $capabilities
+   */
   public function __construct(array $capabilities = array()) {
     $this->capabilities = $capabilities;
   }
 
   /**
+   * @access public
    * @return string The name of the browser.
    */
   public function getBrowserName() {
@@ -29,7 +34,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $browser_name
+   * @access public
+   * @param  string $browser_name
    * @return DesiredCapabilities
    */
   public function setBrowserName($browser_name) {
@@ -38,6 +44,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return string The version of the browser.
    */
   public function getVersion() {
@@ -45,7 +52,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $version
+   * @access public
+   * @param  string $version
    * @return DesiredCapabilities
    */
   public function setVersion($version) {
@@ -54,7 +62,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $name
+   * @access public
+   * @param  string $name
    * @return mixed The value of a capability.
    */
   public function getCapability($name) {
@@ -62,8 +71,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $name
-   * @param mixed $value
+   * @access public
+   * @param  string $name
+   * @param  mixed $value
    * @return DesiredCapabilities
    */
   public function setCapability($name, $value) {
@@ -72,6 +82,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return string The name of the platform.
    */
   public function getPlatform() {
@@ -79,7 +90,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $platform
+   * @access public
+   * @param  string $platform
    * @return DesiredCapabilities
    */
   public function setPlatform($platform) {
@@ -88,7 +100,8 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $capability_name
+   * @access public
+   * @param  string $capability_name
    * @return bool Whether the value is not null and not false.
    */
   public function is($capability_name) {
@@ -96,6 +109,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return bool Whether javascript is enabled.
    */
   public function isJavascriptEnabled() {
@@ -105,9 +119,10 @@ class DesiredCapabilities implements WebDriverCapabilities {
   /**
    * This is a htmlUnit-only option.
    *
-   * @param bool $enabled
+   * @access public
+   * @param  bool $enabled
    * @return DesiredCapabilities
-   * @see https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
+   * @see    https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
    */
   public function setJavascriptEnabled($enabled) {
     $browser = $this->getBrowserName();
@@ -123,6 +138,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return array
    */
   public function toArray() {
@@ -142,8 +158,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $key
-   * @param mixed $value
+   * @access public
+   * @param  string $key
+   * @param  mixed $value
    * @return DesiredCapabilities
    */
   private function set($key, $value) {
@@ -152,8 +169,9 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
-   * @param string $key
-   * @param mixed $default
+   * @access public
+   * @param  string $key
+   * @param  mixed $default
    * @return mixed
    */
   private function get($key, $default = null) {
@@ -163,6 +181,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function android() {
@@ -173,6 +192,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function chrome() {
@@ -183,6 +203,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function firefox() {
@@ -193,6 +214,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function htmlUnit() {
@@ -203,6 +225,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function htmlUnitWithJS() {
@@ -214,6 +237,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function internetExplorer() {
@@ -224,6 +248,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function iphone() {
@@ -234,6 +259,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function ipad() {
@@ -244,6 +270,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function opera() {
@@ -254,6 +281,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function safari() {
@@ -264,6 +292,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities
    */
   public static function phantomjs() {

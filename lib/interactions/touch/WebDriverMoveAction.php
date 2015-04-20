@@ -21,9 +21,12 @@ class WebDriverMoveAction
   private $y;
 
   /**
-   * @param WebDriverTouchScreen $touch_screen
-   * @param int $x
-   * @param int $y
+   * Class constructor
+   *
+   * @access public
+   * @param  WebDriverTouchScreen $touch_screen
+   * @param  int $x
+   * @param  int $y
    */
   public function __construct(WebDriverTouchScreen $touch_screen, $x, $y) {
     $this->x = $x;

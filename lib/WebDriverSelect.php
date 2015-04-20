@@ -33,6 +33,7 @@ class WebDriverSelect {
   }
 
   /**
+   * @access public
    * @return bool Whether this select element support selecting multiple
    *              options. This is done by checking the value of the 'multiple'
    *              attribute.
@@ -42,6 +43,7 @@ class WebDriverSelect {
   }
 
   /**
+   * @access public
    * @return array All options belonging to this select tag.
    */
   public function getOptions() {
@@ -49,6 +51,7 @@ class WebDriverSelect {
   }
 
   /**
+   * @access public
    * @return array All selected options belonging to this select tag.
    */
   public function getAllSelectedOptions() {
@@ -62,6 +65,7 @@ class WebDriverSelect {
   }
 
   /**
+   * @access public
    * @return WebDriverElement The first selected option in this select tag (or
    *                          the currently selected option in a normal select)
    */
@@ -78,6 +82,7 @@ class WebDriverSelect {
   /**
    * Deselect all options in multiple select tag.
    *
+   * @access public
    * @return void
    */
   public function deselectAll() {
@@ -97,7 +102,8 @@ class WebDriverSelect {
   /**
    * Select the option at the given index.
    *
-   * @param int $index The index of the option. (0-based)
+   * @access public
+   * @param  int $index The index of the option. (0-based)
    * @return void
    */
   public function selectByIndex($index) {
@@ -126,7 +132,8 @@ class WebDriverSelect {
    *
    * <option value="foo">Bar</option>;
    *
-   * @param string $value The value to match against.
+   * @access public
+   * @param  string $value The value to match against.
    * @return void
    */
   public function selectByValue($value) {
@@ -157,7 +164,8 @@ class WebDriverSelect {
    *
    * <option value="foo">Bar</option>;
    *
-   * @param string $text The visible text to match against.
+   * @access public
+   * @param  string $text The visible text to match against.
    * @return void
    */
   public function selectByVisibleText($text) {
@@ -201,7 +209,8 @@ class WebDriverSelect {
   /**
    * Deselect the option at the given index.
    *
-   * @param int $index The index of the option. (0-based)
+   * @access public
+   * @param  int $index The index of the option. (0-based)
    * @return void
    */
   public function deselectByIndex($index) {
@@ -219,7 +228,8 @@ class WebDriverSelect {
    *
    * <option value="foo">Bar</option>;
    *
-   * @param string $value The value to match against.
+   * @access public
+   * @param  string $value The value to match against.
    * @return void
    */
   public function deselectByValue($value) {
@@ -238,7 +248,8 @@ class WebDriverSelect {
    *
    * <option value="foo">Bar</option>;
    *
-   * @param string $text The visible text to match against.
+   * @access public
+   * @param  string $text The visible text to match against.
    * @return void
    */
   public function deselectByVisibleText($text) {
@@ -255,7 +266,8 @@ class WebDriverSelect {
    * Convert strings with both quotes and ticks into:
    *   foo'"bar -> concat("foo'", '"', "bar")
    *
-   * @param string $to_escape The string to be converted.
+   * @access public
+   * @param  string $to_escape The string to be converted.
    * @return string The escaped string.
    */
   protected function escapeQuotes($to_escape) {

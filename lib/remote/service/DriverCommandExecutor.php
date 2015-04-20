@@ -30,8 +30,9 @@ class DriverCommandExecutor extends HttpCommandExecutor {
   }
 
   /**
-   * @param WebDriverCommand $command
-   * @param array $curl_opts
+   * @access public
+   * @param  WebDriverCommand $command
+   * @param  array $curl_opts
    *
    * @return mixed
    */

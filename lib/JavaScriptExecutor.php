@@ -23,8 +23,9 @@ interface JavaScriptExecutor {
    * of the currently selected frame. The executed script is assumed to be
    * synchronous and the result of evaluating the script will be returned.
    *
-   * @param string $script The script to inject.
-   * @param array $arguments The arguments of the script.
+   * @access public
+   * @param  string $script The script to inject.
+   * @param  array $arguments The arguments of the script.
    * @return mixed The return value of the script.
    */
   public function executeScript($script, array $arguments = array());
@@ -38,8 +39,9 @@ interface JavaScriptExecutor {
    *
    * @see WebDriverExecuteAsyncScriptTestCase
    *
-   * @param string $script The script to inject.
-   * @param array $arguments The arguments of the script.
+   * @access public
+   * @param  string $script The script to inject.
+   * @param  array $arguments The arguments of the script.
    * @return mixed The value passed by the script to the callback.
    */
   public function executeAsyncScript($script, array $arguments = array());

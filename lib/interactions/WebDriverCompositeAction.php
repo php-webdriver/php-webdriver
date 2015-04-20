@@ -23,7 +23,8 @@ class WebDriverCompositeAction implements WebDriverAction {
   /**
    * Add an WebDriverAction to the sequence.
    *
-   * @param WebDriverAction $action
+   * @access public
+   * @param  WebDriverAction $action
    * @return WebDriverCompositeAction The current instance.
    */
   public function addAction(WebDriverAction $action) {
@@ -34,6 +35,7 @@ class WebDriverCompositeAction implements WebDriverAction {
   /**
    * Get the number of actions in the sequence.
    *
+   * @access public
    * @return int The number of actions.
    */
   public function getNumberOfActions() {
@@ -42,6 +44,8 @@ class WebDriverCompositeAction implements WebDriverAction {
 
   /**
    * Perform the seqeunce of actions.
+   *
+   * @access public
    */
   public function perform() {
     foreach ($this->actions as $action) {

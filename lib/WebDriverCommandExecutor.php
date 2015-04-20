@@ -19,7 +19,8 @@
 interface WebDriverCommandExecutor {
 
   /**
-   * @param WebDriverCommand $command
+   * @access public
+   * @param  WebDriverCommand $command
    * @return mixed
    */
   public function execute(WebDriverCommand $command);

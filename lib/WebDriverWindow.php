@@ -28,6 +28,7 @@ class WebDriverWindow {
    * Get the position of the current window, relative to the upper left corner
    * of the screen.
    *
+   * @access public
    * @return array The current window position.
    */
   public function getPosition() {
@@ -45,6 +46,7 @@ class WebDriverWindow {
    * Get the size of the current window. This will return the outer window
    * dimension, not just the view port.
    *
+   * @access public
    * @return array The current window size.
    */
   public function getSize() {
@@ -61,6 +63,7 @@ class WebDriverWindow {
   /**
    * Maximizes the current window if it is not already maximized
    *
+   * @access public
    * @return WebDriverWindow The instance.
    */
   public function maximize() {
@@ -75,6 +78,7 @@ class WebDriverWindow {
    * Set the size of the current window. This will change the outer window
    * dimension, not just the view port.
    *
+   * @access public
    * @param WebDriverDimension $size
    * @return WebDriverWindow The instance.
    */
@@ -92,7 +96,8 @@ class WebDriverWindow {
    * Set the position of the current window. This is relative to the upper left
    * corner of the screen.
    *
-   * @param WebDriverPoint $position
+   * @access public
+   * @param  WebDriverPoint $position
    * @return WebDriverWindow The instance.
    */
   public function setPosition(WebDriverPoint $position) {
@@ -108,6 +113,7 @@ class WebDriverWindow {
   /**
    * Get the current browser orientation.
    *
+   * @access public
    * @return string Either LANDSCAPE|PORTRAIT
    */
   public function getScreenOrientation() {
@@ -119,7 +125,8 @@ class WebDriverWindow {
    * Set the browser orientation. The orientation should either
    * LANDSCAPE|PORTRAIT
    *
-   * @param string $orientation
+   * @access public
+   * @param  string $orientation
    * @return WebDriverWindow The instance.
    * @throws IndexOutOfBoundsException
    */

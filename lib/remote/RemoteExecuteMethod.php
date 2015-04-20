@@ -18,15 +18,17 @@ class RemoteExecuteMethod implements ExecuteMethod {
   private $driver;
 
   /**
-   * @param RemoteWebDriver $driver
+   * @access public
+   * @param  RemoteWebDriver $driver
    */
   public function __construct(RemoteWebDriver $driver) {
     $this->driver = $driver;
   }
 
   /**
-   * @param string $command_name
-   * @param array $parameters
+   * @access public
+   * @param  string $command_name
+   * @param  array $parameters
    * @return mixed
    */
   public function execute(

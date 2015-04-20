@@ -39,8 +39,9 @@ class WebDriverWait {
    * Calls the function provided with the driver as an argument until the return
    * value is not falsey.
    *
-   * @param (closure|WebDriverExpectedCondition)
-   * @param string $message
+   * @access public
+   * @param  (closure|WebDriverExpectedCondition)
+   * @param  string $message
    * @return mixed The return value of $func_or_ec
    */
   public function until($func_or_ec, $message = "") {

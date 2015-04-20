@@ -21,6 +21,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Close the current window.
    *
+   * @access public
    * @return WebDriver The current instance.
    */
   public function close();
@@ -28,7 +29,8 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Load a new web page in the current browser window.
    *
-   * @param string $url
+   * @access public
+   * @param  string $url
    * @return WebDriver The current instance.
    */
   public function get($url);
@@ -36,6 +38,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Get a string representing the current URL that the browser is looking at.
    *
+   * @access public
    * @return string The current URL.
    */
   public function getCurrentURL();
@@ -43,6 +46,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Get the source of the last loaded page.
    *
+   * @access public
    * @return string The current page source.
    */
   public function getPageSource();
@@ -50,6 +54,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Get the title of the current page.
    *
+   * @access public
    * @return string The title of the current page.
    */
   public function getTitle();
@@ -58,6 +63,7 @@ interface WebDriver extends WebDriverSearchContext {
    * Return an opaque handle to this window that uniquely identifies it within
    * this driver instance.
    *
+   * @access public
    * @return string The current window handle.
    */
   public function getWindowHandle();
@@ -65,6 +71,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Get all window handles available to the current session.
    *
+   * @access public
    * @return array An array of string containing all available window handles.
    */
   public function getWindowHandles();
@@ -72,6 +79,7 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Quits this driver, closing every associated window.
    *
+   * @access public
    * @return void
    */
   public function quit();
@@ -79,7 +87,8 @@ interface WebDriver extends WebDriverSearchContext {
   /**
    * Take a screenshot of the current page.
    *
-   * @param string $save_as The path of the screenshot to be saved.
+   * @access public
+   * @param  string $save_as The path of the screenshot to be saved.
    * @return string The screenshot in PNG format.
    */
   public function takeScreenshot($save_as = null);
@@ -92,8 +101,9 @@ interface WebDriver extends WebDriverSearchContext {
    *     WebDriverExpectedCondition::titleIs('WebDriver Page')
    *   );
    *
-   * @param int $timeout_in_second
-   * @param int $interval_in_millisecond
+   * @access public
+   * @param  int $timeout_in_second
+   * @param  int $interval_in_millisecond
    * @return WebDriverWait
    */
   public function wait(
@@ -104,6 +114,7 @@ interface WebDriver extends WebDriverSearchContext {
    * An abstraction for managing stuff you would do in a browser menu. For
    * example, adding and deleting cookies.
    *
+   * @access public
    * @return WebDriverOptions
    */
   public function manage();
@@ -112,22 +123,25 @@ interface WebDriver extends WebDriverSearchContext {
    * An abstraction allowing the driver to access the browser's history and to
    * navigate to a given URL.
    *
+   * @access public
    * @return WebDriverNavigation
-   * @see WebDriverNavigation
+   * @see    WebDriverNavigation
    */
   public function navigate();
 
   /**
    * Switch to a different window or frame.
    *
+   * @access public
    * @return WebDriverTargetLocator
-   * @see WebDriverTargetLocator
+   * @see    WebDriverTargetLocator
    */
   public function switchTo();
 
   /**
-   * @param string $name
-   * @param array $params
+   * @access public
+   * @param  string $name
+   * @param  array $params
    * @return mixed
    */
   public function execute($name, $params);

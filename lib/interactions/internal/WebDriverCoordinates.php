@@ -37,6 +37,7 @@ class WebDriverCoordinates {
   }
 
   /**
+   * @access public
    * @return WebDriverPoint
    */
   public function onScreen() {
@@ -46,6 +47,7 @@ class WebDriverCoordinates {
   }
 
   /**
+   * @access public
    * @return WebDriverPoint
    */
   public function inViewPort() {
@@ -53,6 +55,7 @@ class WebDriverCoordinates {
   }
 
   /**
+   * @access public
    * @return WebDriverPoint
    */
   public function onPage() {
@@ -60,6 +63,7 @@ class WebDriverCoordinates {
   }
 
   /**
+   * @access public
    * @return Object The attached object.
    */
   public function getAuxiliary() {

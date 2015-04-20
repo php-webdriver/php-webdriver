@@ -28,6 +28,7 @@ class WebDriverDimension {
   /**
    * Get the height.
    *
+   * @access public
    * @return int The height.
    */
   public function getHeight() {
@@ -37,6 +38,7 @@ class WebDriverDimension {
   /**
    * Get the width.
    *
+   * @access public
    * @return int The width.
    */
   public function getWidth() {
@@ -46,7 +48,8 @@ class WebDriverDimension {
   /**
    * Check whether the given dimension is the same as the instance.
    *
-   * @param WebDriverDimension $dimension The dimension to be compared with.
+   * @access public
+   * @param  WebDriverDimension $dimension The dimension to be compared with.
    * @return bool Whether the height and the width are the same as the
    *              instance.
    */

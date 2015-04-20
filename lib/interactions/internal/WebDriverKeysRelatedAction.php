@@ -23,8 +23,11 @@ abstract class WebDriverKeysRelatedAction {
   protected $locationProvider;
 
   /**
-   * @param WebDriverKeyboard $keyboard
-   * @param WebDriverMouse $mouse
+   * Class constructor
+   *
+   * @access public
+   * @param  WebDriverKeyboard $keyboard
+   * @param   WebDriverMouse $mouse
    * @param WebDriverLocatable $location_provider
    */
   public function __construct(

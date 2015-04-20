@@ -19,6 +19,7 @@
 interface WebDriverAction {
 
   /**
+   * @access public 
    * @return void
    */
   public function perform();

@@ -27,6 +27,7 @@ class WebDriverExpectedCondition {
   private $apply;
 
   /**
+   * @access public
    * @return (function():T) a closure function to be executed by WebDriverWait
    */
   public function getApply() {
@@ -40,7 +41,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking the title of a page.
    *
-   * @param string $title The expected title, which must be an exact match.
+   * @access public
+   * @param  string $title The expected title, which must be an exact match.
    * @return bool WebDriverExpectedCondition True when the title matches,
    *         false otherwise.
    */
@@ -55,7 +57,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking substring of a page Title.
    *
-   * @param string $title The expected substring of Title.
+   * @access public
+   * @param  string $title The expected substring of Title.
    * @return bool WebDriverExpectedCondition True when in title,
    *         false otherwise.
    */
@@ -71,7 +74,8 @@ class WebDriverExpectedCondition {
    * An expectation for checking that an element is present on the DOM of a
    * page. This does not necessarily mean that the element is visible.
    *
-   * @param WebDriverBy $by The locator used to find the element.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
    * @return WebDriverExpectedCondition<WebDriverElement> The element which
    *         is located.
    */
@@ -88,7 +92,8 @@ class WebDriverExpectedCondition {
    * and visible. Visibility means that the element is not only displayed but
    * also has a height and width that is greater than 0.
    *
-   * @param WebDriverBy $by The locator used to find the element.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
    * @return WebDriverExpectedCondition<WebDriverElement> The element which is
    *         located and visible.
    */
@@ -110,7 +115,8 @@ class WebDriverExpectedCondition {
    * of a page, is visible. Visibility means that the element is not only
    * displayed but also has a height and width that is greater than 0.
    *
-   * @param WebDriverElement $element The element to be checked.
+   * @access public
+   * @param  WebDriverElement $element The element to be checked.
    * @return WebDriverExpectedCondition<WebDriverElement> The same
    *         WebDriverElement once it is visible.
    */
@@ -126,7 +132,8 @@ class WebDriverExpectedCondition {
    * An expectation for checking that there is at least one element present on a
    * web page.
    *
-   * @param WebDriverBy $by The locator used to find the element.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
    * @return WebDriverExpectedCondition<array> An array of WebDriverElements
    *         once they are located.
    */
@@ -143,7 +150,8 @@ class WebDriverExpectedCondition {
    * An expectation for checking if the given text is present in the specified
    * element.
    *
-   * @param WebDriverBy $by The locator used to find the element.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
    * @param string $text The text to be presented in the element.
    * @return bool WebDriverExpectedCondition Whether the text is presented.
    */
@@ -165,8 +173,9 @@ class WebDriverExpectedCondition {
    * An expectation for checking if the given text is present in the specified
    * elements value attribute.
    *
-   * @param WebDriverBy $by The locator used to find the element.
-   * @param string $text The text to be presented in the element value.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
+   * @param  string $text The text to be presented in the element value.
    * @return bool WebDriverExpectedCondition Whether the text is presented.
    */
   public static function textToBePresentInElementValue(
@@ -187,6 +196,7 @@ class WebDriverExpectedCondition {
    * Expectation for checking if iFrame exists.
    * If iFrame exists switches driver's focus to the iFrame
    *
+   * @access public
    * @param string $frame_locator The locator used to find the iFrame
    *   expected to be either the id or name value of the i/frame
    * @return WebDriverExpectedCondition<WebDriver> object focused on new frame
@@ -208,7 +218,8 @@ class WebDriverExpectedCondition {
    * An expectation for checking that an element is either invisible or not
    * present on the DOM.
    *
-   * @param WebDriverBy $by The locator used to find the element.
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element.
    * @return bool WebDriverExpectedCondition Whether there is no element
    *         located.
    */
@@ -230,8 +241,9 @@ class WebDriverExpectedCondition {
    * An expectation for checking that an element with text is either invisible
    * or not present on the DOM.
    *
-   * @param WebdriverBy $by The locator used to find the element.
-   * @param string $text The text of the element.
+   * @access public
+   * @param  WebdriverBy $by The locator used to find the element.
+   * @param  string $text The text of the element.
    * @return bool WebDriverExpectedCondition Whether the text is found in the
    *         element located.
    */
@@ -254,7 +266,8 @@ class WebDriverExpectedCondition {
    * An expectation for checking an element is visible and enabled such that you
    * can click it.
    *
-   * @param WebDriverBy $by The locator used to find the element
+   * @access public
+   * @param  WebDriverBy $by The locator used to find the element
    * @return WebDriverExpectedCondition<WebDriverElement> The WebDriverElement
    *         once it is located, visible and clickable
    */
@@ -283,7 +296,8 @@ class WebDriverExpectedCondition {
   /**
    * Wait until an element is no longer attached to the DOM.
    *
-   * @param WebDriverElement $element The element to wait for.
+   * @access public
+   * @param  WebDriverElement $element The element to wait for.
    * @return bool WebDriverExpectedCondition false if the element is still
    *         attached to the DOM, true otherwise.
    */
@@ -309,7 +323,8 @@ class WebDriverExpectedCondition {
    * the client. When this happens a StaleElementReferenceException is thrown
    * when the second part of the condition is checked.
    *
-   * @param WebDriverExpectedCondition $condition The condition wrapped.
+   * @access public
+   * @param  WebDriverExpectedCondition $condition The condition wrapped.
    * @return WebDriverExpectedCondition<mixed> The return value of the
    *         getApply() of the given condition.
    */
@@ -328,7 +343,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking if the given element is selected.
    *
-   * @param mixed $element_or_by Either the element or the locator.
+   * @access public
+   * @param  mixed $element_or_by Either the element or the locator.
    * @return bool WebDriverExpectedCondition whether the element is selected.
    */
   public static function elementToBeSelected($element_or_by) {
@@ -341,8 +357,9 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking if the given element is selected.
    *
-   * @param mixed $element_or_by Either the element or the locator.
-   * @param bool $selected The required state.
+   * @access public
+   * @param  mixed $element_or_by Either the element or the locator.
+   * @param  bool $selected The required state.
    * @return bool WebDriverExpectedCondition Whether the element is selected.
    */
   public static function elementSelectionStateToBe(
@@ -372,6 +389,7 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for whether an alert() box is present.
    *
+   * @access public
    * @return WebDriverExpectedCondition<?WebDriverAlert> if alert() is present,
    *         null otherwise.
    */
@@ -395,7 +413,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation with the logical opposite condition of the given condition.
    *
-   * @param WebDriverExpectedCondition $condition The condition to be negated.
+   * @access public
+   * @param  WebDriverExpectedCondition $condition The condition to be negated.
    * @return mixed The negation of the result of the given condition.
    */
   public static function not(WebDriverExpectedCondition $condition) {

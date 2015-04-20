@@ -27,6 +27,7 @@ class WebDriverAlert {
   /**
    * Accept alert
    *
+   * @access public
    * @return WebDriverAlert The instance.
    */
   public function accept() {
@@ -37,6 +38,7 @@ class WebDriverAlert {
   /**
    * Dismiss alert
    *
+   * @access public
    * @return WebDriverAlert The instance.
    */
   public function dismiss() {
@@ -47,6 +49,7 @@ class WebDriverAlert {
   /**
    * Get alert text
    *
+   * @access public
    * @return string
    */
   public function getText() {
@@ -56,7 +59,8 @@ class WebDriverAlert {
   /**
    * Send keystrokes to javascript prompt() dialog
    *
-   * @param string $value
+   * @access public
+   * @param  string $value
    * @return WebDriverAlert
    */
   public function sendKeys($value) {

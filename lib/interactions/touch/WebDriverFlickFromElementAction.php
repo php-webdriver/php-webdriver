@@ -22,11 +22,13 @@ class WebDriverFlickFromElementAction
   private $speed;
 
   /**
-   * @param WebDriverTouchScreen $touch_screen
-   * @param WebDriverElement $element
-   * @param int $x
-   * @param int $y
-   * @param int $speed
+   * Class constructor
+   *
+   * @param  WebDriverTouchScreen $touch_screen
+   * @param  WebDriverElement $element
+   * @param  int $x
+   * @param  int $y
+   * @param  int $speed
    */
   public function __construct(
     WebDriverTouchScreen $touch_screen,

@@ -22,6 +22,7 @@ interface WebDriverTargetLocator {
    * Switch to the main document if the page contains iframes. Otherwise, switch
    * to the first frame on the page.
    *
+   * @access public
    * @return WebDriver The driver focused on the top window or the first frame.
    */
   public function defaultContent();
@@ -29,7 +30,8 @@ interface WebDriverTargetLocator {
   /**
    * Switch to the iframe by its id or name.
    *
-   * @param WebDriverElement|string $frame The WebDriverElement,
+   * @access public
+   * @param  WebDriverElement|string $frame The WebDriverElement,
    *                                       the id or the name of the frame.
    * @return WebDriver The driver focused on the given frame.
    */
@@ -38,9 +40,10 @@ interface WebDriverTargetLocator {
   /**
    * Switch the focus to another window by its handle.
    *
-   * @param string $handle The handle of the window to be focused on.
+   * @access public
+   * @param  string $handle The handle of the window to be focused on.
    * @return WebDriver Tge driver focused on the given window.
-   * @see WebDriver::getWindowHandles
+   * @see    WebDriver::getWindowHandles
    */
   public function window($handle);
 
@@ -48,6 +51,7 @@ interface WebDriverTargetLocator {
    * Switch to the currently active modal dialog for this particular driver
    * instance.
    *
+   * @access public
    * @return WebDriverAlert
    */
   public function alert();
@@ -56,6 +60,7 @@ interface WebDriverTargetLocator {
    * Switches to the element that currently has focus within the document
    * currently "switched to", or the body element if this cannot be detected.
    *
+   * @access public
    * @return WebDriverElement
    */
   public function activeElement();

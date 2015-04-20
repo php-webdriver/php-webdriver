@@ -19,11 +19,13 @@
 interface WebDriverHasInputDevices {
 
   /**
+   * @access public
    * @return WebDriverKeyBoard
    */
   public function getKeyboard();
 
   /**
+   * @access public
    * @return WebDriverMouse
    */
   public function getMouse();

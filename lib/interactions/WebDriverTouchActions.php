@@ -29,7 +29,8 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function tap(WebDriverElement $element) {
@@ -40,8 +41,9 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function down($x, $y) {
@@ -52,8 +54,9 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function up($x, $y) {
@@ -64,8 +67,9 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function move($x, $y) {
@@ -76,8 +80,9 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function scroll($x, $y) {
@@ -88,9 +93,10 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param WebDriverElement $element
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  WebDriverElement $element
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function scrollFromElement(WebDriverElement $element, $x, $y) {
@@ -101,7 +107,8 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function doubleTap(WebDriverElement $element) {
@@ -112,7 +119,8 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    * @return WebDriverTouchActions
    */
   public function longPress(WebDriverElement $element) {
@@ -123,8 +131,9 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    * @return WebDriverTouchActions
    */
   public function flick($x, $y) {
@@ -135,10 +144,11 @@ class WebDriverTouchActions extends WebDriverActions {
   }
 
   /**
-   * @param WebDriverElement $element
-   * @param int $x
-   * @param int $y
-   * @param int $speed
+   * @access public
+   * @param  WebDriverElement $element
+   * @param  int $x
+   * @param  int $y
+   * @param  int $speed
    * @return WebDriverTouchActions
    */
   public function flickFromElement(WebDriverElement $element, $x, $y, $speed) {
