@@ -49,7 +49,8 @@ class ChromeOptions {
    * Sets the path of the Chrome executable. The path should be either absolute
    * or relative to the location running ChromeDriver server.
    *
-   * @param string $path
+   * @access public
+   * @param  string $path
    * @return ChromeOptions
    */
   public function setBinary($path) {
@@ -58,7 +59,8 @@ class ChromeOptions {
   }
 
   /**
-   * @param array $arguments
+   * @access public
+   * @param  array $arguments
    * @return ChromeOptions
    */
   public function addArguments(array $arguments) {
@@ -70,7 +72,8 @@ class ChromeOptions {
    * Add a Chrome extension to install on browser startup. Each path should be
    * a packed Chrome extension.
    *
-   * @param array $paths
+   * @access public
+   * @param  array $paths
    * @return ChromeOptions
    */
   public function addExtensions(array $paths) {
@@ -81,7 +84,8 @@ class ChromeOptions {
   }
 
   /**
-   * @param array $encoded_extensions An array of base64 encoded of the
+   * @access public
+   * @param  array $encoded_extensions An array of base64 encoded of the
    *                                  extensions.
    * @return ChromeOptions
    */
@@ -95,8 +99,9 @@ class ChromeOptions {
   /**
    * Sets an experimental option which has not exposed officially.
    *
-   * @param string $name
-   * @param mixed $value
+   * @access public
+   * @param  string $name
+   * @param  mixed $value
    * @return ChromeOptions
    */
   public function setExperimentalOption($name, $value) {
@@ -105,6 +110,7 @@ class ChromeOptions {
   }
 
   /**
+   * @access public
    * @return DesiredCapabilities The DesiredCapabilities for Chrome with this
    *                             options.
    */
@@ -115,6 +121,7 @@ class ChromeOptions {
   }
 
   /**
+   * @access public
    * @return array
    */
   public function toArray() {
@@ -141,7 +148,8 @@ class ChromeOptions {
    * Add a Chrome extension to install on browser startup. Each path should be a
    * packed Chrome extension.
    *
-   * @param string $path
+   * @access private
+   * @param  string $path
    * @return ChromeOptions
    */
   private function addExtension($path) {
@@ -150,7 +158,8 @@ class ChromeOptions {
   }
 
   /**
-   * @param string $encoded_extension Base64 encoded of the extension.
+   * @access private
+   * @param  string $encoded_extension Base64 encoded of the extension.
    * @return ChromeOptions
    */
   private function addEncodedExtension($encoded_extension) {

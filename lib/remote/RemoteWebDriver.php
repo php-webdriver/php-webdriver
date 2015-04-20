@@ -44,10 +44,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Construct the RemoteWebDriver by a desired capabilities.
    *
-   * @param string $url The url of the remote server
-   * @param DesiredCapabilities $desired_capabilities The desired capabilities
-   * @param int|null $connection_timeout_in_ms
-   * @param int|null $request_timeout_in_ms
+   * @access public
+   * @param  string $url The url of the remote server
+   * @param  DesiredCapabilities $desired_capabilities The desired capabilities
+   * @param  int|null $connection_timeout_in_ms
+   * @param  int|null $request_timeout_in_ms
    * @return RemoteWebDriver
    */
   public static function create(
@@ -93,8 +94,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * browser for the whole test suite. You do not have to pass the desired
    * capabilities because the session was created before.
    *
-   * @param string $url The url of the remote server
-   * @param string $session_id The existing session id
+   * @access public
+   * @param  string $url The url of the remote server
+   * @param  string $session_id The existing session id
    * @return RemoteWebDriver
    */
   public static function createBySessionID(
@@ -110,6 +112,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Close the current window.
    *
+   * @access public
    * @return RemoteWebDriver The current instance.
    */
   public function close() {
@@ -121,7 +124,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Find the first WebDriverElement using the given mechanism.
    *
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return RemoteWebElement NoSuchElementException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
@@ -140,7 +144,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Find all WebDriverElements within the current page using the given
    * mechanism.
    *
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
    *    array if nothing matches
    * @see WebDriverBy
@@ -162,8 +167,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
     /**
      * Load a new web page in the current browser window.
      *
-     * @param string $url
-     *
+     * @access public
+     * @param  string $url
      * @return RemoteWebDriver The current instance.
      */
   public function get($url) {
@@ -176,6 +181,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get a string representing the current URL that the browser is looking at.
    *
+   * @access public
    * @return string The current URL.
    */
   public function getCurrentURL() {
@@ -185,6 +191,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get the source of the last loaded page.
    *
+   * @access public
    * @return string The current page source.
    */
   public function getPageSource() {
@@ -194,6 +201,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get the title of the current page.
    *
+   * @access public
    * @return string The title of the current page.
    */
   public function getTitle() {
@@ -204,6 +212,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Return an opaque handle to this window that uniquely identifies it within
    * this driver instance.
    *
+   * @access public
    * @return string The current window handle.
    */
   public function getWindowHandle() {
@@ -216,6 +225,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get all window handles available to the current session.
    *
+   * @access public
    * @return array An array of string containing all available window handles.
    */
   public function getWindowHandles() {
@@ -225,6 +235,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Quits this driver, closing every associated window.
    *
+   * @access public
    * @return void
    */
   public function quit() {
@@ -235,7 +246,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Prepare arguments for JavaScript injection
    *
-   * @param array $arguments
+   * @access private
+   * @param  array $arguments
    * @return array
    */
   private function prepareScriptArguments(array $arguments) {
@@ -258,8 +270,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * of the currently selected frame. The executed script is assumed to be
    * synchronous and the result of evaluating the script will be returned.
    *
-   * @param string $script The script to inject.
-   * @param array $arguments The arguments of the script.
+   * @access public
+   * @param  string $script The script to inject.
+   * @param  array $arguments The arguments of the script.
    * @return mixed The return value of the script.
    */
   public function executeScript($script, array $arguments = array()) {
@@ -279,8 +292,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    *
    * @see WebDriverExecuteAsyncScriptTestCase
    *
-   * @param string $script The script to inject.
-   * @param array $arguments The arguments of the script.
+   * @access public
+   * @param  string $script The script to inject.
+   * @param  array $arguments The arguments of the script.
    * @return mixed The value passed by the script to the callback.
    */
   public function executeAsyncScript($script, array $arguments = array()) {
@@ -297,7 +311,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Take a screenshot of the current page.
    *
-   * @param string $save_as The path of the screenshot to be saved.
+   * @access public
+   * @param  string $save_as The path of the screenshot to be saved.
    * @return string The screenshot in PNG format.
    */
   public function takeScreenshot($save_as = null) {
@@ -318,8 +333,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    *     WebDriverExpectedCondition::titleIs('WebDriver Page')
    *   );
    *
-   * @param int $timeout_in_second
-   * @param int $interval_in_millisecond
+   * @access public
+   * @param  int $timeout_in_second
+   * @param  int $interval_in_millisecond
    *
    * @return WebDriverWait
    */
@@ -335,6 +351,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * An abstraction for managing stuff you would do in a browser menu. For
    * example, adding and deleting cookies.
    *
+   * @access public
    * @return WebDriverOptions
    */
   public function manage() {
@@ -345,8 +362,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * An abstraction allowing the driver to access the browser's history and to
    * navigate to a given URL.
    *
+   * @access public
    * @return WebDriverNavigation
-   * @see WebDriverNavigation
+   * @see    WebDriverNavigation
    */
   public function navigate() {
     return new WebDriverNavigation($this->getExecuteMethod());
@@ -355,14 +373,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Switch to a different window or frame.
    *
+   * @access public
    * @return RemoteTargetLocator
-   * @see RemoteTargetLocator
+   * @see    RemoteTargetLocator
    */
   public function switchTo() {
     return new RemoteTargetLocator($this->getExecuteMethod(), $this);
   }
 
   /**
+   * @access public
    * @return RemoteMouse
    */
   public function getMouse() {
@@ -373,6 +393,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return RemoteKeyboard
    */
   public function getKeyboard() {
@@ -383,6 +404,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   }
 
   /**
+   * @access public
    * @return RemoteTouchScreen
    */
   public function getTouch() {
@@ -402,6 +424,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Construct a new action builder.
    *
+   * @access public
    * @return WebDriverActions
    */
   public function action() {
@@ -411,7 +434,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Return the WebDriverElement with the given id.
    *
-   * @param string $id The id of the element to be created.
+   * @access public
+   * @param  string $id The id of the element to be created.
    * @return RemoteWebElement
    */
   private function newElement($id) {
@@ -421,7 +445,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Set the command executor of this RemoteWebdriver
    *
-   * @param WebDriverCommandExecutor $executor
+   * @access public
+   * @param  WebDriverCommandExecutor $executor
    * @return RemoteWebDriver
    */
   public function setCommandExecutor(WebDriverCommandExecutor $executor) {
@@ -432,6 +457,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Set the command executor of this RemoteWebdriver
    *
+   * @access public
    * @return HttpCommandExecutor
    */
   public function getCommandExecutor() {
@@ -441,7 +467,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Set the session id of the RemoteWebDriver.
    *
-   * @param string $session_id
+   * @access public
+   * @param  string $session_id
    * @return RemoteWebDriver
    */
   public function setSessionID($session_id) {
@@ -452,6 +479,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get current selenium sessionID
    *
+   * @access public
    * @return string sessionID
    */
   public function getSessionID() {
@@ -461,8 +489,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   /**
    * Get all selenium sessions.
    *
-   * @param string $url The url of the remote server
-   * @param int $timeout_in_ms
+   * @access public
+   * @param  string $url The url of the remote server
+   * @param  int $timeout_in_ms
    * @return array
    */
   public static function getAllSessions(

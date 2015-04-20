@@ -20,6 +20,13 @@ class WebDriverPoint {
 
   private $x, $y;
 
+  /**
+   * Class constructor
+   *
+   * @access public
+   * @param  int, $x
+   * @param  int, $y
+   */
   public function __construct($x, $y) {
     $this->x = $x;
     $this->y = $y;
@@ -28,6 +35,7 @@ class WebDriverPoint {
   /**
    * Get the x-coordinate.
    *
+   * @access public
    * @return int The x-coordinate of the point.
    */
   public function getX() {
@@ -37,6 +45,7 @@ class WebDriverPoint {
   /**
    * Get the y-coordinate.
    *
+   * @access public
    * @return int The y-coordinate of the point.
    */
   public function getY() {
@@ -46,8 +55,9 @@ class WebDriverPoint {
   /**
    * Set the point to a new position.
    *
-   * @param int $new_x
-   * @param int $new_y
+   * @access public
+   * @param  int $new_x
+   * @param  int $new_y
    * @return WebDriverPoint The same instance with updated coordinates.
    */
   public function move($new_x, $new_y) {
@@ -59,8 +69,9 @@ class WebDriverPoint {
   /**
    * Move the current by offsets.
    *
-   * @param int $x_offset
-   * @param int $y_offset
+   * @access public
+   * @param  int $x_offset
+   * @param  int $y_offset
    * @return WebDriverPoint The same instance with updated coordinates.
    */
   public function moveBy($x_offset, $y_offset) {
@@ -72,7 +83,8 @@ class WebDriverPoint {
   /**
    * Check whether the given point is the same as the instance.
    *
-   * @param WebDriverPoint $point The point to be compared with.
+   * @access public
+   * @param  WebDriverPoint $point The point to be compared with.
    * @return bool Whether the x and y coordinates are the same as the instance.
    */
   public function equals(WebDriverPoint $point) {

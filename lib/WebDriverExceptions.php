@@ -20,8 +20,9 @@ class WebDriverException extends Exception {
   private $results;
 
   /**
-   * @param string $message
-   * @param mixed $results
+   * @access public
+   * @param  string $message
+   * @param  mixed $results
    */
   public function __construct($message, $results = null) {
     parent::__construct($message);
@@ -29,6 +30,7 @@ class WebDriverException extends Exception {
   }
 
   /**
+   * @access public
    * @return mixed
    */
   public function getResults() {
@@ -40,9 +42,10 @@ class WebDriverException extends Exception {
    * For $status_code >= 0, they are errors defined in the json wired protocol.
    * For $status_code < 0, they are errors defined in php-webdriver.
    *
-   * @param int $status_code
-   * @param string $message
-   * @param mixed $results
+   * @access public
+   * @param  int $status_code
+   * @param  string $message
+   * @param  mixed $results
    */
   public static function throwException($status_code, $message, $results) {
     switch ($status_code) {
@@ -166,8 +169,9 @@ class UnrecognizedExceptionException extends WebDriverException {}
 class UnexpectedTagNameException extends WebDriverException {
 
   /**
-   * @param string $expected_tag_name
-   * @param string $actual_tag_name
+   * @access public
+   * @param  string $expected_tag_name
+   * @param  string $actual_tag_name
    */
   public function __construct(
       $expected_tag_name,

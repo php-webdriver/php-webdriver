@@ -32,8 +32,9 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   protected $fileDetector;
 
   /**
-   * @param RemoteExecuteMethod $executor
-   * @param string $id
+   * @access public
+   * @param  RemoteExecuteMethod $executor
+   * @param  string $id
    */
   public function __construct(RemoteExecuteMethod $executor, $id) {
     $this->executor = $executor;
@@ -45,6 +46,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * If this element is a TEXTAREA or text INPUT element, this will clear the
    * value.
    *
+   * @access public
    * @return RemoteWebElement The current instance.
    */
   public function clear() {
@@ -58,6 +60,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Click this element.
    *
+   * @access public
    * @return RemoteWebElement The current instance.
    */
   public function click() {
@@ -72,7 +75,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Find the first WebDriverElement within this element using the given
    * mechanism.
    *
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return RemoteWebElement NoSuchElementException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
@@ -94,7 +98,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Find all WebDriverElements within this element using the given mechanism.
    *
-   * @param WebDriverBy $by
+   * @access public
+   * @param  WebDriverBy $by
    * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
    *    array if nothing matches
    * @see WebDriverBy
@@ -120,7 +125,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the value of a the given attribute of the element.
    *
-   * @param string $attribute_name The name of the attribute.
+   * @access public
+   * @param  string $attribute_name The name of the attribute.
    * @return string|null The value of the attribute.
    */
   public function getAttribute($attribute_name) {
@@ -137,7 +143,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the value of a given CSS property.
    *
-   * @param string $css_property_name The name of the CSS property.
+   * @access public
+   * @param  string $css_property_name The name of the CSS property.
    * @return string The value of the CSS property.
    */
   public function getCSSValue($css_property_name) {
@@ -154,6 +161,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the location of element relative to the top-left corner of the page.
    *
+   * @access public
    * @return WebDriverPoint The location of the element.
    */
   public function getLocation() {
@@ -168,6 +176,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Try scrolling the element into the view port and return the location of
    * element relative to the top-left corner of the page afterwards.
    *
+   * @access public
    * @return WebDriverPoint The location of the element.
    */
   public function getLocationOnScreenOnceScrolledIntoView() {
@@ -179,6 +188,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @access public
    * @return WebDriverCoordinates
    */
   public function getCoordinates() {
@@ -204,6 +214,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the size of element.
    *
+   * @access public
    * @return WebDriverDimension The dimension of the element.
    */
   public function getSize() {
@@ -217,6 +228,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the tag name of this element.
    *
+   * @access public
    * @return string The tag name.
    */
   public function getTagName() {
@@ -234,6 +246,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Get the visible (i.e. not hidden by CSS) innerText of this element,
    * including sub-elements, without any leading or trailing whitespace.
    *
+   * @access public
    * @return string The visible innerText of this element.
    */
   public function getText() {
@@ -247,6 +260,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Is this element displayed or not? This method avoids the problem of having
    * to parse an element's "style" attribute.
    *
+   * @access public
    * @return bool
    */
   public function isDisplayed() {
@@ -260,6 +274,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * Is the element currently enabled or not? This will generally return true
    * for everything but disabled input elements.
    *
+   * @access public
    * @return bool
    */
   public function isEnabled() {
@@ -272,6 +287,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Determine whether or not this element is selected or not.
    *
+   * @access public
    * @return bool
    */
   public function isSelected() {
@@ -284,7 +300,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Simulate typing into an element, which may set its value.
    *
-   * @param mixed $value The data to be typed.
+   * @access public
+   * @param  mixed $value The data to be typed.
    * @return RemoteWebElement The current instance.
    */
   public function sendKeys($value) {
@@ -309,7 +326,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Upload a local file to the server
    *
-   * @param string $local_file
+   * @access public
+   * @param  string $local_file
    *
    * @throws WebDriverException
    * @return string The remote path of the file.
@@ -349,11 +367,12 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    *
    *   eg. $element->setFileDetector(new LocalFileDetector);
    *
-   * @param FileDetector $detector
+   * @access public
+   * @param  FileDetector $detector
    * @return RemoteWebElement
-   * @see FileDetector
-   * @see LocalFileDetector
-   * @see UselessFileDetector
+   * @see    FileDetector
+   * @see    LocalFileDetector
+   * @see    UselessFileDetector
    */
   public function setFileDetector(FileDetector $detector) {
     $this->fileDetector = $detector;
@@ -364,6 +383,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * If this current element is a form, or an element within a form, then this
    * will be submitted to the remote server.
    *
+   * @access public
    * @return RemoteWebElement The current instance.
    */
   public function submit() {
@@ -378,6 +398,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Get the opaque ID of the element.
    *
+   * @access public
    * @return string The opaque ID.
    */
   public function getID() {
@@ -387,7 +408,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Test if two element IDs refer to the same DOM element.
    *
-   * @param WebDriverElement $other
+   * @access public
+   * @param  WebDriverElement $other
    * @return bool
    */
   public function equals(WebDriverElement $other) {
@@ -400,7 +422,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
   /**
    * Return the WebDriverElement with $id
    *
-   * @param string $id
+   * @access private
+   * @param  string $id
    *
    * @return RemoteWebElement
    */

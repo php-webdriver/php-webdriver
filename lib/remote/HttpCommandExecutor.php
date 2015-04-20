@@ -141,7 +141,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   /**
    * Set timeout for the connect phase
    *
-   * @param int $timeout_in_ms Timeout in milliseconds
+   * @access public
+   * @param  int $timeout_in_ms Timeout in milliseconds
    * @return HttpCommandExecutor
    */
   public function setConnectionTimeout($timeout_in_ms) {
@@ -157,7 +158,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   /**
    * Set the maximum time of a request
    *
-   * @param int $timeout_in_ms Timeout in milliseconds
+   * @access public
+   * @param  int $timeout_in_ms Timeout in milliseconds
    * @return HttpCommandExecutor
    */
   public function setRequestTimeout($timeout_in_ms) {
@@ -172,7 +174,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   }
 
   /**
-   * @param WebDriverCommand $command
+   * @access public
+   * @param  WebDriverCommand $command
    * @return mixed
    */
   public function execute(WebDriverCommand $command) {
@@ -274,6 +277,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
   }
 
   /**
+   * @access public
    * @return string
    */
   public function getAddressOfRemoteServer() {

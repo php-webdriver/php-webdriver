@@ -14,9 +14,10 @@
 // limitations under the License.
 
 class LocalFileDetector implements FileDetector {
+
     /**
+     * @access public
      * @param string $file
-     *
      * @return null|string
      */
     public function getLocalFile($file) {

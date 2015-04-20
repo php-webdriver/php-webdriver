@@ -18,7 +18,8 @@ interface WebDriverKeyboard {
   /**
    * Send a sequence of keys.
    *
-   * @param string $keys
+   * @access public
+   * @param  string $keys
    * @return $this
    */
   public function sendKeys($keys);
@@ -26,8 +27,9 @@ interface WebDriverKeyboard {
   /**
    * Press a key
    *
-   * @see WebDriverKeys
-   * @param string $key
+   * @access public
+   * @see    WebDriverKeys
+   * @param  string $key
    * @return $this
    */
   public function pressKey($key);
@@ -35,8 +37,9 @@ interface WebDriverKeyboard {
   /**
    * Release a key
    *
-   * @see WebDriverKeys
-   * @param string $key
+   * @access public
+   * @see    WebDriverKeys
+   * @param  string $key
    * @return $this
    */
   public function releaseKey($key);

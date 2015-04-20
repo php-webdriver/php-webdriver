@@ -31,13 +31,15 @@ class WebDriverResponse {
   private $sessionID;
 
   /**
-   * @param null|string $session_id
+   * @access public
+   * @param  null|string $session_id
    */
   public function __construct($session_id = null) {
     $this->sessionID = $session_id;
   }
 
   /**
+   * @access public
    * @return null|int
    */
   public function getStatus() {
@@ -45,7 +47,8 @@ class WebDriverResponse {
   }
 
   /**
-   * @param int $status
+   * @access public
+   * @param  int $status
    * @return WebDriverResponse
    */
   public function setStatus($status) {
@@ -54,6 +57,7 @@ class WebDriverResponse {
   }
 
   /**
+   * @access public
    * @return mixed
    */
   public function getValue() {
@@ -61,7 +65,8 @@ class WebDriverResponse {
   }
 
   /**
-   * @param mixed $value
+   * @access public
+   * @param  mixed $value
    * @return WebDriverResponse
    */
   public function setValue($value) {
@@ -70,6 +75,7 @@ class WebDriverResponse {
   }
 
   /**
+   * @access public
    * @return null|string
    */
   public function getSessionID() {
@@ -77,7 +83,8 @@ class WebDriverResponse {
   }
 
   /**
-   * @param mixed $session_id
+   * @access public
+   * @param  mixed $session_id
    * @return WebDriverResponse
    */
   public function setSessionID($session_id) {

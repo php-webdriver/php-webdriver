@@ -29,8 +29,9 @@ abstract class WebDriverTouchAction {
   protected $locationProvider;
 
   /**
-   * @param WebDriverTouchScreen $touch_screen
-   * @param WebDriverLocatable $location_provider
+   * @access public
+   * @param  WebDriverTouchScreen $touch_screen
+   * @param  WebDriverLocatable $location_provider
    */
   public function __construct(
     WebDriverTouchScreen $touch_screen,
@@ -41,6 +42,7 @@ abstract class WebDriverTouchAction {
   }
 
   /**
+   * @access protected
    * @return null|WebDriverCoordinates
    */
   protected function getActionLocation() {

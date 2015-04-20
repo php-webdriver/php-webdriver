@@ -26,7 +26,8 @@ class FirefoxProfile {
   private $extensions = array();
 
   /**
-   * @param string $extension The path to the xpi extension.
+   * @access public
+   * @param  string $extension The path to the xpi extension.
    * @return FirefoxProfile
    */
   public function addExtension($extension) {
@@ -35,8 +36,9 @@ class FirefoxProfile {
   }
 
   /**
-   * @param string $key
-   * @param string|bool|int $value
+   * @access public
+   * @param  string $key
+   * @param  string|bool|int $value
    * @return FirefoxProfile
    */
   public function setPreference($key, $value) {
@@ -55,6 +57,7 @@ class FirefoxProfile {
   }
 
   /**
+   * @access public
    * @return string
    */
   public function encode() {
@@ -95,8 +98,9 @@ class FirefoxProfile {
   }
 
   /**
-   * @param string $extension The path to the extension.
-   * @param string $profile_dir The path to the profile directory.
+   * @access private
+   * @param  string $extension The path to the extension.
+   * @param  string $profile_dir The path to the profile directory.
    * @return string The path to the directory of this extension.
    */
   private function installExtension($extension, $profile_dir) {
@@ -119,7 +123,8 @@ class FirefoxProfile {
   }
 
   /**
-   * @param string $prefix Prefix of the temp directory.
+   * @access private
+   * @param  string $prefix Prefix of the temp directory.
    * @return string The path to the temp directory created.
    */
   private function createTempDirectory($prefix = '') {
@@ -135,8 +140,9 @@ class FirefoxProfile {
   }
 
   /**
-   * @param string $xpi The path to the .xpi extension.
-   * @param string $target_dir The path to the unzip directory.
+   * @access private
+   * @param  string $xpi The path to the .xpi extension.
+   * @param  string $target_dir The path to the unzip directory.
    * @return FirefoxProfile
    */
   private function extractTo($xpi, $target_dir) {

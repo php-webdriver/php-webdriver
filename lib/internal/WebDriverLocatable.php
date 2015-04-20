@@ -19,6 +19,7 @@
 interface WebDriverLocatable {
 
   /**
+   * @access public
    * @return WebDriverCoordinates
    */
   public function getCoordinates();

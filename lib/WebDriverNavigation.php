@@ -25,7 +25,7 @@
 class WebDriverNavigation {
 
   protected $executor;
-
+  
   public function __construct(ExecuteMethod $executor) {
     $this->executor = $executor;
   }
@@ -33,6 +33,7 @@ class WebDriverNavigation {
   /**
    * Move back a single entry in the browser's history, if possible.
    *
+   * @access public
    * @return WebDriverNavigation The instance.
    */
   public function back() {
@@ -43,6 +44,7 @@ class WebDriverNavigation {
   /**
    * Move forward a single entry in the browser's history, if possible.
    *
+   * @access public
    * @return WebDriverNavigation The instance.
    */
   public function forward() {
@@ -53,6 +55,7 @@ class WebDriverNavigation {
   /**
    * Refresh the current page.
    *
+   * @access public
    * @return WebDriverNavigation The instance.
    */
   public function refresh() {
@@ -63,7 +66,8 @@ class WebDriverNavigation {
   /**
    * Navigate to the given URL.
    *
-   * @param string $url
+   * @access public
+   * @param  string $url
    * @return WebDriverNavigation The instance.
    */
   public function to($url) {

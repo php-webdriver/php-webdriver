@@ -41,10 +41,11 @@ class DriverService {
   private $process;
 
   /**
-   * @param string $executable
-   * @param int $port The given port the service should use.
-   * @param array $args
-   * @param array|null $environment Use the system environment if it is null
+   * @access public
+   * @param  string $executable
+   * @param  int $port The given port the service should use.
+   * @param  array $args
+   * @param  array|null $environment Use the system environment if it is null
    */
   public function __construct(
     $executable,
@@ -64,6 +65,7 @@ class DriverService {
   }
 
   /**
+   * @access public
    * @return string
    */
   public function getURL() {
@@ -71,6 +73,7 @@ class DriverService {
   }
 
   /**
+   * @access public
    * @return DriverService
    */
   public function start() {
@@ -98,6 +101,7 @@ class DriverService {
   }
 
   /**
+   * @access public
    * @return DriverService
    */
   public function stop() {
@@ -115,6 +119,7 @@ class DriverService {
   }
 
   /**
+   * @access public
    * @return bool
    */
   public function isRunning() {
@@ -129,7 +134,8 @@ class DriverService {
   /**
    * Check if the executable is executable.
    *
-   * @param string $executable
+   * @access public
+   * @param  string $executable
    * @return string
    * @throws Exception
    */

@@ -86,7 +86,9 @@ class WebDriverKeys {
 
   /**
    * Encode input of `sendKeys()`.
-   * @param string|array $keys
+   *
+   * @access public
+   * @param  string|array $keys
    * @return array
    */
   public static function encode($keys) {

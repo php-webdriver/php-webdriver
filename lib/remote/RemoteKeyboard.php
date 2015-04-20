@@ -24,7 +24,10 @@ class RemoteKeyboard implements WebDriverKeyboard {
   private $executor;
 
   /**
-   * @param RemoteExecuteMethod $executor
+   * Class constructor
+   *
+   * @access public
+   * @param  RemoteExecuteMethod $executor
    */
   public function __construct(RemoteExecuteMethod $executor) {
     $this->executor = $executor;
@@ -32,7 +35,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
 
   /**
    * Send keys to active element
-   * @param string|array $keys
+   *
+   * @access public
+   * @param  string|array $keys
    * @return $this
    */
   public function sendKeys($keys) {
@@ -45,8 +50,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
   /**
    * Press a modifier key
    *
-   * @see WebDriverKeys
-   * @param string $key
+   * @access public
+   * @see    WebDriverKeys
+   * @param  string $key
    * @return $this
    */
   public function pressKey($key) {
@@ -59,8 +65,9 @@ class RemoteKeyboard implements WebDriverKeyboard {
   /**
    * Release a modifier key
    *
-   * @see WebDriverKeys
-   * @param string $key
+   * @access public
+   * @see    WebDriverKeys
+   * @param  string $key
    * @return $this
    */
   public function releaseKey($key) {

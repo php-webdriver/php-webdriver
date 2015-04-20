@@ -26,8 +26,9 @@ class EventFiringWebDriverNavigation {
   protected $dispatcher;
 
   /**
-   * @param WebDriverNavigation $navigator
-   * @param WebDriverDispatcher $dispatcher
+   * @access public
+   * @param  WebDriverNavigation $navigator
+   * @param  WebDriverDispatcher $dispatcher
    */
   public function __construct(WebDriverNavigation $navigator,
                               WebDriverDispatcher $dispatcher) {
@@ -37,6 +38,7 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
+   * @access public
    * @return WebDriverDispatcher
    */
   public function getDispatcher() {
@@ -44,7 +46,8 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
-   * @param mixed $method
+   * @access protected
+   * @param  mixed $method
    * @return void
    */
   protected function dispatch($method) {
@@ -58,6 +61,7 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
+   * @access public
    * @return WebDriverNavigation
    */
   public function getNavigator() {
@@ -65,6 +69,7 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -86,6 +91,7 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -107,6 +113,7 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
+   * @access public
    * @return $this
    * @throws WebDriverException
    */
@@ -120,7 +127,8 @@ class EventFiringWebDriverNavigation {
   }
 
   /**
-   * @param mixed $url
+   * @access public
+   * @param  mixed $url
    * @return $this
    * @throws WebDriverException
    */

@@ -24,14 +24,16 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   private $executor;
 
   /**
-   * @param RemoteExecuteMethod $executor
+   * @access public
+   * @param  RemoteExecuteMethod $executor
    */
   public function __construct(RemoteExecuteMethod $executor) {
       $this->executor = $executor;
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -45,7 +47,8 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -59,8 +62,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -75,8 +79,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
 
 
   /**
-   * @param int $xspeed
-   * @param int $yspeed
+   * @access public
+   * @param  int $xspeed
+   * @param  int $yspeed
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -90,10 +95,11 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param WebDriverElement $element
-   * @param int $xoffset
-   * @param int $yoffset
-   * @param int $speed
+   * @access public
+   * @param  WebDriverElement $element
+   * @param  int $xoffset
+   * @param  int $yoffset
+   * @param  int $speed
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -111,7 +117,8 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param WebDriverElement $element
+   * @access public
+   * @param  WebDriverElement $element
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -125,8 +132,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -140,8 +148,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param int $xoffset
-   * @param int $yoffset
+   * @access public
+   * @param  int $xoffset
+   * @param  int $yoffset
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -155,9 +164,10 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
   }
 
   /**
-   * @param WebDriverElement $element
-   * @param int $xoffset
-   * @param int $yoffset
+   * @access public
+   * @param  WebDriverElement $element
+   * @param  int $xoffset
+   * @param  int $yoffset
    *
    * @return RemoteTouchScreen The instance.
    */
@@ -175,8 +185,9 @@ class RemoteTouchScreen implements WebDriverTouchScreen {
 
 
   /**
-   * @param int $x
-   * @param int $y
+   * @access public
+   * @param  int $x
+   * @param  int $y
    *
    * @return RemoteTouchScreen The instance.
    */

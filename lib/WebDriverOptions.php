@@ -40,7 +40,8 @@ class WebDriverOptions {
    *                   URL.
    *  'expiry': int    The cookie's expiration date; may be null.
    *
-   * @param array $cookie An array with key as the attributes mentioned above.
+   * @access public
+   * @param  array $cookie An array with key as the attributes mentioned above.
    * @return WebDriverOptions The current instance.
    */
   public function addCookie(array $cookie) {
@@ -55,6 +56,7 @@ class WebDriverOptions {
   /**
    * Delete all the cookies that are currently visible.
    *
+   * @access public
    * @return WebDriverOptions The current instance.
    */
   public function deleteAllCookies() {
@@ -65,7 +67,8 @@ class WebDriverOptions {
   /**
    * Delete the cookie with the give name.
    *
-   * @param string $name
+   * @access public
+   * @param  string $name
    * @return WebDriverOptions The current instance.
    */
   public function deleteCookieNamed($name) {
@@ -79,7 +82,8 @@ class WebDriverOptions {
   /**
    * Get the cookie with a given name.
    *
-   * @param string $name
+   * @access public
+   * @param  string $name
    * @return array The cookie, or null if no cookie with the given name is
    *               presented.
    */
@@ -96,6 +100,7 @@ class WebDriverOptions {
   /**
    * Get all the cookies for the current domain.
    *
+   * @access public
    * @return array The array of cookies presented.
    */
   public function getCookies() {
@@ -124,6 +129,7 @@ class WebDriverOptions {
   /**
    * Return the interface for managing driver timeouts.
    *
+   * @access public
    * @return WebDriverTimeouts
    */
   public function timeouts() {
@@ -133,8 +139,9 @@ class WebDriverOptions {
   /**
    * An abstraction allowing the driver to manipulate the browser's window
    *
+   * @access public
    * @return WebDriverWindow
-   * @see WebDriverWindow
+   * @see    WebDriverWindow
    */
   public function window() {
     return new WebDriverWindow($this->executor);
@@ -143,9 +150,10 @@ class WebDriverOptions {
   /**
    * Get the log for a given log type. Log buffer is reset after each request.
    *
-   * @param string $log_type The log type.
+   * @access public
+   * @param  string $log_type The log type.
    * @return array The list of log entries.
-   * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
+   * @see    https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
    */
   public function getLog($log_type) {
     return $this->executor->execute(
@@ -157,8 +165,9 @@ class WebDriverOptions {
   /**
    * Get available log types.
    *
+   * @access public
    * @return array The list of available log types.
-   * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
+   * @see    https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
    */
   public function getAvailableLogTypes() {
     return $this->executor->execute(DriverCommand::GET_AVAILABLE_LOG_TYPES);
