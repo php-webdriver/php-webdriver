@@ -200,7 +200,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @return WebDriverLocation
+   * @return WebDriverPoint
    * @throws WebDriverException
    */
   public function getLocation() {
@@ -212,7 +212,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
-   * @return WebDriverLocation
+   * @return WebDriverPoint
    * @throws WebDriverException
    */
   public function getLocationOnScreenOnceScrolledIntoView() {

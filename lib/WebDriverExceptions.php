@@ -23,11 +23,18 @@ class WebDriverException extends Exception {
 
   private $results;
 
+  /**
+   * @param string $message
+   * @param mixed $results
+   */
   public function __construct($message, $results = null) {
     parent::__construct($message);
     $this->results = $results;
   }
 
+  /**
+   * @return mixed
+   */
   public function getResults() {
     return $this->results;
   }
@@ -36,6 +43,10 @@ class WebDriverException extends Exception {
    * Throw WebDriverExceptions.
    * For $status_code >= 0, they are errors defined in the json wired protocol.
    * For $status_code < 0, they are errors defined in php-webdriver.
+   *
+   * @param int $status_code
+   * @param string $message
+   * @param mixed $results
    */
   public static function throwException($status_code, $message, $results) {
     switch ($status_code) {
@@ -158,9 +169,13 @@ class UnrecognizedExceptionException extends WebDriverException {}
 
 class UnexpectedTagNameException extends WebDriverException {
 
+  /**
+   * @param string $expected_tag_name
+   * @param string $actual_tag_name
+   */
   public function __construct(
-      string $expected_tag_name,
-      string $actual_tag_name) {
+      $expected_tag_name,
+      $actual_tag_name) {
     parent::__construct(
       sprintf(
         "Element should have been \"%s\" but was \"%s\"",

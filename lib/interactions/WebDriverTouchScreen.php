@@ -49,7 +49,7 @@ interface WebDriverTouchScreen {
    * Flick on the touch screen using finger motion events. Use this flick
    * command if you don't care where the flick starts on the screen.
    *
-   * @param int $xpeed
+   * @param int $xspeed
    * @param int $yspeed
    * @return $this
    */
@@ -71,6 +71,7 @@ interface WebDriverTouchScreen {
   /**
    * Long press on the touch screen using finger motion events.
    *
+   * @param WebDriverElement $element
    * @return $this
    */
   public function longPress(WebDriverElement $element);

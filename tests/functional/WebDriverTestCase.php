@@ -40,6 +40,9 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase {
 
   /**
    * Get the URL of the test html.
+   *
+   * @param $path
+   * @return string
    */
   protected function getTestPath($path) {
     return 'file:///'.dirname(__FILE__).'/html/'.$path;

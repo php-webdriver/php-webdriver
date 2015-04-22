@@ -42,8 +42,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking the title of a page.
    *
-   * @param string title The expected title, which must be an exact match.
-   * @return WebDriverExpectedCondition<bool> True when the title matches,
+   * @param string $title The expected title, which must be an exact match.
+   * @return bool WebDriverExpectedCondition True when the title matches,
    *         false otherwise.
    */
   public static function titleIs($title) {
@@ -57,8 +57,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking substring of a page Title.
    *
-   * @param string title The expected substring of Title.
-   * @return WebDriverExpectedCondition<bool> True when in title,
+   * @param string $title The expected substring of Title.
+   * @return bool WebDriverExpectedCondition True when in title,
    *         false otherwise.
    */
   public static function titleContains($title) {
@@ -147,7 +147,7 @@ class WebDriverExpectedCondition {
    *
    * @param WebDriverBy $by The locator used to find the element.
    * @param string $text The text to be presented in the element.
-   * @return WebDriverExpectedCondition<bool> Whether the text is presented.
+   * @return bool WebDriverExpectedCondition Whether the text is presented.
    */
   public static function textToBePresentInElement(
       WebDriverBy $by, $text) {
@@ -169,7 +169,7 @@ class WebDriverExpectedCondition {
    *
    * @param WebDriverBy $by The locator used to find the element.
    * @param string $text The text to be presented in the element value.
-   * @return WebDriverExpectedCondition<bool> Whether the text is presented.
+   * @return bool WebDriverExpectedCondition Whether the text is presented.
    */
   public static function textToBePresentInElementValue(
       WebDriverBy $by, $text) {
@@ -189,7 +189,7 @@ class WebDriverExpectedCondition {
    * Expectation for checking if iFrame exists.
    * If iFrame exists switches driver's focus to the iFrame
    *
-   * @param string frame_locator The locator used to find the iFrame
+   * @param string $frame_locator The locator used to find the iFrame
    *   expected to be either the id or name value of the i/frame
    * @return WebDriverExpectedCondition<WebDriver> object focused on new frame
    *         when frame is found bool false otherwise
@@ -211,7 +211,7 @@ class WebDriverExpectedCondition {
    * present on the DOM.
    *
    * @param WebDriverBy $by The locator used to find the element.
-   * @return WebDriverExpectedCondition<bool> Whether there is no element
+   * @return bool WebDriverExpectedCondition Whether there is no element
    *         located.
    */
   public static function invisibilityOfElementLocated(WebDriverBy $by) {
@@ -234,7 +234,7 @@ class WebDriverExpectedCondition {
    *
    * @param WebdriverBy $by The locator used to find the element.
    * @param string $text The text of the element.
-   * @return WebDriverExpectedCondition<bool> Whether the text is found in the
+   * @return bool WebDriverExpectedCondition Whether the text is found in the
    *         element located.
    */
   public static function invisibilityOfElementWithText(
@@ -286,7 +286,7 @@ class WebDriverExpectedCondition {
    * Wait until an element is no longer attached to the DOM.
    *
    * @param WebDriverElement $element The element to wait for.
-   * @return WebDriverExpectedCondition<bool> false if the element is still
+   * @return bool WebDriverExpectedCondition false if the element is still
    *         attached to the DOM, true otherwise.
    */
   public static function stalenessOf(WebDriverElement $element) {
@@ -330,8 +330,8 @@ class WebDriverExpectedCondition {
   /**
    * An expectation for checking if the given element is selected.
    *
-   * @param mixed element_or_by Either the element or the locator.
-   * @return WebDriverExpectedCondition<bool> whether the element is selected.
+   * @param mixed $element_or_by Either the element or the locator.
+   * @return bool WebDriverExpectedCondition whether the element is selected.
    */
   public static function elementToBeSelected($element_or_by) {
     return WebDriverExpectedCondition::elementSelectionStateToBe(
@@ -345,7 +345,7 @@ class WebDriverExpectedCondition {
    *
    * @param mixed $element_or_by Either the element or the locator.
    * @param bool $selected The required state.
-   * @return WebDriverExpectedCondition<bool> Whether the element is selected.
+   * @return bool WebDriverExpectedCondition Whether the element is selected.
    */
   public static function elementSelectionStateToBe(
       $element_or_by,
@@ -398,7 +398,7 @@ class WebDriverExpectedCondition {
    * An expectation with the logical opposite condition of the given condition.
    *
    * @param WebDriverExpectedCondition $condition The condition to be negated.
-   * @return mixed The nagation of the result of the given condition.
+   * @return mixed The negation of the result of the given condition.
    */
   public static function not(WebDriverExpectedCondition $condition) {
     return new WebDriverExpectedCondition(

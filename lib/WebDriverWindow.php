@@ -77,8 +77,7 @@ class WebDriverWindow {
    * Set the size of the current window. This will change the outer window
    * dimension, not just the view port.
    *
-   * @param int $width The target window width.
-   * @param int $height The target height height.
+   * @param WebDriverDimension $size
    * @return WebDriverWindow The instance.
    */
   public function setSize(WebDriverDimension $size) {
@@ -95,8 +94,7 @@ class WebDriverWindow {
    * Set the position of the current window. This is relative to the upper left
    * corner of the screen.
    *
-   * @param int $width The target window width.
-   * @param int $height The target height height.
+   * @param WebDriverPoint $position
    * @return WebDriverWindow The instance.
    */
   public function setPosition(WebDriverPoint $position) {

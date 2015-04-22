@@ -18,12 +18,15 @@ namespace Selenium\WebDriver;
 class ChromeDriver extends RemoteWebDriver {
 
   public static function start(
-    DesiredCapabilities $desired_capabilities = null
+    DesiredCapabilities $desired_capabilities = null,
+    ChromeDriverService $service = null
   ) {
     if ($desired_capabilities === null) {
       $desired_capabilities = DesiredCapabilities::chrome();
     }
-    $service = ChromeDriverService::createDefaultService();
+    if ($service === null) {
+      $service = ChromeDriverService::createDefaultService();
+    }
     $executor = new DriverCommandExecutor($service);
     $driver = new static();
     $driver->setCommandExecutor($executor)
@@ -43,10 +46,17 @@ class ChromeDriver extends RemoteWebDriver {
     $this->setSessionID($response->getSessionID());
   }
 
+  /**
+   * @param string $url The url of the remote server
+   * @param DesiredCapabilities $desired_capabilities The desired capabilities
+   * @param int|null $connection_timeout_in_ms
+   * @param int|null $request_timeout_in_ms
+   */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
-    $timeout_in_ms = 300000
+    $timeout_in_ms = null,
+    $request_timeout_in_ms = null
   ) {
     throw new WebDriverException('Please use ChromeDriver::start() instead.');
   }

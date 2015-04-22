@@ -43,6 +43,8 @@ class WebDriverActions {
   /**
    * Mouse click.
    * If $element is provided, move to the middle of the element first.
+   *
+   * @param WebDriverElement $element
    * @return WebDriverActions
    */
   public function click(WebDriverElement $element = null) {
@@ -55,6 +57,8 @@ class WebDriverActions {
   /**
    * Mouse click and hold.
    * If $element is provided, move to the middle of the element first.
+   *
+   * @param WebDriverElement $element
    * @return WebDriverActions
    */
   public function clickAndHold(WebDriverElement $element = null) {
@@ -67,6 +71,8 @@ class WebDriverActions {
   /**
    * Context-click (right click).
    * If $element is provided, move to the middle of the element first.
+   *
+   * @param WebDriverElement $element
    * @return WebDriverActions
    */
   public function contextClick(WebDriverElement $element = null) {
@@ -79,6 +85,8 @@ class WebDriverActions {
   /**
    * Double click.
    * If $element is provided, move to the middle of the element first.
+   *
+   * @param WebDriverElement $element
    * @return WebDriverActions
    */
   public function doubleClick(WebDriverElement $element = null) {
@@ -90,6 +98,9 @@ class WebDriverActions {
 
   /**
    * Drag and drop from $source to $target.
+   *
+   * @param WebDriverElement $source
+   * @param WebDriverElement $target
    * @return WebDriverActions
    */
   public function dragAndDrop(WebDriverElement $source,
@@ -108,6 +119,10 @@ class WebDriverActions {
 
   /**
    * Drag $source and drop by offset ($x_offset, $y_offset).
+   *
+   * @param WebDriverElement $source
+   * @param int $x_offset
+   * @param int $y_offset
    * @return WebDriverActions
    */
   public function dragAndDropBy(WebDriverElement $source,
@@ -127,6 +142,9 @@ class WebDriverActions {
 
   /**
    * Mouse move by offset.
+   *
+   * @param int $x_offset
+   * @param int $y_offset
    * @return WebDriverActions
    */
   public function moveByOffset($x_offset, $y_offset) {
@@ -139,6 +157,10 @@ class WebDriverActions {
   /**
    * Move to the middle of the given WebDriverElement. If offset are provided,
    * move the an offset from the top-left cornerof that element.
+   *
+   * @param WebDriverElement $element
+   * @param int $x_offset
+   * @param int $y_offset
    * @return WebDriverActions
    */
   public function moveToElement(WebDriverElement $element,
@@ -153,6 +175,8 @@ class WebDriverActions {
   /**
    * Release the mouse button.
    * If $element is provided, move to the middle of the element first.
+   *
+   * @param WebDriverElement $element
    * @return WebDriverActions
    */
   public function release(WebDriverElement $element = null) {
@@ -167,6 +191,8 @@ class WebDriverActions {
    * If $element is provided, focus on that element first.
    *
    * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   * @param WebDriverElement $element
+   * @param string $key
    * @return WebDriverActions
    */
   public function keyDown(WebDriverElement $element = null, $key = null) {
@@ -181,6 +207,8 @@ class WebDriverActions {
    * If $element is provided, focus on that element first.
    *
    * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   * @param WebDriverElement $element
+   * @param string $key
    * @return WebDriverActions
    */
   public function keyUp(WebDriverElement $element = null, $key = null) {
@@ -195,6 +223,8 @@ class WebDriverActions {
    * If $element is provided, focus on that element first.
    *
    * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
+   * @param WebDriverElement $element
+   * @param string $keys
    * @return WebDriverActions
    */
   public function sendKeys(WebDriverElement $element = null, $keys = null) {
