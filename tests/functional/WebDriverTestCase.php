@@ -35,7 +35,9 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase {
   }
   
   protected function tearDown() {
-    $this->driver->quit();
+    if ($this->driver) {
+	    $this->driver->quit();
+	  }
   }
 
   /**

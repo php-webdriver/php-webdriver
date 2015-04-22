@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Selenium\WebDriver;
+
 /**
  * Used to locate a given frame or window for RemoteWebDriver.
  */
