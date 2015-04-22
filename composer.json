@@ -1,13 +1,13 @@
 {
-  "name": "janoszen/webdriver",
+  "name": "opsbears/webdriver",
   "description": "A php client for WebDriver (fork of facebook/webdriver)",
   "keywords": ["webdriver", "selenium", "php"],
-  "homepage": "https://github.com/janoszen/php-webdriver",
+  "homepage": "https://github.com/opsbears/php-webdriver",
   "type": "library",
   "license": "Apache-2.0",
   "support": {
-    "issues": "https://github.com/janoszen/php-webdriver/issues",
-    "source": "https://github.com/janoszen/php-webdriver"
+    "issues": "https://github.com/opsbears/php-webdriver/issues",
+    "source": "https://github.com/opsbears/php-webdriver"
   },
   "require": {
     "php": ">=5.3.19"
