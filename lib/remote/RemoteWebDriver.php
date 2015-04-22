@@ -47,7 +47,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * Construct the RemoteWebDriver by a desired capabilities.
    *
    * @param string $url The url of the remote server
-   * @param DesiredCapabilities $desired_capabilities The desired capabilities
+   * @param DesiredCapabilities|array $desired_capabilities The desired capabilities
    * @param int|null $connection_timeout_in_ms
    * @param int|null $request_timeout_in_ms
    * @return RemoteWebDriver
