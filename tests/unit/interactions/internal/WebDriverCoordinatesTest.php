@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase {
   public function testConstruct() {

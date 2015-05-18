@@ -1,5 +1,5 @@
 <?php
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 require_once __DIR__ . '/../../lib/__init__.php';

@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 /**
  * Interface implemented by each driver that allows access to the input devices.

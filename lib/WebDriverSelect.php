@@ -13,7 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
+use Facebook\WebDriver\Exception\UnexpectedTagNameException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 /**
  * Models a SELECT tag, providing helper methods to select and deselect options.

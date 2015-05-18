@@ -13,7 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
+use Facebook\WebDriver\Exception\IndexOutOfBoundsException;
 
 /**
  * An abstraction allowing the driver to manipulate the browser's window
