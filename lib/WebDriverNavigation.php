@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 /**
  * An abstraction allowing the driver to access the browser's history and to

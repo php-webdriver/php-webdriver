@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase {
   /**
@@ -25,8 +25,8 @@ class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverMouse = $this->getMock('Selenium\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Selenium\WebDriver\WebDriverLocatable');
+    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
     $this->webDriverContextClickAction = new WebDriverContextClickAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -34,7 +34,7 @@ class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformSendsContextClickCommand() {
-    $coords = $this->getMockBuilder('Selenium\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('contextClick')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverContextClickAction->perform();

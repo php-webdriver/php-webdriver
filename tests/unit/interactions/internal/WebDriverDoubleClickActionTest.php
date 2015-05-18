@@ -13,7 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Selenium\WebDriver;
+namespace Facebook\WebDriver;
 
 class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase {
   /**
@@ -25,8 +25,8 @@ class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverMouse = $this->getMock('Selenium\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Selenium\WebDriver\WebDriverLocatable');
+    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
     $this->webDriverDoubleClickAction = new WebDriverDoubleClickAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -34,7 +34,7 @@ class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformSendsDoubleClickCommand() {
-    $coords = $this->getMockBuilder('Selenium\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('doubleClick')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverDoubleClickAction->perform();
