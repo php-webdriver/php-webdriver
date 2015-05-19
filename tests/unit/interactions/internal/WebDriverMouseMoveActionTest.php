@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
+
 class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverMouseMoveAction
@@ -26,7 +28,8 @@ class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
+
     $this->webDriverMouseMoveAction = new WebDriverMouseMoveAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -34,7 +37,8 @@ class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformFocusesOnElementAndSendPressKeyCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+      ->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('mouseMove')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverMouseMoveAction->perform();

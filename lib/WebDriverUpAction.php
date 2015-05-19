@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Touch\WebDriverTouchAction;
+use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+
 class WebDriverUpAction
   extends WebDriverTouchAction
   implements WebDriverAction {

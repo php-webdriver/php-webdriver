@@ -14,6 +14,7 @@
 // limitations under the License.
 
 namespace Facebook\WebDriver;
+
 use Facebook\WebDriver\Exception\UnexpectedTagNameException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;

@@ -14,7 +14,9 @@
 // limitations under the License.
 
 namespace Facebook\WebDriver;
+
 use Facebook\WebDriver\Exception\IndexOutOfBoundsException;
+use Facebook\WebDriver\Remote\DriverCommand;
 
 /**
  * An abstraction allowing the driver to manipulate the browser's window

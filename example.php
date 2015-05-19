@@ -3,6 +3,9 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+
 require_once('vendor/autoload.php');
 
 // start Firefox with 5 second timeout

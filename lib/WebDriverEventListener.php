@@ -16,6 +16,8 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Support\Events\EventFiringWebDriver;
+use Facebook\WebDriver\Support\Events\EventFiringWebElement;
 
 interface WebDriverEventListener {
 

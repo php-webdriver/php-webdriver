@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\LocalFileDetector;
+
 /**
  * An example test case for php-webdriver.
  * 
