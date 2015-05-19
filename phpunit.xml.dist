@@ -11,12 +11,14 @@
         processIsolation            = "false"
         stopOnFailure               = "false"
         syntaxCheck                 = "false"
-        bootstrap                   = "bootstrap.php" >
+        bootstrap                   = "tests/bootstrap.php" >
 
     <testsuites>
-        <testsuite name="Facebook PHP-Webdriver Unit Testsuite">
-            <directory>../unit</directory>
+        <testsuite name="Unit-Testsuite">
+            <directory>tests/unit</directory>
+        </testsuite>
+        <testsuite name="Functional-Testsuite">
+            <directory>tests/functional/</directory>
         </testsuite>
     </testsuites>
-
 </phpunit>
