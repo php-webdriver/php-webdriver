@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
+
 class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase {
   public function testConstruct() {
     $in_view_port = function() { };

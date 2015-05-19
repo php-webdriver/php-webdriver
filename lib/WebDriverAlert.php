@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\DriverCommand;
+
 /**
  * An abstraction allowing the driver to manipulate the javascript alerts
  */

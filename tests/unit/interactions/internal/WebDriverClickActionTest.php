@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverClickAction;
+
 class WebDriverClickActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverClickAction
@@ -26,7 +28,7 @@ class WebDriverClickActionTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
     $this->webDriverClickAction = new WebDriverClickAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -34,7 +36,8 @@ class WebDriverClickActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformSendsClickCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+      ->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverClickAction->perform();

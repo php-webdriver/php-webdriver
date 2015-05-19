@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
+
 /**
  * Interface representing basic mouse operations.
  */

@@ -42,9 +42,46 @@ class WebDriverException extends Exception {
    * For $status_code >= 0, they are errors defined in the json wired protocol.
    * For $status_code < 0, they are errors defined in php-webdriver.
    *
-   * @param int $status_code
+   * @param int    $status_code
    * @param string $message
-   * @param mixed $results
+   * @param mixed  $results
+   *
+   * @throws ElementNotSelectableException
+   * @throws ElementNotVisibleException
+   * @throws ExpectedException
+   * @throws IMEEngineActivationFailedException
+   * @throws IMENotAvailableException
+   * @throws IndexOutOfBoundsException
+   * @throws InvalidCookieDomainException
+   * @throws InvalidCoordinatesException
+   * @throws InvalidElementStateException
+   * @throws InvalidSelectorException
+   * @throws MoveTargetOutOfBoundsException
+   * @throws NoAlertOpenException
+   * @throws NoCollectionException
+   * @throws NoScriptResultException
+   * @throws NoStringException
+   * @throws NoStringLengthException
+   * @throws NoStringWrapperException
+   * @throws NoSuchCollectionException
+   * @throws NoSuchDocumentException
+   * @throws NoSuchDriverException
+   * @throws NoSuchElementException
+   * @throws NoSuchFrameException
+   * @throws NoSuchWindowException
+   * @throws NullPointerException
+   * @throws ScriptTimeoutException
+   * @throws SessionNotCreatedException
+   * @throws StaleElementReferenceException
+   * @throws TimeOutException
+   * @throws UnableToSetCookieException
+   * @throws UnexpectedAlertOpenException
+   * @throws UnexpectedJavascriptException
+   * @throws UnknownCommandException
+   * @throws UnknownServerException
+   * @throws UnrecognizedExceptionException
+   * @throws WebDriverCurlException
+   * @throws XPathLookupException
    */
   public static function throwException($status_code, $message, $results) {
     switch ($status_code) {

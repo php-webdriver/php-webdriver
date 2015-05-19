@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Support\Events\EventFiringWebDriver;
+
 class WebDriverDispatcher {
 
   /**

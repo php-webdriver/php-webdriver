@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
+
 class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverKeyUpAction
@@ -28,7 +30,8 @@ class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
   public function setUp() {
     $this->webDriverKeyboard = $this->getMock('Facebook\WebDriver\WebDriverKeyboard');
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
+
     $this->webDriverKeyUpAction = new WebDriverKeyUpAction(
       $this->webDriverKeyboard,
       $this->webDriverMouse,
@@ -38,7 +41,8 @@ class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformFocusesOnElementAndSendPressKeyCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+      ->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverKeyboard->expects($this->once())->method('releaseKey')->with('a');

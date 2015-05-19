@@ -14,6 +14,7 @@
 // limitations under the License.
 
 namespace Facebook\WebDriver;
+
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\TimeOutException;
 
@@ -45,7 +46,12 @@ class WebDriverWait {
    *
    * @param (closure|WebDriverExpectedCondition)
    * @param string $message
+   *
    * @return mixed The return value of $func_or_ec
+
+   * @throws NoSuchElementException
+   * @throws TimeOutException
+   * @throws \Exception
    */
   public function until($func_or_ec, $message = "") {
     $end = microtime(true) + $this->timeout;

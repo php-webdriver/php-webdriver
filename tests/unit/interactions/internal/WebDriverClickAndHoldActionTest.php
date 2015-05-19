@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;
+
 class WebDriverClickAndHoldActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverClickAndHoldAction
@@ -26,7 +28,7 @@ class WebDriverClickAndHoldActionTest extends \PHPUnit_Framework_TestCase {
 
   public function setUp() {
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\WebDriverLocatable');
+    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
     $this->webDriverClickAndHoldAction = new WebDriverClickAndHoldAction(
       $this->webDriverMouse,
       $this->locationProvider
@@ -34,7 +36,8 @@ class WebDriverClickAndHoldActionTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testPerformSendsMouseDownCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\WebDriverCoordinates')->disableOriginalConstructor()->getMock();
+    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+      ->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('mouseDown')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
     $this->webDriverClickAndHoldAction->perform();

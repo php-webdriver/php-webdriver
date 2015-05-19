@@ -14,6 +14,7 @@
 // limitations under the License.
 
 namespace Facebook\WebDriver;
+
 use Facebook\WebDriver\Exception\StaleElementReferenceException;
 use Facebook\WebDriver\Exception\NoSuchFrameException;
 use Facebook\WebDriver\Exception\NoSuchElementException;

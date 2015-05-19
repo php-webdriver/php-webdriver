@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\DriverCommand;
+
 /**
  * Managing timeout behavior for WebDriver instances.
  */
