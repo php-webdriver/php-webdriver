@@ -55,12 +55,7 @@ class DriverService {
     $this->executable = self::checkExecutable($executable);
     $this->url = sprintf('http://localhost:%d', $port);
     $this->args = $args;
-
-    if ($environment === null) {
-      $this->environment = $_ENV;
-    } else {
-      $this->environment = $environment;
-    }
+    $this->environment = $environment ?: $_ENV;
   }
 
   /**
@@ -136,9 +131,12 @@ class DriverService {
   protected static function checkExecutable($executable) {
     if (!is_file($executable)) {
       throw new Exception("'$executable' is not a file.");
-    } else if (!is_executable($executable)) {
+    }
+
+    if (!is_executable($executable)) {
       throw new Exception("'$executable' is not executable.");
     }
+
     return $executable;
   }
 }
