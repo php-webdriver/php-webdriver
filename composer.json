@@ -21,8 +21,8 @@
   },
   "autoload": {
     "psr-4": {
-		"Facebook\\WebDriver\\": "lib/"
-	}
+      "Facebook\\WebDriver\\": "lib/"
+    }
   },
   "autoload-dev": {
     "psr-4": {
