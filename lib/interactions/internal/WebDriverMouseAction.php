@@ -34,9 +34,9 @@ class WebDriverMouseAction {
   protected function getActionLocation() {
     if ($this->locationProvider !== null) {
       return $this->locationProvider->getCoordinates();
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   /**
