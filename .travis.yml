@@ -17,7 +17,7 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - wget -q -t 3 http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
   - java -jar selenium-server-standalone-2.45.0.jar -log selenium.log &
-  - sleep 3
+  - until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done;
 
 script: ./vendor/bin/phpunit
 
