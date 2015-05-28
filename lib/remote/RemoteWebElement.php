@@ -405,6 +405,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
    * @return RemoteWebElement
    */
   private function newElement($id) {
-    return new RemoteWebElement($this->executor, $id);
+    $class = get_class($this);
+    return new $class($this->executor, $id);
   }
 }
