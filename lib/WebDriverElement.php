@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Facebook\WebDriver;
+
 /**
  * Interface for an HTML element in the WebDriver framework.
  */

@@ -13,6 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Facebook\WebDriver;
+
 /**
  * The basic 8 mechanisms supported by webdriver to locate a web element.
  * ie. 'class name', 'css selector', 'id', 'name', 'link text',
