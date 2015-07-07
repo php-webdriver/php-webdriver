@@ -8,6 +8,10 @@ php:
   - 7
   - hhvm
 
+cache:
+  directories:
+    - $HOME/.composer/cache
+
 before_install:
   - composer self-update
 
