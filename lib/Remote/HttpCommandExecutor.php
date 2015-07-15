@@ -117,10 +117,19 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
 
   /**
    * @param string $url
+   * @param string|null $http_proxy
+   * @param int|null $http_proxy_port
    */
-  public function __construct($url) {
+  public function __construct($url, $http_proxy = null, $http_proxy_port = null) {
     $this->url = $url;
     $this->curl = curl_init();
+
+    if (!empty($http_proxy)) {
+      curl_setopt($this->curl, CURLOPT_PROXY, $http_proxy);
+      if (!empty($http_proxy_port)) {
+        curl_setopt($this->curl, CURLOPT_PROXYPORT, $http_proxy_port);
+      }
+    }
 
     // Get credentials from $url (if any)
     $matches = null;
