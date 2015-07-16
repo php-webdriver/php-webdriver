@@ -60,13 +60,17 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @param DesiredCapabilities|array $desired_capabilities The desired capabilities
    * @param int|null $connection_timeout_in_ms
    * @param int|null $request_timeout_in_ms
+   * @param string|null $http_proxy The proxy to tunnel requests through
+   * @param int|null $http_proxy_port
    * @return RemoteWebDriver
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
     $connection_timeout_in_ms = null,
-    $request_timeout_in_ms = null
+    $request_timeout_in_ms = null,
+    $http_proxy = null,
+    $http_proxy_port = null
   ) {
     $url = preg_replace('#/+$#', '', $url);
 
@@ -76,7 +80,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       $desired_capabilities = $desired_capabilities->toArray();
     }
 
-    $executor = new HttpCommandExecutor($url);
+    $executor = new HttpCommandExecutor($url, $http_proxy, $http_proxy_port);
     if ($connection_timeout_in_ms !== null) {
       $executor->setConnectionTimeout($connection_timeout_in_ms);
     }
