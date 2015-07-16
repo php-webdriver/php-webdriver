@@ -36,7 +36,7 @@ interface WebDriverSearchContext {
    * Find all WebDriverElements within this element using the given mechanism.
    *
    * @param WebDriverBy $locator
-   * @return array A list of all WebDriverElements, or an empty array if
+   * @return WebDriverElement[] A list of all WebDriverElements, or an empty array if
    *    nothing matches
    * @see WebDriverBy
    */
