@@ -48,14 +48,14 @@ class WebDriverSelect {
   }
 
   /**
-   * @return array All options belonging to this select tag.
+   * @return WebDriverElement[] All options belonging to this select tag.
    */
   public function getOptions() {
     return $this->element->findElements(WebDriverBy::tagName('option'));
   }
 
   /**
-   * @return array All selected options belonging to this select tag.
+   * @return WebDriverElement[] All selected options belonging to this select tag.
    */
   public function getAllSelectedOptions() {
     $selected_options = array();
