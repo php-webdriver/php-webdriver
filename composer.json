@@ -2,13 +2,12 @@
   "name": "markuskleint/webdriver",
   "description": "A PHP client for WebDriver based on facebook/webdriver",
   "keywords": ["webdriver", "selenium", "php", "facebook"],
-  "homepage": "https://github.com/facebook/php-webdriver",
+  "homepage": "https://github.com/markuskleint/php-webdriver",
   "type": "library",
   "license": "Apache-2.0",
   "support": {
-    "issues": "https://github.com/facebook/php-webdriver/issues",
-    "forum": "https://www.facebook.com/groups/phpwebdriver/",
-    "source": "https://github.com/facebook/php-webdriver"
+    "issues": "https://github.com/markuskleint/php-webdriver/issues",
+    "source": "https://github.com/markuskleint/php-webdriver"
   },
   "require": {
     "php": ">=5.3.19"
