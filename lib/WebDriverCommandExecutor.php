@@ -13,6 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Facebook\WebDriver;
+
+use Facebook\WebDriver\Remote\WebDriverCommand;
+
 /**
  * Interface for all command executor.
  */
@@ -20,6 +24,7 @@ interface WebDriverCommandExecutor {
 
   /**
    * @param WebDriverCommand $command
+   *
    * @return mixed
    */
   public function execute(WebDriverCommand $command);

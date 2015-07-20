@@ -13,6 +13,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Facebook\WebDriver;
+
+use Facebook\WebDriver\Exception\UnexpectedTagNameException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
+
 /**
  * Models a SELECT tag, providing helper methods to select and deselect options.
  */
@@ -42,14 +48,14 @@ class WebDriverSelect {
   }
 
   /**
-   * @return array All options belonging to this select tag.
+   * @return WebDriverElement[] All options belonging to this select tag.
    */
   public function getOptions() {
     return $this->element->findElements(WebDriverBy::tagName('option'));
   }
 
   /**
-   * @return array All selected options belonging to this select tag.
+   * @return WebDriverElement[] All selected options belonging to this select tag.
    */
   public function getAllSelectedOptions() {
     $selected_options = array();

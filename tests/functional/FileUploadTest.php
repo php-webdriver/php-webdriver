@@ -13,6 +13,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+namespace Facebook\WebDriver;
+
+use Facebook\WebDriver\Remote\LocalFileDetector;
+
 /**
  * An example test case for php-webdriver.
  * 
