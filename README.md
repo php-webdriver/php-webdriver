@@ -19,12 +19,14 @@ Any complaint, question, idea? You can post it on the user group https://www.fac
 ### Packagist
 Add the dependency. https://packagist.org/packages/facebook/webdriver
 
-    {
-      "require": {
-        "facebook/webdriver": "~1.0"
-      }
-    }
-    
+```json
+{
+  "require": {
+    "facebook/webdriver": "~1.0"
+  }
+}
+```
+
 Download the composer.phar
 
     curl -sS https://getcomposer.org/installer | php
@@ -32,8 +34,7 @@ Download the composer.phar
 Install the library.
 
     php composer.phar install
-        
-   
+
 
 ##  GETTING STARTED
 
@@ -41,26 +42,36 @@ Install the library.
 
 *   Download and run that file, replacing # with the current server version.
 
-        java -jar selenium-server-standalone-#.jar
+    ```
+    java -jar selenium-server-standalone-#.jar
+    ```
 
 *   Then when you create a session, be sure to pass the url to where your server is running.
 
-        // This would be the url of the host running the server-standalone.jar
-        $host = 'http://localhost:4444/wd/hub'; // this is the default
+    ```php
+    // This would be the url of the host running the server-standalone.jar
+    $host = 'http://localhost:4444/wd/hub'; // this is the default
+    ```
 
 *   Launch Firefox
 
-        $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
-        
+    ```php
+    $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+    ```
+
 *   Launch Chrome
 
-        $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+    ```php
+    $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+    ```
 
-*   You can also customize the desired capabilities. 
+*   You can also customize the desired capabilities.
 
-        $desired_capabilities = DesiredCapabilities::firefox();
-        $desired_capabilities->setJavascriptEnabled(false);
-        RemoteWebDriver::create($host, $desired_capabilities);
+    ```php
+    $desired_capabilities = DesiredCapabilities::firefox();
+    $desired_capabilities->setJavascriptEnabled(false);
+    RemoteWebDriver::create($host, $desired_capabilities);
+    ```
 
 *   See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
