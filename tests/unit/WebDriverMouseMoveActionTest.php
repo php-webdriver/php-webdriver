@@ -13,8 +13,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Facebook\WebDriver;
-
 use Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
 
 class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase {
