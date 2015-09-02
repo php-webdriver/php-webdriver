@@ -34,7 +34,7 @@ $link->click();
 // print the title of the current page
 echo "The title is " . $driver->getTitle() . "'\n";
 
-// print the title of the current page
+// print the URI of the current page
 echo "The current URI is " . $driver->getCurrentURL() . "'\n";
 
 // Search 'php' in the search box
