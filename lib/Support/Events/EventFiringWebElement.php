@@ -78,8 +78,8 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
    * @param WebDriverElement $element
    * @return EventFiringWebElement
    */
-  private function newElement(WebDriverElement $element) {
-    return new EventFiringWebElement($element, $this->getDispatcher());
+  protected function newElement(WebDriverElement $element) {
+    return new static($element, $this->getDispatcher());
   }
 
   /**
