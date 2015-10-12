@@ -430,7 +430,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
    * @param string $id The id of the element to be created.
    * @return RemoteWebElement
    */
-  private function newElement($id) {
+  protected function newElement($id) {
     return new RemoteWebElement($this->getExecuteMethod(), $id);
   }
 

@@ -85,7 +85,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor {
    * @param WebDriverElement $element
    * @return EventFiringWebElement
    */
-  private function newElement(WebDriverElement $element) {
+  protected function newElement(WebDriverElement $element) {
     return new EventFiringWebElement($element, $this->getDispatcher());
   }
 
