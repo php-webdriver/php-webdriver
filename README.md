@@ -13,11 +13,13 @@ Any complaint, question, idea? You can post it on the user group https://www.fac
 
 ##  GETTING THE CODE
 
-### Github
+There are two ways of getting the code:
+
+### Via Github
     git clone git@github.com:facebook/php-webdriver.git
 
-### Packagist
-Add the dependency. https://packagist.org/packages/facebook/webdriver
+### Via Packagist
+Add the dependency to composer.json (see https://packagist.org/packages/facebook/webdriver)
 
 ```json
 {
@@ -26,6 +28,8 @@ Add the dependency. https://packagist.org/packages/facebook/webdriver
   }
 }
 ```
+
+## INSTALLATION
 
 Download the composer.phar
 
