@@ -169,6 +169,7 @@ class FirefoxProfile {
 
     rmdir($directory;
   }
+  
   /**
    * @param string $xpi        The path to the .xpi extension.
    * @param string $target_dir The path to the unzip directory.
