@@ -98,6 +98,11 @@ class FirefoxProfile {
     $zip->close();
 
     $profile = base64_encode(file_get_contents($temp_zip));
+
+    // clean up
+    rmdir($temp_dir);
+    unlink($temp_zip);
+    
     return $profile;
   }
 
@@ -122,6 +127,10 @@ class FirefoxProfile {
     mkdir($ext_dir, 0777, true);
 
     $this->extractTo($extension, $ext_dir);
+
+    // clean up
+    rmdir($temp_dir);
+    
     return $ext_dir;
   }
 
