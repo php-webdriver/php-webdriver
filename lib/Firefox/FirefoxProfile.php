@@ -157,17 +157,17 @@ class FirefoxProfile {
    */
   private function deleteDirectory($directory) {
     $dir = new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS);
-    $files = new RecursiveIteratorIterator($dir, RecursiveIteratorIterator::CHILD_FIRST);
+    $paths = new RecursiveIteratorIterator($dir, RecursiveIteratorIterator::CHILD_FIRST);
 
-    foreach($paths as $path) {
+    foreach ($paths as $path) {
       if ($path->isDir() && !$path->isLink()) {
         rmdir($path->getPathname());
       } else {
-        unlink($path->getPathname())
+        unlink($path->getPathname());
       }
     }
 
-    rmdir($directory;
+    rmdir($directory);
   }
   
   /**
