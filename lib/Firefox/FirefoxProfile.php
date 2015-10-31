@@ -45,6 +45,7 @@ class FirefoxProfile {
    * @param string $key
    * @param string|bool|int $value
    * @return FirefoxProfile
+   * @throws WebDriverException
    */
   public function setPreference($key, $value) {
     if (is_string($value)) {

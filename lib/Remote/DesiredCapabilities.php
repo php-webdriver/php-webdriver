@@ -115,6 +115,7 @@ class DesiredCapabilities implements WebDriverCapabilities {
    * This is a htmlUnit-only option.
    *
    * @param bool $enabled
+   * @throws Exception
    * @return DesiredCapabilities
    * @see https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
    */
