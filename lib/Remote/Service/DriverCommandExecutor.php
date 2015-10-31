@@ -50,7 +50,7 @@ class DriverCommandExecutor extends HttpCommandExecutor {
     }
 
     try {
-      $value = parent::execute($command, $curl_opts);
+      $value = parent::execute($command);
       if ($command->getName() === DriverCommand::QUIT) {
         $this->service->stop();
       }
