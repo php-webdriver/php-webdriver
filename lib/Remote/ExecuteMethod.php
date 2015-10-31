@@ -15,8 +15,6 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Remote\WebDriverResponse;
-
 interface ExecuteMethod {
 
   /**
