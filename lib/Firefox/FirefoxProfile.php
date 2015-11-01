@@ -99,6 +99,11 @@ class FirefoxProfile {
     $zip->close();
 
     $profile = base64_encode(file_get_contents($temp_zip));
+
+    // clean up
+    $this->deleteDirectory($temp_dir);
+    unlink($temp_zip);
+
     return $profile;
   }
 
@@ -123,6 +128,10 @@ class FirefoxProfile {
     mkdir($ext_dir, 0777, true);
 
     $this->extractTo($extension, $ext_dir);
+
+    // clean up
+    $this->deleteDirectory($temp_dir);
+
     return $ext_dir;
   }
 
@@ -144,6 +153,24 @@ class FirefoxProfile {
     return $temp_dir;
   }
 
+  /**
+   * @param string $directory The path to the directory.
+   */
+  private function deleteDirectory($directory) {
+    $dir = new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS);
+    $paths = new RecursiveIteratorIterator($dir, RecursiveIteratorIterator::CHILD_FIRST);
+
+    foreach ($paths as $path) {
+      if ($path->isDir() && !$path->isLink()) {
+        rmdir($path->getPathname());
+      } else {
+        unlink($path->getPathname());
+      }
+    }
+
+    rmdir($directory);
+  }
+  
   /**
    * @param string $xpi        The path to the .xpi extension.
    * @param string $target_dir The path to the unzip directory.
