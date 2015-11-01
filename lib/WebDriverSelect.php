@@ -68,6 +68,8 @@ class WebDriverSelect {
   }
 
   /**
+   * @throws NoSuchElementException
+   *
    * @return WebDriverElement The first selected option in this select tag (or
    *                          the currently selected option in a normal select)
    */
@@ -83,6 +85,8 @@ class WebDriverSelect {
 
   /**
    * Deselect all options in multiple select tag.
+   *
+   * @throws UnsupportedOperationException
    *
    * @return void
    */
@@ -104,6 +108,9 @@ class WebDriverSelect {
    * Select the option at the given index.
    *
    * @param int $index The index of the option. (0-based)
+   *
+   * @throws NoSuchElementException
+   *
    * @return void
    */
   public function selectByIndex($index) {
@@ -133,6 +140,9 @@ class WebDriverSelect {
    * <option value="foo">Bar</option>;
    *
    * @param string $value The value to match against.
+   *
+   * @throws NoSuchElementException
+   *
    * @return void
    */
   public function selectByValue($value) {
@@ -164,6 +174,9 @@ class WebDriverSelect {
    * <option value="foo">Bar</option>;
    *
    * @param string $text The visible text to match against.
+   *
+   * @throws NoSuchElementException
+   *
    * @return void
    */
   public function selectByVisibleText($text) {
