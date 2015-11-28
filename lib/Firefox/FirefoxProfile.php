@@ -80,7 +80,7 @@ class FirefoxProfile {
     file_put_contents($temp_dir.'/user.js', $content);
 
     $zip = new ZipArchive();
-    $temp_zip = tempnam('', 'WebDriverFirefoxProfileZip');
+    $temp_zip = tempnam(\Yii::getAlias('@runtime/webdriver'), 'WebDriverFirefoxProfileZip');
     $zip->open($temp_zip, ZipArchive::CREATE);
 
     $dir = new RecursiveDirectoryIterator($temp_dir);
@@ -143,7 +143,7 @@ class FirefoxProfile {
    * @throws WebDriverException
    */
   private function createTempDirectory($prefix = '') {
-    $temp_dir = tempnam('', $prefix);
+    $temp_dir = tempnam(\Yii::getAlias('@runtime/webdriver'), $prefix);
     if (file_exists($temp_dir)) {
       unlink($temp_dir);
       mkdir($temp_dir);
