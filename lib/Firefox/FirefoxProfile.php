@@ -34,6 +34,11 @@ class FirefoxProfile {
   private $extensions = array();
 
   /**
+   * @var array
+   */
+  private $extensionsDatas = array();
+
+  /**
    * @var string
    */
   private $rdfFile;
@@ -44,6 +49,19 @@ class FirefoxProfile {
    */
   public function addExtension($extension) {
     $this->extensions[] = $extension;
+    return $this;
+  }
+
+  /**
+   * @param string $extensionDatas The path to the folder containing the datas to add to the extension
+   * @return FirefoxProfile
+   */  
+  public function addExtensionDatas($extensionDatas) {
+    if(!is_dir($extensionDatas)) {
+      return;
+    }
+
+    $this->extensionsDatas[dirname($extensionDatas)] = $extensionDatas;
     return $this;
   }
 
@@ -93,6 +111,17 @@ class FirefoxProfile {
 
     foreach ($this->extensions as $extension) {
       $this->installExtension($extension, $temp_dir);
+    }
+
+    foreach ($this->extensionsDatas as $dirname => $extensionDatas) {
+      mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname);
+      $files = scandir($extensionDatas);
+      foreach ($files as $file) {
+        if(is_file($file)
+           && $file != "."
+           && $file != "..") {
+          copy($extensionDatas . DIRECTORY_SEPARATOR . $file, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $file);
+      }
     }
 
     $content = "";
