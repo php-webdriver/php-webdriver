@@ -34,11 +34,29 @@ class FirefoxProfile {
   private $extensions = array();
 
   /**
+   * @var string
+   */
+  private $rdfFile;
+
+  /**
    * @param string $extension The path to the xpi extension.
    * @return FirefoxProfile
    */
   public function addExtension($extension) {
     $this->extensions[] = $extension;
+    return $this;
+  }
+
+  /**
+   * @param string $rdfFile The path to the rdf file
+   * @return FirefoxProfile
+   */
+  public function setRdfFile($rdfFile) {
+    if(!is_file($rdfFile)) {
+      return;
+    }
+    
+    $this->rdfFile = $rdfFile;
     return $this;
   }
 
@@ -68,6 +86,10 @@ class FirefoxProfile {
    */
   public function encode() {
     $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
+
+    if(isset($this->rdfFile)) {
+      copy($this->rdfFile, $temp_dir . DIRECTORY_SEPARATOR . "mimeTypes.rdf");
+    }
 
     foreach ($this->extensions as $extension) {
       $this->installExtension($extension, $temp_dir);
