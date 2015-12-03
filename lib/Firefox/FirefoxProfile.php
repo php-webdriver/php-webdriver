@@ -61,7 +61,7 @@ class FirefoxProfile {
       return;
     }
 
-    $this->extensions_datas[dirname($extension_datas)] = $extension_datas;
+    $this->extensions_datas[basename($extension_datas)] = $extension_datas;
     return $this;
   }
 
