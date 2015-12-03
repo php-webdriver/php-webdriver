@@ -36,12 +36,12 @@ class FirefoxProfile {
   /**
    * @var array
    */
-  private $extensionsDatas = array();
+  private $extensions_datas = array();
 
   /**
    * @var string
    */
-  private $rdfFile;
+  private $rdf_file;
 
   /**
    * @param string $extension The path to the xpi extension.
@@ -53,28 +53,28 @@ class FirefoxProfile {
   }
 
   /**
-   * @param string $extensionDatas The path to the folder containing the datas to add to the extension
+   * @param string $extension_datas The path to the folder containing the datas to add to the extension
    * @return FirefoxProfile
    */  
-  public function addExtensionDatas($extensionDatas) {
-    if(!is_dir($extensionDatas)) {
+  public function addExtensionDatas($extension_datas) {
+    if(!is_dir($extension_datas)) {
       return;
     }
 
-    $this->extensionsDatas[dirname($extensionDatas)] = $extensionDatas;
+    $this->extensions_datas[dirname($extension_datas)] = $extension_datas;
     return $this;
   }
 
   /**
-   * @param string $rdfFile The path to the rdf file
+   * @param string $rdf_file The path to the rdf file
    * @return FirefoxProfile
    */
-  public function setRdfFile($rdfFile) {
-    if(!is_file($rdfFile)) {
+  public function setRdfFile($rdf_file) {
+    if(!is_file($rdf_file)) {
       return;
     }
     
-    $this->rdfFile = $rdfFile;
+    $this->rdf_file = $rdf_file;
     return $this;
   }
 
@@ -105,22 +105,22 @@ class FirefoxProfile {
   public function encode() {
     $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
 
-    if(isset($this->rdfFile)) {
-      copy($this->rdfFile, $temp_dir . DIRECTORY_SEPARATOR . "mimeTypes.rdf");
+    if(isset($this->rdf_file)) {
+      copy($this->rdf_file, $temp_dir . DIRECTORY_SEPARATOR . "mimeTypes.rdf");
     }
 
     foreach ($this->extensions as $extension) {
       $this->installExtension($extension, $temp_dir);
     }
 
-    foreach ($this->extensionsDatas as $dirname => $extensionDatas) {
+    foreach ($this->extensions_datas as $dirname => $extension_datas) {
       mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname);
-      $files = scandir($extensionDatas);
+      $files = scandir($extension_datas);
       foreach ($files as $file) {
         if(is_file($file)
            && $file != "."
            && $file != "..") {
-          copy($extensionDatas . DIRECTORY_SEPARATOR . $file, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $file);
+          copy($extension_datas . DIRECTORY_SEPARATOR . $file, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $file);
       }
     }
 
