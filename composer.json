@@ -1,6 +1,6 @@
 {
-  "name": "dguerra/facebook-webdriver",
-  "description": "A fork of Facebook PHP client for WebDriver",
+  "name": "facebook/webdriver",
+  "description": "A PHP client for WebDriver",
   "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
   "type": "library",

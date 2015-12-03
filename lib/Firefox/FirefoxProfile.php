@@ -57,7 +57,7 @@ class FirefoxProfile {
    * @return FirefoxProfile
    */  
   public function addExtensionDatas($extension_datas) {
-    if(!is_dir($extension_datas)) {
+    if (!is_dir($extension_datas)) {
       return;
     }
 
@@ -70,7 +70,7 @@ class FirefoxProfile {
    * @return FirefoxProfile
    */
   public function setRdfFile($rdf_file) {
-    if(!is_file($rdf_file)) {
+    if (!is_file($rdf_file)) {
       return;
     }
     
@@ -105,7 +105,7 @@ class FirefoxProfile {
   public function encode() {
     $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
 
-    if(isset($this->rdf_file)) {
+    if (isset($this->rdf_file)) {
       copy($this->rdf_file, $temp_dir . DIRECTORY_SEPARATOR . "mimeTypes.rdf");
     }
 
@@ -115,13 +115,13 @@ class FirefoxProfile {
 
     foreach ($this->extensions_datas as $dirname => $extension_datas) {
       mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname);
-      $files = scandir($extension_datas);
-      foreach ($files as $file) {
-        if(is_file($file)
-           && $file != "."
-           && $file != "..") {
-          copy($extension_datas . DIRECTORY_SEPARATOR . $file, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $file);
-        }
+      $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($extension_datas, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+      foreach ($iterator as $item) {
+        if ($item->isDir()) {
+	  mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	} else {
+	  copy($item, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	}
       }
     }
 
