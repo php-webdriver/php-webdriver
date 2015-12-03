@@ -121,6 +121,7 @@ class FirefoxProfile {
            && $file != "."
            && $file != "..") {
           copy($extension_datas . DIRECTORY_SEPARATOR . $file, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $file);
+        }
       }
     }
 
