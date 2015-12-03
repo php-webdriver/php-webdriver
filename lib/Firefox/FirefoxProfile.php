@@ -165,7 +165,7 @@ class FirefoxProfile {
    * @return string The path to the directory of this extension.
    */
   private function installExtension($extension, $profile_dir) {
-    $temp_dir = $this->createTempDirectory();
+    $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
 
     $this->extractTo($extension, $temp_dir);
 
