@@ -35,7 +35,7 @@ class WebDriverWait {
       $timeout_in_second = null,
       $interval_in_millisecond = null) {
     $this->driver = $driver;
-    $this->timeout = $timeout_in_second ?: 30;
+    $this->timeout = isset($timeout_in_second) ? $timeout_in_second : 30;
     $this->interval = $interval_in_millisecond ?: 250;
   }
 
