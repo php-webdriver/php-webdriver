@@ -34,11 +34,47 @@ class FirefoxProfile {
   private $extensions = array();
 
   /**
+   * @var array
+   */
+  private $extensions_datas = array();
+
+  /**
+   * @var string
+   */
+  private $rdf_file;
+
+  /**
    * @param string $extension The path to the xpi extension.
    * @return FirefoxProfile
    */
   public function addExtension($extension) {
     $this->extensions[] = $extension;
+    return $this;
+  }
+
+  /**
+   * @param string $extension_datas The path to the folder containing the datas to add to the extension
+   * @return FirefoxProfile
+   */  
+  public function addExtensionDatas($extension_datas) {
+    if (!is_dir($extension_datas)) {
+      return;
+    }
+
+    $this->extensions_datas[basename($extension_datas)] = $extension_datas;
+    return $this;
+  }
+
+  /**
+   * @param string $rdf_file The path to the rdf file
+   * @return FirefoxProfile
+   */
+  public function setRdfFile($rdf_file) {
+    if (!is_file($rdf_file)) {
+      return;
+    }
+    
+    $this->rdf_file = $rdf_file;
     return $this;
   }
 
@@ -69,8 +105,24 @@ class FirefoxProfile {
   public function encode() {
     $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfile');
 
+    if (isset($this->rdf_file)) {
+      copy($this->rdf_file, $temp_dir . DIRECTORY_SEPARATOR . "mimeTypes.rdf");
+    }
+
     foreach ($this->extensions as $extension) {
       $this->installExtension($extension, $temp_dir);
+    }
+
+    foreach ($this->extensions_datas as $dirname => $extension_datas) {
+      mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname);
+      $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($extension_datas, RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+      foreach ($iterator as $item) {
+        if ($item->isDir()) {
+	  mkdir($temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	} else {
+	  copy($item, $temp_dir . DIRECTORY_SEPARATOR . $dirname . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+	}
+      }
     }
 
     $content = "";
@@ -114,7 +166,7 @@ class FirefoxProfile {
    * @return string The path to the directory of this extension.
    */
   private function installExtension($extension, $profile_dir) {
-    $temp_dir = $this->createTempDirectory();
+    $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
 
     $this->extractTo($extension, $temp_dir);
 
