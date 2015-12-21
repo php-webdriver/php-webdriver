@@ -1,5 +1,5 @@
 {
-  "name": "jumper423/yii2-webdriver",
+  "name": "jumper423/yii2-php-webdriver",
   "description": "A PHP client for WebDriver",
   "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
