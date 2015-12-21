@@ -150,8 +150,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor {
         'Accept: application/json',
       )
     );
-    $this->setRequestTimeout(30000);
-    $this->setConnectionTimeout(30000);
+    $this->setRequestTimeout(120000);
+    $this->setConnectionTimeout(120000);
   }
 
   /**
