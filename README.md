@@ -48,6 +48,7 @@ Install the library.
 
     ```
     java -jar selenium-server-standalone-#.jar
+    java -jar selenium-server-standalone-2.48.2.jar
     ```
 
 *   Then when you create a session, be sure to pass the url to where your server is running.

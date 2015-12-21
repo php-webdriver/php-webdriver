@@ -93,7 +93,7 @@ class FirefoxProfile {
       $value = $value ? 'true' : 'false';
     } else {
       throw new WebDriverException(
-        'The value of the preference should be either a string, int or bool.');
+          'The value of the preference should be either a string, int or bool.');
     }
     $this->preferences[$key] = $value;
     return $this;
@@ -142,9 +142,9 @@ class FirefoxProfile {
         continue;
       }
       $dir_prefix = preg_replace(
-        '#\\\\#',
-        '\\\\\\\\',
-        $temp_dir.DIRECTORY_SEPARATOR
+          '#\\\\#',
+          '\\\\\\\\',
+          $temp_dir.DIRECTORY_SEPARATOR
       );
       $path = preg_replace("#^{$dir_prefix}#", "", $name);
       $zip->addFile($name, $path);

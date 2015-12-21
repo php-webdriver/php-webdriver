@@ -1,5 +1,5 @@
 {
-  "name": "facebook/webdriver",
+  "name": "jumper423/yii2-php-webdriver",
   "description": "A PHP client for WebDriver",
   "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
@@ -14,6 +14,7 @@
     "php": ">=5.3.19"
   },
   "require-dev": {
+    "yiisoft/yii2": "*",
     "phpunit/phpunit": "4.6.*"
   },
   "suggest": {
