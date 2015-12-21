@@ -57,7 +57,7 @@ class FirefoxProfile {
       $value = $value ? 'true' : 'false';
     } else {
       throw new WebDriverException(
-        'The value of the preference should be either a string, int or bool.');
+          'The value of the preference should be either a string, int or bool.');
     }
     $this->preferences[$key] = $value;
     return $this;
@@ -80,7 +80,7 @@ class FirefoxProfile {
     file_put_contents($temp_dir.'/user.js', $content);
 
     $zip = new ZipArchive();
-    $temp_zip = tempnam(\Yii::getAlias('@runtime/webdriver'), 'WebDriverFirefoxProfileZip');
+    $temp_zip = tempnam('', 'WebDriverFirefoxProfileZip');
     $zip->open($temp_zip, ZipArchive::CREATE);
 
     $dir = new RecursiveDirectoryIterator($temp_dir);
@@ -90,9 +90,9 @@ class FirefoxProfile {
         continue;
       }
       $dir_prefix = preg_replace(
-        '#\\\\#',
-        '\\\\\\\\',
-        $temp_dir.DIRECTORY_SEPARATOR
+          '#\\\\#',
+          '\\\\\\\\',
+          $temp_dir.DIRECTORY_SEPARATOR
       );
       $path = preg_replace("#^{$dir_prefix}#", "", $name);
       $zip->addFile($name, $path);
@@ -143,7 +143,7 @@ class FirefoxProfile {
    * @throws WebDriverException
    */
   private function createTempDirectory($prefix = '') {
-    $temp_dir = tempnam(\Yii::getAlias('@runtime/webdriver'), $prefix);
+    $temp_dir = tempnam('', $prefix);
     if (file_exists($temp_dir)) {
       unlink($temp_dir);
       mkdir($temp_dir);
