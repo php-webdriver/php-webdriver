@@ -19,7 +19,6 @@ namespace Facebook\WebDriver\Remote;
  * This list of command defined in the WebDriver json wire protocol.
  */
 class DriverCommand {
-
   const GET_ALL_SESSIONS = "getAllSessions";
   const GET_CAPABILITIES = "getCapabilities";
   const NEW_SESSION = "newSession";
@@ -126,16 +125,14 @@ class DriverCommand {
   const SET_SCREEN_ORIENTATION = "setScreenOrientation";
   const GET_SCREEN_ORIENTATION = "getScreenOrientation";
 
-  // These belong to the Advanced user interactions - an element is
-  // optional for these commands.
+  // These belong to the Advanced user interactions - an element is optional for these commands.
   const CLICK = "mouseClick";
   const DOUBLE_CLICK = "mouseDoubleClick";
   const MOUSE_DOWN = "mouseButtonDown";
   const MOUSE_UP = "mouseButtonUp";
   const MOVE_TO = "mouseMoveTo";
 
-  // Those allow interactions with the Input Methods installed on
-  // the system.
+  // Those allow interactions with the Input Methods installed on the system.
   const IME_GET_AVAILABLE_ENGINES = "imeGetAvailableEngines";
   const IME_GET_ACTIVE_ENGINE = "imeGetActiveEngine";
   const IME_IS_ACTIVATED = "imeIsActivated";
@@ -168,4 +165,7 @@ class DriverCommand {
   const GET_NETWORK_CONNECTION = "getNetworkConnection";
   const SET_NETWORK_CONNECTION = "setNetworkConnection";
 
+  private function __construct()
+  {
+  }
 }
