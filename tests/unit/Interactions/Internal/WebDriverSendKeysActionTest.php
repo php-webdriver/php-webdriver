@@ -13,17 +13,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
+namespace Facebook\WebDriver\Interactions\Internal;
+
+use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\WebDriverKeyboard;
+use Facebook\WebDriver\WebDriverMouse;
 
 class WebDriverSendKeysActionTest extends \PHPUnit_Framework_TestCase {
-  /**
-   * @type WebDriverSendKeysAction
-   */
+  /** @var WebDriverSendKeysAction */
   private $webDriverSendKeysAction;
-
+  /** @var WebDriverKeyboard|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverKeyboard;
+  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverMouse;
+  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
   private $locationProvider;
+  /** @var array */
   private $keys;
 
   public function setUp() {

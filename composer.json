@@ -26,7 +26,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Facebook\\WebDriver\\": "tests/functional"
-    }
+      "Facebook\\WebDriver\\": "tests/unit"
+    },
+    "classmap": ["tests/functional/"]
   }
 }
