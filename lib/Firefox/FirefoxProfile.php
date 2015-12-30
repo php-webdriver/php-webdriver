@@ -100,6 +100,19 @@ class FirefoxProfile {
   }
 
   /**
+   * @param $key
+   * @return mixed
+   */
+  public function getPreference($key)
+  {
+    if (array_key_exists($key, $this->preferences)) {
+      return $this->preferences[$key];
+    }
+
+    return null;
+  }
+
+  /**
    * @return string
    */
   public function encode() {
