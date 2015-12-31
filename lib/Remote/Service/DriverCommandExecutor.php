@@ -38,13 +38,12 @@ class DriverCommandExecutor extends HttpCommandExecutor {
 
   /**
    * @param WebDriverCommand $command
-   * @param array            $curl_opts
    *
    * @return mixed
    * @throws WebDriverException
    * @throws \Exception
    */
-  public function execute(WebDriverCommand $command, $curl_opts = array()) {
+  public function execute(WebDriverCommand $command) {
     if ($command->getName() === DriverCommand::NEW_SESSION) {
       $this->service->start();
     }

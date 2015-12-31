@@ -13,31 +13,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverContextClickAction;
+namespace Facebook\WebDriver\Interactions\Internal;
 
-class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase {
-  /**
-   * @type WebDriverContextClickAction
-   */
-  private $webDriverContextClickAction;
+use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\WebDriverMouse;
 
+class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase {
+  /** @var WebDriverDoubleClickAction */
+  private $webDriverDoubleClickAction;
+  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverMouse;
+  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
   private $locationProvider;
 
   public function setUp() {
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
     $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
-    $this->webDriverContextClickAction = new WebDriverContextClickAction(
+    $this->webDriverDoubleClickAction = new WebDriverDoubleClickAction(
       $this->webDriverMouse,
       $this->locationProvider
     );
   }
 
-  public function testPerformSendsContextClickCommand() {
+  public function testPerformSendsDoubleClickCommand() {
     $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
       ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('contextClick')->with($coords);
+    $this->webDriverMouse->expects($this->once())->method('doubleClick')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverContextClickAction->perform();
+    $this->webDriverDoubleClickAction->perform();
   }
 }

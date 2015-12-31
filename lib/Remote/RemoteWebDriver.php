@@ -74,7 +74,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
   ) {
     $url = preg_replace('#/+$#', '', $url);
 
-    // Passing DesiredCapabilities as $desired_capabilities is encourged but
+    // Passing DesiredCapabilities as $desired_capabilities is encouraged but
     // array is also accepted for legacy reason.
     if ($desired_capabilities instanceof DesiredCapabilities) {
       $desired_capabilities = $desired_capabilities->toArray();

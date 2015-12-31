@@ -55,7 +55,7 @@ class FirefoxProfile {
   /**
    * @param string $extension_datas The path to the folder containing the datas to add to the extension
    * @return FirefoxProfile
-   */  
+   */
   public function addExtensionDatas($extension_datas) {
     if (!is_dir($extension_datas)) {
       return;
@@ -73,7 +73,7 @@ class FirefoxProfile {
     if (!is_file($rdf_file)) {
       return;
     }
-    
+
     $this->rdf_file = $rdf_file;
     return $this;
   }
@@ -97,6 +97,19 @@ class FirefoxProfile {
     }
     $this->preferences[$key] = $value;
     return $this;
+  }
+
+  /**
+   * @param $key
+   * @return mixed
+   */
+  public function getPreference($key)
+  {
+    if (array_key_exists($key, $this->preferences)) {
+      return $this->preferences[$key];
+    }
+
+    return null;
   }
 
   /**

@@ -13,31 +13,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;
+namespace Facebook\WebDriver\Interactions\Internal;
 
-class WebDriverClickAndHoldActionTest extends \PHPUnit_Framework_TestCase {
-  /**
-   * @type WebDriverClickAndHoldAction
-   */
-  private $webDriverClickAndHoldAction;
+use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\WebDriverMouse;
 
+class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase {
+  /** @var WebDriverMouseMoveAction */
+  private $webDriverMouseMoveAction;
+  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverMouse;
+  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
   private $locationProvider;
 
   public function setUp() {
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
     $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
-    $this->webDriverClickAndHoldAction = new WebDriverClickAndHoldAction(
+
+    $this->webDriverMouseMoveAction = new WebDriverMouseMoveAction(
       $this->webDriverMouse,
       $this->locationProvider
     );
   }
 
-  public function testPerformSendsMouseDownCommand() {
+  public function testPerformFocusesOnElementAndSendPressKeyCommand() {
     $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
       ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('mouseDown')->with($coords);
+    $this->webDriverMouse->expects($this->once())->method('mouseMove')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverClickAndHoldAction->perform();
+    $this->webDriverMouseMoveAction->perform();
   }
 }

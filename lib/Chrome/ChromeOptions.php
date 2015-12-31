@@ -85,8 +85,7 @@ class ChromeOptions {
   }
 
   /**
-   * @param array $encoded_extensions An array of base64 encoded of the
-   *                                  extensions.
+   * @param array $encoded_extensions An array of base64 encoded of the extensions.
    * @return ChromeOptions
    */
   public function addEncodedExtensions(array $encoded_extensions) {
@@ -109,8 +108,7 @@ class ChromeOptions {
   }
 
   /**
-   * @return DesiredCapabilities The DesiredCapabilities for Chrome with this
-   *                             options.
+   * @return DesiredCapabilities The DesiredCapabilities for Chrome with this options.
    */
   public function toCapabilities() {
     $capabilities = DesiredCapabilities::chrome();

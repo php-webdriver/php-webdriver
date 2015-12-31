@@ -16,11 +16,9 @@
 namespace Facebook\WebDriver\Remote;
 
 /**
- * WebDriverCapabilityType contains all constants defined in the WebDriver
- * Wire Protocol.
+ * WebDriverCapabilityType contains all constants defined in the WebDriver Wire Protocol.
  */
 class WebDriverCapabilityType {
-
   const BROWSER_NAME = 'browserName';
   const VERSION = 'version';
   const PLATFORM = 'platform';
@@ -37,4 +35,8 @@ class WebDriverCapabilityType {
   const ACCEPT_SSL_CERTS = 'acceptSslCerts';
   const NATIVE_EVENTS = 'nativeEvents';
   const PROXY = 'proxy';
+
+  private function __construct()
+  {
+  }
 }

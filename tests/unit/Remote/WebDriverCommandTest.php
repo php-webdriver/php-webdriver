@@ -13,12 +13,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace Facebook\WebDriver\Firefox;
+namespace Facebook\WebDriver\Remote;
 
-class FirefoxDriver {
-  const PROFILE = 'firefox_profile';
-
-  private function __construct()
+class WebDriverCommandTest extends \PHPUnit_Framework_TestCase
+{
+  public function testShouldSetOptionsUsingConstructot()
   {
+    $command = new WebDriverCommand('session-id-123', 'bar-baz-name', array('foo' => 'bar'));
+
+    $this->assertSame('session-id-123', $command->getSessionID());
+    $this->assertSame('bar-baz-name', $command->getName());
+    $this->assertSame(array('foo' => 'bar'), $command->getParameters());
   }
 }

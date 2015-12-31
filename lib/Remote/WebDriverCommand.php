@@ -16,25 +16,41 @@
 namespace Facebook\WebDriver\Remote;
 
 class WebDriverCommand {
-
+  /** @var string */
   private $sessionID;
+  /** @var string */
   private $name;
+  /** @var array */
   private $parameters;
 
+  /**
+   * @param string $session_id
+   * @param string $name Constant from DriverCommand
+   * @param array $parameters Array of
+   */
   public function __construct($session_id, $name, $parameters) {
     $this->sessionID = $session_id;
     $this->name = $name;
     $this->parameters = $parameters;
   }
 
+  /**
+   * @return string
+   */
   public function getName() {
     return $this->name;
   }
 
+  /**
+   * @return string
+   */
   public function getSessionID() {
     return $this->sessionID;
   }
 
+  /**
+   * @return array
+   */
   public function getParameters() {
     return $this->parameters;
   }

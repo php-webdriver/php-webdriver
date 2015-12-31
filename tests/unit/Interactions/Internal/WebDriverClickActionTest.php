@@ -13,37 +13,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
+namespace Facebook\WebDriver\Interactions\Internal;
 
-class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
-  /**
-   * @type WebDriverKeyUpAction
-   */
-  private $webDriverKeyUpAction;
+use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\WebDriverMouse;
 
-  private $webDriverKeyboard;
+class WebDriverClickActionTest extends \PHPUnit_Framework_TestCase {
+  /** @var WebDriverClickAction */
+  private $webDriverClickAction;
+  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverMouse;
+  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverKeyboard = $this->getMock('Facebook\WebDriver\WebDriverKeyboard');
     $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
     $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
-
-    $this->webDriverKeyUpAction = new WebDriverKeyUpAction(
-      $this->webDriverKeyboard,
+    $this->webDriverClickAction = new WebDriverClickAction(
       $this->webDriverMouse,
-      $this->locationProvider,
-      'a'
+      $this->locationProvider
     );
   }
 
-  public function testPerformFocusesOnElementAndSendPressKeyCommand() {
+  public function testPerformSendsClickCommand() {
     $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
       ->disableOriginalConstructor()->getMock();
     $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
     $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverKeyboard->expects($this->once())->method('releaseKey')->with('a');
-    $this->webDriverKeyUpAction->perform();
+    $this->webDriverClickAction->perform();
   }
 }

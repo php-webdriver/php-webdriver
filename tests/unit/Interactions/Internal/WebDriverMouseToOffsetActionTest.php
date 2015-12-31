@@ -13,15 +13,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction;
+namespace Facebook\WebDriver\Interactions\Internal;
+
+use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\WebDriverMouse;
 
 class WebDriverMouseToOffsetActionTest extends \PHPUnit_Framework_TestCase {
   /**
    * @type WebDriverMoveToOffsetAction
    */
   private $webDriverMoveToOffsetAction;
-
+  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
   private $webDriverMouse;
+  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
   private $locationProvider;
 
   public function setUp() {
