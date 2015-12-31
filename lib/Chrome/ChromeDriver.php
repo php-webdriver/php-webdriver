@@ -56,18 +56,15 @@ class ChromeDriver extends RemoteWebDriver {
   /**
    * Always throws an exception. Use ChromeDriver::start() instead.
    *
-   * @param string              $url                  The url of the remote server
-   * @param DesiredCapabilities $desired_capabilities The desired capabilities
-   * @param int|null            $timeout_in_ms
-   * @param int|null            $request_timeout_in_ms
-   *
    * @throws WebDriverException
    */
   public static function create(
     $url = 'http://localhost:4444/wd/hub',
     $desired_capabilities = null,
-    $timeout_in_ms = null,
-    $request_timeout_in_ms = null
+    $connection_timeout_in_ms = null,
+    $request_timeout_in_ms = null,
+    $http_proxy = null,
+    $http_proxy_port = null
   ) {
     throw new WebDriverException('Please use ChromeDriver::start() instead.');
   }
