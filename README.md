@@ -59,8 +59,8 @@ You can also customize the desired capabilities:
 
     ```php
     $desired_capabilities = DesiredCapabilities::firefox();
-    $desired_capabilities->setJavascriptEnabled(false);
-    RemoteWebDriver::create($host, $desired_capabilities);
+    $desired_capabilities->setCapability('acceptSslCerts', false);
+    $driver = RemoteWebDriver::create($host, $desired_capabilities);
     ```
 
 * See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
