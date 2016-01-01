@@ -77,15 +77,10 @@ Install the library.
     RemoteWebDriver::create($host, $desired_capabilities);
     ```
 
-*   See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
+* See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
-## RUN UNIT TESTS
-
-To run unit tests simply run:
-
-    ./vendor/bin/phpunit -c ./tests
-
-Note: For the functional test suite, a running selenium server is required.
+## Changelog
+For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 ## MORE INFORMATION
 
@@ -118,3 +113,11 @@ We love to have your help to make php-webdriver better. Feel free to
 
 When you are going to contribute, please keep in mind that this webdriver client aims to be as close as possible to other languages Java/Ruby/Python/C#.
 FYI, here is the overview of [the official Java API](http://selenium.googlecode.com/svn/trunk/docs/api/java/index.html?overview-summary.html)
+
+### Run unit tests
+
+To run unit tests simply run:
+
+    ./vendor/bin/phpunit -c ./tests
+
+Note: For the functional test suite, a running selenium server is required.
