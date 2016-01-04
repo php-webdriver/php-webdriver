@@ -92,18 +92,5 @@ If you're reading this you've already found our Github repository. If you have a
 
 ## Contributing
 
-We love to have your help to make php-webdriver better. Feel free to
-
-* open an [issue](https://github.com/facebook/php-webdriver/issues) if you run into any problem.
-* fork the project and submit [pull request](https://github.com/facebook/php-webdriver/pulls). Before the pull requests can be accepted, a [Contributors Licensing Agreement](http://developers.facebook.com/opensource/cla) must be signed.
-
-When you are going to contribute, please keep in mind that this webdriver client aims to be as close as possible to other languages Java/Ruby/Python/C#.
-FYI, here is the overview of [the official Java API](http://selenium.googlecode.com/svn/trunk/docs/api/java/index.html?overview-summary.html)
-
-### Run unit tests
-
-To run unit tests simply run:
-
-    ./vendor/bin/phpunit -c ./tests
-
-Note: For the functional test suite, a running selenium server is required.
+We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](CONTRIBUTING.md) for more information
+about contributing and developing php-webdriver.
