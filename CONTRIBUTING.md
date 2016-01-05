@@ -28,9 +28,9 @@ To execute all tests simply run:
 
 If you want to execute just the unit tests, run:
 
-    ./vendor/bin/phpunit --testsuite Unit-Testsuite
+    ./vendor/bin/phpunit --testsuite unit
     
-For the functional tests you must first download and start the selenium server, then run the `Functional-Testsuite` test suite:
+For the functional tests you must first download and start the selenium server, then run the `functional` test suite:
 
     java -jar selenium-server-standalone-2.48.2.jar -log selenium.log &
-    ./vendor/bin/phpunit --testsuite Functional-Testsuite
+    ./vendor/bin/phpunit --testsuite functional
