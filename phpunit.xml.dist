@@ -15,12 +15,12 @@
         bootstrap="tests/bootstrap.php"
         >
 
-<testsuites>
-        <testsuite name="Unit-Testsuite">
+    <testsuites>
+        <testsuite name="unit">
             <directory>tests/unit</directory>
         </testsuite>
-        <testsuite name="Functional-Testsuite">
-            <directory>tests/functional/</directory>
+        <testsuite name="functional">
+            <directory>tests/functional</directory>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -3,6 +3,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 - Added CHANGELOG.md
+- Added CONTRIBUTING.md with information and rules for contributors
 
 ## 1.1.1 - 2015-12-31
 - Fixed strict standards error in `ChromeDriver`

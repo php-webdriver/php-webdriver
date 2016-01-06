@@ -30,18 +30,16 @@ Then install the library:
 
 All you need as the server for this client is the `selenium-server-standalone-#.jar` file provided here: http://selenium-release.storage.googleapis.com/index.html
 
-* Download and run that file, replacing # with the current server version.
+Download and run that file, replacing # with the current server version.
 
-    ```
     java -jar selenium-server-standalone-#.jar
-    ```
 
 Then when you create a session, be sure to pass the url to where your server is running.
 
-    ```php
-    // This would be the url of the host running the server-standalone.jar
-    $host = 'http://localhost:4444/wd/hub'; // this is the default
-    ```
+```php
+// This would be the url of the host running the server-standalone.jar
+$host = 'http://localhost:4444/wd/hub'; // this is the default
+```
 
 * Launch Firefox:
 
@@ -57,11 +55,11 @@ Then when you create a session, be sure to pass the url to where your server is 
 
 You can also customize the desired capabilities:
 
-    ```php
-    $desired_capabilities = DesiredCapabilities::firefox();
-    $desired_capabilities->setCapability('acceptSslCerts', false);
-    $driver = RemoteWebDriver::create($host, $desired_capabilities);
-    ```
+```php
+$desired_capabilities = DesiredCapabilities::firefox();
+$desired_capabilities->setCapability('acceptSslCerts', false);
+$driver = RemoteWebDriver::create($host, $desired_capabilities);
+```
 
 * See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
@@ -92,18 +90,5 @@ If you're reading this you've already found our Github repository. If you have a
 
 ## Contributing
 
-We love to have your help to make php-webdriver better. Feel free to
-
-* open an [issue](https://github.com/facebook/php-webdriver/issues) if you run into any problem.
-* fork the project and submit [pull request](https://github.com/facebook/php-webdriver/pulls). Before the pull requests can be accepted, a [Contributors Licensing Agreement](http://developers.facebook.com/opensource/cla) must be signed.
-
-When you are going to contribute, please keep in mind that this webdriver client aims to be as close as possible to other languages Java/Ruby/Python/C#.
-FYI, here is the overview of [the official Java API](http://selenium.googlecode.com/svn/trunk/docs/api/java/index.html?overview-summary.html)
-
-### Run unit tests
-
-To run unit tests simply run:
-
-    ./vendor/bin/phpunit -c ./tests
-
-Note: For the functional test suite, a running selenium server is required.
+We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](CONTRIBUTING.md) for more information
+about contributing and developing php-webdriver.
