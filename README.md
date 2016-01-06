@@ -30,18 +30,16 @@ Then install the library:
 
 All you need as the server for this client is the `selenium-server-standalone-#.jar` file provided here: http://selenium-release.storage.googleapis.com/index.html
 
-* Download and run that file, replacing # with the current server version.
+Download and run that file, replacing # with the current server version.
 
-    ```
     java -jar selenium-server-standalone-#.jar
-    ```
 
 Then when you create a session, be sure to pass the url to where your server is running.
 
-    ```php
-    // This would be the url of the host running the server-standalone.jar
-    $host = 'http://localhost:4444/wd/hub'; // this is the default
-    ```
+```php
+// This would be the url of the host running the server-standalone.jar
+$host = 'http://localhost:4444/wd/hub'; // this is the default
+```
 
 * Launch Firefox:
 
@@ -57,11 +55,11 @@ Then when you create a session, be sure to pass the url to where your server is 
 
 You can also customize the desired capabilities:
 
-    ```php
-    $desired_capabilities = DesiredCapabilities::firefox();
-    $desired_capabilities->setCapability('acceptSslCerts', false);
-    $driver = RemoteWebDriver::create($host, $desired_capabilities);
-    ```
+```php
+$desired_capabilities = DesiredCapabilities::firefox();
+$desired_capabilities->setCapability('acceptSslCerts', false);
+$driver = RemoteWebDriver::create($host, $desired_capabilities);
+```
 
 * See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
 
