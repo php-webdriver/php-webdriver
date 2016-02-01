@@ -40,8 +40,8 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase {
   
   protected function tearDown() {
     if ($this->driver) {
-	    $this->driver->quit();
-	  }
+      $this->driver->quit();
+    }
   }
 
   /**
@@ -51,6 +51,6 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase {
    * @return string
    */
   protected function getTestPath($path) {
-    return 'file:///'.dirname(__FILE__).'/html/'.$path;
+    return 'file:///'.__DIR__.'/html/'.$path;
   }
 }
