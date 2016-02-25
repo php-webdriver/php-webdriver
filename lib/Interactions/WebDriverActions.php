@@ -168,8 +168,8 @@ class WebDriverActions {
   }
 
   /**
-   * Move to the middle of the given WebDriverElement. If offset are provided,
-   * move the an offset from the top-left cornerof that element.
+   * Move to the middle of the given WebDriverElement.
+   * Extra shift, calculated from the top-left corner of the element, can be set by passing $x_offset and $y_offset parameters. 
    *
    * @param WebDriverElement $element
    * @param int $x_offset
