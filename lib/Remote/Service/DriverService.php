@@ -109,7 +109,7 @@ class DriverService {
     $this->process = null;
 
     $checker = new URLChecker();
-    $checker->waitUntilUnAvailable(3 * 1000, $this->url.'/shutdown');
+    $checker->waitUntilUnavailable(3 * 1000, $this->url.'/shutdown');
 
     return $this;
   }
