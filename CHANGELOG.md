@@ -2,6 +2,7 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+- Added ext-curl to composer.json
 - Added CHANGELOG.md
 - Added CONTRIBUTING.md with information and rules for contributors
 
