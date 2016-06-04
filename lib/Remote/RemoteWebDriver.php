@@ -504,7 +504,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor {
       $params
     );
 
-    $response = $this->executor->execute($command);
-    return $response->getValue();
+	if ($this->executor) {
+		$response = $this->executor->execute($command);
+		return $response->getValue();
+	} else {
+		return null;
+	}
   }
 }
