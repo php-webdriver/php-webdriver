@@ -249,11 +249,15 @@ class FirefoxProfile {
    */
   private function extractTo($xpi, $target_dir) {
     $zip = new ZipArchive();
-    if ($zip->open($xpi)) {
-      $zip->extractTo($target_dir);
-      $zip->close();
+    if (file_exists($xpi)) {
+      if ($zip->open($xpi)) {
+        $zip->extractTo($target_dir);
+        $zip->close();
+      } else {
+        throw new \Exception("Failed to open the firefox extension. '$xpi'");
+      }
     } else {
-      throw new \Exception("Failed to open the firefox extension. '$xpi'");
+      throw new \Exception("Firefox extension doesn't exist. '$xpi'");
     }
     return $this;
   }
