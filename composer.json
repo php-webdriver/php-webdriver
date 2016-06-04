@@ -11,7 +11,8 @@
     "source": "https://github.com/facebook/php-webdriver"
   },
   "require": {
-    "php": ">=5.3.19"
+    "php": ">=5.3.19",
+    "ext-curl": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "4.6.*"

@@ -61,7 +61,7 @@ $desired_capabilities->setCapability('acceptSslCerts', false);
 $driver = RemoteWebDriver::create($host, $desired_capabilities);
 ```
 
-* See https://code.google.com/p/selenium/wiki/DesiredCapabilities for more details.
+* See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities for more details.
 
 ## Changelog
 For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
