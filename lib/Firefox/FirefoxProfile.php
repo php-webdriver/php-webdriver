@@ -183,21 +183,33 @@ class FirefoxProfile {
    */
   private function installExtension($extension, $profile_dir) {
     $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
-
-    $this->extractTo($extension, $temp_dir);
-
-    $install_rdf_path = $temp_dir.'/install.rdf';
-    // This is a hacky way to parse the id since there is no offical
-    // RDF parser library.
-    $matches = array();
-    $xml = file_get_contents($install_rdf_path);
-    preg_match('#<em:id>([^<]+)</em:id>#', $xml, $matches);
-    $ext_dir = $profile_dir.'/extensions/'.$matches[1];
-
-    mkdir($ext_dir, 0777, true);
-
-    $this->extractTo($extension, $ext_dir);
-
+  	$this->extractTo($extension, $temp_dir);
+  	
+  	// This is a hacky way to parse the id since there is no offical RDF parser library.
+  	// Find the correct namespace for the id element.
+  	$install_rdf_path = $temp_dir.'/install.rdf';
+  	$xml = simplexml_load_file($install_rdf_path);
+  	$ns = $xml->getDocNamespaces();
+  	$prefix = '';
+  	if (!empty($ns)) {
+  	  foreach($ns as $key => $value) {
+  		  if (strpos($value, '//www.mozilla.org/2004/em-rdf') > 0) {
+  			  if ($key != '') {
+  				  $prefix = $key . ':'; // Separate the namespace from the name.
+  				}
+  				break;
+  			}
+  		}
+  	}
+  	// Get the extension id from the install manifest.
+  	$matches = array();
+  	preg_match('#<'.$prefix.'id>([^<]+)</'.$prefix.'id>#', $xml->asXML(), $matches);
+  	if (isset($matches[1])) {
+  		$ext_dir = $profile_dir.'/extensions/'.$matches[1];
+  		mkdir($ext_dir, 0777, true);
+  		$this->extractTo($extension, $ext_dir);
+  	}
+  	
     // clean up
     $this->deleteDirectory($temp_dir);
 
