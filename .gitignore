@@ -1,6 +1,7 @@
 composer.phar
 composer.lock
 vendor
+.php_cs.cache
 
 # generic files to ignore
 *.lock
