@@ -15,37 +15,37 @@
 
 namespace Facebook\WebDriver;
 
-interface WebDriverCapabilities {
+interface WebDriverCapabilities
+{
+    /**
+     * @return string The name of the browser.
+     */
+    public function getBrowserName();
 
-  /**
-   * @return string The name of the browser.
-   */
-  public function getBrowserName();
+    /**
+     * @param string $name
+     * @return mixed The value of a capability.
+     */
+    public function getCapability($name);
 
-  /**
-   * @param string $name
-   * @return mixed The value of a capability.
-   */
-  public function getCapability($name);
+    /**
+     * @return string The name of the platform.
+     */
+    public function getPlatform();
 
-  /**
-   * @return string The name of the platform.
-   */
-  public function getPlatform();
+    /**
+     * @return string The version of the browser.
+     */
+    public function getVersion();
 
-  /**
-   * @return string The version of the browser.
-   */
-  public function getVersion();
+    /**
+     * @param string $capability_name
+     * @return bool Whether the value is not null and not false.
+     */
+    public function is($capability_name);
 
-  /**
-   * @param string $capability_name
-   * @return bool Whether the value is not null and not false.
-   */
-  public function is($capability_name);
-
-  /**
-   * @return bool Whether javascript is enabled.
-   */
-  public function isJavascriptEnabled();
+    /**
+     * @return bool Whether javascript is enabled.
+     */
+    public function isJavascriptEnabled();
 }

@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class InvalidCookieDomainException extends WebDriverException {
-
+class InvalidCookieDomainException extends WebDriverException
+{
 }

@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoSuchFrameException extends WebDriverException {
-
+class NoSuchFrameException extends WebDriverException
+{
 }

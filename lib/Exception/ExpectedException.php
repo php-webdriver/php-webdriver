@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-
-class ExpectedException extends WebDriverException {
-
+class ExpectedException extends WebDriverException
+{
 }

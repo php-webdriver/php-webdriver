@@ -18,130 +18,132 @@ namespace Facebook\WebDriver\Remote\Service;
 use Exception;
 use Facebook\WebDriver\Net\URLChecker;
 
-class DriverService {
+class DriverService
+{
+    /**
+     * @var string
+     */
+    private $executable;
 
-  /**
-   * @var string
-   */
-  private $executable;
+    /**
+     * @var string
+     */
+    private $url;
 
-  /**
-   * @var string
-   */
-  private $url;
+    /**
+     * @var array
+     */
+    private $args;
 
-  /**
-   * @var array
-   */
-  private $args;
+    /**
+     * @var array
+     */
+    private $environment;
 
-  /**
-   * @var array
-   */
-  private $environment;
+    /**
+     * @var resource
+     */
+    private $process;
 
-  /**
-   * @var resource
-   */
-  private $process;
-
-  /**
-   * @param string $executable
-   * @param int $port The given port the service should use.
-   * @param array $args
-   * @param array|null $environment Use the system environment if it is null
-   */
-  public function __construct(
-    $executable,
-    $port,
-    $args = array(),
-    $environment = null
-  ) {
-    $this->executable = self::checkExecutable($executable);
-    $this->url = sprintf('http://localhost:%d', $port);
-    $this->args = $args;
-    $this->environment = $environment ?: $_ENV;
-  }
-
-  /**
-   * @return string
-   */
-  public function getURL() {
-    return $this->url;
-  }
-
-  /**
-   * @return DriverService
-   */
-  public function start() {
-    if ($this->process !== null) {
-      return $this;
+    /**
+     * @param string $executable
+     * @param int $port The given port the service should use.
+     * @param array $args
+     * @param array|null $environment Use the system environment if it is null
+     */
+    public function __construct($executable, $port, $args = array(), $environment = null)
+    {
+        $this->executable = self::checkExecutable($executable);
+        $this->url = sprintf('http://localhost:%d', $port);
+        $this->args = $args;
+        $this->environment = $environment ?: $_ENV;
     }
 
-    $pipes = array();
-    $this->process = proc_open(
-      sprintf("%s %s", $this->executable, implode(' ', $this->args)),
-      $descriptorspec = array(
-        0 => array('pipe', 'r'), // stdin
-        1 => array('pipe', 'w'), // stdout
-        2 => array('pipe', 'a'), // stderr
-      ),
-      $pipes,
-      null,
-      $this->environment
-    );
-
-    $checker = new URLChecker();
-    $checker->waitUntilAvailable(20 * 1000, $this->url.'/status');
-
-    return $this;
-  }
-
-  /**
-   * @return DriverService
-   */
-  public function stop() {
-    if ($this->process === null) {
-      return $this;
+    /**
+     * @return string
+     */
+    public function getURL()
+    {
+        return $this->url;
     }
 
-    proc_terminate($this->process);
-    $this->process = null;
+    /**
+     * @return DriverService
+     */
+    public function start()
+    {
+        if ($this->process !== null) {
+            return $this;
+        }
 
-    $checker = new URLChecker();
-    $checker->waitUntilUnavailable(3 * 1000, $this->url.'/shutdown');
+        $pipes = array();
+        $this->process = proc_open(
+            sprintf('%s %s', $this->executable, implode(' ', $this->args)),
+            $descriptorspec = array(
+                0 => array('pipe', 'r'), // stdin
+                1 => array('pipe', 'w'), // stdout
+                2 => array('pipe', 'a'), // stderr
+            ),
+            $pipes,
+            null,
+            $this->environment
+        );
 
-    return $this;
-  }
+        $checker = new URLChecker();
+        $checker->waitUntilAvailable(20 * 1000, $this->url . '/status');
 
-  /**
-   * @return bool
-   */
-  public function isRunning() {
-    if ($this->process === null) {
-      return false;
+        return $this;
     }
 
-    $status = proc_get_status($this->process);
-    return $status['running'];
-  }
+    /**
+     * @return DriverService
+     */
+    public function stop()
+    {
+        if ($this->process === null) {
+            return $this;
+        }
 
-  /**
-   * Check if the executable is executable.
-   *
-   * @param string $executable
-   * @return string
-   * @throws Exception
-   */
-  protected static function checkExecutable($executable) {
-    if (!is_file($executable)) {
-      throw new Exception("'$executable' is not a file.");
+        proc_terminate($this->process);
+        $this->process = null;
+
+        $checker = new URLChecker();
+        $checker->waitUntilUnavailable(3 * 1000, $this->url . '/shutdown');
+
+        return $this;
     }
 
-    if (!is_executable($executable)) {
-      throw new Exception("'$executable' is not executable.");
+    /**
+     * @return bool
+     */
+    public function isRunning()
+    {
+        if ($this->process === null) {
+            return false;
+        }
+
+        $status = proc_get_status($this->process);
+
+        return $status['running'];
     }
 
-    return $executable;
-  }
+    /**
+     * Check if the executable is executable.
+     *
+     * @param string $executable
+     * @throws Exception
+     * @return string
+     */
+    protected static function checkExecutable($executable)
+    {
+        if (!is_file($executable)) {
+            throw new Exception("'$executable' is not a file.");
+        }
+
+        if (!is_executable($executable)) {
+            throw new Exception("'$executable' is not executable.");
+        }
+
+        return $executable;
+    }
 }

@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class InvalidElementStateException extends WebDriverException {
-
+class InvalidElementStateException extends WebDriverException
+{
 }

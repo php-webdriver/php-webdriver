@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class UnknownServerException extends WebDriverException {
-
+class UnknownServerException extends WebDriverException
+{
 }

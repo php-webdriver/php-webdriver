@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-
-class UnsupportedOperationException extends WebDriverException {
-
+class UnsupportedOperationException extends WebDriverException
+{
 }

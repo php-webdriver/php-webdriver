@@ -18,28 +18,31 @@ namespace Facebook\WebDriver\Interactions\Internal;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
 
-class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase {
-  /** @var WebDriverContextClickAction */
-  private $webDriverContextClickAction;
-  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
-  private $webDriverMouse;
-  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
-  private $locationProvider;
+class WebDriverContextClickActionTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var WebDriverContextClickAction */
+    private $webDriverContextClickAction;
+    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    private $webDriverMouse;
+    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    private $locationProvider;
 
-  public function setUp() {
-    $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
-    $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
-    $this->webDriverContextClickAction = new WebDriverContextClickAction(
-      $this->webDriverMouse,
-      $this->locationProvider
-    );
-  }
+    public function setUp()
+    {
+        $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+        $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
+        $this->webDriverContextClickAction = new WebDriverContextClickAction(
+            $this->webDriverMouse,
+            $this->locationProvider
+        );
+    }
 
-  public function testPerformSendsContextClickCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
-      ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('contextClick')->with($coords);
-    $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverContextClickAction->perform();
-  }
+    public function testPerformSendsContextClickCommand()
+    {
+        $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+            ->disableOriginalConstructor()->getMock();
+        $this->webDriverMouse->expects($this->once())->method('contextClick')->with($coords);
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->webDriverContextClickAction->perform();
+    }
 }

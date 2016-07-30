@@ -20,12 +20,12 @@ use Facebook\WebDriver\Remote\WebDriverCommand;
 /**
  * Interface for all command executor.
  */
-interface WebDriverCommandExecutor {
-
-  /**
-   * @param WebDriverCommand $command
-   *
-   * @return mixed
-   */
-  public function execute(WebDriverCommand $command);
+interface WebDriverCommandExecutor
+{
+    /**
+     * @param WebDriverCommand $command
+     *
+     * @return mixed
+     */
+    public function execute(WebDriverCommand $command);
 }

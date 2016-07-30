@@ -16,38 +16,37 @@
 namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverMouse;
 use Facebook\WebDriver\WebDriverKeyboard;
+use Facebook\WebDriver\WebDriverMouse;
 
 /**
  * Base class for all keyboard-related actions.
  */
-abstract class WebDriverKeysRelatedAction {
+abstract class WebDriverKeysRelatedAction
+{
+    protected $keyboard;
+    protected $mouse;
+    protected $locationProvider;
 
-  protected $keyboard;
-  protected $mouse;
-  protected $locationProvider;
-
-  /**
-   * @param WebDriverKeyboard $keyboard
-   * @param WebDriverMouse $mouse
-   * @param WebDriverLocatable $location_provider
-   */
-  public function __construct(
-      WebDriverKeyboard $keyboard,
-      WebDriverMouse $mouse,
-      WebDriverLocatable $location_provider = null) {
-    $this->keyboard = $keyboard;
-    $this->mouse = $mouse;
-    $this->locationProvider = $location_provider;
-  }
-
-  /**
-   * @return void
-   */
-  protected function focusOnElement() {
-    if ($this->locationProvider) {
-      $this->mouse->click($this->locationProvider->getCoordinates());
+    /**
+     * @param WebDriverKeyboard $keyboard
+     * @param WebDriverMouse $mouse
+     * @param WebDriverLocatable $location_provider
+     */
+    public function __construct(
+        WebDriverKeyboard $keyboard,
+        WebDriverMouse $mouse,
+        WebDriverLocatable $location_provider = null
+    ) {
+        $this->keyboard = $keyboard;
+        $this->mouse = $mouse;
+        $this->locationProvider = $location_provider;
     }
-  }
+
+    protected function focusOnElement()
+    {
+        if ($this->locationProvider) {
+            $this->mouse->click($this->locationProvider->getCoordinates());
+        }
+    }
 }

@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoAlertOpenException extends WebDriverException {
-
+class NoAlertOpenException extends WebDriverException
+{
 }

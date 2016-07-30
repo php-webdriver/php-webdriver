@@ -22,109 +22,120 @@ namespace Facebook\WebDriver;
  *
  * @see WebDriver::findElement, WebDriverElement::findElement
  */
-class WebDriverBy {
+class WebDriverBy
+{
+    private $mechanism;
+    private $value;
 
-  private $mechanism;
-  private $value;
+    protected function __construct($mechanism, $value)
+    {
+        $this->mechanism = $mechanism;
+        $this->value = $value;
+    }
 
-  protected function __construct($mechanism, $value) {
-    $this->mechanism = $mechanism;
-    $this->value = $value;
-  }
+    /**
+     * @return string
+     */
+    public function getMechanism()
+    {
+        return $this->mechanism;
+    }
 
-  /**
-   * @return string
-   */
-  public function getMechanism() {
-    return $this->mechanism;
-  }
+    /**
+     * @return string
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-  /**
-   * @return string
-   */
-  public function getValue() {
-    return $this->value;
-  }
+    /**
+     * Locates elements whose class name contains the search value; compound class
+     * names are not permitted.
+     *
+     * @param string $class_name
+     * @return WebDriverBy
+     */
+    public static function className($class_name)
+    {
+        return new self('class name', $class_name);
+    }
 
-  /**
-   * Locates elements whose class name contains the search value; compound class
-   * names are not permitted.
-   *
-   * @param string $class_name
-   * @return WebDriverBy
-   */
-  public static function className($class_name) {
-    return new WebDriverBy('class name', $class_name);
-  }
+    /**
+     * Locates elements matching a CSS selector.
+     *
+     * @param string $css_selector
+     * @return WebDriverBy
+     */
+    public static function cssSelector($css_selector)
+    {
+        return new self('css selector', $css_selector);
+    }
 
-  /**
-   * Locates elements matching a CSS selector.
-   *
-   * @param string $css_selector
-   * @return WebDriverBy
-   */
-  public static function cssSelector($css_selector) {
-    return new WebDriverBy('css selector', $css_selector);
-  }
+    /**
+     * Locates elements whose ID attribute matches the search value.
+     *
+     * @param string $id
+     * @return WebDriverBy
+     */
+    public static function id($id)
+    {
+        return new self('id', $id);
+    }
 
-  /**
-   * Locates elements whose ID attribute matches the search value.
-   *
-   * @param string $id
-   * @return WebDriverBy
-   */
-  public static function id($id) {
-    return new WebDriverBy('id', $id);
-  }
+    /**
+     * Locates elements whose NAME attribute matches the search value.
+     *
+     * @param string $name
+     * @return WebDriverBy
+     */
+    public static function name($name)
+    {
+        return new self('name', $name);
+    }
 
-  /**
-   * Locates elements whose NAME attribute matches the search value.
-   *
-   * @param string $name
-   * @return WebDriverBy
-   */
-  public static function name($name) {
-    return new WebDriverBy('name', $name);
-  }
+    /**
+     * Locates anchor elements whose visible text matches the search value.
+     *
+     * @param string $link_text
+     * @return WebDriverBy
+     */
+    public static function linkText($link_text)
+    {
+        return new self('link text', $link_text);
+    }
 
-  /**
-   * Locates anchor elements whose visible text matches the search value.
-   *
-   * @param string $link_text
-   * @return WebDriverBy
-   */
-  public static function linkText($link_text) {
-    return new WebDriverBy('link text', $link_text);
-  }
+    /**
+     * Locates anchor elements whose visible text partially matches the search
+     * value.
+     *
+     * @param string $partial_link_text
+     * @return WebDriverBy
+     */
+    public static function partialLinkText($partial_link_text)
+    {
+        return new self('partial link text', $partial_link_text);
+    }
 
-  /**
-   * Locates anchor elements whose visible text partially matches the search
-   * value.
-   *
-   * @param string $partial_link_text
-   * @return WebDriverBy
-   */
-  public static function partialLinkText($partial_link_text) {
-    return new WebDriverBy('partial link text', $partial_link_text);
-  }
+    /**
+     * Locates elements whose tag name matches the search value.
+     *
+     * @param string $tag_name
+     * @return WebDriverBy
+     */
+    public static function tagName($tag_name)
+    {
+        return new self('tag name', $tag_name);
+    }
 
-  /**
-   * Locates elements whose tag name matches the search value.
-   *
-   * @param string $tag_name
-   * @return WebDriverBy
-   */
-  public static function tagName($tag_name) {
-    return new WebDriverBy('tag name', $tag_name);
-  }
-
-  /**
-   * Locates elements matching an XPath expression.
-   *
-   * @param string $xpath
-   * @return WebDriverBy
-   */
-  public static function xpath($xpath) {
-    return new WebDriverBy('xpath', $xpath);
-  }
+    /**
+     * Locates elements matching an XPath expression.
+     *
+     * @param string $xpath
+     * @return WebDriverBy
+     */
+    public static function xpath($xpath)
+    {
+        return new self('xpath', $xpath);
+    }
 }

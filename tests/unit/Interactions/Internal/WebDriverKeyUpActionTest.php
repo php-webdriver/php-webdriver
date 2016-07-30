@@ -19,35 +19,38 @@ use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverKeyboard;
 use Facebook\WebDriver\WebDriverMouse;
 
-class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
-  /** @var WebDriverKeyUpAction */
-  private $webDriverKeyUpAction;
-  /** @var WebDriverKeyboard|\PHPUnit_Framework_MockObject_MockObject */
-  private $webDriverKeyboard;
-  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
-  private $webDriverMouse;
-  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
-  private $locationProvider;
+class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var WebDriverKeyUpAction */
+    private $webDriverKeyUpAction;
+    /** @var WebDriverKeyboard|\PHPUnit_Framework_MockObject_MockObject */
+    private $webDriverKeyboard;
+    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    private $webDriverMouse;
+    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    private $locationProvider;
 
-  public function setUp() {
-    $this->webDriverKeyboard = $this->getMockBuilder('Facebook\WebDriver\WebDriverKeyboard')->getMock();
-    $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
-    $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
+    public function setUp()
+    {
+        $this->webDriverKeyboard = $this->getMockBuilder('Facebook\WebDriver\WebDriverKeyboard')->getMock();
+        $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+        $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
 
-    $this->webDriverKeyUpAction = new WebDriverKeyUpAction(
-      $this->webDriverKeyboard,
-      $this->webDriverMouse,
-      $this->locationProvider,
-      'a'
-    );
-  }
+        $this->webDriverKeyUpAction = new WebDriverKeyUpAction(
+            $this->webDriverKeyboard,
+            $this->webDriverMouse,
+            $this->locationProvider,
+            'a'
+        );
+    }
 
-  public function testPerformFocusesOnElementAndSendPressKeyCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
-      ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
-    $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverKeyboard->expects($this->once())->method('releaseKey')->with('a');
-    $this->webDriverKeyUpAction->perform();
-  }
+    public function testPerformFocusesOnElementAndSendPressKeyCommand()
+    {
+        $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+            ->disableOriginalConstructor()->getMock();
+        $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->webDriverKeyboard->expects($this->once())->method('releaseKey')->with('a');
+        $this->webDriverKeyUpAction->perform();
+    }
 }

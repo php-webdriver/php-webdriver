@@ -18,12 +18,12 @@ namespace Facebook\WebDriver\Internal;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 
 /**
- * interface representing basic mouse operations.
+ * Interface representing basic mouse operations.
  */
-interface WebDriverLocatable {
-
-  /**
-   * @return WebDriverCoordinates
-   */
-  public function getCoordinates();
+interface WebDriverLocatable
+{
+    /**
+     * @return WebDriverCoordinates
+     */
+    public function getCoordinates();
 }

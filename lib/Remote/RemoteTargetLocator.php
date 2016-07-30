@@ -15,90 +15,97 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\WebDriverTargetLocator;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverAlert;
 use Facebook\WebDriver\WebDriver;
+use Facebook\WebDriver\WebDriverAlert;
+use Facebook\WebDriver\WebDriverElement;
+use Facebook\WebDriver\WebDriverTargetLocator;
 
 /**
  * Used to locate a given frame or window for RemoteWebDriver.
  */
-class RemoteTargetLocator implements WebDriverTargetLocator {
+class RemoteTargetLocator implements WebDriverTargetLocator
+{
+    protected $executor;
+    protected $driver;
 
-  protected $executor;
-  protected $driver;
-
-  public function __construct($executor, $driver) {
-    $this->executor = $executor;
-    $this->driver = $driver;
-  }
-
-  /**
-   * Switch to the main document if the page contains iframes. Otherwise, switch
-   * to the first frame on the page.
-   *
-   * @return WebDriver The driver focused on the top window or the first frame.
-   */
-  public function defaultContent() {
-    $params = array('id' => null);
-    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
-
-    return $this->driver;
-  }
-
-  /**
-   * Switch to the iframe by its id or name.
-   *
-   * @param WebDriverElement|string $frame The WebDriverElement,
-                                           the id or the name of the frame.
-   * @return WebDriver The driver focused on the given frame.
-   */
-  public function frame($frame) {
-    if ($frame instanceof WebDriverElement) {
-      $id = array('ELEMENT' => $frame->getID());
-    } else {
-      $id = (string)$frame;
+    public function __construct($executor, $driver)
+    {
+        $this->executor = $executor;
+        $this->driver = $driver;
     }
 
-    $params = array('id' => $id);
-    $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
+    /**
+     * Switch to the main document if the page contains iframes. Otherwise, switch
+     * to the first frame on the page.
+     *
+     * @return WebDriver The driver focused on the top window or the first frame.
+     */
+    public function defaultContent()
+    {
+        $params = array('id' => null);
+        $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
 
-    return $this->driver;
-  }
+        return $this->driver;
+    }
 
-  /**
-   * Switch the focus to another window by its handle.
-   *
-   * @param string $handle The handle of the window to be focused on.
-   * @return WebDriver Tge driver focused on the given window.
-   * @see WebDriver::getWindowHandles
-   */
-  public function window($handle) {
-    $params = array('name' => (string)$handle);
-    $this->executor->execute(DriverCommand::SWITCH_TO_WINDOW, $params);
+    /**
+     * Switch to the iframe by its id or name.
+     *
+     * @param WebDriverElement|string $frame The WebDriverElement,
+     * the id or the name of the frame.
+     * @return WebDriver The driver focused on the given frame.
+     */
+    public function frame($frame)
+    {
+        if ($frame instanceof WebDriverElement) {
+            $id = array('ELEMENT' => $frame->getID());
+        } else {
+            $id = (string) $frame;
+        }
 
-    return $this->driver;
-  }
+        $params = array('id' => $id);
+        $this->executor->execute(DriverCommand::SWITCH_TO_FRAME, $params);
 
-  /**
-   * Switch to the currently active modal dialog for this particular driver
-   * instance.
-   *
-   * @return WebDriverAlert
-   */
-  public function alert() {
-    return new WebDriverAlert($this->executor);
-  }
+        return $this->driver;
+    }
 
-  /**
-   * Switches to the element that currently has focus within the document
-   * currently "switched to", or the body element if this cannot be detected.
-   *
-   * @return RemoteWebElement
-   */
-  public function activeElement() {
-    $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT);
-    $method = new RemoteExecuteMethod($this->driver);
-    return new RemoteWebElement($method, $response['ELEMENT']);
-  }
+    /**
+     * Switch the focus to another window by its handle.
+     *
+     * @param string $handle The handle of the window to be focused on.
+     * @return WebDriver Tge driver focused on the given window.
+     * @see WebDriver::getWindowHandles
+     */
+    public function window($handle)
+    {
+        $params = array('name' => (string) $handle);
+        $this->executor->execute(DriverCommand::SWITCH_TO_WINDOW, $params);
+
+        return $this->driver;
+    }
+
+    /**
+     * Switch to the currently active modal dialog for this particular driver
+     * instance.
+     *
+     * @return WebDriverAlert
+     */
+    public function alert()
+    {
+        return new WebDriverAlert($this->executor);
+    }
+
+    /**
+     * Switches to the element that currently has focus within the document
+     * currently "switched to", or the body element if this cannot be detected.
+     *
+     * @return RemoteWebElement
+     */
+    public function activeElement()
+    {
+        $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT);
+        $method = new RemoteExecuteMethod($this->driver);
+
+        return new RemoteWebElement($method, $response['ELEMENT']);
+    }
 }

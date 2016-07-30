@@ -18,42 +18,46 @@ namespace Facebook\WebDriver;
 /**
  * Represent a dimension.
  */
-class WebDriverDimension {
+class WebDriverDimension
+{
+    private $height;
+    private $width;
 
-  private $height, $width;
+    public function __construct($width, $height)
+    {
+        $this->width = $width;
+        $this->height = $height;
+    }
 
-  public function __construct($width, $height) {
-    $this->width = $width;
-    $this->height = $height;
-  }
+    /**
+     * Get the height.
+     *
+     * @return int The height.
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
 
-  /**
-   * Get the height.
-   *
-   * @return int The height.
-   */
-  public function getHeight() {
-    return $this->height;
-  }
+    /**
+     * Get the width.
+     *
+     * @return int The width.
+     */
+    public function getWidth()
+    {
+        return $this->width;
+    }
 
-  /**
-   * Get the width.
-   *
-   * @return int The width.
-   */
-  public function getWidth() {
-    return $this->width;
-  }
-
-  /**
-   * Check whether the given dimension is the same as the instance.
-   *
-   * @param WebDriverDimension $dimension The dimension to be compared with.
-   * @return bool Whether the height and the width are the same as the
-   *              instance.
-   */
-  public function equals(WebDriverDimension $dimension) {
-    return $this->height === $dimension->getHeight() &&
-           $this->width === $dimension->getWidth();
-  }
+    /**
+     * Check whether the given dimension is the same as the instance.
+     *
+     * @param WebDriverDimension $dimension The dimension to be compared with.
+     * @return bool Whether the height and the width are the same as the
+     *              instance.
+     */
+    public function equals(WebDriverDimension $dimension)
+    {
+        return $this->height === $dimension->getHeight() && $this->width === $dimension->getWidth();
+    }
 }

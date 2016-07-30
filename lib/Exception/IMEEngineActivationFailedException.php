@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-
-class IMEEngineActivationFailedException extends WebDriverException {
-
+class IMEEngineActivationFailedException extends WebDriverException
+{
 }

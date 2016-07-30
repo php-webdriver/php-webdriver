@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class TimeOutException extends WebDriverException {
-
+class TimeOutException extends WebDriverException
+{
 }
