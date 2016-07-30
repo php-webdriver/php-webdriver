@@ -30,9 +30,9 @@ class WebDriverKeyUpActionTest extends \PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverKeyboard = $this->getMock('Facebook\WebDriver\WebDriverKeyboard');
-    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
+    $this->webDriverKeyboard = $this->getMockBuilder('Facebook\WebDriver\WebDriverKeyboard')->getMock();
+    $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+    $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
 
     $this->webDriverKeyUpAction = new WebDriverKeyUpAction(
       $this->webDriverKeyboard,

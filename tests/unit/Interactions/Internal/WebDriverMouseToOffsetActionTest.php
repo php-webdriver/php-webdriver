@@ -29,8 +29,8 @@ class WebDriverMouseToOffsetActionTest extends \PHPUnit_Framework_TestCase {
   private $locationProvider;
 
   public function setUp() {
-    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
+    $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+    $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
 
     $this->webDriverMoveToOffsetAction = new WebDriverMoveToOffsetAction(
       $this->webDriverMouse,
