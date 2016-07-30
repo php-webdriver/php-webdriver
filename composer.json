@@ -15,7 +15,7 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.6.*"
+    "phpunit/phpunit": "4.6.* || ~5.0"
   },
   "suggest": {
     "phpdocumentor/phpdocumentor": "2.*"
