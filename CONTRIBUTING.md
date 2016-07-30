@@ -9,7 +9,7 @@ send a pull request (see bellow) with your contribution.
 
 1. Fork the project on GitHub
 2. Implement your code changes into separate branch
-3. Make sure all PHPUnit tests passes (see below). We also have Travis CI build which will automatically run tests on your pull request).
+3. Make sure all PHPUnit tests passes and code-style matches PSR-2 (see below). We also have Travis CI build which will automatically run tests on your pull request.
 4. When implementing notable change, fix or a new feature, add record to Unreleased section of [CHANGELOG.md](CHANGELOG.md)
 5. Submit your [pull request](https://github.com/facebook/php-webdriver/pulls) against community branch
  
@@ -34,3 +34,10 @@ For the functional tests you must first download and start the selenium server, 
 
     java -jar selenium-server-standalone-2.48.2.jar -log selenium.log &
     ./vendor/bin/phpunit --testsuite functional
+
+### Check coding style
+
+Your code-style should comply with [PSR-2](http://www.php-fig.org/psr/psr-2/). To make sure your code matches this requirement run:
+
+    ./vendor/bin/php-cs-fixer fix --diff --dry-run
+    ./vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/
