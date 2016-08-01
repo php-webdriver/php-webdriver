@@ -274,6 +274,17 @@ class DesiredCapabilities implements WebDriverCapabilities
     /**
      * @return DesiredCapabilities
      */
+    public static function microsoftEdge()
+    {
+        return new self(array(
+            WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::MICROSOFT_EDGE,
+            WebDriverCapabilityType::PLATFORM => WebDriverPlatform::WINDOWS,
+        ));
+    }
+
+    /**
+     * @return DesiredCapabilities
+     */
     public static function iphone()
     {
         return new self(array(

@@ -28,6 +28,7 @@ class WebDriverBrowserType
     const GOOGLECHROME = 'googlechrome';
     const SAFARI = 'safari';
     const OPERA = 'opera';
+    const MICROSOFT_EDGE = 'MicrosoftEdge';
     const IEXPLORE = 'iexplore';
     const IEXPLORE_PROXY = 'iexploreproxy';
     const SAFARI_PROXY = 'safariproxy';

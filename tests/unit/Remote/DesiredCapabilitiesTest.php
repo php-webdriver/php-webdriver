@@ -110,6 +110,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
             array('firefox', WebDriverBrowserType::FIREFOX, WebDriverPlatform::ANY),
             array('htmlUnit', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY),
             array('htmlUnitWithJS', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY),
+            array('MicrosoftEdge', WebDriverBrowserType::MICROSOFT_EDGE, WebDriverPlatform::WINDOWS),
             array('internetExplorer', WebDriverBrowserType::IE, WebDriverPlatform::WINDOWS),
             array('iphone', WebDriverBrowserType::IPHONE, WebDriverPlatform::MAC),
             array('ipad', WebDriverBrowserType::IPAD, WebDriverPlatform::MAC),
