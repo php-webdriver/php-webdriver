@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class UnableToSetCookieException extends WebDriverException {
-
+class UnableToSetCookieException extends WebDriverException
+{
 }

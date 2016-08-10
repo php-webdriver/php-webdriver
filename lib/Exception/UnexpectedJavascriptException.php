@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class UnexpectedJavascriptException extends WebDriverException {
-
+class UnexpectedJavascriptException extends WebDriverException
+{
 }

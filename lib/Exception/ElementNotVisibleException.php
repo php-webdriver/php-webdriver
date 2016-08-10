@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class ElementNotVisibleException extends WebDriverException {
-
+class ElementNotVisibleException extends WebDriverException
+{
 }

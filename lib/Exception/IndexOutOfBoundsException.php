@@ -2,6 +2,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class IndexOutOfBoundsException extends WebDriverException {
-
+class IndexOutOfBoundsException extends WebDriverException
+{
 }

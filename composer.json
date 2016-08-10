@@ -15,7 +15,9 @@
     "ext-curl": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.6.*"
+    "phpunit/phpunit": "4.6.* || ~5.0",
+    "friendsofphp/php-cs-fixer": "^1.11",
+    "squizlabs/php_codesniffer": "^2.6"
   },
   "suggest": {
     "phpdocumentor/phpdocumentor": "2.*"

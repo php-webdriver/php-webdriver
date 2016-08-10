@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class XPathLookupException extends WebDriverException {
-
+class XPathLookupException extends WebDriverException
+{
 }

@@ -15,26 +15,32 @@
 
 namespace Facebook\WebDriver\Interactions\Internal;
 
-class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase {
-  public function testConstruct() {
-    $in_view_port = function() { };
-    $on_page = function() { };
+class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase
+{
+    public function testConstruct()
+    {
+        $in_view_port = function () {
+        };
+        $on_page = function () {
+        };
 
-    $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
+        $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-    self::assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
-    self::assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
-    self::assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
-    self::assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
-  }
+        self::assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
+        self::assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
+        self::assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
+        self::assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
+    }
 
-  public function testGetAuxiliary()
-  {
-    $in_view_port = function() { };
-    $on_page = function() { };
+    public function testGetAuxiliary()
+    {
+        $in_view_port = function () {
+        };
+        $on_page = function () {
+        };
 
-    $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
+        $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-    self::assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
-  }
+        self::assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
+    }
 }

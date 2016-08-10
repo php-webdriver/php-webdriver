@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoStringLengthException extends WebDriverException {
-
+class NoStringLengthException extends WebDriverException
+{
 }

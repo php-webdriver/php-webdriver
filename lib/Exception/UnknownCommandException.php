@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class UnknownCommandException extends WebDriverException {
-
+class UnknownCommandException extends WebDriverException
+{
 }

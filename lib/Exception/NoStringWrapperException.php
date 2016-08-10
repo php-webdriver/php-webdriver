@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoStringWrapperException extends WebDriverException {
-
+class NoStringWrapperException extends WebDriverException
+{
 }

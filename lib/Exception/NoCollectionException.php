@@ -2,6 +2,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoCollectionException extends WebDriverException {
-
+class NoCollectionException extends WebDriverException
+{
 }

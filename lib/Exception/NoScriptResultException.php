@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoScriptResultException extends WebDriverException {
-
+class NoScriptResultException extends WebDriverException
+{
 }

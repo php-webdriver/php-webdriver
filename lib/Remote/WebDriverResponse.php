@@ -15,75 +15,83 @@
 
 namespace Facebook\WebDriver\Remote;
 
-class WebDriverResponse {
+class WebDriverResponse
+{
+    /**
+     * @var int
+     */
+    private $status;
+    /**
+     * @var mixed
+     */
+    private $value;
+    /**
+     * @var string
+     */
+    private $sessionID;
 
-  /**
-   * @var int
-   */
-  private $status;
+    /**
+     * @param null|string $session_id
+     */
+    public function __construct($session_id = null)
+    {
+        $this->sessionID = $session_id;
+    }
 
-  /**
-   * @var mixed
-   */
-  private $value;
+    /**
+     * @return null|int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
-  /**
-   * @var string
-   */
-  private $sessionID;
+    /**
+     * @param int $status
+     * @return WebDriverResponse
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
 
-  /**
-   * @param null|string $session_id
-   */
-  public function __construct($session_id = null) {
-    $this->sessionID = $session_id;
-  }
+        return $this;
+    }
 
-  /**
-   * @return null|int
-   */
-  public function getStatus() {
-    return $this->status;
-  }
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-  /**
-   * @param int $status
-   * @return WebDriverResponse
-   */
-  public function setStatus($status) {
-    $this->status = $status;
-    return $this;
-  }
+    /**
+     * @param mixed $value
+     * @return WebDriverResponse
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
 
-  /**
-   * @return mixed
-   */
-  public function getValue() {
-    return $this->value;
-  }
+        return $this;
+    }
 
-  /**
-   * @param mixed $value
-   * @return WebDriverResponse
-   */
-  public function setValue($value) {
-    $this->value = $value;
-    return $this;
-  }
+    /**
+     * @return null|string
+     */
+    public function getSessionID()
+    {
+        return $this->sessionID;
+    }
 
-  /**
-   * @return null|string
-   */
-  public function getSessionID() {
-    return $this->sessionID;
-  }
+    /**
+     * @param mixed $session_id
+     * @return WebDriverResponse
+     */
+    public function setSessionID($session_id)
+    {
+        $this->sessionID = $session_id;
 
-  /**
-   * @param mixed $session_id
-   * @return WebDriverResponse
-   */
-  public function setSessionID($session_id) {
-    $this->sessionID = $session_id;
-    return $this;
-  }
+        return $this;
+    }
 }

@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-
-class InvalidCoordinatesException extends WebDriverException {
-
+class InvalidCoordinatesException extends WebDriverException
+{
 }

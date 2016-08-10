@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class UnexpectedAlertOpenException extends WebDriverException {
-
+class UnexpectedAlertOpenException extends WebDriverException
+{
 }

@@ -18,28 +18,31 @@ namespace Facebook\WebDriver\Interactions\Internal;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
 
-class WebDriverButtonReleaseActionTest extends \PHPUnit_Framework_TestCase {
-  /** @var WebDriverButtonReleaseAction */
-  private $webDriverButtonReleaseAction;
-  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
-  private $webDriverMouse;
-  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
-  private $locationProvider;
+class WebDriverButtonReleaseActionTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var WebDriverButtonReleaseAction */
+    private $webDriverButtonReleaseAction;
+    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    private $webDriverMouse;
+    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    private $locationProvider;
 
-  public function setUp() {
-    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
-    $this->webDriverButtonReleaseAction = new WebDriverButtonReleaseAction(
-      $this->webDriverMouse,
-      $this->locationProvider
-    );
-  }
+    public function setUp()
+    {
+        $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+        $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
+        $this->webDriverButtonReleaseAction = new WebDriverButtonReleaseAction(
+            $this->webDriverMouse,
+            $this->locationProvider
+        );
+    }
 
-  public function testPerformSendsMouseUpCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
-      ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('mouseUp')->with($coords);
-    $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverButtonReleaseAction->perform();
-  }
+    public function testPerformSendsMouseUpCommand()
+    {
+        $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+            ->disableOriginalConstructor()->getMock();
+        $this->webDriverMouse->expects($this->once())->method('mouseUp')->with($coords);
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->webDriverButtonReleaseAction->perform();
+    }
 }

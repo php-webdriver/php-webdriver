@@ -3,6 +3,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 - Fixed FirefoxProfile to support installation of extensions with custom namespace prefix in their manifest file
+- Comply codestyle with [PSR-2](http://www.php-fig.org/psr/psr-2/)
 
 ## 1.1.2 - 2016-06-04
 - Added ext-curl to composer.json

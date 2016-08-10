@@ -18,64 +18,68 @@ namespace Facebook\WebDriver\Net;
 use Exception;
 use Facebook\WebDriver\Exception\TimeOutException;
 
-class URLChecker {
+class URLChecker
+{
+    const POLL_INTERVAL_MS = 500;
+    const CONNECT_TIMEOUT_MS = 500;
 
-  const POLL_INTERVAL_MS = 500;
-  const CONNECT_TIMEOUT_MS = 500;
+    public function waitUntilAvailable($timeout_in_ms, $url)
+    {
+        $end = microtime(true) + $timeout_in_ms / 1000;
 
-  public function waitUntilAvailable($timeout_in_ms, $url) {
-    $end = microtime(true) + $timeout_in_ms / 1000;
+        while ($end > microtime(true)) {
+            if ($this->getHTTPResponseCode($timeout_in_ms, $url) === 200) {
+                return $this;
+            }
+            usleep(self::POLL_INTERVAL_MS);
+        }
 
-    while ($end > microtime(true)) {
-      if ($this->getHTTPResponseCode($timeout_in_ms, $url) === 200) {
-        return $this;
-      }
-      usleep(self::POLL_INTERVAL_MS);
+        throw new TimeOutException(sprintf(
+            'Timed out waiting for %s to become available after %d ms.',
+            $url,
+            $timeout_in_ms
+        ));
     }
 
-    throw new TimeOutException(sprintf(
-      "Timed out waiting for %s to become available after %d ms.",
-      $url,
-      $timeout_in_ms
-    ));
-  }
+    public function waitUntilUnavailable($timeout_in_ms, $url)
+    {
+        $end = microtime(true) + $timeout_in_ms / 1000;
 
-  public function waitUntilUnavailable($timeout_in_ms, $url) {
-    $end = microtime(true) + $timeout_in_ms / 1000;
+        while ($end > microtime(true)) {
+            if ($this->getHTTPResponseCode($timeout_in_ms, $url) !== 200) {
+                return $this;
+            }
+            usleep(self::POLL_INTERVAL_MS);
+        }
 
-    while ($end > microtime(true)) {
-      if ($this->getHTTPResponseCode($timeout_in_ms, $url) !== 200) {
-        return $this;
-      }
-      usleep(self::POLL_INTERVAL_MS);
+        throw new TimeOutException(sprintf(
+            'Timed out waiting for %s to become unavailable after %d ms.',
+            $url,
+            $timeout_in_ms
+        ));
     }
 
-    throw new TimeOutException(sprintf(
-      "Timed out waiting for %s to become unavailable after %d ms.",
-      $url,
-      $timeout_in_ms
-    ));
-  }
+    private function getHTTPResponseCode($timeout_in_ms, $url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
+        // There is a PHP bug in some versions which didn't define the constant.
+        curl_setopt(
+            $ch,
+            156, // CURLOPT_CONNECTTIMEOUT_MS
+            self::CONNECT_TIMEOUT_MS
+        );
+        $code = null;
+        try {
+            curl_exec($ch);
+            $info = curl_getinfo($ch);
+            $code = $info['http_code'];
+        } catch (Exception $e) {
+        }
+        curl_close($ch);
 
-  private function getHTTPResponseCode($timeout_in_ms, $url) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
-    // There is a PHP bug in some versions which didn't define the constant.
-    curl_setopt(
-      $ch,
-      156, // CURLOPT_CONNECTTIMEOUT_MS
-      self::CONNECT_TIMEOUT_MS
-    );
-    $code = null;
-    try {
-      curl_exec($ch);
-      $info = curl_getinfo($ch);
-      $code = $info['http_code'];
-    } catch (Exception $e) {
+        return $code;
     }
-    curl_close($ch);
-    return $code;
-  }
 }

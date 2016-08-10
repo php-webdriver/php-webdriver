@@ -15,6 +15,6 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class StaleElementReferenceException extends WebDriverException {
-
+class StaleElementReferenceException extends WebDriverException
+{
 }

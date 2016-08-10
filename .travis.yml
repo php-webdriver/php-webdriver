@@ -10,6 +10,12 @@ php:
   - 7
   - hhvm
 
+matrix:
+  include:
+    # Add PHP 7 build to check codestyle only in PHP 7 build
+    - php: 7
+      env: CHECK_CODESTYLE=1
+
 env:
   global:
     - DISPLAY=:99.0
@@ -19,18 +25,21 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - composer self-update
+  - travis_retry composer self-update
 
 install:
-  - composer install --no-interaction --prefer-source
+  - travis_retry composer install --no-interaction --prefer-source
 
 before_script:
-  - sh -e /etc/init.d/xvfb start
-  - wget -q -t 3 http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-  - java -jar selenium-server-standalone-2.45.0.jar -log selenium.log &
-  - until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done;
+  - if [ -z "$CHECK_CODESTYLE" ]; then sh -e /etc/init.d/xvfb start; fi
+  - if [ -z "$CHECK_CODESTYLE" ]; then wget -q -t 3 http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar; fi
+  - if [ -z "$CHECK_CODESTYLE" ]; then java -jar selenium-server-standalone-2.45.0.jar -log selenium.log; fi &
+  - if [ -z "$CHECK_CODESTYLE" ]; then until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done; fi
 
-script: ./vendor/bin/phpunit
+script:
+  - if [ -n "$CHECK_CODESTYLE" ]; then ./vendor/bin/php-cs-fixer fix --diff --dry-run; fi
+  - if [ -n "$CHECK_CODESTYLE" ]; then ./vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/; fi
+  - if [ -z "$CHECK_CODESTYLE" ]; then ./vendor/bin/phpunit; fi
 
 after_script:
   - cat selenium.log

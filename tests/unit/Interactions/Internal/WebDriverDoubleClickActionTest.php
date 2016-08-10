@@ -18,28 +18,31 @@ namespace Facebook\WebDriver\Interactions\Internal;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
 
-class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase {
-  /** @var WebDriverDoubleClickAction */
-  private $webDriverDoubleClickAction;
-  /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
-  private $webDriverMouse;
-  /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject  */
-  private $locationProvider;
+class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase
+{
+    /** @var WebDriverDoubleClickAction */
+    private $webDriverDoubleClickAction;
+    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    private $webDriverMouse;
+    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    private $locationProvider;
 
-  public function setUp() {
-    $this->webDriverMouse = $this->getMock('Facebook\WebDriver\WebDriverMouse');
-    $this->locationProvider = $this->getMock('Facebook\WebDriver\Internal\WebDriverLocatable');
-    $this->webDriverDoubleClickAction = new WebDriverDoubleClickAction(
-      $this->webDriverMouse,
-      $this->locationProvider
-    );
-  }
+    public function setUp()
+    {
+        $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
+        $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
+        $this->webDriverDoubleClickAction = new WebDriverDoubleClickAction(
+            $this->webDriverMouse,
+            $this->locationProvider
+        );
+    }
 
-  public function testPerformSendsDoubleClickCommand() {
-    $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
-      ->disableOriginalConstructor()->getMock();
-    $this->webDriverMouse->expects($this->once())->method('doubleClick')->with($coords);
-    $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
-    $this->webDriverDoubleClickAction->perform();
-  }
+    public function testPerformSendsDoubleClickCommand()
+    {
+        $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+            ->disableOriginalConstructor()->getMock();
+        $this->webDriverMouse->expects($this->once())->method('doubleClick')->with($coords);
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->webDriverDoubleClickAction->perform();
+    }
 }
