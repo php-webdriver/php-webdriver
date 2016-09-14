@@ -63,6 +63,8 @@ $driver = RemoteWebDriver::create($host, $desired_capabilities);
 
 * See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities for more details.
 
+* Above snippets are not intended to be a working example by simply copy pasting. See [example.php](example.php) for working example.
+
 ## Changelog
 For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
