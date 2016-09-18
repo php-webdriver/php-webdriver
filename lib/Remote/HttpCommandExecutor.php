@@ -240,9 +240,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         foreach ($params as $name => $value) {
             if ($name[0] === ':') {
                 $url = str_replace($name, $value, $url);
-                if ($http_method != 'POST') {
-                    unset($params[$name]);
-                }
+                unset($params[$name]);
             }
         }
 
