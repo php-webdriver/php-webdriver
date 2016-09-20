@@ -4,6 +4,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - Added initial basic support of Microsoft Edge browser
 - Utilize late static binding to make eg. `WebDriverBy` and `DesiredCapabilities` classes easily extensible
+- PHP version at least 5.5 is required
 
 ## 1.1.3 - 2016-08-10
 - Fixed FirefoxProfile to support installation of extensions with custom namespace prefix in their manifest file
