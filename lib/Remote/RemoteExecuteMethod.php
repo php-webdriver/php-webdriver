@@ -32,7 +32,7 @@ class RemoteExecuteMethod implements ExecuteMethod
      * @param array $parameters
      * @return mixed
      */
-    public function execute($command_name, array $parameters = array())
+    public function execute($command_name, array $parameters = [])
     {
         return $this->driver->execute($command_name, $parameters);
     }

@@ -25,14 +25,14 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
     public function testShouldInstantiateWithCapabilitiesGivenInConstructor()
     {
         $capabilities = new DesiredCapabilities(
-            array('fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY)
+            ['fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY]
         );
 
         $this->assertSame('fooVal', $capabilities->getCapability('fooKey'));
         $this->assertSame('ANY', $capabilities->getPlatform());
 
         $this->assertSame(
-            array('fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY),
+            ['fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY],
             $capabilities->toArray()
         );
     }
@@ -42,7 +42,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
         $capabilities = new DesiredCapabilities();
 
         $this->assertNull($capabilities->getCapability('foo'));
-        $this->assertSame(array(), $capabilities->toArray());
+        $this->assertSame([], $capabilities->toArray());
     }
 
     public function testShouldProvideAccessToCapabilitiesUsingSettersAndGetters()
@@ -93,7 +93,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
         $expectedPlatform
     ) {
         /** @var DesiredCapabilities $capabilities */
-        $capabilities = call_user_func(array('Facebook\WebDriver\Remote\DesiredCapabilities', $setupMethod));
+        $capabilities = call_user_func([DesiredCapabilities::class, $setupMethod]);
 
         $this->assertSame($expectedBrowser, $capabilities->getBrowserName());
         $this->assertSame($expectedPlatform, $capabilities->getPlatform());
@@ -104,20 +104,20 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function browserCapabilitiesProvider()
     {
-        return array(
-            array('android', WebDriverBrowserType::ANDROID, WebDriverPlatform::ANDROID),
-            array('chrome', WebDriverBrowserType::CHROME, WebDriverPlatform::ANY),
-            array('firefox', WebDriverBrowserType::FIREFOX, WebDriverPlatform::ANY),
-            array('htmlUnit', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY),
-            array('htmlUnitWithJS', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY),
-            array('MicrosoftEdge', WebDriverBrowserType::MICROSOFT_EDGE, WebDriverPlatform::WINDOWS),
-            array('internetExplorer', WebDriverBrowserType::IE, WebDriverPlatform::WINDOWS),
-            array('iphone', WebDriverBrowserType::IPHONE, WebDriverPlatform::MAC),
-            array('ipad', WebDriverBrowserType::IPAD, WebDriverPlatform::MAC),
-            array('opera', WebDriverBrowserType::OPERA, WebDriverPlatform::ANY),
-            array('safari', WebDriverBrowserType::SAFARI, WebDriverPlatform::ANY),
-            array('phantomjs', WebDriverBrowserType::PHANTOMJS, WebDriverPlatform::ANY),
-        );
+        return [
+            ['android', WebDriverBrowserType::ANDROID, WebDriverPlatform::ANDROID],
+            ['chrome', WebDriverBrowserType::CHROME, WebDriverPlatform::ANY],
+            ['firefox', WebDriverBrowserType::FIREFOX, WebDriverPlatform::ANY],
+            ['htmlUnit', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY],
+            ['htmlUnitWithJS', WebDriverBrowserType::HTMLUNIT, WebDriverPlatform::ANY],
+            ['MicrosoftEdge', WebDriverBrowserType::MICROSOFT_EDGE, WebDriverPlatform::WINDOWS],
+            ['internetExplorer', WebDriverBrowserType::IE, WebDriverPlatform::WINDOWS],
+            ['iphone', WebDriverBrowserType::IPHONE, WebDriverPlatform::MAC],
+            ['ipad', WebDriverBrowserType::IPAD, WebDriverPlatform::MAC],
+            ['opera', WebDriverBrowserType::OPERA, WebDriverPlatform::ANY],
+            ['safari', WebDriverBrowserType::SAFARI, WebDriverPlatform::ANY],
+            ['phantomjs', WebDriverBrowserType::PHANTOMJS, WebDriverPlatform::ANY],
+        ];
     }
 
     public function testShouldSetupFirefoxProfileAndDisableReaderViewForFirefoxBrowser()
@@ -126,7 +126,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
 
         /** @var FirefoxProfile $firefoxProfile */
         $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
-        $this->assertInstanceOf('Facebook\WebDriver\Firefox\FirefoxProfile', $firefoxProfile);
+        $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
 
         $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
     }

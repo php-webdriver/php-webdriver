@@ -31,7 +31,7 @@ class ChromeOptions
     /**
      * @var array
      */
-    private $arguments = array();
+    private $arguments = [];
     /**
      * @var string
      */
@@ -39,11 +39,11 @@ class ChromeOptions
     /**
      * @var array
      */
-    private $extensions = array();
+    private $extensions = [];
     /**
      * @var array
      */
-    private $experimentalOptions = array();
+    private $experimentalOptions = [];
 
     /**
      * Sets the path of the Chrome executable. The path should be either absolute

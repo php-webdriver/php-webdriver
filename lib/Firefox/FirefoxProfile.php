@@ -26,15 +26,15 @@ class FirefoxProfile
     /**
      * @var array
      */
-    private $preferences = array();
+    private $preferences = [];
     /**
      * @var array
      */
-    private $extensions = array();
+    private $extensions = [];
     /**
      * @var array
      */
-    private $extensions_datas = array();
+    private $extensions_datas = [];
     /**
      * @var string
      */
@@ -220,7 +220,7 @@ class FirefoxProfile
             }
         }
         // Get the extension id from the install manifest.
-        $matches = array();
+        $matches = [];
         preg_match('#<' . $prefix . 'id>([^<]+)</' . $prefix . 'id>#', $xml->asXML(), $matches);
         if (isset($matches[1])) {
             $ext_dir = $profile_dir . '/extensions/' . $matches[1];

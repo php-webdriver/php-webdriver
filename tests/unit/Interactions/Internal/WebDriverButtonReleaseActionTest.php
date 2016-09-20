@@ -29,8 +29,8 @@ class WebDriverButtonReleaseActionTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->webDriverMouse = $this->getMockBuilder('Facebook\WebDriver\WebDriverMouse')->getMock();
-        $this->locationProvider = $this->getMockBuilder('Facebook\WebDriver\Internal\WebDriverLocatable')->getMock();
+        $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
+        $this->locationProvider = $this->getMockBuilder(WebDriverLocatable::class)->getMock();
         $this->webDriverButtonReleaseAction = new WebDriverButtonReleaseAction(
             $this->webDriverMouse,
             $this->locationProvider
@@ -39,7 +39,7 @@ class WebDriverButtonReleaseActionTest extends \PHPUnit_Framework_TestCase
 
     public function testPerformSendsMouseUpCommand()
     {
-        $coords = $this->getMockBuilder('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates')
+        $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();
         $this->webDriverMouse->expects($this->once())->method('mouseUp')->with($coords);
         $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));

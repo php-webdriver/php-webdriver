@@ -51,7 +51,7 @@ class DriverService
      * @param array $args
      * @param array|null $environment Use the system environment if it is null
      */
-    public function __construct($executable, $port, $args = array(), $environment = null)
+    public function __construct($executable, $port, $args = [], $environment = null)
     {
         $this->executable = self::checkExecutable($executable);
         $this->url = sprintf('http://localhost:%d', $port);
@@ -76,14 +76,14 @@ class DriverService
             return $this;
         }
 
-        $pipes = array();
+        $pipes = [];
         $this->process = proc_open(
             sprintf('%s %s', $this->executable, implode(' ', $this->args)),
-            $descriptorspec = array(
-                0 => array('pipe', 'r'), // stdin
-                1 => array('pipe', 'w'), // stdout
-                2 => array('pipe', 'a'), // stderr
-            ),
+            $descriptorspec = [
+                0 => ['pipe', 'r'], // stdin
+                1 => ['pipe', 'w'], // stdout
+                2 => ['pipe', 'a'], // stderr
+            ],
             $pipes,
             null,
             $this->environment

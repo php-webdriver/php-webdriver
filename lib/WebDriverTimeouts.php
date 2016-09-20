@@ -40,7 +40,7 @@ class WebDriverTimeouts
     {
         $this->executor->execute(
             DriverCommand::IMPLICITLY_WAIT,
-            array('ms' => $seconds * 1000)
+            ['ms' => $seconds * 1000]
         );
 
         return $this;
@@ -57,7 +57,7 @@ class WebDriverTimeouts
     {
         $this->executor->execute(
             DriverCommand::SET_SCRIPT_TIMEOUT,
-            array('ms' => $seconds * 1000)
+            ['ms' => $seconds * 1000]
         );
 
         return $this;
@@ -72,10 +72,10 @@ class WebDriverTimeouts
      */
     public function pageLoadTimeout($seconds)
     {
-        $this->executor->execute(DriverCommand::SET_TIMEOUT, array(
+        $this->executor->execute(DriverCommand::SET_TIMEOUT, [
             'type' => 'page load',
             'ms' => $seconds * 1000,
-        ));
+        ]);
 
         return $this;
     }

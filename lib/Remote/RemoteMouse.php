@@ -44,9 +44,9 @@ class RemoteMouse implements WebDriverMouse
     public function click(WebDriverCoordinates $where = null)
     {
         $this->moveIfNeeded($where);
-        $this->executor->execute(DriverCommand::CLICK, array(
+        $this->executor->execute(DriverCommand::CLICK, [
             'button' => 0,
-        ));
+        ]);
 
         return $this;
     }
@@ -59,9 +59,9 @@ class RemoteMouse implements WebDriverMouse
     public function contextClick(WebDriverCoordinates $where = null)
     {
         $this->moveIfNeeded($where);
-        $this->executor->execute(DriverCommand::CLICK, array(
+        $this->executor->execute(DriverCommand::CLICK, [
             'button' => 2,
-        ));
+        ]);
 
         return $this;
     }
@@ -104,7 +104,7 @@ class RemoteMouse implements WebDriverMouse
         $x_offset = null,
         $y_offset = null
     ) {
-        $params = array();
+        $params = [];
         if ($where !== null) {
             $params['element'] = $where->getAuxiliary();
         }

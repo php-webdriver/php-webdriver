@@ -80,7 +80,7 @@ class WebDriverNavigation
      */
     public function to($url)
     {
-        $params = array('url' => (string) $url);
+        $params = ['url' => (string) $url];
         $this->executor->execute(DriverCommand::GET, $params);
 
         return $this;
