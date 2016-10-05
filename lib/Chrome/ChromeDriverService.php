@@ -27,7 +27,7 @@ class ChromeDriverService extends DriverService
         $exe = getenv(self::CHROME_DRIVER_EXE_PROPERTY);
         $port = 9515; // TODO: Get another port if the default port is used.
         $args = array("--port=$port");
-        $service = new self($exe, $port, $args);
+        $service = new static($exe, $port, $args);
 
         return $service;
     }
