@@ -19,6 +19,9 @@ use Facebook\WebDriver\WebDriverAction;
 
 class WebDriverFlickAction extends WebDriverTouchAction implements WebDriverAction
 {
+    private $x;
+    private $y;
+
     /**
      * @param WebDriverTouchScreen $touch_screen
      * @param int $x
