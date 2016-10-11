@@ -55,7 +55,7 @@ class WebDriverExpectedCondition
      */
     public static function titleIs($title)
     {
-        return new self(
+        return new static(
             function ($driver) use ($title) {
                 return $title === $driver->getTitle();
             }
@@ -71,7 +71,7 @@ class WebDriverExpectedCondition
      */
     public static function titleContains($title)
     {
-        return new self(
+        return new static(
             function ($driver) use ($title) {
                 return strpos($driver->getTitle(), $title) !== false;
             }
@@ -88,7 +88,7 @@ class WebDriverExpectedCondition
      */
     public static function presenceOfElementLocated(WebDriverBy $by)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by) {
                 return $driver->findElement($by);
             }
@@ -106,7 +106,7 @@ class WebDriverExpectedCondition
      */
     public static function visibilityOfElementLocated(WebDriverBy $by)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by) {
                 try {
                     $element = $driver->findElement($by);
@@ -130,7 +130,7 @@ class WebDriverExpectedCondition
      */
     public static function visibilityOf(WebDriverElement $element)
     {
-        return new self(
+        return new static(
             function ($driver) use ($element) {
                 return $element->isDisplayed() ? $element : null;
             }
@@ -147,7 +147,7 @@ class WebDriverExpectedCondition
      */
     public static function presenceOfAllElementsLocatedBy(WebDriverBy $by)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by) {
                 $elements = $driver->findElements($by);
 
@@ -166,7 +166,7 @@ class WebDriverExpectedCondition
      */
     public static function textToBePresentInElement(WebDriverBy $by, $text)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by, $text) {
                 try {
                     $element_text = $driver->findElement($by)->getText();
@@ -189,7 +189,7 @@ class WebDriverExpectedCondition
      */
     public static function textToBePresentInElementValue(WebDriverBy $by, $text)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by, $text) {
                 try {
                     $element_text = $driver->findElement($by)->getAttribute('value');
@@ -213,7 +213,7 @@ class WebDriverExpectedCondition
      */
     public static function frameToBeAvailableAndSwitchToIt($frame_locator)
     {
-        return new self(
+        return new static(
             function ($driver) use ($frame_locator) {
                 try {
                     return $driver->switchTo()->frame($frame_locator);
@@ -234,7 +234,7 @@ class WebDriverExpectedCondition
      */
     public static function invisibilityOfElementLocated(WebDriverBy $by)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by) {
                 try {
                     return !($driver->findElement($by)->isDisplayed());
@@ -258,7 +258,7 @@ class WebDriverExpectedCondition
      */
     public static function invisibilityOfElementWithText(WebDriverBy $by, $text)
     {
-        return new self(
+        return new static(
             function ($driver) use ($by, $text) {
                 try {
                     return !($driver->findElement($by)->getText() === $text);
@@ -284,7 +284,7 @@ class WebDriverExpectedCondition
         $visibility_of_element_located =
             self::visibilityOfElementLocated($by);
 
-        return new self(
+        return new static(
             function ($driver) use ($visibility_of_element_located) {
                 $element = call_user_func(
                     $visibility_of_element_located->getApply(),
@@ -312,7 +312,7 @@ class WebDriverExpectedCondition
      */
     public static function stalenessOf(WebDriverElement $element)
     {
-        return new self(
+        return new static(
             function ($driver) use ($element) {
                 try {
                     $element->isEnabled();
@@ -340,7 +340,7 @@ class WebDriverExpectedCondition
      */
     public static function refreshed(WebDriverExpectedCondition $condition)
     {
-        return new self(
+        return new static(
             function ($driver) use ($condition) {
                 try {
                     return call_user_func($condition->getApply(), $driver);
@@ -375,14 +375,14 @@ class WebDriverExpectedCondition
     public static function elementSelectionStateToBe($element_or_by, $selected)
     {
         if ($element_or_by instanceof WebDriverElement) {
-            return new self(
+            return new static(
                 function ($driver) use ($element_or_by, $selected) {
                     return $element_or_by->isSelected() === $selected;
                 }
             );
         } else {
             if ($element_or_by instanceof WebDriverBy) {
-                return new self(
+                return new static(
                     function ($driver) use ($element_or_by, $selected) {
                         try {
                             $element = $driver->findElement($element_or_by);
@@ -405,7 +405,7 @@ class WebDriverExpectedCondition
      */
     public static function alertIsPresent()
     {
-        return new self(
+        return new static(
             function ($driver) {
                 try {
                     // Unlike the Java code, we get a WebDriverAlert object regardless
@@ -430,7 +430,7 @@ class WebDriverExpectedCondition
      */
     public static function not(WebDriverExpectedCondition $condition)
     {
-        return new self(
+        return new static(
             function ($driver) use ($condition) {
                 $result = call_user_func($condition->getApply(), $driver);
 

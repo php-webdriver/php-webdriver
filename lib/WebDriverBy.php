@@ -58,7 +58,7 @@ class WebDriverBy
      */
     public static function className($class_name)
     {
-        return new self('class name', $class_name);
+        return new static('class name', $class_name);
     }
 
     /**
@@ -69,7 +69,7 @@ class WebDriverBy
      */
     public static function cssSelector($css_selector)
     {
-        return new self('css selector', $css_selector);
+        return new static('css selector', $css_selector);
     }
 
     /**
@@ -80,7 +80,7 @@ class WebDriverBy
      */
     public static function id($id)
     {
-        return new self('id', $id);
+        return new static('id', $id);
     }
 
     /**
@@ -91,7 +91,7 @@ class WebDriverBy
      */
     public static function name($name)
     {
-        return new self('name', $name);
+        return new static('name', $name);
     }
 
     /**
@@ -102,7 +102,7 @@ class WebDriverBy
      */
     public static function linkText($link_text)
     {
-        return new self('link text', $link_text);
+        return new static('link text', $link_text);
     }
 
     /**
@@ -114,7 +114,7 @@ class WebDriverBy
      */
     public static function partialLinkText($partial_link_text)
     {
-        return new self('partial link text', $partial_link_text);
+        return new static('partial link text', $partial_link_text);
     }
 
     /**
@@ -125,7 +125,7 @@ class WebDriverBy
      */
     public static function tagName($tag_name)
     {
-        return new self('tag name', $tag_name);
+        return new static('tag name', $tag_name);
     }
 
     /**
@@ -136,6 +136,6 @@ class WebDriverBy
      */
     public static function xpath($xpath)
     {
-        return new self('xpath', $xpath);
+        return new static('xpath', $xpath);
     }
 }
