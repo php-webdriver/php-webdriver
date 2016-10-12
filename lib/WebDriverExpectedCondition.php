@@ -293,9 +293,9 @@ class WebDriverExpectedCondition
                 try {
                     if ($element !== null && $element->isEnabled()) {
                         return $element;
-                    } else {
-                        return null;
                     }
+
+                    return null;
                 } catch (StaleElementReferenceException $e) {
                     return null;
                 }

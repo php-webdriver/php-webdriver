@@ -62,7 +62,7 @@ class WebDriverSelect
      */
     public function getAllSelectedOptions()
     {
-        $selected_options = array();
+        $selected_options = [];
         foreach ($this->getOptions() as $option) {
             if ($option->isSelected()) {
                 $selected_options[] = $option;

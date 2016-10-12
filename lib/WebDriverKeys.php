@@ -98,10 +98,10 @@ class WebDriverKeys
         }
 
         if (is_string($keys)) {
-            $keys = array($keys);
+            $keys = [$keys];
         }
 
-        $encoded = array();
+        $encoded = [];
         foreach ($keys as $key) {
             if (is_array($key)) {
                 // handle modified keys

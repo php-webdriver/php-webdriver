@@ -22,7 +22,7 @@ class WebDriverDispatcher
     /**
      * @var array
      */
-    protected $listeners = array();
+    protected $listeners = [];
     /**
      * @var EventFiringWebDriver
      */
@@ -83,7 +83,7 @@ class WebDriverDispatcher
     public function dispatch($method, $arguments)
     {
         foreach ($this->listeners as $listener) {
-            call_user_func_array(array($listener, $method), $arguments);
+            call_user_func_array([$listener, $method], $arguments);
         }
 
         return $this;

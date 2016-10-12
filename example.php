@@ -18,16 +18,16 @@ $driver->get('http://docs.seleniumhq.org/');
 
 // adding cookie
 $driver->manage()->deleteAllCookies();
-$driver->manage()->addCookie(array(
-  'name' => 'cookie_name',
-  'value' => 'cookie_value',
-));
+$driver->manage()->addCookie([
+    'name' => 'cookie_name',
+    'value' => 'cookie_value',
+]);
 $cookies = $driver->manage()->getCookies();
 print_r($cookies);
 
 // click the link 'About'
 $link = $driver->findElement(
-  WebDriverBy::id('menu_about')
+    WebDriverBy::id('menu_about')
 );
 $link->click();
 
@@ -39,15 +39,15 @@ echo "The current URI is '" . $driver->getCurrentURL() . "'\n";
 
 // Search 'php' in the search box
 $input = $driver->findElement(
-  WebDriverBy::id('q')
+    WebDriverBy::id('q')
 );
 $input->sendKeys('php')->submit();
 
 // wait at most 10 seconds until at least one result is shown
 $driver->wait(10)->until(
-  WebDriverExpectedCondition::presenceOfAllElementsLocatedBy(
-    WebDriverBy::className('gsc-result')
-  )
+    WebDriverExpectedCondition::presenceOfAllElementsLocatedBy(
+        WebDriverBy::className('gsc-result')
+    )
 );
 
 // close the Firefox

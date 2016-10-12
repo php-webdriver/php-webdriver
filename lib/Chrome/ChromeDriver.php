@@ -45,9 +45,9 @@ class ChromeDriver extends RemoteWebDriver
         $command = new WebDriverCommand(
             null,
             DriverCommand::NEW_SESSION,
-            array(
+            [
                 'desiredCapabilities' => $desired_capabilities->toArray(),
-            )
+            ]
         );
         $response = $this->executor->execute($command);
         $this->setSessionID($response->getSessionID());

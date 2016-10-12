@@ -20,7 +20,5 @@ namespace Facebook\WebDriver;
  */
 interface WebDriverAction
 {
-    /**
-     */
     public function perform();
 }

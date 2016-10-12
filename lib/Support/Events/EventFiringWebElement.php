@@ -162,7 +162,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
             $this->dispatcher->getDefaultDriver()
         );
         try {
-            $elements = array();
+            $elements = [];
             foreach ($this->element->findElements($by) as $element) {
                 $elements[] = $this->newElement($element);
             }

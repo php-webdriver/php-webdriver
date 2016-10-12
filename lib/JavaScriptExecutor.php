@@ -29,7 +29,7 @@ interface JavaScriptExecutor
      * @param array $arguments The arguments of the script.
      * @return mixed The return value of the script.
      */
-    public function executeScript($script, array $arguments = array());
+    public function executeScript($script, array $arguments = []);
 
     /**
      * Inject a snippet of JavaScript into the page for asynchronous execution in
@@ -44,5 +44,5 @@ interface JavaScriptExecutor
      * @param array $arguments The arguments of the script.
      * @return mixed The value passed by the script to the callback.
      */
-    public function executeAsyncScript($script, array $arguments = array());
+    public function executeAsyncScript($script, array $arguments = []);
 }

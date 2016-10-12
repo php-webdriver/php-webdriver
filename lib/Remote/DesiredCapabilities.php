@@ -27,7 +27,7 @@ class DesiredCapabilities implements WebDriverCapabilities
 {
     private $capabilities;
 
-    public function __construct(array $capabilities = array())
+    public function __construct(array $capabilities = [])
     {
         $this->capabilities = $capabilities;
     }
@@ -201,10 +201,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function android()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::ANDROID,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANDROID,
-        ));
+        ]);
     }
 
     /**
@@ -212,10 +212,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function chrome()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::CHROME,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
     }
 
     /**
@@ -223,10 +223,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function firefox()
     {
-        $caps = new static(array(
+        $caps = new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
 
         // disable the "Reader View" help tooltip, which can hide elements in the window.document
         $profile = new FirefoxProfile();
@@ -241,10 +241,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function htmlUnit()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::HTMLUNIT,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
     }
 
     /**
@@ -252,10 +252,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function htmlUnitWithJS()
     {
-        $caps = new static(array(
+        $caps = new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::HTMLUNIT,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
 
         return $caps->setJavascriptEnabled(true);
     }
@@ -265,10 +265,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function internetExplorer()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IE,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::WINDOWS,
-        ));
+        ]);
     }
 
     /**
@@ -276,10 +276,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function microsoftEdge()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::MICROSOFT_EDGE,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::WINDOWS,
-        ));
+        ]);
     }
 
     /**
@@ -287,10 +287,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function iphone()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IPHONE,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::MAC,
-        ));
+        ]);
     }
 
     /**
@@ -298,10 +298,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function ipad()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::IPAD,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::MAC,
-        ));
+        ]);
     }
 
     /**
@@ -309,10 +309,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function opera()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::OPERA,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
     }
 
     /**
@@ -320,10 +320,10 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function safari()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::SAFARI,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
     }
 
     /**
@@ -331,9 +331,9 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public static function phantomjs()
     {
-        return new static(array(
+        return new static([
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::PHANTOMJS,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
-        ));
+        ]);
     }
 }

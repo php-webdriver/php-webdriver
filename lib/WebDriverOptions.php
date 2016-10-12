@@ -55,7 +55,7 @@ class WebDriverOptions
         $this->validate($cookie);
         $this->executor->execute(
             DriverCommand::ADD_COOKIE,
-            array('cookie' => $cookie)
+            ['cookie' => $cookie]
         );
 
         return $this;
@@ -83,7 +83,7 @@ class WebDriverOptions
     {
         $this->executor->execute(
             DriverCommand::DELETE_COOKIE,
-            array(':name' => $name)
+            [':name' => $name]
         );
 
         return $this;
@@ -174,7 +174,7 @@ class WebDriverOptions
     {
         return $this->executor->execute(
             DriverCommand::GET_LOG,
-            array('type' => $log_type)
+            ['type' => $log_type]
         );
     }
 
