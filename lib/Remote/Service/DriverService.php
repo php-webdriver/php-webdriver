@@ -17,7 +17,12 @@ namespace Facebook\WebDriver\Remote\Service;
 
 use Exception;
 use Facebook\WebDriver\Net\URLChecker;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\ProcessBuilder;
 
+/**
+ * Start local WebDriver service (when remote WebDriver server is not used).
+ */
 class DriverService
 {
     /**
@@ -41,7 +46,7 @@ class DriverService
     private $environment;
 
     /**
-     * @var resource
+     * @var Process
      */
     private $process;
 
@@ -76,18 +81,13 @@ class DriverService
             return $this;
         }
 
-        $pipes = [];
-        $this->process = proc_open(
-            sprintf('%s %s', $this->executable, implode(' ', $this->args)),
-            $descriptorspec = [
-                0 => ['pipe', 'r'], // stdin
-                1 => ['pipe', 'w'], // stdout
-                2 => ['pipe', 'a'], // stderr
-            ],
-            $pipes,
-            null,
-            $this->environment
-        );
+        $processBuilder = (new ProcessBuilder())
+            ->setPrefix($this->executable)
+            ->setArguments($this->args)
+            ->addEnvironmentVariables($this->environment);
+
+        $this->process = $processBuilder->getProcess();
+        $this->process->start();
 
         $checker = new URLChecker();
         $checker->waitUntilAvailable(20 * 1000, $this->url . '/status');
@@ -104,7 +104,7 @@ class DriverService
             return $this;
         }
 
-        proc_terminate($this->process);
+        $this->process->stop();
         $this->process = null;
 
         $checker = new URLChecker();
@@ -122,9 +122,7 @@ class DriverService
             return false;
         }
 
-        $status = proc_get_status($this->process);
-
-        return $status['running'];
+        return $this->process->isRunning();
     }
 
     /**
