@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.2.0 - 2016-10-14
 - Added initial support of remote Microsoft Edge browser (but starting local EdgeDriver is still not supported)
 - Utilize late static binding to make eg. `WebDriverBy` and `DesiredCapabilities` classes easily extensible
 - PHP version at least 5.5 is required
