@@ -21,8 +21,7 @@ namespace Facebook\WebDriver;
 interface WebDriverElement extends WebDriverSearchContext
 {
     /**
-     * If this element is a TEXTAREA or text INPUT element, this will clear the
-     * value.
+     * If this element is a TEXTAREA or text INPUT element, this will clear the value.
      *
      * @return WebDriverElement The current instance.
      */

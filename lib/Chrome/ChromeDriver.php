@@ -40,7 +40,7 @@ class ChromeDriver extends RemoteWebDriver
         return $driver;
     }
 
-    public function startSession($desired_capabilities)
+    public function startSession(DesiredCapabilities $desired_capabilities)
     {
         $command = new WebDriverCommand(
             null,
@@ -76,6 +76,7 @@ class ChromeDriver extends RemoteWebDriver
      * @param string $url The url of the remote server
      *
      * @throws WebDriverException
+     * @return RemoteWebDriver|void
      */
     public static function createBySessionID(
         $session_id,

@@ -55,8 +55,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * If this element is a TEXTAREA or text INPUT element, this will clear the
-     * value.
+     * If this element is a TEXTAREA or text INPUT element, this will clear the value.
      *
      * @return RemoteWebElement The current instance.
      */
@@ -86,8 +85,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Find the first WebDriverElement within this element using the given
-     * mechanism.
+     * Find the first WebDriverElement within this element using the given mechanism.
      *
      * @param WebDriverBy $by
      * @return RemoteWebElement NoSuchElementException is thrown in
@@ -403,8 +401,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * If this current element is a form, or an element within a form, then this
-     * will be submitted to the remote server.
+     * If this current element is a form, or an element within a form, then this will be submitted to the remote server.
      *
      * @return RemoteWebElement The current instance.
      */

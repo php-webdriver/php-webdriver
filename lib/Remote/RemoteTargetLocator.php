@@ -25,7 +25,13 @@ use Facebook\WebDriver\WebDriverTargetLocator;
  */
 class RemoteTargetLocator implements WebDriverTargetLocator
 {
+    /**
+     * @var ExecuteMethod
+     */
     protected $executor;
+    /**
+     * @var WebDriver
+     */
     protected $driver;
 
     public function __construct($executor, $driver)
@@ -103,7 +109,7 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      */
     public function activeElement()
     {
-        $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT);
+        $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT, []);
         $method = new RemoteExecuteMethod($this->driver);
 
         return new RemoteWebElement($method, $response['ELEMENT']);

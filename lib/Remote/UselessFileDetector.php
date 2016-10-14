@@ -17,9 +17,6 @@ namespace Facebook\WebDriver\Remote;
 
 class UselessFileDetector implements FileDetector
 {
-    /**
-     * @param string $file
-     */
     public function getLocalFile($file)
     {
         return null;

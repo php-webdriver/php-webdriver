@@ -25,6 +25,9 @@ use Facebook\WebDriver\WebDriverPlatform;
 
 class DesiredCapabilities implements WebDriverCapabilities
 {
+    /**
+     * @var array
+     */
     private $capabilities;
 
     public function __construct(array $capabilities = [])

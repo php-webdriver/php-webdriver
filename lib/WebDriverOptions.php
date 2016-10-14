@@ -24,6 +24,9 @@ use InvalidArgumentException;
  */
 class WebDriverOptions
 {
+    /**
+     * @var ExecuteMethod
+     */
     protected $executor;
 
     public function __construct(ExecuteMethod $executor)

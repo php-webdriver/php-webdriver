@@ -19,15 +19,23 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\TimeOutException;
 
 /**
- * A utility class, designed to help the user to wait until a condition turns
- * true.
+ * A utility class, designed to help the user to wait until a condition turns true.
  *
  * @see WebDriverExpectedCondition.
  */
 class WebDriverWait
 {
+    /**
+     * @var WebDriver
+     */
     protected $driver;
+    /**
+     * @var int
+     */
     protected $timeout;
+    /**
+     * @var int
+     */
     protected $interval;
 
     public function __construct(WebDriver $driver, $timeout_in_second = null, $interval_in_millisecond = null)
@@ -38,10 +46,9 @@ class WebDriverWait
     }
 
     /**
-     * Calls the function provided with the driver as an argument until the return
-     * value is not falsey.
+     * Calls the function provided with the driver as an argument until the return value is not falsey.
      *
-     * @param (closure|WebDriverExpectedCondition)
+     * @param callable|WebDriverExpectedCondition $func_or_ec
      * @param string $message
      *
      * @throws NoSuchElementException

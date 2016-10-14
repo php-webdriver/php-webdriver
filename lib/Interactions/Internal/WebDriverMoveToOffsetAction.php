@@ -21,9 +21,21 @@ use Facebook\WebDriver\WebDriverMouse;
 
 class WebDriverMoveToOffsetAction extends WebDriverMouseAction implements WebDriverAction
 {
+    /**
+     * @var int|null
+     */
     private $xOffset;
+    /**
+     * @var int|null
+     */
     private $yOffset;
 
+    /**
+     * @param WebDriverMouse $mouse
+     * @param WebDriverLocatable|null $location_provider
+     * @param int|null $x_offset
+     * @param int|null $y_offset
+     */
     public function __construct(
         WebDriverMouse $mouse,
         WebDriverLocatable $location_provider = null,
