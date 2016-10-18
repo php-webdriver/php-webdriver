@@ -17,6 +17,9 @@ namespace Facebook\WebDriver\Remote;
 
 class RemoteExecuteMethod implements ExecuteMethod
 {
+    /**
+     * @var RemoteWebDriver
+     */
     private $driver;
 
     /**

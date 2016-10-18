@@ -142,8 +142,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      * Find the first WebDriverElement using the given mechanism.
      *
      * @param WebDriverBy $by
-     * @return RemoteWebElement NoSuchElementException is thrown in
-     *    HttpCommandExecutor if no element is found.
+     * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
     public function findElement(WebDriverBy $by)
@@ -158,12 +157,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * Find all WebDriverElements within the current page using the given
-     * mechanism.
+     * Find all WebDriverElements within the current page using the given mechanism.
      *
      * @param WebDriverBy $by
-     * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
-     *    array if nothing matches
+     * @return RemoteWebElement[] A list of all WebDriverElements, or an empty array if nothing matches
      * @see WebDriverBy
      */
     public function findElements(WebDriverBy $by)
@@ -228,8 +225,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * Return an opaque handle to this window that uniquely identifies it within
-     * this driver instance.
+     * Return an opaque handle to this window that uniquely identifies it within this driver instance.
      *
      * @return string The current window handle.
      */
@@ -369,8 +365,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * An abstraction for managing stuff you would do in a browser menu. For
-     * example, adding and deleting cookies.
+     * An abstraction for managing stuff you would do in a browser menu. For example, adding and deleting cookies.
      *
      * @return WebDriverOptions
      */
@@ -380,8 +375,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * An abstraction allowing the driver to access the browser's history and to
-     * navigate to a given URL.
+     * An abstraction allowing the driver to access the browser's history and to navigate to a given URL.
      *
      * @return WebDriverNavigation
      * @see WebDriverNavigation
@@ -438,6 +432,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
         return $this->touch;
     }
 
+    /**
+     * @return RemoteExecuteMethod
+     */
     protected function getExecuteMethod()
     {
         if (!$this->executeMethod) {

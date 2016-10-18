@@ -133,11 +133,13 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
             $this,
             $this->dispatcher->getDefaultDriver()
         );
+
         try {
             $element = $this->newElement($this->element->findElement($by));
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
         }
+
         $this->dispatch(
             'afterFindBy',
             $by,

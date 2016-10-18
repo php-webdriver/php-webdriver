@@ -119,14 +119,16 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     public function findElements(WebDriverBy $by)
     {
         $this->dispatch('beforeFindBy', $by, null, $this);
+        $elements = [];
+
         try {
-            $elements = [];
             foreach ($this->driver->findElements($by) as $element) {
                 $elements[] = $this->newElement($element);
             }
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
         }
+
         $this->dispatch('afterFindBy', $by, null, $this);
 
         return $elements;
@@ -140,11 +142,13 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     public function findElement(WebDriverBy $by)
     {
         $this->dispatch('beforeFindBy', $by, null, $this);
+
         try {
             $element = $this->newElement($this->driver->findElement($by));
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
         }
+
         $this->dispatch('afterFindBy', $by, null, $this);
 
         return $element;
@@ -165,11 +169,13 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
         }
 
         $this->dispatch('beforeScript', $script, $this);
+
         try {
             $result = $this->driver->executeScript($script, $arguments);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
         }
+
         $this->dispatch('afterScript', $script, $this);
 
         return $result;

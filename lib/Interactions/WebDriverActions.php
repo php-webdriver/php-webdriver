@@ -38,6 +38,9 @@ class WebDriverActions
     protected $mouse;
     protected $action;
 
+    /**
+     * @param WebDriver $driver
+     */
     public function __construct(WebDriver $driver)
     {
         $this->driver = $driver;
