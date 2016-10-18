@@ -81,17 +81,9 @@ Learn how to integrate it with PHPUnit [Blogpost](http://codeception.com/11-12-2
 
 We have a great community willing to try and help you!
 
-Currently we offer support in two manners:
-
-### Via our Facebook Group
-
-If you have questions or are an active contributor consider joining our facebook group and contributing to the communal discussion and support
-
-https://www.facebook.com/groups/phpwebdriver/
-
-### Via Github
-
-If you're reading this you've already found our Github repository. If you have a question, feel free to submit it as an issue and our staff will do their best to help you as soon as possible.
+- **Via our Facebook Group** - If you have questions or are an active contributor consider joining our [facebook group](https://www.facebook.com/groups/phpwebdriver/) and contributing to the communal discussion and support.
+- **Via StackOverflow** - You can also [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver) or find many already answered question on StackOverflow.
+- **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/facebook/php-webdriver/issues/new) as an new issue.
 
 ## Contributing
 
