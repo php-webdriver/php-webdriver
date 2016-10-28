@@ -69,10 +69,10 @@ class URLChecker
 	if (defined('CURLOPT_CONNECTTIMEOUT_MS')){
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
 	} else {
-		// There is a PHP bug in some versions which didn't define the constant.
+		// The PHP doc indicates that CURLOPT_CONNECTTIMEOUT_MS constant is added in cURL 7.16.2. Available since PHP 5.2.3.
 		curl_setopt(
 			$ch,
-			156, // CURLOPT_CONNECTTIMEOUT_MS
+			156, // default value for CURLOPT_CONNECTTIMEOUT_MS
 			self::CONNECT_TIMEOUT_MS
 		);
 	}
