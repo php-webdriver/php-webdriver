@@ -66,18 +66,16 @@ class URLChecker
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		
-		if (defined('CURLOPT_CONNECTTIMEOUT_MS'))
-		{
-			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
-		} else 
-		{
-			// There is a PHP bug in some versions which didn't define the constant.
-			curl_setopt(
-				$ch,
-				156, // CURLOPT_CONNECTTIMEOUT_MS
-				self::CONNECT_TIMEOUT_MS
-			);
-		}
+	if (defined('CURLOPT_CONNECTTIMEOUT_MS')){
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
+	} else {
+		// There is a PHP bug in some versions which didn't define the constant.
+		curl_setopt(
+			$ch,
+			156, // CURLOPT_CONNECTTIMEOUT_MS
+			self::CONNECT_TIMEOUT_MS
+		);
+	}
         $code = null;
         try {
             curl_exec($ch);
