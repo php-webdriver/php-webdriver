@@ -28,7 +28,7 @@ class URLChecker
         $end = microtime(true) + $timeout_in_ms / 1000;
 
         while ($end > microtime(true)) {
-            if ($this->getHTTPResponseCode($timeout_in_ms, $url) === 200) {
+            if ($this->getHTTPResponseCode($url) === 200) {
                 return $this;
             }
             usleep(self::POLL_INTERVAL_MS);
@@ -46,7 +46,7 @@ class URLChecker
         $end = microtime(true) + $timeout_in_ms / 1000;
 
         while ($end > microtime(true)) {
-            if ($this->getHTTPResponseCode($timeout_in_ms, $url) !== 200) {
+            if ($this->getHTTPResponseCode($url) !== 200) {
                 return $this;
             }
             usleep(self::POLL_INTERVAL_MS);
@@ -59,7 +59,7 @@ class URLChecker
         ));
     }
 
-    private function getHTTPResponseCode($timeout_in_ms, $url)
+    private function getHTTPResponseCode($url)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
