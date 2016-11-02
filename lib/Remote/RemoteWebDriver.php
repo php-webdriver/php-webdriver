@@ -59,7 +59,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * Construct the RemoteWebDriver by a desired capabilities.
      *
-     * @param string $url The url of the remote server
+     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param DesiredCapabilities|array $desired_capabilities The desired capabilities
      * @param int|null $connection_timeout_in_ms
      * @param int|null $request_timeout_in_ms
@@ -68,14 +68,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      * @return RemoteWebDriver
      */
     public static function create(
-        $url = 'http://localhost:4444/wd/hub',
+        $selenium_server_url = 'http://localhost:4444/wd/hub',
         $desired_capabilities = null,
         $connection_timeout_in_ms = null,
         $request_timeout_in_ms = null,
         $http_proxy = null,
         $http_proxy_port = null
     ) {
-        $url = preg_replace('#/+$#', '', $url);
+        $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
 
         // Passing DesiredCapabilities as $desired_capabilities is encouraged but
         // array is also accepted for legacy reason.
@@ -83,7 +83,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
             $desired_capabilities = $desired_capabilities->toArray();
         }
 
-        $executor = new HttpCommandExecutor($url, $http_proxy, $http_proxy_port);
+        $executor = new HttpCommandExecutor($selenium_server_url, $http_proxy, $http_proxy_port);
         if ($connection_timeout_in_ms !== null) {
             $executor->setConnectionTimeout($connection_timeout_in_ms);
         }
@@ -113,15 +113,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      * browser for the whole test suite. You do not have to pass the desired
      * capabilities because the session was created before.
      *
-     * @param string $url The url of the remote server
+     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
      * @return RemoteWebDriver
      */
-    public static function createBySessionID($session_id, $url = 'http://localhost:4444/wd/hub')
+    public static function createBySessionID($session_id, $selenium_server_url = 'http://localhost:4444/wd/hub')
     {
         $driver = new static();
         $driver->setSessionID($session_id)
-            ->setCommandExecutor(new HttpCommandExecutor($url));
+            ->setCommandExecutor(new HttpCommandExecutor($selenium_server_url));
 
         return $driver;
     }
@@ -514,13 +514,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * Get all selenium sessions.
      *
-     * @param string $url The url of the remote server
+     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int $timeout_in_ms
      * @return array
      */
-    public static function getAllSessions($url = 'http://localhost:4444/wd/hub', $timeout_in_ms = 30000)
+    public static function getAllSessions($selenium_server_url = 'http://localhost:4444/wd/hub', $timeout_in_ms = 30000)
     {
-        $executor = new HttpCommandExecutor($url);
+        $executor = new HttpCommandExecutor($selenium_server_url);
         $executor->setConnectionTimeout($timeout_in_ms);
 
         $command = new WebDriverCommand(
