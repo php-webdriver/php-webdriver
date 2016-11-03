@@ -59,7 +59,7 @@ class ChromeDriver extends RemoteWebDriver
      * @throws WebDriverException
      */
     public static function create(
-        $url = 'http://localhost:4444/wd/hub',
+        $selenium_server_url = 'http://localhost:4444/wd/hub',
         $desired_capabilities = null,
         $connection_timeout_in_ms = null,
         $request_timeout_in_ms = null,
@@ -73,14 +73,14 @@ class ChromeDriver extends RemoteWebDriver
      * Always throws an exception. Use ChromeDriver::start() instead.
      *
      * @param string $session_id The existing session id
-     * @param string $url The url of the remote server
+     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      *
      * @throws WebDriverException
      * @return RemoteWebDriver|void
      */
     public static function createBySessionID(
         $session_id,
-        $url = 'http://localhost:4444/wd/hub'
+        $selenium_server_url = 'http://localhost:4444/wd/hub'
     ) {
         throw new WebDriverException('Please use ChromeDriver::start() instead.');
     }
