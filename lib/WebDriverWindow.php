@@ -38,7 +38,7 @@ class WebDriverWindow
      * Get the position of the current window, relative to the upper left corner
      * of the screen.
      *
-     * @return array The current window position.
+     * @return WebDriverPoint The current window position.
      */
     public function getPosition()
     {
@@ -57,7 +57,7 @@ class WebDriverWindow
      * Get the size of the current window. This will return the outer window
      * dimension, not just the view port.
      *
-     * @return array The current window size.
+     * @return WebDriverDimension The current window size.
      */
     public function getSize()
     {
