@@ -84,11 +84,11 @@ class WebDriverExpectedCondition
      * @return bool WebDriverExpectedCondition True when the URL matches,
      *         false otherwise.
      */
-    public static function urlIs($url) 
+    public static function urlIs($url)
     {
         return new static(
             function (WebDriver $driver) use ($url) {
-      	        return $url === $driver->getCurrentURL();
+                return $url === $driver->getCurrentURL();
             }
         );
     }
@@ -100,7 +100,7 @@ class WebDriverExpectedCondition
      * @return bool WebDriverExpectedCondition True when in URL,
      *         false otherwise.
      */
-    public static function urlContains($url) 
+    public static function urlContains($url)
     {
         return new static(
             function (WebDriver $driver) use ($url) {
