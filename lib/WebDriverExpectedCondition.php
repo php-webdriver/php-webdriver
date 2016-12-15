@@ -84,12 +84,13 @@ class WebDriverExpectedCondition
      * @return bool WebDriverExpectedCondition True when the URL matches,
      *         false otherwise.
      */
-    public static function urlIs($url) {
-      return new WebDriverExpectedCondition(
-        function ($driver) use ($url) {
-      	  return $url === $driver->getCurrentURL();
-        }
-      );
+    public static function urlIs($url) 
+    {
+        return new static(
+            function (WebDriver $driver) use ($url) {
+      	        return $url === $driver->getCurrentURL();
+            }
+        );
     }
 
     /**
@@ -99,12 +100,13 @@ class WebDriverExpectedCondition
      * @return bool WebDriverExpectedCondition True when in URL,
      *         false otherwise.
      */
-    public static function urlContains($url) {
-      return new WebDriverExpectedCondition(
-        function ($driver) use ($url) {
-          return strpos($driver->getCurrentURL(), $url) !== false;
-        }
-      );
+    public static function urlContains($url) 
+    {
+        return new static(
+            function (WebDriver $driver) use ($url) {
+                return strpos($driver->getCurrentURL(), $url) !== false;
+            }
+        );
     }
 
     /**
