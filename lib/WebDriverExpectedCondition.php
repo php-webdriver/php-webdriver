@@ -76,7 +76,7 @@ class WebDriverExpectedCondition
             }
         );
     }
-    
+
     /**
      * An expectation for checking the URL of a page.
      *
