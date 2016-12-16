@@ -78,8 +78,8 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that an element is present on the DOM of a
-     * page. This does not necessarily mean that the element is visible.
+     * An expectation for checking that an element is present on the DOM of a page.
+     * This does not necessarily mean that the element is visible.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @return WebDriverExpectedCondition<WebDriverElement> The element which is located.
@@ -94,9 +94,25 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that an element is present on the DOM of a page
-     * and visible. Visibility means that the element is not only displayed but
-     * also has a height and width that is greater than 0.
+     * An expectation for checking that there is at least one element present on a web page.
+     *
+     * @param WebDriverBy $by The locator used to find the element.
+     * @return WebDriverExpectedCondition<array> An array of WebDriverElements once they are located.
+     */
+    public static function presenceOfAllElementsLocatedBy(WebDriverBy $by)
+    {
+        return new static(
+            function (WebDriver $driver) use ($by) {
+                $elements = $driver->findElements($by);
+
+                return count($elements) > 0 ? $elements : null;
+            }
+        );
+    }
+
+    /**
+     * An expectation for checking that an element is present on the DOM of a page and visible.
+     * Visibility means that the element is not only displayed but also has a height and width that is greater than 0.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @return WebDriverExpectedCondition<WebDriverElement> The element which is located and visible.
@@ -117,9 +133,8 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that an element, known to be present on the DOM
-     * of a page, is visible. Visibility means that the element is not only
-     * displayed but also has a height and width that is greater than 0.
+     * An expectation for checking that an element, known to be present on the DOM of a page, is visible.
+     * Visibility means that the element is not only displayed but also has a height and width that is greater than 0.
      *
      * @param WebDriverElement $element The element to be checked.
      * @return WebDriverExpectedCondition<WebDriverElement> The same WebDriverElement once it is visible.
@@ -134,30 +149,11 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that there is at least one element present on a
-     * web page.
-     *
-     * @param WebDriverBy $by The locator used to find the element.
-     * @return WebDriverExpectedCondition<array> An array of WebDriverElements once they are located.
-     */
-    public static function presenceOfAllElementsLocatedBy(WebDriverBy $by)
-    {
-        return new static(
-            function (WebDriver $driver) use ($by) {
-                $elements = $driver->findElements($by);
-
-                return count($elements) > 0 ? $elements : null;
-            }
-        );
-    }
-
-    /**
-     * An expectation for checking if the given text is present in the specified
-     * element.
+     * An expectation for checking if the given text is present in the specified element.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text to be presented in the element.
-     * @return bool WebDriverExpectedCondition Whether the text is presented.
+     * @return bool WebDriverExpectedCondition Whether the text is present.
      */
     public static function textToBePresentInElement(WebDriverBy $by, $text)
     {
@@ -175,8 +171,7 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking if the given text is present in the specified
-     * elements value attribute.
+     * An expectation for checking if the given text is present in the specified elements value attribute.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text to be presented in the element value.
@@ -198,8 +193,7 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * Expectation for checking if iFrame exists.
-     * If iFrame exists switches driver's focus to the iFrame
+     * Expectation for checking if iFrame exists. If iFrame exists switches driver's focus to the iFrame.
      *
      * @param string $frame_locator The locator used to find the iFrame
      *   expected to be either the id or name value of the i/frame
@@ -220,8 +214,7 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that an element is either invisible or not
-     * present on the DOM.
+     * An expectation for checking that an element is either invisible or not present on the DOM.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @return bool WebDriverExpectedCondition Whether there is no element located.
@@ -231,7 +224,7 @@ class WebDriverExpectedCondition
         return new static(
             function (WebDriver $driver) use ($by) {
                 try {
-                    return !($driver->findElement($by)->isDisplayed());
+                    return !$driver->findElement($by)->isDisplayed();
                 } catch (NoSuchElementException $e) {
                     return true;
                 } catch (StaleElementReferenceException $e) {
@@ -242,8 +235,7 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking that an element with text is either invisible
-     * or not present on the DOM.
+     * An expectation for checking that an element with text is either invisible or not present on the DOM.
      *
      * @param WebdriverBy $by The locator used to find the element.
      * @param string $text The text of the element.
@@ -265,8 +257,7 @@ class WebDriverExpectedCondition
     }
 
     /**
-     * An expectation for checking an element is visible and enabled such that you
-     * can click it.
+     * An expectation for checking an element is visible and enabled such that you can click it.
      *
      * @param WebDriverBy $by The locator used to find the element
      * @return WebDriverExpectedCondition<WebDriverElement> The WebDriverElement
@@ -320,11 +311,10 @@ class WebDriverExpectedCondition
     /**
      * Wrapper for a condition, which allows for elements to update by redrawing.
      *
-     * This works around the problem of conditions which have two parts: find an
-     * element and then check for some condition on it. For these conditions it is
-     * possible that an element is located and then subsequently it is redrawn on
-     * the client. When this happens a StaleElementReferenceException is thrown
-     * when the second part of the condition is checked.
+     * This works around the problem of conditions which have two parts: find an element and then check for some
+     * condition on it. For these conditions it is possible that an element is located and then subsequently it is
+     * redrawn on the client. When this happens a StaleElementReferenceException is thrown when the second part of
+     * the condition is checked.
      *
      * @param WebDriverExpectedCondition $condition The condition wrapped.
      * @return WebDriverExpectedCondition<mixed> The return value of the getApply() of the given condition.
