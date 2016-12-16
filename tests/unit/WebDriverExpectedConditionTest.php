@@ -67,6 +67,19 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
+    public function testShouldDetectTitleMatchesCondition()
+    {
+        $this->driverMock->expects($this->any())
+            ->method('getTitle')
+            ->willReturnOnConsecutiveCalls('non-matching', 'matching-not', 'matching-123');
+
+        $condition = WebDriverExpectedCondition::titleMatches('/matching-\d{3}/');
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
     public function testShouldDetectPresenceOfElementLocatedCondition()
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');

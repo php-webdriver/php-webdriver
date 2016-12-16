@@ -78,6 +78,21 @@ class WebDriverExpectedCondition
     }
 
     /**
+     * An expectation for checking current page title matches the given regular expression.
+     *
+     * @param string $titleRegexp The regular expression to test against.
+     * @return bool WebDriverExpectedCondition True when in title, false otherwise.
+     */
+    public static function titleMatches($titleRegexp)
+    {
+        return new static(
+            function (WebDriver $driver) use ($titleRegexp) {
+                return (bool) preg_match($titleRegexp, $driver->getTitle());
+            }
+        );
+    }
+
+    /**
      * An expectation for checking that an element is present on the DOM of a page.
      * This does not necessarily mean that the element is visible.
      *
