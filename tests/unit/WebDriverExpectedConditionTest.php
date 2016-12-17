@@ -253,6 +253,19 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
+    public function testShouldDetectNumberOfWindowsToBeCondition()
+    {
+        $this->driverMock->expects($this->any())
+            ->method('getWindowHandles')
+            ->willReturnOnConsecutiveCalls(['one'], ['one', 'two', 'three'], ['one', 'two']);
+
+        $condition = WebDriverExpectedCondition::numberOfWindowsToBe(2);
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
     /**
      * @param RemoteWebElement $element
      * @param int $expectedNumberOfFindElementCalls

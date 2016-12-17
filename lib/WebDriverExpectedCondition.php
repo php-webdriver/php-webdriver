@@ -475,6 +475,21 @@ class WebDriverExpectedCondition
     }
 
     /**
+     * An expectation checking the number of opened windows.
+     *
+     * @param int $expectedNumberOfWindows
+     * @return WebDriverExpectedCondition
+     */
+    public static function numberOfWindowsToBe($expectedNumberOfWindows)
+    {
+        return new static(
+            function (WebDriver $driver) use ($expectedNumberOfWindows) {
+                return count($driver->getWindowHandles()) == $expectedNumberOfWindows;
+            }
+        );
+    }
+
+    /**
      * An expectation with the logical opposite condition of the given condition.
      *
      * @param WebDriverExpectedCondition $condition The condition to be negated.
