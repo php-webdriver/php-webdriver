@@ -139,25 +139,7 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
             ->method('isDisplayed')
             ->willReturn(true);
 
-        $this->driverMock->expects($this->at(0))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willThrowException(new NoSuchElementException(''));
-
-        $this->driverMock->expects($this->at(1))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
-
-        $this->driverMock->expects($this->at(2))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
-
-        $this->driverMock->expects($this->at(3))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
+        $this->setupDriverToReturnElementAfterAnException($element, 4);
 
         $condition = WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -206,6 +188,88 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $condition = WebDriverExpectedCondition::textToBePresentInElement(WebDriverBy::cssSelector('.foo'), 'new');
 
         $this->assertTrue($this->wait->until($condition));
+    }
+
+    public function testShouldDetectElementTextIsCondition()
+    {
+        // Set-up the consecutive calls to apply() as follows:
+        // Call #1: throws NoSuchElementException
+        // Call #2: return Element, but getText will throw StaleElementReferenceException
+        // Call #3: return Element, getText will return not-matching text
+        // Call #4: return Element, getText will return new text and condition will match
+
+        $element = $this->createRemoteWebElementMock();
+        $element->expects($this->at(0))
+            ->method('getText')
+            ->willThrowException(new StaleElementReferenceException(''));
+
+        $element->expects($this->at(1))
+            ->method('getText')
+            ->willReturn('this is a new text, but not exactly');
+
+        $element->expects($this->at(2))
+            ->method('getText')
+            ->willReturn('this is a new text');
+
+        $this->setupDriverToReturnElementAfterAnException($element, 4);
+
+        $condition = WebDriverExpectedCondition::elementTextIs(
+            WebDriverBy::cssSelector('.foo'),
+            'this is a new text'
+        );
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
+    public function testShouldDetectElementTextMatchesCondition()
+    {
+        // Set-up the consecutive calls to apply() as follows:
+        // Call #1: throws NoSuchElementException
+        // Call #2: return Element, but getText will throw StaleElementReferenceException
+        // Call #3: return Element, getText will return not-matching text
+        // Call #4: return Element, getText will return matching text
+
+        $element = $this->createRemoteWebElementMock();
+
+        $element->expects($this->at(0))
+            ->method('getText')
+            ->willThrowException(new StaleElementReferenceException(''));
+
+        $element->expects($this->at(1))
+            ->method('getText')
+            ->willReturn('non-matching');
+
+        $element->expects($this->at(2))
+            ->method('getText')
+            ->willReturn('matching-123');
+
+        $this->setupDriverToReturnElementAfterAnException($element, 4);
+
+        $condition = WebDriverExpectedCondition::elementTextMatches(
+            WebDriverBy::cssSelector('.foo'),
+            '/matching-\d{3}/'
+        );
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
+    /**
+     * @param RemoteWebElement $element
+     * @param int $expectedNumberOfFindElementCalls
+     */
+    private function setupDriverToReturnElementAfterAnException($element, $expectedNumberOfFindElementCalls)
+    {
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        for ($i = 1; $i < $expectedNumberOfFindElementCalls; $i++) {
+            $this->driverMock->expects($this->at($i))
+                ->method('findElement')
+                ->with($this->isInstanceOf(WebDriverBy::class))
+                ->willReturn($element);
+        }
     }
 
     /**

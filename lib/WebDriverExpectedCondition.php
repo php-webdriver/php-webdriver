@@ -165,6 +165,7 @@ class WebDriverExpectedCondition
 
     /**
      * An expectation for checking if the given text is present in the specified element.
+     * To check exact text match use elementTextIs() condition.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text to be presented in the element.
@@ -178,6 +179,47 @@ class WebDriverExpectedCondition
                     $element_text = $driver->findElement($by)->getText();
 
                     return strpos($element_text, $text) !== false;
+                } catch (StaleElementReferenceException $e) {
+                    return null;
+                }
+            }
+        );
+    }
+
+    /**
+     * An expectation for checking if the given text exactly equals the text in specified element.
+     * To check only partial substring of the text use textToBePresentInElement() condition.
+     *
+     * @param WebDriverBy $by The locator used to find the element.
+     * @param string $text The expected text of the element.
+     * @return bool WebDriverExpectedCondition True when element has text value equal to given one
+     */
+    public static function elementTextIs(WebDriverBy $by, $text)
+    {
+        return new static(
+            function (WebDriver $driver) use ($by, $text) {
+                try {
+                    return $driver->findElement($by)->getText() == $text;
+                } catch (StaleElementReferenceException $e) {
+                    return null;
+                }
+            }
+        );
+    }
+
+    /**
+     * An expectation for checking if the given regular expression matches the text in specified element.
+     *
+     * @param WebDriverBy $by The locator used to find the element.
+     * @param string $regexp The regular expression to test against.
+     * @return bool WebDriverExpectedCondition True when element has text value equal to given one
+     */
+    public static function elementTextMatches(WebDriverBy $by, $regexp)
+    {
+        return new static(
+            function (WebDriver $driver) use ($by, $regexp) {
+                try {
+                    return (bool) preg_match($regexp, $driver->findElement($by)->getText());
                 } catch (StaleElementReferenceException $e) {
                     return null;
                 }
