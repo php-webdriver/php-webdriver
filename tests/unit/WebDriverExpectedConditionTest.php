@@ -162,7 +162,7 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
-    public function testShouldDetectTextToBePresentInElementCondition()
+    public function testShouldDetectElementTextContainsCondition()
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -185,7 +185,7 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
 
         $this->setupDriverToReturnElementAfterAnException($element, 4);
 
-        $condition = WebDriverExpectedCondition::textToBePresentInElement(WebDriverBy::cssSelector('.foo'), 'new');
+        $condition = WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('.foo'), 'new');
 
         $this->assertTrue($this->wait->until($condition));
     }

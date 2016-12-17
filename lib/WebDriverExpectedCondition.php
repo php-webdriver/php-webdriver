@@ -167,11 +167,26 @@ class WebDriverExpectedCondition
      * An expectation for checking if the given text is present in the specified element.
      * To check exact text match use elementTextIs() condition.
      *
+     * @codeCoverageIgnore
+     * @deprecated Use WebDriverExpectedCondition::elementTextContains() instead
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text to be presented in the element.
      * @return bool WebDriverExpectedCondition Whether the text is present.
      */
     public static function textToBePresentInElement(WebDriverBy $by, $text)
+    {
+        return self::elementTextContains($by, $text);
+    }
+
+    /**
+     * An expectation for checking if the given text is present in the specified element.
+     * To check exact text match use elementTextIs() condition.
+     *
+     * @param WebDriverBy $by The locator used to find the element.
+     * @param string $text The text to be presented in the element.
+     * @return bool WebDriverExpectedCondition Whether the text is present.
+     */
+    public static function elementTextContains(WebDriverBy $by, $text)
     {
         return new static(
             function (WebDriver $driver) use ($by, $text) {
@@ -188,7 +203,7 @@ class WebDriverExpectedCondition
 
     /**
      * An expectation for checking if the given text exactly equals the text in specified element.
-     * To check only partial substring of the text use textToBePresentInElement() condition.
+     * To check only partial substring of the text use elementTextContains() condition.
      *
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The expected text of the element.
