@@ -52,7 +52,7 @@ class FileUploadTest extends WebDriverTestCase
 
     public function xtestUselessFileDetectorSendKeys()
     {
-        $this->driver->get($this->getTestPath('upload.html'));
+        $this->driver->get($this->getTestPageUrl('upload.html'));
 
         $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
         $file_input->sendKeys($this->getTestFilePath());

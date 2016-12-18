@@ -26,7 +26,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {
     public function testShouldThrowExceptionOfElementCannotBeFound()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $this->setExpectedException(NoSuchElementException::class, 'Unable to locate element');
         $this->driver->findElement(WebDriverBy::id('not_existing'));
@@ -34,7 +34,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
     public function testShouldFindElementIfExistsOnAPage()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
 
@@ -43,7 +43,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
     public function testShouldReturnEmptyArrayIfElementsCannotBeFound()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('not_existing'));
 
@@ -53,7 +53,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
     public function testShouldFindMultipleElements()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('ul > li'));
 

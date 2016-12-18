@@ -38,13 +38,17 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
-        if (getenv('BROWSER_NAME')) {
-            $browserName = getenv('BROWSER_NAME');
+        if (getenv('SAUCELABS')) {
+            $this->setUpSauceLabs();
         } else {
-            $browserName = WebDriverBrowserType::HTMLUNIT;
-        }
+            if (getenv('BROWSER_NAME')) {
+                $browserName = getenv('BROWSER_NAME');
+            } else {
+                $browserName = WebDriverBrowserType::HTMLUNIT;
+            }
 
-        $this->desiredCapabilities->setBrowserName($browserName);
+            $this->desiredCapabilities->setBrowserName($browserName);
+        }
 
         if ($this->createWebDriver) {
             $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities);
@@ -63,17 +67,6 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get the URL of the test html on filesystem.
-     *
-     * @param $path
-     * @return string
-     */
-    protected function getTestPath($path)
-    {
-        return 'file:///' . __DIR__ . '/web/' . $path;
-    }
-
-    /**
      * Get the URL of given test HTML on running webserver.
      *
      * @param string $path
@@ -82,5 +75,32 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     protected function getTestPageUrl($path)
     {
         return 'http://localhost:8000/' . $path;
+    }
+
+    protected function setUpSauceLabs()
+    {
+        $this->serverUrl = sprintf(
+            'http://%s:%s@ondemand.saucelabs.com/wd/hub',
+            getenv('SAUCE_USERNAME'),
+            getenv('SAUCE_ACCESS_KEY')
+        );
+        $this->desiredCapabilities->setBrowserName(getenv('BROWSER_NAME'));
+        $this->desiredCapabilities->setVersion(getenv('VERSION'));
+        $this->desiredCapabilities->setPlatform(getenv('PLATFORM'));
+
+        if (getenv('TRAVIS_JOB_NUMBER')) {
+            $this->desiredCapabilities->setCapability('tunnel-identifier', getenv('TRAVIS_JOB_NUMBER'));
+            $this->desiredCapabilities->setCapability('build', getenv('TRAVIS_JOB_NUMBER'));
+        }
+    }
+
+    /**
+     * @param string $message
+     */
+    protected function skipOnSauceLabs($message = 'Not supported by SauceLabs')
+    {
+        if (getenv('SAUCELABS')) {
+            $this->markTestSkipped($message);
+        }
     }
 }

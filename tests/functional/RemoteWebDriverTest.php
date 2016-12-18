@@ -29,7 +29,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetPageTitle()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $this->assertEquals(
             'php-webdriver test page',
@@ -43,7 +43,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetCurrentUrl()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $this->assertContains(
             '/index.html',
@@ -56,7 +56,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetPageSource()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $source = $this->driver->getPageSource();
         $this->assertContains('<h1 id="welcome">', $source);
@@ -79,7 +79,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
-        $sessions = RemoteWebDriver::getAllSessions();
+        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
+
+        $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
 
         $this->assertInternalType('array', $sessions);
         $this->assertCount(1, $sessions);
@@ -96,12 +98,14 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        $this->assertCount(1, RemoteWebDriver::getAllSessions());
+        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
+
+        $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
         $this->driver->quit();
 
-        $this->assertCount(0, RemoteWebDriver::getAllSessions());
+        $this->assertCount(0, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertNull($this->driver->getCommandExecutor());
     }
 
@@ -111,7 +115,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetWindowHandles()
     {
-        $this->driver->get($this->getTestPath('open_new_window.html'));
+        $this->driver->get($this->getTestPageUrl('open_new_window.html'));
 
         $windowHandle = $this->driver->getWindowHandle();
         $windowHandles = $this->driver->getWindowHandles();
@@ -135,7 +139,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldCloseWindow()
     {
-        $this->driver->get($this->getTestPath('open_new_window.html'));
+        $this->driver->get($this->getTestPageUrl('open_new_window.html'));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
 
         $this->assertCount(2, $this->driver->getWindowHandles());
@@ -150,7 +154,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldExecuteScriptAndDoNotBlockExecution()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
@@ -176,7 +180,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
 
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
@@ -209,7 +213,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $outputPng = $this->driver->takeScreenshot();
 
@@ -234,7 +238,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $screenshotPath = sys_get_temp_dir() . '/selenium-screenshot.png';
 
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $this->driver->takeScreenshot($screenshotPath);
 

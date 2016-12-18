@@ -25,7 +25,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetText()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
         $elementWithSimpleText = $this->driver->findElement(WebDriverBy::id('text-simple'));
         $elementWithTextWithSpaces = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
 
@@ -38,7 +38,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetAttributeValue()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('text-simple'));
 
@@ -52,7 +52,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetLocation()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
 
@@ -67,7 +67,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetSize()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
 
@@ -82,7 +82,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetCssValue()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $elementWithBorder = $this->driver->findElement(WebDriverBy::id('text-simple'));
         $elementWithoutBorder = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
@@ -99,7 +99,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetTagName()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $paragraphElement = $this->driver->findElement(WebDriverBy::id('id_test'));
 
@@ -111,7 +111,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldClick()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
 
         $linkElement->click();
@@ -126,7 +126,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldClearFormElementText()
     {
-        $this->driver->get($this->getTestPath('form.html'));
+        $this->driver->get($this->getTestPageUrl('form.html'));
 
         $input = $this->driver->findElement(WebDriverBy::id('input-text'));
         $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
@@ -145,7 +145,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSendKeysToFormElement()
     {
-        $this->driver->get($this->getTestPath('form.html'));
+        $this->driver->get($this->getTestPageUrl('form.html'));
 
         $input = $this->driver->findElement(WebDriverBy::id('input-text'));
         $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
@@ -168,7 +168,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldDetectEnabledInputs()
     {
-        $this->driver->get($this->getTestPath('form.html'));
+        $this->driver->get($this->getTestPageUrl('form.html'));
 
         $inputEnabled = $this->driver->findElement(WebDriverBy::id('input-text'));
         $inputDisabled = $this->driver->findElement(WebDriverBy::id('input-text-disabled'));
@@ -182,7 +182,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSelectedInputsOrOptions()
     {
-        $this->driver->get($this->getTestPath('form.html'));
+        $this->driver->get($this->getTestPageUrl('form.html'));
 
         $checkboxSelected = $this->driver->findElement(
             WebDriverBy::cssSelector('input[name=checkbox][value=second]')
@@ -263,7 +263,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldCompareEqualsElement()
     {
-        $this->driver->get($this->getTestPath('index.html'));
+        $this->driver->get($this->getTestPageUrl('index.html'));
 
         $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
         $differentElement = $this->driver->findElement(WebDriverBy::cssSelector('#text-simple'));
