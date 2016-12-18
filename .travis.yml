@@ -29,7 +29,7 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer install --no-interaction --prefer-source
+  - travis_retry composer install --no-interaction
 
 before_script:
   - sh -e /etc/init.d/xvfb start
