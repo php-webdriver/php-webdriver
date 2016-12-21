@@ -14,6 +14,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
     - `elementTextContains` (as an alias for `textToBePresentInElement`) - text in element contains given text
     - `elementTextMatches` - text in element matches regular expression
     - `numberOfWindowsToBe` - number of opened windows equals given number
+- Possibility to select option of `<select>` by its partial text (using `selectByVisiblePartialText()`)
 
 ### Changed
 - `Symfony\Process` is used to start local WebDriver processes (when browsers are run directly, without Selenium server) to workaround some PHP bugs and improve portability.
