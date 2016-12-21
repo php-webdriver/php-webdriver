@@ -232,7 +232,7 @@ class WebDriverSelect
     public function selectByVisiblePartialText($text)
     {
         $matched = false;
-        $xpath = '//option[contains(text(), '.$this->escapeQuotes($text).')]';
+        $xpath = '//option[contains(text(), ' . $this->escapeQuotes($text) . ')]';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
