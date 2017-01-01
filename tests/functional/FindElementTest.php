@@ -15,21 +15,12 @@
 
 namespace Facebook\WebDriver;
 
-class BaseTest extends WebDriverTestCase
+class FindElementTest extends WebDriverTestCase
 {
-    public function testGetTitle()
-    {
-        $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
-            'php-webdriver test page',
-            $this->driver->getTitle()
-        );
-    }
-
     public function testGetText()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Welcome to the facebook/php-webdriver testing page.',
             $this->driver->findElement(WebDriverBy::id('welcome'))->getText()
         );
@@ -38,7 +29,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetById()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test by ID',
             $this->driver->findElement(WebDriverBy::id('id_test'))->getText()
         );
@@ -47,7 +38,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByClassName()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test by Class',
             $this->driver->findElement(WebDriverBy::className('test_class'))->getText()
         );
@@ -56,7 +47,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByCssSelector()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test by Class',
             $this->driver->findElement(WebDriverBy::cssSelector('.test_class'))->getText()
         );
@@ -65,7 +56,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByLinkText()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Click here',
             $this->driver->findElement(WebDriverBy::linkText('Click here'))->getText()
         );
@@ -74,7 +65,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByName()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test Value',
             $this->driver->findElement(WebDriverBy::name('test_name'))->getAttribute('value')
         );
@@ -83,7 +74,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByXpath()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test Value',
             $this->driver->findElement(WebDriverBy::xpath('//input[@name="test_name"]'))->getAttribute('value')
         );
@@ -92,7 +83,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByPartialLinkText()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Click here',
             $this->driver->findElement(WebDriverBy::partialLinkText('Click'))->getText()
         );
@@ -101,7 +92,7 @@ class BaseTest extends WebDriverTestCase
     public function testGetByTagName()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        self::assertEquals(
+        $this->assertEquals(
             'Test Value',
             $this->driver->findElement(WebDriverBy::tagName('input'))->getAttribute('value')
         );
