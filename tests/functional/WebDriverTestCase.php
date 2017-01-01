@@ -15,9 +15,9 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
-use Facebook\WebDriver\Remote\WebDriverCapabilityType;
 
 /**
  * The base class for test cases.
@@ -26,17 +26,23 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 {
     /** @var RemoteWebDriver $driver */
     protected $driver;
+    /** @var DesiredCapabilities */
+    protected $desiredCapabilities;
 
     protected function setUp()
     {
-        $this->driver = RemoteWebDriver::create(
-            'http://localhost:4444/wd/hub',
-            [
-                WebDriverCapabilityType::BROWSER_NAME
-                //=> WebDriverBrowserType::FIREFOX,
-                => WebDriverBrowserType::HTMLUNIT,
-            ]
-        );
+        $this->desiredCapabilities = new DesiredCapabilities();
+        $serverUrl = 'http://localhost:4444/wd/hub';
+
+        if (getenv('BROWSER_NAME')) {
+            $browserName = getenv('BROWSER_NAME');
+        } else {
+            $browserName = WebDriverBrowserType::HTMLUNIT;
+        }
+
+        $this->desiredCapabilities->setBrowserName($browserName);
+
+        $this->driver = RemoteWebDriver::create($serverUrl, $this->desiredCapabilities);
     }
 
     protected function tearDown()
