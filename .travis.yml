@@ -24,6 +24,7 @@ env:
 cache:
   directories:
     - $HOME/.composer/cache
+    - jar
 
 before_install:
   - travis_retry composer self-update
@@ -33,8 +34,13 @@ install:
 
 before_script:
   - sh -e /etc/init.d/xvfb start
-  - wget -q -t 3 http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-  - java -jar selenium-server-standalone-2.45.0.jar -log selenium.log &
+  # TODO: upgrade to Selenium 3.0.2 (with latest HtmlUnit) once released, as HtmlUnit in 3.0.1 is broken
+  - if [ ! -f jar/selenium-server-standalone-2.53.1.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/2.53/selenium-server-standalone-2.53.1.jar; fi
+  - if [ ! -f jar/htmlunit-driver-standalone-2.20.jar ]; then wget -q -t 3 -P jar https://github.com/SeleniumHQ/htmlunit-driver/releases/download/2.20/htmlunit-driver-standalone-2.20.jar; fi
+  # Temporarily run HtmlUnit from standalone jar file (it was not part of Selenium server standalone in version 2.53)
+  - java -cp "jar/selenium-server-standalone-2.53.1.jar:jar/htmlunit-driver-standalone-2.20.jar" org.openqa.grid.selenium.GridLauncher -log selenium.log &
+  # TODO: use this after upgrade to Selenium 3.0.2
+  #- /usr/lib/jvm/java-8-oracle/bin/java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.0.2.jar -log selenium.log &
   - until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done
 
 script:
@@ -42,3 +48,9 @@ script:
 
 after_script:
   - cat selenium.log
+
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
+
