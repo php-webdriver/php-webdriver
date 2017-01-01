@@ -9,6 +9,9 @@ php:
 
 matrix:
   include:
+    # Add build to run tests against Firefox (other runs are agains HtmlUnit by default)
+    - php: 7
+      env: BROWSER_NAME="firefox"
     # Add PHP 7 build to check codestyle only in PHP 7 build
     - php: 7
       env: CHECK_CODESTYLE=1
@@ -50,7 +53,7 @@ after_script:
   - cat selenium.log
 
 addons:
+  firefox: "latest-esr"
   apt:
     packages:
       - oracle-java8-installer
-
