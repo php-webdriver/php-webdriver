@@ -479,7 +479,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * Set the command executor of this RemoteWebdriver
+     * Get the command executor of this RemoteWebdriver
      *
      * @return HttpCommandExecutor
      */
@@ -512,7 +512,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * Get all selenium sessions.
+     * Returns a list of the currently active sessions.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int $timeout_in_ms
