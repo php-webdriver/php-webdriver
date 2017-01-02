@@ -45,12 +45,14 @@ before_script:
   # TODO: use this after upgrade to Selenium 3.0.2
   #- /usr/lib/jvm/java-8-oracle/bin/java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.0.2.jar -log selenium.log &
   - until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done
+  - php -S localhost:8000 -t tests/functional/web/ &>>php-server.log &
 
 script:
   - ./vendor/bin/phpunit
 
 after_script:
   - cat selenium.log
+  - cat php-server.log
 
 addons:
   firefox: "latest-esr"

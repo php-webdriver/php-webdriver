@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\NoSuchWindowException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
@@ -47,19 +48,34 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
-        if ($this->driver) {
-            $this->driver->quit();
+        if ($this->driver->getCommandExecutor()) {
+            try {
+                $this->driver->quit();
+            } catch (NoSuchWindowException $e) {
+                // browser may have died or is already closed
+            }
         }
     }
 
     /**
-     * Get the URL of the test html.
+     * Get the URL of the test html on filesystem.
      *
      * @param $path
      * @return string
      */
     protected function getTestPath($path)
     {
-        return 'file:///' . __DIR__ . '/html/' . $path;
+        return 'file:///' . __DIR__ . '/web/' . $path;
+    }
+
+    /**
+     * Get the URL of given test HTML on running webserver.
+     *
+     * @param string $path
+     * @return string
+     */
+    protected function getTestPageUrl($path)
+    {
+        return 'http://localhost:8000/' . $path;
     }
 }

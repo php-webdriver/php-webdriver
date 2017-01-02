@@ -17,33 +17,47 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\LocalFileDetector;
 
-/**
- * An example test case for php-webdriver.
- *
- * Try running it by
- *   '../vendor/phpunit/phpunit/phpunit.php ExampleTestCase.php'
- */
 class FileUploadTest extends WebDriverTestCase
 {
-    public function testFileUploading()
+    public function testShouldUploadAFile()
     {
-        $this->driver->get($this->getTestPath('upload.html'));
-        $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
-        $file_input->setFileDetector(new LocalFileDetector())
-            ->sendKeys(__DIR__ . '/files/FileUploadTestCaseFile.txt');
-        $this->assertNotEquals($this->getFilePath(), $file_input->getAttribute('value'));
+        $this->driver->get($this->getTestPageUrl('upload.html'));
+
+        $fileElement = $this->driver->findElement(WebDriverBy::name('upload'));
+
+        $fileElement->setFileDetector(new LocalFileDetector())
+            ->sendKeys($this->getTestFilePath());
+
+        $fileElement->submit();
+
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::titleIs('File upload endpoint')
+        );
+
+        $uploadedFilesList = $this->driver->findElements(WebDriverBy::cssSelector('ul.uploaded-files li'));
+        $this->assertCount(1, $uploadedFilesList);
+
+        $uploadedFileName = $this->driver->findElement(WebDriverBy::cssSelector('ul.uploaded-files li span.file-name'))
+            ->getText();
+        $uploadedFileSize = $this->driver->findElement(WebDriverBy::cssSelector('ul.uploaded-files li span.file-size'))
+            ->getText();
+
+        $this->assertSame('FileUploadTestFile.txt', $uploadedFileName);
+        $this->assertSame('10', $uploadedFileSize);
     }
 
-    public function testUselessFileDetectorSendKeys()
+    public function xtestUselessFileDetectorSendKeys()
     {
         $this->driver->get($this->getTestPath('upload.html'));
+
         $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
-        $file_input->sendKeys($this->getFilePath());
-        $this->assertEquals($this->getFilePath(), $file_input->getAttribute('value'));
+        $file_input->sendKeys($this->getTestFilePath());
+
+        $this->assertEquals($this->getTestFilePath(), $file_input->getAttribute('value'));
     }
 
-    private function getFilePath()
+    private function getTestFilePath()
     {
-        return __DIR__ . '/files/FileUploadTestCaseFile.txt';
+        return __DIR__ . '/Fixtures/FileUploadTestFile.txt';
     }
 }
