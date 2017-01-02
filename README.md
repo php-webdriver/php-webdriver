@@ -7,11 +7,15 @@
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
 
-This WebDriver client aims to be as close as possible to bindings in other languages.
-The concepts are very similar to the Java, .NET, Python and Ruby bindings for WebDriver.
+This library is compatible with Selenium server version 2.x and 3.x.
+It implements the [JsonWireProtocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol), which is currently supported
+by the Selenium server and will also implement the [W3C WebDriver](https://w3c.github.io/webdriver/webdriver-spec.html) specification in the future.
 
-This is new version of PHP client, rewritten from scratch starting 2013.
-Using the old version? Check out Adam Goucher's fork of it at https://github.com/Element-34/php-webdriver
+The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
+[Selenium project](https://github.com/SeleniumHQ/selenium/).
+
+**This is new version of PHP client, rewritten from scratch starting 2013.**
+Using the old version? Check out [Adam Goucher's fork](https://github.com/Element-34/php-webdriver) of it.
 
 Looking for API documentation of php-webdriver? See http://facebook.github.io/php-webdriver/
 
