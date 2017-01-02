@@ -24,7 +24,7 @@ interface WebDriverSearchContext {
    * mechanism.
    *
    * @param WebDriverBy $locator
-   * @return WebDriverElement NoSuchElementException is thrown in
+   * @return WebDriverElement NoSuchElementWebDriverException is thrown in
    *    HttpCommandExecutor if no element is found.
    * @see WebDriverBy
    */

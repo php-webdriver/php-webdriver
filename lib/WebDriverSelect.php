@@ -25,7 +25,7 @@ class WebDriverSelect {
     $tag_name = $element->getTagName();
 
     if ($tag_name !== 'select') {
-      throw new UnexpectedTagNameException('select', $tag_name);
+      throw new UnexpectedTagNameWebDriverException('select', $tag_name);
     }
     $this->element = $element;
     $value = $element->getAttribute('multiple');
@@ -72,7 +72,7 @@ class WebDriverSelect {
       }
     }
 
-    throw new NoSuchElementException('No options are selected');
+    throw new NoSuchElementWebDriverException('No options are selected');
   }
 
   /**
@@ -82,7 +82,7 @@ class WebDriverSelect {
    */
   public function deselectAll() {
     if (!$this->isMultiple()) {
-      throw new UnsupportedOperationException(
+      throw new UnsupportedOperationWebDriverException(
         'You may only deselect all options of a multi-select'
       );
     }
@@ -114,7 +114,7 @@ class WebDriverSelect {
       }
     }
     if (!$matched) {
-      throw new NoSuchElementException(
+      throw new NoSuchElementWebDriverException(
         sprintf('Cannot locate option with index: %d', $index)
       );
     }
@@ -145,7 +145,7 @@ class WebDriverSelect {
     }
 
     if (!$matched) {
-      throw new NoSuchElementException(
+      throw new NoSuchElementWebDriverException(
         sprintf('Cannot locate option with value: %s', $value)
       );
     }
@@ -192,7 +192,7 @@ class WebDriverSelect {
     }
 
     if (!$matched) {
-      throw new NoSuchElementException(
+      throw new NoSuchElementWebDriverException(
         sprintf('Cannot locate option with text: %s', $text)
       );
     }

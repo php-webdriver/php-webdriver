@@ -28,7 +28,7 @@ class URLChecker {
       usleep(self::POLL_INTERVAL_MS);
     }
 
-    throw new TimeOutException(sprintf(
+    throw new TimeOutWebDriverException(sprintf(
       "Timed out waiting for %s to become available after %d ms.",
       $url,
       $timeout_in_ms
@@ -45,7 +45,7 @@ class URLChecker {
       usleep(self::POLL_INTERVAL_MS);
     }
 
-    throw new TimeOutException(sprintf(
+    throw new TimeOutWebDriverException(sprintf(
       "Timed out waiting for %s to become unavailable after %d ms.",
       $url,
       $timeout_in_ms
