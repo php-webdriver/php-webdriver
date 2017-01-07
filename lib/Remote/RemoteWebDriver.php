@@ -19,6 +19,7 @@ use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverCapabilities;
 use Facebook\WebDriver\WebDriverCommandExecutor;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverNavigation;
@@ -31,6 +32,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      * @var HttpCommandExecutor
      */
     protected $executor;
+    /**
+     * @var WebDriverCapabilities
+     */
+    protected $capabilities;
+
     /**
      * @var string
      */
@@ -52,8 +58,17 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      */
     protected $executeMethod;
 
-    protected function __construct()
-    {
+    protected function __construct(
+        HttpCommandExecutor $commandExecutor,
+        $sessionId,
+        WebDriverCapabilities $capabilities = null
+    ) {
+        $this->executor = $commandExecutor;
+        $this->sessionID = $sessionId;
+
+        if ($capabilities !== null) {
+            $this->capabilities = $capabilities;
+        }
     }
 
     /**
@@ -61,10 +76,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param DesiredCapabilities|array $desired_capabilities The desired capabilities
-     * @param int|null $connection_timeout_in_ms
-     * @param int|null $request_timeout_in_ms
+     * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
+     * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @param string|null $http_proxy The proxy to tunnel requests to the remote Selenium WebDriver through
-     * @param int|null $http_proxy_port
+     * @param int|null $http_proxy_port The proxy  port to tunnel requests to the remote Selenium WebDriver through
      * @param DesiredCapabilities $required_capabilities The required capabilities
      * @return RemoteWebDriver
      */
@@ -103,10 +118,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
         );
 
         $response = $executor->execute($command);
+        $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
-        $driver = new static();
-        $driver->setSessionID($response->getSessionID())
-            ->setCommandExecutor($executor);
+        $driver = new static($executor, $response->getSessionID(), $returnedCapabilities);
 
         return $driver;
     }
@@ -134,9 +148,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
-     * This constructor can boost the performance a lot by reusing the same
-     * browser for the whole test suite. You do not have to pass the desired
-     * capabilities because the session was created before.
+     * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
+     * You cannot the desired capabilities because the session was created before.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
@@ -144,11 +157,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      */
     public static function createBySessionID($session_id, $selenium_server_url = 'http://localhost:4444/wd/hub')
     {
-        $driver = new static();
-        $driver->setSessionID($session_id)
-            ->setCommandExecutor(new HttpCommandExecutor($selenium_server_url));
+        $executor = new HttpCommandExecutor($selenium_server_url);
 
-        return $driver;
+        return new static($executor, $session_id);
     }
 
     /**
@@ -493,6 +504,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * Set the command executor of this RemoteWebdriver
      *
+     * @deprecated To be removed in the future. Executor should be passed in the constructor.
+     * @internal
+     * @codeCoverageIgnore
      * @param WebDriverCommandExecutor $executor
      * @return RemoteWebDriver
      */
@@ -516,6 +530,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * Set the session id of the RemoteWebDriver.
      *
+     * @deprecated To be removed in the future. Session ID should be passed in the constructor.
+     * @internal
+     * @codeCoverageIgnore
      * @param string $session_id
      * @return RemoteWebDriver
      */
@@ -529,11 +546,21 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
     /**
      * Get current selenium sessionID
      *
-     * @return string sessionID
+     * @return string
      */
     public function getSessionID()
     {
         return $this->sessionID;
+    }
+
+    /**
+     * Get capabilities of the RemoteWebDriver.
+     *
+     * @return WebDriverCapabilities
+     */
+    public function getCapabilities()
+    {
+        return $this->capabilities;
     }
 
     /**

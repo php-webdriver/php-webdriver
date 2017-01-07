@@ -33,9 +33,8 @@ class ChromeDriver extends RemoteWebDriver
             $service = ChromeDriverService::createDefaultService();
         }
         $executor = new DriverCommandExecutor($service);
-        $driver = new static();
-        $driver->setCommandExecutor($executor)
-            ->startSession($desired_capabilities);
+        $driver = new static($executor, null, $desired_capabilities);
+        $driver->startSession($desired_capabilities);
 
         return $driver;
     }
@@ -50,7 +49,7 @@ class ChromeDriver extends RemoteWebDriver
             ]
         );
         $response = $this->executor->execute($command);
-        $this->setSessionID($response->getSessionID());
+        $this->sessionID = $response->getSessionID();
     }
 
     /**

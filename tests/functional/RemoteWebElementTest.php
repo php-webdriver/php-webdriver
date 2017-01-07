@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver;
 
+/**
+ * @covers Facebook\WebDriver\Remote\RemoteWebElement
+ */
 class RemoteWebElementTest extends WebDriverTestCase
 {
     public function testShouldGetText()

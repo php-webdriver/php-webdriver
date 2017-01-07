@@ -19,6 +19,7 @@ use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
+use Facebook\WebDriver\Remote\WebDriverResponse;
 
 /**
  * A HttpCommandExecutor that talks to a local driver service instead of
@@ -42,7 +43,7 @@ class DriverCommandExecutor extends HttpCommandExecutor
      *
      * @throws WebDriverException
      * @throws \Exception
-     * @return mixed
+     * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command)
     {
