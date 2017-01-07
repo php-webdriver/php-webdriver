@@ -3,16 +3,19 @@ language: php
 php:
   - 5.5
   - 5.6
-  - 7
+  - 7.0
   - 7.1
 
 matrix:
   include:
     # Add build to run tests against Firefox (other runs are agains HtmlUnit by default)
-    - php: 7
+    - php: 7.0
       env: BROWSER_NAME="firefox"
+    # Build with lowest possible dependencies
+    - php: 7.0
+      env: dependencies="--prefer-lowest"
     # Add PHP 7 build to check codestyle only in PHP 7 build
-    - php: 7
+    - php: 7.0
       env: CHECK_CODESTYLE=1
       before_script: ~
       script:
@@ -32,7 +35,7 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer install --no-interaction
+  - travis_retry composer update --no-interaction $dependencies
 
 before_script:
   - sh -e /etc/init.d/xvfb start
