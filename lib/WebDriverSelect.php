@@ -99,9 +99,7 @@ class WebDriverSelect
     {
         foreach ($this->getOptions() as $option) {
             if ($option->getAttribute('index') === (string) $index) {
-                if (!$option->isSelected()) {
-                    $option->click();
-                }
+                $this->selectOption($option);
 
                 return;
             }
@@ -127,9 +125,7 @@ class WebDriverSelect
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
-            if (!$option->isSelected()) {
-                $option->click();
-            }
+            $this->selectOption($option);
             if (!$this->isMultiple()) {
                 return;
             }
@@ -160,9 +156,7 @@ class WebDriverSelect
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
-            if (!$option->isSelected()) {
-                $option->click();
-            }
+            $this->selectOption($option);
             if (!$this->isMultiple()) {
                 return;
             }
@@ -174,9 +168,7 @@ class WebDriverSelect
         if (!$matched) {
             foreach ($this->getOptions() as $option) {
                 if ($option->getText() === $text) {
-                    if (!$option->isSelected()) {
-                        $option->click();
-                    }
+                    $this->selectOption($option);
                     if (!$this->isMultiple()) {
                         return;
                     }
@@ -209,9 +201,7 @@ class WebDriverSelect
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
-            if (!$option->isSelected()) {
-                $option->click();
-            }
+            $this->selectOption($option);
             if (!$this->isMultiple()) {
                 return;
             }
@@ -237,9 +227,7 @@ class WebDriverSelect
         }
 
         foreach ($this->getOptions() as $option) {
-            if ($option->isSelected()) {
-                $option->click();
-            }
+            $this->deselectOption($option);
         }
     }
 
@@ -257,9 +245,7 @@ class WebDriverSelect
 
         foreach ($this->getOptions() as $option) {
             if ($option->getAttribute('index') === (string) $index) {
-                if ($option->isSelected()) {
-                    $option->click();
-                }
+                $this->deselectOption($option);
 
                 return;
             }
@@ -284,9 +270,7 @@ class WebDriverSelect
         $xpath = './/option[@value = ' . XPathEscaper::escapeQuotes($value) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
-            if ($option->isSelected()) {
-                $option->click();
-            }
+            $this->deselectOption($option);
         }
     }
 
@@ -308,9 +292,7 @@ class WebDriverSelect
         $xpath = './/option[normalize-space(.) = ' . XPathEscaper::escapeQuotes($text) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
-            if ($option->isSelected()) {
-                $option->click();
-            }
+            $this->deselectOption($option);
         }
     }
 
@@ -332,9 +314,29 @@ class WebDriverSelect
         $xpath = './/option[contains(normalize-space(.), ' . XPathEscaper::escapeQuotes($text) . ')]';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
-            if ($option->isSelected()) {
-                $option->click();
-            }
+            $this->deselectOption($option);
+        }
+    }
+
+    /**
+     * Mark option selected
+     * @param WebDriverElement $option
+     */
+    protected function selectOption(WebDriverElement $option)
+    {
+        if (!$option->isSelected()) {
+            $option->click();
+        }
+    }
+
+    /**
+     * Mark option not selected
+     * @param WebDriverElement $option
+     */
+    protected function deselectOption(WebDriverElement $option)
+    {
+        if ($option->isSelected()) {
+            $option->click();
         }
     }
 }
