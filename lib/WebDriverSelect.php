@@ -21,11 +21,13 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Support\XPathEscaper;
 
 /**
- * Models a SELECT tag, providing helper methods to select and deselect options.
+ * Models a default HTML <select> tag, providing helper methods to select and deselect options.
  */
-class WebDriverSelect
+class WebDriverSelect implements WebDriverSelectInterface
 {
+    /** @var WebDriverElement */
     private $element;
+    /** @var bool */
     private $isMulti;
 
     public function __construct(WebDriverElement $element)
@@ -40,25 +42,16 @@ class WebDriverSelect
         $this->isMulti = ($value === 'true');
     }
 
-    /**
-     * @return bool Whether this select element support selecting multiple options.
-     */
     public function isMultiple()
     {
         return $this->isMulti;
     }
 
-    /**
-     * @return WebDriverElement[] All options belonging to this select tag.
-     */
     public function getOptions()
     {
         return $this->element->findElements(WebDriverBy::tagName('option'));
     }
 
-    /**
-     * @return WebDriverElement[] All selected options belonging to this select tag.
-     */
     public function getAllSelectedOptions()
     {
         $selected_options = [];
@@ -71,12 +64,6 @@ class WebDriverSelect
         return $selected_options;
     }
 
-    /**
-     * @throws NoSuchElementException
-     *
-     * @return WebDriverElement The first selected option in this select tag (or
-     *                          the currently selected option in a normal select)
-     */
     public function getFirstSelectedOption()
     {
         foreach ($this->getOptions() as $option) {
@@ -88,13 +75,6 @@ class WebDriverSelect
         throw new NoSuchElementException('No options are selected');
     }
 
-    /**
-     * Select the option at the given index.
-     *
-     * @param int $index The index of the option. (0-based)
-     *
-     * @throws NoSuchElementException
-     */
     public function selectByIndex($index)
     {
         foreach ($this->getOptions() as $option) {
@@ -108,16 +88,6 @@ class WebDriverSelect
         throw new NoSuchElementException(sprintf('Cannot locate option with index: %d', $index));
     }
 
-    /**
-     * Select all options that have value attribute matching the argument. That
-     * is, when given "foo" this would select an option like:
-     *
-     * <option value="foo">Bar</option>;
-     *
-     * @param string $value The value to match against.
-     *
-     * @throws NoSuchElementException
-     */
     public function selectByValue($value)
     {
         $matched = false;
@@ -139,16 +109,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Select all options that display text matching the argument. That is, when
-     * given "Bar" this would select an option like:
-     *
-     * <option value="foo">Bar</option>;
-     *
-     * @param string $text The visible text to match against.
-     *
-     * @throws NoSuchElementException
-     */
     public function selectByVisibleText($text)
     {
         $matched = false;
@@ -184,16 +144,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Select all options that display text partially matching the argument. That is, when
-     * given "Bar" this would select an option like:
-     *
-     * <option value="bar">Foo Bar Baz</option>;
-     *
-     * @param string $text The visible text to match against.
-     *
-     * @throws NoSuchElementException
-     */
     public function selectByVisiblePartialText($text)
     {
         $matched = false;
@@ -215,11 +165,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Deselect all options in multiple select tag.
-     *
-     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
-     */
     public function deselectAll()
     {
         if (!$this->isMultiple()) {
@@ -231,12 +176,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Deselect the option at the given index.
-     *
-     * @param int $index The index of the option. (0-based)
-     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
-     */
     public function deselectByIndex($index)
     {
         if (!$this->isMultiple()) {
@@ -252,15 +191,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Deselect all options that have value attribute matching the argument. That
-     * is, when given "foo" this would deselect an option like:
-     *
-     * <option value="foo">Bar</option>;
-     *
-     * @param string $value The value to match against.
-     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
-     */
     public function deselectByValue($value)
     {
         if (!$this->isMultiple()) {
@@ -274,15 +204,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Deselect all options that display text matching the argument. That is, when
-     * given "Bar" this would deselect an option like:
-     *
-     * <option value="foo">Bar</option>;
-     *
-     * @param string $text The visible text to match against.
-     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
-     */
     public function deselectByVisibleText($text)
     {
         if (!$this->isMultiple()) {
@@ -296,15 +217,6 @@ class WebDriverSelect
         }
     }
 
-    /**
-     * Deselect all options that display text matching the argument. That is, when
-     * given "Bar" this would deselect an option like:
-     *
-     * <option value="foo">Foo Bar Baz</option>;
-     *
-     * @param string $text The visible text to match against.
-     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
-     */
     public function deselectByVisiblePartialText($text)
     {
         if (!$this->isMultiple()) {

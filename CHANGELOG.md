@@ -16,6 +16,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
     - `numberOfWindowsToBe` - number of opened windows equals given number
 - Possibility to select option of `<select>` by its partial text (using `selectByVisiblePartialText()`)
 - `XPathEscaper` helper class to quote XPaths containing both single and double quotes.
+- `WebDriverSelectInterface`, to allow implementation of custom select-like components, eg. those not built around and actual select tag.
 
 ### Changed
 - `Symfony\Process` is used to start local WebDriver processes (when browsers are run directly, without Selenium server) to workaround some PHP bugs and improve portability.
