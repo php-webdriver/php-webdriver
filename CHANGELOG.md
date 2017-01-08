@@ -15,6 +15,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
     - `elementTextMatches` - text in element matches regular expression
     - `numberOfWindowsToBe` - number of opened windows equals given number
 - Possibility to select option of `<select>` by its partial text (using `selectByVisiblePartialText()`)
+- `XPathEscaper` helper class to quote XPaths containing both single and double quotes.
 
 ### Changed
 - `Symfony\Process` is used to start local WebDriver processes (when browsers are run directly, without Selenium server) to workaround some PHP bugs and improve portability.
@@ -22,6 +23,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Deprecated `setSessionID()` and `setCommandExecutor()` methods of `RemoteWebDriver` class; these values should be immutable and thus passed only via constructor.
 - Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`
 - Throw an exception when attempting to deselect options of non-multiselect (it already didn't have any effect, but was silently ignored).
+
+### Fixed
+- XPath escaping in `select*()` and `deselect*()` methods of `WebDriverSelect`.
 
 ## 1.2.0 - 2016-10-14
 - Added initial support of remote Microsoft Edge browser (but starting local EdgeDriver is still not supported).

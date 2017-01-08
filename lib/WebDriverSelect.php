@@ -18,6 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnexpectedTagNameException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
+use Facebook\WebDriver\Support\XPathEscaper;
 
 /**
  * Models a SELECT tag, providing helper methods to select and deselect options.
@@ -128,7 +129,7 @@ class WebDriverSelect
     public function selectByValue($value)
     {
         $matched = false;
-        $xpath = './/option[@value = ' . $this->escapeQuotes($value) . ']';
+        $xpath = './/option[@value = ' . XPathEscaper::escapeQuotes($value) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
@@ -161,7 +162,7 @@ class WebDriverSelect
     public function selectByVisibleText($text)
     {
         $matched = false;
-        $xpath = './/option[normalize-space(.) = ' . $this->escapeQuotes($text) . ']';
+        $xpath = './/option[normalize-space(.) = ' . XPathEscaper::escapeQuotes($text) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
@@ -210,7 +211,7 @@ class WebDriverSelect
     public function selectByVisiblePartialText($text)
     {
         $matched = false;
-        $xpath = './/option[contains(normalize-space(.), ' . $this->escapeQuotes($text) . ')]';
+        $xpath = './/option[contains(normalize-space(.), ' . XPathEscaper::escapeQuotes($text) . ')]';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
 
         foreach ($options as $option) {
@@ -282,7 +283,7 @@ class WebDriverSelect
             throw new UnsupportedOperationException('You may only deselect options of a multi-select');
         }
 
-        $xpath = './/option[@value = ' . $this->escapeQuotes($value) . ']';
+        $xpath = './/option[@value = ' . XPathEscaper::escapeQuotes($value) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
             if ($option->isSelected()) {
@@ -306,7 +307,7 @@ class WebDriverSelect
             throw new UnsupportedOperationException('You may only deselect options of a multi-select');
         }
 
-        $xpath = './/option[normalize-space(.) = ' . $this->escapeQuotes($text) . ']';
+        $xpath = './/option[normalize-space(.) = ' . XPathEscaper::escapeQuotes($text) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
             if ($option->isSelected()) {
@@ -330,44 +331,12 @@ class WebDriverSelect
             throw new UnsupportedOperationException('You may only deselect options of a multi-select');
         }
 
-        $xpath = './/option[contains(normalize-space(.), ' . $this->escapeQuotes($text) . ')]';
+        $xpath = './/option[contains(normalize-space(.), ' . XPathEscaper::escapeQuotes($text) . ')]';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
             if ($option->isSelected()) {
                 $option->click();
             }
         }
-    }
-
-    /**
-     * Convert strings with both quotes and ticks into:
-     *   foo'"bar -> concat("foo'", '"', "bar")
-     *
-     * @param string $to_escape The string to be converted.
-     * @return string The escaped string.
-     */
-    protected function escapeQuotes($to_escape)
-    {
-        if (strpos($to_escape, '"') !== false && strpos($to_escape, "'") !== false) {
-            $substrings = explode('"', $to_escape);
-
-            $escaped = 'concat(';
-            $first = true;
-            foreach ($substrings as $string) {
-                if (!$first) {
-                    $escaped .= ", '\"',";
-                    $first = false;
-                }
-                $escaped .= '"' . $string . '"';
-            }
-
-            return $escaped;
-        }
-
-        if (strpos($to_escape, '"') !== false) {
-            return sprintf("'%s'", $to_escape);
-        }
-
-        return sprintf('"%s"', $to_escape);
     }
 }
