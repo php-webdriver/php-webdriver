@@ -93,6 +93,51 @@ class WebDriverExpectedCondition
     }
 
     /**
+     * An expectation for checking the URL of a page.
+     *
+     * @param string $url The expected URL, which must be an exact match.
+     * @return bool WebDriverExpectedCondition True when the URL matches, false otherwise.
+     */
+    public static function urlIs($url)
+    {
+        return new static(
+            function (WebDriver $driver) use ($url) {
+                return $url === $driver->getCurrentURL();
+            }
+        );
+    }
+
+    /**
+     * An expectation for checking substring of the URL of a page.
+     *
+     * @param string $url The expected substring of the URL
+     * @return bool WebDriverExpectedCondition True when in URL, false otherwise.
+     */
+    public static function urlContains($url)
+    {
+        return new static(
+            function (WebDriver $driver) use ($url) {
+                return strpos($driver->getCurrentURL(), $url) !== false;
+            }
+        );
+    }
+
+    /**
+     * An expectation for checking current page URL matches the given regular expression.
+     *
+     * @param string $urlRegexp The regular expression to test against.
+     * @return bool WebDriverExpectedCondition True when in url, false otherwise.
+     */
+    public static function urlMatches($urlRegexp)
+    {
+        return new static(
+            function (WebDriver $driver) use ($urlRegexp) {
+                return (bool) preg_match($urlRegexp, $driver->getCurrentURL());
+            }
+        );
+    }
+
+    /**
      * An expectation for checking that an element is present on the DOM of a page.
      * This does not necessarily mean that the element is visible.
      *
