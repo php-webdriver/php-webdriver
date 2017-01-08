@@ -2,11 +2,21 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- Added `getCapabilities()` method of `RemoteWebDriver`, to retrieve actual capabilities acknowledged by the remote driver on startup.
+- Added option to pass required capabilities when creating `RemoteWebDriver`. (So far only desired capabilities were supported.)
+- Added new expected conditions:
+    - `titleMatches` - current page title matches regular expression
+    - `elementTextIs` - text in element exactly equals given text
+    - `elementTextMatches` - text in element matches regular expression
+    - `elementTextContains` (as an alias for `textToBePresentInElement`) - text in element contains given text
+    - `numberOfWindowsToBe` - number of opened windows equals given number
+
+### Changed
 - `Symfony\Process` is used to start local WebDriver processes (when browsers are run directly, without Selenium server) to workaround some PHP bugs and improve portability.
 - Clarified meaning of selenium server URL variable in methods of `RemoteWebDriver` class.
 - Deprecated `setSessionID()` and `setCommandExecutor()` methods of `RemoteWebDriver` class; these values should be immutable and thus passed only via constructor.
-- Added `getCapabilities()` method of `RemoteWebDriver`, to retrieve actual capabilities acknowledged by the remote driver on startup.
-- Added option to pass required capabilities when creating `RemoteWebDriver`. (So far only desired capabilities were supported.)
+- Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`
 
 ## 1.2.0 - 2016-10-14
 - Added initial support of remote Microsoft Edge browser (but starting local EdgeDriver is still not supported).
