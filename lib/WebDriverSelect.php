@@ -97,23 +97,17 @@ class WebDriverSelect
      */
     public function selectByIndex($index)
     {
-        $matched = false;
         foreach ($this->getOptions() as $option) {
             if ($option->getAttribute('index') === (string) $index) {
                 if (!$option->isSelected()) {
                     $option->click();
-                    if (!$this->isMultiple()) {
-                        return;
-                    }
                 }
-                $matched = true;
+
+                return;
             }
         }
-        if (!$matched) {
-            throw new NoSuchElementException(
-                sprintf('Cannot locate option with index: %d', $index)
-            );
-        }
+
+        throw new NoSuchElementException(sprintf('Cannot locate option with index: %d', $index));
     }
 
     /**
@@ -262,8 +256,12 @@ class WebDriverSelect
         }
 
         foreach ($this->getOptions() as $option) {
-            if ($option->getAttribute('index') === (string) $index && $option->isSelected()) {
-                $option->click();
+            if ($option->getAttribute('index') === (string) $index) {
+                if ($option->isSelected()) {
+                    $option->click();
+                }
+
+                return;
             }
         }
     }
