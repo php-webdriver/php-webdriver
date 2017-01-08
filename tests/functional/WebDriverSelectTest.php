@@ -353,6 +353,38 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second'], $select->getAllSelectedOptions());
     }
 
+    public function testShouldDeselectOptionByVisiblePartialText()
+    {
+        $select = $this->getWebDriverSelectForMultipleSelect();
+        $select->selectByValue('fourth'); // text 'Fourth  with   spaces   inside'
+        $select->selectByValue('fifth'); // text '   Fifth surrounded by spaces    '
+        $select->selectByValue('second'); // text 'This is second option'
+        $select->selectByValue('third'); // text 'This is not second option'
+        $select->selectByValue('first'); // text 'First'
+        $this->assertCount(5, $select->getAllSelectedOptions());
+
+        $select->deselectByVisiblePartialText('second'); // should deselect two options
+        $this->assertContainsOptionsWithValues(['first', 'fourth', 'fifth'], $select->getAllSelectedOptions());
+
+        $select->deselectByVisiblePartialText('Fourth with spaces');
+        $select->deselectByVisiblePartialText('Fourth with spaces'); // should be deselected even if deselected again
+        $this->assertContainsOptionsWithValues(['first', 'fifth'], $select->getAllSelectedOptions());
+
+        $select->deselectByVisiblePartialText('Fifth surrounded');
+        $this->assertContainsOptionsWithValues(['first'], $select->getAllSelectedOptions());
+    }
+
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisiblePartialText()
+    {
+        $select = $this->getWebDriverSelectForSimpleSelect();
+
+        $this->setExpectedException(
+            UnsupportedOperationException::class,
+            'You may only deselect options of a multi-select'
+        );
+        $select->deselectByVisiblePartialText('First');
+    }
+
     /**
      * @return WebDriverSelect
      */

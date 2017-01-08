@@ -40,9 +40,7 @@ class WebDriverSelect
     }
 
     /**
-     * @return bool Whether this select element support selecting multiple
-     *              options. This is done by checking the value of the 'multiple'
-     *              attribute.
+     * @return bool Whether this select element support selecting multiple options.
      */
     public function isMultiple()
     {
@@ -87,26 +85,6 @@ class WebDriverSelect
         }
 
         throw new NoSuchElementException('No options are selected');
-    }
-
-    /**
-     * Deselect all options in multiple select tag.
-     *
-     * @throws UnsupportedOperationException
-     */
-    public function deselectAll()
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException(
-                'You may only deselect all options of a multi-select'
-            );
-        }
-
-        foreach ($this->getOptions() as $option) {
-            if ($option->isSelected()) {
-                $option->click();
-            }
-        }
     }
 
     /**
@@ -253,6 +231,24 @@ class WebDriverSelect
     }
 
     /**
+     * Deselect all options in multiple select tag.
+     *
+     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
+     */
+    public function deselectAll()
+    {
+        if (!$this->isMultiple()) {
+            throw new UnsupportedOperationException('You may only deselect all options of a multi-select');
+        }
+
+        foreach ($this->getOptions() as $option) {
+            if ($option->isSelected()) {
+                $option->click();
+            }
+        }
+    }
+
+    /**
      * Deselect the option at the given index.
      *
      * @param int $index The index of the option. (0-based)
@@ -268,7 +264,7 @@ class WebDriverSelect
 
     /**
      * Deselect all options that have value attribute matching the argument. That
-     * is, when given "foo" this would select an option like:
+     * is, when given "foo" this would deselect an option like:
      *
      * <option value="foo">Bar</option>;
      *
@@ -287,7 +283,7 @@ class WebDriverSelect
 
     /**
      * Deselect all options that display text matching the argument. That is, when
-     * given "Bar" this would select an option like:
+     * given "Bar" this would deselect an option like:
      *
      * <option value="foo">Bar</option>;
      *
@@ -296,6 +292,30 @@ class WebDriverSelect
     public function deselectByVisibleText($text)
     {
         $xpath = './/option[normalize-space(.) = ' . $this->escapeQuotes($text) . ']';
+        $options = $this->element->findElements(WebDriverBy::xpath($xpath));
+        foreach ($options as $option) {
+            if ($option->isSelected()) {
+                $option->click();
+            }
+        }
+    }
+
+    /**
+     * Deselect all options that display text matching the argument. That is, when
+     * given "Bar" this would deselect an option like:
+     *
+     * <option value="foo">Foo Bar Baz</option>;
+     *
+     * @param string $text The visible text to match against.
+     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
+     */
+    public function deselectByVisiblePartialText($text)
+    {
+        if (!$this->isMultiple()) {
+            throw new UnsupportedOperationException('You may only deselect options of a multi-select');
+        }
+
+        $xpath = './/option[contains(normalize-space(.), ' . $this->escapeQuotes($text) . ')]';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
             if ($option->isSelected()) {
