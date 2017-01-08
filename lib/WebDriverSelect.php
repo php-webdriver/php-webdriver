@@ -252,9 +252,14 @@ class WebDriverSelect
      * Deselect the option at the given index.
      *
      * @param int $index The index of the option. (0-based)
+     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
      */
     public function deselectByIndex($index)
     {
+        if (!$this->isMultiple()) {
+            throw new UnsupportedOperationException('You may only deselect options of a multi-select');
+        }
+
         foreach ($this->getOptions() as $option) {
             if ($option->getAttribute('index') === (string) $index && $option->isSelected()) {
                 $option->click();
@@ -269,9 +274,14 @@ class WebDriverSelect
      * <option value="foo">Bar</option>;
      *
      * @param string $value The value to match against.
+     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
      */
     public function deselectByValue($value)
     {
+        if (!$this->isMultiple()) {
+            throw new UnsupportedOperationException('You may only deselect options of a multi-select');
+        }
+
         $xpath = './/option[@value = ' . $this->escapeQuotes($value) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {
@@ -288,9 +298,14 @@ class WebDriverSelect
      * <option value="foo">Bar</option>;
      *
      * @param string $text The visible text to match against.
+     * @throws UnsupportedOperationException If the SELECT does not support multiple selections
      */
     public function deselectByVisibleText($text)
     {
+        if (!$this->isMultiple()) {
+            throw new UnsupportedOperationException('You may only deselect options of a multi-select');
+        }
+
         $xpath = './/option[normalize-space(.) = ' . $this->escapeQuotes($text) . ']';
         $options = $this->element->findElements(WebDriverBy::xpath($xpath));
         foreach ($options as $option) {

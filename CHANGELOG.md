@@ -21,6 +21,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Clarified meaning of selenium server URL variable in methods of `RemoteWebDriver` class.
 - Deprecated `setSessionID()` and `setCommandExecutor()` methods of `RemoteWebDriver` class; these values should be immutable and thus passed only via constructor.
 - Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`
+- Throw an exception when attempting to deselect options of non-multiselect (it already didn't have any effect, but was silently ignored).
 
 ## 1.2.0 - 2016-10-14
 - Added initial support of remote Microsoft Edge browser (but starting local EdgeDriver is still not supported).

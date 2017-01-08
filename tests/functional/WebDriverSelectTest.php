@@ -325,6 +325,17 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second'], $select->getAllSelectedOptions());
     }
 
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByIndex()
+    {
+        $select = $this->getWebDriverSelectForSimpleSelect();
+
+        $this->setExpectedException(
+            UnsupportedOperationException::class,
+            'You may only deselect options of a multi-select'
+        );
+        $select->deselectByIndex(0);
+    }
+
     public function testShouldDeselectOptionByValue()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -336,6 +347,17 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByValue('second'); // should not select unselected option
 
         $this->assertContainsOptionsWithValues(['first'], $select->getAllSelectedOptions());
+    }
+
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByValue()
+    {
+        $select = $this->getWebDriverSelectForSimpleSelect();
+
+        $this->setExpectedException(
+            UnsupportedOperationException::class,
+            'You may only deselect options of a multi-select'
+        );
+        $select->deselectByValue('first');
     }
 
     public function testShouldDeselectOptionByVisibleText()
@@ -351,6 +373,17 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByVisibleText('First'); // should not select unselected option
 
         $this->assertContainsOptionsWithValues(['second'], $select->getAllSelectedOptions());
+    }
+
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisibleText()
+    {
+        $select = $this->getWebDriverSelectForSimpleSelect();
+
+        $this->setExpectedException(
+            UnsupportedOperationException::class,
+            'You may only deselect options of a multi-select'
+        );
+        $select->deselectByVisibleText('First');
     }
 
     public function testShouldDeselectOptionByVisiblePartialText()
