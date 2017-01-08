@@ -80,6 +80,45 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
+    public function testShouldDetectUrlIsCondition()
+    {
+        $this->driverMock->expects($this->any())
+            ->method('getCurrentURL')
+            ->willReturnOnConsecutiveCalls('https://old/', 'https://oldwithnew/', 'https://new/');
+
+        $condition = WebDriverExpectedCondition::urlIs('https://new/');
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
+    public function testShouldDetectUrlContainsCondition()
+    {
+        $this->driverMock->expects($this->any())
+            ->method('getCurrentURL')
+            ->willReturnOnConsecutiveCalls('https://old/', 'https://oldwithnew/', 'https://new/');
+
+        $condition = WebDriverExpectedCondition::urlContains('new');
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
+    public function testShouldDetectUrlMatchesCondition()
+    {
+        $this->driverMock->expects($this->any())
+            ->method('getCurrentURL')
+            ->willReturnOnConsecutiveCalls('https://non/matching/', 'https://matching/not/', 'https://matching/123/');
+
+        $condition = WebDriverExpectedCondition::urlMatches('/matching\/\d{3}\/$/');
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
     public function testShouldDetectPresenceOfElementLocatedCondition()
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');

@@ -123,6 +123,21 @@ class WebDriverExpectedCondition
     }
 
     /**
+     * An expectation for checking current page URL matches the given regular expression.
+     *
+     * @param string $urlRegexp The regular expression to test against.
+     * @return bool WebDriverExpectedCondition True when in url, false otherwise.
+     */
+    public static function urlMatches($urlRegexp)
+    {
+        return new static(
+            function (WebDriver $driver) use ($urlRegexp) {
+                return (bool) preg_match($urlRegexp, $driver->getCurrentURL());
+            }
+        );
+    }
+
+    /**
      * An expectation for checking that an element is present on the DOM of a page.
      * This does not necessarily mean that the element is visible.
      *

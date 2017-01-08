@@ -6,10 +6,13 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Added `getCapabilities()` method of `RemoteWebDriver`, to retrieve actual capabilities acknowledged by the remote driver on startup.
 - Added option to pass required capabilities when creating `RemoteWebDriver`. (So far only desired capabilities were supported.)
 - Added new expected conditions:
+    - `urlIs` - current URL exactly equals given value
+    - `urlContains` - current URL contains given text
+    - `urlMatches` - current URL matches regular expression
     - `titleMatches` - current page title matches regular expression
     - `elementTextIs` - text in element exactly equals given text
-    - `elementTextMatches` - text in element matches regular expression
     - `elementTextContains` (as an alias for `textToBePresentInElement`) - text in element contains given text
+    - `elementTextMatches` - text in element matches regular expression
     - `numberOfWindowsToBe` - number of opened windows equals given number
 
 ### Changed
