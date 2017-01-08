@@ -20,10 +20,13 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
+    /**
+     * @covers ::getTitle
+     */
     public function testShouldGetPageTitle()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -34,6 +37,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @covers ::getCurrentURL
+     * @covers ::get
+     */
     public function testShouldGetCurrentUrl()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -44,6 +51,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @covers ::getPageSource
+     */
     public function testShouldGetPageSource()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -53,6 +63,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertContains('Welcome to the facebook/php-webdriver testing page.', $source);
     }
 
+    /**
+     * @covers ::getSessionID
+     */
     public function testShouldGetSessionId()
     {
         $sessionId = $this->driver->getSessionID();
@@ -61,6 +74,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertNotEmpty($sessionId);
     }
 
+    /**
+     * @covers ::getAllSessions
+     */
     public function testShouldGetAllSessions()
     {
         $sessions = RemoteWebDriver::getAllSessions();
@@ -73,6 +89,11 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertArrayHasKey('class', $sessions[0]);
     }
 
+    /**
+     * @covers ::getAllSessions
+     * @covers ::getCommandExecutor
+     * @covers ::quit
+     */
     public function testShouldQuitAndUnsetExecutor()
     {
         $this->assertCount(1, RemoteWebDriver::getAllSessions());
@@ -84,6 +105,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertNull($this->driver->getCommandExecutor());
     }
 
+    /**
+     * @covers ::getWindowHandle
+     * @covers ::getWindowHandles
+     */
     public function testShouldGetWindowHandles()
     {
         $this->driver->get($this->getTestPath('open_new_window.html'));
@@ -105,6 +130,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertCount(2, $this->driver->getWindowHandles());
     }
 
+    /**
+     * @covers ::getWindowHandles
+     */
     public function testShouldCloseWindow()
     {
         $this->driver->get($this->getTestPath('open_new_window.html'));
@@ -117,6 +145,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertCount(1, $this->driver->getWindowHandles());
     }
 
+    /**
+     * @covers ::executeScript
+     */
     public function testShouldExecuteScriptAndDoNotBlockExecution()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -138,6 +169,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Text changed by script', $element->getText());
     }
 
+    /**
+     * @covers ::executeAsyncScript
+     */
     public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
@@ -163,6 +197,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Text changed by script', $element->getText());
     }
 
+    /**
+     * @covers ::takeScreenshot
+     */
     public function testShouldTakeScreenshot()
     {
         if (!extension_loaded('gd')) {
@@ -183,6 +220,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertGreaterThan(0, imagesy($image));
     }
 
+    /**
+     * @covers ::takeScreenshot
+     */
     public function testShouldSaveScreenshotToFile()
     {
         if (!extension_loaded('gd')) {
