@@ -98,6 +98,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
         // Open second window
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
 
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::numberOfWindowsToBe(2)
+        );
+
         $this->assertCount(2, $this->driver->getWindowHandles());
     }
 
