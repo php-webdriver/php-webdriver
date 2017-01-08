@@ -21,6 +21,8 @@ matrix:
       script:
         - ./vendor/bin/php-cs-fixer fix --diff --dry-run
         - ./vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/
+      after_script: ~
+      after_success: ~
 
 env:
   global:
