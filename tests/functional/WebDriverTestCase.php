@@ -25,6 +25,11 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 {
+    /** @var bool Indicate whether WebDriver should be created on setUp */
+    protected $createWebDriver = true;
+    /** @var string */
+    protected $serverUrl = 'http://localhost:4444/wd/hub';
+
     /** @var RemoteWebDriver $driver */
     protected $driver;
     /** @var DesiredCapabilities */
@@ -33,7 +38,6 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->desiredCapabilities = new DesiredCapabilities();
-        $serverUrl = 'http://localhost:4444/wd/hub';
 
         if (getenv('BROWSER_NAME')) {
             $browserName = getenv('BROWSER_NAME');
@@ -43,12 +47,14 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 
         $this->desiredCapabilities->setBrowserName($browserName);
 
-        $this->driver = RemoteWebDriver::create($serverUrl, $this->desiredCapabilities);
+        if ($this->createWebDriver) {
+            $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities);
+        }
     }
 
     protected function tearDown()
     {
-        if ($this->driver->getCommandExecutor()) {
+        if ($this->driver instanceof RemoteWebDriver && $this->driver->getCommandExecutor()) {
             try {
                 $this->driver->quit();
             } catch (NoSuchWindowException $e) {

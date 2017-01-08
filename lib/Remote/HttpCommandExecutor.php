@@ -224,7 +224,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @param WebDriverCommand $command
      *
      * @throws WebDriverException
-     * @return mixed
+     * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command)
     {

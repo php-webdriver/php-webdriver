@@ -19,6 +19,9 @@ use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
+/**
+ * @covers Facebook\WebDriver\Remote\RemoteWebDriver
+ */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
     public function testShouldGetPageTitle()
