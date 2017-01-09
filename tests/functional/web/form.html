@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>php-webdriver form test page</title>
+</head>
+<body>
+    <form>
+        <label>
+            Text:
+            <input type="text" name="text" id="text"/>
+        </label>
+        <br>
+
+        <label>
+            Textarea:
+            <textarea name="textarea" id="textarea"></textarea>
+        </label>
+        <br>
+
+        <label for="select">Select one:</label>
+        <select name="select" id="select">
+            <option value="first">First</option>
+            <option value="second">This is second option</option>
+            <option value="third">This is not second option</option>
+            <option value="fourth">Fourth  with   spaces   inside</option>
+            <option value="fifth">   Fifth surrounded by spaces    </option>
+        </select>
+        <br>
+
+        <label for="select-multiple">Select multiple:</label>
+        <select name="select-multiple" id="select-multiple" multiple>
+            <option value="first">First</option>
+            <option value="second">This is second option</option>
+            <option value="third">This is not second option</option>
+            <option value="fourth">Fourth  with   spaces   inside</option>
+            <option value="fifth">   Fifth surrounded by spaces    </option>
+        </select>
+        <br>
+
+        <p>
+            <input type="submit" name="submit" id="submit" value="Submit">
+        </p>
+
+
+    </form>
+</body>
+</html>
