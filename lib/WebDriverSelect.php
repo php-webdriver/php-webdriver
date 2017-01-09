@@ -220,6 +220,55 @@ class WebDriverSelect
     }
 
     /**
+     * Select all options that display text partially matching the argument. That is, when
+     * given "Foo" this would select an option like:
+     *
+     * <option value="bar">Foo Bar</option>;
+     *
+     * @param string $text The visible text to match against.
+     *
+     * @throws NoSuchElementException
+     */
+    public function selectByVisiblePartialText($text)
+    {
+        $matched = false;
+        $xpath = '//option[contains(text(), ' . $this->escapeQuotes($text) . ')]';
+        $options = $this->element->findElements(WebDriverBy::xpath($xpath));
+
+        foreach ($options as $option) {
+            if (!$option->isSelected()) {
+                $option->click();
+            }
+            if (!$this->isMultiple()) {
+                return;
+            }
+            $matched = true;
+        }
+
+        // Since the mechanism of getting the text in xpath is not the same as
+        // webdriver, use the expensive getText() to check if nothing is matched.
+        if (!$matched) {
+            foreach ($this->getOptions() as $option) {
+                if ($option->getText() === $text) {
+                    if (!$option->isSelected()) {
+                        $option->click();
+                    }
+                    if (!$this->isMultiple()) {
+                        return;
+                    }
+                    $matched = true;
+                }
+            }
+        }
+
+        if (!$matched) {
+            throw new NoSuchElementException(
+                sprintf('Cannot locate option with text: %s', $text)
+            );
+        }
+    }
+
+    /**
      * Deselect the option at the given index.
      *
      * @param int $index The index of the option. (0-based)
