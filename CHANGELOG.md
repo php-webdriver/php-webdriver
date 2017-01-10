@@ -24,6 +24,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Deprecated `setSessionID()` and `setCommandExecutor()` methods of `RemoteWebDriver` class; these values should be immutable and thus passed only via constructor.
 - Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`
 - Throw an exception when attempting to deselect options of non-multiselect (it already didn't have any effect, but was silently ignored).
+- Optimize performance of `(de)selectByIndex()` and `getAllSelectedOptions()` methods of `WebDriverSelect` when used with non-multiple select element.
 
 ### Fixed
 - XPath escaping in `select*()` and `deselect*()` methods of `WebDriverSelect`.
