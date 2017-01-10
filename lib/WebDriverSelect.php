@@ -58,6 +58,10 @@ class WebDriverSelect implements WebDriverSelectInterface
         foreach ($this->getOptions() as $option) {
             if ($option->isSelected()) {
                 $selected_options[] = $option;
+
+                if (!$this->isMultiple()) {
+                    return $selected_options;
+                }
             }
         }
 
