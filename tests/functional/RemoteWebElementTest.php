@@ -23,11 +23,59 @@ class RemoteWebElementTest extends WebDriverTestCase
     public function testShouldGetText()
     {
         $this->driver->get($this->getTestPath('index.html'));
-        $element = $this->driver->findElement(WebDriverBy::id('welcome'));
+        $elementWithSimpleText = $this->driver->findElement(WebDriverBy::id('text-simple'));
+        $elementWithTextWithSpaces = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
 
-        $this->assertEquals(
-            'Welcome to the facebook/php-webdriver testing page.',
-            $element->getText()
-        );
+        $this->assertEquals('Foo bar text', $elementWithSimpleText->getText());
+        $this->assertEquals('Multiple spaces are stripped', $elementWithTextWithSpaces->getText());
+    }
+
+    public function testShouldGetAttributeValue()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('text-simple'));
+
+        $this->assertSame('note', $element->getAttribute('role'));
+        $this->assertSame('height: 5em; border: 1px solid black;', $element->getAttribute('style'));
+        $this->assertSame('text-simple', $element->getAttribute('id'));
+    }
+
+    public function testShouldGetLocation()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
+
+        $elementLocation = $element->getLocation();
+        $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
+        $this->assertSame(33, $elementLocation->getX());
+        $this->assertSame(500, $elementLocation->getY());
+    }
+
+    public function testShouldGetSize()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
+
+        $elementSize = $element->getSize();
+        $this->assertInstanceOf(WebDriverDimension::class, $elementSize);
+        $this->assertSame(333, $elementSize->getWidth());
+        $this->assertSame(66, $elementSize->getHeight());
+    }
+
+    public function testShouldGetCssValue()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $elementWithBorder = $this->driver->findElement(WebDriverBy::id('text-simple'));
+        $elementWithoutBorder = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
+
+        $this->assertSame('solid', $elementWithBorder->getCSSValue('border-left-style'));
+        $this->assertSame('none', $elementWithoutBorder->getCSSValue('border-left-style'));
+
+        $this->assertSame('rgba(0, 0, 0, 1)', $elementWithBorder->getCSSValue('border-left-color'));
+        $this->assertSame('rgba(0, 0, 0, 1)', $elementWithoutBorder->getCSSValue('border-left-color'));
     }
 }
