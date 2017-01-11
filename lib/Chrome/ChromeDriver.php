@@ -63,7 +63,8 @@ class ChromeDriver extends RemoteWebDriver
         $connection_timeout_in_ms = null,
         $request_timeout_in_ms = null,
         $http_proxy = null,
-        $http_proxy_port = null
+        $http_proxy_port = null,
+        DesiredCapabilities $required_capabilities = null
     ) {
         throw new WebDriverException('Please use ChromeDriver::start() instead.');
     }

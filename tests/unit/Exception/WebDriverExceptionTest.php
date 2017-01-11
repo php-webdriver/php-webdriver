@@ -35,7 +35,7 @@ class WebDriverExceptionTest extends \PHPUnit_Framework_TestCase
     {
         try {
             WebDriverException::throwException($statusCode, 'exception message', ['results']);
-        } catch (\Exception $e) {
+        } catch (WebDriverException $e) {
             $this->assertInstanceOf($expectedExceptionType, $e);
 
             $this->assertSame('exception message', $e->getMessage());

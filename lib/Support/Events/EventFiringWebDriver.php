@@ -50,8 +50,6 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $this->dispatcher->setDefaultDriver($this);
         }
         $this->driver = $driver;
-
-        return $this;
     }
 
     /**
@@ -105,6 +103,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $this->driver->get($url);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
         $this->dispatch('afterNavigateTo', $url, $this);
 
@@ -127,6 +126,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             }
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
 
         $this->dispatch('afterFindBy', $by, null, $this);
@@ -147,6 +147,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $element = $this->newElement($this->driver->findElement($by));
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
 
         $this->dispatch('afterFindBy', $by, null, $this);
@@ -174,6 +175,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $result = $this->driver->executeScript($script, $arguments);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
 
         $this->dispatch('afterScript', $script, $this);
@@ -200,6 +202,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $result = $this->driver->executeAsyncScript($script, $arguments);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
         $this->dispatch('afterScript', $script, $this);
 
@@ -218,6 +221,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this;
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -231,6 +235,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getCurrentURL();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -244,6 +249,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getPageSource();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -257,6 +263,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getTitle();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -270,6 +277,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getWindowHandle();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -283,6 +291,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getWindowHandles();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -295,6 +304,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $this->driver->quit();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -309,6 +319,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->takeScreenshot($save_as);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -324,6 +335,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->wait($timeout_in_second, $interval_in_millisecond);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -337,6 +349,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->manage();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -353,6 +366,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             );
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -366,6 +380,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->switchTo();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -379,13 +394,16 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->getTouch();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
-    private function dispatchOnException($exception)
+    /**
+     * @param WebDriverException $exception
+     */
+    private function dispatchOnException(WebDriverException $exception)
     {
         $this->dispatch('onException', $exception, $this);
-        throw $exception;
     }
 
     public function execute($name, $params)
@@ -394,6 +412,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             return $this->driver->execute($name, $params);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 }
