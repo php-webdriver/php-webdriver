@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.3.0 - 2017-01-13
 ### Added
 - Added `getCapabilities()` method of `RemoteWebDriver`, to retrieve actual capabilities acknowledged by the remote driver on startup.
 - Added option to pass required capabilities when creating `RemoteWebDriver`. (So far only desired capabilities were supported.)
@@ -14,7 +16,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
     - `elementTextContains` (as an alias for `textToBePresentInElement`) - text in element contains given text
     - `elementTextMatches` - text in element matches regular expression
     - `numberOfWindowsToBe` - number of opened windows equals given number
-- Possibility to select option of `<select>` by its partial text (using `selectByVisiblePartialText()`)
+- Possibility to select option of `<select>` by its partial text (using `selectByVisiblePartialText()`).
 - `XPathEscaper` helper class to quote XPaths containing both single and double quotes.
 - `WebDriverSelectInterface`, to allow implementation of custom select-like components, eg. those not built around and actual select tag.
 
@@ -22,7 +24,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - `Symfony\Process` is used to start local WebDriver processes (when browsers are run directly, without Selenium server) to workaround some PHP bugs and improve portability.
 - Clarified meaning of selenium server URL variable in methods of `RemoteWebDriver` class.
 - Deprecated `setSessionID()` and `setCommandExecutor()` methods of `RemoteWebDriver` class; these values should be immutable and thus passed only via constructor.
-- Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`
+- Deprecated `WebDriverExpectedCondition::textToBePresentInElement()` in favor of `elementTextContains()`.
 - Throw an exception when attempting to deselect options of non-multiselect (it already didn't have any effect, but was silently ignored).
 - Optimize performance of `(de)selectByIndex()` and `getAllSelectedOptions()` methods of `WebDriverSelect` when used with non-multiple select element.
 
