@@ -20,6 +20,7 @@ use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverCapabilities;
+use Facebook\WebDriver\WebDriverCommandExecutor;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
 use Facebook\WebDriver\WebDriverNavigation;
@@ -507,10 +508,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @deprecated To be removed in the future. Executor should be passed in the constructor.
      * @internal
      * @codeCoverageIgnore
-     * @param HttpCommandExecutor $executor
+     * @param WebDriverCommandExecutor $executor Despite the typehint, it have be an instance of HttpCommandExecutor.
      * @return RemoteWebDriver
      */
-    public function setCommandExecutor(HttpCommandExecutor $executor)
+    public function setCommandExecutor(WebDriverCommandExecutor $executor)
     {
         $this->executor = $executor;
 
