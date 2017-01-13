@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+
 /**
  * The interface for WebDriver.
  */
@@ -125,6 +127,11 @@ interface WebDriver extends WebDriverSearchContext
      * @see WebDriverTargetLocator
      */
     public function switchTo();
+
+    /**
+     * @return WebDriverTouchScreen
+     */
+    public function getTouch();
 
     /**
      * @param string $name

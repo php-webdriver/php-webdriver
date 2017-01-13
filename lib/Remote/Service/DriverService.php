@@ -46,7 +46,7 @@ class DriverService
     private $environment;
 
     /**
-     * @var Process
+     * @var Process|null
      */
     private $process;
 

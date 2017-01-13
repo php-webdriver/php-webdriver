@@ -20,16 +20,16 @@ use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverCapabilities;
-use Facebook\WebDriver\WebDriverCommandExecutor;
 use Facebook\WebDriver\WebDriverElement;
+use Facebook\WebDriver\WebDriverHasInputDevices;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
 
-class RemoteWebDriver implements WebDriver, JavaScriptExecutor
+class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInputDevices
 {
     /**
-     * @var HttpCommandExecutor
+     * @var HttpCommandExecutor|null
      */
     protected $executor;
     /**
@@ -507,10 +507,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor
      * @deprecated To be removed in the future. Executor should be passed in the constructor.
      * @internal
      * @codeCoverageIgnore
-     * @param WebDriverCommandExecutor $executor
+     * @param HttpCommandExecutor $executor
      * @return RemoteWebDriver
      */
-    public function setCommandExecutor(WebDriverCommandExecutor $executor)
+    public function setCommandExecutor(HttpCommandExecutor $executor)
     {
         $this->executor = $executor;
 
