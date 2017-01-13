@@ -130,8 +130,9 @@ interface WebDriver extends WebDriverSearchContext
 
     /**
      * @return WebDriverTouchScreen
+     * @todo Add in next major release (BC)
      */
-    public function getTouch();
+    //public function getTouch();
 
     /**
      * @param string $name
