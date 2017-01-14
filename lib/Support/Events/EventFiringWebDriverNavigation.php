@@ -38,8 +38,6 @@ class EventFiringWebDriverNavigation
     {
         $this->navigator = $navigator;
         $this->dispatcher = $dispatcher;
-
-        return $this;
     }
 
     /**
@@ -130,6 +128,7 @@ class EventFiringWebDriverNavigation
             return $this;
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
     }
 
@@ -145,11 +144,14 @@ class EventFiringWebDriverNavigation
             $url,
             $this->getDispatcher()->getDefaultDriver()
         );
+
         try {
             $this->navigator->to($url);
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
+            throw $exception;
         }
+
         $this->dispatch(
             'afterNavigateTo',
             $url,
@@ -159,9 +161,11 @@ class EventFiringWebDriverNavigation
         return $this;
     }
 
-    private function dispatchOnException($exception)
+    /**
+     * @param WebDriverException $exception
+     */
+    private function dispatchOnException(WebDriverException $exception)
     {
         $this->dispatch('onException', $exception);
-        throw $exception;
     }
 }

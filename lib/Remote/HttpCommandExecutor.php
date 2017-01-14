@@ -154,7 +154,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         if (!empty($http_proxy)) {
             curl_setopt($this->curl, CURLOPT_PROXY, $http_proxy);
-            if (!empty($http_proxy_port)) {
+            if ($http_proxy_port !== null) {
                 curl_setopt($this->curl, CURLOPT_PROXYPORT, $http_proxy_port);
             }
         }

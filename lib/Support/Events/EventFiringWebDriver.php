@@ -398,14 +398,6 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
         }
     }
 
-    /**
-     * @param WebDriverException $exception
-     */
-    private function dispatchOnException(WebDriverException $exception)
-    {
-        $this->dispatch('onException', $exception, $this);
-    }
-
     public function execute($name, $params)
     {
         try {
@@ -414,5 +406,13 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
             $this->dispatchOnException($exception);
             throw $exception;
         }
+    }
+
+    /**
+     * @param WebDriverException $exception
+     */
+    private function dispatchOnException(WebDriverException $exception)
+    {
+        $this->dispatch('onException', $exception, $this);
     }
 }
