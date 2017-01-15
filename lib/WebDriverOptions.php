@@ -123,7 +123,7 @@ class WebDriverOptions
     {
         if (!isset($cookie['name']) ||
             $cookie['name'] === '' ||
-            strpos($cookie['name'], ';') !== false
+            mb_strpos($cookie['name'], ';') !== false
         ) {
             throw new InvalidArgumentException(
                 '"name" should be non-empty and does not contain a ";"'
@@ -136,7 +136,7 @@ class WebDriverOptions
             );
         }
 
-        if (isset($cookie['domain']) && strpos($cookie['domain'], ':') !== false) {
+        if (isset($cookie['domain']) && mb_strpos($cookie['domain'], ':') !== false) {
             throw new InvalidArgumentException(
                 '"domain" should not contain a port:' . (string) $cookie['domain']
             );

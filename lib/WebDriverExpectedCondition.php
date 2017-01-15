@@ -72,7 +72,7 @@ class WebDriverExpectedCondition
     {
         return new static(
             function (WebDriver $driver) use ($title) {
-                return strpos($driver->getTitle(), $title) !== false;
+                return mb_strpos($driver->getTitle(), $title) !== false;
             }
         );
     }
@@ -118,7 +118,7 @@ class WebDriverExpectedCondition
     {
         return new static(
             function (WebDriver $driver) use ($url) {
-                return strpos($driver->getCurrentURL(), $url) !== false;
+                return mb_strpos($driver->getCurrentURL(), $url) !== false;
             }
         );
     }
@@ -240,7 +240,7 @@ class WebDriverExpectedCondition
                 try {
                     $element_text = $driver->findElement($by)->getText();
 
-                    return strpos($element_text, $text) !== false;
+                    return mb_strpos($element_text, $text) !== false;
                 } catch (StaleElementReferenceException $e) {
                     return null;
                 }
@@ -303,7 +303,7 @@ class WebDriverExpectedCondition
                 try {
                     $element_text = $driver->findElement($by)->getAttribute('value');
 
-                    return strpos($element_text, $text) !== false;
+                    return mb_strpos($element_text, $text) !== false;
                 } catch (StaleElementReferenceException $e) {
                     return null;
                 }

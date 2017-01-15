@@ -27,12 +27,12 @@ class XPathEscaper
     public static function escapeQuotes($xpathToEscape)
     {
         // Single quotes not present => we can quote in them
-        if (strpos($xpathToEscape, "'") === false) {
+        if (mb_strpos($xpathToEscape, "'") === false) {
             return sprintf("'%s'", $xpathToEscape);
         }
 
         // Double quotes not present => we can quote in them
-        if (strpos($xpathToEscape, '"') === false) {
+        if (mb_strpos($xpathToEscape, '"') === false) {
             return sprintf('"%s"', $xpathToEscape);
         }
 
