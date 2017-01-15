@@ -34,17 +34,17 @@ class WebDriverExpectedCondition
      */
     private $apply;
 
+    protected function __construct(callable $apply)
+    {
+        $this->apply = $apply;
+    }
+
     /**
      * @return callable A callable function to be executed by WebDriverWait
      */
     public function getApply()
     {
         return $this->apply;
-    }
-
-    protected function __construct(callable $apply)
-    {
-        $this->apply = $apply;
     }
 
     /**

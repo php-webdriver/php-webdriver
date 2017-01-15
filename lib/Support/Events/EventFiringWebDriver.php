@@ -61,34 +61,11 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * @param mixed $method
-     */
-    protected function dispatch($method)
-    {
-        if (!$this->dispatcher) {
-            return;
-        }
-
-        $arguments = func_get_args();
-        unset($arguments[0]);
-        $this->dispatcher->dispatch($method, $arguments);
-    }
-
-    /**
      * @return WebDriver
      */
     public function getWebDriver()
     {
         return $this->driver;
-    }
-
-    /**
-     * @param WebDriverElement $element
-     * @return EventFiringWebElement
-     */
-    protected function newElement(WebDriverElement $element)
-    {
-        return new EventFiringWebElement($element, $this->getDispatcher());
     }
 
     /**
@@ -409,9 +386,32 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
+     * @param WebDriverElement $element
+     * @return EventFiringWebElement
+     */
+    protected function newElement(WebDriverElement $element)
+    {
+        return new EventFiringWebElement($element, $this->getDispatcher());
+    }
+
+    /**
+     * @param mixed $method
+     */
+    protected function dispatch($method)
+    {
+        if (!$this->dispatcher) {
+            return;
+        }
+
+        $arguments = func_get_args();
+        unset($arguments[0]);
+        $this->dispatcher->dispatch($method, $arguments);
+    }
+
+    /**
      * @param WebDriverException $exception
      */
-    private function dispatchOnException(WebDriverException $exception)
+    protected function dispatchOnException(WebDriverException $exception)
     {
         $this->dispatch('onException', $exception, $this);
     }
