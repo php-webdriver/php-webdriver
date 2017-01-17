@@ -1,5 +1,0 @@
-# Fixes a vulnerability in CentOS: http://stackoverflow.com/questions/20533279/prevent-php-from-parsing-non-php-files-such-as-somefile-php-txt
-<FilesMatch \.php\.txt$>
-    RemoveHandler .php
-    ForceType text/plain
-</FilesMatch>
