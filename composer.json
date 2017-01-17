@@ -22,9 +22,6 @@
     "php-mock/php-mock-phpunit": "^1.1",
     "satooshi/php-coveralls": "^1.0"
   },
-  "suggest": {
-    "phpdocumentor/phpdocumentor": "2.*"
-  },
   "autoload": {
     "psr-4": {
       "Facebook\\WebDriver\\": "lib/"
