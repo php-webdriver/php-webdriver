@@ -77,9 +77,18 @@ For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 ## More information
 
-Check out the Selenium docs and wiki at http://docs.seleniumhq.org/docs/ and https://code.google.com/p/selenium/wiki
+Some how-tos are provided right here in [our GitHub wiki](https://github.com/facebook/php-webdriver/wiki).
 
-Learn how to integrate it with PHPUnit [Blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) | [Demo Project](https://github.com/DavertMik/php-webdriver-demo)
+You may also want to check out the Selenium [docs](http://docs.seleniumhq.org/docs/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
+
+## Testing framework integration
+
+To take advantage of automatized testing you will most probably want to integrate php-webdriver to your testing framework.
+There are some project already providing this:
+
+- [Steward](https://github.com/lmc-eu/steward) integrates php-webdriver directly to [PHPUnit](https://phpunit.de/), also providers parallelization.
+- [Codeception](http://codeception.com) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](http://codeception.com/docs/modules/WebDriver).
+- You can also check out this [blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration.
 
 ## Support
 
