@@ -17,7 +17,7 @@ The concepts of this library are very similar to the "official" Java, .NET, Pyth
 **This is new version of PHP client, rewritten from scratch starting 2013.**
 Using the old version? Check out [Adam Goucher's fork](https://github.com/Element-34/php-webdriver) of it.
 
-Looking for API documentation of php-webdriver? See http://facebook.github.io/php-webdriver/
+Looking for API documentation of php-webdriver? See [https://facebook.github.io/php-webdriver/](https://facebook.github.io/php-webdriver/latest/)
 
 Any complaint, question, idea? You can post it on the user group https://www.facebook.com/groups/phpwebdriver/.
 
