@@ -127,26 +127,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * Cast legacy types (array or null) to DesiredCapabilities object. To be removed in future when instance of
-     * DesiredCapabilities will be required.
-     *
-     * @param array|DesiredCapabilities|null $desired_capabilities
-     * @return DesiredCapabilities
-     */
-    protected static function castToDesiredCapabilitiesObject($desired_capabilities = null)
-    {
-        if ($desired_capabilities === null) {
-            return new DesiredCapabilities();
-        }
-
-        if (is_array($desired_capabilities)) {
-            return new DesiredCapabilities($desired_capabilities);
-        }
-
-        return $desired_capabilities;
-    }
-
-    /**
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
      * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
@@ -291,29 +271,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         $this->execute(DriverCommand::QUIT);
         $this->executor = null;
-    }
-
-    /**
-     * Prepare arguments for JavaScript injection
-     *
-     * @param array $arguments
-     * @return array
-     */
-    private function prepareScriptArguments(array $arguments)
-    {
-        $args = [];
-        foreach ($arguments as $key => $value) {
-            if ($value instanceof WebDriverElement) {
-                $args[$key] = ['ELEMENT' => $value->getID()];
-            } else {
-                if (is_array($value)) {
-                    $value = $this->prepareScriptArguments($value);
-                }
-                $args[$key] = $value;
-            }
-        }
-
-        return $args;
     }
 
     /**
@@ -470,18 +427,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * @return RemoteExecuteMethod
-     */
-    protected function getExecuteMethod()
-    {
-        if (!$this->executeMethod) {
-            $this->executeMethod = new RemoteExecuteMethod($this);
-        }
-
-        return $this->executeMethod;
-    }
-
-    /**
      * Construct a new action builder.
      *
      * @return WebDriverActions
@@ -489,17 +434,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function action()
     {
         return new WebDriverActions($this);
-    }
-
-    /**
-     * Return the WebDriverElement with the given id.
-     *
-     * @param string $id The id of the element to be created.
-     * @return RemoteWebElement
-     */
-    protected function newElement($id)
-    {
-        return new RemoteWebElement($this->getExecuteMethod(), $id);
     }
 
     /**
@@ -600,5 +534,71 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return null;
+    }
+
+    /**
+     * Prepare arguments for JavaScript injection
+     *
+     * @param array $arguments
+     * @return array
+     */
+    protected function prepareScriptArguments(array $arguments)
+    {
+        $args = [];
+        foreach ($arguments as $key => $value) {
+            if ($value instanceof WebDriverElement) {
+                $args[$key] = ['ELEMENT' => $value->getID()];
+            } else {
+                if (is_array($value)) {
+                    $value = $this->prepareScriptArguments($value);
+                }
+                $args[$key] = $value;
+            }
+        }
+
+        return $args;
+    }
+
+    /**
+     * @return RemoteExecuteMethod
+     */
+    protected function getExecuteMethod()
+    {
+        if (!$this->executeMethod) {
+            $this->executeMethod = new RemoteExecuteMethod($this);
+        }
+
+        return $this->executeMethod;
+    }
+
+    /**
+     * Return the WebDriverElement with the given id.
+     *
+     * @param string $id The id of the element to be created.
+     * @return RemoteWebElement
+     */
+    protected function newElement($id)
+    {
+        return new RemoteWebElement($this->getExecuteMethod(), $id);
+    }
+
+    /**
+     * Cast legacy types (array or null) to DesiredCapabilities object. To be removed in future when instance of
+     * DesiredCapabilities will be required.
+     *
+     * @param array|DesiredCapabilities|null $desired_capabilities
+     * @return DesiredCapabilities
+     */
+    protected static function castToDesiredCapabilitiesObject($desired_capabilities = null)
+    {
+        if ($desired_capabilities === null) {
+            return new DesiredCapabilities();
+        }
+
+        if (is_array($desired_capabilities)) {
+            return new DesiredCapabilities($desired_capabilities);
+        }
+
+        return $desired_capabilities;
     }
 }

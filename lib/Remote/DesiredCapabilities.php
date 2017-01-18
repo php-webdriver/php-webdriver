@@ -176,30 +176,6 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
-     * @param string $key
-     * @param mixed $value
-     * @return DesiredCapabilities
-     */
-    private function set($key, $value)
-    {
-        $this->capabilities[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    private function get($key, $default = null)
-    {
-        return isset($this->capabilities[$key])
-            ? $this->capabilities[$key]
-            : $default;
-    }
-
-    /**
      * @return DesiredCapabilities
      */
     public static function android()
@@ -338,5 +314,29 @@ class DesiredCapabilities implements WebDriverCapabilities
             WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::PHANTOMJS,
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
         ]);
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return DesiredCapabilities
+     */
+    private function set($key, $value)
+    {
+        $this->capabilities[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    private function get($key, $default = null)
+    {
+        return isset($this->capabilities[$key])
+            ? $this->capabilities[$key]
+            : $default;
     }
 }

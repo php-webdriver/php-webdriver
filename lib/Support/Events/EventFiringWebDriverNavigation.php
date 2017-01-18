@@ -49,20 +49,6 @@ class EventFiringWebDriverNavigation
     }
 
     /**
-     * @param mixed $method
-     */
-    protected function dispatch($method)
-    {
-        if (!$this->dispatcher) {
-            return;
-        }
-
-        $arguments = func_get_args();
-        unset($arguments[0]);
-        $this->dispatcher->dispatch($method, $arguments);
-    }
-
-    /**
      * @return WebDriverNavigation
      */
     public function getNavigator()
@@ -162,9 +148,23 @@ class EventFiringWebDriverNavigation
     }
 
     /**
+     * @param mixed $method
+     */
+    protected function dispatch($method)
+    {
+        if (!$this->dispatcher) {
+            return;
+        }
+
+        $arguments = func_get_args();
+        unset($arguments[0]);
+        $this->dispatcher->dispatch($method, $arguments);
+    }
+
+    /**
      * @param WebDriverException $exception
      */
-    private function dispatchOnException(WebDriverException $exception)
+    protected function dispatchOnException(WebDriverException $exception)
     {
         $this->dispatch('onException', $exception);
     }

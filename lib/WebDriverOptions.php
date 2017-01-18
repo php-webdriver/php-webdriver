@@ -54,7 +54,7 @@ class WebDriverOptions
      */
     public function addCookie(array $cookie)
     {
-        $this->validate($cookie);
+        $this->validateCookie($cookie);
         $this->executor->execute(
             DriverCommand::ADD_COOKIE,
             ['cookie' => $cookie]
@@ -119,30 +119,6 @@ class WebDriverOptions
         return $this->executor->execute(DriverCommand::GET_ALL_COOKIES);
     }
 
-    private function validate(array $cookie)
-    {
-        if (!isset($cookie['name']) ||
-            $cookie['name'] === '' ||
-            strpos($cookie['name'], ';') !== false
-        ) {
-            throw new InvalidArgumentException(
-                '"name" should be non-empty and does not contain a ";"'
-            );
-        }
-
-        if (!isset($cookie['value'])) {
-            throw new InvalidArgumentException(
-                '"value" is required when setting a cookie.'
-            );
-        }
-
-        if (isset($cookie['domain']) && strpos($cookie['domain'], ':') !== false) {
-            throw new InvalidArgumentException(
-                '"domain" should not contain a port:' . (string) $cookie['domain']
-            );
-        }
-    }
-
     /**
      * Return the interface for managing driver timeouts.
      *
@@ -188,5 +164,24 @@ class WebDriverOptions
     public function getAvailableLogTypes()
     {
         return $this->executor->execute(DriverCommand::GET_AVAILABLE_LOG_TYPES);
+    }
+
+    /**
+     * @param array $cookie
+     * @throws \InvalidArgumentException
+     */
+    private function validateCookie(array $cookie)
+    {
+        if (!isset($cookie['name']) || $cookie['name'] === '' || mb_strpos($cookie['name'], ';') !== false) {
+            throw new InvalidArgumentException('"name" should be non-empty and does not contain a ";"');
+        }
+
+        if (!isset($cookie['value'])) {
+            throw new InvalidArgumentException('"value" is required when setting a cookie.');
+        }
+
+        if (isset($cookie['domain']) && mb_strpos($cookie['domain'], ':') !== false) {
+            throw new InvalidArgumentException('"domain" should not contain a port:' . (string) $cookie['domain']);
+        }
     }
 }

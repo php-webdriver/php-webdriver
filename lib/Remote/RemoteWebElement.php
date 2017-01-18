@@ -254,7 +254,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         // until this issue is not resolved :
         // https://github.com/operasoftware/operadriver/issues/102
         // Remove it when fixed to be consistent with the protocol.
-        return strtolower($this->executor->execute(
+        return mb_strtolower($this->executor->execute(
             DriverCommand::GET_ELEMENT_TAG_NAME,
             [':id' => $this->id]
         ));
@@ -343,42 +343,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Upload a local file to the server
-     *
-     * @param string $local_file
-     *
-     * @throws WebDriverException
-     * @return string The remote path of the file.
-     */
-    private function upload($local_file)
-    {
-        if (!is_file($local_file)) {
-            throw new WebDriverException('You may only upload files: ' . $local_file);
-        }
-
-        // Create a temporary file in the system temp directory.
-        $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverZip');
-        $zip = new ZipArchive();
-        if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
-            return false;
-        }
-        $info = pathinfo($local_file);
-        $file_name = $info['basename'];
-        $zip->addFile($local_file, $file_name);
-        $zip->close();
-        $params = [
-            'file' => base64_encode(file_get_contents($temp_zip)),
-        ];
-        $remote_path = $this->executor->execute(
-            DriverCommand::UPLOAD_FILE,
-            $params
-        );
-        unlink($temp_zip);
-
-        return $remote_path;
-    }
-
-    /**
      * Set the fileDetector in order to let the RemoteWebElement to know that
      * you are going to upload a file.
      *
@@ -449,5 +413,41 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     protected function newElement($id)
     {
         return new static($this->executor, $id);
+    }
+
+    /**
+     * Upload a local file to the server
+     *
+     * @param string $local_file
+     *
+     * @throws WebDriverException
+     * @return string The remote path of the file.
+     */
+    protected function upload($local_file)
+    {
+        if (!is_file($local_file)) {
+            throw new WebDriverException('You may only upload files: ' . $local_file);
+        }
+
+        // Create a temporary file in the system temp directory.
+        $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverZip');
+        $zip = new ZipArchive();
+        if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
+            return false;
+        }
+        $info = pathinfo($local_file);
+        $file_name = $info['basename'];
+        $zip->addFile($local_file, $file_name);
+        $zip->close();
+        $params = [
+            'file' => base64_encode(file_get_contents($temp_zip)),
+        ];
+        $remote_path = $this->executor->execute(
+            DriverCommand::UPLOAD_FILE,
+            $params
+        );
+        unlink($temp_zip);
+
+        return $remote_path;
     }
 }

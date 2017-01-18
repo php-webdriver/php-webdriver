@@ -55,7 +55,15 @@ class ChromeDriver extends RemoteWebDriver
     /**
      * Always throws an exception. Use ChromeDriver::start() instead.
      *
+     * @param string $selenium_server_url
+     * @param DesiredCapabilities|array $desired_capabilities
+     * @param int|null $connection_timeout_in_ms
+     * @param int|null $request_timeout_in_ms
+     * @param string|null $http_proxy
+     * @param int|null $http_proxy_port
+     * @param DesiredCapabilities $required_capabilities
      * @throws WebDriverException
+     * @return RemoteWebDriver
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',
