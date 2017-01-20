@@ -16,10 +16,13 @@
 namespace Facebook\WebDriver;
 
 /**
- * @covers Facebook\WebDriver\Remote\RemoteWebElement
+ * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebElement
  */
 class RemoteWebElementTest extends WebDriverTestCase
 {
+    /**
+     * @covers ::getText
+     */
     public function testShouldGetText()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -30,6 +33,9 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertEquals('Multiple spaces are stripped', $elementWithTextWithSpaces->getText());
     }
 
+    /**
+     * @covers ::getAttribute
+     */
     public function testShouldGetAttributeValue()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -41,6 +47,9 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('text-simple', $element->getAttribute('id'));
     }
 
+    /**
+     * @covers ::getLocation
+     */
     public function testShouldGetLocation()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -53,6 +62,9 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame(500, $elementLocation->getY());
     }
 
+    /**
+     * @covers ::getSize
+     */
     public function testShouldGetSize()
     {
         $this->driver->get($this->getTestPath('index.html'));
@@ -65,6 +77,9 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame(66, $elementSize->getHeight());
     }
 
+    /**
+     * @covers ::getCSSValue
+     */
     public function testShouldGetCssValue()
     {
         $this->driver->get($this->getTestPath('index.html'));
