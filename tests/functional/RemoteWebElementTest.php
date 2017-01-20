@@ -93,4 +93,168 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('rgba(0, 0, 0, 1)', $elementWithBorder->getCSSValue('border-left-color'));
         $this->assertSame('rgba(0, 0, 0, 1)', $elementWithoutBorder->getCSSValue('border-left-color'));
     }
+
+    /**
+     * @covers ::getTagName
+     */
+    public function testShouldGetTagName()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $paragraphElement = $this->driver->findElement(WebDriverBy::id('id_test'));
+
+        $this->assertSame('p', $paragraphElement->getTagName());
+    }
+
+    /**
+     * @covers ::click
+     */
+    public function testShouldClick()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+        $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
+
+        $linkElement->click();
+
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::urlContains('form.html')
+        );
+    }
+
+    /**
+     * @covers ::clear
+     */
+    public function testShouldClearFormElementText()
+    {
+        $this->driver->get($this->getTestPath('form.html'));
+
+        $input = $this->driver->findElement(WebDriverBy::id('input-text'));
+        $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
+
+        $this->assertSame('Default input text', $input->getAttribute('value'));
+        $input->clear();
+        $this->assertSame('', $input->getAttribute('value'));
+
+        $this->assertSame('Default textarea text', $textarea->getAttribute('value'));
+        $textarea->clear();
+        $this->assertSame('', $textarea->getAttribute('value'));
+    }
+
+    /**
+     * @covers ::sendKeys
+     */
+    public function testShouldSendKeysToFormElement()
+    {
+        $this->driver->get($this->getTestPath('form.html'));
+
+        $input = $this->driver->findElement(WebDriverBy::id('input-text'));
+        $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
+
+        $input->clear();
+        $input->sendKeys('foo bar');
+        $this->assertSame('foo bar', $input->getAttribute('value'));
+        $input->sendKeys(' baz');
+        $this->assertSame('foo bar baz', $input->getAttribute('value'));
+
+        $textarea->clear();
+        $textarea->sendKeys('foo bar');
+        $this->assertSame('foo bar', $textarea->getAttribute('value'));
+        $textarea->sendKeys(' baz');
+        $this->assertSame('foo bar baz', $textarea->getAttribute('value'));
+    }
+
+    /**
+     * @covers ::isEnabled
+     */
+    public function testShouldDetectEnabledInputs()
+    {
+        $this->driver->get($this->getTestPath('form.html'));
+
+        $inputEnabled = $this->driver->findElement(WebDriverBy::id('input-text'));
+        $inputDisabled = $this->driver->findElement(WebDriverBy::id('input-text-disabled'));
+
+        $this->assertTrue($inputEnabled->isEnabled());
+        $this->assertFalse($inputDisabled->isEnabled());
+    }
+
+    /**
+     * @covers ::isSelected
+     */
+    public function testShouldSelectedInputsOrOptions()
+    {
+        $this->driver->get($this->getTestPath('form.html'));
+
+        $checkboxSelected = $this->driver->findElement(
+            WebDriverBy::cssSelector('input[name=checkbox][value=second]')
+        );
+        $checkboxNotSelected = $this->driver->findElement(
+            WebDriverBy::cssSelector('input[name=checkbox][value=first]')
+        );
+        $this->assertTrue($checkboxSelected->isSelected());
+        $this->assertFalse($checkboxNotSelected->isSelected());
+
+        $radioSelected = $this->driver->findElement(WebDriverBy::cssSelector('input[name=radio][value=second]'));
+        $radioNotSelected = $this->driver->findElement(WebDriverBy::cssSelector('input[name=radio][value=first]'));
+        $this->assertTrue($radioSelected->isSelected());
+        $this->assertFalse($radioNotSelected->isSelected());
+
+        $optionSelected = $this->driver->findElement(WebDriverBy::cssSelector('#select option[value=first]'));
+        $optionNotSelected = $this->driver->findElement(WebDriverBy::cssSelector('#select option[value=second]'));
+        $this->assertTrue($optionSelected->isSelected());
+        $this->assertFalse($optionNotSelected->isSelected());
+    }
+
+    /**
+     * @covers ::submit
+     */
+    public function testShouldSubmitFormBySubmitEventOnForm()
+    {
+        $this->driver->get($this->getTestPageUrl('form.html'));
+
+        $formElement = $this->driver->findElement(WebDriverBy::cssSelector('form'));
+
+        $formElement->submit();
+
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::titleIs('Form submit endpoint')
+        );
+
+        $this->assertSame('Received POST data', $this->driver->findElement(WebDriverBy::cssSelector('h2'))->getText());
+    }
+
+    /**
+     * @covers ::submit
+     */
+    public function testShouldSubmitFormBySubmitEventOnFormInputElement()
+    {
+        $this->driver->get($this->getTestPageUrl('form.html'));
+
+        $inputTextElement = $this->driver->findElement(WebDriverBy::id('input-text'));
+
+        $inputTextElement->submit();
+
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::titleIs('Form submit endpoint')
+        );
+
+        $this->assertSame('Received POST data', $this->driver->findElement(WebDriverBy::cssSelector('h2'))->getText());
+    }
+
+    /**
+     * @covers ::click
+     */
+    public function testShouldSubmitFormByClickOnSubmitInput()
+    {
+        $this->driver->get($this->getTestPageUrl('form.html'));
+
+        $submitElement = $this->driver->findElement(WebDriverBy::id('submit'));
+
+        $submitElement->click();
+
+        $this->driver->wait()->until(
+            WebDriverExpectedCondition::titleIs('Form submit endpoint')
+        );
+
+        $this->assertSame('Received POST data', $this->driver->findElement(WebDriverBy::cssSelector('h2'))->getText());
+    }
 }
