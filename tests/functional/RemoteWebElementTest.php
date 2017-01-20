@@ -257,4 +257,23 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         $this->assertSame('Received POST data', $this->driver->findElement(WebDriverBy::cssSelector('h2'))->getText());
     }
+
+    /**
+     * @covers ::equals
+     */
+    public function testShouldCompareEqualsElement()
+    {
+        $this->driver->get($this->getTestPath('index.html'));
+
+        $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+        $differentElement = $this->driver->findElement(WebDriverBy::cssSelector('#text-simple'));
+        $againTheFirstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+
+        $this->assertTrue($firstElement->equals($againTheFirstElement));
+        $this->assertTrue($againTheFirstElement->equals($firstElement));
+
+        $this->assertFalse($differentElement->equals($firstElement));
+        $this->assertFalse($firstElement->equals($differentElement));
+        $this->assertFalse($differentElement->equals($againTheFirstElement));
+    }
 }
