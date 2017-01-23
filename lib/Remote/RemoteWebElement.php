@@ -244,13 +244,13 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Get the tag name of this element.
+     * Get the (lowercase) tag name of this element.
      *
      * @return string The tag name.
      */
     public function getTagName()
     {
-        // Force tag name to be lowercase as expected by protocol for Opera driver
+        // Force tag name to be lowercase as expected by JsonWire protocol for Opera driver
         // until this issue is not resolved :
         // https://github.com/operasoftware/operadriver/issues/102
         // Remove it when fixed to be consistent with the protocol.

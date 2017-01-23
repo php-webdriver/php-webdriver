@@ -5,16 +5,22 @@
     <title>php-webdriver form test page</title>
 </head>
 <body>
-    <form>
+    <form method="post" action="submit.php">
         <label>
             Text:
-            <input type="text" name="text" id="text"/>
+            <input type="text" name="text" id="input-text" value="Default input text"/>
+        </label>
+        <br>
+
+        <label>
+            Text disabled:
+            <input type="text" name="text" id="input-text-disabled" value="Text of disabled input" disabled/>
         </label>
         <br>
 
         <label>
             Textarea:
-            <textarea name="textarea" id="textarea"></textarea>
+            <textarea name="textarea" id="textarea">Default textarea text</textarea>
         </label>
         <br>
 
@@ -37,6 +43,22 @@
             <option value="fifth">   Fifth surrounded by spaces    </option>
         </select>
         <br>
+
+        <fieldset>
+            <legend>Checkboxes</legend>
+            <input type="checkbox" name="checkbox" value="first">First<br>
+            <input type="checkbox" name="checkbox" value="second" checked>Second (preselected)<br>
+            <input type="checkbox" name="checkbox" value="third" checked>Third (preselected)<br>
+            <input type="checkbox" name="checkbox" value="fourth">Fourth<br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Radio buttons</legend>
+            <input type="radio" name="radio" value="first">First<br>
+            <input type="radio" name="radio" value="second" checked>Second (preselected)<br>
+            <input type="radio" name="radio" value="third">Third<br>
+            <input type="radio" name="radio" value="fourth">Fourth<br>
+        </fieldset>
 
         <p>
             <input type="submit" name="submit" id="submit" value="Submit">
