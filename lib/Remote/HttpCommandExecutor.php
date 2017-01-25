@@ -27,8 +27,7 @@ use InvalidArgumentException;
 class HttpCommandExecutor implements WebDriverCommandExecutor
 {
     /**
-     * @see
-     *   http://code.google.com/p/selenium/wiki/JsonWireProtocol#Command_Reference
+     * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#command-reference
      */
     protected static $commands = [
         DriverCommand::ACCEPT_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/accept_alert'],

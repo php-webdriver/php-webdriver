@@ -66,7 +66,7 @@ class WebDriverExpectedCondition
      * An expectation for checking substring of a page Title.
      *
      * @param string $title The expected substring of Title.
-     * @return WebDriverExpectedCondition <bool> Condition returns whether current page title contains given string.
+     * @return WebDriverExpectedCondition<bool> Condition returns whether current page title contains given string.
      */
     public static function titleContains($title)
     {

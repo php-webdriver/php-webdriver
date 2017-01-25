@@ -145,7 +145,7 @@ class WebDriverOptions
      *
      * @param string $log_type The log type.
      * @return array The list of log entries.
-     * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
+     * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#log-type
      */
     public function getLog($log_type)
     {
@@ -159,7 +159,7 @@ class WebDriverOptions
      * Get available log types.
      *
      * @return array The list of available log types.
-     * @see https://code.google.com/p/selenium/wiki/JsonWireProtocol#Log_Type
+     * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#log-type
      */
     public function getAvailableLogTypes()
     {

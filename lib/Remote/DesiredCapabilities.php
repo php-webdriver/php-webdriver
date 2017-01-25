@@ -136,7 +136,7 @@ class DesiredCapabilities implements WebDriverCapabilities
      * @param bool $enabled
      * @throws Exception
      * @return DesiredCapabilities
-     * @see https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities
+     * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#read-write-capabilities
      */
     public function setJavascriptEnabled($enabled)
     {
@@ -144,7 +144,7 @@ class DesiredCapabilities implements WebDriverCapabilities
         if ($browser && $browser !== WebDriverBrowserType::HTMLUNIT) {
             throw new Exception(
                 'isJavascriptEnable() is a htmlunit-only option. ' .
-                'See https://code.google.com/p/selenium/wiki/DesiredCapabilities#Read-write_capabilities.'
+                'See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#read-write-capabilities.'
             );
         }
 
