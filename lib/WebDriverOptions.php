@@ -37,7 +37,7 @@ class WebDriverOptions
     /**
      * Add a specific cookie.
      *
-     * Here are the valid attributes of a cookie array.
+     * Valid attributes of a cookie array:
      *  'name'    : string The name of the cookie; may not be null or an empty string.
      *  'value'   : string The cookie value; may not be null.
      *  'path'    : string OPTIONAL The path the cookie is visible to. Defaults to "/" if omitted.

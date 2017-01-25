@@ -349,7 +349,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * Basically, if you want WebDriver trying to send a file, set the fileDetector
      * to be LocalFileDetector. Otherwise, keep it UselessFileDetector.
      *
-     *   eg. $element->setFileDetector(new LocalFileDetector);
+     *   eg. `$element->setFileDetector(new LocalFileDetector);`
      *
      * @param FileDetector $detector
      * @return RemoteWebElement

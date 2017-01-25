@@ -340,10 +340,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * Construct a new WebDriverWait by the current WebDriver instance.
      * Sample usage:
      *
+     * ```
      *   $driver->wait(20, 1000)->until(
      *     WebDriverExpectedCondition::titleIs('WebDriver Page')
      *   );
-     *
+     * ```
      * @param int $timeout_in_second
      * @param int $interval_in_millisecond
      *

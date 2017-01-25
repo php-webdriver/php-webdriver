@@ -25,7 +25,7 @@ use Facebook\WebDriver\Remote\ExecuteMethod;
  * Note that they are all blocking functions until the page is loaded by
  * by default. It could be overridden by 'webdriver.load.strategy' in the
  * FirefoxProfile preferences.
- * https://code.google.com/p/selenium/wiki/DesiredCapabilities#settings
+ * https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#firefoxprofile-settings
  */
 class WebDriverNavigation
 {
