@@ -54,6 +54,47 @@ class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
         $options->addCookie($cookieInArray);
     }
 
+    public function testShouldAddCookieFromCookieObject()
+    {
+        $cookieObject = new Cookie('cookieName', 'someValue');
+        $cookieObject->setPath('/bar');
+        $cookieObject->setDomain('foo');
+        $cookieObject->setExpiry(1485388333);
+        $cookieObject->setSecure(false);
+        $cookieObject->setHttpOnly(false);
+
+        $expectedCookieData = [
+            'name' => 'cookieName',
+            'value' => 'someValue',
+            'path' => '/bar',
+            'domain' => 'foo',
+            'expiry' => 1485388333,
+            'secure' => false,
+            'httpOnly' => false,
+        ];
+
+        $this->executor->expects($this->once())
+            ->method('execute')
+            ->with(DriverCommand::ADD_COOKIE, ['cookie' => $expectedCookieData]);
+
+        $options = new WebDriverOptions($this->executor);
+
+        $options->addCookie($cookieObject);
+    }
+
+    public function testShouldNotAllowToCreateCookieFromDifferentObjectThanCookie()
+    {
+        $notCookie = new \stdClass();
+
+        $options = new WebDriverOptions($this->executor);
+
+        $this->setExpectedException(
+            \InvalidArgumentException::class,
+            'Cookie must be set from instance of Cookie class or from array.'
+        );
+        $options->addCookie($notCookie);
+    }
+
     public function testShouldGetAllCookies()
     {
         $this->executor->expects($this->once())
@@ -85,8 +126,9 @@ class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
         $cookies = $options->getCookies();
 
         $this->assertCount(2, $cookies);
-        $this->assertSame('firstCookie', $cookies[0]['name']);
-        $this->assertSame('secondCookie', $cookies[1]['name']);
+        $this->assertContainsOnlyInstancesOf(Cookie::class, $cookies);
+        $this->assertSame('firstCookie', $cookies[0]->getName());
+        $this->assertSame('secondCookie', $cookies[1]->getName());
     }
 
     public function testShouldGetCookieByName()
@@ -119,12 +161,13 @@ class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
 
         $cookie = $options->getCookieNamed('cookieToFind');
 
-        $this->assertSame('cookieToFind', $cookie['name']);
-        $this->assertSame('value', $cookie['value']);
-        $this->assertSame('/', $cookie['path']);
-        $this->assertSame('*.seleniumhq.org', $cookie['domain']);
-        $this->assertFalse($cookie['httpOnly']);
-        $this->assertTrue($cookie['secure']);
+        $this->assertInstanceOf(Cookie::class, $cookie);
+        $this->assertSame('cookieToFind', $cookie->getName());
+        $this->assertSame('value', $cookie->getValue());
+        $this->assertSame('/', $cookie->getPath());
+        $this->assertSame('*.seleniumhq.org', $cookie->getDomain());
+        $this->assertFalse($cookie->isHttpOnly());
+        $this->assertTrue($cookie->isSecure());
     }
 
     public function testShouldReturnNullIfCookieWithNameNotFound()
