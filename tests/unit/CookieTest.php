@@ -135,4 +135,45 @@ class CookieTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($cookie['secure']);
         $this->assertFalse($cookie['httpOnly']);
     }
+
+    /**
+     * @dataProvider invalidCookieProvider
+     * @param string $name
+     * @param string $value
+     * @param string $domain
+     * @param string $expectedMessage
+     */
+    public function testShouldValidateCookie($name, $value, $domain, $expectedMessage)
+    {
+        if ($expectedMessage) {
+            $this->setExpectedException(\InvalidArgumentException::class, $expectedMessage);
+        }
+
+        $cookie = new Cookie($name, $value);
+        if ($domain !== null) {
+            $cookie->setDomain($domain);
+        }
+    }
+
+    /**
+     * @return array[]
+     */
+    public function invalidCookieProvider()
+    {
+        return [
+            // $name, $value, $domain, $expectedMessage
+            'name cannot be empty' => ['', 'foo', null, 'Cookie name should be non-empty'],
+            'name cannot be null' => [null, 'foo', null, 'Cookie name should be non-empty'],
+            'name cannot contain semicolon' => ['name;semicolon', 'foo', null, 'Cookie name should not contain a ";"'],
+            'value could be empty string' => ['name', '', null, null],
+            'value cannot be null' => ['name', null, null, 'Cookie value is required when setting a cookie'],
+            'domain cannot containt port' => [
+                'name',
+                'value',
+                'localhost:443',
+                'Cookie domain "localhost:443" should not contain a port',
+            ],
+            'cookie with valid values' => ['name', 'value', '*.localhost', null],
+        ];
+    }
 }

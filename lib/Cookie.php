@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use InvalidArgumentException;
+
 /**
  * Set values of an cookie.
  *
@@ -41,6 +43,9 @@ class Cookie implements \ArrayAccess
      */
     public function __construct($name, $value)
     {
+        $this->validateCookieName($name);
+        $this->validateCookieValue($value);
+
         $this->cookie['name'] = $name;
         $this->cookie['value'] = $value;
     }
@@ -113,6 +118,10 @@ class Cookie implements \ArrayAccess
      */
     public function setDomain($domain)
     {
+        if (mb_strpos($domain, ':') !== false) {
+            throw new InvalidArgumentException(sprintf('Cookie domain "%s" should not contain a port', $domain));
+        }
+
         $this->cookie['domain'] = $domain;
     }
 
@@ -204,5 +213,29 @@ class Cookie implements \ArrayAccess
     public function offsetUnset($offset)
     {
         unset($this->cookie[$offset]);
+    }
+
+    /**
+     * @param string $name
+     */
+    protected function validateCookieName($name)
+    {
+        if ($name === null || $name === '') {
+            throw new InvalidArgumentException('Cookie name should be non-empty');
+        }
+
+        if (mb_strpos($name, ';') !== false) {
+            throw new InvalidArgumentException('Cookie name should not contain a ";"');
+        }
+    }
+
+    /**
+     * @param string $value
+     */
+    protected function validateCookieValue($value)
+    {
+        if ($value === null) {
+            throw new InvalidArgumentException('Cookie value is required when setting a cookie');
+        }
     }
 }
