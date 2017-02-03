@@ -274,9 +274,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * Inject a snippet of JavaScript into the page for execution in the context
-     * of the currently selected frame. The executed script is assumed to be
-     * synchronous and the result of evaluating the script will be returned.
+     * Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame.
+     * The executed script is assumed to be synchronous and the result of evaluating the script will be returned.
      *
      * @param string $script The script to inject.
      * @param array $arguments The arguments of the script.
@@ -293,13 +292,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * Inject a snippet of JavaScript into the page for asynchronous execution in
-     * the context of the currently selected frame.
+     * Inject a snippet of JavaScript into the page for asynchronous execution in the context of the currently selected
+     * frame.
      *
-     * The driver will pass a callback as the last argument to the snippet, and
-     * block until the callback is invoked.
+     * The driver will pass a callback as the last argument to the snippet, and block until the callback is invoked.
      *
-     * @see WebDriverExecuteAsyncScriptTestCase
+     * You may need to define script timeout using `setScriptTimeout()` method of `WebDriverTimeouts` first.
      *
      * @param string $script The script to inject.
      * @param array $arguments The arguments of the script.
