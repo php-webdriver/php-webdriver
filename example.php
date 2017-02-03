@@ -18,10 +18,10 @@ $driver->get('http://docs.seleniumhq.org/');
 
 // adding cookie
 $driver->manage()->deleteAllCookies();
-$driver->manage()->addCookie([
-    'name' => 'cookie_name',
-    'value' => 'cookie_value',
-]);
+
+$cookie = new Cookie('cookie_name', 'cookie_value');
+$driver->manage()->addCookie($cookie);
+
 $cookies = $driver->manage()->getCookies();
 print_r($cookies);
 

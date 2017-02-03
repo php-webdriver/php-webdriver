@@ -37,27 +37,22 @@ class WebDriverOptions
     /**
      * Add a specific cookie.
      *
-     * Valid attributes of a cookie array:
-     *  'name'    : string The name of the cookie; may not be null or an empty string.
-     *  'value'   : string The cookie value; may not be null.
-     *  'path'    : string OPTIONAL The path the cookie is visible to. Defaults to "/" if omitted.
-     *  'domain'  : string OPTIONAL The domain the cookie is visible to. Defaults to the current browsing context's
-     *                     document's URL domain if omitted.
-     *  'secure'  : bool   OPTIONAL Whether this cookie requires a secure connection (https). Defaults to false if
-     *                     omitted.
-     *  'httpOnly': bool   OPTIONAL Whether the cookie is an HTTP only cookie. Defaults to false if omitted.
-     *  'expiry'  : int    OPTIONAL The cookie's expiration date, specified in seconds since Unix Epoch.
-     *
-     * @see https://w3c.github.io/webdriver/webdriver-spec.html#cookies
-     * @param array $cookie An array with key as the attributes mentioned above.
+     * @see Facebook\WebDriver\Cookie for description of possible cookie properties
+     * @param Cookie|array $cookie Cookie object. May be also created from array for compatibility reasons.
      * @return WebDriverOptions The current instance.
      */
-    public function addCookie(array $cookie)
+    public function addCookie($cookie)
     {
-        $this->validateCookie($cookie);
+        if (is_array($cookie)) {
+            $cookie = Cookie::createFromArray($cookie);
+        }
+        if (!$cookie instanceof Cookie) {
+            throw new InvalidArgumentException('Cookie must be set from instance of Cookie class or from array.');
+        }
+
         $this->executor->execute(
             DriverCommand::ADD_COOKIE,
-            ['cookie' => $cookie]
+            ['cookie' => $cookie->toArray()]
         );
 
         return $this;
@@ -95,7 +90,7 @@ class WebDriverOptions
      * Get the cookie with a given name.
      *
      * @param string $name
-     * @return array The cookie, or null if no cookie with the given name is presented.
+     * @return Cookie The cookie, or null if no cookie with the given name is presented.
      */
     public function getCookieNamed($name)
     {
@@ -112,11 +107,18 @@ class WebDriverOptions
     /**
      * Get all the cookies for the current domain.
      *
-     * @return array The array of cookies presented.
+     * @return Cookie[] The array of cookies presented.
      */
     public function getCookies()
     {
-        return $this->executor->execute(DriverCommand::GET_ALL_COOKIES);
+        $cookieArrays = $this->executor->execute(DriverCommand::GET_ALL_COOKIES);
+        $cookies = [];
+
+        foreach ($cookieArrays as $cookieArray) {
+            $cookies[] = Cookie::createFromArray($cookieArray);
+        }
+
+        return $cookies;
     }
 
     /**
@@ -164,24 +166,5 @@ class WebDriverOptions
     public function getAvailableLogTypes()
     {
         return $this->executor->execute(DriverCommand::GET_AVAILABLE_LOG_TYPES);
-    }
-
-    /**
-     * @param array $cookie
-     * @throws \InvalidArgumentException
-     */
-    private function validateCookie(array $cookie)
-    {
-        if (!isset($cookie['name']) || $cookie['name'] === '' || mb_strpos($cookie['name'], ';') !== false) {
-            throw new InvalidArgumentException('"name" should be non-empty and does not contain a ";"');
-        }
-
-        if (!isset($cookie['value'])) {
-            throw new InvalidArgumentException('"value" is required when setting a cookie.');
-        }
-
-        if (isset($cookie['domain']) && mb_strpos($cookie['domain'], ':') !== false) {
-            throw new InvalidArgumentException('"domain" should not contain a port:' . (string) $cookie['domain']);
-        }
     }
 }
