@@ -192,4 +192,20 @@ class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($options->getCookieNamed('notExistingCookie'));
     }
+
+    public function testShouldReturnTimeoutsInstance()
+    {
+        $options = new WebDriverOptions($this->executor);
+
+        $timeouts = $options->timeouts();
+        $this->assertInstanceOf(WebDriverTimeouts::class, $timeouts);
+    }
+
+    public function testShouldReturnWindowInstance()
+    {
+        $options = new WebDriverOptions($this->executor);
+
+        $window = $options->window();
+        $this->assertInstanceOf(WebDriverWindow::class, $window);
+    }
 }

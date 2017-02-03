@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>php-webdriver test page with delayed element appearing</title>
+</head>
+<body>
+
+<div id="wrapper"></div>
+
+<script>
+    setTimeout(function () {
+        var wrapper = document.getElementById("wrapper");
+        wrapper.innerHTML = '<div id="delayed">Element appearing after 500ms</div>';
+    }, 500);
+</script>
+
+</body>
+</html>
