@@ -29,7 +29,6 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     protected $createWebDriver = true;
     /** @var string */
     protected $serverUrl = 'http://localhost:4444/wd/hub';
-
     /** @var RemoteWebDriver $driver */
     protected $driver;
     /** @var DesiredCapabilities */
