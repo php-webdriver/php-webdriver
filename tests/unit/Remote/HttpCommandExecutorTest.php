@@ -20,6 +20,7 @@ use phpmock\phpunit\PHPMock;
 class HttpCommandExecutorTest extends \PHPUnit_Framework_TestCase
 {
     use PHPMock;
+
     /** @var HttpCommandExecutor */
     private $executor;
 
