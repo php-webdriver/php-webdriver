@@ -59,6 +59,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     protected $executeMethod;
 
+    /**
+     * @param HttpCommandExecutor $commandExecutor
+     * @param string $sessionId
+     * @param WebDriverCapabilities|null $capabilities
+     */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
         $sessionId,
