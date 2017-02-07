@@ -135,7 +135,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
      * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
-     * You cannot the desired capabilities because the session was created before.
+     * You cannot pass the desired capabilities because the session was created before.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
