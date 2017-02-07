@@ -131,7 +131,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::getWindowHandles
+     * @covers ::close
      */
     public function testShouldCloseWindow()
     {
