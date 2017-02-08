@@ -83,6 +83,7 @@ class DriverCommand
     const SET_TIMEOUT = 'setTimeout';
     const IMPLICITLY_WAIT = 'implicitlyWait';
     const SET_SCRIPT_TIMEOUT = 'setScriptTimeout';
+    /** @deprecated */
     const EXECUTE_SQL = 'executeSQL';
     const GET_LOCATION = 'getLocation';
     const SET_LOCATION = 'setLocation';
@@ -91,18 +92,21 @@ class DriverCommand
     const CLEAR_APP_CACHE = 'clearAppCache';
     const IS_BROWSER_ONLINE = 'isBrowserOnline';
     const SET_BROWSER_ONLINE = 'setBrowserOnline';
+    // Local storage
     const GET_LOCAL_STORAGE_ITEM = 'getLocalStorageItem';
     const GET_LOCAL_STORAGE_KEYS = 'getLocalStorageKeys';
     const SET_LOCAL_STORAGE_ITEM = 'setLocalStorageItem';
     const REMOVE_LOCAL_STORAGE_ITEM = 'removeLocalStorageItem';
     const CLEAR_LOCAL_STORAGE = 'clearLocalStorage';
     const GET_LOCAL_STORAGE_SIZE = 'getLocalStorageSize';
+    // Session storage
     const GET_SESSION_STORAGE_ITEM = 'getSessionStorageItem';
     const GET_SESSION_STORAGE_KEYS = 'getSessionStorageKey';
     const SET_SESSION_STORAGE_ITEM = 'setSessionStorageItem';
     const REMOVE_SESSION_STORAGE_ITEM = 'removeSessionStorageItem';
     const CLEAR_SESSION_STORAGE = 'clearSessionStorage';
     const GET_SESSION_STORAGE_SIZE = 'getSessionStorageSize';
+    // Screen orientation
     const SET_SCREEN_ORIENTATION = 'setScreenOrientation';
     const GET_SCREEN_ORIENTATION = 'getScreenOrientation';
     // These belong to the Advanced user interactions - an element is optional for these commands.
