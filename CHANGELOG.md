@@ -5,6 +5,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Cookies should now be set using `Cookie` value object instead of an array when passed to to `addCookie()` method of `WebDriverOptions`.
 - Cookies retrieved using `getCookieNamed()` and `getCookies()` methods of `WebDriverOptions` are now encapsulated in `Cookie` object instead of an plain array. The object implements `ArrayAccess` interface to provide backward compatibility.
+- `ext-zip` is now specified as required dependency in composer.json (but the extension was already required by the code, though).
 
 ## 1.3.0 - 2017-01-13
 ### Added
