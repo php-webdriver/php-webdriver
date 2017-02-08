@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Open an alert</title>
+</head>
+<body>
+
+<p>
+    <a href="#" onclick="javascript:alert('This is alert'); return false;" id="open-alert">Open alert</a>
+    <br>
+
+    <a href="#" onclick="javascript:openConfirm(); return false;" id="open-confirm">Open confirm</a>
+    <br>
+
+    <a href="#" onclick="javascript:openPrompt(); return false;" id="open-prompt">Open prompt</a>
+    <br>
+</p>
+
+<div id="result"></div>
+
+<script>
+    function openConfirm() {
+        document.getElementById("result").innerHTML = (confirm("Do you confirm?") ? 'accepted' : 'dismissed');
+
+        return false;
+    }
+
+    function openPrompt() {
+        document.getElementById("result").innerHTML = prompt("Enter prompt value");
+    }
+</script>
+
+</body>
+</html>
