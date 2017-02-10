@@ -162,14 +162,14 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->executeScript('
             setTimeout(
                 function(){document.getElementById("id_test").innerHTML = "Text changed by script"},
-                250
+                500
             )');
 
         // Make sure the script don't block the test execution
         $this->assertSame('Test by ID', $element->getText());
 
         // If we wait, the script should be executed
-        usleep(300000); // wait 300 ms
+        usleep(550000); // wait 550 ms
         $this->assertSame('Text changed by script', $element->getText());
     }
 
