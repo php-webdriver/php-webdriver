@@ -128,9 +128,9 @@ interface WebDriver extends WebDriverSearchContext
      */
     public function switchTo();
 
+    // TODO: Add in next major release (BC)
     ///**
     // * @return WebDriverTouchScreen
-    // * @todo Add in next major release (BC)
     // */
     //public function getTouch();
 

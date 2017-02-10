@@ -48,4 +48,10 @@ interface WebDriverCapabilities
      * @return bool Whether javascript is enabled.
      */
     public function isJavascriptEnabled();
+
+    // TODO: Add in next major release (BC)
+    ///**
+    // * @return array
+    // */
+    //public function toArray();
 }
