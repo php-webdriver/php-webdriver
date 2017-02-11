@@ -11,6 +11,8 @@ matrix:
     # Add build to run tests against Firefox inside Travis environment (other runs are agains HtmlUnit by default)
     - php: 7.0
       env: BROWSER_NAME="firefox"
+      addons:
+        firefox: "latest-esr"
 
     # Build with lowest possible dependencies
     - php: 7.0
@@ -87,7 +89,6 @@ after_success:
   - travis_retry php vendor/bin/coveralls -v
 
 addons:
-  firefox: "latest-esr"
   apt:
     packages:
       - oracle-java8-installer
