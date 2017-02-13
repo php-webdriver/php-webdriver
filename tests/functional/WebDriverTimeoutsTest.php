@@ -28,7 +28,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
 {
     public function testShouldFailGettingDelayedElementWithoutWait()
     {
-        $this->driver->get($this->getTestPath('delayed_element.html'));
+        $this->driver->get($this->getTestPageUrl('delayed_element.html'));
 
         $this->setExpectedException(NoSuchElementException::class);
         $this->driver->findElement(WebDriverBy::id('delayed'));
@@ -39,7 +39,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
      */
     public function testShouldGetDelayedElementWithImplicitWait()
     {
-        $this->driver->get($this->getTestPath('delayed_element.html'));
+        $this->driver->get($this->getTestPageUrl('delayed_element.html'));
 
         $this->driver->manage()->timeouts()->implicitlyWait(1);
         $element = $this->driver->findElement(WebDriverBy::id('delayed'));
