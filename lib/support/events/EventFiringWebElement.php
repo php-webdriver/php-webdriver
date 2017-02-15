@@ -185,6 +185,19 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable {
   }
 
   /**
+   * @param string $class_name
+   * @return bool
+   * @throws WebDriverException
+   */
+  public function hasClass($class_name) {
+    try {
+      return $this->element->hasClass($class_name);
+    } catch (WebDriverException $exception) {
+      $this->dispatchOnException($exception);
+    }
+  }
+
+  /**
    * @param string $css_property_name
    * @return string
    * @throws WebDriverException

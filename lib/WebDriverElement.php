@@ -41,6 +41,15 @@ interface WebDriverElement extends WebDriverSearchContext {
    */
   public function getAttribute($attribute_name);
 
+
+  /**
+   * return true or flase if this element has a class of @class_name
+   *
+   * @param string $class_name The name of the class.
+   * @return bool
+   */
+  public function hasClass($class_name);
+
   /**
    * Get the value of a given CSS property.
    *
