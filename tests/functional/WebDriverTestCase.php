@@ -25,12 +25,12 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 {
+    /** @var RemoteWebDriver $driver */
+    public $driver;
     /** @var bool Indicate whether WebDriver should be created on setUp */
     protected $createWebDriver = true;
     /** @var string */
     protected $serverUrl = 'http://localhost:4444/wd/hub';
-    /** @var RemoteWebDriver $driver */
-    protected $driver;
     /** @var DesiredCapabilities */
     protected $desiredCapabilities;
 
@@ -38,7 +38,7 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
-        if (getenv('SAUCELABS')) {
+        if ($this->isSauceLabsBuild()) {
             $this->setUpSauceLabs();
         } else {
             if (getenv('BROWSER_NAME')) {
@@ -64,6 +64,14 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
                 // browser may have died or is already closed
             }
         }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSauceLabsBuild()
+    {
+        return getenv('SAUCELABS') ? true : false;
     }
 
     /**
@@ -101,7 +109,7 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function skipOnSauceLabs($message = 'Not supported by SauceLabs')
     {
-        if (getenv('SAUCELABS')) {
+        if ($this->isSauceLabsBuild()) {
             $this->markTestSkipped($message);
         }
     }

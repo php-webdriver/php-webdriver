@@ -29,4 +29,9 @@
             <directory suffix=".php">./lib</directory>
         </whitelist>
     </filter>
+
+    <listeners>
+        <listener class="Facebook\WebDriver\ReportSauceLabsStatusListener"/>
+    </listeners>
+
 </phpunit>
