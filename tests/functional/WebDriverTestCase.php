@@ -87,6 +87,8 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
         $this->desiredCapabilities->setBrowserName(getenv('BROWSER_NAME'));
         $this->desiredCapabilities->setVersion(getenv('VERSION'));
         $this->desiredCapabilities->setPlatform(getenv('PLATFORM'));
+        $this->desiredCapabilities->setCapability('name', get_class($this) . '::' . $this->getName());
+        $this->desiredCapabilities->setCapability('tags', [get_class($this)]);
 
         if (getenv('TRAVIS_JOB_NUMBER')) {
             $this->desiredCapabilities->setCapability('tunnel-identifier', getenv('TRAVIS_JOB_NUMBER'));
