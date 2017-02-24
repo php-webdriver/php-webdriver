@@ -169,7 +169,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Test by ID', $element->getText());
 
         // If we wait, the script should be executed
-        usleep(550000); // wait 550 ms
+        usleep(1000000); // wait 1000 ms
         $this->assertSame('Text changed by script', $element->getText());
     }
 
