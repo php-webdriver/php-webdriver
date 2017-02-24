@@ -103,14 +103,4 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
             $this->desiredCapabilities->setCapability('build', getenv('TRAVIS_JOB_NUMBER'));
         }
     }
-
-    /**
-     * @param string $message
-     */
-    protected function skipOnSauceLabs($message = 'Not supported by SauceLabs')
-    {
-        if ($this->isSauceLabsBuild()) {
-            $this->markTestSkipped($message);
-        }
-    }
 }

@@ -75,12 +75,11 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::getAllSessions
      */
     public function testShouldGetAllSessions()
     {
-        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
-
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
 
         $this->assertInternalType('array', $sessions);
@@ -92,14 +91,13 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::getAllSessions
      * @covers ::getCommandExecutor
      * @covers ::quit
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
-
         $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
