@@ -25,12 +25,12 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverTestCase extends \PHPUnit_Framework_TestCase
 {
+    /** @var RemoteWebDriver $driver */
+    public $driver;
     /** @var bool Indicate whether WebDriver should be created on setUp */
     protected $createWebDriver = true;
     /** @var string */
     protected $serverUrl = 'http://localhost:4444/wd/hub';
-    /** @var RemoteWebDriver $driver */
-    protected $driver;
     /** @var DesiredCapabilities */
     protected $desiredCapabilities;
 
@@ -38,7 +38,7 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
-        if (getenv('SAUCELABS')) {
+        if ($this->isSauceLabsBuild()) {
             $this->setUpSauceLabs();
         } else {
             if (getenv('BROWSER_NAME')) {
@@ -67,6 +67,14 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return bool
+     */
+    public function isSauceLabsBuild()
+    {
+        return getenv('SAUCELABS') ? true : false;
+    }
+
+    /**
      * Get the URL of given test HTML on running webserver.
      *
      * @param string $path
@@ -87,20 +95,12 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
         $this->desiredCapabilities->setBrowserName(getenv('BROWSER_NAME'));
         $this->desiredCapabilities->setVersion(getenv('VERSION'));
         $this->desiredCapabilities->setPlatform(getenv('PLATFORM'));
+        $this->desiredCapabilities->setCapability('name', get_class($this) . '::' . $this->getName());
+        $this->desiredCapabilities->setCapability('tags', [get_class($this)]);
 
         if (getenv('TRAVIS_JOB_NUMBER')) {
             $this->desiredCapabilities->setCapability('tunnel-identifier', getenv('TRAVIS_JOB_NUMBER'));
             $this->desiredCapabilities->setCapability('build', getenv('TRAVIS_JOB_NUMBER'));
-        }
-    }
-
-    /**
-     * @param string $message
-     */
-    protected function skipOnSauceLabs($message = 'Not supported by SauceLabs')
-    {
-        if (getenv('SAUCELABS')) {
-            $this->markTestSkipped($message);
         }
     }
 }

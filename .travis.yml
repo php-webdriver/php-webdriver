@@ -77,7 +77,8 @@ before_script:
   - php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml
+  - if [ -n "$SAUCELABS" ]; then EXTRA_PARAMS="--exclude-group exclude-saucelabs"; fi
+  - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml $EXTRA_PARAMS
 
 after_script:
   - cat ./logs/selenium.log

@@ -75,12 +75,11 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::getAllSessions
      */
     public function testShouldGetAllSessions()
     {
-        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
-
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
 
         $this->assertInternalType('array', $sessions);
@@ -92,14 +91,13 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::getAllSessions
      * @covers ::getCommandExecutor
      * @covers ::quit
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        $this->skipOnSauceLabs('getAllSessions() is not supported on SauceLabs');
-
         $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
@@ -169,7 +167,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Test by ID', $element->getText());
 
         // If we wait, the script should be executed
-        usleep(550000); // wait 550 ms
+        usleep(1000000); // wait 1000 ms
         $this->assertSame('Text changed by script', $element->getText());
     }
 
