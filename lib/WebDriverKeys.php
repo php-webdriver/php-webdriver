@@ -88,24 +88,28 @@ class WebDriverKeys
 
     /**
      * Encode input of `sendKeys()`.
-     * @param string|array $keys
+     * @param string|array|int|float $keys
      * @return array
      */
     public static function encode($keys)
     {
         if (is_numeric($keys)) {
-            $keys = '' . $keys;
+            $keys = (string) $keys;
         }
 
         if (is_string($keys)) {
             $keys = [$keys];
         }
 
+        if (!is_array($keys)) {
+            return [];
+        }
+
         $encoded = [];
         foreach ($keys as $key) {
             if (is_array($key)) {
-                // handle modified keys
-                $key = implode('', $key) . self::NULL;
+                // handle key modifiers
+                $key = implode('', $key) . self::NULL; // the NULL clears the input state (eg. previous modifiers)
             }
             $encoded[] = (string) $key;
         }
