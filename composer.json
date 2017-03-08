@@ -33,5 +33,15 @@
       "Facebook\\WebDriver\\": ["tests/unit", "tests/functional"]
     },
     "classmap": ["tests/functional/"]
+  },
+  "scripts": {
+    "codestyle:check": [
+      "vendor/bin/php-cs-fixer fix --diff --dry-run",
+      "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
+    ],
+    "codestyle:fix": [
+      "vendor/bin/php-cs-fixer fix --diff || exit 0",
+      "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+    ]
   }
 }
