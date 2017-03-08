@@ -29,15 +29,28 @@ To execute all tests simply run:
 If you want to execute just the unit tests, run:
 
     ./vendor/bin/phpunit --testsuite unit
-    
-For the functional tests you must first download and start the selenium server, then run the `functional` test suite:
 
-    java -jar selenium-server-standalone-2.48.2.jar -log selenium.log &
+For the functional tests you must first [download](http://selenium-release.storage.googleapis.com/index.html) and start
+the selenium standalone server, start the local PHP server which will serve the test pages and then run the `functional`
+test suite:
+
+    java -jar selenium-server-standalone-2.53.1.jar -log selenium.log &
+    php -S localhost:8000 -t tests/functional/web/ &
+    ./vendor/bin/phpunit --testsuite functional
+    
+The functional tests will be started in HtmlUnit headless browser by default. If you want to run them in eg. Firefox,
+simply set the `BROWSER` environment variable:
+
+    ...
+    export BROWSER_NAME="firefox"
     ./vendor/bin/phpunit --testsuite functional
 
 ### Check coding style
 
 Your code-style should comply with [PSR-2](http://www.php-fig.org/psr/psr-2/). To make sure your code matches this requirement run:
 
-    ./vendor/bin/php-cs-fixer fix --diff --dry-run
-    ./vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/
+    composer codestyle:check
+
+To auto-fix the codestyle simply run:
+
+    composer codestyle:fix
