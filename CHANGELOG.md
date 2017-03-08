@@ -7,6 +7,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Cookies retrieved using `getCookieNamed()` and `getCookies()` methods of `WebDriverOptions` are now encapsulated in `Cookie` object instead of an plain array. The object implements `ArrayAccess` interface to provide backward compatibility.
 - `ext-zip` is now specified as required dependency in composer.json (but the extension was already required by the code, though).
 
+### Fixed
+- Do not throw fatal error when `null` is passed to `sendKeys()`.
+
 ## 1.3.0 - 2017-01-13
 ### Added
 - Added `getCapabilities()` method of `RemoteWebDriver`, to retrieve actual capabilities acknowledged by the remote driver on startup.
