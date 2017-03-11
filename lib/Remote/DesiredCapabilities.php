@@ -123,6 +123,8 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
+     * @todo Remove in next major release (BC)
+     * @deprecated All browsers are always JS enabled except HtmlUnit and it's not meaningful to disable JS execution.
      * @return bool Whether javascript is enabled.
      */
     public function isJavascriptEnabled()
