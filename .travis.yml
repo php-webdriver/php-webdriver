@@ -12,7 +12,7 @@ matrix:
     - php: 7.0
       env: BROWSER_NAME="firefox"
       addons:
-        firefox: "latest-esr"
+        firefox: "45.8.0esr"
         apt:
           packages:
             - oracle-java8-installer
