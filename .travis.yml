@@ -30,13 +30,6 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
     - php: 7.0
-      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="45.0" PLATFORM="Linux"
-      before_script: php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
-      addons:
-        sauce_connect: true
-        jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.0
       env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
       before_script: php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
       addons:
