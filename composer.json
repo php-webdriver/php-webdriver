@@ -43,5 +43,10 @@
       "vendor/bin/php-cs-fixer fix --diff || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
     ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-community": "1.4-dev"
+    }
   }
 }
