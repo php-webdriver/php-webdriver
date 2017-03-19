@@ -292,6 +292,41 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
+    public function testShouldDetectElementValueContainsCondition()
+    {
+        // Set-up the consecutive calls to apply() as follows:
+        // Call #1: throws NoSuchElementException
+        // Call #2: return Element, but getAttribute will throw StaleElementReferenceException
+        // Call #3: return Element, getAttribute('value') will return not-matching text
+        // Call #4: return Element, getAttribute('value') will return matching text
+
+        $element = $this->createRemoteWebElementMock();
+
+        $element->expects($this->at(0))
+            ->method('getAttribute')
+            ->with('value')
+            ->willThrowException(new StaleElementReferenceException(''));
+
+        $element->expects($this->at(1))
+            ->method('getAttribute')
+            ->with('value')
+            ->willReturn('wrong text');
+
+        $element->expects($this->at(2))
+            ->method('getAttribute')
+            ->with('value')
+            ->willReturn('matching text');
+
+        $this->setupDriverToReturnElementAfterAnException($element, 4);
+
+        $condition = WebDriverExpectedCondition::elementValueContains(
+            WebDriverBy::cssSelector('.foo'),
+            'matching'
+        );
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
     public function testShouldDetectNumberOfWindowsToBeCondition()
     {
         $this->driverMock->expects($this->any())
