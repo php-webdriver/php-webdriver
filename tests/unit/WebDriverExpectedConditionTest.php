@@ -185,6 +185,73 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
+    public function testShouldDetectInvisibilityOfElementLocatedConditionOnNoSuchElementException()
+    {
+        $element = $this->createRemoteWebElementMock();
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $element->expects($this->at(0))
+            ->method('isDisplayed')
+            ->willReturn(true);
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
+    public function testShouldDetectInvisibilityOfElementLocatedConditionOnStaleElementReferenceException()
+    {
+        $element = $this->createRemoteWebElementMock();
+
+        $this->driverMock->expects($this->exactly(2))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $element->expects($this->at(0))
+            ->method('isDisplayed')
+            ->willReturn(true);
+
+        $element->expects($this->at(1))
+            ->method('isDisplayed')
+            ->willThrowException(new StaleElementReferenceException(''));
+
+        $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
+    public function testShouldDetectInvisibilityOfElementLocatedConditionWhenElementBecamesInvisible()
+    {
+        $element = $this->createRemoteWebElementMock();
+
+        $this->driverMock->expects($this->exactly(2))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $element->expects($this->at(0))
+            ->method('isDisplayed')
+            ->willReturn(true);
+
+        $element->expects($this->at(1))
+            ->method('isDisplayed')
+            ->willReturn(false);
+
+        $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
     public function testShouldDetectVisibilityOfCondition()
     {
         $element = $this->createRemoteWebElementMock();
@@ -287,6 +354,41 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $condition = WebDriverExpectedCondition::elementTextMatches(
             WebDriverBy::cssSelector('.foo'),
             '/matching-\d{3}/'
+        );
+
+        $this->assertTrue($this->wait->until($condition));
+    }
+
+    public function testShouldDetectElementValueContainsCondition()
+    {
+        // Set-up the consecutive calls to apply() as follows:
+        // Call #1: throws NoSuchElementException
+        // Call #2: return Element, but getAttribute will throw StaleElementReferenceException
+        // Call #3: return Element, getAttribute('value') will return not-matching text
+        // Call #4: return Element, getAttribute('value') will return matching text
+
+        $element = $this->createRemoteWebElementMock();
+
+        $element->expects($this->at(0))
+            ->method('getAttribute')
+            ->with('value')
+            ->willThrowException(new StaleElementReferenceException(''));
+
+        $element->expects($this->at(1))
+            ->method('getAttribute')
+            ->with('value')
+            ->willReturn('wrong text');
+
+        $element->expects($this->at(2))
+            ->method('getAttribute')
+            ->with('value')
+            ->willReturn('matching text');
+
+        $this->setupDriverToReturnElementAfterAnException($element, 4);
+
+        $condition = WebDriverExpectedCondition::elementValueContains(
+            WebDriverBy::cssSelector('.foo'),
+            'matching'
         );
 
         $this->assertTrue($this->wait->until($condition));

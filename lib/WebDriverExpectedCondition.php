@@ -292,11 +292,25 @@ class WebDriverExpectedCondition
     /**
      * An expectation for checking if the given text is present in the specified elements value attribute.
      *
+     * @codeCoverageIgnore
+     * @deprecated Use WebDriverExpectedCondition::elementValueContains() instead
      * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text to be presented in the element value.
      * @return WebDriverExpectedCondition<bool> Condition returns whether the text is present in value attribute.
      */
     public static function textToBePresentInElementValue(WebDriverBy $by, $text)
+    {
+        return self::elementValueContains($by, $text);
+    }
+
+    /**
+     * An expectation for checking if the given text is present in the specified elements value attribute.
+     *
+     * @param WebDriverBy $by The locator used to find the element.
+     * @param string $text The text to be presented in the element value.
+     * @return WebDriverExpectedCondition<bool> Condition returns whether the text is present in value attribute.
+     */
+    public static function elementValueContains(WebDriverBy $by, $text)
     {
         return new static(
             function (WebDriver $driver) use ($by, $text) {
