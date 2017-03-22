@@ -36,6 +36,7 @@
                                             <option value="../../../1.1.3/index.html" data-version="1.1.3">1.1.3</option>
                                             <option value="../../../1.2.0/index.html" data-version="1.2.0">1.2.0</option>
                                             <option value="../../../1.3.0/index.html" data-version="1.3.0">1.3.0</option>
+                                            <option value="../../../1.4.0/index.html" data-version="1.4.0">1.4.0</option>
                                             <option value="../../../community/index.html" data-version="community">community branch</option>
                                             <option value="../../../master/index.html" data-version="master">master branch (unmaintained)</option>
                                     </select>
@@ -99,7 +100,7 @@
     </div>
 
     <p>    interface
-    <strong>WebDriverCapabilities</strong>        (<a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php">View source</a>)
+    <strong>WebDriverCapabilities</strong>        (<a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php">View source</a>)
 </p>
 
         
@@ -173,7 +174,7 @@
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_isJavascriptEnabled">isJavascriptEnabled</a>()
-        
+        <small><sup><span class="label label-danger">deprecated</span></sup></small>
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"></div>
@@ -186,7 +187,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getBrowserName">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L23">line 23</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L23">line 23</a></div>
         <code>                    string
     <strong>getBrowserName</strong>()
         </code>
@@ -214,7 +215,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getCapability">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L29">line 29</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L29">line 29</a></div>
         <code>                    mixed
     <strong>getCapability</strong>(string $name)
         </code>
@@ -252,7 +253,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getPlatform">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L34">line 34</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L34">line 34</a></div>
         <code>                    string
     <strong>getPlatform</strong>()
         </code>
@@ -280,7 +281,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getVersion">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L39">line 39</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L39">line 39</a></div>
         <code>                    string
     <strong>getVersion</strong>()
         </code>
@@ -308,7 +309,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_is">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L45">line 45</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L45">line 45</a></div>
         <code>                    bool
     <strong>is</strong>(string $capability_name)
         </code>
@@ -346,13 +347,20 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_isJavascriptEnabled">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.1.3/lib/WebDriverCapabilities.php#L50">line 50</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverCapabilities.php#L52">line 52</a></div>
         <code>                    bool
     <strong>isJavascriptEnabled</strong>()
-        </code>
+        <small><sup><span class="label label-danger">deprecated</span></sup></small></code>
     </h3>
     <div class="details">
             
+            <p>
+                <small><sup><span class="label label-danger">deprecated</span></sup></small>
+                            <tr>
+                    <td>All</td>
+                    <td>browsers are always JS enabled except HtmlUnit and it's not meaningful to disable JS execution.</td>
+                </tr>
+                    </p>
     
 
                 <div class="tags">

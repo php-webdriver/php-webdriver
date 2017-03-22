@@ -36,6 +36,7 @@
                                             <option value="../../../../1.1.3/index.html" data-version="1.1.3">1.1.3</option>
                                             <option value="../../../../1.2.0/index.html" data-version="1.2.0">1.2.0</option>
                                             <option value="../../../../1.3.0/index.html" data-version="1.3.0">1.3.0</option>
+                                            <option value="../../../../1.4.0/index.html" data-version="1.4.0">1.4.0</option>
                                             <option value="../../../../community/index.html" data-version="community">community branch</option>
                                             <option value="../../../../master/index.html" data-version="master">master branch (unmaintained)</option>
                                     </select>
@@ -230,7 +231,7 @@
                 </div>
                 <div class="col-md-8 type">
                     <a href="#method_isJavascriptEnabled">isJavascriptEnabled</a>()
-        
+        <small><sup><span class="label label-danger">deprecated</span></sup></small>
                                             <p class="no-description">No description</p>
                                     </div>
                 <div class="col-md-2"></div>
@@ -742,13 +743,20 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_isJavascriptEnabled">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L128">line 128</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L130">line 130</a></div>
         <code>                    bool
     <strong>isJavascriptEnabled</strong>()
-        </code>
+        <small><sup><span class="label label-danger">deprecated</span></sup></small></code>
     </h3>
     <div class="details">
             
+            <p>
+                <small><sup><span class="label label-danger">deprecated</span></sup></small>
+                            <tr>
+                    <td>All</td>
+                    <td>browsers are always JS enabled except HtmlUnit and it's not meaningful to disable JS execution.</td>
+                </tr>
+                    </p>
     
 
                 <div class="tags">
@@ -770,7 +778,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setJavascriptEnabled">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L141">line 141</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L143">line 143</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>setJavascriptEnabled</strong>(bool $enabled)
         </code>
@@ -828,7 +836,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_toArray">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L159">line 159</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L161">line 161</a></div>
         <code>                    array
     <strong>toArray</strong>()
         </code>
@@ -856,7 +864,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_android">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L181">line 181</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L183">line 183</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>android</strong>()
         </code>
@@ -884,7 +892,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_chrome">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L192">line 192</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L194">line 194</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>chrome</strong>()
         </code>
@@ -912,7 +920,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_firefox">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L203">line 203</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L205">line 205</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>firefox</strong>()
         </code>
@@ -940,7 +948,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_htmlUnit">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L221">line 221</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L223">line 223</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>htmlUnit</strong>()
         </code>
@@ -968,7 +976,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_htmlUnitWithJS">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L232">line 232</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L234">line 234</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>htmlUnitWithJS</strong>()
         </code>
@@ -996,7 +1004,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_internetExplorer">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L245">line 245</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L247">line 247</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>internetExplorer</strong>()
         </code>
@@ -1024,7 +1032,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_microsoftEdge">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L256">line 256</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L258">line 258</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>microsoftEdge</strong>()
         </code>
@@ -1052,7 +1060,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_iphone">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L267">line 267</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L269">line 269</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>iphone</strong>()
         </code>
@@ -1080,7 +1088,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_ipad">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L278">line 278</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L280">line 280</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>ipad</strong>()
         </code>
@@ -1108,7 +1116,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_opera">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L289">line 289</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L291">line 291</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>opera</strong>()
         </code>
@@ -1136,7 +1144,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_safari">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L300">line 300</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L302">line 302</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>safari</strong>()
         </code>
@@ -1164,7 +1172,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_phantomjs">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L311">line 311</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/DesiredCapabilities.php#L313">line 313</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>phantomjs</strong>()
         </code>

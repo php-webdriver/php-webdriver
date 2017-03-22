@@ -36,6 +36,7 @@
                                             <option value="../../../1.1.3/index.html" data-version="1.1.3">1.1.3</option>
                                             <option value="../../../1.2.0/index.html" data-version="1.2.0">1.2.0</option>
                                             <option value="../../../1.3.0/index.html" data-version="1.3.0">1.3.0</option>
+                                            <option value="../../../1.4.0/index.html" data-version="1.4.0">1.4.0</option>
                                             <option value="../../../community/index.html" data-version="community">community branch</option>
                                             <option value="../../../master/index.html" data-version="master">master branch (unmaintained)</option>
                                     </select>
@@ -99,7 +100,7 @@
     </div>
 
     <p>    class
-    <strong>WebDriverKeys</strong>        (<a href="https://github.com/facebook/php-webdriver/blob/1.2.0/lib/WebDriverKeys.php">View source</a>)
+    <strong>WebDriverKeys</strong>        (<a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverKeys.php">View source</a>)
 </p>
 
         
@@ -572,7 +573,7 @@
                     static&nbsp;array
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method_encode">encode</a>(string|array $keys)
+                    <a href="#method_encode">encode</a>(string|array|int|float $keys)
         
                                             <p>Encode input of <code>sendKeys()</code>.</p>                </div>
                 <div class="col-md-2"></div>
@@ -585,9 +586,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_encode">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/1.2.0/lib/WebDriverKeys.php#L94">line 94</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/WebDriverKeys.php#L94">line 94</a></div>
         <code>        static            array
-    <strong>encode</strong>(string|array $keys)
+    <strong>encode</strong>(string|array|int|float $keys)
         </code>
     </h3>
     <div class="details">
@@ -601,7 +602,7 @@
 
                     <table class="table table-condensed">
                     <tr>
-                <td>string|array</td>
+                <td>string|array|int|float</td>
                 <td>$keys</td>
                 <td></td>
             </tr>

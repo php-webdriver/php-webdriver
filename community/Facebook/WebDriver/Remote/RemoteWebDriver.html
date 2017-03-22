@@ -36,6 +36,7 @@
                                             <option value="../../../../1.1.3/index.html" data-version="1.1.3">1.1.3</option>
                                             <option value="../../../../1.2.0/index.html" data-version="1.2.0">1.2.0</option>
                                             <option value="../../../../1.3.0/index.html" data-version="1.3.0">1.3.0</option>
+                                            <option value="../../../../1.4.0/index.html" data-version="1.4.0">1.4.0</option>
                                             <option value="../../../../community/index.html" data-version="community">community branch</option>
                                             <option value="../../../../master/index.html" data-version="master">master branch (unmaintained)</option>
                                     </select>
@@ -180,7 +181,7 @@
                     
                 </div>
                 <div class="col-md-8 type">
-                    <a href="#method___construct">__construct</a>(<a href="../../../Facebook/WebDriver/Remote/HttpCommandExecutor.html"><abbr title="Facebook\WebDriver\Remote\HttpCommandExecutor">HttpCommandExecutor</abbr></a> $commandExecutor, $sessionId, <a href="../../../Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a> $capabilities = null)
+                    <a href="#method___construct">__construct</a>(<a href="../../../Facebook/WebDriver/Remote/HttpCommandExecutor.html"><abbr title="Facebook\WebDriver\Remote\HttpCommandExecutor">HttpCommandExecutor</abbr></a> $commandExecutor, string $sessionId, <a href="../../../Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a> $capabilities = null)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -313,9 +314,7 @@
                 <div class="col-md-8 type">
                     <a href="#method_executeScript">executeScript</a>(string $script, array $arguments = [])
         
-                                            <p>Inject a snippet of JavaScript into the page for execution in the context
-of the currently selected frame. The executed script is assumed to be
-synchronous and the result of evaluating the script will be returned.</p>                </div>
+                                            <p>Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -325,8 +324,8 @@ synchronous and the result of evaluating the script will be returned.</p>       
                 <div class="col-md-8 type">
                     <a href="#method_executeAsyncScript">executeAsyncScript</a>(string $script, array $arguments = [])
         
-                                            <p>Inject a snippet of JavaScript into the page for asynchronous execution in
-the context of the currently selected frame.</p>                </div>
+                                            <p>Inject a snippet of JavaScript into the page for asynchronous execution in the context of the currently selected
+frame.</p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -543,9 +542,9 @@ DesiredCapabilities will be required.</p>                </div>
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L62">line 62</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L67">line 67</a></div>
         <code>            protected        
-    <strong>__construct</strong>(<a href="../../../Facebook/WebDriver/Remote/HttpCommandExecutor.html"><abbr title="Facebook\WebDriver\Remote\HttpCommandExecutor">HttpCommandExecutor</abbr></a> $commandExecutor, $sessionId, <a href="../../../Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a> $capabilities = null)
+    <strong>__construct</strong>(<a href="../../../Facebook/WebDriver/Remote/HttpCommandExecutor.html"><abbr title="Facebook\WebDriver\Remote\HttpCommandExecutor">HttpCommandExecutor</abbr></a> $commandExecutor, string $sessionId, <a href="../../../Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a> $capabilities = null)
         </code>
     </h3>
     <div class="details">
@@ -562,7 +561,7 @@ DesiredCapabilities will be required.</p>                </div>
                 <td></td>
             </tr>
                     <tr>
-                <td></td>
+                <td>string</td>
                 <td>$sessionId</td>
                 <td></td>
             </tr>
@@ -582,7 +581,7 @@ DesiredCapabilities will be required.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_create">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L87">line 87</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L92">line 92</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>create</strong>(string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>|array $desired_capabilities = null, int|null $connection_timeout_in_ms = null, int|null $request_timeout_in_ms = null, string|null $http_proxy = null, int|null $http_proxy_port = null, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a> $required_capabilities = null)
         </code>
@@ -652,7 +651,7 @@ DesiredCapabilities will be required.</p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_createBySessionID">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L139">line 139</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L144">line 144</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>createBySessionID</strong>($session_id, $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;)
         </code>
@@ -663,7 +662,7 @@ DesiredCapabilities will be required.</p>                </div>
 
                     <div class="method-description">
                                     <p>[Experimental] Construct the RemoteWebDriver by an existing session.</p>                    <p>This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
-You cannot the desired capabilities because the session was created before.</p>            </div>
+You cannot pass the desired capabilities because the session was created before.</p>            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -698,7 +697,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_close">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L151">line 151</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L156">line 156</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriver.html"><abbr title="Facebook\WebDriver\WebDriver">WebDriver</abbr></a>
     <strong>close</strong>()
         </code>
@@ -728,7 +727,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_findElement">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L165">line 165</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L170">line 170</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
     <strong>findElement</strong>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
         </code>
@@ -778,7 +777,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_findElements">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L183">line 183</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L188">line 188</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>[]
     <strong>findElements</strong>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
         </code>
@@ -828,7 +827,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_get">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L206">line 206</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L211">line 211</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriver.html"><abbr title="Facebook\WebDriver\WebDriver">WebDriver</abbr></a>
     <strong>get</strong>(string $url)
         </code>
@@ -868,7 +867,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getCurrentURL">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L219">line 219</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L224">line 224</a></div>
         <code>                    string
     <strong>getCurrentURL</strong>()
         </code>
@@ -898,7 +897,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getPageSource">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L229">line 229</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L234">line 234</a></div>
         <code>                    string
     <strong>getPageSource</strong>()
         </code>
@@ -928,7 +927,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getTitle">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L239">line 239</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L244">line 244</a></div>
         <code>                    string
     <strong>getTitle</strong>()
         </code>
@@ -958,7 +957,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getWindowHandle">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L249">line 249</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L254">line 254</a></div>
         <code>                    string
     <strong>getWindowHandle</strong>()
         </code>
@@ -988,7 +987,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_getWindowHandles">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L262">line 262</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L267">line 267</a></div>
         <code>                    array
     <strong>getWindowHandles</strong>()
         </code>
@@ -1018,7 +1017,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_quit">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L270">line 270</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L275">line 275</a></div>
         <code>                    
     <strong>quit</strong>()
         </code>
@@ -1039,7 +1038,7 @@ You cannot the desired capabilities because the session was created before.</p> 
             </div>
                     <div class="method-item">
                     <h3 id="method_executeScript">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L285">line 285</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L289">line 289</a></div>
         <code>                    mixed
     <strong>executeScript</strong>(string $script, array $arguments = [])
         </code>
@@ -1049,9 +1048,7 @@ You cannot the desired capabilities because the session was created before.</p> 
     
 
                     <div class="method-description">
-                                    <p>Inject a snippet of JavaScript into the page for execution in the context
-of the currently selected frame. The executed script is assumed to be
-synchronous and the result of evaluating the script will be returned.</p>                                </div>
+                                    <p>Inject a snippet of JavaScript into the page for execution in the context of the currently selected frame.</p>                    <p>The executed script is assumed to be synchronous and the result of evaluating the script will be returned.</p>            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -1086,7 +1083,7 @@ synchronous and the result of evaluating the script will be returned.</p>       
             </div>
                     <div class="method-item">
                     <h3 id="method_executeAsyncScript">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L308">line 308</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L311">line 311</a></div>
         <code>                    mixed
     <strong>executeAsyncScript</strong>(string $script, array $arguments = [])
         </code>
@@ -1096,9 +1093,10 @@ synchronous and the result of evaluating the script will be returned.</p>       
     
 
                     <div class="method-description">
-                                    <p>Inject a snippet of JavaScript into the page for asynchronous execution in
-the context of the currently selected frame.</p>                    <p>The driver will pass a callback as the last argument to the snippet, and
-block until the callback is invoked.</p>            </div>
+                                    <p>Inject a snippet of JavaScript into the page for asynchronous execution in the context of the currently selected
+frame.</p>                    <p>The driver will pass a callback as the last argument to the snippet, and block until the callback is invoked.</p>
+
+<p>You may need to define script timeout using <code>setScriptTimeout()</code> method of <code>WebDriverTimeouts</code> first.</p>            </div>
                 <div class="tags">
                             <h4>Parameters</h4>
 
@@ -1127,22 +1125,13 @@ block until the callback is invoked.</p>            </div>
 
             
             
-                            <h4>See also</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>WebDriverExecuteAsyncScriptTestCase</td>
-                <td></td>
-            </tr>
-            </table>
-
                     </div>
     </div>
 
             </div>
                     <div class="method-item">
                     <h3 id="method_takeScreenshot">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L327">line 327</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L330">line 330</a></div>
         <code>                    string
     <strong>takeScreenshot</strong>(string $save_as = null)
         </code>
@@ -1182,7 +1171,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_wait">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L353">line 353</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L356">line 356</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverWait.html"><abbr title="Facebook\WebDriver\WebDriverWait">WebDriverWait</abbr></a>
     <strong>wait</strong>(int $timeout_in_second = 30, int $interval_in_millisecond = 250)
         </code>
@@ -1231,7 +1220,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_manage">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L367">line 367</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L370">line 370</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverOptions.html"><abbr title="Facebook\WebDriver\WebDriverOptions">WebDriverOptions</abbr></a>
     <strong>manage</strong>()
         </code>
@@ -1261,7 +1250,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_navigate">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L378">line 378</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L381">line 381</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverNavigation.html"><abbr title="Facebook\WebDriver\WebDriverNavigation">WebDriverNavigation</abbr></a>
     <strong>navigate</strong>()
         </code>
@@ -1300,7 +1289,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_switchTo">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L389">line 389</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L392">line 392</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverTargetLocator.html"><abbr title="Facebook\WebDriver\WebDriverTargetLocator">WebDriverTargetLocator</abbr></a>
     <strong>switchTo</strong>()
         </code>
@@ -1339,7 +1328,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getMouse">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L397">line 397</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L400">line 400</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverMouse.html"><abbr title="Facebook\WebDriver\WebDriverMouse">WebDriverMouse</abbr></a>
     <strong>getMouse</strong>()
         </code>
@@ -1367,7 +1356,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getKeyboard">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L409">line 409</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L412">line 412</a></div>
         <code>                    <abbr title="Facebook\WebDriver\WebDriverKeyBoard">WebDriverKeyBoard</abbr>
     <strong>getKeyboard</strong>()
         </code>
@@ -1395,7 +1384,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getTouch">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L421">line 421</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L424">line 424</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Remote/RemoteTouchScreen.html"><abbr title="Facebook\WebDriver\Remote\RemoteTouchScreen">RemoteTouchScreen</abbr></a>
     <strong>getTouch</strong>()
         </code>
@@ -1423,7 +1412,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_action">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L435">line 435</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L438">line 438</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Interactions/WebDriverActions.html"><abbr title="Facebook\WebDriver\Interactions\WebDriverActions">WebDriverActions</abbr></a>
     <strong>action</strong>()
         </code>
@@ -1453,7 +1442,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setCommandExecutor">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L449">line 449</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L452">line 452</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>setCommandExecutor</strong>(<a href="../../../Facebook/WebDriver/WebDriverCommandExecutor.html"><abbr title="Facebook\WebDriver\WebDriverCommandExecutor">WebDriverCommandExecutor</abbr></a> $executor)
         <small><sup><span class="label label-danger">deprecated</span></sup></small></code>
@@ -1500,7 +1489,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getCommandExecutor">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L461">line 461</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L464">line 464</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Remote/HttpCommandExecutor.html"><abbr title="Facebook\WebDriver\Remote\HttpCommandExecutor">HttpCommandExecutor</abbr></a>
     <strong>getCommandExecutor</strong>()
         </code>
@@ -1530,7 +1519,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_setSessionID">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L475">line 475</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L478">line 478</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>setSessionID</strong>(string $session_id)
         <small><sup><span class="label label-danger">deprecated</span></sup></small></code>
@@ -1577,7 +1566,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getSessionID">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L487">line 487</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L490">line 490</a></div>
         <code>                    string
     <strong>getSessionID</strong>()
         </code>
@@ -1607,7 +1596,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getCapabilities">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L497">line 497</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L500">line 500</a></div>
         <code>                    <a href="../../../Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a>
     <strong>getCapabilities</strong>()
         </code>
@@ -1637,7 +1626,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getAllSessions">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L509">line 509</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L512">line 512</a></div>
         <code>        static            array
     <strong>getAllSessions</strong>(string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, int $timeout_in_ms = 30000)
         </code>
@@ -1682,7 +1671,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_execute">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L523">line 523</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L526">line 526</a></div>
         <code>                    mixed
     <strong>execute</strong>($command_name, array $params = [])
         </code>
@@ -1725,7 +1714,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_prepareScriptArguments">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L546">line 546</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L549">line 549</a></div>
         <code>            protected        array
     <strong>prepareScriptArguments</strong>(array $arguments)
         </code>
@@ -1765,7 +1754,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_getExecuteMethod">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L566">line 566</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L569">line 569</a></div>
         <code>            protected        <a href="../../../Facebook/WebDriver/Remote/RemoteExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\RemoteExecuteMethod">RemoteExecuteMethod</abbr></a>
     <strong>getExecuteMethod</strong>()
         </code>
@@ -1793,7 +1782,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_newElement">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L581">line 581</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L584">line 584</a></div>
         <code>            protected        <a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a>
     <strong>newElement</strong>(string $id)
         </code>
@@ -1833,7 +1822,7 @@ block until the callback is invoked.</p>            </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_castToDesiredCapabilitiesObject">
-        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L593">line 593</a></div>
+        <div class="location">at         <a href="https://github.com/facebook/php-webdriver/blob/community/lib/Remote/RemoteWebDriver.php#L596">line 596</a></div>
         <code>        static    protected        <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>
     <strong>castToDesiredCapabilitiesObject</strong>(array|<a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>|null $desired_capabilities = null)
         </code>
