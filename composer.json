@@ -46,7 +46,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-community": "1.4-dev"
+      "dev-community": "1.5-dev"
     }
   }
 }
