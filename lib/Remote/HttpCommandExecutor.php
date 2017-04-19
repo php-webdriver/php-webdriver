@@ -169,6 +169,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
+        // Certificate CURL PROBLEM
+        curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, 0);
+        
         curl_setopt(
             $this->curl,
             CURLOPT_HTTPHEADER,
