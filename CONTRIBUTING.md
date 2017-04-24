@@ -13,7 +13,7 @@ send a pull request (see bellow) with your contribution.
 4. When implementing notable change, fix or a new feature, add record to Unreleased section of [CHANGELOG.md](CHANGELOG.md)
 5. Submit your [pull request](https://github.com/facebook/php-webdriver/pulls) against community branch
  
-Note before any pull request can be accepted, a [Contributors Licensing Agreement](http://developers.facebook.com/opensource/cla) must be signed.
+Note before any pull request can be accepted, a [Contributors Licensing Agreement](https://developers.facebook.com/opensource/cla) must be signed.
 
 When you are going to contribute, please keep in mind that this webdriver client aims to be as close as possible to other languages Java/Ruby/Python/C#.
 FYI, here is the overview of [the official Java API](http://seleniumhq.github.io/selenium/docs/api/java/)
