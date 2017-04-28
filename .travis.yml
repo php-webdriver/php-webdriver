@@ -6,6 +6,8 @@ php:
   - 7.0
   - 7.1
 
+sudo: false
+
 matrix:
   include:
     # Add build to run tests against Firefox inside Travis environment (other runs are agains HtmlUnit by default)
