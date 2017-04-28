@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Fixed
+- Do not throw notice `Constant CURLOPT_CONNECTTIMEOUT_MS already defined`.
 
 ## 1.4.0 - 2017-03-22
 ### Changed
