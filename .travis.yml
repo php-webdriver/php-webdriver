@@ -74,8 +74,8 @@ script:
   - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml $EXTRA_PARAMS
 
 after_script:
-  - cat ./logs/selenium.log
-  - cat ./logs/php-server.log
+  - if [ -f ./logs/selenium.log ]; then cat ./logs/selenium.log; fi
+  - if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
