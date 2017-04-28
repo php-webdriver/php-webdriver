@@ -26,14 +26,18 @@ matrix:
     # Saucelabs builds
     - php: 7.0
       env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
-      before_script: php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+      before_script:
+        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
       addons:
         sauce_connect: true
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
     - php: 7.0
       env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
-      before_script: php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+      before_script:
+        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
       addons:
         sauce_connect: true
         jwt:
@@ -66,8 +70,9 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.1.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar; fi
   - /usr/lib/jvm/java-8-oracle/bin/java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
-  - until $(echo | nc localhost 4444); do sleep 1; echo waiting for selenium-server...; done
-  - php -S localhost:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+  - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
+  - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+  - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
 
 script:
   - if [ -n "$SAUCELABS" ]; then EXTRA_PARAMS="--exclude-group exclude-saucelabs"; fi
