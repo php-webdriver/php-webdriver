@@ -46,7 +46,7 @@ class WebDriverWait
     }
 
     /**
-     * Calls the function provided with the driver as an argument until the return value is not falsey.
+     * Calls the function provided with the driver as an argument until the return value is not false.
      *
      * @param callable|WebDriverExpectedCondition $func_or_ec
      * @param string $message
