@@ -145,7 +145,7 @@ class DesiredCapabilities implements WebDriverCapabilities
         $browser = $this->getBrowserName();
         if ($browser && $browser !== WebDriverBrowserType::HTMLUNIT) {
             throw new Exception(
-                'isJavascriptEnable() is a htmlunit-only option. ' .
+                'isJavascriptEnabled() is a htmlunit-only option. ' .
                 'See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#read-write-capabilities.'
             );
         }

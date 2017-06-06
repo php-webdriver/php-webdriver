@@ -63,7 +63,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Exception
-     * @expectedExceptionMessage isJavascriptEnable() is a htmlunit-only option
+     * @expectedExceptionMessage isJavascriptEnabled() is a htmlunit-only option
      */
     public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser()
     {
