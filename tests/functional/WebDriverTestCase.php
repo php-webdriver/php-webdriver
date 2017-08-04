@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Exception\NoSuchWindowException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
@@ -45,6 +46,12 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
                 $browserName = getenv('BROWSER_NAME');
             } else {
                 $browserName = WebDriverBrowserType::HTMLUNIT;
+            }
+
+            if ($browserName === WebDriverBrowserType::CHROME) {
+                $chromeOptions = new ChromeOptions();
+                $chromeOptions->addArguments(['--headless', 'window-size=1024,768']);
+                $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);

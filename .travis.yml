@@ -1,5 +1,5 @@
 language: php
-
+sudo: false
 dist: trusty
 
 php:
@@ -8,15 +8,25 @@ php:
   - 7.0
   - 7.1
 
-sudo: false
+env:
+  global:
+    - DISPLAY=:99.0
+    - BROWSER_NAME="htmlunit"
+    - CHROMEDRIVER_VERSION="2.31"
 
 matrix:
   include:
-    # Add build to run tests against Firefox inside Travis environment (other runs are against HtmlUnit by default)
+    # Add build to run tests against Firefox inside Travis environment
     - php: 7.1
       env: BROWSER_NAME="firefox"
       addons:
         firefox: "45.8.0esr"
+
+    # Add build to run tests against Chrome inside Travis environment
+    - php: 7.1
+      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
+      addons:
+        chrome: beta
 
     # Build with lowest possible dependencies
     - php: 7.1
@@ -50,10 +60,6 @@ matrix:
       after_script: ~
       after_success: ~
 
-env:
-  global:
-    - DISPLAY=:99.0
-
 cache:
   directories:
     - $HOME/.composer/cache
@@ -66,9 +72,11 @@ install:
   - travis_retry composer update --no-interaction $dependencies
 
 before_script:
+  - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
+  - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=./chromedriver/chromedriver; fi
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.1.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar; fi
-  - java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
+  - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
   - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
   - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
   - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"

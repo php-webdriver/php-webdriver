@@ -25,6 +25,12 @@ class WebDriverAlertTest extends WebDriverTestCase
 {
     protected function setUp()
     {
+        if (getenv('CHROME_HEADLESS') === '1') {
+            // Alerts in headless mode should be available in next Chrome version (61), see:
+            // https://bugs.chromium.org/p/chromium/issues/detail?id=718235
+            $this->markTestSkipped('Alerts not yet supported by headless Chrome');
+        }
+
         parent::setUp();
 
         $this->driver->get($this->getTestPageUrl('alert.html'));
