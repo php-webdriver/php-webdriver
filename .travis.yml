@@ -75,8 +75,8 @@ before_script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=./chromedriver/chromedriver; fi
   - sh -e /etc/init.d/xvfb start
-  - if [ ! -f jar/selenium-server-standalone-3.1.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar; fi
-  - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
+  - if [ ! -f jar/selenium-server-standalone-3.4.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.4/selenium-server-standalone-3.4.0.jar; fi
+  - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.4.0.jar -log ./logs/selenium.log &
   - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
   - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
   - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
