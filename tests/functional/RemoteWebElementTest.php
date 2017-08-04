@@ -22,6 +22,8 @@ class RemoteWebElementTest extends WebDriverTestCase
 {
     /**
      * @covers ::getText
+     * @group exclude-edge
+     * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5569343/
      */
     public function testShouldGetText()
     {
@@ -90,8 +92,11 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('solid', $elementWithBorder->getCSSValue('border-left-style'));
         $this->assertSame('none', $elementWithoutBorder->getCSSValue('border-left-style'));
 
-        $this->assertSame('rgba(0, 0, 0, 1)', $elementWithBorder->getCSSValue('border-left-color'));
-        $this->assertSame('rgba(0, 0, 0, 1)', $elementWithoutBorder->getCSSValue('border-left-color'));
+        // Browser could report color in either rgb (like MS Edge) or rgba (like everyone else)
+        $this->assertRegExp(
+            '/rgba?\(0, 0, 0(, 1)?\)/',
+            $elementWithBorder->getCSSValue('border-left-color')
+        );
     }
 
     /**
@@ -206,6 +211,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::submit
+     * @group exclude-edge
      */
     public function testShouldSubmitFormBySubmitEventOnForm()
     {

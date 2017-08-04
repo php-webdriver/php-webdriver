@@ -23,6 +23,10 @@ use Facebook\WebDriver\Remote\LocalFileDetector;
  */
 class FileUploadTest extends WebDriverTestCase
 {
+    /**
+     * @group exclude-edge
+     * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/6052385/
+     */
     public function testShouldUploadAFile()
     {
         $this->driver->get($this->getTestPageUrl('upload.html'));
@@ -48,16 +52,6 @@ class FileUploadTest extends WebDriverTestCase
 
         $this->assertSame('FileUploadTestFile.txt', $uploadedFileName);
         $this->assertSame('10', $uploadedFileSize);
-    }
-
-    public function xtestUselessFileDetectorSendKeys()
-    {
-        $this->driver->get($this->getTestPageUrl('upload.html'));
-
-        $file_input = $this->driver->findElement(WebDriverBy::id('upload'));
-        $file_input->sendKeys($this->getTestFilePath());
-
-        $this->assertEquals($this->getTestFilePath(), $file_input->getAttribute('value'));
     }
 
     private function getTestFilePath()

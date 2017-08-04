@@ -129,6 +129,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame('fourth', $select->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
     public function testShouldSelectOptionOfMultipleSelectByIndex()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -171,6 +175,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame('fourth', $select->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
     public function testShouldSelectOptionOfMultipleSelectByValue()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -213,6 +221,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame('fifth', $select->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
     public function testShouldSelectOptionOfMultipleSelectByVisibleText()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -255,6 +267,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame('fourth', $select->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
     public function testShouldSelectOptionOfMultipleSelectByVisiblePartialText()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -298,6 +314,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectAll();
     }
 
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
     public function testShouldDeselectAllOptionsOnMultipleSelect()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
@@ -312,7 +332,11 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertCount(0, $select->getAllSelectedOptions());
     }
 
-    public function testShouldDeselectOptionByIndex()
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
+    public function testShouldDeselectOptionOnMultipleSelectByIndex()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // index 3
@@ -336,7 +360,11 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByIndex(0);
     }
 
-    public function testShouldDeselectOptionByValue()
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
+    public function testShouldDeselectOptionOnMultipleSelectByValue()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('third');
@@ -360,7 +388,11 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByValue('first');
     }
 
-    public function testShouldDeselectOptionByVisibleText()
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
+    public function testShouldDeselectOptionOnMultipleSelectByVisibleText()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // text 'Fourth  with   spaces   inside'
@@ -386,7 +418,11 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByVisibleText('First');
     }
 
-    public function testShouldDeselectOptionByVisiblePartialText()
+    /**
+     * @group exclude-edge
+     * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
+     */
+    public function testShouldDeselectOptionOnMultipleSelectByVisiblePartialText()
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // text 'Fourth  with   spaces   inside'
