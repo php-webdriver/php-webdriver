@@ -1,5 +1,7 @@
 language: php
 
+dist: trusty
+
 php:
   - 5.5
   - 5.6
@@ -15,9 +17,6 @@ matrix:
       env: BROWSER_NAME="firefox"
       addons:
         firefox: "45.8.0esr"
-        apt:
-          packages:
-            - oracle-java8-installer
 
     # Build with lowest possible dependencies
     - php: 7.1
@@ -69,7 +68,7 @@ install:
 before_script:
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.1.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.1/selenium-server-standalone-3.1.0.jar; fi
-  - /usr/lib/jvm/java-8-oracle/bin/java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
+  - java -Dwebdriver.firefox.marionette=false -jar jar/selenium-server-standalone-3.1.0.jar -log ./logs/selenium.log &
   - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
   - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
   - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -84,8 +83,3 @@ after_script:
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
-
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
