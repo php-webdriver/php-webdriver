@@ -29,7 +29,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
     public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver()
     {
-        $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities, 10000, 13370);
+        $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities, 30000, 33370);
 
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
 
