@@ -29,7 +29,7 @@ class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertSame('fooVal', $capabilities->getCapability('fooKey'));
-        $this->assertSame('ANY', $capabilities->getPlatform());
+        $this->assertSame('any', $capabilities->getPlatform());
 
         $this->assertSame(
             ['fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY],
