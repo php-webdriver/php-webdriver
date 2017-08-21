@@ -23,6 +23,7 @@ class WebDriverCapabilityType
     const BROWSER_NAME = 'browserName';
     const VERSION = 'version';
     const PLATFORM = 'platform';
+    const PLATFORM_NAME = 'platformName';
     const JAVASCRIPT_ENABLED = 'javascriptEnabled';
     const TAKES_SCREENSHOT = 'takesScreenshot';
     const HANDLES_ALERTS = 'handlesAlerts';

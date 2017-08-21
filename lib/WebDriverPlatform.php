@@ -20,14 +20,14 @@ namespace Facebook\WebDriver;
  */
 class WebDriverPlatform
 {
-    const ANDROID = 'ANDROID';
-    const ANY = 'ANY';
-    const LINUX = 'LINUX';
-    const MAC = 'MAC';
-    const UNIX = 'UNIX';
-    const VISTA = 'VISTA';
-    const WINDOWS = 'WINDOWS';
-    const XP = 'XP';
+    const ANDROID = 'android';
+    const ANY = 'any';
+    const LINUX = 'linux';
+    const MAC = 'mac';
+    const UNIX = 'unix';
+    const VISTA = 'vista';
+    const WINDOWS = 'windows';
+    const XP = 'xp';
 
     private function __construct()
     {
