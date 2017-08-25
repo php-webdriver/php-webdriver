@@ -29,7 +29,12 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
     public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver()
     {
-        $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities, 30000, 33370);
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout
+        );
 
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
 
@@ -51,8 +56,8 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->driver = RemoteWebDriver::create(
             $this->serverUrl,
             $this->desiredCapabilities,
-            null,
-            null,
+            $this->connectionTimeout,
+            $this->requestTimeout,
             null,
             null,
             $requiredCapabilities
@@ -64,7 +69,12 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
     public function testShouldCreateInstanceFromExistingSessionId()
     {
         // Create driver instance and load page "index.html"
-        $originalDriver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities);
+        $originalDriver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout
+        );
         $originalDriver->get($this->getTestPageUrl('index.html'));
         $this->assertContains('/index.html', $originalDriver->getCurrentURL());
 

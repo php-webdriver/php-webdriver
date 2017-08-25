@@ -34,6 +34,10 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
     protected $serverUrl = 'http://localhost:4444/wd/hub';
     /** @var DesiredCapabilities */
     protected $desiredCapabilities;
+    /** @var int */
+    protected $connectionTimeout = 60000;
+    /** @var int */
+    protected $requestTimeout = 60000;
 
     protected function setUp()
     {
@@ -58,7 +62,12 @@ class WebDriverTestCase extends \PHPUnit_Framework_TestCase
         }
 
         if ($this->createWebDriver) {
-            $this->driver = RemoteWebDriver::create($this->serverUrl, $this->desiredCapabilities);
+            $this->driver = RemoteWebDriver::create(
+                $this->serverUrl,
+                $this->desiredCapabilities,
+                $this->connectionTimeout,
+                $this->requestTimeout
+            );
         }
     }
 
