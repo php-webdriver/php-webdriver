@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Remote\RemoteWebElement;
+
 /**
  * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebElement
  */
@@ -281,5 +284,54 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertFalse($differentElement->equals($firstElement));
         $this->assertFalse($firstElement->equals($differentElement));
         $this->assertFalse($differentElement->equals($againTheFirstElement));
+    }
+
+    /**
+     * @covers ::findElement
+     */
+    public function testShouldThrowExceptionIfChildElementCannotBeFound()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+
+        $this->expectException(NoSuchElementException::class);
+        $element->findElement(WebDriverBy::id('not_existing'));
+    }
+
+    public function testShouldFindChildElementIfExistsOnAPage()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+
+        $childElement = $element->findElement(WebDriverBy::cssSelector('li'));
+
+        $this->assertInstanceOf(RemoteWebElement::class, $childElement);
+        $this->assertSame('li', $childElement->getTagName());
+        $this->assertSame('First', $childElement->getText());
+    }
+
+    public function testShouldReturnEmptyArrayIfChildElementsCannotBeFound()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+
+        $childElements = $element->findElements(WebDriverBy::cssSelector('not_existing'));
+
+        $this->assertInternalType('array', $childElements);
+        $this->assertCount(0, $childElements);
+    }
+
+    public function testShouldFindMultipleChildElements()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+
+        $allElements = $this->driver->findElements(WebDriverBy::cssSelector('li'));
+        $childElements = $element->findElements(WebDriverBy::cssSelector('li'));
+
+        $this->assertInternalType('array', $childElements);
+        $this->assertCount(5, $allElements); // there should be 5 <li> elements on page
+        $this->assertCount(3, $childElements); // but we should find only subelements of one <ul>
+        $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $childElements);
     }
 }
