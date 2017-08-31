@@ -146,7 +146,8 @@ class CookieTest extends \PHPUnit_Framework_TestCase
     public function testShouldValidateCookie($name, $value, $domain, $expectedMessage)
     {
         if ($expectedMessage) {
-            $this->setExpectedException(\InvalidArgumentException::class, $expectedMessage);
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectExceptionMessage($expectedMessage);
         }
 
         $cookie = new Cookie($name, $value);

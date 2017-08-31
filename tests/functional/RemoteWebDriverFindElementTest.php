@@ -28,7 +28,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $this->setExpectedException(NoSuchElementException::class);
+        $this->expectException(NoSuchElementException::class);
         $this->driver->findElement(WebDriverBy::id('not_existing'));
     }
 

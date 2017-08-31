@@ -88,10 +88,8 @@ class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
 
         $options = new WebDriverOptions($this->executor);
 
-        $this->setExpectedException(
-            \InvalidArgumentException::class,
-            'Cookie must be set from instance of Cookie class or from array.'
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Cookie must be set from instance of Cookie class or from array.');
         $options->addCookie($notCookie);
     }
 

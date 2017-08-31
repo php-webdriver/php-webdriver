@@ -48,7 +48,7 @@ class WebDriverAlertTest extends WebDriverTestCase
 
         $this->driver->switchTo()->alert()->accept();
 
-        $this->setExpectedException(NoAlertOpenException::class);
+        $this->expectException(NoAlertOpenException::class);
         $this->driver->switchTo()->alert()->accept();
     }
 
