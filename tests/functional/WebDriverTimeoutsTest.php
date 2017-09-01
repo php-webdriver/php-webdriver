@@ -30,7 +30,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('delayed_element.html'));
 
-        $this->setExpectedException(NoSuchElementException::class);
+        $this->expectException(NoSuchElementException::class);
         $this->driver->findElement(WebDriverBy::id('delayed'));
     }
 

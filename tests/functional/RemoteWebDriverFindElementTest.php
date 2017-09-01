@@ -24,11 +24,11 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
  */
 class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {
-    public function testShouldThrowExceptionOfElementCannotBeFound()
+    public function testShouldThrowExceptionIfElementCannotBeFound()
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $this->setExpectedException(NoSuchElementException::class);
+        $this->expectException(NoSuchElementException::class);
         $this->driver->findElement(WebDriverBy::id('not_existing'));
     }
 
@@ -58,7 +58,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('ul > li'));
 
         $this->assertInternalType('array', $elements);
-        $this->assertCount(3, $elements);
+        $this->assertCount(5, $elements);
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $elements);
     }
 }

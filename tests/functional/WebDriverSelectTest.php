@@ -51,10 +51,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $notSelectElement = $this->driver->findElement(WebDriverBy::cssSelector('textarea'));
 
-        $this->setExpectedException(
-            UnexpectedTagNameException::class,
-            'Element should have been "select" but was "textarea"'
-        );
+        $this->expectException(UnexpectedTagNameException::class);
+        $this->expectExceptionMessage('Element should have been "select" but was "textarea"');
         new WebDriverSelect($notSelectElement);
     }
 
@@ -109,10 +107,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
 
-        $this->setExpectedException(
-            NoSuchElementException::class,
-            'No options are selected'
-        );
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('No options are selected');
         $select->getFirstSelectedOption();
     }
 
@@ -155,10 +151,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            NoSuchElementException::class,
-            'Cannot locate option with index: 1337'
-        );
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with index: 1337');
         $select->selectByIndex(1337);
     }
 
@@ -201,10 +195,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            NoSuchElementException::class,
-            'Cannot locate option with value: 1337'
-        );
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with value: 1337');
         $select->selectByValue(1337);
     }
 
@@ -247,10 +239,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            NoSuchElementException::class,
-            'Cannot locate option with text: second'
-        );
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with text: second');
         $select->selectByVisibleText('second'); // the option is "This is second option"
     }
 
@@ -296,10 +286,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            NoSuchElementException::class,
-            'Cannot locate option with text: Not existing option'
-        );
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with text: Not existing option');
         $select->selectByVisiblePartialText('Not existing option');
     }
 
@@ -307,10 +295,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            UnsupportedOperationException::class,
-            'You may only deselect all options of a multi-select'
-        );
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect all options of a multi-select');
         $select->deselectAll();
     }
 
@@ -353,10 +339,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            UnsupportedOperationException::class,
-            'You may only deselect options of a multi-select'
-        );
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect options of a multi-select');
         $select->deselectByIndex(0);
     }
 
@@ -381,10 +365,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            UnsupportedOperationException::class,
-            'You may only deselect options of a multi-select'
-        );
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect options of a multi-select');
         $select->deselectByValue('first');
     }
 
@@ -411,10 +393,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            UnsupportedOperationException::class,
-            'You may only deselect options of a multi-select'
-        );
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect options of a multi-select');
         $select->deselectByVisibleText('First');
     }
 
@@ -447,10 +427,8 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
-        $this->setExpectedException(
-            UnsupportedOperationException::class,
-            'You may only deselect options of a multi-select'
-        );
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect options of a multi-select');
         $select->deselectByVisiblePartialText('First');
     }
 
