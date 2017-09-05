@@ -45,10 +45,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $this->assertContains(
-            '/index.html',
-            $this->driver->getCurrentURL()
-        );
+        $this->assertStringEndsWith('/index.html', $this->driver->getCurrentURL());
     }
 
     /**
@@ -173,6 +170,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::executeAsyncScript
+     * @covers Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
      */
     public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
     {
