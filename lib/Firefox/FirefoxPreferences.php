@@ -18,6 +18,8 @@ namespace Facebook\WebDriver\Firefox;
 /**
  * Constants of common Firefox profile preferences (about:config values).
  * @see http://kb.mozillazine.org/Firefox_:_FAQs_:_About:config_Entries
+ *
+ * @codeCoverageIgnore
  */
 class FirefoxPreferences
 {
