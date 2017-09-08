@@ -132,10 +132,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * [Experimental] Construct the RemoteWebDriver by an existing session.
+     * Construct the RemoteWebDriver by an existing session.
      *
      * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
-     * You cannot pass the desired capabilities because the session was created before.
+     * You cannot pass the desired capabilities because the session was created before. The actual capabilities of
+     * the remote browser will be retrieved an available using getCapabilities() method.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
@@ -145,7 +146,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         $executor = new HttpCommandExecutor($selenium_server_url);
 
-        return new static($executor, $session_id);
+        $getCapabilitiesCommand = new WebDriverCommand($session_id, DriverCommand::GET_CAPABILITIES, []);
+        $capabilitiesResponse = $executor->execute($getCapabilitiesCommand);
+        $returnedCapabilities = new DesiredCapabilities($capabilitiesResponse->getValue());
+
+        return new static($executor, $session_id, $returnedCapabilities);
     }
 
     /**

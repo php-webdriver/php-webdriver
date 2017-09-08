@@ -84,6 +84,11 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         // Create new RemoteWebDriver instance based on the session ID
         $this->driver = RemoteWebDriver::createBySessionID($sessionId, $this->serverUrl);
 
+        // Capabilities should be retrieved and be set to the driver instance
+        $returnedCapabilities = $this->driver->getCapabilities();
+        $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
+        $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+
         // Check we reused the previous instance (window) and it has the same URL
         $this->assertContains('/index.html', $this->driver->getCurrentURL());
     }

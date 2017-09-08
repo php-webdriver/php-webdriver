@@ -15,7 +15,12 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
+use Facebook\WebDriver\Remote\RemoteKeyboard;
+use Facebook\WebDriver\Remote\RemoteMouse;
+use Facebook\WebDriver\Remote\RemoteTargetLocator;
+use Facebook\WebDriver\Remote\RemoteTouchScreen;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
@@ -24,6 +29,28 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
+    /**
+     * @covers ::manage
+     * @covers ::navigate
+     * @covers ::switchTo
+     * @covers ::getMouse
+     * @covers ::getKeyboard
+     * @covers ::getTouch
+     * @covers ::action
+     * @covers ::wait
+     */
+    public function testShouldCreateInstancesOfDriverAbstractions()
+    {
+        $this->assertInstanceOf(WebDriverOptions::class, $this->driver->manage());
+        $this->assertInstanceOf(WebDriverNavigation::class, $this->driver->navigate());
+        $this->assertInstanceOf(RemoteTargetLocator::class, $this->driver->switchTo());
+        $this->assertInstanceOf(RemoteMouse::class, $this->driver->getMouse());
+        $this->assertInstanceOf(RemoteKeyboard::class, $this->driver->getKeyboard());
+        $this->assertInstanceOf(RemoteTouchScreen::class, $this->driver->getTouch());
+        $this->assertInstanceOf(WebDriverActions::class, $this->driver->action());
+        $this->assertInstanceOf(WebDriverWait::class, $this->driver->wait(15, 1337));
+    }
+
     /**
      * @covers ::getTitle
      */
