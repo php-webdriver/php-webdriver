@@ -39,9 +39,13 @@ Then install the library:
 
 All you need as the server for this client is the `selenium-server-standalone-#.jar` file provided here: http://selenium-release.storage.googleapis.com/index.html
 
-Download and run that file, replacing # with the current server version.
+Download and run that file, replacing # with the current server version. Keep in mind you must have Java 8+ installed to start this command.
 
     java -jar selenium-server-standalone-#.jar
+
+When using Selenium server 3.5 and newer with some remote end clients (eg. Firefox with Geckodriver), you MUST disable so called "pass-through" mode, so that remote browser's protocol is translated to the protocol supported by php-webdriver (see [issue #469](https://github.com/facebook/php-webdriver/issues/469)):
+
+    java -jar selenium-server-standalone-#.jar -enablePassThrough false
 
 Then when you create a session, be sure to pass the url to where your server is running.
 
@@ -50,19 +54,23 @@ Then when you create a session, be sure to pass the url to where your server is 
 $host = 'http://localhost:4444/wd/hub'; // this is the default
 ```
 
-* Launch Firefox:
+##### Launch Firefox
 
-    ```php
-    $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
-    ```
+Make sure to have latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed.
 
-* Launch Chrome:
+```php
+$driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+```
 
-    ```php
-    $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
-    ```
+##### Launch Chrome
 
-You can also customize the desired capabilities:
+Make sure to have latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) installed.
+
+```php
+$driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+```
+
+##### You can also customize the desired capabilities
 
 ```php
 $desired_capabilities = DesiredCapabilities::firefox();
