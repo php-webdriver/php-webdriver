@@ -51,7 +51,7 @@ class WebDriverCompositeAction implements WebDriverAction
     }
 
     /**
-     * Perform the seqeunce of actions.
+     * Perform the sequence of actions.
      */
     public function perform()
     {
