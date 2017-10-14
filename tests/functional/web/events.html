@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Events</title>
+    <style>
+        ul.active {
+            background-color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="target"
+    style="border: 1px solid black; height: 8em;"
+    ondragover="handleDragover(event);"
+    ondrop="handleDrop(event);"
+    ondragenter="handleDragenter(event);"
+    ondragleave="handleDragleave(event);"
+>
+
+</ul>
+
+<ul>
+    <li id="item-1" draggable="true">First item</li>
+    <li id="item-2" draggable="true">Second item</li>
+    <li id="item-3" draggable="true">Third item</li>
+</ul>
+
+<pre id="log" style="border: 1px solid black; height: 20em; overflow: auto;"></pre>
+
+<script>
+    function logEvent(event) {
+        var logElement = document.getElementById('log');
+        logElement.innerHTML += '<strong>' + event.type + '</strong> <span>' + event.target.id +'</span><br>';
+        logElement.scrollTop = logElement.scrollHeight;
+        console.log(event);
+    }
+
+    function handleDragenter(e) {
+        logEvent(e);
+        e.target.classList.add('active');
+    }
+
+    function handleDragleave(e) {
+        logEvent(e);
+        e.target.classList.remove('active');
+    }
+
+    function handleDragover(e) {
+        e.preventDefault();
+    }
+
+    function handleDrop(e) {
+        logEvent(e);
+        e.preventDefault();
+
+        var data = e.dataTransfer.getData('text');
+        e.target.appendChild(document.getElementById(data));
+        e.target.classList.remove('active');
+    }
+
+    var lis = document.querySelectorAll('ul > li'), el = null;
+    for (var i = 0; i < lis.length; i++) {
+        el = lis[i];
+
+        el.addEventListener(
+            'dragstart',
+            function (e) {
+                logEvent(e);
+                e.dataTransfer.setData('text/plain', e.target.id);
+            }
+        );
+
+        el.addEventListener('click', logEvent);
+        el.addEventListener('contextmenu', logEvent);
+        el.addEventListener('dblclick', logEvent);
+        el.addEventListener('mouseover', logEvent);
+        el.addEventListener('mousedown', logEvent);
+        el.addEventListener('mouseup', logEvent);
+    }
+</script>
+
+</body>
+</html>
