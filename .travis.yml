@@ -29,7 +29,13 @@ matrix:
 
     # Build with lowest possible dependencies
     - php: 7.1
-      env: dependencies="--prefer-lowest"
+      env: DEPENDENCIES="--prefer-lowest"
+
+    # Chrome on Travis build with lowest possible dependencies
+    - php: 7.1
+      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
+      addons:
+        chrome: beta
 
     # Saucelabs builds
     - php: 7.1
@@ -77,11 +83,11 @@ before_install:
   - travis_retry composer self-update
 
 install:
-  - travis_retry composer update --no-interaction $dependencies
+  - travis_retry composer update --no-interaction $DEPENDENCIES
 
 before_script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
-  - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=./chromedriver/chromedriver; fi
+  - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.4.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.4/selenium-server-standalone-3.4.0.jar; fi
   - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.4.0.jar -log ./logs/selenium.log &
