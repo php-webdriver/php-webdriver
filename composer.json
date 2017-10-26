@@ -18,10 +18,11 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^5.4",
+    "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
     "friendsofphp/php-cs-fixer": "^2.0",
     "squizlabs/php_codesniffer": "^2.6",
     "php-mock/php-mock-phpunit": "^1.1",
-    "satooshi/php-coveralls": "^1.0",
+    "php-coveralls/php-coveralls": "^1.0.2",
     "symfony/var-dumper": "^3.3"
   },
   "autoload": {
