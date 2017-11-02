@@ -1,4 +1,5 @@
 <?php
+
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
