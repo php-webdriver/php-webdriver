@@ -453,7 +453,7 @@ class WebDriverExpectedCondition
      * @return WebDriverExpectedCondition<mixed> Condition returns the return value of the getApply() of the given
      * condition.
      */
-    public static function refreshed(WebDriverExpectedCondition $condition)
+    public static function refreshed(self $condition)
     {
         return new static(
             function (WebDriver $driver) use ($condition) {
@@ -558,7 +558,7 @@ class WebDriverExpectedCondition
      * @param WebDriverExpectedCondition $condition The condition to be negated.
      * @return mixed The negation of the result of the given condition.
      */
-    public static function not(WebDriverExpectedCondition $condition)
+    public static function not(self $condition)
     {
         return new static(
             function (WebDriver $driver) use ($condition) {

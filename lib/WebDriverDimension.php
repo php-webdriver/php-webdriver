@@ -65,7 +65,7 @@ class WebDriverDimension
      * @param WebDriverDimension $dimension The dimension to be compared with.
      * @return bool Whether the height and the width are the same as the instance.
      */
-    public function equals(WebDriverDimension $dimension)
+    public function equals(self $dimension)
     {
         return $this->height === $dimension->getHeight() && $this->width === $dimension->getWidth();
     }
