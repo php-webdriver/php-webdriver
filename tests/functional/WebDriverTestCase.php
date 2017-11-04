@@ -20,11 +20,12 @@ use Facebook\WebDriver\Exception\NoSuchWindowException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use PHPUnit\Framework\TestCase;
 
 /**
  * The base class for test cases.
  */
-class WebDriverTestCase extends \PHPUnit_Framework_TestCase
+class WebDriverTestCase extends TestCase
 {
     /** @var RemoteWebDriver $driver */
     public $driver;

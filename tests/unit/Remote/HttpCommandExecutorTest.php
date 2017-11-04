@@ -16,8 +16,9 @@
 namespace Facebook\WebDriver\Remote;
 
 use phpmock\phpunit\PHPMock;
+use PHPUnit\Framework\TestCase;
 
-class HttpCommandExecutorTest extends \PHPUnit_Framework_TestCase
+class HttpCommandExecutorTest extends TestCase
 {
     use PHPMock;
 

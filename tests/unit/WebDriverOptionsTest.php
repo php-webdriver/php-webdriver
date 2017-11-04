@@ -17,11 +17,12 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Facebook\WebDriver\WebDriverOptions
  */
-class WebDriverOptionsTest extends \PHPUnit_Framework_TestCase
+class WebDriverOptionsTest extends TestCase
 {
     /** @var ExecuteMethod|\PHPUnit_Framework_MockObject_MockObject */
     private $executor;

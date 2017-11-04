@@ -15,12 +15,14 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Unit part of RemoteWebDriver tests. Ie. tests for behavior which do not interact with the real remote server.
  *
  * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebElement
  */
-class RemoteWebElementTest extends \PHPUnit_Framework_TestCase
+class RemoteWebElementTest extends TestCase
 {
     /**
      * @covers ::__construct

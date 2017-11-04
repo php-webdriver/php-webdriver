@@ -20,11 +20,12 @@ use Facebook\WebDriver\Exception\StaleElementReferenceException;
 use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers Facebook\WebDriver\WebDriverExpectedCondition
  */
-class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
+class WebDriverExpectedConditionTest extends TestCase
 {
     /** @var RemoteWebDriver|\PHPUnit_Framework_MockObject_MockObject */
     private $driverMock;

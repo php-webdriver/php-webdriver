@@ -17,8 +17,9 @@ namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
+use PHPUnit\Framework\TestCase;
 
-class WebDriverMouseMoveActionTest extends \PHPUnit_Framework_TestCase
+class WebDriverMouseMoveActionTest extends TestCase
 {
     /** @var WebDriverMouseMoveAction */
     private $webDriverMouseMoveAction;

@@ -15,7 +15,9 @@
 
 namespace Facebook\WebDriver\Remote;
 
-class WebDriverCommandTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class WebDriverCommandTest extends TestCase
 {
     public function testShouldSetOptionsUsingConstructor()
     {

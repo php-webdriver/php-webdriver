@@ -15,10 +15,12 @@
 
 namespace Facebook\WebDriver;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @covers Facebook\WebDriver\WebDriverKeys
  */
-class WebDriverKeysTest extends \PHPUnit_Framework_TestCase
+class WebDriverKeysTest extends TestCase
 {
     /**
      * @dataProvider provideKeys

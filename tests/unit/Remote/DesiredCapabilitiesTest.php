@@ -19,8 +19,9 @@ use Facebook\WebDriver\Firefox\FirefoxDriver;
 use Facebook\WebDriver\Firefox\FirefoxPreferences;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
 use Facebook\WebDriver\WebDriverPlatform;
+use PHPUnit\Framework\TestCase;
 
-class DesiredCapabilitiesTest extends \PHPUnit_Framework_TestCase
+class DesiredCapabilitiesTest extends TestCase
 {
     public function testShouldInstantiateWithCapabilitiesGivenInConstructor()
     {

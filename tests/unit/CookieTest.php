@@ -15,10 +15,12 @@
 
 namespace Facebook\WebDriver;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @covers Facebook\WebDriver\Cookie
  */
-class CookieTest extends \PHPUnit_Framework_TestCase
+class CookieTest extends TestCase
 {
     public function testShouldSetAllProperties()
     {

@@ -17,8 +17,9 @@ namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
+use PHPUnit\Framework\TestCase;
 
-class WebDriverDoubleClickActionTest extends \PHPUnit_Framework_TestCase
+class WebDriverDoubleClickActionTest extends TestCase
 {
     /** @var WebDriverDoubleClickAction */
     private $webDriverDoubleClickAction;

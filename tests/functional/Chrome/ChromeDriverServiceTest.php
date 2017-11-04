@@ -15,12 +15,14 @@
 
 namespace Facebook\WebDriver\Chrome;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @group exclude-saucelabs
  * @covers Facebook\WebDriver\Chrome\ChromeDriverService
  * @covers Facebook\WebDriver\Remote\Service\DriverService
  */
-class ChromeDriverServiceTest extends \PHPUnit_Framework_TestCase
+class ChromeDriverServiceTest extends TestCase
 {
     protected function setUp()
     {

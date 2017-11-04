@@ -17,12 +17,13 @@ namespace Facebook\WebDriver\Chrome;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
  * @covers Facebook\WebDriver\Chrome\ChromeDriver
  */
-class ChromeDriverTest extends \PHPUnit_Framework_TestCase
+class ChromeDriverTest extends TestCase
 {
     /** @var ChromeDriver */
     protected $driver;
