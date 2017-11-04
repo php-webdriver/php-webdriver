@@ -81,12 +81,7 @@ class DriverService
             return $this;
         }
 
-        $processBuilder = (new ProcessBuilder())
-            ->setPrefix($this->executable)
-            ->setArguments($this->args)
-            ->addEnvironmentVariables($this->environment);
-
-        $this->process = $processBuilder->getProcess();
+        $this->process = $this->createProcess();
         $this->process->start();
 
         $checker = new URLChecker();
@@ -143,5 +138,18 @@ class DriverService
         }
 
         return $executable;
+    }
+
+    /**
+     * @return Process
+     */
+    private function createProcess()
+    {
+        $processBuilder = (new ProcessBuilder())
+            ->setPrefix($this->executable)
+            ->setArguments($this->args)
+            ->addEnvironmentVariables($this->environment);
+
+        return $processBuilder->getProcess();
     }
 }
