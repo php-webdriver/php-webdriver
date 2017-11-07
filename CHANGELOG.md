@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.
 
+### Added
+- Added a visibilityOfAnyElementsLocated method to WebDriverExpectedCondition.
+
 ## 1.4.1 - 2017-04-28
 ### Fixed
 - Do not throw notice `Constant CURLOPT_CONNECTTIMEOUT_MS already defined`.
