@@ -145,7 +145,7 @@ class CookieTest extends TestCase
      * @param string $domain
      * @param string $expectedMessage
      */
-    public function testShouldValidateCookie($name, $value, $domain, $expectedMessage)
+    public function testShouldValidateCookieOnConstruction($name, $value, $domain, $expectedMessage)
     {
         if ($expectedMessage) {
             $this->expectException(\InvalidArgumentException::class);
@@ -156,6 +156,8 @@ class CookieTest extends TestCase
         if ($domain !== null) {
             $cookie->setDomain($domain);
         }
+
+        $this->assertInstanceOf(Cookie::class, $cookie);
     }
 
     /**
