@@ -185,6 +185,36 @@ class WebDriverExpectedConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
+    public function testShouldDetectVisibilityOfAnyElementLocated()
+    {
+        $elementList = [
+            $this->createRemoteWebElementMock(),
+            $this->createRemoteWebElementMock(),
+            $this->createRemoteWebElementMock(),
+        ];
+
+        $elementList[0]->expects($this->once())
+            ->method('isDisplayed')
+            ->willReturn(false);
+
+        $elementList[1]->expects($this->once())
+            ->method('isDisplayed')
+            ->willReturn(true);
+
+        $elementList[2]->expects($this->once())
+            ->method('isDisplayed')
+            ->willReturn(true);
+
+        $this->driverMock->expects($this->once())
+            ->method('findElements')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($elementList);
+
+        $condition = WebDriverExpectedCondition::visibilityOfAnyElementLocated(WebDriverBy::cssSelector('.foo'));
+
+        $this->assertSame([$elementList[1], $elementList[2]], $this->wait->until($condition));
+    }
+
     public function testShouldDetectInvisibilityOfElementLocatedConditionOnNoSuchElementException()
     {
         $element = $this->createRemoteWebElementMock();
