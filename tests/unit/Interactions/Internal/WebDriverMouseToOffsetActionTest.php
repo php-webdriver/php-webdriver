@@ -17,8 +17,9 @@ namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
+use PHPUnit\Framework\TestCase;
 
-class WebDriverMouseToOffsetActionTest extends \PHPUnit_Framework_TestCase
+class WebDriverMouseToOffsetActionTest extends TestCase
 {
     /**
      * @type WebDriverMoveToOffsetAction

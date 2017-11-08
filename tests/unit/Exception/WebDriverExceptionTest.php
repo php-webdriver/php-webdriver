@@ -15,7 +15,9 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class WebDriverExceptionTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class WebDriverExceptionTest extends TestCase
 {
     public function testShouldStoreResultsOnInstantiation()
     {

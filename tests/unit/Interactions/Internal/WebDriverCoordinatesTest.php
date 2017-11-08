@@ -15,7 +15,9 @@
 
 namespace Facebook\WebDriver\Interactions\Internal;
 
-class WebDriverCoordinatesTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class WebDriverCoordinatesTest extends TestCase
 {
     public function testConstruct()
     {

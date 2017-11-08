@@ -17,8 +17,9 @@ namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverMouse;
+use PHPUnit\Framework\TestCase;
 
-class WebDriverButtonReleaseActionTest extends \PHPUnit_Framework_TestCase
+class WebDriverButtonReleaseActionTest extends TestCase
 {
     /** @var WebDriverButtonReleaseAction */
     private $webDriverButtonReleaseAction;

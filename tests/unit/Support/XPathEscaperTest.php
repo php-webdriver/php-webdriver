@@ -15,7 +15,9 @@
 
 namespace Facebook\WebDriver\Support;
 
-class XPathEscaperTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class XPathEscaperTest extends TestCase
 {
     /**
      * @dataProvider xpathProvider

@@ -16,8 +16,9 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PHPUnit\Framework\BaseTestListener;
 
-class ReportSauceLabsStatusListener extends \PHPUnit_Framework_BaseTestListener
+class ReportSauceLabsStatusListener extends BaseTestListener
 {
     public function endTest(\PHPUnit_Framework_Test $test, $time)
     {
