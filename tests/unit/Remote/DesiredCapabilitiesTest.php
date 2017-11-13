@@ -64,7 +64,7 @@ class DesiredCapabilitiesTest extends TestCase
 
     /**
      * @expectedException \Exception
-     * @expectedExceptionMessage isJavascriptEnable() is a htmlunit-only option
+     * @expectedExceptionMessage isJavascriptEnabled() is a htmlunit-only option
      */
     public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser()
     {
