@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.5.0 - 2017-11-15
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.
 - Allow installation of Symfony 4 components.
