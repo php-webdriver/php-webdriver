@@ -4,9 +4,10 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.
+- Allow installation of Symfony 4 components.
 
 ### Added
-- Added a visibilityOfAnyElementsLocated method to WebDriverExpectedCondition.
+- Add a `visibilityOfAnyElementsLocated()` method to `WebDriverExpectedCondition`.
 
 ## 1.4.1 - 2017-04-28
 ### Fixed
