@@ -10,9 +10,10 @@
     "forum": "https://www.facebook.com/groups/phpwebdriver/",
     "source": "https://github.com/facebook/php-webdriver"
   },
+  "minimum-stability": "beta",
   "require": {
     "php": "^5.6 || ~7.0",
-    "symfony/process": "^2.8 || ^3.1",
+    "symfony/process": "^2.8 || ^3.1 || ^4.0",
     "ext-curl": "*",
     "ext-zip": "*"
   },
@@ -24,7 +25,7 @@
     "php-mock/php-mock-phpunit": "^1.1",
     "php-coveralls/php-coveralls": "^1.0.2",
     "guzzle/guzzle": "^3.4.1",
-    "symfony/var-dumper": "^3.3"
+    "symfony/var-dumper": "^3.3 || ^4.0"
   },
   "autoload": {
     "psr-4": {

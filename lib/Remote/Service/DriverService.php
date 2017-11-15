@@ -81,12 +81,7 @@ class DriverService
             return $this;
         }
 
-        $processBuilder = (new ProcessBuilder())
-            ->setPrefix($this->executable)
-            ->setArguments($this->args)
-            ->addEnvironmentVariables($this->environment);
-
-        $this->process = $processBuilder->getProcess();
+        $this->process = $this->createProcess();
         $this->process->start();
 
         $checker = new URLChecker();
@@ -143,5 +138,27 @@ class DriverService
         }
 
         return $executable;
+    }
+
+    /**
+     * @return Process
+     */
+    private function createProcess()
+    {
+        // BC: ProcessBuilder deprecated since Symfony 3.4 and removed in Symfony 4.0.
+        if (class_exists(ProcessBuilder::class)
+            && false === mb_strpos('@deprecated', (new \ReflectionClass(ProcessBuilder::class))->getDocComment())
+        ) {
+            $processBuilder = (new ProcessBuilder())
+                ->setPrefix($this->executable)
+                ->setArguments($this->args)
+                ->addEnvironmentVariables($this->environment);
+
+            return $processBuilder->getProcess();
+        }
+        // Safe to use since Symfony 3.3
+        $commandLine = array_merge([$this->executable], $this->args);
+
+        return new Process($commandLine, null, $this->environment);
     }
 }
