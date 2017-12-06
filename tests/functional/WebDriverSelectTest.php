@@ -20,8 +20,9 @@ use Facebook\WebDriver\Exception\UnexpectedTagNameException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 /**
- * @covers Facebook\WebDriver\WebDriverSelect
- * @covers Facebook\WebDriver\Exception\UnexpectedTagNameException
+ * @group exclude-saucelabs
+ * @covers \Facebook\WebDriver\Exception\UnexpectedTagNameException
+ * @covers \Facebook\WebDriver\WebDriverSelect
  */
 class WebDriverSelectTest extends WebDriverTestCase
 {
@@ -57,7 +58,7 @@ class WebDriverSelectTest extends WebDriverTestCase
     }
 
     /**
-     * @dataProvider selectSelectorProvider
+     * @dataProvider provideSelectSelector
      * @param string $selector
      */
     public function testShouldGetOptionsOfSelect($selector)
@@ -71,7 +72,10 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertCount(5, $options);
     }
 
-    public function selectSelectorProvider()
+    /**
+     * @return array[]
+     */
+    public function provideSelectSelector()
     {
         return [
             'simple <select>' => ['#select'],

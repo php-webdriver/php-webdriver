@@ -27,15 +27,7 @@ use InvalidArgumentException;
 class Cookie implements \ArrayAccess
 {
     /** @var array */
-    protected $cookie = [
-        'name' => null,
-        'value' => null,
-        'path' => null,
-        'domain' => null,
-        'expiry' => null,
-        'secure' => null,
-        'httpOnly' => null,
-    ];
+    protected $cookie = [];
 
     /**
      * @param string $name The name of the cookie; may not be null or an empty string.
@@ -51,11 +43,17 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @param array $cookieArray
+     * @param array $cookieArray The cookie fields; must contain name and value.
      * @return Cookie
      */
     public static function createFromArray(array $cookieArray)
     {
+        if (!isset($cookieArray['name'])) {
+            throw new InvalidArgumentException('Cookie name should be set');
+        }
+        if (!isset($cookieArray['value'])) {
+            throw new InvalidArgumentException('Cookie value should be set');
+        }
         $cookie = new self($cookieArray['name'], $cookieArray['value']);
 
         if (isset($cookieArray['path'])) {
@@ -82,7 +80,7 @@ class Cookie implements \ArrayAccess
      */
     public function getName()
     {
-        return $this->cookie['name'];
+        return $this->offsetGet('name');
     }
 
     /**
@@ -90,7 +88,7 @@ class Cookie implements \ArrayAccess
      */
     public function getValue()
     {
-        return $this->cookie['value'];
+        return $this->offsetGet('value');
     }
 
     /**
@@ -100,15 +98,15 @@ class Cookie implements \ArrayAccess
      */
     public function setPath($path)
     {
-        $this->cookie['path'] = $path;
+        $this->offsetSet('path', $path);
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPath()
     {
-        return $this->cookie['path'];
+        return $this->offsetGet('path');
     }
 
     /**
@@ -122,15 +120,15 @@ class Cookie implements \ArrayAccess
             throw new InvalidArgumentException(sprintf('Cookie domain "%s" should not contain a port', $domain));
         }
 
-        $this->cookie['domain'] = $domain;
+        $this->offsetSet('domain', $domain);
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDomain()
     {
-        return $this->cookie['domain'];
+        return $this->offsetGet('domain');
     }
 
     /**
@@ -140,15 +138,15 @@ class Cookie implements \ArrayAccess
      */
     public function setExpiry($expiry)
     {
-        $this->cookie['expiry'] = (int) $expiry;
+        $this->offsetSet('expiry', (int) $expiry);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getExpiry()
     {
-        return $this->cookie['expiry'];
+        return $this->offsetGet('expiry');
     }
 
     /**
@@ -158,15 +156,15 @@ class Cookie implements \ArrayAccess
      */
     public function setSecure($secure)
     {
-        $this->cookie['secure'] = $secure;
+        $this->offsetSet('secure', $secure);
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
     public function isSecure()
     {
-        return $this->cookie['secure'];
+        return $this->offsetGet('secure');
     }
 
     /**
@@ -176,15 +174,15 @@ class Cookie implements \ArrayAccess
      */
     public function setHttpOnly($httpOnly)
     {
-        $this->cookie['httpOnly'] = $httpOnly;
+        $this->offsetSet('httpOnly', $httpOnly);
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
     public function isHttpOnly()
     {
-        return $this->cookie['httpOnly'];
+        return $this->offsetGet('httpOnly');
     }
 
     /**
@@ -192,7 +190,13 @@ class Cookie implements \ArrayAccess
      */
     public function toArray()
     {
-        return $this->cookie;
+        $cookie = $this->cookie;
+        if (!isset($cookie['secure'])) {
+            // Passing a boolean value for the "secure" flag is mandatory when using geckodriver
+            $cookie['secure'] = false;
+        }
+
+        return $cookie;
     }
 
     public function offsetExists($offset)
@@ -202,12 +206,16 @@ class Cookie implements \ArrayAccess
 
     public function offsetGet($offset)
     {
-        return $this->cookie[$offset];
+        return $this->offsetExists($offset) ? $this->cookie[$offset] : null;
     }
 
     public function offsetSet($offset, $value)
     {
-        $this->cookie[$offset] = $value;
+        if ($value === null) {
+            unset($this->cookie[$offset]);
+        } else {
+            $this->cookie[$offset] = $value;
+        }
     }
 
     public function offsetUnset($offset)

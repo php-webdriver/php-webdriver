@@ -3,13 +3,28 @@
 <head>
     <meta charset="utf-8">
     <title>php-webdriver test page</title>
+    <style>
+        #red-box {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 5px;
+            height: 5px;
+            background-color: #ff0000;
+        }
+    </style>
 </head>
-<body>
-    <h1 id='welcome'>Welcome to the facebook/php-webdriver testing page.</h1>
+<body style="background-color: #fafaff;">
+
+    <div id="red-box"></div>
+
+    <h1 id="welcome">Welcome to the facebook/php-webdriver testing page.</h1>
 
     <a href="form.html" id="a-form">Form test page</a>
     |
     <a href="upload.html" id="a-form-upload">Form with file upload</a>
+    |
+    <a href="form_checkbox_radio.html" id="a-form-checkbox-radio">Form with checkboxes and radios</a>
     |
     <a href="open_new_window.html" id="a-new-window">New window opener test page</a>
     |

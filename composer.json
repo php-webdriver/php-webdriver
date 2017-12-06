@@ -13,9 +13,11 @@
   "minimum-stability": "beta",
   "require": {
     "php": "^5.6 || ~7.0",
-    "symfony/process": "^2.8 || ^3.1 || ^4.0",
+    "symfony/process": "^2.8 || ^3.1 || ^4.0 || ^5.0",
+    "symfony/polyfill-mbstring": "^1.12",
     "ext-curl": "*",
-    "ext-zip": "*"
+    "ext-zip": "*",
+    "ext-json": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
@@ -23,9 +25,12 @@
     "friendsofphp/php-cs-fixer": "^2.0",
     "squizlabs/php_codesniffer": "^2.6",
     "php-mock/php-mock-phpunit": "^1.1",
-    "php-coveralls/php-coveralls": "^1.0.2",
-    "guzzle/guzzle": "^3.4.1",
-    "symfony/var-dumper": "^3.3 || ^4.0"
+    "php-coveralls/php-coveralls": "^2.0",
+    "symfony/var-dumper": "^3.3 || ^4.0 || ^5.0",
+    "jakub-onderka/php-parallel-lint": "^0.9.2"
+  },
+  "suggest": {
+    "ext-SimpleXML": "For Firefox profile creation"
   },
   "autoload": {
     "psr-4": {
@@ -40,17 +45,21 @@
   },
   "scripts": {
     "codestyle:check": [
-      "vendor/bin/php-cs-fixer fix --diff --dry-run",
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
       "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
     ],
     "codestyle:fix": [
-      "vendor/bin/php-cs-fixer fix --diff || exit 0",
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+    ],
+    "analyze": [
+      "vendor/bin/parallel-lint -j 10 ./lib ./tests",
+      "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
     ]
   },
   "extra": {
     "branch-alias": {
-      "dev-community": "1.5-dev"
+      "dev-community": "1.8.x-dev"
     }
   }
 }

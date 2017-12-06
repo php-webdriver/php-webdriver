@@ -20,7 +20,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for findElement() and findElements() method of RemoteWebDriver.
- * @covers Facebook\WebDriver\Remote\RemoteWebDriver
+ * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {
@@ -60,5 +60,26 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->assertInternalType('array', $elements);
         $this->assertCount(5, $elements);
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $elements);
+    }
+
+    /**
+     * @group exclude-saucelabs
+     */
+    public function testEscapeCssSelector()
+    {
+        self::skipForJsonWireProtocol(
+            'CSS selectors containing special characters are not supported by the legacy protocol'
+        );
+
+        $this->driver->get($this->getTestPageUrl('escape_css.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('.fo\'oo'));
+        $this->assertSame('Foo', $element->getText());
+
+        $element = $this->driver->findElement(WebDriverBy::className('#ba\'r'));
+        $this->assertSame('Bar', $element->getText());
+
+        $element = $this->driver->findElement(WebDriverBy::name('.#ba\'z'));
+        $this->assertSame('Baz', $element->getText());
     }
 }

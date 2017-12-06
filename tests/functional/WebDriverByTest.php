@@ -19,14 +19,14 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for locator strategies provided by WebDriverBy.
- * @covers Facebook\WebDriver\WebDriverBy
+ * @covers \Facebook\WebDriver\WebDriverBy
  */
 class WebDriverByTest extends WebDriverTestCase
 {
     /**
-     * @dataProvider textElementsProvider
-     * @param $webDriverByLocatorMethod
-     * @param $webDriverByLocatorValue
+     * @dataProvider provideTextElements
+     * @param string $webDriverByLocatorMethod
+     * @param string $webDriverByLocatorValue
      * @param string $expectedText
      * @param string $expectedAttributeValue
      */
@@ -52,7 +52,10 @@ class WebDriverByTest extends WebDriverTestCase
         }
     }
 
-    public function textElementsProvider()
+    /**
+     * @return array[]
+     */
+    public function provideTextElements()
     {
         return [
             'id' => ['id', 'id_test', 'Test by ID'],

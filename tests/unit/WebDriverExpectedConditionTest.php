@@ -23,7 +23,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\WebDriverExpectedCondition
+ * @covers \Facebook\WebDriver\WebDriverExpectedCondition
  */
 class WebDriverExpectedConditionTest extends TestCase
 {
@@ -34,11 +34,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     protected function setUp()
     {
-        // TODO: replace with createMock() once PHP 5.5 support is dropped
-        $this->driverMock = $this
-            ->getMockBuilder(RemoteWebDriver::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->driverMock = $this->createMock(RemoteWebDriver::class);
         $this->wait = new WebDriverWait($this->driverMock, 1, 1);
     }
 
@@ -139,9 +135,31 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
+    public function testShouldDetectNotPresenceOfElementLocatedCondition()
+    {
+        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $condition = WebDriverExpectedCondition::not(
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo'))
+        );
+
+        $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
+        $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
     public function testShouldDetectPresenceOfAllElementsLocatedByCondition()
     {
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $this->driverMock->expects($this->at(0))
             ->method('findElements')
@@ -164,9 +182,9 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #1: throws NoSuchElementException
         // Call #2: return Element, but isDisplayed will throw StaleElementReferenceException
         // Call #3: return Element, but isDisplayed will return false
-        // Call #4: return Element, isDisplayed will true and condition will match
+        // Call #4: return Element, isDisplayed will return true and condition will match
 
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
         $element->expects($this->at(0))
             ->method('isDisplayed')
             ->willThrowException(new StaleElementReferenceException(''));
@@ -189,9 +207,9 @@ class WebDriverExpectedConditionTest extends TestCase
     public function testShouldDetectVisibilityOfAnyElementLocated()
     {
         $elementList = [
-            $this->createRemoteWebElementMock(),
-            $this->createRemoteWebElementMock(),
-            $this->createRemoteWebElementMock(),
+            $this->createMock(RemoteWebElement::class),
+            $this->createMock(RemoteWebElement::class),
+            $this->createMock(RemoteWebElement::class),
         ];
 
         $elementList[0]->expects($this->once())
@@ -218,7 +236,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectInvisibilityOfElementLocatedConditionOnNoSuchElementException()
     {
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $this->driverMock->expects($this->at(0))
             ->method('findElement')
@@ -241,7 +259,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectInvisibilityOfElementLocatedConditionOnStaleElementReferenceException()
     {
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $this->driverMock->expects($this->exactly(2))
             ->method('findElement')
@@ -263,7 +281,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectInvisibilityOfElementLocatedConditionWhenElementBecamesInvisible()
     {
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $this->driverMock->expects($this->exactly(2))
             ->method('findElement')
@@ -285,7 +303,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectVisibilityOfCondition()
     {
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
         $element->expects($this->at(0))
             ->method('isDisplayed')
             ->willReturn(false);
@@ -307,7 +325,7 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #3: return Element, but getText will throw StaleElementReferenceException
         // Call #4: return Element, getText will return new text and condition will match
 
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
         $element->expects($this->at(0))
             ->method('getText')
             ->willReturn('this is an old text');
@@ -335,7 +353,7 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #3: return Element, getText will return not-matching text
         // Call #4: return Element, getText will return new text and condition will match
 
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
         $element->expects($this->at(0))
             ->method('getText')
             ->willThrowException(new StaleElementReferenceException(''));
@@ -366,7 +384,7 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #3: return Element, getText will return not-matching text
         // Call #4: return Element, getText will return matching text
 
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $element->expects($this->at(0))
             ->method('getText')
@@ -398,7 +416,7 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #3: return Element, getAttribute('value') will return not-matching text
         // Call #4: return Element, getAttribute('value') will return matching text
 
-        $element = $this->createRemoteWebElementMock();
+        $element = $this->createMock(RemoteWebElement::class);
 
         $element->expects($this->at(0))
             ->method('getAttribute')
@@ -455,18 +473,5 @@ class WebDriverExpectedConditionTest extends TestCase
                 ->with($this->isInstanceOf(WebDriverBy::class))
                 ->willReturn($element);
         }
-    }
-
-    /**
-     * @todo Replace with createMock() once PHP 5.5 support is dropped
-     * @return \PHPUnit_Framework_MockObject_MockObject|RemoteWebElement
-     */
-    private function createRemoteWebElementMock()
-    {
-        return $this->getMockBuilder(RemoteWebElement::class)
-            ->disableOriginalConstructor()
-            ->disableOriginalClone()
-            ->disableArgumentCloning()
-            ->getMock();
     }
 }

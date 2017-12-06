@@ -16,21 +16,19 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoAlertOpenException;
+use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers Facebook\WebDriver\WebDriverAlert
+ * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
+ * @covers \Facebook\WebDriver\WebDriverAlert
+ * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
+ * @covers \Facebook\WebDriver\WebDriverAlert
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {
     protected function setUp()
     {
-        if (getenv('CHROME_HEADLESS') === '1') {
-            // Alerts in headless mode should be available in next Chrome version (61), see:
-            // https://bugs.chromium.org/p/chromium/issues/detail?id=718235
-            $this->markTestSkipped('Alerts not yet supported by headless Chrome');
-        }
-
         parent::setUp();
 
         $this->driver->get($this->getTestPageUrl('alert.html'));
@@ -48,7 +46,12 @@ class WebDriverAlertTest extends WebDriverTestCase
 
         $this->driver->switchTo()->alert()->accept();
 
-        $this->expectException(NoAlertOpenException::class);
+        if (self::isW3cProtocolBuild()) {
+            $this->expectException(NoSuchAlertException::class);
+        } else {
+            $this->expectException(NoAlertOpenException::class);
+        }
+
         $this->driver->switchTo()->alert()->accept();
     }
 

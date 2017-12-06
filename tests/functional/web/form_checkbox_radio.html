@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<form id="main-form" method="POST">
+    <input name="j1">
+    <input type="checkbox" name="j2" value="j2a">
+
+    <label>
+        J         2
+   B
+
+        <input type="checkbox" name="j2" value="j2b">
+    </label>
+
+    <input type="radio" name="j3" value="j3a">
+
+    <label>
+        J
+
+            3
+   B
+
+        <input type="radio" name="j3" value="j3b">
+    </label>
+
+    <!-- Following elements #j4a and #j4b are associated with another-form, even though they are inside main-form tag -->
+    <label for="j4a">J4A</label>
+    <input type="radio" form="another-form" name="j4" value="j4a" id="j4a" checked/>
+
+    <label for="j5a">J5A</label>
+    <input type="checkbox" form="another-form" name="j5" value="j5a" id="j5a" checked/>
+
+    <input type="submit" value="OK">
+</form>
+
+<!-- Following elements are associated with main-form, even though they are not inside its tag -->
+<label for="j2c">J2C</label>
+<input type="checkbox" form="main-form" name="j2" value="j2c" id="j2c">
+
+<label for="j3c">J3C</label>
+<input type="radio" form="main-form" name="j3" value="j3c" id="j3c">
+
+<label for="j4b">J4B</label>
+<input type="radio" form="main-form" name="j4" value="j4b" id="j4b" checked>
+
+<label for="j5b">J5B</label>
+<input type="checkbox" form="main-form" name="j5" value="j5b" id="j5b" checked>
+
+<form id="another-form">
+    <input type="checkbox" name="single-cb">
+</form>
+
+<!-- Form without id -->
+<form>
+    <label for="j5c">J5C</label>
+    <input type="checkbox" name="j5" value="j5c" id="j5c" checked/>
+    <label for="j5d">J5D</label>
+    <input type="checkbox" name="j5" value="j5d" id="j5d" checked/>
+
+    <label for="j4c">J4C</label>
+    <input type="radio" name="j4" value="j4c" id="j4c" checked>
+</form>
+
+</body>
+</html>

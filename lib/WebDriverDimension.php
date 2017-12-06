@@ -21,17 +21,17 @@ namespace Facebook\WebDriver;
 class WebDriverDimension
 {
     /**
-     * @var int
+     * @var int|float
      */
     private $height;
     /**
-     * @var int
+     * @var int|float
      */
     private $width;
 
     /**
-     * @param int $width
-     * @param int $height
+     * @param int|float $width
+     * @param int|float $height
      */
     public function __construct($width, $height)
     {
@@ -46,7 +46,7 @@ class WebDriverDimension
      */
     public function getHeight()
     {
-        return $this->height;
+        return (int) $this->height;
     }
 
     /**
@@ -56,7 +56,7 @@ class WebDriverDimension
      */
     public function getWidth()
     {
-        return $this->width;
+        return (int) $this->width;
     }
 
     /**

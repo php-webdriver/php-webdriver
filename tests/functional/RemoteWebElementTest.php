@@ -19,7 +19,7 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebElement
+ * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
  */
 class RemoteWebElementTest extends WebDriverTestCase
 {
@@ -272,6 +272,8 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldCompareEqualsElement()
     {
+        self::skipForW3cProtocol('"equals" is not supported by the W3C specification');
+
         $this->driver->get($this->getTestPageUrl('index.html'));
 
         $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));

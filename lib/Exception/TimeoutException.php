@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class TimeOutException extends WebDriverException
+/**
+ * An operation did not complete before its timeout expired.
+ */
+class TimeoutException extends WebDriverException
 {
 }

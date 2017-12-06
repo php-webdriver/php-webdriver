@@ -24,6 +24,9 @@ use Facebook\WebDriver\Remote\WebDriverCommand;
 
 class ChromeDriver extends RemoteWebDriver
 {
+    /**
+     * @return static
+     */
     public static function start(DesiredCapabilities $desired_capabilities = null, ChromeDriverService $service = null)
     {
         if ($desired_capabilities === null) {
@@ -82,13 +85,16 @@ class ChromeDriver extends RemoteWebDriver
      *
      * @param string $session_id The existing session id
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
-     *
+     * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
+     * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @throws WebDriverException
      * @return RemoteWebDriver|void
      */
     public static function createBySessionID(
         $session_id,
-        $selenium_server_url = 'http://localhost:4444/wd/hub'
+        $selenium_server_url = 'http://localhost:4444/wd/hub',
+        $connection_timeout_in_ms = null,
+        $request_timeout_in_ms = null
     ) {
         throw new WebDriverException('Please use ChromeDriver::start() instead.');
     }

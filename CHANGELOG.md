@@ -3,6 +3,73 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+- Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
+- `getStatus()` method of RemoteWebDriver to get information about remote-end readiness to create new sessions.
+
+### Changed
+- Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).
+- Allow installation of Symfony 5 components.
+
+### Fixed
+- `WebDriverExpectedCondition::presenceOfElementLocated()` works correctly when used within `WebDriverExpectedCondition::not()`.
+
+## 1.7.1 - 2019-06-13
+### Fixed
+- Error `Call to a member function toArray()` if capabilities were already converted to an array.
+- Temporarily do not send capabilities to disable W3C WebDriver protocol when BrowserStack hub is used.
+
+## 1.7.0 - 2019-06-10
+### Added
+- `WebDriverCheckboxes` and `WebDriverRadios` helper classes to simplify interaction with checkboxes and radio buttons.
+
+### Fixed
+- Stop sending null values in Cookie object, which is against the protocol and may cause request to remote ends to fail.
+
+### Changed
+- Force Chrome to not use W3C WebDriver protocol.
+- Add workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943) which breaks the protocol in Chromedriver 75.
+
+## 1.6.0 - 2018-05-16
+### Added
+- Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
+- Update PHPDoc for functions that return static instances of a class.
+
+### Added
+- Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
+- `getStatus()` method of RemoteWebDriver to get information about remote-end readiness to create new sessions.
+
+### Changed
+- Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).
+- Allow installation of Symfony 5 components.
+
+### Fixed
+- `WebDriverExpectedCondition::presenceOfElementLocated()` works correctly when used within `WebDriverExpectedCondition::not()`.
+
+## 1.7.1 - 2019-06-13
+### Fixed
+- Error `Call to a member function toArray()` if capabilities were already converted to an array.
+- Temporarily do not send capabilities to disable W3C WebDriver protocol when BrowserStack hub is used.
+
+## 1.7.0 - 2019-06-10
+### Added
+- `WebDriverCheckboxes` and `WebDriverRadios` helper classes to simplify interaction with checkboxes and radio buttons.
+
+### Fixed
+- Stop sending null values in Cookie object, which is against the protocol and may cause request to remote ends to fail.
+
+### Changed
+- Force Chrome to not use W3C WebDriver protocol.
+- Add workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943) which breaks the protocol in Chromedriver 75.
+
+## 1.6.0 - 2018-05-16
+### Added
+- Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
+- Update PHPDoc for functions that return static instances of a class.
+
+### Changed
+- Disable sending 'Expect: 100-Continue' header with POST requests, as they may more easily fail when sending via eg. squid proxy.
+
 ## 1.5.0 - 2017-11-15
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.

@@ -18,14 +18,16 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 
 /**
- * @covers Facebook\WebDriver\Remote\LocalFileDetector
- * @covers Facebook\WebDriver\Remote\RemoteWebElement
+ * @covers \Facebook\WebDriver\Remote\LocalFileDetector
+ * @covers \Facebook\WebDriver\Remote\RemoteWebElement
  */
 class FileUploadTest extends WebDriverTestCase
 {
     /**
      * @group exclude-edge
      * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/6052385/
+     * @group exclude-saucelabs
+     * W3C protocol does not support remote file upload: https://github.com/w3c/webdriver/issues/1355
      */
     public function testShouldUploadAFile()
     {

@@ -16,13 +16,13 @@
 namespace Facebook\WebDriver;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\WebDriverNavigation
+ * @coversDefaultClass \Facebook\WebDriver\WebDriverNavigation
  */
 class WebDriverNavigationTest extends WebDriverTestCase
 {
     /**
-     * @covers ::to
      * @covers ::__construct
+     * @covers ::to
      */
     public function testShouldNavigateToUrl()
     {

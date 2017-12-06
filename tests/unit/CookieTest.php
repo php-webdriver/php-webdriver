@@ -18,7 +18,7 @@ namespace Facebook\WebDriver;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\Cookie
+ * @covers \Facebook\WebDriver\Cookie
  */
 class CookieTest extends TestCase
 {
@@ -63,6 +63,28 @@ class CookieTest extends TestCase
     }
 
     /**
+     * Test that there are no null values in the cookie array.
+     *
+     * Both JsonWireProtocol and w3c protocol say to leave an entry off
+     * rather than having a null value.
+     *
+     * https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+     * https://w3c.github.io/webdriver/#add-cookie
+     */
+    public function testShouldNotContainNullValues()
+    {
+        $cookie = new Cookie('cookieName', 'someValue');
+
+        $cookie->setHttpOnly(null);
+        $cookie->setPath(null);
+        $cookieArray = $cookie->toArray();
+
+        foreach ($cookieArray as $key => $value) {
+            $this->assertNotNull($value, $key . ' should not be null');
+        }
+    }
+
+    /**
      * @depends testShouldSetAllProperties
      * @param Cookie $cookie
      */
@@ -79,7 +101,7 @@ class CookieTest extends TestCase
         $cookie->offsetSet('domain', 'bar.com');
         $this->assertSame('bar.com', $cookie['domain']);
         $cookie->offsetUnset('domain');
-        $this->assertFalse(isset($cookie['domain']));
+        $this->assertArrayNotHasKey('domain', $cookie);
     }
 
     public function testShouldBeCreatableFromAnArrayWithBasicValues()
@@ -94,23 +116,23 @@ class CookieTest extends TestCase
         $this->assertSame('cookieName', $cookie['name']);
         $this->assertSame('someValue', $cookie['value']);
 
-        $this->assertFalse(isset($cookie['path']));
+        $this->assertArrayNotHasKey('path', $cookie);
         $this->assertNull($cookie['path']);
         $this->assertNull($cookie->getPath());
 
-        $this->assertFalse(isset($cookie['domain']));
+        $this->assertArrayNotHasKey('domain', $cookie);
         $this->assertNull($cookie['domain']);
         $this->assertNull($cookie->getDomain());
 
-        $this->assertFalse(isset($cookie['expiry']));
+        $this->assertArrayNotHasKey('expiry', $cookie);
         $this->assertNull($cookie['expiry']);
         $this->assertNull($cookie->getExpiry());
 
-        $this->assertFalse(isset($cookie['secure']));
+        $this->assertArrayNotHasKey('secure', $cookie);
         $this->assertNull($cookie['secure']);
         $this->assertNull($cookie->isSecure());
 
-        $this->assertFalse(isset($cookie['httpOnly']));
+        $this->assertArrayNotHasKey('httpOnly', $cookie);
         $this->assertNull($cookie['httpOnly']);
         $this->assertNull($cookie->isHttpOnly());
     }
@@ -139,7 +161,7 @@ class CookieTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCookieProvider
+     * @dataProvider provideInvalidCookie
      * @param string $name
      * @param string $value
      * @param string $domain
@@ -163,7 +185,7 @@ class CookieTest extends TestCase
     /**
      * @return array[]
      */
-    public function invalidCookieProvider()
+    public function provideInvalidCookie()
     {
         return [
             // $name, $value, $domain, $expectedMessage

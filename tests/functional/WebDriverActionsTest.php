@@ -18,7 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Interactions\WebDriverActions
+ * @coversDefaultClass \Facebook\WebDriver\Interactions\WebDriverActions
  */
 class WebDriverActionsTest extends WebDriverTestCase
 {
@@ -46,17 +46,23 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->click($element)
             ->perform();
 
-        $this->assertSame(
-            ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
-            $this->retrieveLoggedEvents()
-        );
+        $logs = ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'];
+        $loggedEvents = $this->retrieveLoggedEvents();
+
+        if (getenv('GECKODRIVER') === '1') {
+            $loggedEvents = array_slice($loggedEvents, 0, count($logs));
+            // Firefox sometimes triggers some extra events
+            // it's not related to Geckodriver, it's Firefox's own behavior
+        }
+
+        $this->assertSame($logs, $loggedEvents);
     }
 
     /**
      * @covers ::__construct
      * @covers ::clickAndHold
-     * @covers ::release
      * @covers ::perform
+     * @covers ::release
      */
     public function testShouldClickAndHoldOnElementAndRelease()
     {
@@ -71,13 +77,18 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->release()
             ->perform();
 
-        $this->assertSame(
-            ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
-            $this->retrieveLoggedEvents()
-        );
+        if (self::isW3cProtocolBuild()) {
+            $this->assertArraySubset(['mouseover item-1', 'mousedown item-1'], $this->retrieveLoggedEvents());
+        } else {
+            $this->assertSame(
+                ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
+                $this->retrieveLoggedEvents()
+            );
+        }
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::__construct
      * @covers ::contextClick
      * @covers ::perform
@@ -122,10 +133,32 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->doubleClick($element)
             ->perform();
 
-        $this->assertSame(
-            ['mouseover item-3', 'mousedown item-3', 'mouseup item-3', 'click item-3', 'dblclick item-3'],
-            $this->retrieveLoggedEvents()
-        );
+        $this->assertContains('dblclick item-3', $this->retrieveLoggedEvents());
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::dragAndDrop
+     * @covers ::perform
+     * @group exclude-saucelabs
+     */
+    public function testShouldDragAndDrop()
+    {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
+
+        $element = $this->driver->findElement(WebDriverBy::id('item-3'));
+        $target = $this->driver->findElement(WebDriverBy::id('item-1'));
+
+        $this->driver->action()
+            ->dragAndDrop($element, $target)
+            ->perform();
+
+        $this->assertContains('mouseover item-3', $this->retrieveLoggedEvents());
+        $this->assertContains('mousedown item-3', $this->retrieveLoggedEvents());
+        $this->assertContains('mouseover item-1', $this->retrieveLoggedEvents());
+        $this->assertContains('mouseup item-1', $this->retrieveLoggedEvents());
     }
 
     /**

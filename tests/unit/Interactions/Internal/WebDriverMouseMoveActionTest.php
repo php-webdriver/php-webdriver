@@ -28,7 +28,7 @@ class WebDriverMouseMoveActionTest extends TestCase
     /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
     private $locationProvider;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
         $this->locationProvider = $this->getMockBuilder(WebDriverLocatable::class)->getMock();
@@ -44,7 +44,7 @@ class WebDriverMouseMoveActionTest extends TestCase
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();
         $this->webDriverMouse->expects($this->once())->method('mouseMove')->with($coords);
-        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->willReturn($coords);
         $this->webDriverMouseMoveAction->perform();
     }
 }

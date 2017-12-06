@@ -77,6 +77,8 @@ class ReportSauceLabsStatusListener extends BaseTestListener
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($curl, CURLOPT_USERPWD, getenv('SAUCE_USERNAME') . ':' . getenv('SAUCE_ACCESS_KEY'));
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        // Disable sending 'Expect: 100-Continue' header, as it is causing issues with eg. squid proxy
+        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Expect:']);
 
         curl_exec($curl);
 

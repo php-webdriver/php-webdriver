@@ -3,43 +3,88 @@ sudo: false
 dist: trusty
 
 php:
-  - 5.6
-  - 7.0
-  - 7.1
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
 
 env:
   global:
     - DISPLAY=:99.0
     - BROWSER_NAME="htmlunit"
-    - CHROMEDRIVER_VERSION="2.31"
+    - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" # Latest version including HtmlUnit
 
 matrix:
   include:
-    # Add build to run tests against Firefox inside Travis environment
-    - php: 7.1
-      env: BROWSER_NAME="firefox"
+    # Codestyle check build
+    - name: 'Code style and static analysis'
+      php: '7.3'
+      env: CHECK_CODESTYLE=1
+      before_install:
+        - phpenv config-rm xdebug.ini
+      before_script: ~
+      script:
+        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer analyze
+        - composer codestyle:check
+      after_script: ~
+      after_success: ~
+
+    # Build with lowest possible dependencies on lowest possible PHP
+    - name: 'Lowest dependencies build'
+      php: '5.6'
+      env: DEPENDENCIES="--prefer-lowest"
+
+    # Firefox inside Travis environment
+    - name: 'Firefox 45 on Travis (OSS protocol); via legacy Selenium server'
+      php: '7.3'
+      env:
+        - BROWSER_NAME="firefox"
+        - SELENIUM_SERVER="legacy"
       addons:
         firefox: "45.8.0esr"
 
-    # Add build to run tests against Chrome inside Travis environment
-    - php: 7.1
-      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
+    # Firefox with Geckodriver (W3C mode) inside Travis environment
+    - name: 'Firefox latest on Travis (W3C protocol); no Selenium server'
+      php: 7.3
+      env:
+        - BROWSER_NAME="firefox"
+        - GECKODRIVER="1"
       addons:
-        chrome: beta
+        firefox: latest
 
-    # Build with lowest possible dependencies
-    - php: 7.1
-      env: DEPENDENCIES="--prefer-lowest"
-
-    # Chrome on Travis build with lowest possible dependencies
-    - php: 7.1
-      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
+    # Stable Chrome + Chromedriver (W3C mode) inside Travis environment via Selenium server proxy
+    - name: 'Chrome stable on Travis (W3C protocol); via Selenium server'
+      php: '7.3'
+      env:
+        - BROWSER_NAME="chrome"
       addons:
-        chrome: beta
+        chrome: stable
+
+    # Stable Chrome + Chromedriver (W3C mode) inside Travis environment directly via Chromedriver
+    - name: 'Chrome stable on Travis (W3C protocol); no Selenium server'
+      php: '7.3'
+      env:
+        - BROWSER_NAME="chrome"
+        - CHROMEDRIVER="1"
+      addons:
+        chrome: stable
+
+    # Stable Chrome + Chromedriver (JsonWire OSS mode) inside Travis environment directly via Chromedriver
+    - name: 'Chrome stable on Travis (OSS protocol); no Selenium server'
+      php: '7.3'
+      env:
+        - BROWSER_NAME="chrome"
+        - CHROMEDRIVER="1"
+        - DISABLE_W3C_PROTOCOL="1"
+      addons:
+        chrome: stable
 
     # Saucelabs builds
-    - php: 7.1
-      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
+    - name: 'Sauce Labs, Firefox 47, OSS protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10" DISABLE_W3C_PROTOCOL="1"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -47,7 +92,20 @@ matrix:
         sauce_connect: true
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.1
+
+    - name: 'Sauce Labs, Chrome 74, OSS protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="74.0" PLATFORM="Windows 10" DISABLE_W3C_PROTOCOL="1" # 74 is the last version which don't use W3C WebDriver by default
+      before_script:
+        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
+      addons:
+        sauce_connect: true
+        jwt:
+          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+
+    - name: 'Sauce Labs, Chrome latest, W3C protocol'
+      php: '7.3'
       env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
@@ -56,8 +114,10 @@ matrix:
         sauce_connect: true
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.1
-      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="15.15063" PLATFORM="Windows 10"
+
+    - name: 'Sauce Labs, Edge latest, W3C protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="latest" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -66,31 +126,42 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 
-    # Codestyle check build
-    - php: 7.1
-      env: CHECK_CODESTYLE=1
-      before_script: ~
-      script: composer codestyle:check
-      after_script: ~
-      after_success: ~
-
 cache:
   directories:
     - $HOME/.composer/cache
-    - jar
-
-before_install:
-  - travis_retry composer self-update
 
 install:
+  - travis_retry composer self-update
   - travis_retry composer update --no-interaction $DEPENDENCIES
 
 before_script:
-  - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
+  - if [ "$BROWSER_NAME" = "chrome" ]; then
+      mkdir chromedriver;
+      CHROME_VERSION=$(google-chrome --product-version);
+      CHROME_VERSION=${CHROME_VERSION%.*};
+      wget -q -t 3 https://chromedriver.storage.googleapis.com/$(curl -L https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION})/chromedriver_linux64.zip;
+      unzip chromedriver_linux64.zip -d chromedriver;
+    fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
-  - sh -e /etc/init.d/xvfb start
-  - if [ ! -f jar/selenium-server-standalone-3.4.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.4/selenium-server-standalone-3.4.0.jar; fi
-  - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.4.0.jar -log ./logs/selenium.log &
+  - if [ "$GECKODRIVER" = "1" ]; then mkdir -p geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz; tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver; fi
+  - sh -e /etc/init.d/xvfb start # TODO: start only when needed (ie. not in headless mode)
+  - if [ ! -f jar/selenium-server-standalone.jar ] && [ -n "$SELENIUM_SERVER" ]; then
+      mkdir -p jar;
+      if [ "$SELENIUM_SERVER" = "legacy" ]; then
+        wget -q -t 3 -O jar/selenium-server-standalone.jar https://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar;
+      else
+        wget -q -t 3 -O jar/selenium-server-standalone.jar $SELENIUM_SERVER;
+      fi
+    fi
+  - if [ "$GECKODRIVER" = "1" ]; then
+      geckodriver/geckodriver &> ./logs/geckodriver.log &
+    elif [ "$CHROMEDRIVER" = "1" ]; then
+      chromedriver/chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
+    elif [ "$SELENIUM_SERVER" = "legacy" ]; then
+      java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$PWD/chromedriver/chromedriver" -jar jar/selenium-server-standalone.jar -enablePassThrough false -log ./logs/selenium.log &
+    else
+      java -Dwebdriver.chrome.driver="$PWD/chromedriver/chromedriver" -Dwebdriver.gecko.driver="$PWD/geckodriver/geckodriver" -jar jar/selenium-server-standalone.jar -log ./logs/selenium.log &
+    fi
   - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
   - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
   - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -104,6 +175,8 @@ script:
 after_script:
   - if [ -f ./logs/selenium.log ]; then cat ./logs/selenium.log; fi
   - if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+  - if [ -f ./logs/geckodriver.log ]; then cat ./logs/geckodriver.log; fi
+  - if [ -f ./logs/chromedriver.log ]; then cat ./logs/chromedriver.log; fi
 
 after_success:
-  - travis_retry php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/php-coveralls -v

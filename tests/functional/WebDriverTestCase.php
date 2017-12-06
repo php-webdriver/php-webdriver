@@ -44,7 +44,7 @@ class WebDriverTestCase extends TestCase
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
-        if ($this->isSauceLabsBuild()) {
+        if (static::isSauceLabsBuild()) {
             $this->setUpSauceLabs();
         } else {
             if (getenv('BROWSER_NAME')) {
@@ -55,8 +55,22 @@ class WebDriverTestCase extends TestCase
 
             if ($browserName === WebDriverBrowserType::CHROME) {
                 $chromeOptions = new ChromeOptions();
-                $chromeOptions->addArguments(['--headless', 'window-size=1024,768']);
+                // --no-sandbox is a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
+                $chromeOptions->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
+
+                if (getenv('DISABLE_W3C_PROTOCOL')) {
+                    $chromeOptions->setExperimentalOption('w3c', false);
+                }
+
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+            } elseif ($browserName === WebDriverBrowserType::FIREFOX) {
+                if (getenv('GECKODRIVER') === '1') {
+                    $this->serverUrl = 'http://localhost:4444';
+                }
+                $this->desiredCapabilities->setCapability(
+                    'moz:firefoxOptions',
+                    ['args' => ['-headless']]
+                );
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);
@@ -67,7 +81,10 @@ class WebDriverTestCase extends TestCase
                 $this->serverUrl,
                 $this->desiredCapabilities,
                 $this->connectionTimeout,
-                $this->requestTimeout
+                $this->requestTimeout,
+                null,
+                null,
+                null
             );
         }
     }
@@ -86,9 +103,34 @@ class WebDriverTestCase extends TestCase
     /**
      * @return bool
      */
-    public function isSauceLabsBuild()
+    public static function isSauceLabsBuild()
     {
         return getenv('SAUCELABS') ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isW3cProtocolBuild()
+    {
+        return getenv('GECKODRIVER') === '1'
+            || (getenv('BROWSER_NAME') === 'chrome' && getenv('DISABLE_W3C_PROTOCOL') !== '1')
+            || (self::isSauceLabsBuild() && getenv('DISABLE_W3C_PROTOCOL') !== '1');
+    }
+
+    public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
+    {
+        if (static::isW3cProtocolBuild()) {
+            static::markTestSkipped($message);
+        }
+    }
+
+    public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
+    {
+        if (getenv('GECKODRIVER') !== '1'
+            && (getenv('BROWSER_NAME') !== 'chrome' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+            static::markTestSkipped($message);
+        }
     }
 
     /**
@@ -99,7 +141,12 @@ class WebDriverTestCase extends TestCase
      */
     protected function getTestPageUrl($path)
     {
-        return 'http://localhost:8000/' . $path;
+        $host = 'http://localhost:8000';
+        if ($alternateHost = getenv('FIXTURES_HOST')) {
+            $host = $alternateHost;
+        }
+
+        return $host . '/' . $path;
     }
 
     protected function setUpSauceLabs()
@@ -112,12 +159,32 @@ class WebDriverTestCase extends TestCase
         $this->desiredCapabilities->setBrowserName(getenv('BROWSER_NAME'));
         $this->desiredCapabilities->setVersion(getenv('VERSION'));
         $this->desiredCapabilities->setPlatform(getenv('PLATFORM'));
-        $this->desiredCapabilities->setCapability('name', get_class($this) . '::' . $this->getName());
-        $this->desiredCapabilities->setCapability('tags', [get_class($this)]);
+        $name = get_class($this) . '::' . $this->getName();
+        $tags = [get_class($this)];
 
         if (getenv('TRAVIS_JOB_NUMBER')) {
-            $this->desiredCapabilities->setCapability('tunnel-identifier', getenv('TRAVIS_JOB_NUMBER'));
-            $this->desiredCapabilities->setCapability('build', getenv('TRAVIS_JOB_NUMBER'));
+            $tunnelIdentifier = getenv('TRAVIS_JOB_NUMBER');
+            $build = getenv('TRAVIS_JOB_NUMBER');
+        }
+
+        if (!getenv('DISABLE_W3C_PROTOCOL')) {
+            $sauceOptions = [
+                'name' => $name,
+                'tags' => $tags,
+            ];
+            if (isset($tunnelIdentifier, $build)) {
+                $sauceOptions['tunnelIdentifier'] = $tunnelIdentifier;
+                $sauceOptions['build'] = $build;
+            }
+            $this->desiredCapabilities->setCapability('sauce:options', (object) $sauceOptions);
+        } else {
+            $this->desiredCapabilities->setCapability('name', $name);
+            $this->desiredCapabilities->setCapability('tags', $tags);
+
+            if (isset($tunnelIdentifier, $build)) {
+                $this->desiredCapabilities->setCapability('tunnel-identifier', $tunnelIdentifier);
+                $this->desiredCapabilities->setCapability('build', $build);
+            }
         }
     }
 }

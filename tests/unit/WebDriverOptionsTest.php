@@ -20,14 +20,14 @@ use Facebook\WebDriver\Remote\ExecuteMethod;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\WebDriverOptions
+ * @covers \Facebook\WebDriver\WebDriverOptions
  */
 class WebDriverOptionsTest extends TestCase
 {
     /** @var ExecuteMethod|\PHPUnit_Framework_MockObject_MockObject */
     private $executor;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->executor = $this->getMockBuilder(ExecuteMethod::class)
             ->disableOriginalConstructor()

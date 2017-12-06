@@ -28,16 +28,21 @@ class WebDriverOptions
      * @var ExecuteMethod
      */
     protected $executor;
+    /**
+     * @var bool
+     */
+    protected $isW3cCompliant;
 
-    public function __construct(ExecuteMethod $executor)
+    public function __construct(ExecuteMethod $executor, $isW3cCompliant = false)
     {
         $this->executor = $executor;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
      * Add a specific cookie.
      *
-     * @see Facebook\WebDriver\Cookie for description of possible cookie properties
+     * @see Cookie for description of possible cookie properties
      * @param Cookie|array $cookie Cookie object. May be also created from array for compatibility reasons.
      * @return WebDriverOptions The current instance.
      */
@@ -71,7 +76,7 @@ class WebDriverOptions
     }
 
     /**
-     * Delete the cookie with the give name.
+     * Delete the cookie with the given name.
      *
      * @param string $name
      * @return WebDriverOptions The current instance.
@@ -90,7 +95,7 @@ class WebDriverOptions
      * Get the cookie with a given name.
      *
      * @param string $name
-     * @return Cookie The cookie, or null if no cookie with the given name is presented.
+     * @return Cookie|null The cookie, or null if no cookie with the given name is presented.
      */
     public function getCookieNamed($name)
     {
@@ -128,7 +133,7 @@ class WebDriverOptions
      */
     public function timeouts()
     {
-        return new WebDriverTimeouts($this->executor);
+        return new WebDriverTimeouts($this->executor, $this->isW3cCompliant);
     }
 
     /**

@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoSuchDocumentException extends WebDriverException
+/**
+ * @deprecated Use Facebook\WebDriver\Exception\NoSuchWindowException
+ */
+class NoSuchDocumentException extends NoSuchWindowException
 {
 }

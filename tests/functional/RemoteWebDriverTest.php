@@ -20,7 +20,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
@@ -38,8 +38,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::getCurrentURL
      * @covers ::get
+     * @covers ::getCurrentURL
      */
     public function testShouldGetCurrentUrl()
     {
@@ -62,9 +62,18 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::getSessionID
+     * @covers ::isW3cCompliant
      */
     public function testShouldGetSessionId()
     {
+        // This tests is intentionally included in another test, to not slow down build.
+        // @TODO Remove following in 2.0
+        if (self::isW3cProtocolBuild()) {
+            $this->assertTrue($this->driver->isW3cCompliant());
+        } else {
+            $this->assertFalse($this->driver->isW3cCompliant());
+        }
+
         $sessionId = $this->driver->getSessionID();
 
         $this->assertInternalType('string', $sessionId);
@@ -77,14 +86,17 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
-        $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
+        if (getenv('GECKODRIVER') === '1') {
+            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
+        }
+
+        $sessions = RemoteWebDriver::getAllSessions($this->serverUrl, 30000);
 
         $this->assertInternalType('array', $sessions);
         $this->assertCount(1, $sessions);
 
         $this->assertArrayHasKey('capabilities', $sessions[0]);
         $this->assertArrayHasKey('id', $sessions[0]);
-        $this->assertArrayHasKey('class', $sessions[0]);
     }
 
     /**
@@ -95,12 +107,22 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
+        if (getenv('GECKODRIVER') === '1') {
+            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
+        }
+
+        $this->assertCount(
+            1,
+            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+        );
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
         $this->driver->quit();
 
-        $this->assertCount(0, RemoteWebDriver::getAllSessions($this->serverUrl));
+        $this->assertCount(
+            0,
+            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+        );
         $this->assertNull($this->driver->getCommandExecutor());
     }
 
@@ -137,6 +159,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl('open_new_window.html'));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
 
+        $this->driver->wait()->until(WebDriverExpectedCondition::numberOfWindowsToBe(2));
+
         $this->assertCount(2, $this->driver->getWindowHandles());
 
         $this->driver->close();
@@ -146,6 +170,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::executeScript
+     * @group exclude-saucelabs
      */
     public function testShouldExecuteScriptAndDoNotBlockExecution()
     {
@@ -154,23 +179,28 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
-        $this->driver->executeScript('
+        $start = microtime(true);
+        $scriptResult = $this->driver->executeScript('
             setTimeout(
-                function(){document.getElementById("id_test").innerHTML = "Text changed by script"},
-                500
-            )');
+                function(){document.getElementById("id_test").innerHTML = "Text changed by script";},
+                250
+            );
+            return "returned value";
+            ');
+        $end = microtime(true);
 
-        // Make sure the script don't block the test execution
-        $this->assertSame('Test by ID', $element->getText());
+        $this->assertSame('returned value', $scriptResult);
 
-        // If we wait, the script should be executed
-        usleep(1000000); // wait 1000 ms
+        $this->assertLessThan(250, $end - $start, 'executeScript() should not block execution');
+
+        // If we wait, the script should be executed and its value changed
+        usleep(300000); // wait 300 ms
         $this->assertSame('Text changed by script', $element->getText());
     }
 
     /**
      * @covers ::executeAsyncScript
-     * @covers Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
+     * @covers \Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
      */
     public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
     {
@@ -181,20 +211,55 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
-        $this->driver->executeAsyncScript(
+        $start = microtime(true);
+        $scriptResult = $this->driver->executeAsyncScript(
             'var callback = arguments[arguments.length - 1];
             setTimeout(
                 function(){
                     document.getElementById("id_test").innerHTML = "Text changed by script";
-                    callback();
+                    callback("returned value");
                  },
                 250
             );'
+        );
+        $end = microtime(true);
+
+        $this->assertSame('returned value', $scriptResult);
+
+        $this->assertGreaterThan(
+            0.250,
+            $end - $start,
+            'executeAsyncScript() should block execution until callback() is called'
         );
 
         // The result must be immediately available, as the executeAsyncScript should block the execution until the
         // callback is called.
         $this->assertSame('Text changed by script', $element->getText());
+    }
+
+    /**
+     * @covers ::executeScript
+     * @covers ::prepareScriptArguments
+     * @group exclude-saucelabs
+     */
+    public function testShouldExecuteScriptWithParamsAndReturnValue()
+    {
+        $this->driver->manage()->timeouts()->setScriptTimeout(1);
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $element1 = $this->driver->findElement(WebDriverBy::id('id_test'));
+        $element2 = $this->driver->findElement(WebDriverBy::className('test_class'));
+
+        $scriptResult = $this->driver->executeScript(
+            'var element1 = arguments[0];
+            var element2 = arguments[1];
+            return "1: " + element1.innerText + ", 2: " + element2.innerText;
+            ',
+            [$element1, $element2]
+        );
+
+        $this->assertSame('1: Test by ID, 2: Test by Class', $scriptResult);
     }
 
     /**
@@ -205,7 +270,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
@@ -228,11 +293,12 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
-        $screenshotPath = sys_get_temp_dir() . '/selenium-screenshot.png';
+        // Intentionally save screenshot to subdirectory to tests it is being created
+        $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/selenium-screenshot.png';
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
@@ -244,6 +310,51 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
 
+        // Validate expected red box is present on the screenshot
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($image, imagecolorat($image, 5, 5))
+        );
+
+        // And whitespace has expected background color
+        $this->assertSame(
+            ['red' => 250, 'green' => 250, 'blue' => 255, 'alpha' => 0],
+            imagecolorsforindex($image, imagecolorat($image, 15, 5))
+        );
+
         unlink($screenshotPath);
+        rmdir(dirname($screenshotPath));
+    }
+
+    /**
+     * @covers ::getStatus
+     * @covers \Facebook\WebDriver\Remote\RemoteStatus
+     * @group exclude-saucelabs
+     * Status endpoint is not supported on Sauce Labs
+     */
+    public function testShouldGetRemoteEndStatus()
+    {
+        $status = $this->driver->getStatus();
+
+        $this->assertInternalType('boolean', $status->isReady());
+        $this->assertNotEmpty($status->getMessage());
+
+        $this->assertInternalType('array', $status->getMeta());
+    }
+
+    /**
+     * @covers ::getStatus
+     * @covers \Facebook\WebDriver\Remote\RemoteStatus
+     * @group exclude-saucelabs
+     * Status endpoint is not supported on Sauce Labs
+     */
+    public function testShouldGetRemoteEndStatus()
+    {
+        $status = $this->driver->getStatus();
+
+        $this->assertInternalType('boolean', $status->isReady());
+        $this->assertNotEmpty($status->getMessage());
+
+        $this->assertInternalType('array', $status->getMeta());
     }
 }

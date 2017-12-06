@@ -38,7 +38,7 @@ interface WebDriverElement extends WebDriverSearchContext
      * Get the value of a the given attribute of the element.
      *
      * @param string $attribute_name The name of the attribute.
-     * @return string The value of the attribute.
+     * @return string|null The value of the attribute.
      */
     public function getAttribute($attribute_name);
 
@@ -132,4 +132,13 @@ interface WebDriverElement extends WebDriverSearchContext
      * @return string The opaque ID.
      */
     public function getID();
+
+    /**
+     * Take screenshot of a specific element.
+     *
+     * @param string $save_as The path of the screenshot to be saved.
+     * @return string The screenshot in PNG format.
+     * @todo Add in next major release (BC)
+     */
+    //public function takeElementScreenshot($save_as = null);
 }

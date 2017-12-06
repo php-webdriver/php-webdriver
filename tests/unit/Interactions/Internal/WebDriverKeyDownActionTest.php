@@ -31,7 +31,7 @@ class WebDriverKeyDownActionTest extends TestCase
     /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
     private $locationProvider;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->webDriverKeyboard = $this->getMockBuilder(WebDriverKeyboard::class)->getMock();
         $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
@@ -49,7 +49,7 @@ class WebDriverKeyDownActionTest extends TestCase
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();
         $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
-        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->willReturn($coords);
         $this->webDriverKeyboard->expects($this->once())->method('pressKey');
         $this->webDriverKeyDownAction->perform();
     }

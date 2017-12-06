@@ -20,8 +20,8 @@ use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 /**
- * @covers Facebook\WebDriver\Remote\RemoteWebDriver
- * @covers Facebook\WebDriver\Remote\HttpCommandExecutor
+ * @covers \Facebook\WebDriver\Remote\HttpCommandExecutor
+ * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {
@@ -33,7 +33,10 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->serverUrl,
             $this->desiredCapabilities,
             $this->connectionTimeout,
-            $this->requestTimeout
+            $this->requestTimeout,
+            null,
+            null,
+            null
         );
 
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
@@ -47,6 +50,19 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $returnedCapabilities = $this->driver->getCapabilities();
         $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
         $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+    }
+
+    public function testShouldAcceprCapabilitiesAsAnArray()
+    {
+        // Method has a side-effect of converting whole content of desiredCapabilities to an array
+        $this->desiredCapabilities->toArray();
+
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout
+        );
     }
 
     public function testShouldCreateWebDriverWithRequiredCapabilities()
