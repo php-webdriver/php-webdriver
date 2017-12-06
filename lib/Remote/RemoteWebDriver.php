@@ -139,11 +139,20 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
+     * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
+     * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @return RemoteWebDriver
      */
-    public static function createBySessionID($session_id, $selenium_server_url = 'http://localhost:4444/wd/hub')
+    public static function createBySessionID($session_id, $selenium_server_url = 'http://localhost:4444/wd/hub', $connection_timeout_in_ms = null, $request_timeout_in_ms = null)
     {
+
         $executor = new HttpCommandExecutor($selenium_server_url);
+        if ($connection_timeout_in_ms !== null) {
+            $executor->setConnectionTimeout($connection_timeout_in_ms);
+        }
+        if ($request_timeout_in_ms !== null) {
+            $executor->setRequestTimeout($request_timeout_in_ms);
+        }
 
         return new static($executor, $session_id);
     }
