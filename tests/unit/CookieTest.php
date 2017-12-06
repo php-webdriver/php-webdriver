@@ -79,7 +79,7 @@ class CookieTest extends TestCase
         $cookie->offsetSet('domain', 'bar.com');
         $this->assertSame('bar.com', $cookie['domain']);
         $cookie->offsetUnset('domain');
-        $this->assertFalse(isset($cookie['domain']));
+        $this->assertArrayNotHasKey('domain', $cookie);
     }
 
     public function testShouldBeCreatableFromAnArrayWithBasicValues()
@@ -94,23 +94,23 @@ class CookieTest extends TestCase
         $this->assertSame('cookieName', $cookie['name']);
         $this->assertSame('someValue', $cookie['value']);
 
-        $this->assertFalse(isset($cookie['path']));
+        $this->assertArrayNotHasKey('path', $cookie);
         $this->assertNull($cookie['path']);
         $this->assertNull($cookie->getPath());
 
-        $this->assertFalse(isset($cookie['domain']));
+        $this->assertArrayNotHasKey('domain', $cookie);
         $this->assertNull($cookie['domain']);
         $this->assertNull($cookie->getDomain());
 
-        $this->assertFalse(isset($cookie['expiry']));
+        $this->assertArrayNotHasKey('expiry', $cookie);
         $this->assertNull($cookie['expiry']);
         $this->assertNull($cookie->getExpiry());
 
-        $this->assertFalse(isset($cookie['secure']));
+        $this->assertArrayNotHasKey('secure', $cookie);
         $this->assertNull($cookie['secure']);
         $this->assertNull($cookie->isSecure());
 
-        $this->assertFalse(isset($cookie['httpOnly']));
+        $this->assertArrayNotHasKey('httpOnly', $cookie);
         $this->assertNull($cookie['httpOnly']);
         $this->assertNull($cookie->isHttpOnly());
     }
