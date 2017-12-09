@@ -213,7 +213,7 @@ class WebDriverExpectedCondition
                         if ($element->isDisplayed()) {
                             $visibleElements[] = $element;
                         }
-                    } catch (StateElementReferenceException $e) {
+                    } catch (StaleElementReferenceException $e) {
                     }
                 }
 
@@ -399,7 +399,7 @@ class WebDriverExpectedCondition
     /**
      * An expectation for checking that an element with text is either invisible or not present on the DOM.
      *
-     * @param WebdriverBy $by The locator used to find the element.
+     * @param WebDriverBy $by The locator used to find the element.
      * @param string $text The text of the element.
      * @return WebDriverExpectedCondition<bool> Condition returns whether the text is found in the element located.
      */

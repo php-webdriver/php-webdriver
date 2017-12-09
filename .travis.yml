@@ -70,7 +70,10 @@ matrix:
     - php: 7.1
       env: CHECK_CODESTYLE=1
       before_script: ~
-      script: composer codestyle:check
+      script:
+        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer analyze
+        - composer codestyle:check
       after_script: ~
       after_success: ~
 

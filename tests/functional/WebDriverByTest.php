@@ -25,8 +25,8 @@ class WebDriverByTest extends WebDriverTestCase
 {
     /**
      * @dataProvider textElementsProvider
-     * @param $webDriverByLocatorMethod
-     * @param $webDriverByLocatorValue
+     * @param string $webDriverByLocatorMethod
+     * @param string $webDriverByLocatorValue
      * @param string $expectedText
      * @param string $expectedAttributeValue
      */

@@ -45,6 +45,9 @@
     "codestyle:fix": [
       "vendor/bin/php-cs-fixer fix --diff || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+    ],
+    "analyze": [
+      "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
     ]
   },
   "extra": {
