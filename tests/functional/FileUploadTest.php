@@ -18,8 +18,8 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 
 /**
- * @covers Facebook\WebDriver\Remote\LocalFileDetector
- * @covers Facebook\WebDriver\Remote\RemoteWebElement
+ * @covers \Facebook\WebDriver\Remote\LocalFileDetector
+ * @covers \Facebook\WebDriver\Remote\RemoteWebElement
  */
 class FileUploadTest extends WebDriverTestCase
 {

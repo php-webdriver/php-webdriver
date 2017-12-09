@@ -23,7 +23,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\WebDriverExpectedCondition
+ * @covers \Facebook\WebDriver\WebDriverExpectedCondition
  */
 class WebDriverExpectedConditionTest extends TestCase
 {

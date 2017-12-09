@@ -20,8 +20,8 @@ use Facebook\WebDriver\Exception\UnexpectedTagNameException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 /**
- * @covers Facebook\WebDriver\WebDriverSelect
- * @covers Facebook\WebDriver\Exception\UnexpectedTagNameException
+ * @covers \Facebook\WebDriver\WebDriverSelect
+ * @covers \Facebook\WebDriver\Exception\UnexpectedTagNameException
  */
 class WebDriverSelectTest extends WebDriverTestCase
 {

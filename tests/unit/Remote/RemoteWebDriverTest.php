@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Unit part of RemoteWebDriver tests. Ie. tests for behavior which do not interact with the real remote server.
  *
- * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends TestCase
 {

@@ -16,7 +16,7 @@
 namespace Facebook\WebDriver;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\WebDriverNavigation
+ * @coversDefaultClass \Facebook\WebDriver\WebDriverNavigation
  */
 class WebDriverNavigationTest extends WebDriverTestCase
 {

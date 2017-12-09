@@ -19,7 +19,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for locator strategies provided by WebDriverBy.
- * @covers Facebook\WebDriver\WebDriverBy
+ * @covers \Facebook\WebDriver\WebDriverBy
  */
 class WebDriverByTest extends WebDriverTestCase
 {

@@ -22,7 +22,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\WebDriverTimeouts
+ * @coversDefaultClass \Facebook\WebDriver\WebDriverTimeouts
  */
 class WebDriverTimeoutsTest extends WebDriverTestCase
 {

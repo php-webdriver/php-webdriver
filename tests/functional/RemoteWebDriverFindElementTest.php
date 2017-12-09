@@ -20,7 +20,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for findElement() and findElements() method of RemoteWebDriver.
- * @covers Facebook\WebDriver\Remote\RemoteWebDriver
+ * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {

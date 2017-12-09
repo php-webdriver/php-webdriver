@@ -18,7 +18,7 @@ namespace Facebook\WebDriver;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\WebDriverKeys
+ * @covers \Facebook\WebDriver\WebDriverKeys
  */
 class WebDriverKeysTest extends TestCase
 {

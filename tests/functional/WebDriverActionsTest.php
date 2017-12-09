@@ -18,7 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Interactions\WebDriverActions
+ * @coversDefaultClass \Facebook\WebDriver\Interactions\WebDriverActions
  */
 class WebDriverActionsTest extends WebDriverTestCase
 {

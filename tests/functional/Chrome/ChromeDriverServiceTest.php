@@ -19,8 +19,8 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
- * @covers Facebook\WebDriver\Chrome\ChromeDriverService
- * @covers Facebook\WebDriver\Remote\Service\DriverService
+ * @covers \Facebook\WebDriver\Chrome\ChromeDriverService
+ * @covers \Facebook\WebDriver\Remote\Service\DriverService
  */
 class ChromeDriverServiceTest extends TestCase
 {

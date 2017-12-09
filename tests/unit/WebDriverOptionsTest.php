@@ -20,7 +20,7 @@ use Facebook\WebDriver\Remote\ExecuteMethod;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers Facebook\WebDriver\WebDriverOptions
+ * @covers \Facebook\WebDriver\WebDriverOptions
  */
 class WebDriverOptionsTest extends TestCase
 {

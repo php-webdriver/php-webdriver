@@ -19,7 +19,7 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebElement
+ * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
  */
 class RemoteWebElementTest extends WebDriverTestCase
 {
