@@ -106,4 +106,4 @@ after_script:
   - if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
 
 after_success:
-  - travis_retry php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/php-coveralls -v
