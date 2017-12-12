@@ -133,7 +133,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * @param       $script
+     * @param string $script
      * @param array $arguments
      * @throws WebDriverException
      * @return mixed
@@ -161,7 +161,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     }
 
     /**
-     * @param       $script
+     * @param string $script
      * @param array $arguments
      * @throws WebDriverException
      * @return mixed
@@ -396,7 +396,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
 
     /**
      * @param mixed $method
-     * @param mixed $arguments,...
+     * @param mixed ...$arguments
      */
     protected function dispatch($method, ...$arguments)
     {

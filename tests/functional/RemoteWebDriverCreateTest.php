@@ -20,8 +20,8 @@ use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 /**
- * @covers Facebook\WebDriver\Remote\RemoteWebDriver
- * @covers Facebook\WebDriver\Remote\HttpCommandExecutor
+ * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
+ * @covers \Facebook\WebDriver\Remote\HttpCommandExecutor
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {

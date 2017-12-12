@@ -392,7 +392,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
 
     /**
      * @param mixed $method
-     * @param mixed $arguments,...
+     * @param mixed ...$arguments
      */
     protected function dispatch($method, ...$arguments)
     {

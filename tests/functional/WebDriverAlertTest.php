@@ -19,7 +19,7 @@ use Facebook\WebDriver\Exception\NoAlertOpenException;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers Facebook\WebDriver\WebDriverAlert
+ * @covers \Facebook\WebDriver\WebDriverAlert
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {

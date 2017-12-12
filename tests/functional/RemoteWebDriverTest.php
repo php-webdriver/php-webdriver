@@ -20,7 +20,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @coversDefaultClass Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
@@ -170,7 +170,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::executeAsyncScript
-     * @covers Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
+     * @covers \Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
      */
     public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
     {
