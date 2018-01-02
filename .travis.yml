@@ -69,6 +69,8 @@ matrix:
     # Codestyle check build
     - php: 7.1
       env: CHECK_CODESTYLE=1
+      before_install:
+        - phpenv config-rm xdebug.ini
       before_script: ~
       script:
         - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
@@ -82,10 +84,8 @@ cache:
     - $HOME/.composer/cache
     - jar
 
-before_install:
-  - travis_retry composer self-update
-
 install:
+  - travis_retry composer self-update
   - travis_retry composer update --no-interaction $DEPENDENCIES
 
 before_script:
