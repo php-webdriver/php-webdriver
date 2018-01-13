@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Chrome;
 
+use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +48,13 @@ class ChromeDriverTest extends TestCase
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(ChromeDriverService::CHROME_DRIVER_EXE_PROPERTY . '=' . getenv('CHROMEDRIVER_PATH'));
 
-        $this->driver = ChromeDriver::start();
+        // Add --no-sandbox as a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
+        $chromeOptions = new ChromeOptions();
+        $chromeOptions->addArguments(['--no-sandbox']);
+        $desiredCapabilities = DesiredCapabilities::chrome();
+        $desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+
+        $this->driver = ChromeDriver::start($desiredCapabilities);
 
         $this->assertInstanceOf(ChromeDriver::class, $this->driver);
         $this->assertInstanceOf(DriverCommandExecutor::class, $this->driver->getCommandExecutor());
