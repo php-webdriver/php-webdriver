@@ -11,7 +11,7 @@ env:
   global:
     - DISPLAY=:99.0
     - BROWSER_NAME="htmlunit"
-    - CHROMEDRIVER_VERSION="2.31"
+    - CHROMEDRIVER_VERSION="2.35"
 
 matrix:
   include:
@@ -25,7 +25,7 @@ matrix:
     - php: 7.1
       env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
       addons:
-        chrome: beta
+        chrome: stable
 
     # Build with lowest possible dependencies
     - php: 7.1
@@ -35,7 +35,7 @@ matrix:
     - php: 7.1
       env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
       addons:
-        chrome: beta
+        chrome: stable
 
     # Saucelabs builds
     - php: 7.1
