@@ -4,6 +4,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
+- Update PHPDoc for functions that return static instances of a class.
 
 ## 1.5.0 - 2017-11-15
 ### Changed

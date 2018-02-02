@@ -87,7 +87,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string|null $http_proxy The proxy to tunnel requests to the remote Selenium WebDriver through
      * @param int|null $http_proxy_port The proxy port to tunnel requests to the remote Selenium WebDriver through
      * @param DesiredCapabilities $required_capabilities The required capabilities
-     * @return RemoteWebDriver
+     * @return static
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',
@@ -141,7 +141,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string $session_id The existing session id
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
-     * @return RemoteWebDriver
+     * @return static
      */
     public static function createBySessionID(
         $session_id,

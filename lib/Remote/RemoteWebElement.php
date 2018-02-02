@@ -408,7 +408,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      * @param string $id
      *
-     * @return RemoteWebElement
+     * @return static
      */
     protected function newElement($id)
     {
