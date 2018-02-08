@@ -11,3 +11,4 @@ logs/
 *~
 *.swp
 .idea
+.vscode
