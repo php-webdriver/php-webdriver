@@ -6,6 +6,7 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
 
 env:
   global:
@@ -16,29 +17,29 @@ env:
 matrix:
   include:
     # Add build to run tests against Firefox inside Travis environment
-    - php: 7.1
+    - php: 7.2
       env: BROWSER_NAME="firefox"
       addons:
         firefox: "45.8.0esr"
 
     # Add build to run tests against Chrome inside Travis environment
-    - php: 7.1
+    - php: 7.2
       env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
       addons:
         chrome: stable
 
     # Build with lowest possible dependencies
-    - php: 7.1
+    - php: 7.2
       env: DEPENDENCIES="--prefer-lowest"
 
     # Chrome on Travis build with lowest possible dependencies
-    - php: 7.1
+    - php: 7.2
       env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
       addons:
         chrome: stable
 
     # Saucelabs builds
-    - php: 7.1
+    - php: 7.2
       env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
@@ -47,7 +48,7 @@ matrix:
         sauce_connect: true
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.1
+    - php: 7.2
       env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
@@ -56,7 +57,7 @@ matrix:
         sauce_connect: true
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.1
+    - php: 7.2
       env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="15.15063" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
@@ -67,7 +68,7 @@ matrix:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 
     # Codestyle check build
-    - php: 7.1
+    - php: 7.2
       env: CHECK_CODESTYLE=1
       before_install:
         - phpenv config-rm xdebug.ini
