@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
 
+### Changed
+- Disable sending 'Expect: 100-Continue' header with POST requests, as they may more easily fail when sending via eg. squid proxy.
+
 ## 1.5.0 - 2017-11-15
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.
