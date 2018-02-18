@@ -24,6 +24,9 @@ use Facebook\WebDriver\Remote\WebDriverCommand;
 
 class ChromeDriver extends RemoteWebDriver
 {
+    /**
+     * @return static
+     */
     public static function start(DesiredCapabilities $desired_capabilities = null, ChromeDriverService $service = null)
     {
         if ($desired_capabilities === null) {

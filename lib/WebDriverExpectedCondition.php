@@ -564,7 +564,7 @@ class WebDriverExpectedCondition
      * An expectation checking the number of opened windows.
      *
      * @param int $expectedNumberOfWindows
-     * @return WebDriverExpectedCondition
+     * @return static
      */
     public static function numberOfWindowsToBe($expectedNumberOfWindows)
     {

@@ -4,6 +4,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 ### Added
 - Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
+- Update PHPDoc for functions that return static instances of a class.
 
 ### Changed
 - Disable sending 'Expect: 100-Continue' header with POST requests, as they may more easily fail when sending via eg. squid proxy.

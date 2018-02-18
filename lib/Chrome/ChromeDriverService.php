@@ -22,6 +22,9 @@ class ChromeDriverService extends DriverService
     // The environment variable storing the path to the chrome driver executable.
     const CHROME_DRIVER_EXE_PROPERTY = 'webdriver.chrome.driver';
 
+    /**
+     * @return static
+     */
     public static function createDefaultService()
     {
         $exe = getenv(self::CHROME_DRIVER_EXE_PROPERTY);

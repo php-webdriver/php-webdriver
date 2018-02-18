@@ -405,7 +405,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
 
     /**
      * @param WebDriverElement $element
-     * @return EventFiringWebElement
+     * @return static
      */
     protected function newElement(WebDriverElement $element)
     {
