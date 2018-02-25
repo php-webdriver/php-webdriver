@@ -43,9 +43,7 @@ Download and run that file, replacing # with the current server version. Keep in
 
     java -jar selenium-server-standalone-#.jar
 
-When using Selenium server 3.5 and newer with some remote end clients (eg. Firefox with Geckodriver), you MUST disable so called "pass-through" mode, so that remote browser's protocol is translated to the protocol supported by php-webdriver (see [issue #469](https://github.com/facebook/php-webdriver/issues/469)):
-
-    java -jar selenium-server-standalone-#.jar -enablePassThrough false
+(Please see note below when using Firefox.)
 
 Then when you create a session, be sure to pass the url to where your server is running.
 
@@ -57,6 +55,13 @@ $host = 'http://localhost:4444/wd/hub'; // this is the default
 ##### Launch Firefox
 
 Make sure to have latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed.
+
+Because Firefox (and Geckodriver) only supports new W3C WebDriver protocol (which is yet to be implemented by php-wedbriver - see [issue #469](https://github.com/facebook/php-webdriver/issues/469)),
+the protocols must be translated by Selenium server - this feature is *partially* available in Selenium server version 3.5.0-3.8.1 and you can enable it like this:
+
+    java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false
+
+Now you can start Firefox from your code:
 
 ```php
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
