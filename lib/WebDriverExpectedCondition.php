@@ -148,7 +148,11 @@ class WebDriverExpectedCondition
     {
         return new static(
             function (WebDriver $driver) use ($by) {
-                return $driver->findElement($by);
+                try {
+                    return $driver->findElement($by);
+                } catch (NoSuchElementException $e) {
+                    return false;
+                }
             }
         );
     }
@@ -423,8 +427,7 @@ class WebDriverExpectedCondition
      */
     public static function elementToBeClickable(WebDriverBy $by)
     {
-        $visibility_of_element_located =
-            self::visibilityOfElementLocated($by);
+        $visibility_of_element_located = self::visibilityOfElementLocated($by);
 
         return new static(
             function (WebDriver $driver) use ($visibility_of_element_located) {
