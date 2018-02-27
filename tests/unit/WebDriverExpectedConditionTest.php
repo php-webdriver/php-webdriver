@@ -135,6 +135,29 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
+    public function testShouldDetectAbsenceOfElementLocatedCondition()
+    {
+        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $condition = WebDriverExpectedCondition::not(
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo'))
+        );
+
+        $conditionClosure = $condition->getApply();
+        $this->assertFalse($conditionClosure($this->driverMock));
+        $this->assertTrue($conditionClosure($this->driverMock));
+    }
+
     public function testShouldDetectPresenceOfAllElementsLocatedByCondition()
     {
         $element = $this->createMock(RemoteWebElement::class);

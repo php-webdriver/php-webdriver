@@ -148,7 +148,11 @@ class WebDriverExpectedCondition
     {
         return new static(
             function (WebDriver $driver) use ($by) {
-                return $driver->findElement($by);
+                try {
+                    return $driver->findElement($by);
+                } catch (NoSuchElementException $e) {
+                    return false;
+                }
             }
         );
     }

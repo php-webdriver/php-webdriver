@@ -9,6 +9,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Disable sending 'Expect: 100-Continue' header with POST requests, as they may more easily fail when sending via eg. squid proxy.
 
+### Fixed
+- Change `WebDriverExpectedCondition::presenceOfElementLocated()` to catch and convert `NoSuchElementException` to false to ensure functionality works correctly with `WebDriverExpectedCondition::not()`.
+
 ## 1.5.0 - 2017-11-15
 ### Changed
 - Drop PHP 5.5 support, the minimal required version of PHP is now PHP 5.6.
