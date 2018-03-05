@@ -21,13 +21,16 @@ class ChromeDriverService extends DriverService
 {
     // The environment variable storing the path to the chrome driver executable.
     const CHROME_DRIVER_EXE_PROPERTY = 'webdriver.chrome.driver';
+    // The environment variable storing the path to the chrome driver executable (BASH compatible)
+    const CHROME_DRIVER_EXE_PROPERTY_BASH = 'webdriver_chrome_driver';
 
     /**
      * @return static
      */
     public static function createDefaultService()
     {
-        $exe = getenv(self::CHROME_DRIVER_EXE_PROPERTY);
+        $exe = getenv(self::CHROME_DRIVER_EXE_PROPERTY) ?:
+            getenv(self::CHROME_DRIVER_EXE_PROPERTY_BASH);
         $port = 9515; // TODO: Get another port if the default port is used.
         $args = ["--port=$port"];
         $service = new static($exe, $port, $args);
