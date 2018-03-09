@@ -52,6 +52,14 @@ Then when you create a session, be sure to pass the url to where your server is 
 $host = 'http://localhost:4444/wd/hub'; // this is the default
 ```
 
+##### Launch Chrome
+
+Make sure to have latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) installed.
+
+```php
+$driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+```
+
 ##### Launch Firefox
 
 Make sure to have latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed.
@@ -65,14 +73,6 @@ Now you can start Firefox from your code:
 
 ```php
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
-```
-
-##### Launch Chrome
-
-Make sure to have latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) installed.
-
-```php
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
 ```
 
 ##### You can also customize the desired capabilities
