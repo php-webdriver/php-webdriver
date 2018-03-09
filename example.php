@@ -45,11 +45,8 @@ echo "The current URI is '" . $driver->getCurrentURL() . "'\n";
 
 // write 'php' in the search box
 $driver->findElement(WebDriverBy::id('q'))
-    ->sendKeys('php');
-
-// submit the form
-$driver->findElement(WebDriverBy::id('submit'))
-    ->click(); // submit() does not work in Selenium 3 because of bug https://github.com/SeleniumHQ/selenium/issues/3398
+    ->sendKeys('php') // fill the search box
+    ->submit(); // submit the whole form
 
 // wait at most 10 seconds until at least one result is shown
 $driver->wait(10)->until(
