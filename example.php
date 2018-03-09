@@ -1,5 +1,6 @@
 <?php
 // An example of using php-webdriver.
+// Do not forget to run composer install before and also have Selenium server started and listening on port 4444.
 
 namespace Facebook\WebDriver;
 
@@ -8,13 +9,13 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
 
-// start Firefox with 5 second timeout
+// start Chrome with 5 second timeout
 $host = 'http://localhost:4444/wd/hub'; // this is the default
-$capabilities = DesiredCapabilities::firefox();
+$capabilities = DesiredCapabilities::chrome();
 $driver = RemoteWebDriver::create($host, $capabilities, 5000);
 
 // navigate to 'http://www.seleniumhq.org/'
-$driver->get('http://www.seleniumhq.org/');
+$driver->get('https://www.seleniumhq.org/');
 
 // adding cookie
 $driver->manage()->deleteAllCookies();
@@ -57,5 +58,5 @@ $driver->wait(10)->until(
     )
 );
 
-// close the Firefox
+// close the browser
 $driver->quit();
