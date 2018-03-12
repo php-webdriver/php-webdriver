@@ -38,7 +38,7 @@ interface WebDriverElement extends WebDriverSearchContext
      * Get the value of a the given attribute of the element.
      *
      * @param string $attribute_name The name of the attribute.
-     * @return string The value of the attribute.
+     * @return string|null The value of the attribute.
      */
     public function getAttribute($attribute_name);
 
