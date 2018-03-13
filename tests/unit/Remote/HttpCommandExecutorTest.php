@@ -53,11 +53,21 @@ class HttpCommandExecutorTest extends TestCase
 
         if ($shouldResetExpectHeader) {
             $curlSetoptMock->expects($this->at(2))
-                ->with($this->anything(), CURLOPT_HTTPHEADER, ['Expect:']);
+                ->with(
+                    $this->anything(),
+                    CURLOPT_HTTPHEADER,
+                    ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json', 'Expect:']
+                );
             $curlSetoptMock->expects($this->at(3))
                 ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
         } else {
             $curlSetoptMock->expects($this->at(2))
+                ->with(
+                    $this->anything(),
+                    CURLOPT_HTTPHEADER,
+                    ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json']
+                );
+            $curlSetoptMock->expects($this->at(3))
                 ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
         }
 
