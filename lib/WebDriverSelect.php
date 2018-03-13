@@ -39,7 +39,7 @@ class WebDriverSelect implements WebDriverSelectInterface
         }
         $this->element = $element;
         $value = $element->getAttribute('multiple');
-        $this->isMulti = ($value === 'true');
+        $this->isMulti = $value === 'true';
     }
 
     public function isMultiple()
