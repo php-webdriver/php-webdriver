@@ -15,9 +15,9 @@
 
 namespace Facebook\WebDriver;
 
-/**
- * @author Kévin Dunglas <dunglas@gmail.com>
- */
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
+
 class WebDriverCheckboxTest extends WebDriverTestCase
 {
     protected function setUp()
@@ -106,11 +106,10 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         ];
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\NoSuchElementException
-     */
     public function testSelectByValueInvalid()
     {
+        $this->expectException(NoSuchElementException::class);
+
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         $c->selectByValue('notexist');
     }
@@ -146,12 +145,12 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         ];
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\NoSuchElementException
-     */
     public function testSelectByIndexInvalid()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with index: '.PHP_INT_MAX);
         $c->selectByIndex(PHP_INT_MAX);
     }
 
@@ -259,48 +258,48 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         $this->assertEmpty($c->getAllSelectedOptions());
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\UnsupportedOperationException
-     */
     public function testDeselectAllRadio()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect all options of checkboxes');
         $c->deselectAll();
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\UnsupportedOperationException
-     */
     public function testDeselectByIndexRadio()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect checkboxes');
         $c->deselectByIndex(0);
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\UnsupportedOperationException
-     */
     public function testDeselectByValueRadio()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect checkboxes');
         $c->deselectByValue('val');
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\UnsupportedOperationException
-     */
     public function testDeselectByVisibleTextRadio()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect checkboxes');
         $c->deselectByVisibleText('AB');
     }
 
-    /**
-     * @expectedException \Facebook\WebDriver\Exception\UnsupportedOperationException
-     */
     public function testDeselectByVisiblePartialTextRadio()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+
+        $this->expectException(UnsupportedOperationException::class);
+        $this->expectExceptionMessage('You may only deselect checkboxes');
         $c->deselectByVisiblePartialText('AB');
     }
 }

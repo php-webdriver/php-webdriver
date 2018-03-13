@@ -23,8 +23,6 @@ use Facebook\WebDriver\Support\XPathEscaper;
 
 /**
  * Provides helper methods for checkboxes and radio buttons.
- *
- * @author Kévin Dunglas <dunglas@gmail.com>
  */
 class WebDriverCheckbox implements WebDriverSelectInterface
 {
@@ -34,17 +32,19 @@ class WebDriverCheckbox implements WebDriverSelectInterface
 
     public function __construct(WebDriverElement $element)
     {
-        if ('input' !== $tagName = $element->getTagName()) {
+        $tagName = $element->getTagName();
+        if ($tagName !== 'input') {
             throw new UnexpectedTagNameException('input', $tagName);
         }
 
         $type = $element->getAttribute('type');
-        if ('checkbox' !== $type && 'radio' !== $type) {
+        if ($type !== 'checkbox' && $type !== 'radio') {
             throw new WebDriverException('The input must be of type "checkbox" or "radio".');
         }
 
-        if (null === $name = $element->getAttribute('name')) {
-            throw new WebDriverException('The input have a "name" attribute.');
+        $name = $element->getAttribute('name');
+        if ($name === null) {
+            throw new WebDriverException('The input does not have a "name" attribute.');
         }
 
         $this->element = $element;
@@ -54,7 +54,7 @@ class WebDriverCheckbox implements WebDriverSelectInterface
 
     public function isMultiple()
     {
-        return 'checkbox' === $this->type;
+        return $this->type === 'checkbox';
     }
 
     public function getOptions()
@@ -86,7 +86,7 @@ class WebDriverCheckbox implements WebDriverSelectInterface
             }
         }
 
-        throw new NoSuchElementException('No options are selected');
+        throw new NoSuchElementException('No checkboxes are selected');
     }
 
     public function selectByIndex($index)
@@ -209,11 +209,16 @@ class WebDriverCheckbox implements WebDriverSelectInterface
     private function byVisibleText($text, $partial = false, $select = true)
     {
         foreach ($this->getRelatedElements() as $element) {
-            $normalizeFilter = sprintf($partial ? 'contains(normalize-space(.), %s)' : 'normalize-space(.) = %s', XPathEscaper::escapeQuotes($text));
+            $normalizeFilter = sprintf(
+                $partial ? 'contains(normalize-space(.), %s)' : 'normalize-space(.) = %s',
+                XPathEscaper::escapeQuotes($text)
+            );
 
             $xpath = 'ancestor::label';
             $xpathNormalize = sprintf('%s[%s]', $xpath, $normalizeFilter);
-            if (null !== $id = $element->getAttribute('id')) {
+
+            $id = $element->getAttribute('id');
+            if ($id !== null) {
                 $idFilter = sprintf('@for = %s', XPathEscaper::escapeQuotes($id));
 
                 $xpath .= sprintf(' | //label[%s]', $idFilter);
@@ -254,16 +259,24 @@ class WebDriverCheckbox implements WebDriverSelectInterface
     private function getRelatedElements($value = null)
     {
         $valueSelector = $value ? sprintf(' and @value = %s', XPathEscaper::escapeQuotes($value)) : '';
-        if (null === $formId = $this->element->getAttribute('form')) {
+        $formId = $this->element->getAttribute('form');
+        if ($formId === null) {
             $form = $this->element->findElement(WebDriverBy::xpath('ancestor::form'));
-            if (null === $formId = $form->getAttribute('id')) {
-                return $form->findElements(WebDriverBy::xpath('.//input[@name = %s%s]', XPathEscaper::escapeQuotes($this->name), $valueSelector));
+
+            $formId = $form->getAttribute('id');
+            if ($formId === null) {
+                return $form->findElements(WebDriverBy::xpath(
+                    sprintf('.//input[@name = %s%s]', XPathEscaper::escapeQuotes($this->name), $valueSelector)
+                ));
             }
         }
 
-        return $this->element->findElements(WebDriverBy::xpath(
-            sprintf('//form[@id = %1$s]//input[@name = %2$s%3$s] | //input[@form = %1$s and @name = %2$s%3$s]', XPathEscaper::escapeQuotes($formId), XPathEscaper::escapeQuotes($this->name), $valueSelector)
-        ));
+        return $this->element->findElements(WebDriverBy::xpath(sprintf(
+            '//form[@id = %1$s]//input[@name = %2$s%3$s] | //input[@form = %1$s and @name = %2$s%3$s]',
+            XPathEscaper::escapeQuotes($formId),
+            XPathEscaper::escapeQuotes($this->name),
+            $valueSelector
+        )));
     }
 
     /**
