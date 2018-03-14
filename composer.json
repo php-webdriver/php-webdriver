@@ -45,11 +45,11 @@
   },
   "scripts": {
     "codestyle:check": [
-      "vendor/bin/php-cs-fixer fix --diff --dry-run",
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
       "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
     ],
     "codestyle:fix": [
-      "vendor/bin/php-cs-fixer fix --diff || exit 0",
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
     ],
     "analyze": [
