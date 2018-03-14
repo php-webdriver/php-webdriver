@@ -16,20 +16,21 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 
 /**
- * Provides helper methods for checkboxes.
+ * Provides helper methods for radio buttons.
  */
-class WebDriverCheckbox extends AbstractWebDriverCheckboxOrRadio
+class WebDriverRadio extends AbstractWebDriverCheckboxOrRadio
 {
     public function __construct(WebDriverElement $element)
     {
         parent::__construct($element);
 
         $this->type = $element->getAttribute('type');
-        if ($this->type !== 'checkbox') {
-            throw new WebDriverException('The input must be of type "checkbox".');
+        if ($this->type !== 'radio') {
+            throw new WebDriverException('The input must be of type "radio".');
         }
     }
 
@@ -37,7 +38,7 @@ class WebDriverCheckbox extends AbstractWebDriverCheckboxOrRadio
     {
         $element = parent::getFirstSelectedOption();
         if ($element === null) {
-            throw new NoSuchElementException('No checkboxes are selected');
+            throw new NoSuchElementException('No radio button is selected');
         }
 
         return $element;
@@ -45,28 +46,26 @@ class WebDriverCheckbox extends AbstractWebDriverCheckboxOrRadio
 
     public function deselectAll()
     {
-        foreach ($this->getRelatedElements() as $checkbox) {
-            $this->deselectOption($checkbox);
-        }
+        throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 
     public function deselectByIndex($index)
     {
-        $this->byIndex($index, false);
+        throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 
     public function deselectByValue($value)
     {
-        $this->byValue($value, false);
+        throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 
     public function deselectByVisibleText($text)
     {
-        $this->byVisibleText($text, false, false);
+        throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 
     public function deselectByVisiblePartialText($text)
     {
-        $this->byVisibleText($text, true, false);
+        throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 }

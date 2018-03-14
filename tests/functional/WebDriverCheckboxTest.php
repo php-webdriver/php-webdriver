@@ -16,7 +16,6 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 class WebDriverCheckboxTest extends WebDriverTestCase
 {
@@ -31,37 +30,6 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         $this->assertTrue($c->isMultiple());
-
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-        $this->assertFalse($c->isMultiple());
-    }
-
-    /**
-     * @dataProvider getOptionsDataProvider
-     *
-     * @param string $type
-     * @param string[] $options
-     */
-    public function testGetOptions($type, array $options)
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath("//input[@type='$type']")));
-        $values = [];
-        foreach ($c->getOptions() as $option) {
-            $values[] = $option->getAttribute('value');
-        }
-
-        $this->assertSame($options, $values);
-    }
-
-    /**
-     * @return array
-     */
-    public function getOptionsDataProvider()
-    {
-        return [
-            ['checkbox', ['j2a', 'j2b', 'j2c']],
-            ['radio', ['j3a', 'j3b', 'j3c']],
-        ];
     }
 
     public function testGetFirstSelectedOption()
@@ -69,21 +37,13 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         $c->selectByValue('j2a');
         $this->assertSame('j2a', $c->getFirstSelectedOption()->getAttribute('value'));
-
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-        $c->selectByValue('j3a');
-        $this->assertSame('j3a', $c->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    /**
-     * @dataProvider selectByValueDataProvider
-     *
-     * @param string $type
-     * @param string[] $selectedOptions
-     */
-    public function testSelectByValue($type, array $selectedOptions)
+    public function testSelectByValue()
     {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath("//input[@type='$type']")));
+        $selectedOptions = ['j2b', 'j2c'];
+
+        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         foreach ($selectedOptions as $index => $selectedOption) {
             $c->selectByValue($selectedOption);
         }
@@ -95,34 +55,20 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         $this->assertSame($selectedOptions, $selectedValues);
     }
 
-    /**
-     * @return array
-     */
-    public function selectByValueDataProvider()
-    {
-        return [
-            ['checkbox', ['j2b', 'j2c']],
-            ['radio', ['j3b']],
-        ];
-    }
-
     public function testSelectByValueInvalid()
     {
-        $this->expectException(NoSuchElementException::class);
-
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+
+        $this->expectException(NoSuchElementException::class);
+        $this->expectExceptionMessage('Cannot locate option with value: notexist');
         $c->selectByValue('notexist');
     }
 
-    /**
-     * @dataProvider selectByIndexDataProvider
-     *
-     * @param string $type
-     * @param string[] $selectedOptions
-     */
-    public function testSelectByIndex($type, array $selectedOptions)
+    public function testSelectByIndex()
     {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath("//input[@type='$type']")));
+        $selectedOptions = [1 => 'j2b', 2 => 'j2c'];
+
+        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         foreach ($selectedOptions as $index => $selectedOption) {
             $c->selectByIndex($index);
         }
@@ -132,17 +78,6 @@ class WebDriverCheckboxTest extends WebDriverTestCase
             $selectedValues[] = $option->getAttribute('value');
         }
         $this->assertSame(array_values($selectedOptions), $selectedValues);
-    }
-
-    /**
-     * @return array
-     */
-    public function selectByIndexDataProvider()
-    {
-        return [
-            ['checkbox', [1 => 'j2b', 2 => 'j2c']],
-            ['radio', [1 => 'j3b']],
-        ];
     }
 
     public function testSelectByIndexInvalid()
@@ -157,13 +92,12 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     /**
      * @dataProvider selectByVisibleTextDataProvider
      *
-     * @param string $type
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisibleText($type, $text, $value)
+    public function testSelectByVisibleText($text, $value)
     {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath("//input[@type='$type']")));
+        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         $c->selectByVisibleText($text);
         $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
     }
@@ -174,23 +108,20 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     public function selectByVisibleTextDataProvider()
     {
         return [
-            ['checkbox', 'J2B', 'j2b'],
-            ['checkbox', 'J2C', 'j2c'],
-            ['radio', 'J3B', 'j3b'],
-            ['radio', 'J3C', 'j3c'],
+            ['J2B', 'j2b'],
+            ['J2C', 'j2c'],
         ];
     }
 
     /**
      * @dataProvider selectByVisiblePartialTextDataProvider
      *
-     * @param string $type
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisiblePartialText($type, $text, $value)
+    public function testSelectByVisiblePartialText($text, $value)
     {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath("//input[@type='$type']")));
+        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
         $c->selectByVisiblePartialText($text);
         $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
     }
@@ -201,10 +132,8 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     public function selectByVisiblePartialTextDataProvider()
     {
         return [
-            ['checkbox', '2B', 'j2b'],
-            ['checkbox', '2C', 'j2c'],
-            ['radio', '3B', 'j3b'],
-            ['radio', '3C', 'j3c'],
+            ['2B', 'j2b'],
+            ['2C', 'j2c'],
         ];
     }
 
@@ -256,50 +185,5 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         $this->assertCount(1, $c->getAllSelectedOptions());
         $c->deselectByVisiblePartialText('2C');
         $this->assertEmpty($c->getAllSelectedOptions());
-    }
-
-    public function testDeselectAllRadio()
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-
-        $this->expectException(UnsupportedOperationException::class);
-        $this->expectExceptionMessage('You may only deselect all options of checkboxes');
-        $c->deselectAll();
-    }
-
-    public function testDeselectByIndexRadio()
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-
-        $this->expectException(UnsupportedOperationException::class);
-        $this->expectExceptionMessage('You may only deselect checkboxes');
-        $c->deselectByIndex(0);
-    }
-
-    public function testDeselectByValueRadio()
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-
-        $this->expectException(UnsupportedOperationException::class);
-        $this->expectExceptionMessage('You may only deselect checkboxes');
-        $c->deselectByValue('val');
-    }
-
-    public function testDeselectByVisibleTextRadio()
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-
-        $this->expectException(UnsupportedOperationException::class);
-        $this->expectExceptionMessage('You may only deselect checkboxes');
-        $c->deselectByVisibleText('AB');
-    }
-
-    public function testDeselectByVisiblePartialTextRadio()
-    {
-        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
-
-        $this->expectException(UnsupportedOperationException::class);
-        $this->expectExceptionMessage('You may only deselect checkboxes');
-        $c->deselectByVisiblePartialText('AB');
     }
 }
