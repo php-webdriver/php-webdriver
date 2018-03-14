@@ -62,12 +62,11 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertSame(333, $capabilities->getVersion());
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage isJavascriptEnabled() is a htmlunit-only option
-     */
     public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('isJavascriptEnabled() is a htmlunit-only option');
+
         $capabilities = new DesiredCapabilities();
         $capabilities->setBrowserName(WebDriverBrowserType::FIREFOX);
         $capabilities->setJavascriptEnabled(false);
