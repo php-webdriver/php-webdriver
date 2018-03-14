@@ -108,7 +108,7 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     public function selectByVisibleTextDataProvider()
     {
         return [
-            ['J2B', 'j2b'],
+            ['J 2 B', 'j2b'],
             ['J2C', 'j2c'],
         ];
     }
@@ -132,7 +132,7 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     public function selectByVisiblePartialTextDataProvider()
     {
         return [
-            ['2B', 'j2b'],
+            ['2 B', 'j2b'],
             ['2C', 'j2c'],
         ];
     }
@@ -171,9 +171,9 @@ class WebDriverCheckboxTest extends WebDriverTestCase
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
 
-        $c->selectByVisibleText('J2B');
+        $c->selectByVisibleText('J 2 B');
         $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectByVisibleText('J2B');
+        $c->deselectByVisibleText('J 2 B');
         $this->assertEmpty($c->getAllSelectedOptions());
     }
 

@@ -109,7 +109,7 @@ class WebDriverRadioTest extends WebDriverTestCase
     public function selectByVisibleTextDataProvider()
     {
         return [
-            ['J3B', 'j3b'],
+            ['J 3 B', 'j3b'],
             ['J3C', 'j3c'],
         ];
     }
@@ -133,7 +133,7 @@ class WebDriverRadioTest extends WebDriverTestCase
     public function selectByVisiblePartialTextDataProvider()
     {
         return [
-            ['3B', 'j3b'],
+            ['3 B', 'j3b'],
             ['3C', 'j3c'],
         ];
     }
