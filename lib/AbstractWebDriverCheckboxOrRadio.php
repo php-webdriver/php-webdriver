@@ -102,53 +102,6 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
         $this->byVisibleText($text, true);
     }
 
-    public function deselectAll()
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException('You may only deselect all options of checkboxes');
-        }
-
-        foreach ($this->getRelatedElements() as $checkbox) {
-            $this->deselectOption($checkbox);
-        }
-    }
-
-    public function deselectByIndex($index)
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException('You may only deselect checkboxes');
-        }
-
-        $this->byIndex($index, false);
-    }
-
-    public function deselectByValue($value)
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException('You may only deselect checkboxes');
-        }
-
-        $this->byValue($value, false);
-    }
-
-    public function deselectByVisibleText($text)
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException('You may only deselect checkboxes');
-        }
-
-        $this->byVisibleText($text, false, false);
-    }
-
-    public function deselectByVisiblePartialText($text)
-    {
-        if (!$this->isMultiple()) {
-            throw new UnsupportedOperationException('You may only deselect checkboxes');
-        }
-
-        $this->byVisibleText($text, true, false);
-    }
-
     /**
      * Selects or deselects a checkbox or a radio button by its value.
      *
