@@ -32,6 +32,12 @@ class WebDriverCheckboxTest extends WebDriverTestCase
         $this->assertTrue($c->isMultiple());
     }
 
+    public function testGetOptions()
+    {
+        $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//form[2]//input[@type="checkbox"]')));
+        $this->assertNotEmpty($c->getOptions());
+    }
+
     public function testGetFirstSelectedOption()
     {
         $c = new WebDriverCheckbox($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));

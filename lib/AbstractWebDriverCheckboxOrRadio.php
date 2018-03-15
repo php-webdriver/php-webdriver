@@ -210,7 +210,7 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
             $form = $this->element->findElement(WebDriverBy::xpath('ancestor::form'));
 
             $formId = $form->getAttribute('id');
-            if ($formId === null) {
+            if ($formId === '') {
                 return $form->findElements(WebDriverBy::xpath(
                     sprintf('.//input[@name = %s%s]', XPathEscaper::escapeQuotes($this->name), $valueSelector)
                 ));
