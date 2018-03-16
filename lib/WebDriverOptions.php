@@ -90,7 +90,7 @@ class WebDriverOptions
      * Get the cookie with a given name.
      *
      * @param string $name
-     * @return Cookie The cookie, or null if no cookie with the given name is presented.
+     * @return Cookie|null The cookie, or null if no cookie with the given name is presented.
      */
     public function getCookieNamed($name)
     {
