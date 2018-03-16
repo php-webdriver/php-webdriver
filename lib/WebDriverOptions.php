@@ -37,7 +37,7 @@ class WebDriverOptions
     /**
      * Add a specific cookie.
      *
-     * @see Facebook\WebDriver\Cookie for description of possible cookie properties
+     * @see Cookie for description of possible cookie properties
      * @param Cookie|array $cookie Cookie object. May be also created from array for compatibility reasons.
      * @return WebDriverOptions The current instance.
      */
