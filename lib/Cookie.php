@@ -104,7 +104,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getPath()
     {
@@ -126,7 +126,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDomain()
     {
@@ -144,7 +144,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getExpiry()
     {
@@ -162,7 +162,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
     public function isSecure()
     {
@@ -180,7 +180,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
     public function isHttpOnly()
     {
