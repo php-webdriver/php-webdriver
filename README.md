@@ -68,7 +68,7 @@ $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
 
 Make sure to have latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed.
 
-Because Firefox and Geckodriver only support the new W3C WebDriver protocol (which is yet to be implemented by php-webdriver - see [issue #469](https://github.com/facebook/php-webdriver/issues/469)),
+Because Firefox (and Geckodriver) only support the new W3C WebDriver protocol (which is yet to be implemented by php-webdriver - see [issue #469](https://github.com/facebook/php-webdriver/issues/469)),
 the protocols must be translated by Selenium Server - this feature is *partially* available in Selenium Server versions 3.5.0-3.8.1 and you can enable it like this:
 
     java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false
@@ -79,7 +79,7 @@ Now you can start Firefox from your code:
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
 ```
 
-### Customizing Desired Capabilities
+### Customize Desired Capabilities
 
 ```php
 $desired_capabilities = DesiredCapabilities::firefox();
