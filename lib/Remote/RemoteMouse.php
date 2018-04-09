@@ -27,13 +27,19 @@ class RemoteMouse implements WebDriverMouse
      * @var RemoteExecuteMethod
      */
     private $executor;
+    /**
+     * @var bool
+     */
+    private $w3cCompliant;
 
     /**
      * @param RemoteExecuteMethod $executor
+     * @param bool $w3cCompliant
      */
-    public function __construct(RemoteExecuteMethod $executor)
+    public function __construct(RemoteExecuteMethod $executor, $w3cCompliant = false)
     {
         $this->executor = $executor;
+        $this->w3cCompliant = $w3cCompliant;
     }
 
     /**
@@ -43,6 +49,22 @@ class RemoteMouse implements WebDriverMouse
      */
     public function click(WebDriverCoordinates $where = null)
     {
+        if ($this->w3cCompliant) {
+            $moveAction = $where ? [$this->createMoveAction($where)] : [];
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => array_merge($moveAction, $this->createClickActions()),
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::CLICK, [
             'button' => 0,
@@ -58,6 +80,33 @@ class RemoteMouse implements WebDriverMouse
      */
     public function contextClick(WebDriverCoordinates $where = null)
     {
+        if ($this->w3cCompliant) {
+            $moveAction = $where ? [$this->createMoveAction($where)] : [];
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => array_merge($moveAction, [
+                            [
+                                'type' => 'pointerDown',
+                                'duration' => 0,
+                                'button' => 2,
+                            ],
+                            [
+                                'type' => 'pointerUp',
+                                'duration' => 0,
+                                'button' => 2,
+                            ],
+                        ]),
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::CLICK, [
             'button' => 2,
@@ -73,6 +122,23 @@ class RemoteMouse implements WebDriverMouse
      */
     public function doubleClick(WebDriverCoordinates $where = null)
     {
+        if ($this->w3cCompliant) {
+            $clickActions = $this->createClickActions();
+            $moveAction = null === $where ? [] : [$this->createMoveAction($where)];
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => array_merge($moveAction, $clickActions, $clickActions),
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::DOUBLE_CLICK);
 
@@ -86,6 +152,28 @@ class RemoteMouse implements WebDriverMouse
      */
     public function mouseDown(WebDriverCoordinates $where = null)
     {
+        if ($this->w3cCompliant) {
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => [
+                            $this->createMoveAction($where),
+                            [
+                                'type' => 'pointerDown',
+                                'duration' => 0,
+                                'button' => 0,
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::MOUSE_DOWN);
 
@@ -104,6 +192,21 @@ class RemoteMouse implements WebDriverMouse
         $x_offset = null,
         $y_offset = null
     ) {
+        if ($this->w3cCompliant) {
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => [$this->createMoveAction($where, $x_offset, $y_offset)],
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $params = [];
         if ($where !== null) {
             $params['element'] = $where->getAuxiliary();
@@ -114,6 +217,7 @@ class RemoteMouse implements WebDriverMouse
         if ($y_offset !== null) {
             $params['yoffset'] = $y_offset;
         }
+
         $this->executor->execute(DriverCommand::MOVE_TO, $params);
 
         return $this;
@@ -126,6 +230,29 @@ class RemoteMouse implements WebDriverMouse
      */
     public function mouseUp(WebDriverCoordinates $where = null)
     {
+        if ($this->w3cCompliant) {
+            $moveAction = $where ? [$this->createMoveAction($where)] : [];
+
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'pointer',
+                        'id' => 'mouse',
+                        'parameters' => ['pointerType' => 'mouse'],
+                        'actions' => array_merge($moveAction, [
+                            [
+                                'type' => 'pointerDown',
+                                'duration' => 0,
+                                'button' => 0,
+                            ],
+                        ]),
+                    ],
+                ],
+            ]);
+
+            return $this;
+        }
+
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::MOUSE_UP);
 
@@ -140,5 +267,50 @@ class RemoteMouse implements WebDriverMouse
         if ($where) {
             $this->mouseMove($where);
         }
+    }
+
+    /**
+     * @param WebDriverCoordinates $where
+     * @param int|null $x_offset
+     * @param int|null $y_offset
+     *
+     * @return array
+     */
+    private function createMoveAction(
+        WebDriverCoordinates $where = null,
+        $x_offset = null,
+        $y_offset = null
+    ) {
+        $move_action = [
+            'type' => 'pointerMove',
+            'duration' => 0,
+            'x' => $x_offset === null ? 0 : $x_offset,
+            'y' => $y_offset === null ? 0 : $y_offset,
+        ];
+
+        if ($where !== null) {
+            $move_action['origin'] = [JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $where->getAuxiliary()];
+        }
+
+        return $move_action;
+    }
+
+    /**
+     * @return array
+     */
+    private function createClickActions()
+    {
+        return [
+            [
+                'type' => 'pointerDown',
+                'duration' => 0,
+                'button' => 0,
+            ],
+            [
+                'type' => 'pointerUp',
+                'duration' => 0,
+                'button' => 0,
+            ],
+        ];
     }
 }

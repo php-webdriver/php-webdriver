@@ -190,7 +190,13 @@ class Cookie implements \ArrayAccess
      */
     public function toArray()
     {
-        return $this->cookie;
+        $cookie = $this->cookie;
+        if (!isset($cookie['secure'])) {
+            // Passing a boolean value for the "secure" flag is mandatory when using geckodriver
+            $cookie['secure'] = false;
+        }
+
+        return $cookie;
     }
 
     public function offsetExists($offset)

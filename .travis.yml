@@ -34,10 +34,20 @@ matrix:
       env: DEPENDENCIES="--prefer-lowest"
 
     # Firefox inside Travis environment
-    - php: '7.3'
+    - name: 'Firefox 45 on Travis (OSS protocol)'
+      php: '7.3'
       env: BROWSER_NAME="firefox"
       addons:
         firefox: "45.8.0esr"
+
+    # Firefox with Geckodriver (W3C mode) inside Travis environment
+    - name: 'Firefox latest on Travis (W3C protocol)'
+      php: 7.3
+      env:
+        - BROWSER_NAME="firefox"
+        - GECKODRIVER="1"
+      addons:
+        firefox: latest
 
     # Stable Chrome + Chromedriver inside Travis environment
     - php: '7.3'

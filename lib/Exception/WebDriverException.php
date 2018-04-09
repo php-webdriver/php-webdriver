@@ -42,7 +42,7 @@ class WebDriverException extends Exception
     /**
      * Throw WebDriverExceptions based on WebDriver status code.
      *
-     * @param int $status_code
+     * @param int|string $status_code
      * @param string $message
      * @param mixed $results
      *
@@ -85,6 +85,54 @@ class WebDriverException extends Exception
      */
     public static function throwException($status_code, $message, $results)
     {
+        if (is_string($status_code)) {
+            // see https://w3c.github.io/webdriver/webdriver-spec.html#handling-errors
+            switch ($status_code) {
+                case 'no such element':
+                    throw new NoSuchElementException($message, $results);
+                case 'no such frame':
+                    throw new NoSuchFrameException($message, $results);
+                case 'unknown command':
+                    throw new UnknownCommandException($message, $results);
+                case 'stale element reference':
+                    throw new StaleElementReferenceException($message, $results);
+                case 'invalid element state':
+                    throw new InvalidElementStateException($message, $results);
+                case 'unknown error':
+                    throw new UnknownServerException($message, $results);
+                case 'unsupported operation':
+                    throw new ExpectedException($message, $results);
+                case 'element not interactable':
+                    throw new ElementNotSelectableException($message, $results);
+                case 'no such window':
+                    throw new NoSuchDocumentException($message, $results);
+                case 'javascript error':
+                    throw new UnexpectedJavascriptException($message, $results);
+                case 'timeout':
+                    throw new TimeOutException($message, $results);
+                case 'no such window':
+                    throw new NoSuchWindowException($message, $results);
+                case 'invalid cookie domain':
+                    throw new InvalidCookieDomainException($message, $results);
+                case 'unable to set cookie':
+                    throw new UnableToSetCookieException($message, $results);
+                case 'unexpected alert open':
+                    throw new UnexpectedAlertOpenException($message, $results);
+                case 'no such alert':
+                    throw new NoAlertOpenException($message, $results);
+                case 'script timeout':
+                    throw new ScriptTimeoutException($message, $results);
+                case 'invalid selector':
+                    throw new InvalidSelectorException($message, $results);
+                case 'session not created':
+                    throw new SessionNotCreatedException($message, $results);
+                case 'move target out of bounds':
+                    throw new MoveTargetOutOfBoundsException($message, $results);
+                default:
+                    throw new UnrecognizedExceptionException($message, $results);
+            }
+        }
+
         switch ($status_code) {
             case 1:
                 throw new IndexOutOfBoundsException($message, $results);

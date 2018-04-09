@@ -37,15 +37,21 @@ For the functional tests you must first [download](http://selenium-release.stora
 the selenium standalone server, start the local PHP server which will serve the test pages and then run the `functional`
 test suite:
 
-    java -jar selenium-server-standalone-2.53.1.jar -log selenium.log &
+    java -jar selenium-server-standalone-3.9.1.jar -log selenium.log &
     php -S localhost:8000 -t tests/functional/web/ &
     ./vendor/bin/phpunit --testsuite functional
-    
+
 The functional tests will be started in HtmlUnit headless browser by default. If you want to run them in eg. Firefox,
 simply set the `BROWSER_NAME` environment variable:
 
     ...
     export BROWSER_NAME="firefox"
+    ./vendor/bin/phpunit --testsuite functional
+
+To test with Geckodriver, [download](https://github.com/mozilla/geckodriver/releases) and start the server, then run:
+
+    export GECKODRIVER=1
+    export BROWSER_NAME=firefox
     ./vendor/bin/phpunit --testsuite functional
 
 ### Check coding style
