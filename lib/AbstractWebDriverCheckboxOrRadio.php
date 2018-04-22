@@ -17,7 +17,6 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnexpectedTagNameException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Support\XPathEscaper;
 
@@ -26,8 +25,13 @@ use Facebook\WebDriver\Support\XPathEscaper;
  */
 abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterface
 {
+    /** @var WebDriverElement */
     protected $element;
+
+    /** @var string */
     protected $type;
+
+    /** @var string */
     protected $name;
 
     public function __construct(WebDriverElement $element)
@@ -43,11 +47,6 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
         }
 
         $this->element = $element;
-    }
-
-    public function isMultiple()
-    {
-        return $this->type === 'checkbox';
     }
 
     public function getOptions()
@@ -79,7 +78,7 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
             }
         }
 
-        return null;
+        throw new NoSuchElementException(sprintf('No %s are selected', 'radio' === $this->type ? 'radio buttons' : 'checkboxes'));
     }
 
     public function selectByIndex($index)
@@ -123,7 +122,7 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
 
         if (!$matched) {
             throw new NoSuchElementException(
-                sprintf('Cannot locate option with value: %s', $value)
+                sprintf('Cannot locate %s with value: %s', $this->type, $value)
             );
         }
     }
@@ -139,7 +138,7 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
     {
         $elements = $this->getRelatedElements();
         if (!isset($elements[$index])) {
-            throw new NoSuchElementException(sprintf('Cannot locate option with index: %d', $index));
+            throw new NoSuchElementException(sprintf('Cannot locate %s with index: %d', $this->type, $index));
         }
 
         $select ? $this->selectOption($elements[$index]) : $this->deselectOption($elements[$index]);

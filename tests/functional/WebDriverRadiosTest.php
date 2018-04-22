@@ -18,7 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
-class WebDriverRadioTest extends WebDriverTestCase
+class WebDriverRadiosTest extends WebDriverTestCase
 {
     protected function setUp()
     {
@@ -29,13 +29,13 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testIsMultiple()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $this->assertFalse($c->isMultiple());
     }
 
     public function testGetOptions()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $values = [];
         foreach ($c->getOptions() as $option) {
             $values[] = $option->getAttribute('value');
@@ -44,17 +44,16 @@ class WebDriverRadioTest extends WebDriverTestCase
         $this->assertSame(['j3a', 'j3b', 'j3c'], $values);
     }
 
-
     public function testGetFirstSelectedOption()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $c->selectByValue('j3a');
         $this->assertSame('j3a', $c->getFirstSelectedOption()->getAttribute('value'));
     }
 
     public function testSelectByValue()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $c->selectByValue('j3b');
 
         $selectedOptions = $c->getAllSelectedOptions();
@@ -64,16 +63,16 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testSelectByValueInvalid()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(NoSuchElementException::class);
-        $this->expectExceptionMessage('Cannot locate option with value: notexist');
+        $this->expectExceptionMessage('Cannot locate radio with value: notexist');
         $c->selectByValue('notexist');
     }
 
     public function testSelectByIndex()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $c->selectByIndex(1);
 
         $allSelectedOptions = $c->getAllSelectedOptions();
@@ -83,10 +82,10 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testSelectByIndexInvalid()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(NoSuchElementException::class);
-        $this->expectExceptionMessage('Cannot locate option with index: '.PHP_INT_MAX);
+        $this->expectExceptionMessage('Cannot locate radio with index: ' . PHP_INT_MAX);
         $c->selectByIndex(PHP_INT_MAX);
     }
 
@@ -98,7 +97,7 @@ class WebDriverRadioTest extends WebDriverTestCase
      */
     public function testSelectByVisibleText($text, $value)
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $c->selectByVisibleText($text);
         $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
     }
@@ -122,7 +121,7 @@ class WebDriverRadioTest extends WebDriverTestCase
      */
     public function testSelectByVisiblePartialText($text, $value)
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $c->selectByVisiblePartialText($text);
         $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
     }
@@ -140,7 +139,7 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testDeselectAllRadio()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('You cannot deselect radio buttons');
@@ -149,7 +148,7 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testDeselectByIndexRadio()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('You cannot deselect radio buttons');
@@ -158,7 +157,7 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testDeselectByValueRadio()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('You cannot deselect radio buttons');
@@ -167,7 +166,7 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testDeselectByVisibleTextRadio()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('You cannot deselect radio buttons');
@@ -176,7 +175,7 @@ class WebDriverRadioTest extends WebDriverTestCase
 
     public function testDeselectByVisiblePartialTextRadio()
     {
-        $c = new WebDriverRadio($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
+        $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->expectException(UnsupportedOperationException::class);
         $this->expectExceptionMessage('You cannot deselect radio buttons');

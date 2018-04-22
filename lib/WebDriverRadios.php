@@ -15,14 +15,13 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 
 /**
  * Provides helper methods for radio buttons.
  */
-class WebDriverRadio extends AbstractWebDriverCheckboxOrRadio
+class WebDriverRadios extends AbstractWebDriverCheckboxOrRadio
 {
     public function __construct(WebDriverElement $element)
     {
@@ -34,14 +33,9 @@ class WebDriverRadio extends AbstractWebDriverCheckboxOrRadio
         }
     }
 
-    public function getFirstSelectedOption()
+    public function isMultiple()
     {
-        $element = parent::getFirstSelectedOption();
-        if ($element === null) {
-            throw new NoSuchElementException('No radio button is selected');
-        }
-
-        return $element;
+        return false;
     }
 
     public function deselectAll()

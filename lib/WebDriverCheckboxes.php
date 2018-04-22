@@ -15,13 +15,12 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\WebDriverException;
 
 /**
  * Provides helper methods for checkboxes.
  */
-class WebDriverCheckbox extends AbstractWebDriverCheckboxOrRadio
+class WebDriverCheckboxes extends AbstractWebDriverCheckboxOrRadio
 {
     public function __construct(WebDriverElement $element)
     {
@@ -33,14 +32,9 @@ class WebDriverCheckbox extends AbstractWebDriverCheckboxOrRadio
         }
     }
 
-    public function getFirstSelectedOption()
+    public function isMultiple()
     {
-        $element = parent::getFirstSelectedOption();
-        if ($element === null) {
-            throw new NoSuchElementException('No checkboxes are selected');
-        }
-
-        return $element;
+        return true;
     }
 
     public function deselectAll()
