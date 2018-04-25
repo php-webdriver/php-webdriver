@@ -123,7 +123,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             ['desiredCapabilities' => $desired_capabilities->toArray()]
         );
 
-        $response = $executor->execute($command);
+        try {
+            $response = $executor->execute($command);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
+
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
         $driver = new static($executor, $response->getSessionID(), $returnedCapabilities);
@@ -167,7 +172,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function close()
     {
-        $this->execute(DriverCommand::CLOSE, []);
+        try {
+            $this->execute(DriverCommand::CLOSE, []);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
 
         return $this;
     }
@@ -182,10 +191,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function findElement(WebDriverBy $by)
     {
         $params = ['using' => $by->getMechanism(), 'value' => $by->getValue()];
-        $raw_element = $this->execute(
-            DriverCommand::FIND_ELEMENT,
-            $params
-        );
+        try {
+            $raw_element = $this->execute(
+                DriverCommand::FIND_ELEMENT,
+                $params
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
 
         return $this->newElement($raw_element['ELEMENT']);
     }
@@ -200,11 +213,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function findElements(WebDriverBy $by)
     {
         $params = ['using' => $by->getMechanism(), 'value' => $by->getValue()];
-        $raw_elements = $this->execute(
-            DriverCommand::FIND_ELEMENTS,
-            $params
-        );
-
+        try {
+            $raw_elements = $this->execute(
+                DriverCommand::FIND_ELEMENTS,
+                $params
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
         $elements = [];
         foreach ($raw_elements as $raw_element) {
             $elements[] = $this->newElement($raw_element['ELEMENT']);
@@ -223,7 +239,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function get($url)
     {
         $params = ['url' => (string) $url];
-        $this->execute(DriverCommand::GET, $params);
+        try {
+            $this->execute(DriverCommand::GET, $params);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
 
         return $this;
     }
@@ -235,7 +255,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getCurrentURL()
     {
-        return $this->execute(DriverCommand::GET_CURRENT_URL);
+        try {
+            return $this->execute(DriverCommand::GET_CURRENT_URL);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -245,7 +269,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getPageSource()
     {
-        return $this->execute(DriverCommand::GET_PAGE_SOURCE);
+        try {
+            return $this->execute(DriverCommand::GET_PAGE_SOURCE);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -255,7 +283,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getTitle()
     {
-        return $this->execute(DriverCommand::GET_TITLE);
+        try {
+            return $this->execute(DriverCommand::GET_TITLE);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -265,10 +297,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getWindowHandle()
     {
-        return $this->execute(
-            DriverCommand::GET_CURRENT_WINDOW_HANDLE,
-            []
-        );
+        try {
+            return $this->execute(
+                DriverCommand::GET_CURRENT_WINDOW_HANDLE,
+                []
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -278,7 +314,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getWindowHandles()
     {
-        return $this->execute(DriverCommand::GET_WINDOW_HANDLES, []);
+        try {
+            return $this->execute(DriverCommand::GET_WINDOW_HANDLES, []);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -286,7 +326,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function quit()
     {
-        $this->execute(DriverCommand::QUIT);
+        try {
+            $this->execute(DriverCommand::QUIT);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
         $this->executor = null;
     }
 
@@ -305,7 +349,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             'args' => $this->prepareScriptArguments($arguments),
         ];
 
-        return $this->execute(DriverCommand::EXECUTE_SCRIPT, $params);
+        try {
+            return $this->execute(DriverCommand::EXECUTE_SCRIPT, $params);
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -326,11 +374,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             'script' => $script,
             'args' => $this->prepareScriptArguments($arguments),
         ];
-
-        return $this->execute(
-            DriverCommand::EXECUTE_ASYNC_SCRIPT,
-            $params
-        );
+        try {
+            return $this->execute(
+                DriverCommand::EXECUTE_ASYNC_SCRIPT,
+                $params
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     /**
@@ -341,9 +392,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function takeScreenshot($save_as = null)
     {
-        $screenshot = base64_decode(
-            $this->execute(DriverCommand::SCREENSHOT)
-        );
+        try {
+            $screenshot = base64_decode(
+                $this->execute(DriverCommand::SCREENSHOT)
+            );
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
         if ($save_as) {
             file_put_contents($save_as, $screenshot);
         }
@@ -532,7 +587,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             []
         );
 
-        return $executor->execute($command)->getValue();
+        try {
+            return $executor->execute($command)->getValue();
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     public function execute($command_name, $params = [])
@@ -544,7 +603,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         if ($this->executor) {
-            $response = $this->executor->execute($command);
+            try {
+                $response = $this->executor->execute($command);
+            } catch (\Exception $exception) {
+                throw $exception;
+            }
 
             return $response->getValue();
         }
