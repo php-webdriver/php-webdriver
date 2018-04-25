@@ -1,5 +1,5 @@
 {
-  "name": "facebook/webdriver",
+  "name": "zzepish/webdriver",
   "description": "A PHP client for Selenium WebDriver",
   "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
