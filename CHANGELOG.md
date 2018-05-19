@@ -5,6 +5,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support for current Firefox XPI extension format. Extensions could now be loaded into `FirefoxProfile` using `addExtension()` method.
 - `setProfile()` method to `FirefoxOptions`, which is now a preferred way to set Firefox Profile.
+- Local storage and session storage support via the new `RemoteWebDriver::storage()` method.
 
 ### Changed
 - Handle errors when taking screenshots. `WebDriverException` is thrown if WebDriver returns empty or invalid screenshot data.

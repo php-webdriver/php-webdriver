@@ -2,8 +2,6 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
-
 /**
  * The interface for WebDriver.
  */
@@ -97,6 +95,14 @@ interface WebDriver extends WebDriverSearchContext
      * @return WebDriverOptions
      */
     public function manage();
+
+    // TODO: Add in next major release (BC)
+    ///**
+    // * An abstraction allowing the driver to access the browser's storage.
+    // *
+    // * @return WebStorage
+    // */
+    //public function storage(): WebStorage;
 
     /**
      * An abstraction allowing the driver to access the browser's history and to

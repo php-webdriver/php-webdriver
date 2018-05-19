@@ -3,8 +3,10 @@
 namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Exception\UnknownErrorException;
+use Facebook\WebDriver\Html5\WebStorageInterface;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
+use Facebook\WebDriver\Remote\Html5\RemoteWebStorage;
 use Facebook\WebDriver\Support\ScreenshotHelper;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
@@ -440,6 +442,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function switchTo()
     {
         return new RemoteTargetLocator($this->getExecuteMethod(), $this, $this->isW3cCompliant);
+    }
+
+    /**
+     * An abstraction allowing the driver to access the browser's storage.
+     *
+     * @return WebStorageInterface
+     */
+    public function storage()
+    {
+        return new RemoteWebStorage($this->getExecuteMethod());
     }
 
     /**

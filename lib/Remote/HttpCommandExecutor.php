@@ -18,6 +18,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         'Accept: application/json',
     ];
 
+    /** @internal */
+    const SESSION_STORAGE = '/session/:sessionId/session_storage';
+    /** @internal */
+    const LOCAL_STORAGE = '/session/:sessionId/local_storage';
+
     /**
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#command-reference
      */
@@ -130,7 +135,25 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::TOUCH_MOVE => ['method' => 'POST', 'url' => '/session/:sessionId/touch/move'],
         DriverCommand::TOUCH_SCROLL => ['method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'],
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
+
         DriverCommand::CUSTOM_COMMAND => [],
+
+        // Commands which are not part of W3C specification, but remote ends usually implements them
+        DriverCommand::CLEAR_LOCAL_STORAGE => ['method' => 'DELETE', 'url' => self::LOCAL_STORAGE],
+        DriverCommand::CLEAR_SESSION_STORAGE => ['method' => 'DELETE', 'url' => self::SESSION_STORAGE],
+        DriverCommand::GET_LOCAL_STORAGE_ITEM => ['method' => 'GET', 'url' => self::LOCAL_STORAGE . '/key/:key'],
+        DriverCommand::GET_LOCAL_STORAGE_KEYS => ['method' => 'GET', 'url' => self::LOCAL_STORAGE],
+        DriverCommand::GET_LOCAL_STORAGE_SIZE => ['method' => 'GET', 'url' => self::LOCAL_STORAGE . '/size'],
+        DriverCommand::GET_SESSION_STORAGE_ITEM => ['method' => 'GET', 'url' => self::SESSION_STORAGE . '/key/:key'],
+        DriverCommand::GET_SESSION_STORAGE_KEYS => ['method' => 'GET', 'url' => self::SESSION_STORAGE],
+        DriverCommand::GET_SESSION_STORAGE_SIZE => ['method' => 'GET', 'url' => self::SESSION_STORAGE . '/size'],
+        DriverCommand::REMOVE_LOCAL_STORAGE_ITEM => ['method' => 'DELETE', 'url' => self::LOCAL_STORAGE . '/key/:key'],
+        DriverCommand::REMOVE_SESSION_STORAGE_ITEM => [
+            'method' => 'DELETE',
+            'url' => self::SESSION_STORAGE . '/key/:key',
+        ],
+        DriverCommand::SET_LOCAL_STORAGE_ITEM => ['method' => 'POST', 'url' => self::LOCAL_STORAGE],
+        DriverCommand::SET_SESSION_STORAGE_ITEM => ['method' => 'POST', 'url' => self::SESSION_STORAGE],
     ];
     /**
      * @var array Will be merged with $commands

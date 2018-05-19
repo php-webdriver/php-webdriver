@@ -81,20 +81,6 @@ class DriverCommand
     const CLEAR_APP_CACHE = 'clearAppCache';
     const IS_BROWSER_ONLINE = 'isBrowserOnline';
     const SET_BROWSER_ONLINE = 'setBrowserOnline';
-    // Local storage
-    const GET_LOCAL_STORAGE_ITEM = 'getLocalStorageItem';
-    const GET_LOCAL_STORAGE_KEYS = 'getLocalStorageKeys';
-    const SET_LOCAL_STORAGE_ITEM = 'setLocalStorageItem';
-    const REMOVE_LOCAL_STORAGE_ITEM = 'removeLocalStorageItem';
-    const CLEAR_LOCAL_STORAGE = 'clearLocalStorage';
-    const GET_LOCAL_STORAGE_SIZE = 'getLocalStorageSize';
-    // Session storage
-    const GET_SESSION_STORAGE_ITEM = 'getSessionStorageItem';
-    const GET_SESSION_STORAGE_KEYS = 'getSessionStorageKey';
-    const SET_SESSION_STORAGE_ITEM = 'setSessionStorageItem';
-    const REMOVE_SESSION_STORAGE_ITEM = 'removeSessionStorageItem';
-    const CLEAR_SESSION_STORAGE = 'clearSessionStorage';
-    const GET_SESSION_STORAGE_SIZE = 'getSessionStorageSize';
     // Screen orientation
     const SET_SCREEN_ORIENTATION = 'setScreenOrientation';
     const GET_SCREEN_ORIENTATION = 'getScreenOrientation';
@@ -133,16 +119,32 @@ class DriverCommand
     // Mobile API
     const GET_NETWORK_CONNECTION = 'getNetworkConnection';
     const SET_NETWORK_CONNECTION = 'setNetworkConnection';
+
     // Custom command
     const CUSTOM_COMMAND = 'customCommand';
+
+    // Local storage
+    const GET_LOCAL_STORAGE_ITEM = 'getLocalStorageItem';
+    const GET_LOCAL_STORAGE_KEYS = 'getLocalStorageKeys';
+    const SET_LOCAL_STORAGE_ITEM = 'setLocalStorageItem';
+    const REMOVE_LOCAL_STORAGE_ITEM = 'removeLocalStorageItem';
+    const CLEAR_LOCAL_STORAGE = 'clearLocalStorage';
+    const GET_LOCAL_STORAGE_SIZE = 'getLocalStorageSize';
+    // Session storage
+    const GET_SESSION_STORAGE_ITEM = 'getSessionStorageItem';
+    const GET_SESSION_STORAGE_KEYS = 'getSessionStorageKey';
+    const SET_SESSION_STORAGE_ITEM = 'setSessionStorageItem';
+    const REMOVE_SESSION_STORAGE_ITEM = 'removeSessionStorageItem';
+    const CLEAR_SESSION_STORAGE = 'clearSessionStorage';
+    const GET_SESSION_STORAGE_SIZE = 'getSessionStorageSize';
 
     // W3C specific
     const ACTIONS = 'actions';
     const GET_ELEMENT_PROPERTY = 'getElementProperty';
     const GET_NAMED_COOKIE = 'getNamedCookie';
+    const MINIMIZE_WINDOW = 'minimizeWindow';
     const NEW_WINDOW = 'newWindow';
     const TAKE_ELEMENT_SCREENSHOT = 'takeElementScreenshot';
-    const MINIMIZE_WINDOW = 'minimizeWindow';
 
     private function __construct()
     {
