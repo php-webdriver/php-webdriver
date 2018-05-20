@@ -78,7 +78,9 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
             }
         }
 
-        throw new NoSuchElementException(sprintf('No %s are selected', 'radio' === $this->type ? 'radio buttons' : 'checkboxes'));
+        throw new NoSuchElementException(
+            sprintf('No %s are selected', 'radio' === $this->type ? 'radio buttons' : 'checkboxes')
+        );
     }
 
     public function selectByIndex($index)
