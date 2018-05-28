@@ -84,7 +84,6 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $this->assertArrayHasKey('capabilities', $sessions[0]);
         $this->assertArrayHasKey('id', $sessions[0]);
-        $this->assertArrayHasKey('class', $sessions[0]);
     }
 
     /**
