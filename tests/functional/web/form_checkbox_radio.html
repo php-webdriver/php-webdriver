@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<form id="another-form" method="POST">
+    <input name="j1">
+    <input type="checkbox" name="j2" value="j2a">
+
+    <label>
+        J         2
+   B
+
+        <input type="checkbox" name="j2" value="j2b">
+    </label>
+
+    <input type="radio" name="j3" value="j3a">
+
+    <label>
+        J
+
+            3
+   B
+
+        <input type="radio" name="j3" value="j3b">
+    </label>
+
+    <input type="submit" value="OK">
+</form>
+
+<label for="j2c">J2C</label>
+<input type="checkbox" form="another-form" name="j2" value="j2c" id="j2c">
+
+<label for="j3c">J3C</label>
+<input type="radio" form="another-form" name="j3" value="j3c" id="j3c">
+
+<form>
+    <input type="checkbox" name="single-cb">
+</form>
+</body>
+</html>
