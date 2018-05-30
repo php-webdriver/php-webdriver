@@ -74,9 +74,11 @@ matrix:
         - phpenv config-rm xdebug.ini
       before_script: ~
       script:
-        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer require --dev phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer require --dev roave/backward-compatibility-check:^1.0 # Not part of require-dev, because it won't install on PHP 7.1
         - composer analyze
         - composer codestyle:check
+        - if [ `git tag | wc -l` -gt 0 ]; then vendor/bin/roave-backward-compatibility-check roave-backwards-compatibility-check:assert-backwards-compatible lib/; fi
       after_script: ~
       after_success: ~
 
