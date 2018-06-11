@@ -42,7 +42,7 @@ test suite:
     ./vendor/bin/phpunit --testsuite functional
     
 The functional tests will be started in HtmlUnit headless browser by default. If you want to run them in eg. Firefox,
-simply set the `BROWSER` environment variable:
+simply set the `BROWSER_NAME` environment variable:
 
     ...
     export BROWSER_NAME="firefox"
