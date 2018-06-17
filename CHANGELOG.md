@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `WebDriverCheckboxes` and `WebDriverRadios` helper classes to simplify interaction with checkboxes and radio buttons.
 
+### Fixed
+- Mozilla firefox geckodriver fix. ([PHPUnit\Framework\Exception] Undefined index: ELEMENT)
+
 ## 1.6.0 - 2018-05-16
 ### Added
 - Connection and request timeouts could be specified also when creating RemoteWebDriver from existing session ID.
