@@ -194,6 +194,60 @@ class FirefoxProfile
     }
 
     /**
+     * Extract the extension if from the legacy install.rdf file.
+     * @param $temp_dir The path to the extracted extension files.
+     * @return bool
+     */
+    private function readExtensionIdFromRdf($temp_dir)
+    {
+        // This is a hacky way to parse the id since there is no offical RDF parser library.
+        // Find the correct namespace for the id element.
+        $install_rdf_path = $temp_dir . '/install.rdf';
+        if (file_exists($install_rdf_path)) {
+            $xml = simplexml_load_file($install_rdf_path);
+            $ns = $xml->getDocNamespaces();
+            $prefix = '';
+            if (!empty($ns)) {
+                foreach ($ns as $key => $value) {
+                    if (mb_strpos($value, '//www.mozilla.org/2004/em-rdf') > 0) {
+                        if ($key != '') {
+                            $prefix = $key . ':'; // Separate the namespace from the name.
+                        }
+                        break;
+                    }
+                }
+            }
+            // Get the extension id from the install manifest.
+            $matches = [];
+            preg_match('#<' . $prefix . 'id>([^<]+)</' . $prefix . 'id>#', $xml->asXML(), $matches);
+            if (isset($matches[1])) {
+                return $matches[1];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Extract the extension if from the webextension manifest.json file.
+     * @param $temp_dir The path to the extracted extension files.
+     * @return bool
+     */
+    private function readExtensionIdFromManifest($temp_dir)
+    {
+        $install_manifest_path = $temp_dir . '/manifest.json';
+        if (file_exists($install_manifest_path)) {
+            $manifest = file_get_contents($install_manifest_path);
+            $manifest = json_decode($manifest, true);
+            if (isset($manifest['applications']['gecko']['id'])) {
+                return $manifest['applications']['gecko']['id'];
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * @param string $extension The path to the extension.
      * @param string $profile_dir The path to the profile directory.
      * @return string The path to the directory of this extension.
@@ -203,27 +257,13 @@ class FirefoxProfile
         $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
         $this->extractTo($extension, $temp_dir);
 
-        // This is a hacky way to parse the id since there is no offical RDF parser library.
-        // Find the correct namespace for the id element.
-        $install_rdf_path = $temp_dir . '/install.rdf';
-        $xml = simplexml_load_file($install_rdf_path);
-        $ns = $xml->getDocNamespaces();
-        $prefix = '';
-        if (!empty($ns)) {
-            foreach ($ns as $key => $value) {
-                if (mb_strpos($value, '//www.mozilla.org/2004/em-rdf') > 0) {
-                    if ($key != '') {
-                        $prefix = $key . ':'; // Separate the namespace from the name.
-                    }
-                    break;
-                }
-            }
+        $extension_id = $this->readExtensionIdFromRdf($temp_dir);
+        if (!$extension_id) {
+            $extension_id = $this->readExtensionIdFromManifest($temp_dir);
         }
-        // Get the extension id from the install manifest.
-        $matches = [];
-        preg_match('#<' . $prefix . 'id>([^<]+)</' . $prefix . 'id>#', $xml->asXML(), $matches);
-        if (isset($matches[1])) {
-            $ext_dir = $profile_dir . '/extensions/' . $matches[1];
+
+        if (isset($extension_id)) {
+            $ext_dir = $profile_dir . '/extensions/' . $extension_id;
             mkdir($ext_dir, 0777, true);
             $this->extractTo($extension, $ext_dir);
         } else {
