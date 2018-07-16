@@ -18,6 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Exception\NoSuchWindowException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\ExecutorLogger;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use PHPUnit\Framework\TestCase;
@@ -68,7 +69,11 @@ class WebDriverTestCase extends TestCase
                 $this->serverUrl,
                 $this->desiredCapabilities,
                 $this->connectionTimeout,
-                $this->requestTimeout
+                $this->requestTimeout,
+                null,
+                null,
+                null,
+                new ExecutorLogger()
             );
         }
     }

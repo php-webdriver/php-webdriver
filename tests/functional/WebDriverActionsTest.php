@@ -41,10 +41,32 @@ class WebDriverActionsTest extends WebDriverTestCase
         }
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
-
+    
         $this->driver->action()
             ->click($element)
             ->perform();
+
+        $this->assertSame(
+            ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
+            $this->retrieveLoggedEvents()
+        );
+    }
+
+    /**
+     * @covers ::__construct
+     * @covers ::click
+     * @covers ::perform
+     */
+    public function testShouldClickOnElementWithMouse()
+    {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
+
+        $element = $this->driver->findElement(WebDriverBy::id('item-1'));
+
+        $this->driver->getMouse()
+            ->click($element->getCoordinates());
 
         $this->assertSame(
             ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
@@ -107,6 +129,33 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     /**
      * @covers ::__construct
+     * @covers ::contextClick
+     * @covers ::perform
+     */
+    public function testShouldContextClickOnElementWithMouse()
+    {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
+
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::MICROSOFT_EDGE) {
+            $this->markTestSkipped('Getting stuck in EdgeDriver');
+        }
+
+        $element = $this->driver->findElement(WebDriverBy::id('item-2'));
+
+        $this->driver->getMouse()
+            ->contextClick($element->getCoordinates());
+
+        $loggedEvents = $this->retrieveLoggedEvents();
+
+        $this->assertContains('mousedown item-2', $loggedEvents);
+        $this->assertContains('mouseup item-2', $loggedEvents);
+        $this->assertContains('contextmenu item-2', $loggedEvents);
+    }
+
+    /**
+     * @covers ::__construct
      * @covers ::doubleClick
      * @covers ::perform
      */
@@ -121,11 +170,31 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->driver->action()
             ->doubleClick($element)
             ->perform();
-
-        $this->assertSame(
-            ['mouseover item-3', 'mousedown item-3', 'mouseup item-3', 'click item-3', 'dblclick item-3'],
-            $this->retrieveLoggedEvents()
-        );
+    
+        if ($this->driver->getDialect()->isW3C()) {
+            $expected = [
+                'mouseover item-1',
+                'mouseover item-2',
+                'mouseover item-3',
+                'mousedown item-3',
+                'mouseup item-3',
+                'click item-3',
+                'mousedown item-3',
+                'mouseup item-3',
+                'click item-3',
+                'dblclick item-3'
+            ];
+        } else {
+            $expected = [
+                'mouseover item-3',
+                'mousedown item-3',
+                'mouseup item-3',
+                'click item-3',
+                'dblclick item-3'
+            ];
+        }
+        
+        $this->assertSame($expected, $this->retrieveLoggedEvents());
     }
 
     /**

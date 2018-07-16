@@ -86,6 +86,73 @@ class WebDriverKeys
     const COMMAND = "\xEE\x80\xBD"; // ALIAS
     const ZENKAKU_HANKAKU = "\xEE\x80\xC0";
 
+    private static $specialKeys = [
+        self::NULL,
+        self::CANCEL,
+        self::HELP,
+        self::BACKSPACE,
+        self::TAB,
+        self::CLEAR,
+        self::RETURN_KEY,
+        self::ENTER,
+        self::SHIFT,
+        self::LEFT_SHIFT,
+        self::CONTROL,
+        self::LEFT_CONTROL,
+        self::ALT,
+        self::LEFT_ALT,
+        self::PAUSE,
+        self::ESCAPE,
+        self::SPACE,
+        self::PAGE_UP,
+        self::PAGE_DOWN,
+        self::END,
+        self::HOME,
+        self::LEFT,
+        self::ARROW_LEFT,
+        self::UP,
+        self::ARROW_UP,
+        self::RIGHT,
+        self::ARROW_RIGHT,
+        self::DOWN,
+        self::ARROW_DOWN,
+        self::INSERT,
+        self::DELETE,
+        self::SEMICOLON,
+        self::EQUALS,
+        self::NUMPAD0,
+        self::NUMPAD1,
+        self::NUMPAD2,
+        self::NUMPAD3,
+        self::NUMPAD4,
+        self::NUMPAD5,
+        self::NUMPAD6,
+        self::NUMPAD7,
+        self::NUMPAD8,
+        self::NUMPAD9,
+        self::MULTIPLY,
+        self::ADD,
+        self::SEPARATOR,
+        self::SUBTRACT,
+        self::DECIMAL,
+        self::DIVIDE,
+        self::F1,
+        self::F2,
+        self::F3,
+        self::F4,
+        self::F5,
+        self::F6,
+        self::F7,
+        self::F8,
+        self::F9,
+        self::F10,
+        self::F11,
+        self::F12,
+        self::META,
+        self::COMMAND,
+        self::ZENKAKU_HANKAKU,
+    ];
+    
     /**
      * Encode input of `sendKeys()`.
      * @param string|array|int|float $keys
@@ -115,5 +182,14 @@ class WebDriverKeys
         }
 
         return $encoded;
+    }
+    
+    /**
+     * @param string $key
+     * @return bool
+     */
+    public static function isSpecialKey($key)
+    {
+        return in_array($key, self::$specialKeys, true);
     }
 }

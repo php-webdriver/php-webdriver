@@ -35,6 +35,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected $executor;
     /**
+     * @var WebDriverDialect
+     */
+    protected $dialect;
+    /**
      * @var string
      */
     protected $id;
@@ -42,16 +46,23 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * @var UselessFileDetector
      */
     protected $fileDetector;
-
+    /**
+     * @var WebDriverTranslatorFactory
+     */
+    protected $protocolTranslator;
+    
     /**
      * @param RemoteExecuteMethod $executor
+     * @param WebDriverDialect $dialect
      * @param string $id
      */
-    public function __construct(RemoteExecuteMethod $executor, $id)
+    public function __construct(RemoteExecuteMethod $executor, $dialect, $id)
     {
         $this->executor = $executor;
+        $this->dialect = $dialect;
         $this->id = $id;
         $this->fileDetector = new UselessFileDetector();
+        $this->protocolTranslator = WebDriverTranslatorFactory::createByDialect($this->dialect);
     }
 
     /**
@@ -101,10 +112,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         ];
         $raw_element = $this->executor->execute(
             DriverCommand::FIND_CHILD_ELEMENT,
-            $params
+            $this->protocolTranslator->translateParameters(DriverCommand::FIND_CHILD_ELEMENT, $params)
         );
 
-        return $this->newElement($raw_element['ELEMENT']);
+        return $this->newElement($this->protocolTranslator->translateElement($raw_element));
     }
 
     /**
@@ -124,12 +135,12 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         ];
         $raw_elements = $this->executor->execute(
             DriverCommand::FIND_CHILD_ELEMENTS,
-            $params
+            $this->protocolTranslator->translateParameters(DriverCommand::FIND_CHILD_ELEMENTS, $params)
         );
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($raw_element['ELEMENT']);
+            $elements[] = $this->newElement($this->protocolTranslator->translateElement($raw_element));
         }
 
         return $elements;
@@ -326,10 +337,13 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         $local_file = $this->fileDetector->getLocalFile($value);
         if ($local_file === null) {
             $params = [
-                'value' => WebDriverKeys::encode($value),
+                'value' => $value,
                 ':id' => $this->id,
             ];
-            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);
+            $this->executor->execute(
+                DriverCommand::SEND_KEYS_TO_ELEMENT,
+                $this->protocolTranslator->translateParameters(DriverCommand::SEND_KEYS_TO_ELEMENT, $params)
+            );
         } else {
             $remote_path = $this->upload($local_file);
             $params = [
@@ -397,6 +411,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function equals(WebDriverElement $other)
     {
+        if ($this->dialect->isW3C()) {
+            return $this->id === $other->getID();
+        }
+        
         return $this->executor->execute(DriverCommand::ELEMENT_EQUALS, [
             ':id' => $this->id,
             ':other' => $other->getID(),
@@ -412,7 +430,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected function newElement($id)
     {
-        return new static($this->executor, $id);
+        return new static($this->executor, $this->dialect, $id);
     }
 
     /**

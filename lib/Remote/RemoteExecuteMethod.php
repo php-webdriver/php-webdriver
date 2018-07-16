@@ -15,12 +15,14 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\WebDriverException;
+
 class RemoteExecuteMethod implements ExecuteMethod
 {
     /**
      * @var RemoteWebDriver
      */
-    private $driver;
+    protected $driver;
 
     /**
      * @param RemoteWebDriver $driver
@@ -29,11 +31,12 @@ class RemoteExecuteMethod implements ExecuteMethod
     {
         $this->driver = $driver;
     }
-
+    
     /**
      * @param string $command_name
      * @param array $parameters
      * @return mixed
+     * @throws WebDriverException
      */
     public function execute($command_name, array $parameters = [])
     {

@@ -20,6 +20,8 @@ use Facebook\WebDriver\Exception\StaleElementReferenceException;
 use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use Facebook\WebDriver\Remote\WebDriverDialect;
+use Facebook\WebDriver\Remote\WebDriverResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -118,7 +120,11 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectPresenceOfElementLocatedCondition()
     {
-        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
+        $element = new RemoteWebElement(
+            new RemoteExecuteMethod($this->driverMock),
+            WebDriverDialect::createJsonWireProtocol(),
+            'id'
+        );
 
         $this->driverMock->expects($this->at(0))
             ->method('findElement')

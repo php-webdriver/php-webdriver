@@ -15,7 +15,7 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Remote\WebDriverCommand;
+use Facebook\WebDriver\Remote\ExecutableWebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverResponse;
 
 /**
@@ -24,9 +24,9 @@ use Facebook\WebDriver\Remote\WebDriverResponse;
 interface WebDriverCommandExecutor
 {
     /**
-     * @param WebDriverCommand $command
+     * @param ExecutableWebDriverCommand $command
      *
      * @return WebDriverResponse
      */
-    public function execute(WebDriverCommand $command);
+    public function execute(ExecutableWebDriverCommand $command);
 }

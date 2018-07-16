@@ -17,7 +17,8 @@
     "ext-curl": "*",
     "ext-zip": "*",
     "ext-mbstring": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "psr/log": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.7",
@@ -56,10 +57,5 @@
       "vendor/bin/parallel-lint -j 10 ./lib ./tests",
       "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
     ]
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-community": "1.5-dev"
-    }
   }
 }

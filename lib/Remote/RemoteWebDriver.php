@@ -15,6 +15,10 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\UnknownServerException;
+use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
+use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
@@ -23,9 +27,11 @@ use Facebook\WebDriver\WebDriverCapabilities;
 use Facebook\WebDriver\WebDriverCommandExecutor;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
+use Facebook\WebDriver\WebDriverKeyboard;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
+use Psr\Log\LoggerInterface;
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInputDevices
 {
@@ -34,49 +40,49 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     protected $executor;
     /**
+     * @var WebDriverDialect
+     */
+    protected $dialect;
+    /**
      * @var WebDriverCapabilities
      */
     protected $capabilities;
-
     /**
      * @var string
      */
     protected $sessionID;
     /**
-     * @var RemoteMouse
+     * @var WebDriverProtocolTranslator
      */
-    protected $mouse;
-    /**
-     * @var RemoteKeyboard
-     */
-    protected $keyboard;
-    /**
-     * @var RemoteTouchScreen
-     */
-    protected $touch;
+    protected $protocolTranslator;
     /**
      * @var RemoteExecuteMethod
      */
-    protected $executeMethod;
-
+    protected $interactionExecutionMethod;
+    
     /**
      * @param HttpCommandExecutor $commandExecutor
+     * @param WebDriverDialect $dialect
      * @param string $sessionId
      * @param WebDriverCapabilities|null $capabilities
+     * @throws WebDriverException
      */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
+        WebDriverDialect $dialect,
         $sessionId,
         WebDriverCapabilities $capabilities = null
     ) {
         $this->executor = $commandExecutor;
+        $this->dialect = $dialect;
         $this->sessionID = $sessionId;
 
         if ($capabilities !== null) {
             $this->capabilities = $capabilities;
         }
+        $this->protocolTranslator = WebDriverTranslatorFactory::createByDialect($this->dialect);
     }
-
+    
     /**
      * Construct the RemoteWebDriver by a desired capabilities.
      *
@@ -87,7 +93,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string|null $http_proxy The proxy to tunnel requests to the remote Selenium WebDriver through
      * @param int|null $http_proxy_port The proxy port to tunnel requests to the remote Selenium WebDriver through
      * @param DesiredCapabilities $required_capabilities The required capabilities
+     * @param LoggerInterface|null $logger
      * @return static
+     * @throws WebDriverException
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',
@@ -96,7 +104,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $request_timeout_in_ms = null,
         $http_proxy = null,
         $http_proxy_port = null,
-        DesiredCapabilities $required_capabilities = null
+        DesiredCapabilities $required_capabilities = null,
+        LoggerInterface $logger = null
     ) {
         $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
 
@@ -109,6 +118,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         if ($request_timeout_in_ms !== null) {
             $executor->setRequestTimeout($request_timeout_in_ms);
         }
+        if ($logger !== null) {
+            $executor->setLogger($logger);
+        }
 
         if ($required_capabilities !== null) {
             // TODO: Selenium (as of v3.0.1) does accept requiredCapabilities only as a property of desiredCapabilities.
@@ -120,17 +132,24 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $command = new WebDriverCommand(
             null,
             DriverCommand::NEW_SESSION,
-            ['desiredCapabilities' => $desired_capabilities->toArray()]
+            [
+                'capabilities' => WebDriverCapabilityType::makeW3C($desired_capabilities->toArray()),
+                'desiredCapabilities' => $desired_capabilities->toArray()
+            ]
         );
 
-        $response = $executor->execute($command);
+        $result = $executor->execute(new ExecutableWebDriverCommand('/session', 'POST', $command));
+        self::checkExecutorResult($result);
+        
+        $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
+        $response = WebDriverResponseFactory::createByDialect($dialect, $result);
+        
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
-        $driver = new static($executor, $response->getSessionID(), $returnedCapabilities);
-
+        $driver = new static($executor, $dialect, $response->getSessionID(), $returnedCapabilities);
         return $driver;
     }
-
+    
     /**
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
@@ -138,13 +157,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * You cannot pass the desired capabilities because the session was created before.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
+     * @param WebDriverDialect $dialect
      * @param string $session_id The existing session id
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @return static
+     * @throws WebDriverException
      */
     public static function createBySessionID(
         $session_id,
+        WebDriverDialect $dialect,
         $selenium_server_url = 'http://localhost:4444/wd/hub',
         $connection_timeout_in_ms = null,
         $request_timeout_in_ms = null
@@ -157,7 +179,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executor->setRequestTimeout($request_timeout_in_ms);
         }
 
-        return new static($executor, $session_id);
+        return new static($executor, $dialect, $session_id);
+    }
+    
+    /**
+     * @return WebDriverDialect
+     */
+    public function getDialect()
+    {
+        return $this->dialect;
     }
 
     /**
@@ -184,10 +214,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $params = ['using' => $by->getMechanism(), 'value' => $by->getValue()];
         $raw_element = $this->execute(
             DriverCommand::FIND_ELEMENT,
-            $params
+            $this->protocolTranslator->translateParameters(DriverCommand::FIND_ELEMENT, $params)
         );
 
-        return $this->newElement($raw_element['ELEMENT']);
+        return $this->newElement($this->protocolTranslator->translateElement($raw_element));
     }
 
     /**
@@ -202,12 +232,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $params = ['using' => $by->getMechanism(), 'value' => $by->getValue()];
         $raw_elements = $this->execute(
             DriverCommand::FIND_ELEMENTS,
-            $params
+            $this->protocolTranslator->translateParameters(DriverCommand::FIND_ELEMENTS, $params)
         );
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($raw_element['ELEMENT']);
+            $elements[] = $this->newElement($this->protocolTranslator->translateElement($raw_element));
         }
 
         return $elements;
@@ -403,53 +433,76 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function switchTo()
     {
-        return new RemoteTargetLocator($this->getExecuteMethod(), $this);
+        return new RemoteTargetLocator($this->getExecuteMethod(), $this->dialect, $this);
     }
-
+    
     /**
      * @return RemoteMouse
      */
     public function getMouse()
     {
-        if (!$this->mouse) {
-            $this->mouse = new RemoteMouse($this->getExecuteMethod());
-        }
-
-        return $this->mouse;
+        return $this->getDialect()->isW3C()
+            ? new W3CRemoteMouse($this->getInteractionExecuteMethod())
+            : new RemoteMouse($this->getInteractionExecuteMethod());
     }
-
+    
     /**
      * @return RemoteKeyboard
      */
     public function getKeyboard()
     {
-        if (!$this->keyboard) {
-            $this->keyboard = new RemoteKeyboard($this->getExecuteMethod());
-        }
-
-        return $this->keyboard;
+        return $this->getRemoteKeyboard();
     }
-
+    
     /**
      * @return RemoteTouchScreen
      */
     public function getTouch()
     {
-        if (!$this->touch) {
-            $this->touch = new RemoteTouchScreen($this->getExecuteMethod());
-        }
-
-        return $this->touch;
+        return new RemoteTouchScreen($this->getInteractionExecuteMethod());
     }
-
+    
     /**
      * Construct a new action builder.
      *
      * @return WebDriverActions
+     * @throws WebDriverException
      */
     public function action()
     {
-        return new WebDriverActions($this);
+        return new WebDriverActions(
+            $this->getRemoteMouse(),
+            $this->getRemoteKeyboard(),
+            $this->getActionPerformer()
+        );
+    }
+    
+    /**
+     * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
+     * @throws WebDriverException
+     */
+    private function getActionPerformer()
+    {
+        return WebDriverActionPerformerFactory::create(
+            $this->getDialect(),
+            $this->getInteractionExecuteMethod()
+        );
+    }
+    
+    /**
+     * @return RemoteMouse
+     */
+    private function getRemoteMouse()
+    {
+        return new RemoteMouse($this->getInteractionExecuteMethod());
+    }
+    
+    /**
+     * @return RemoteKeyboard
+     */
+    private function getRemoteKeyboard()
+    {
+        return new RemoteKeyboard($this->getInteractionExecuteMethod());
     }
 
     /**
@@ -513,13 +566,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return $this->capabilities;
     }
-
+    
     /**
      * Returns a list of the currently active sessions.
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int $timeout_in_ms
      * @return array
+     * @throws UnknownServerException
+     * @throws WebDriverException
      */
     public static function getAllSessions($selenium_server_url = 'http://localhost:4444/wd/hub', $timeout_in_ms = 30000)
     {
@@ -532,9 +587,20 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             []
         );
 
-        return $executor->execute($command)->getValue();
+        $result = $executor->execute((new JsonWireProtocolTranslator())->translateCommand($command));
+        self::checkExecutorResult($result);
+    
+        $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
+        $response = WebDriverResponseFactory::createByDialect($dialect, $result);
+        return $response->getValue();
     }
-
+    
+    /**
+     * @param string $command_name
+     * @param array $params
+     * @return mixed|null
+     * @throws WebDriverException
+     */
     public function execute($command_name, $params = [])
     {
         $command = new WebDriverCommand(
@@ -544,14 +610,38 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         if ($this->executor) {
-            $response = $this->executor->execute($command);
+            $executableCommand = $this->protocolTranslator->translateCommand($command);
+            $result = $this->executor->execute($executableCommand);
+            self::checkExecutorResult($result);
 
+            $response = WebDriverResponseFactory::createByDialect($this->dialect, $result);
             return $response->getValue();
         }
-
         return null;
     }
-
+    
+    /**
+     * @param array $result
+     * @throws WebDriverException
+     */
+    protected static function checkExecutorResult(array $result)
+    {
+        if (WebDriverDialect::guessByNewSessionResultBody($result)->isW3C()) {
+            if (!empty($result['value']['error'])) {
+                WebDriverException::throwExceptionForW3c($result['value']['error'], $result);
+            }
+        } else {
+            $status = !empty($result['status']) ? $result['status'] : null;
+            if (is_numeric($result['status']) && $result['status'] > 0) {
+                WebDriverException::throwException(
+                    $status,
+                    !empty($result['message']) ? $result['message'] : null,
+                    $result
+                );
+            }
+        }
+    }
+    
     /**
      * Prepare arguments for JavaScript injection
      *
@@ -578,24 +668,34 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * @return RemoteExecuteMethod
      */
-    protected function getExecuteMethod()
+    public function getExecuteMethod()
     {
-        if (!$this->executeMethod) {
-            $this->executeMethod = new RemoteExecuteMethod($this);
-        }
-
-        return $this->executeMethod;
+        return new RemoteExecuteMethod($this);
     }
 
+    /**
+     * @return RemoteExecuteMethod | W3CActionExecuteMethod
+     */
+    public function getInteractionExecuteMethod()
+    {
+        if (null === $this->interactionExecutionMethod) {
+            $this->interactionExecutionMethod = $this->dialect->isW3C()
+                ? new W3CActionExecuteMethod($this)
+                : new RemoteExecuteMethod($this);
+        }
+        return $this->interactionExecutionMethod;
+    }
+    
     /**
      * Return the WebDriverElement with the given id.
      *
      * @param string $id The id of the element to be created.
      * @return RemoteWebElement
+     * @throws WebDriverException
      */
     protected function newElement($id)
     {
-        return new RemoteWebElement($this->getExecuteMethod(), $id);
+        return new RemoteWebElement($this->getExecuteMethod(), $this->dialect, $id);
     }
 
     /**

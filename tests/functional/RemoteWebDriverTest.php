@@ -77,6 +77,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
+            $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
+        }
+        
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
 
         $this->assertInternalType('array', $sessions);
@@ -94,6 +98,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
+            $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
+        }
+        
         $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
@@ -135,7 +143,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('open_new_window.html'));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
-
+        usleep(100000); // wait 100 ms
         $this->assertCount(2, $this->driver->getWindowHandles());
 
         $this->driver->close();
@@ -150,7 +158,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $element = $this->driver->findElement(WebDriverBy::id('id_test'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('#id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
         $this->driver->executeScript('
@@ -177,7 +185,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $element = $this->driver->findElement(WebDriverBy::id('id_test'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('#id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
         $this->driver->executeAsyncScript(

@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\TestCase;
 
@@ -46,36 +47,43 @@ class HttpCommandExecutorTest extends TestCase
         $expectedPostData
     ) {
         $command = new WebDriverCommand('foo-123', $command, $params);
-
+        $executableCommand = (new JsonWireProtocolTranslator())->translateCommand($command);
+        
         $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
         $curlSetoptMock->expects($this->at(0))
             ->with($this->anything(), CURLOPT_URL, $expectedUrl);
 
+        $setPostFields = 'POST' === $executableCommand->getMethod();
+        
         if ($shouldResetExpectHeader) {
-            $curlSetoptMock->expects($this->at(2))
+            $curlSetoptMock->expects($this->at(4))
                 ->with(
                     $this->anything(),
                     CURLOPT_HTTPHEADER,
                     ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json', 'Expect:']
                 );
-            $curlSetoptMock->expects($this->at(3))
-                ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            if ($setPostFields) {
+                $curlSetoptMock->expects($this->at(5))
+                    ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            }
         } else {
-            $curlSetoptMock->expects($this->at(2))
+            $curlSetoptMock->expects($this->at(4))
                 ->with(
                     $this->anything(),
                     CURLOPT_HTTPHEADER,
                     ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json']
                 );
-            $curlSetoptMock->expects($this->at(3))
-                ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            if ($setPostFields) {
+                $curlSetoptMock->expects($this->at(5))
+                    ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            }
         }
 
         $curlExecMock = $this->getFunctionMock(__NAMESPACE__, 'curl_exec');
         $curlExecMock->expects($this->once())
             ->willReturn('{}');
 
-        $this->executor->execute($command);
+        $this->executor->execute($executableCommand);
     }
 
     /**

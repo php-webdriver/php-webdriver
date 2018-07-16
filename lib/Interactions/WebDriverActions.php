@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Interactions;
 
+use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverClickAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;
@@ -25,29 +26,32 @@ use Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
-use Facebook\WebDriver\WebDriver;
+use Facebook\WebDriver\Remote\Action\WebDriverActionPerformer;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
+use Facebook\WebDriver\WebDriverKeyboard;
+use Facebook\WebDriver\WebDriverMouse;
 
 /**
  * WebDriver action builder. It implements the builder pattern.
  */
 class WebDriverActions
 {
-    protected $driver;
     protected $keyboard;
     protected $mouse;
     protected $action;
-
+    
     /**
-     * @param WebDriverHasInputDevices $driver
+     * WebDriverActions constructor.
+     * @param WebDriverMouse $mouse
+     * @param WebDriverKeyboard $keyboard
+     * @param WebDriverActionPerformer $performer
      */
-    public function __construct(WebDriverHasInputDevices $driver)
+    public function __construct(WebDriverMouse $mouse, WebDriverKeyboard $keyboard, WebDriverActionPerformer $performer)
     {
-        $this->driver = $driver;
-        $this->keyboard = $driver->getKeyboard();
-        $this->mouse = $driver->getMouse();
-        $this->action = new WebDriverCompositeAction();
+        $this->mouse = $mouse;
+        $this->keyboard = $keyboard;
+        $this->action = new WebDriverCompositeAction($performer);
     }
 
     /**

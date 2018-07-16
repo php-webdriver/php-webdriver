@@ -25,8 +25,8 @@ class WebDriverPoint
 
     public function __construct($x, $y)
     {
-        $this->x = $x;
-        $this->y = $y;
+        $this->x = (float) $x;
+        $this->y = (float) $y;
     }
 
     /**

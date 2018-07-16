@@ -35,8 +35,8 @@ class WebDriverDimension
      */
     public function __construct($width, $height)
     {
-        $this->width = $width;
-        $this->height = $height;
+        $this->width = (float) $width;
+        $this->height = (float) $height;
     }
 
     /**

@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Interactions;
 
+use Facebook\WebDriver\Remote\Action\WebDriverActionPerformer;
 use Facebook\WebDriver\WebDriverAction;
 
 /**
@@ -23,10 +24,24 @@ use Facebook\WebDriver\WebDriverAction;
 class WebDriverCompositeAction implements WebDriverAction
 {
     /**
+     * @var WebDriverActionPerformer
+     */
+    private $performer;
+    
+    /**
      * @var WebDriverAction[]
      */
     private $actions = [];
-
+    
+    /**
+     * WebDriverCompositeAction constructor.
+     * @param WebDriverActionPerformer $performer
+     */
+    public function __construct(WebDriverActionPerformer $performer)
+    {
+        $this->performer = $performer;
+    }
+    
     /**
      * Add an WebDriverAction to the sequence.
      *
@@ -55,8 +70,6 @@ class WebDriverCompositeAction implements WebDriverAction
      */
     public function perform()
     {
-        foreach ($this->actions as $action) {
-            $action->perform();
-        }
+        $this->performer->perform($this->actions);
     }
 }

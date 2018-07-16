@@ -22,6 +22,8 @@ namespace Facebook\WebDriver\Remote;
  */
 class DriverCommand
 {
+    const ACTIONS = 'actions';
+    const CLEAR_ACTIONS_STATE = 'clearActionState';
     const GET_ALL_SESSIONS = 'getAllSessions';
     const GET_CAPABILITIES = 'getCapabilities';
     const NEW_SESSION = 'newSession';
@@ -70,6 +72,7 @@ class DriverCommand
     const IS_ELEMENT_ENABLED = 'isElementEnabled';
     const IS_ELEMENT_DISPLAYED = 'isElementDisplayed';
     const GET_ELEMENT_LOCATION = 'getElementLocation';
+    const GET_ELEMENT_RECT = 'getElementRect';
     const GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW = 'getElementLocationOnceScrolledIntoView';
     const GET_ELEMENT_SIZE = 'getElementSize';
     const GET_ELEMENT_ATTRIBUTE = 'getElementAttribute';
@@ -134,6 +137,7 @@ class DriverCommand
     const TOUCH_FLICK = 'touchFlick';
     // Window API (beta)
     const SET_WINDOW_SIZE = 'setWindowSize';
+    const SET_WINDOW_RECT = 'setWindowRect';
     const SET_WINDOW_POSITION = 'setWindowPosition';
     const GET_WINDOW_SIZE = 'getWindowSize';
     const GET_WINDOW_POSITION = 'getWindowPosition';

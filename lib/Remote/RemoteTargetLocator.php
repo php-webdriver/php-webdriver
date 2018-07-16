@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverAlert;
 use Facebook\WebDriver\WebDriverElement;
@@ -30,13 +31,18 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      */
     protected $executor;
     /**
+     * @var string
+     */
+    protected $dialect;
+    /**
      * @var WebDriver
      */
     protected $driver;
 
-    public function __construct($executor, $driver)
+    public function __construct($executor, $dialect, $driver)
     {
         $this->executor = $executor;
+        $this->dialect = $dialect;
         $this->driver = $driver;
     }
 
@@ -100,18 +106,19 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     {
         return new WebDriverAlert($this->executor);
     }
-
+    
     /**
      * Switches to the element that currently has focus within the document
      * currently "switched to", or the body element if this cannot be detected.
      *
      * @return RemoteWebElement
+     * @throws WebDriverException
      */
     public function activeElement()
     {
         $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT, []);
         $method = new RemoteExecuteMethod($this->driver);
 
-        return new RemoteWebElement($method, $response['ELEMENT']);
+        return new RemoteWebElement($method, $this->dialect, $response['ELEMENT']);
     }
 }

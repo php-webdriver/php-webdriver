@@ -29,7 +29,7 @@ class WebDriverResponse
      * @var string
      */
     private $sessionID;
-
+    
     /**
      * @param null|string $session_id
      */

@@ -21,12 +21,12 @@ namespace Facebook\WebDriver;
 interface WebDriverHasInputDevices
 {
     /**
-     * @return WebDriverKeyboard
-     */
-    public function getKeyboard();
-
-    /**
      * @return WebDriverMouse
      */
     public function getMouse();
+    
+    /**
+     * @return WebDriverKeyboard
+     */
+    public function getKeyboard();
 }

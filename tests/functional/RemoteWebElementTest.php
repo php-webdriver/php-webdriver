@@ -63,8 +63,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         $elementLocation = $element->getLocation();
         $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
-        $this->assertSame(33, $elementLocation->getX());
-        $this->assertSame(500, $elementLocation->getY());
+        $this->assertTrue($elementLocation->equals(new WebDriverPoint(33, 500)));
     }
 
     /**
@@ -78,8 +77,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         $elementSize = $element->getSize();
         $this->assertInstanceOf(WebDriverDimension::class, $elementSize);
-        $this->assertSame(333, $elementSize->getWidth());
-        $this->assertSame(66, $elementSize->getHeight());
+        $this->assertTrue($elementSize->equals(new WebDriverDimension(333, 66)));
     }
 
     /**
@@ -161,8 +159,8 @@ class RemoteWebElementTest extends WebDriverTestCase
         $input->clear();
         $input->sendKeys('foo bar');
         $this->assertSame('foo bar', $input->getAttribute('value'));
-        $input->sendKeys(' baz');
-        $this->assertSame('foo bar baz', $input->getAttribute('value'));
+        $input->sendKeys([WebDriverKeys::ARROW_LEFT, WebDriverKeys::ARROW_LEFT, WebDriverKeys::ARROW_LEFT, 'baz ']);
+        $this->assertSame('foo baz bar', $input->getAttribute('value'));
 
         $textarea->clear();
         $textarea->sendKeys('foo bar');

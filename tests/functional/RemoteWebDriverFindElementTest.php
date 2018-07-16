@@ -29,14 +29,14 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl('index.html'));
 
         $this->expectException(NoSuchElementException::class);
-        $this->driver->findElement(WebDriverBy::id('not_existing'));
+        $this->driver->findElement(WebDriverBy::cssSelector('not_existing'));
     }
 
     public function testShouldFindElementIfExistsOnAPage()
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $element = $this->driver->findElement(WebDriverBy::id('id_test'));
+        $element = $this->driver->findElement(WebDriverBy::cssSelector('#id_test'));
 
         $this->assertInstanceOf(RemoteWebElement::class, $element);
     }

@@ -46,42 +46,7 @@ class WebDriverException extends Exception
      * @param string $message
      * @param mixed $results
      *
-     * @throws ElementNotSelectableException
-     * @throws ElementNotVisibleException
-     * @throws ExpectedException
-     * @throws IMEEngineActivationFailedException
-     * @throws IMENotAvailableException
-     * @throws IndexOutOfBoundsException
-     * @throws InvalidCookieDomainException
-     * @throws InvalidCoordinatesException
-     * @throws InvalidElementStateException
-     * @throws InvalidSelectorException
-     * @throws MoveTargetOutOfBoundsException
-     * @throws NoAlertOpenException
-     * @throws NoCollectionException
-     * @throws NoScriptResultException
-     * @throws NoStringException
-     * @throws NoStringLengthException
-     * @throws NoStringWrapperException
-     * @throws NoSuchCollectionException
-     * @throws NoSuchDocumentException
-     * @throws NoSuchDriverException
-     * @throws NoSuchElementException
-     * @throws NoSuchFrameException
-     * @throws NoSuchWindowException
-     * @throws NullPointerException
-     * @throws ScriptTimeoutException
-     * @throws SessionNotCreatedException
-     * @throws StaleElementReferenceException
-     * @throws TimeOutException
-     * @throws UnableToSetCookieException
-     * @throws UnexpectedAlertOpenException
-     * @throws UnexpectedJavascriptException
-     * @throws UnknownCommandException
-     * @throws UnknownServerException
-     * @throws UnrecognizedExceptionException
-     * @throws WebDriverCurlException
-     * @throws XPathLookupException
+     * @throws WebDriverException
      */
     public static function throwException($status_code, $message, $results)
     {
@@ -156,6 +121,51 @@ class WebDriverException extends Exception
                 throw new MoveTargetOutOfBoundsException($message, $results);
             default:
                 throw new UnrecognizedExceptionException($message, $results);
+        }
+    }
+
+    /**
+     * Throw WebDriverExceptions based on WebDriver status code.
+     *
+     * @param string $error
+     * @param mixed $results
+     *
+     * @throws WebDriverException
+     */
+    public static function throwExceptionForW3c($error, $results)
+    {
+        switch ($error) {
+            case 'element click intercepted':
+            case 'invalid element state':
+                throw new InvalidElementStateException($error, $results);
+            case 'element not interactable':
+                throw new ElementNotSelectableException($error, $results);
+            case 'no such element':
+                throw new NoSuchElementException($error, $results);
+            case 'timeout':
+                throw new TimeOutException($error, $results);
+            case 'script timeout':
+                throw new ScriptTimeoutException($error, $results);
+            case 'no such window':
+                throw new NoSuchWindowException($error, $results);
+            case 'invalid cookie domain':
+                throw new InvalidCookieDomainException($error, $results);
+            case 'unable to set cookie':
+                throw new UnableToSetCookieException($error, $results);
+            case 'unknown command':
+                throw new UnknownCommandException($error, $results);
+            case 'unknown error':
+                throw new UnknownServerException($error, $results);
+            case 'invalid selector':
+                throw new InvalidSelectorException($error, $results);
+            case 'move target out of bounds':
+                throw new MoveTargetOutOfBoundsException($error, $results);
+            case 'stale element reference':
+                throw new StaleElementReferenceException($error, $results);
+            case 'no such alert':
+                throw new NoAlertOpenException($error, $results);
+            default:
+                throw new WebDriverException($error, $results);
         }
     }
 }

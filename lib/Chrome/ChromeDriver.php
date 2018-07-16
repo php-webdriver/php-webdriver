@@ -21,6 +21,7 @@ use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
+use Facebook\WebDriver\Remote\WebDriverDialect;
 
 class ChromeDriver extends RemoteWebDriver
 {
@@ -36,7 +37,7 @@ class ChromeDriver extends RemoteWebDriver
             $service = ChromeDriverService::createDefaultService();
         }
         $executor = new DriverCommandExecutor($service);
-        $driver = new static($executor, null, $desired_capabilities);
+        $driver = new static($executor, WebDriverDialect::createJsonWireProtocol(), null, $desired_capabilities);
         $driver->startSession($desired_capabilities);
 
         return $driver;
