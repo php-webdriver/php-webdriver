@@ -535,6 +535,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         return $executor->execute($command)->getValue();
     }
 
+    /**
+     * @param string $command_name
+     * @param array $params
+     * @return mixed|null
+     * @throws \Facebook\WebDriver\Exception\WebDriverException
+     */
     public function execute($command_name, $params = [])
     {
         $command = new WebDriverCommand(
