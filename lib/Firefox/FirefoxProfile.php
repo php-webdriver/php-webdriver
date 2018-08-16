@@ -212,16 +212,22 @@ class FirefoxProfile
         $object_identifyer_hex_marker = '0603550403';
         $first_marker_pos_in_hex = mb_strpos($mozilla_rsa_hex, $object_identifyer_hex_marker);
 
-        $second_marker_pos_in_hex_string = mb_strpos($mozilla_rsa_hex, $object_identifyer_hex_marker, $first_marker_pos_in_hex + 2);
+        $second_marker_pos_in_hex_string =
+            mb_strpos($mozilla_rsa_hex, $object_identifyer_hex_marker, $first_marker_pos_in_hex + 2);
 
         if ($second_marker_pos_in_hex_string === false) {
             throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
         }
 
-        $common_name_string_position_in_binary = ($second_marker_pos_in_hex_string + mb_strlen($object_identifyer_hex_marker)) / 2;
+        $common_name_string_position_in_binary =
+            ($second_marker_pos_in_hex_string + mb_strlen($object_identifyer_hex_marker)) / 2;
 
         $common_name_string_length = ord($mozilla_rsa_binary_data[$common_name_string_position_in_binary + 1]);
-        $addon_common_name = mb_substr($mozilla_rsa_binary_data, $common_name_string_position_in_binary + 2, $common_name_string_length);
+        $addon_common_name = mb_substr(
+            $mozilla_rsa_binary_data,
+            $common_name_string_position_in_binary + 2,
+            $common_name_string_length
+        );
 
         if (empty($addon_common_name)) {
             throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
