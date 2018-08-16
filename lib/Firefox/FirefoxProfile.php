@@ -185,43 +185,64 @@ class FirefoxProfile
     /**
      * @param string $extension The path to the extension.
      * @param string $profile_dir The path to the profile directory.
+     * @throws WebDriverException
+     * @throws \Exception
      * @return string The path to the directory of this extension.
      */
     private function installExtension($extension, $profile_dir)
     {
-        $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
+        $temp_dir = $this->createTempDirectory();
+
         $this->extractTo($extension, $temp_dir);
 
-        // This is a hacky way to parse the id since there is no offical RDF parser library.
-        // Find the correct namespace for the id element.
-        $install_rdf_path = $temp_dir . '/install.rdf';
-        $xml = simplexml_load_file($install_rdf_path);
-        $ns = $xml->getDocNamespaces();
-        $prefix = '';
-        if (!empty($ns)) {
-            foreach ($ns as $key => $value) {
-                if (mb_strpos($value, '//www.mozilla.org/2004/em-rdf') > 0) {
-                    if ($key != '') {
-                        $prefix = $key . ':'; // Separate the namespace from the name.
-                    }
-                    break;
-                }
-            }
-        }
-        // Get the extension id from the install manifest.
-        $matches = [];
-        preg_match('#<' . $prefix . 'id>([^<]+)</' . $prefix . 'id>#', $xml->asXML(), $matches);
-        if (isset($matches[1])) {
-            $ext_dir = $profile_dir . '/extensions/' . $matches[1];
-            mkdir($ext_dir, 0777, true);
-            $this->extractTo($extension, $ext_dir);
-        } else {
-            $this->deleteDirectory($temp_dir);
+        $mozilla_rsa_path = $temp_dir . '/META-INF/mozilla.rsa';
+        $mozilla_rsa_binary_data = file_get_contents($mozilla_rsa_path);
+        $mozilla_rsa_hex = bin2hex($mozilla_rsa_binary_data);
 
-            throw new WebDriverException('Cannot get the extension id from the install manifest.');
+        //We need to find plugin id. This is second occurrence of object identifier "2.5.4.3 commonName"
+
+        //That is marker "2.5.4.3 commonName" in hex:
+        $object_identifier_hex_marker = '0603550403';
+
+        $first_marker_pos_in_hex = strpos($mozilla_rsa_hex, $object_identifier_hex_marker); // phpcs:ignore
+
+        $second_marker_pos_in_hex_string =
+            strpos($mozilla_rsa_hex, $object_identifier_hex_marker, $first_marker_pos_in_hex + 2);
+
+        if ($second_marker_pos_in_hex_string === false) {
+            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
+        }
+
+        $common_name_string_position_in_binary =
+            ($second_marker_pos_in_hex_string + strlen($object_identifier_hex_marker)) / 2;
+
+        $common_name_string_length = ord($mozilla_rsa_binary_data[$common_name_string_position_in_binary + 1]);
+        $addon_common_name = substr(
+            $mozilla_rsa_binary_data,
+            $common_name_string_position_in_binary + 2,
+            $common_name_string_length
+        );
+
+        if (!preg_match('/^\\{[0-9a-f-]{36}\\}$/', $addon_common_name)) {
+            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
         }
 
         $this->deleteDirectory($temp_dir);
+
+        //install extension to profile directory
+        $ext_dir = $profile_dir . '/extensions/';
+        if (!is_dir($ext_dir) && !mkdir($ext_dir, 0777, true) && !is_dir($ext_dir)) {
+            throw new WebDriverException('Cannot install extension - cannot create directory');
+        }
+
+        if (!copy($extension, $ext_dir . $addon_common_name . '.xpi')) {
+            throw new WebDriverException('Cannot install extension - cannot copy file');
+        }
+
+        //extension installation with empty preferences (empty users.js) fails:
+        if (empty($this->preferences)) {
+            $this->setPreference('dom.webdriver.enabled', true);
+        }
 
         return $ext_dir;
     }
