@@ -115,3 +115,4 @@ after_script:
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls -v
+  - if [ -f ./logs/http-executor.log ]; then rm ./logs/http-executor.log; fi
