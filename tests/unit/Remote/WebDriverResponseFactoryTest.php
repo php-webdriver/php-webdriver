@@ -20,6 +20,11 @@ use PHPUnit\Framework\TestCase;
 
 class WebDriverResponseFactoryTest extends TestCase
 {
+    protected function setUp()
+    {
+        $this->markTestSkipped('Skip it until tests will be done.');
+    }
+    
     
     public function testCreateResponseJsonWireProtocol()
     {

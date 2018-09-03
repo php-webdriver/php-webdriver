@@ -68,18 +68,18 @@ matrix:
 #        jwt:
 #          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 #
-#    # Codestyle check build
-#    - php: 7.2
-#      env: CHECK_CODESTYLE=1
-#      before_install:
-#        - phpenv config-rm xdebug.ini
-#      before_script: ~
-#      script:
-#        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
-#        - composer analyze
-#        - composer codestyle:check
-#      after_script: ~
-#      after_success: ~
+    # Codestyle check build
+    - php: 7.2
+      env: CHECK_CODESTYLE=1
+      before_install:
+        - phpenv config-rm xdebug.ini
+      before_script: ~
+      script:
+        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer analyze
+        - composer codestyle:check
+      after_script: ~
+      after_success: ~
 
 cache:
   directories:
