@@ -29,15 +29,15 @@ matrix:
       addons:
         chrome: stable
 
-#    # Build with lowest possible dependencies
-#    - php: 7.2
-#      env: DEPENDENCIES="--prefer-lowest"
-#
-#    # Chrome on Travis build with lowest possible dependencies
-#    - php: 7.2
-#      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
-#      addons:
-#        chrome: stable
+    # Build with lowest possible dependencies
+    - php: 7.2
+      env: DEPENDENCIES="--prefer-lowest"
+
+    # Chrome on Travis build with lowest possible dependencies
+    - php: 7.2
+      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
+      addons:
+        chrome: stable
 #
 #    # Saucelabs builds
 #    - php: 7.2
