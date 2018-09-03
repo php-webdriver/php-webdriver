@@ -22,63 +22,63 @@ matrix:
       addons:
         firefox: "45.8.0esr"
 
-    # Add build to run tests against Chrome inside Travis environment
-    - php: 7.2
-      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
-      addons:
-        chrome: stable
-
-    # Build with lowest possible dependencies
-    - php: 7.2
-      env: DEPENDENCIES="--prefer-lowest"
-
-    # Chrome on Travis build with lowest possible dependencies
-    - php: 7.2
-      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
-      addons:
-        chrome: stable
-
-    # Saucelabs builds
-    - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
-      before_script:
-        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
-        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
-      addons:
-        sauce_connect: true
-        jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
-      before_script:
-        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
-        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
-      addons:
-        sauce_connect: true
-        jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-    - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="15.15063" PLATFORM="Windows 10"
-      before_script:
-        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
-        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
-      addons:
-        sauce_connect: true
-        jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
-
-    # Codestyle check build
-    - php: 7.2
-      env: CHECK_CODESTYLE=1
-      before_install:
-        - phpenv config-rm xdebug.ini
-      before_script: ~
-      script:
-        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
-        - composer analyze
-        - composer codestyle:check
-      after_script: ~
-      after_success: ~
+#    # Add build to run tests against Chrome inside Travis environment
+#    - php: 7.2
+#      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1"
+#      addons:
+#        chrome: stable
+#
+#    # Build with lowest possible dependencies
+#    - php: 7.2
+#      env: DEPENDENCIES="--prefer-lowest"
+#
+#    # Chrome on Travis build with lowest possible dependencies
+#    - php: 7.2
+#      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" DEPENDENCIES="--prefer-lowest"
+#      addons:
+#        chrome: stable
+#
+#    # Saucelabs builds
+#    - php: 7.2
+#      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
+#      before_script:
+#        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+#        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
+#      addons:
+#        sauce_connect: true
+#        jwt:
+#          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+#    - php: 7.2
+#      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
+#      before_script:
+#        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+#        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
+#      addons:
+#        sauce_connect: true
+#        jwt:
+#          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+#    - php: 7.2
+#      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="15.15063" PLATFORM="Windows 10"
+#      before_script:
+#        - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+#        - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
+#      addons:
+#        sauce_connect: true
+#        jwt:
+#          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+#
+#    # Codestyle check build
+#    - php: 7.2
+#      env: CHECK_CODESTYLE=1
+#      before_install:
+#        - phpenv config-rm xdebug.ini
+#      before_script: ~
+#      script:
+#        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+#        - composer analyze
+#        - composer codestyle:check
+#      after_script: ~
+#      after_success: ~
 
 cache:
   directories:
@@ -108,6 +108,7 @@ script:
 after_script:
   - if [ -f ./logs/selenium.log ]; then cat ./logs/selenium.log; fi
   - if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+  - if [ -f ./logs/http-executor.log ]; then cat ./logs/http-executor.log; fi
 
 after_success:
   - travis_retry php vendor/bin/php-coveralls -v

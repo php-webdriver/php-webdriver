@@ -9,7 +9,7 @@ class ExecutorLogger implements LoggerInterface
 {
     use LoggerTrait;
     
-    const LOG_FILENAME = __DIR__ . '/../../logs/logs-%s.log';
+    const LOG_FILENAME = __DIR__ . '/../../logs/http-executor.log';
     
     /** @var bool|resource */
     private $handle;
