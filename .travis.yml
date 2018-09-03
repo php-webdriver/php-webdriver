@@ -92,6 +92,8 @@ install:
 before_script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
+  - if [ "$BROWSER_NAME" = "fitefox" ]; then mkdir geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.21.0/geckodriver-v0.21.0-linux64.tar.gz; tar -xvzf geckodriver*; chmod +x geckodriver; fi
+  - if [ "$BROWSER_NAME" = "fitefox" ]; then export GECKODRIVER_PATH=$PWD/geckodriver; fi
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.14.0.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar; fi
   - java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.14.0.jar -log ./logs/selenium.log &
