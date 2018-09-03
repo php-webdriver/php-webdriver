@@ -21,7 +21,7 @@ matrix:
     - php: 7.2
       env: BROWSER_NAME="firefox"
       addons:
-        firefox: "45.8.0esr"
+        firefox: "60.1.0esr"
 
 #    # Add build to run tests against Chrome inside Travis environment
 #    - php: 7.2
