@@ -18,6 +18,7 @@ namespace Facebook\WebDriver\Remote;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\WebDriverElement;
@@ -47,7 +48,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected $fileDetector;
     /**
-     * @var WebDriverTranslatorFactory
+     * @var WebDriverProtocolTranslator
      */
     protected $protocolTranslator;
     

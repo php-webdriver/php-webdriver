@@ -82,7 +82,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     }
     
     /**
-     * @param LoggerInterface|null $logger
+     * @param LoggerInterface $logger
      */
     public function setLogger(LoggerInterface $logger)
     {

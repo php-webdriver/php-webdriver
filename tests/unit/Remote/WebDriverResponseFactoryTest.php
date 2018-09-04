@@ -36,7 +36,7 @@ class WebDriverResponseFactoryTest extends TestCase
             ]
         ];
         
-        $response = WebDriverResponseFactory::createByDialect(WebDriverDialect::createJsonWireProtocol(), $results);
+        $response = WebDriverResponseFactory::create($results);
         $this->assertEquals($sessionId, $response->getSessionID());
         $this->assertEquals($status, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
@@ -53,7 +53,7 @@ class WebDriverResponseFactoryTest extends TestCase
             ]
         ];
     
-        $response = WebDriverResponseFactory::createByDialect(WebDriverDialect::createW3C(), $results);
+        $response = WebDriverResponseFactory::create($results);
         $this->assertEquals($sessionId, $response->getSessionID());
         $this->assertEquals($status, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
@@ -70,7 +70,7 @@ class WebDriverResponseFactoryTest extends TestCase
             ]
         ];
         
-        $response = WebDriverResponseFactory::createByDialect(WebDriverDialect::createW3C(), $results);
+        $response = WebDriverResponseFactory::create($results);
         $this->assertEquals($sessionId, $response->getSessionID());
         $this->assertEquals(0, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
@@ -84,7 +84,7 @@ class WebDriverResponseFactoryTest extends TestCase
             ]
         ];
         
-        $response = WebDriverResponseFactory::createByDialect(WebDriverDialect::createW3C(), $results);
+        $response = WebDriverResponseFactory::create($results);
         $this->assertNull($response->getSessionID());
         $this->assertEquals(0, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
@@ -102,6 +102,6 @@ class WebDriverResponseFactoryTest extends TestCase
             ]
         ];
         
-        WebDriverResponseFactory::createByDialect(WebDriverDialect::createW3C(), $results);
+        WebDriverResponseFactory::create($results);
     }
 }

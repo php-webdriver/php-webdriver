@@ -10,8 +10,8 @@ class W3CKeysEncoderTest extends TestCase
     /**
      * @test
      * @dataProvider getEncodingCases
-     * @param $input
-     * @param $output
+     * @param mixed $input
+     * @param array $output
      */
     public function shouldEncodeKeys($input, $output)
     {
