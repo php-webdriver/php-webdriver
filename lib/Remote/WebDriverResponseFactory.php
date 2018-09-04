@@ -7,16 +7,47 @@ use Facebook\WebDriver\Exception\WebDriverException;
 class WebDriverResponseFactory
 {
     /**
-     * @param WebDriverDialect $dialect
-     * @param mixed $results
+     * @param mixed $result
+     * @param WebDriverDialect|null $dialect
      * @return WebDriverResponse
      * @throws WebDriverException
      */
-    public static function createByDialect(WebDriverDialect $dialect, $results)
+    public static function create($result, WebDriverDialect $dialect = null)
     {
+        if (null === $dialect) {
+            $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
+        }
+        self::checkExecutorResult($dialect, $result);
+        
         return $dialect->isW3C()
-            ? self::createW3CProtocol($results)
-            : self::createJsonWireProtocol($results);
+            ? self::createW3CProtocol($result)
+            : self::createJsonWireProtocol($result);
+    }
+    
+    /**
+     * @param WebDriverDialect $dialect
+     * @param mixed $result
+     * @throws WebDriverException
+     */
+    protected static function checkExecutorResult(WebDriverDialect $dialect, $result)
+    {
+        if (!\is_array($result)) {
+            throw new WebDriverException('Invalid result state');
+        }
+        if ($dialect->isW3C()) {
+            if (!empty($result['value']['error'])) {
+                WebDriverException::throwExceptionForW3c($result['value']['error'], $result);
+            }
+        } else {
+            $status = !empty($result['status']) ? $result['status'] : null;
+            if (is_numeric($result['status']) && $result['status'] > 0) {
+                WebDriverException::throwException(
+                    $status,
+                    !empty($result['message']) ? $result['message'] : null,
+                    $result
+                );
+            }
+        }
     }
     
     /**

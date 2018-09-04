@@ -27,7 +27,6 @@ use Facebook\WebDriver\WebDriverCapabilities;
 use Facebook\WebDriver\WebDriverCommandExecutor;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
-use Facebook\WebDriver\WebDriverKeyboard;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
@@ -138,11 +137,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             ]
         );
 
-        $result = $executor->execute(new ExecutableWebDriverCommand('/session', 'POST', $command));
-        self::checkExecutorResult($result);
-        
+        $result = $executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
         $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
-        $response = WebDriverResponseFactory::createByDialect($dialect, $result);
+        $response = WebDriverResponseFactory::create($result);
         
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
@@ -441,9 +438,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getMouse()
     {
-        return $this->getDialect()->isW3C()
-            ? new W3CRemoteMouse($this->getInteractionExecuteMethod())
-            : new RemoteMouse($this->getInteractionExecuteMethod());
+        return new RemoteMouse($this->getInteractionExecuteMethod());
     }
     
     /**
@@ -451,7 +446,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function getKeyboard()
     {
-        return $this->getRemoteKeyboard();
+        return new RemoteKeyboard($this->getInteractionExecuteMethod());
     }
     
     /**
@@ -470,11 +465,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function action()
     {
-        return new WebDriverActions(
-            $this->getRemoteMouse(),
-            $this->getRemoteKeyboard(),
-            $this->getActionPerformer()
-        );
+        return new WebDriverActions($this, $this->getActionPerformer());
     }
     
     /**
@@ -487,22 +478,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $this->getDialect(),
             $this->getInteractionExecuteMethod()
         );
-    }
-    
-    /**
-     * @return RemoteMouse
-     */
-    private function getRemoteMouse()
-    {
-        return new RemoteMouse($this->getInteractionExecuteMethod());
-    }
-    
-    /**
-     * @return RemoteKeyboard
-     */
-    private function getRemoteKeyboard()
-    {
-        return new RemoteKeyboard($this->getInteractionExecuteMethod());
     }
 
     /**
@@ -588,10 +563,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         $result = $executor->execute((new JsonWireProtocolTranslator())->translateCommand($command));
-        self::checkExecutorResult($result);
-    
-        $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
-        $response = WebDriverResponseFactory::createByDialect($dialect, $result);
+        $response = WebDriverResponseFactory::create($result, WebDriverDialect::createJsonWireProtocol());
+        
         return $response->getValue();
     }
     
@@ -612,34 +585,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         if ($this->executor) {
             $executableCommand = $this->protocolTranslator->translateCommand($command);
             $result = $this->executor->execute($executableCommand);
-            self::checkExecutorResult($result);
-
-            $response = WebDriverResponseFactory::createByDialect($this->dialect, $result);
+            $response = WebDriverResponseFactory::create($result, $this->dialect);
             return $response->getValue();
         }
         return null;
-    }
-    
-    /**
-     * @param array $result
-     * @throws WebDriverException
-     */
-    protected static function checkExecutorResult(array $result)
-    {
-        if (WebDriverDialect::guessByNewSessionResultBody($result)->isW3C()) {
-            if (!empty($result['value']['error'])) {
-                WebDriverException::throwExceptionForW3c($result['value']['error'], $result);
-            }
-        } else {
-            $status = !empty($result['status']) ? $result['status'] : null;
-            if (is_numeric($result['status']) && $result['status'] > 0) {
-                WebDriverException::throwException(
-                    $status,
-                    !empty($result['message']) ? $result['message'] : null,
-                    $result
-                );
-            }
-        }
     }
     
     /**
@@ -674,13 +623,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * @return RemoteExecuteMethod | W3CActionExecuteMethod
+     * @return RemoteExecuteMethod | BunchActionExecuteMethod
      */
     public function getInteractionExecuteMethod()
     {
         if (null === $this->interactionExecutionMethod) {
             $this->interactionExecutionMethod = $this->dialect->isW3C()
-                ? new W3CActionExecuteMethod($this)
+                ? new BunchActionExecuteMethod($this)
                 : new RemoteExecuteMethod($this);
         }
         return $this->interactionExecutionMethod;

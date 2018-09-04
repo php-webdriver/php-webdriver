@@ -9,17 +9,21 @@ class ExecutorLogger implements LoggerInterface
 {
     use LoggerTrait;
     
-    const LOG_FILENAME = __DIR__ . '/../../logs/http-executor.log';
+    const LOG_FILENAME = __DIR__ . '/../../logs/http-executor-%s.log';
     
     /** @var bool|resource */
     private $handle;
     
     /**
      * LoggerExecutor constructor.
+     * @param string|null $logFilenamePrefix
      */
-    public function __construct()
+    public function __construct($logFilenamePrefix = null)
     {
-        $handle = fopen(sprintf(self::LOG_FILENAME, date('Y-m-d')), 'a+');
+        if (!\is_string($logFilenamePrefix)) {
+            $logFilenamePrefix = \date('Y-m-d');
+        }
+        $handle = fopen(sprintf(self::LOG_FILENAME, $logFilenamePrefix), 'a+');
         if (is_resource($handle)) {
             $this->handle = $handle;
         }

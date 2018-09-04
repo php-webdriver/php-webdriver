@@ -54,28 +54,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     /**
      * @covers ::__construct
-     * @covers ::click
-     * @covers ::perform
-     */
-    public function testShouldClickOnElementWithMouse()
-    {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $element = $this->driver->findElement(WebDriverBy::id('item-1'));
-
-        $this->driver->getMouse()
-            ->click($element->getCoordinates());
-
-        $this->assertSame(
-            ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
-            $this->retrieveLoggedEvents()
-        );
-    }
-
-    /**
-     * @covers ::__construct
      * @covers ::clickAndHold
      * @covers ::release
      * @covers ::perform
@@ -119,33 +97,6 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->driver->action()
             ->contextClick($element)
             ->perform();
-
-        $loggedEvents = $this->retrieveLoggedEvents();
-
-        $this->assertContains('mousedown item-2', $loggedEvents);
-        $this->assertContains('mouseup item-2', $loggedEvents);
-        $this->assertContains('contextmenu item-2', $loggedEvents);
-    }
-
-    /**
-     * @covers ::__construct
-     * @covers ::contextClick
-     * @covers ::perform
-     */
-    public function testShouldContextClickOnElementWithMouse()
-    {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::MICROSOFT_EDGE) {
-            $this->markTestSkipped('Getting stuck in EdgeDriver');
-        }
-
-        $element = $this->driver->findElement(WebDriverBy::id('item-2'));
-
-        $this->driver->getMouse()
-            ->contextClick($element->getCoordinates());
 
         $loggedEvents = $this->retrieveLoggedEvents();
 

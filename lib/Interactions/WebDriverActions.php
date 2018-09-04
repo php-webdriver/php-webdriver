@@ -29,8 +29,6 @@ use Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
 use Facebook\WebDriver\Remote\Action\WebDriverActionPerformer;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
-use Facebook\WebDriver\WebDriverKeyboard;
-use Facebook\WebDriver\WebDriverMouse;
 
 /**
  * WebDriver action builder. It implements the builder pattern.
@@ -43,14 +41,13 @@ class WebDriverActions
     
     /**
      * WebDriverActions constructor.
-     * @param WebDriverMouse $mouse
-     * @param WebDriverKeyboard $keyboard
+     * @param WebDriverHasInputDevices $driver
      * @param WebDriverActionPerformer $performer
      */
-    public function __construct(WebDriverMouse $mouse, WebDriverKeyboard $keyboard, WebDriverActionPerformer $performer)
+    public function __construct(WebDriverHasInputDevices $driver, WebDriverActionPerformer $performer)
     {
-        $this->mouse = $mouse;
-        $this->keyboard = $keyboard;
+        $this->mouse = $driver->getMouse();
+        $this->keyboard = $driver->getKeyboard();
         $this->action = new WebDriverCompositeAction($performer);
     }
 

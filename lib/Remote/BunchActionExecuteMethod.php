@@ -18,7 +18,7 @@ namespace Facebook\WebDriver\Remote;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\Translator\W3CProtocolTranslator;
 
-class W3CActionExecuteMethod extends RemoteExecuteMethod
+class BunchActionExecuteMethod extends RemoteExecuteMethod
 {
     /**
      * @var array | array[]

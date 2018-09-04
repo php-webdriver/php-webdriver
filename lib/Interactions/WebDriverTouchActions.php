@@ -25,8 +25,10 @@ use Facebook\WebDriver\Interactions\Touch\WebDriverScrollAction;
 use Facebook\WebDriver\Interactions\Touch\WebDriverScrollFromElementAction;
 use Facebook\WebDriver\Interactions\Touch\WebDriverTapAction;
 use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+use Facebook\WebDriver\Remote\Action\WebDriverActionPerformer;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverElement;
+use Facebook\WebDriver\WebDriverHasInputDevices;
 use Facebook\WebDriver\WebDriverUpAction;
 
 /**
@@ -39,9 +41,9 @@ class WebDriverTouchActions extends WebDriverActions
      */
     protected $touchScreen;
 
-    public function __construct(WebDriver $driver)
+    public function __construct(WebDriverHasInputDevices $driver, WebDriverActionPerformer $performer)
     {
-        parent::__construct($driver);
+        parent::__construct($driver, $performer);
         $this->touchScreen = $driver->getTouch();
     }
 

@@ -91,4 +91,13 @@ class ExecutableWebDriverCommand
     {
         return $this->dialect;
     }
+    
+    /**
+     * @param WebDriverCommand $command
+     * @return ExecutableWebDriverCommand
+     */
+    public static function getNewSessionCommand(WebDriverCommand $command)
+    {
+        return new self('/session', 'POST', $command);
+    }
 }

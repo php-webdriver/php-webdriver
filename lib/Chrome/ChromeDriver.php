@@ -21,11 +21,9 @@ use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecutableWebDriverCommand;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
-use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverDialect;
 use Facebook\WebDriver\Remote\WebDriverResponseFactory;
-use Facebook\WebDriver\Remote\WebDriverTranslatorFactory;
 use Psr\Log\LoggerInterface;
 
 class ChromeDriver extends RemoteWebDriver
@@ -47,7 +45,11 @@ class ChromeDriver extends RemoteWebDriver
 
         return $driver;
     }
-
+    
+    /**
+     * @param DesiredCapabilities $desired_capabilities
+     * @throws WebDriverException
+     */
     public function startSession(DesiredCapabilities $desired_capabilities)
     {
         $command = new WebDriverCommand(
@@ -57,10 +59,9 @@ class ChromeDriver extends RemoteWebDriver
                 'desiredCapabilities' => $desired_capabilities->toArray(),
             ]
         );
-        $dialect = WebDriverDialect::createJsonWireProtocol();
-        $translator = WebDriverTranslatorFactory::createByDialect($dialect);
-        $result = $this->executor->execute($translator->translateCommand($command));
-        $response = WebDriverResponseFactory::createByDialect($dialect, $result);
+        $result = $this->executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
+        $response = WebDriverResponseFactory::create($result);
+        
         $this->sessionID = $response->getSessionID();
     }
     

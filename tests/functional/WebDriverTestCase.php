@@ -73,7 +73,7 @@ class WebDriverTestCase extends TestCase
                 null,
                 null,
                 null,
-                new ExecutorLogger()
+                getenv('DEBUG_EXECUTOR') ? new ExecutorLogger() : null
             );
         }
     }

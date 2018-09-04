@@ -23,7 +23,7 @@ class WebDriverActionPerformerFactory
     ) {
         if (!$dialect->isW3C()) {
             return new JsonWireProtocolActionPerformer();
-        } else if ($interactionExecutionMethod instanceof W3CActionExecuteMethod) {
+        } else if ($interactionExecutionMethod instanceof BunchActionExecuteMethod) {
             return new W3CProtocolActionPerformer($interactionExecutionMethod);
         }
         throw new WebDriverException('Cannot resolve dialect: ' . $dialect);
