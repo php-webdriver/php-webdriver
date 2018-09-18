@@ -252,8 +252,14 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             $command->getSessionID(),
             DriverCommand::EXECUTE_SCRIPT,
             [
-                'script' => sprintf('return (%s).apply(null, arguments);', file_get_contents(__DIR__ . '/resources/getAttribute.js')),
-                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']], $command->getParameters()[':name']]
+                'script' => sprintf(
+                    'return (%s).apply(null, arguments);',
+                    file_get_contents(__DIR__ . '/resources/getAttribute.js')
+                ),
+                'args' => [
+                    [self::ELEMENT_FILED => $command->getParameters()[':id']],
+                    $command->getParameters()[':name']
+                ]
             ]
         );
     }
@@ -284,8 +290,13 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             $command->getSessionID(),
             DriverCommand::EXECUTE_SCRIPT,
             [
-                'script' => sprintf('return (%s).apply(null, arguments);', file_get_contents(__DIR__ . '/resources/isDisplayed.js')),
-                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]]
+                'script' => sprintf(
+                    'return (%s).apply(null, arguments);',
+                    file_get_contents(__DIR__ . '/resources/isDisplayed.js')
+                ),
+                'args' => [
+                    [self::ELEMENT_FILED => $command->getParameters()[':id']]
+                ]
             ]
         );
     }
@@ -393,7 +404,8 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             $command->getSessionID(),
             DriverCommand::ACTIONS,
             ['actions' => [$this->encodeActions(
-                $this->translateParameters($command->getName(), $command->getParameters()))
+                $this->translateParameters($command->getName(), $command->getParameters())
+            )
             ]]
         );
     }

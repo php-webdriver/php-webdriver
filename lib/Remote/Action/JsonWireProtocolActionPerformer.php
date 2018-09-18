@@ -2,7 +2,6 @@
 
 namespace Facebook\WebDriver\Remote\Action;
 
-
 use Facebook\WebDriver\WebDriverAction;
 
 class JsonWireProtocolActionPerformer implements WebDriverActionPerformer

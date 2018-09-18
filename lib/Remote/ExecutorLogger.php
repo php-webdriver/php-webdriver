@@ -43,5 +43,4 @@ class ExecutorLogger implements LoggerInterface
             fclose($this->handle);
         }
     }
-
 }

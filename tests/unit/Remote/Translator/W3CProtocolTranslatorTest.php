@@ -2,7 +2,6 @@
 
 namespace Facebook\WebDriver\Remote\Translator;
 
-
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecutableWebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverCommand;

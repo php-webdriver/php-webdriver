@@ -101,7 +101,6 @@ class WebDriverResponseFactory
             if (!empty($value['sessionId'])) {
                 $sessionId = $value['sessionId'];
                 unset($value['sessionId']);
-            
             } elseif (!empty($results['sessionId'])) {
                 $sessionId = $results['sessionId'];
             }

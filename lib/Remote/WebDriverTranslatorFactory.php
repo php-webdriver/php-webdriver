@@ -2,7 +2,6 @@
 
 namespace Facebook\WebDriver\Remote;
 
-
 use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
 use Facebook\WebDriver\Remote\Translator\W3CProtocolTranslator;
 use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;

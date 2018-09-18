@@ -2,7 +2,6 @@
 
 namespace Facebook\WebDriver\Remote\Action;
 
-
 use Facebook\WebDriver\Remote\ExecutableWebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 use Facebook\WebDriver\WebDriverAction;
