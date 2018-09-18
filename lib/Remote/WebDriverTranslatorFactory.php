@@ -17,6 +17,7 @@ class WebDriverTranslatorFactory
         if ($dialect->isW3C()) {
             return new W3CProtocolTranslator();
         }
+
         return new JsonWireProtocolTranslator();
     }
 }

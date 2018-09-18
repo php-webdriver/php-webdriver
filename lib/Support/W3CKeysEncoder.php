@@ -29,6 +29,7 @@ class W3CKeysEncoder
             }
             $typing = array_merge($typing, str_split((string) $val));
         }
+
         return $typing;
     }
 }

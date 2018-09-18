@@ -9,8 +9,8 @@ class WebDriverResponseFactory
     /**
      * @param mixed $result
      * @param WebDriverDialect|null $dialect
-     * @return WebDriverResponse
      * @throws WebDriverException
+     * @return WebDriverResponse
      */
     public static function create($result, WebDriverDialect $dialect = null)
     {
@@ -52,8 +52,8 @@ class WebDriverResponseFactory
 
     /**
      * @param mixed $results
-     * @return WebDriverResponse
      * @throws WebDriverException
+     * @return WebDriverResponse
      */
     private static function createJsonWireProtocol($results)
     {
@@ -89,8 +89,8 @@ class WebDriverResponseFactory
 
     /**
      * @param mixed $results
-     * @return WebDriverResponse
      * @throws WebDriverException
+     * @return WebDriverResponse
      */
     private static function createW3CProtocol($results)
     {

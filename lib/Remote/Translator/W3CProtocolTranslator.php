@@ -166,6 +166,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         }
 
         $meta = $this->loadCommandMeta($command->getName());
+
         return new ExecutableWebDriverCommand(
             $meta['url'],
             $meta['method'],
@@ -223,9 +224,10 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 $params = [$this->translateActionPointerMoveTo($params)];
                 break;
         }
+
         return $params;
     }
-    
+
     /**
      * @param array $actions
      * @return array
@@ -236,10 +238,10 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'type' => 'pointer',
             'parameters' => ['pointerType' => 'mouse'],
             'id' => uniqid('mouse_', true),
-            'actions' => $actions
+            'actions' => $actions,
         ];
     }
-    
+
     /**
      * @param string $commandName
      * @return array
@@ -253,6 +255,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         if (is_string($meta)) {
             return $this->loadCommandMeta($meta);
         }
+
         return $meta;
     }
 
@@ -273,7 +276,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 'args' => [
                     [self::ELEMENT_FILED => $command->getParameters()[':id']],
                     $command->getParameters()[':name'],
-                ]
+                ],
             ]
         );
     }
@@ -310,7 +313,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 ),
                 'args' => [
                     [self::ELEMENT_FILED => $command->getParameters()[':id']],
-                ]
+                ],
             ]
         );
     }
@@ -442,6 +445,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         } else {
             $w3cParams['origin'] = 'viewport';
         }
+
         return $w3cParams;
     }
 

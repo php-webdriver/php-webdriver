@@ -144,6 +144,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
         $driver = new static($executor, $dialect, $response->getSessionID(), $returnedCapabilities);
+
         return $driver;
     }
 
@@ -574,13 +575,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executableCommand = $this->protocolTranslator->translateCommand($command);
             $result = $this->executor->execute($executableCommand);
             $response = WebDriverResponseFactory::create($result, $this->dialect);
-            return $response->getValue();
 
+            return $response->getValue();
         }
 
         return null;
     }
-    
+
     /**
      * @return RemoteExecuteMethod
      */
@@ -588,7 +589,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new RemoteExecuteMethod($this);
     }
-    
+
     /**
      * @return RemoteExecuteMethod | BunchActionExecuteMethod
      */
@@ -657,7 +658,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         return $desired_capabilities;
     }
-    
+
     /**
      * @throws WebDriverException
      * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer

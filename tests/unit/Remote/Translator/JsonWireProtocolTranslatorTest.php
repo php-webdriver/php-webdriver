@@ -69,13 +69,13 @@ class JsonWireProtocolTranslatorTest extends TestCase
                 DriverCommand::SEND_KEYS_TO_ELEMENT,
                 [
                     'value' => 'Test text',
-                ]
+                ],
             ],
             DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT => [
                 DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT,
                 [
                     'value' => 'Test text',
-                ]
+                ],
             ],
         ];
     }

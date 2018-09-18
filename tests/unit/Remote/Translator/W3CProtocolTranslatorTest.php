@@ -377,7 +377,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     'value' => ['Test'],
                 ],
                 [
-                    'value' => ['T', 'e', 's', 't']
+                    'value' => ['T', 'e', 's', 't'],
                 ],
             ],
             DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT => [
@@ -386,7 +386,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     'value' => ['Test'],
                 ],
                 [
-                    'value' => ['T', 'e', 's', 't']
+                    'value' => ['T', 'e', 's', 't'],
                 ],
             ],
             DriverCommand::MOUSE_UP => [
@@ -401,7 +401,7 @@ class W3CProtocolTranslatorTest extends TestCase
             DriverCommand::MOUSE_DOWN => [
                 DriverCommand::MOUSE_DOWN,
                 [
-                    'button' => 2
+                    'button' => 2,
                 ],
                 [
                     'type' => 'pointerDown',
@@ -438,7 +438,7 @@ class W3CProtocolTranslatorTest extends TestCase
             DriverCommand::DOUBLE_CLICK => [
                 DriverCommand::DOUBLE_CLICK,
                 [
-                    'button' => 2
+                    'button' => 2,
                 ],
                 [
                     [
@@ -482,7 +482,7 @@ class W3CProtocolTranslatorTest extends TestCase
                         'button' => 2,
                     ],
                 ],
-            ]
+            ],
         ];
     }
 }
