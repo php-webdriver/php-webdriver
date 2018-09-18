@@ -10,7 +10,7 @@ class W3CKeysEncoder
     {
         return self::doEncode((array) $value);
     }
-    
+
     /**
      * @param array $value
      * @return array

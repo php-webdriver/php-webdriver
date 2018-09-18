@@ -152,7 +152,7 @@ class WebDriverKeys
         self::COMMAND,
         self::ZENKAKU_HANKAKU,
     ];
-    
+
     /**
      * Encode input of `sendKeys()`.
      * @param string|array|int|float $keys
@@ -183,7 +183,7 @@ class WebDriverKeys
 
         return $encoded;
     }
-    
+
     /**
      * @param string $key
      * @return bool

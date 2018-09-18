@@ -21,7 +21,6 @@ use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Remote\WebDriverDialect;
-use Facebook\WebDriver\Remote\WebDriverResponse;
 use PHPUnit\Framework\TestCase;
 
 /**

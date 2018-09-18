@@ -133,7 +133,7 @@ class WebDriverActionsTest extends WebDriverTestCase
                 'mousedown item-3',
                 'mouseup item-3',
                 'click item-3',
-                'dblclick item-3'
+                'dblclick item-3',
             ];
         } else {
             $expected = [
@@ -141,7 +141,7 @@ class WebDriverActionsTest extends WebDriverTestCase
                 'mousedown item-3',
                 'mouseup item-3',
                 'click item-3',
-                'dblclick item-3'
+                'dblclick item-3',
             ];
         }
         

@@ -23,15 +23,15 @@ class W3CKeysEncoderTest extends TestCase
         return [
             [
                 'Test',
-                ['T', 'e', 's', 't']
+                ['T', 'e', 's', 't'],
             ],
             [
                 ['Test', 1],
-                ['T', 'e', 's', 't', '1']
+                ['T', 'e', 's', 't', '1'],
             ],
             [
                 ['Tet', WebDriverKeys::ARROW_LEFT, 's'],
-                ['T', 'e', 't', WebDriverKeys::ARROW_LEFT, 's']
+                ['T', 'e', 't', WebDriverKeys::ARROW_LEFT, 's'],
             ],
         ];
     }

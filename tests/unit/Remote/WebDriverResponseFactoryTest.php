@@ -15,93 +15,113 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\ElementNotSelectableException;
+use Facebook\WebDriver\Exception\InvalidCookieDomainException;
+use Facebook\WebDriver\Exception\InvalidElementStateException;
+use Facebook\WebDriver\Exception\InvalidSelectorException;
+use Facebook\WebDriver\Exception\MoveTargetOutOfBoundsException;
+use Facebook\WebDriver\Exception\NoAlertOpenException;
+use Facebook\WebDriver\Exception\NoSuchElementException;
+use Facebook\WebDriver\Exception\NoSuchWindowException;
+use Facebook\WebDriver\Exception\ScriptTimeoutException;
+use Facebook\WebDriver\Exception\StaleElementReferenceException;
+use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Exception\UnableToSetCookieException;
+use Facebook\WebDriver\Exception\UnknownCommandException;
+use Facebook\WebDriver\Exception\UnknownServerException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use PHPUnit\Framework\TestCase;
 
 class WebDriverResponseFactoryTest extends TestCase
 {
-    protected function setUp()
-    {
-        $this->markTestSkipped('Skip it until tests will be done.');
-    }
-    
-    
     public function testCreateResponseJsonWireProtocol()
     {
         $results = [
             'status' => $status = 0,
             'sessionId' => $sessionId = 'ssid-dd344-dds2-445533sdd-sss',
             'value' => $value = [
-                'data' => 1
+                'data' => 1,
             ]
         ];
-        
+
         $response = WebDriverResponseFactory::create($results);
         $this->assertEquals($sessionId, $response->getSessionID());
         $this->assertEquals($status, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
     }
-    
-    public function testCreateNewSessionGridInW3CProtocol()
-    {
-        $results = [
-            'status' => $status = 0,
-            'sessionId' => $sessionId = 'ssid-dd344-dds2-445533sdd-sss',
-            'value' => $value = [
-                'browseName' => 'firefox',
-                'moz:profile' => 'var/folders/df/rty/73839',
-            ]
-        ];
-    
-        $response = WebDriverResponseFactory::create($results);
-        $this->assertEquals($sessionId, $response->getSessionID());
-        $this->assertEquals($status, $response->getStatus());
-        $this->assertEquals($value, $response->getValue());
-    }
-    
+
     public function testCreateNewSessionInW3CProtocol()
     {
         $results = [
             'value' => [
                 'sessionId' => $sessionId = 'ssid-dd344-dds2-445533sdd-sss',
                 'capabilities' => $value = [
-                    'data' => 1
-                ]
+                    'data' => 1,
+                ],
             ]
         ];
-        
+
         $response = WebDriverResponseFactory::create($results);
         $this->assertEquals($sessionId, $response->getSessionID());
         $this->assertEquals(0, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
     }
-    
+
     public function testCreateResponseInW3CProtocol()
     {
         $results = [
             'value' => $value = [
-                'data' => 1
-            ]
+                'data' => 1,
+            ],
         ];
-        
+
         $response = WebDriverResponseFactory::create($results);
         $this->assertNull($response->getSessionID());
         $this->assertEquals(0, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
     }
     
-    public function testShouldThrowWebDriverExceptionForFailedRequestInW3CProtocol()
+    /**
+     * @dataProvider getW3CDataProvider
+     * @param string $error
+     * @param string $expectedException
+     * @throws WebDriverException
+     */
+    public function testShouldThrowExceptionW3C($error, $expectedException)
     {
-        $this->expectException(WebDriverException::class);
+        $this->expectException($expectedException);
         
-        $results = [
+        $dialect = WebDriverDialect::createW3C();
+        $result = [
             'value' => [
-                'error' => 'invalid session id',
-                'message' => 'No active session with ID 1234',
-                'stacktrace' => ''
+                'error' => $error
             ]
         ];
-        
-        WebDriverResponseFactory::create($results);
+        WebDriverResponseFactory::checkExecutorResult($dialect, $result);
+    }
+    
+    /**
+     * @return array
+     */
+    public function getW3CDataProvider()
+    {
+        return [
+            ['element click intercepted', InvalidElementStateException::class],
+            ['invalid element state', InvalidElementStateException::class],
+            ['element not interactable', ElementNotSelectableException::class],
+            ['no such element', NoSuchElementException::class],
+            ['timeout', TimeOutException::class],
+            ['script timeout', ScriptTimeoutException::class],
+            ['no such window', NoSuchWindowException::class],
+            ['invalid cookie domain', InvalidCookieDomainException::class],
+            ['unable to set cookie', UnableToSetCookieException::class],
+            ['unknown command', UnknownCommandException::class],
+            ['unknown error', UnknownServerException::class],
+            ['invalid selector', InvalidSelectorException::class],
+            ['move target out of bounds', MoveTargetOutOfBoundsException::class],
+            ['stale element reference', StaleElementReferenceException::class],
+            ['no such alert', NoAlertOpenException::class],
+            ['invalid session id', WebDriverException::class],
+        ];
     }
 }

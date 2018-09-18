@@ -26,12 +26,12 @@ interface WebDriverHasInputDevices
      * @return WebDriverMouse
      */
     public function getMouse();
-    
+
     /**
      * @return WebDriverKeyboard
      */
     public function getKeyboard();
-    
+
     /**
      * @return RemoteTouchScreen
      */

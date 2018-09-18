@@ -80,7 +80,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
             $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
         }
-        
+
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
 
         $this->assertInternalType('array', $sessions);
@@ -101,7 +101,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
             $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
         }
-        
+
         $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 

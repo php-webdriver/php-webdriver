@@ -7,7 +7,7 @@ use Facebook\WebDriver\Exception\WebDriverException;
 class WebDriverResponseFactory
 {
     /**
-     * @param mixed $result
+     * @param $result
      * @param WebDriverDialect|null $dialect
      * @return WebDriverResponse
      * @throws WebDriverException
@@ -18,7 +18,7 @@ class WebDriverResponseFactory
             $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
         }
         self::checkExecutorResult($dialect, $result);
-        
+
         return $dialect->isW3C()
             ? self::createW3CProtocol($result)
             : self::createJsonWireProtocol($result);
@@ -29,7 +29,7 @@ class WebDriverResponseFactory
      * @param mixed $result
      * @throws WebDriverException
      */
-    protected static function checkExecutorResult(WebDriverDialect $dialect, $result)
+    public static function checkExecutorResult(WebDriverDialect $dialect, $result)
     {
         if (!\is_array($result)) {
             throw new WebDriverException('Invalid result state');
@@ -60,17 +60,17 @@ class WebDriverResponseFactory
         if (!isset($results['status'])) {
             return null;
         }
-        
+
         $value = null;
         if (is_array($results) && array_key_exists('value', $results)) {
             $value = $results['value'];
         }
-        
+
         $sessionId = null;
         if (is_array($results) && array_key_exists('sessionId', $results)) {
             $sessionId = $results['sessionId'];
         }
-    
+
         $status = $results['status'];
         if ($status !== 0) {
             $message = null;
@@ -79,9 +79,9 @@ class WebDriverResponseFactory
             }
             WebDriverException::throwException($status, $message, $results);
         }
-        
+
         $response = new WebDriverResponse($sessionId);
-    
+
         return $response
             ->setStatus($status)
             ->setValue($value);
@@ -95,7 +95,7 @@ class WebDriverResponseFactory
     private static function createW3CProtocol($results)
     {
         $value = $results['value'];
-    
+
         $sessionId = null;
         if (is_array($value)) {
             if (!empty($value['sessionId'])) {
@@ -105,20 +105,20 @@ class WebDriverResponseFactory
             } elseif (!empty($results['sessionId'])) {
                 $sessionId = $results['sessionId'];
             }
-    
+
             if (!empty($value['capabilities'])) {
                 $value = $value['capabilities'];
             } elseif (null !== $sessionId && empty($value['moz:profile'])) {
                 return null;
             }
         }
-        
+
         if (!empty($value['error'])) {
             WebDriverException::throwExceptionForW3c($value['error'], $results);
         }
-    
+
         $response = new WebDriverResponse($sessionId);
-        
+
         return $response
             ->setValue($value);
     }

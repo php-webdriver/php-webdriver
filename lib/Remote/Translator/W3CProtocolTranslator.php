@@ -391,7 +391,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
     {
         return new WebDriverCommand(
             $command->getSessionID(),
-            $command->getName(),
+            DriverCommand::ACTIONS,
             ['actions' => [$this->encodeActions(
                 $this->translateParameters($command->getName(), $command->getParameters()))
             ]]
