@@ -42,6 +42,7 @@ class W3CProtocolTranslatorTest extends TestCase
     public function getCommandDataProvider()
     {
         $sessionId = 'Session-Id';
+
         return [
             DriverCommand::SET_SCRIPT_TIMEOUT => [
                 new WebDriverCommand(

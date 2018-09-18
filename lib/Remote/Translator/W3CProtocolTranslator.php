@@ -291,7 +291,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             $command->getSessionID(),
             DriverCommand::EXECUTE_SCRIPT,
             [
-                'script' => "arguments[0].scrollIntoView(true); return arguments[0].getBoundingClientRect();",
+                'script' => 'arguments[0].scrollIntoView(true); return arguments[0].getBoundingClientRect();',
                 'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]],
             ]
         );
