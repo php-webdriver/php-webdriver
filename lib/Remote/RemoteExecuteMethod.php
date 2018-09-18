@@ -31,7 +31,7 @@ class RemoteExecuteMethod implements ExecuteMethod
     {
         $this->driver = $driver;
     }
-    
+
     /**
      * @param string $command_name
      * @param array $parameters

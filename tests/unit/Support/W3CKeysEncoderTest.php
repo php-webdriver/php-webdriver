@@ -17,7 +17,7 @@ class W3CKeysEncoderTest extends TestCase
     {
         $this->assertEquals($output, W3CKeysEncoder::encode($input));
     }
-    
+
     public function getEncodingCases()
     {
         return [

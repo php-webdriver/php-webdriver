@@ -23,7 +23,7 @@ class WebDriverResponseFactory
             ? self::createW3CProtocol($result)
             : self::createJsonWireProtocol($result);
     }
-    
+
     /**
      * @param WebDriverDialect $dialect
      * @param mixed $result
@@ -49,7 +49,7 @@ class WebDriverResponseFactory
             }
         }
     }
-    
+
     /**
      * @param mixed $results
      * @return WebDriverResponse
@@ -86,7 +86,7 @@ class WebDriverResponseFactory
             ->setStatus($status)
             ->setValue($value);
     }
-    
+
     /**
      * @param mixed $results
      * @return WebDriverResponse
@@ -101,7 +101,7 @@ class WebDriverResponseFactory
             if (!empty($value['sessionId'])) {
                 $sessionId = $value['sessionId'];
                 unset($value['sessionId']);
-                
+            
             } elseif (!empty($results['sessionId'])) {
                 $sessionId = $results['sessionId'];
             }

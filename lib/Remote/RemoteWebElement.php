@@ -51,7 +51,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * @var WebDriverProtocolTranslator
      */
     protected $protocolTranslator;
-    
+
     /**
      * @param RemoteExecuteMethod $executor
      * @param WebDriverDialect $dialect
@@ -415,7 +415,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         if ($this->dialect->isW3C()) {
             return $this->id === $other->getID();
         }
-        
+    
         return $this->executor->execute(DriverCommand::ELEMENT_EQUALS, [
             ':id' => $this->id,
             ':other' => $other->getID(),

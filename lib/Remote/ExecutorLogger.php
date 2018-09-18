@@ -8,12 +8,12 @@ use Psr\Log\LoggerTrait;
 class ExecutorLogger implements LoggerInterface
 {
     use LoggerTrait;
-    
+
     const LOG_FILENAME = __DIR__ . '/../../logs/http-executor-%s.log';
-    
+
     /** @var bool|resource */
     private $handle;
-    
+
     /**
      * LoggerExecutor constructor.
      * @param string|null $logFilenamePrefix
@@ -28,20 +28,20 @@ class ExecutorLogger implements LoggerInterface
             $this->handle = $handle;
         }
     }
-    
-    
+
+
     public function log($level, $message, array $context = [])
     {
         if ($this->handle) {
             fwrite($this->handle, $level . ': ' . $message . print_r($context, true) . PHP_EOL . PHP_EOL);
         }
     }
-    
+
     public function __destruct()
     {
         if ($this->handle) {
             fclose($this->handle);
         }
     }
-    
+
 }

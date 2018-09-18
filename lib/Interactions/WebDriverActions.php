@@ -38,7 +38,7 @@ class WebDriverActions
     protected $keyboard;
     protected $mouse;
     protected $action;
-    
+
     /**
      * WebDriverActions constructor.
      * @param WebDriverHasInputDevices $driver

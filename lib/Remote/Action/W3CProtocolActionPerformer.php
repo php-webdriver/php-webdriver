@@ -12,7 +12,7 @@ class W3CProtocolActionPerformer implements WebDriverActionPerformer
      * @var BunchActionExecuteMethod
      */
     private $executionMethod;
-    
+
     /**
      * W3CProtocolActionPerformer constructor.
      * @param BunchActionExecuteMethod $executionMethod
@@ -21,7 +21,7 @@ class W3CProtocolActionPerformer implements WebDriverActionPerformer
     {
         $this->executionMethod = $executionMethod;
     }
-    
+
     /**
      * @param array | WebDriverAction[] $actions
      * @throws WebDriverException

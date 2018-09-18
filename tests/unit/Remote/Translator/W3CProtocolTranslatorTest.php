@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class W3CProtocolTranslatorTest extends TestCase
 {
     const ELEMENT_ID = 'element-6066-11e4-a52e-4f735466cecf';
-    
+
     public function testShouldTranslateElement()
     {
         $expectedElementId = 'uuid-3423dsa-sdfsd';
@@ -22,7 +22,7 @@ class W3CProtocolTranslatorTest extends TestCase
             $systemUnderTest->translateElement([self::ELEMENT_ID => $expectedElementId])
         );
     }
-    
+
     /**
      * @dataProvider getCommandDataProvider
      * @param WebDriverCommand $command
@@ -244,11 +244,11 @@ class W3CProtocolTranslatorTest extends TestCase
             ],
         ];
     }
-    
+
     public function testShouldThrowExceptionForNotValidCommand()
     {
         $this->expectException(\InvalidArgumentException::class);
-        
+
         $command = new WebDriverCommand(
             $sessionId = 'session-ID-890',
             $name = 'some_not_valid_command',
@@ -258,7 +258,7 @@ class W3CProtocolTranslatorTest extends TestCase
         $systemUnderTest = new W3CProtocolTranslator();
         $systemUnderTest->translateCommand($command);
     }
-    
+
     /**
      * @dataProvider getParametersDataProvider
      * @param string $commandName
@@ -269,7 +269,7 @@ class W3CProtocolTranslatorTest extends TestCase
         $systemUnderTest = new W3CProtocolTranslator();
         $this->assertNotEquals($params, $systemUnderTest->translateParameters($commandName, $params));
     }
-    
+
     /**
      * @return array
      */

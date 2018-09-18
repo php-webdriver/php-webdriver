@@ -116,7 +116,7 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
         DriverCommand::TOUCH_SCROLL => ['method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'],
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
     ];
-    
+
     /**
      * @param array $raw_element
      * @return string
@@ -125,7 +125,7 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
     {
         return $raw_element['ELEMENT'];
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return ExecutableWebDriverCommand
@@ -143,7 +143,7 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
             WebDriverDialect::createJsonWireProtocol()
         );
     }
-    
+
     /**
      * @param string $command_name
      * @param array $params

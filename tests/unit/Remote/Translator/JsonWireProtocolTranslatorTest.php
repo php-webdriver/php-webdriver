@@ -36,7 +36,7 @@ class JsonWireProtocolTranslatorTest extends TestCase
     public function testShouldThrowExceptionForNotValidCommand()
     {
         $this->expectException(\InvalidArgumentException::class);
-        
+
         $command = new WebDriverCommand(
             $sessionId = 'session-ID-890',
             $name = 'some_not_valid_command',
@@ -48,7 +48,7 @@ class JsonWireProtocolTranslatorTest extends TestCase
         $systemUnderTest = new JsonWireProtocolTranslator();
         $systemUnderTest->translateCommand($command);
     }
-    
+
     /**
      * @dataProvider getParametersDataProvider
      * @param string $commandName
@@ -59,7 +59,7 @@ class JsonWireProtocolTranslatorTest extends TestCase
         $systemUnderTest = new JsonWireProtocolTranslator();
         $this->assertNotEquals($params, $systemUnderTest->translateParameters($commandName, $params));
     }
-    
+
     /**
      * @return array
      */

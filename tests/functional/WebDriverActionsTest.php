@@ -41,7 +41,7 @@ class WebDriverActionsTest extends WebDriverTestCase
         }
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
-    
+
         $this->driver->action()
             ->click($element)
             ->perform();
@@ -121,7 +121,7 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->driver->action()
             ->doubleClick($element)
             ->perform();
-    
+
         if ($this->driver->getDialect()->isW3C()) {
             $expected = [
                 'mouseover item-1',
@@ -144,7 +144,7 @@ class WebDriverActionsTest extends WebDriverTestCase
                 'dblclick item-3',
             ];
         }
-        
+
         $this->assertSame($expected, $this->retrieveLoggedEvents());
     }
 

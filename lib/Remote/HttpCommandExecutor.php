@@ -45,7 +45,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @var LoggerInterface | null
      */
     protected $logger;
-    
+
     /**
      * @param string $url
      * @param string|null $http_proxy
@@ -77,10 +77,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
         $this->setRequestTimeout(30000);
         $this->setConnectionTimeout(30000);
-        
+    
         $this->logger = new NullLogger();
     }
-    
+
     /**
      * @param LoggerInterface $logger
      */
@@ -158,11 +158,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
-        
+    
         curl_setopt($this->curl, CURLOPT_VERBOSE, true);
         $verbose = fopen('php://temp', 'w+');
         curl_setopt($this->curl, CURLOPT_STDERR, $verbose);
-        
+    
         // https://github.com/facebook/php-webdriver/issues/173
         if ($command->getName() === DriverCommand::NEW_SESSION) {
             curl_setopt($this->curl, CURLOPT_POST, 1);
@@ -188,7 +188,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $raw_results = trim(curl_exec($this->curl));
         rewind($verbose);
         $curlContent = stream_get_contents($verbose);
-        
+    
         if ($error = curl_error($this->curl)) {
             $msg = sprintf(
                 'Curl error thrown for http %s to %s',
@@ -216,7 +216,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
                 )
             );
         }
-    
+
         $this->logger->debug(
             $curlContent,
             [
@@ -225,7 +225,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
                 'response' => $results
             ]
         );
-        
+    
         return $results;
     }
 

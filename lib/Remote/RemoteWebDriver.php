@@ -58,7 +58,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @var RemoteExecuteMethod
      */
     protected $interactionExecutionMethod;
-    
+
     /**
      * @param HttpCommandExecutor $commandExecutor
      * @param WebDriverDialect $dialect
@@ -81,7 +81,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
         $this->protocolTranslator = WebDriverTranslatorFactory::createByDialect($this->dialect);
     }
-    
+
     /**
      * Construct the RemoteWebDriver by a desired capabilities.
      *
@@ -140,13 +140,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $result = $executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
         $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
         $response = WebDriverResponseFactory::create($result);
-        
+    
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
         $driver = new static($executor, $dialect, $response->getSessionID(), $returnedCapabilities);
         return $driver;
     }
-    
+
     /**
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
@@ -178,7 +178,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         return new static($executor, $dialect, $session_id);
     }
-    
+
     /**
      * @return WebDriverDialect
      */
@@ -432,7 +432,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new RemoteTargetLocator($this->getExecuteMethod(), $this->dialect, $this);
     }
-    
+
     /**
      * @return RemoteMouse
      */
@@ -440,7 +440,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new RemoteMouse($this->getInteractionExecuteMethod());
     }
-    
+
     /**
      * @return RemoteKeyboard
      */
@@ -448,7 +448,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new RemoteKeyboard($this->getInteractionExecuteMethod());
     }
-    
+
     /**
      * @return RemoteTouchScreen
      */
@@ -456,7 +456,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new RemoteTouchScreen($this->getInteractionExecuteMethod());
     }
-    
+
     /**
      * Construct a new action builder.
      *
@@ -467,7 +467,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return new WebDriverActions($this, $this->getActionPerformer());
     }
-    
+
     /**
      * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
      * @throws WebDriverException
@@ -541,7 +541,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         return $this->capabilities;
     }
-    
+
     /**
      * Returns a list of the currently active sessions.
      *
@@ -564,10 +564,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $result = $executor->execute((new JsonWireProtocolTranslator())->translateCommand($command));
         $response = WebDriverResponseFactory::create($result, WebDriverDialect::createJsonWireProtocol());
-        
+    
         return $response->getValue();
     }
-    
+
     /**
      * @param string $command_name
      * @param array $params
@@ -590,7 +590,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
         return null;
     }
-    
+
     /**
      * Prepare arguments for JavaScript injection
      *
@@ -634,7 +634,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
         return $this->interactionExecutionMethod;
     }
-    
+
     /**
      * Return the WebDriverElement with the given id.
      *

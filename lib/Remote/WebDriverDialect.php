@@ -6,10 +6,10 @@ class WebDriverDialect
 {
     const W3C_DIALECT = 'W3C';
     const JSON_WIRE_PROTOCOL_DIALECT = 'OSS';
-    
+
     /** @var string */
     private $dialect;
-    
+
     /**
      * WebDriverDialect constructor.
      * @param string $dialect
@@ -18,7 +18,7 @@ class WebDriverDialect
     {
         $this->dialect = $dialect;
     }
-    
+
     /**
      * @return WebDriverDialect
      */
@@ -26,7 +26,7 @@ class WebDriverDialect
     {
         return new self(self::W3C_DIALECT);
     }
-    
+
     /**
      * @return WebDriverDialect
      */
@@ -34,7 +34,7 @@ class WebDriverDialect
     {
         return new self(self::JSON_WIRE_PROTOCOL_DIALECT);
     }
-    
+
     /**
      * @return bool
      */
@@ -42,7 +42,7 @@ class WebDriverDialect
     {
         return $this->dialect === self::W3C_DIALECT;
     }
-    
+
     /**
      * @param array $result
      * @return WebDriverDialect
@@ -54,7 +54,7 @@ class WebDriverDialect
         }
         return self::createJsonWireProtocol();
     }
-    
+
     /**
      * @return string
      */

@@ -8,27 +8,27 @@ namespace Facebook\WebDriver\Remote;
  */
 class ExecutableWebDriverCommand
 {
-    
+
     /**
      * @var string
      */
     private $url;
-    
+
     /**
      * @var string
      */
     private $method;
-    
+
     /**
      * @var WebDriverCommand
      */
     private $command;
-    
+
     /**
      * @var WebDriverDialect
      */
     private $dialect;
-    
+
     /**
      * ExecutableWebDriverCommand constructor.
      * @param string $url
@@ -43,7 +43,7 @@ class ExecutableWebDriverCommand
         $this->command = $command;
         $this->dialect = $dialect;
     }
-    
+
     /**
      * @return string
      */
@@ -51,7 +51,7 @@ class ExecutableWebDriverCommand
     {
         return $this->url;
     }
-    
+
     /**
      * @return string
      */
@@ -59,7 +59,7 @@ class ExecutableWebDriverCommand
     {
         return $this->method;
     }
-    
+
     /**
      * @return string
      */
@@ -67,7 +67,7 @@ class ExecutableWebDriverCommand
     {
         return $this->command->getName();
     }
-    
+
     /**
      * @return string
      */
@@ -75,7 +75,7 @@ class ExecutableWebDriverCommand
     {
         return $this->command->getSessionID();
     }
-    
+
     /**
      * @return array
      */
@@ -83,7 +83,7 @@ class ExecutableWebDriverCommand
     {
         return $this->command->getParameters();
     }
-    
+
     /**
      * @return WebDriverDialect
      */
@@ -91,7 +91,7 @@ class ExecutableWebDriverCommand
     {
         return $this->dialect;
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return ExecutableWebDriverCommand

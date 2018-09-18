@@ -13,13 +13,13 @@ interface WebDriverProtocolTranslator
      * @return ExecutableWebDriverCommand
      */
     public function translateCommand(WebDriverCommand $command);
-    
+
     /**
      * @param array $raw_element
      * @return string
      */
     public function translateElement($raw_element);
-    
+
     /**
      * @param string $command_name
      * @param array $params

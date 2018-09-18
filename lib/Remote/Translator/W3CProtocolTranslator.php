@@ -11,7 +11,7 @@ use Facebook\WebDriver\Support\W3CKeysEncoder;
 class W3CProtocolTranslator implements WebDriverProtocolTranslator
 {
     const ELEMENT_FILED = 'element-6066-11e4-a52e-4f735466cecf';
-    
+
     /**
      * @see https://w3c.github.io/webdriver/#elements
      */
@@ -108,7 +108,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         DriverCommand::TOUCH_SCROLL => ['method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'],
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
     ];
-    
+
     /**
      * @param array $raw_element
      * @return string
@@ -117,7 +117,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
     {
         return $raw_element[self::ELEMENT_FILED];
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return ExecutableWebDriverCommand
@@ -127,7 +127,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         if (!isset(self::$commands[$command->getName()])) {
             throw new \InvalidArgumentException($command->getName() . ' is not a valid command.');
         }
-        
+    
         switch ($command->getName()) {
             case DriverCommand::SET_SCRIPT_TIMEOUT:
                 $command = $this->translateSetScriptTimeout($command);
@@ -164,7 +164,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 $command = $this->translateAction($command);
                 break;
         }
-    
+
         $meta = $this->loadCommandMeta($command->getName());
         return new ExecutableWebDriverCommand(
             $meta['url'],
@@ -173,7 +173,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             WebDriverDialect::createW3C()
         );
     }
-    
+
     /**
      * @param string $commandName
      * @return array
@@ -189,7 +189,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         }
         return $meta;
     }
-    
+
     /**
      * @param string $command_name
      * @param array $params
@@ -241,7 +241,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         }
         return $params;
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -257,7 +257,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -273,7 +273,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -289,7 +289,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -313,7 +313,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -330,7 +330,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -343,7 +343,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ['handle' => $command->getParameters()['name']]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -356,7 +356,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ['script' => $command->getParameters()['ms']]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -369,7 +369,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ['implicit' => $command->getParameters()['ms']]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -382,7 +382,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ['pageLoad' => $command->getParameters()['ms']]
         );
     }
-    
+
     /**
      * @param WebDriverCommand $command
      * @return WebDriverCommand
@@ -397,7 +397,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             ]]
         );
     }
-    
+
     /**
      * @param array $params
      * @return array
@@ -417,7 +417,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         }
         return $w3cParams;
     }
-    
+
     /**
      * @param array $params
      * @return array
@@ -430,7 +430,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'button' => isset($params['button']) ? $params['button'] : 0
         ];
     }
-    
+
     /**
      * @param array $params
      * @return array
@@ -443,7 +443,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'button' => isset($params['button']) ? $params['button'] : 0
         ];
     }
-    
+
     /**
      * @param array $params
      * @return array
@@ -455,7 +455,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'duration' => $params['duration'] * 1000
         ];
     }
-    
+
     /**
      * @param array $actions
      * @return array

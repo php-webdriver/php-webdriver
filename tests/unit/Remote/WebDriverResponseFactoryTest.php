@@ -80,7 +80,7 @@ class WebDriverResponseFactoryTest extends TestCase
         $this->assertEquals(0, $response->getStatus());
         $this->assertEquals($value, $response->getValue());
     }
-    
+
     /**
      * @dataProvider getW3CDataProvider
      * @param string $error
@@ -90,7 +90,7 @@ class WebDriverResponseFactoryTest extends TestCase
     public function testShouldThrowExceptionW3C($error, $expectedException)
     {
         $this->expectException($expectedException);
-        
+
         $dialect = WebDriverDialect::createW3C();
         $result = [
             'value' => [
@@ -99,7 +99,7 @@ class WebDriverResponseFactoryTest extends TestCase
         ];
         WebDriverResponseFactory::checkExecutorResult($dialect, $result);
     }
-    
+
     /**
      * @return array
      */

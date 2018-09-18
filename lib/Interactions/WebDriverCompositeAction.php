@@ -27,12 +27,12 @@ class WebDriverCompositeAction implements WebDriverAction
      * @var WebDriverActionPerformer
      */
     private $performer;
-    
+
     /**
      * @var WebDriverAction[]
      */
     private $actions = [];
-    
+
     /**
      * WebDriverCompositeAction constructor.
      * @param WebDriverActionPerformer $performer
@@ -41,7 +41,7 @@ class WebDriverCompositeAction implements WebDriverAction
     {
         $this->performer = $performer;
     }
-    
+
     /**
      * Add an WebDriverAction to the sequence.
      *

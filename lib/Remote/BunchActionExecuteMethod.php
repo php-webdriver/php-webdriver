@@ -24,7 +24,7 @@ class BunchActionExecuteMethod extends RemoteExecuteMethod
      * @var array | array[]
      */
     private $actions = [];
-    
+
     /**
      * @param string $command_name
      * @param array $parameters
@@ -34,7 +34,7 @@ class BunchActionExecuteMethod extends RemoteExecuteMethod
     {
         $this->actions[] = ['commandName' => $command_name, 'params' => $parameters];
     }
-    
+
     /**
      * @throws WebDriverException
      */

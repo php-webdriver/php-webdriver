@@ -80,7 +80,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         // Store session ID
         $sessionId = $originalDriver->getSessionID();
-        
+
         // Session dialect
         $dialect = $originalDriver->getDialect();
 

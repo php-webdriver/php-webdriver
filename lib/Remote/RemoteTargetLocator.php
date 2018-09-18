@@ -106,7 +106,7 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     {
         return new WebDriverAlert($this->executor);
     }
-    
+
     /**
      * Switches to the element that currently has focus within the document
      * currently "switched to", or the body element if this cannot be detected.

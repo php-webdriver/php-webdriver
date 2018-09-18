@@ -45,7 +45,7 @@ class ChromeDriver extends RemoteWebDriver
 
         return $driver;
     }
-    
+
     /**
      * @param DesiredCapabilities $desired_capabilities
      * @throws WebDriverException
@@ -61,10 +61,10 @@ class ChromeDriver extends RemoteWebDriver
         );
         $result = $this->executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
         $response = WebDriverResponseFactory::create($result);
-        
+    
         $this->sessionID = $response->getSessionID();
     }
-    
+
     /**
      * Always throws an exception. Use ChromeDriver::start() instead.
      *
@@ -91,7 +91,7 @@ class ChromeDriver extends RemoteWebDriver
     ) {
         throw new WebDriverException('Please use ChromeDriver::start() instead.');
     }
-    
+
     /**
      * Always throws an exception. Use ChromeDriver::start() instead.
      *

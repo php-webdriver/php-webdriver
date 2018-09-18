@@ -48,13 +48,13 @@ class HttpCommandExecutorTest extends TestCase
     ) {
         $command = new WebDriverCommand('foo-123', $command, $params);
         $executableCommand = (new JsonWireProtocolTranslator())->translateCommand($command);
-        
+
         $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
         $curlSetoptMock->expects($this->at(0))
             ->with($this->anything(), CURLOPT_URL, $expectedUrl);
 
         $setPostFields = 'POST' === $executableCommand->getMethod();
-        
+
         if ($shouldResetExpectHeader) {
             $curlSetoptMock->expects($this->at(4))
                 ->with(
