@@ -49,7 +49,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     DriverCommand::SET_SCRIPT_TIMEOUT,
                     ['ms' => 3600]
                 ),
-                ['script' => 3600]
+                ['script' => 3600],
             ],
             DriverCommand::IMPLICITLY_WAIT => [
                 new WebDriverCommand(
@@ -57,7 +57,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     DriverCommand::IMPLICITLY_WAIT,
                     ['ms' => 3600]
                 ),
-                ['implicit' => 3600]
+                ['implicit' => 3600],
             ],
             DriverCommand::SET_TIMEOUT => [
                 new WebDriverCommand(
@@ -65,7 +65,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     DriverCommand::SET_TIMEOUT,
                     ['ms' => 3600]
                 ),
-                ['pageLoad' => 3600]
+                ['pageLoad' => 3600],
             ],
             DriverCommand::GET_ELEMENT_ATTRIBUTE => [
                 new WebDriverCommand(
@@ -76,7 +76,7 @@ class W3CProtocolTranslatorTest extends TestCase
                 function (array $parameters) {
                     $this->assertRegExp('/\.apply\(null, arguments\)\;\Z/', $parameters['script']);
                     $this->assertEquals([[self::ELEMENT_ID => 'element-ID'], 'title'], $parameters['args']);
-                }
+                },
             ],
             DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW => [
                 new WebDriverCommand(
@@ -87,7 +87,7 @@ class W3CProtocolTranslatorTest extends TestCase
                 function (array $parameters) {
                     $this->assertRegExp('/getBoundingClientRect\(\)\;\Z/', $parameters['script']);
                     $this->assertEquals([[self::ELEMENT_ID => 'element-ID']], $parameters['args']);
-                }
+                },
             ],
             DriverCommand::IS_ELEMENT_DISPLAYED => [
                 new WebDriverCommand(
@@ -98,7 +98,7 @@ class W3CProtocolTranslatorTest extends TestCase
                 function (array $parameters) {
                     $this->assertRegExp('/\.apply\(null, arguments\)\;\Z/', $parameters['script']);
                     $this->assertEquals([[self::ELEMENT_ID => 'element-ID']], $parameters['args']);
-                }
+                },
             ],
             DriverCommand::SUBMIT_ELEMENT => [
                 new WebDriverCommand(
@@ -109,7 +109,7 @@ class W3CProtocolTranslatorTest extends TestCase
                 function (array $parameters) {
                     $this->assertRegExp('/\Avar form = arguments\[0\]\;/', $parameters['script']);
                     $this->assertEquals([[self::ELEMENT_ID => 'element-ID']], $parameters['args']);
-                }
+                },
             ],
             DriverCommand::SEND_KEYS_TO_ELEMENT => [
                 new WebDriverCommand(
@@ -122,11 +122,11 @@ class W3CProtocolTranslatorTest extends TestCase
                         [
                             'text' => 'Test message',
                             'value' => ['T', 'e', 's', 't', ' ', 'm', 'e', 's', 's', 'a', 'g', 'e'],
-                            ':id' => 'element-ID'
+                            ':id' => 'element-ID',
                         ],
                         $parameters
                     );
-                }
+                },
             ],
             DriverCommand::SWITCH_TO_WINDOW => [
                 new WebDriverCommand(
@@ -134,7 +134,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     DriverCommand::SWITCH_TO_WINDOW,
                     ['name' => 'window-ID']
                 ),
-                ['handle' => 'window-ID']
+                ['handle' => 'window-ID'],
             ],
             DriverCommand::MOUSE_UP => [
                 new WebDriverCommand(
@@ -153,7 +153,7 @@ class W3CProtocolTranslatorTest extends TestCase
                                 [
                                     'type' => 'pointer',
                                     'parameters' => [
-                                        'pointerType' => 'mouse'
+                                        'pointerType' => 'mouse',
                                     ],
                                     'id' => 'mouse-ID',
                                     'actions' => [
@@ -161,14 +161,14 @@ class W3CProtocolTranslatorTest extends TestCase
                                             'type' => 'pointerUp',
                                             'duration' => 0,
                                             'button' => 0,
-                                        ]
-                                    ]
-                                ]
-                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                         $parameters
                     );
-                }
+                },
             ],
             DriverCommand::MOUSE_DOWN => [
                 new WebDriverCommand(
@@ -187,7 +187,7 @@ class W3CProtocolTranslatorTest extends TestCase
                                 [
                                     'type' => 'pointer',
                                     'parameters' => [
-                                        'pointerType' => 'mouse'
+                                        'pointerType' => 'mouse',
                                     ],
                                     'id' => 'mouse-ID',
                                     'actions' => [
@@ -195,14 +195,14 @@ class W3CProtocolTranslatorTest extends TestCase
                                             'type' => 'pointerDown',
                                             'duration' => 0,
                                             'button' => 0,
-                                        ]
-                                    ]
-                                ]
-                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                         $parameters
                     );
-                }
+                },
             ],
             DriverCommand::CLICK => [
                 new WebDriverCommand(
@@ -228,7 +228,7 @@ class W3CProtocolTranslatorTest extends TestCase
                     $this->assertEquals('pointerUp', $parameters['actions'][0]['actions'][1]['type']);
                     $this->assertEquals('pointerDown', $parameters['actions'][0]['actions'][2]['type']);
                     $this->assertEquals('pointerUp', $parameters['actions'][0]['actions'][3]['type']);
-                }
+                },
             ],
             DriverCommand::MOVE_TO => [
                 new WebDriverCommand(
@@ -239,7 +239,7 @@ class W3CProtocolTranslatorTest extends TestCase
                 function (array $parameters, $commandName) {
                     $this->assertEquals(DriverCommand::ACTIONS, $commandName);
                     $this->assertEquals('pointerMove', $parameters['actions'][0]['actions'][0]['type']);
-                }
+                },
             ],
         ];
     }

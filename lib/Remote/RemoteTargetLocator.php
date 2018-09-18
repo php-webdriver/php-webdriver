@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverAlert;
 use Facebook\WebDriver\WebDriverElement;

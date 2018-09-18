@@ -41,7 +41,7 @@ class WebDriverResponseFactoryTest extends TestCase
             'sessionId' => $sessionId = 'ssid-dd344-dds2-445533sdd-sss',
             'value' => $value = [
                 'data' => 1,
-            ]
+            ],
         ];
 
         $response = WebDriverResponseFactory::create($results);
@@ -58,7 +58,7 @@ class WebDriverResponseFactoryTest extends TestCase
                 'capabilities' => $value = [
                     'data' => 1,
                 ],
-            ]
+            ],
         ];
 
         $response = WebDriverResponseFactory::create($results);
@@ -94,8 +94,8 @@ class WebDriverResponseFactoryTest extends TestCase
         $dialect = WebDriverDialect::createW3C();
         $result = [
             'value' => [
-                'error' => $error
-            ]
+                'error' => $error,
+            ],
         ];
         WebDriverResponseFactory::checkExecutorResult($dialect, $result);
     }

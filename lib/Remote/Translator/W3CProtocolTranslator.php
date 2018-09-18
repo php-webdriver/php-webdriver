@@ -49,7 +49,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'method' => 'GET',
             'url' => '/session/:sessionId/element/:id/css/:propertyName',
         ],
-        DriverCommand::GET_ELEMENT_RECT => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect',],
+        DriverCommand::GET_ELEMENT_RECT => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
         DriverCommand::GET_ELEMENT_LOCATION => DriverCommand::GET_ELEMENT_RECT,
         DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW => DriverCommand::EXECUTE_SCRIPT,
         DriverCommand::GET_ELEMENT_SIZE => DriverCommand::GET_ELEMENT_RECT,
@@ -175,22 +175,6 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
     }
 
     /**
-     * @param string $commandName
-     * @return array
-     */
-    private function loadCommandMeta($commandName)
-    {
-        if (!isset(self::$commands[$commandName])) {
-            throw new \InvalidArgumentException($commandName . ' is not a valid command.');
-        }
-        $meta = self::$commands[$commandName];
-        if (is_string($meta)) {
-            return $this->loadCommandMeta($meta);
-        }
-        return $meta;
-    }
-
-    /**
      * @param string $command_name
      * @param array $params
      * @return array
@@ -224,7 +208,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             case DriverCommand::CLICK:
                 $params = [
                     $this->translateActionPointerDown($params),
-                    $this->translateActionPointerUp($params)
+                    $this->translateActionPointerUp($params),
                 ];
                 break;
             case DriverCommand::DOUBLE_CLICK:
@@ -232,7 +216,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                     $this->translateActionPointerDown($params),
                     $this->translateActionPointerUp($params),
                     $this->translateActionPointerDown($params),
-                    $this->translateActionPointerUp($params)
+                    $this->translateActionPointerUp($params),
                 ];
                 break;
             case DriverCommand::MOVE_TO:
@@ -240,6 +224,36 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 break;
         }
         return $params;
+    }
+    
+    /**
+     * @param array $actions
+     * @return array
+     */
+    public function encodeActions($actions)
+    {
+        return [
+            'type' => 'pointer',
+            'parameters' => ['pointerType' => 'mouse'],
+            'id' => uniqid('mouse_', true),
+            'actions' => $actions
+        ];
+    }
+    
+    /**
+     * @param string $commandName
+     * @return array
+     */
+    private function loadCommandMeta($commandName)
+    {
+        if (!isset(self::$commands[$commandName])) {
+            throw new \InvalidArgumentException($commandName . ' is not a valid command.');
+        }
+        $meta = self::$commands[$commandName];
+        if (is_string($meta)) {
+            return $this->loadCommandMeta($meta);
+        }
+        return $meta;
     }
 
     /**
@@ -258,7 +272,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                 ),
                 'args' => [
                     [self::ELEMENT_FILED => $command->getParameters()[':id']],
-                    $command->getParameters()[':name']
+                    $command->getParameters()[':name'],
                 ]
             ]
         );
@@ -275,7 +289,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             DriverCommand::EXECUTE_SCRIPT,
             [
                 'script' => "arguments[0].scrollIntoView(true); return arguments[0].getBoundingClientRect();",
-                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]]
+                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]],
             ]
         );
     }
@@ -295,7 +309,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                     file_get_contents(__DIR__ . '/resources/isDisplayed.js')
                 ),
                 'args' => [
-                    [self::ELEMENT_FILED => $command->getParameters()[':id']]
+                    [self::ELEMENT_FILED => $command->getParameters()[':id']],
                 ]
             ]
         );
@@ -320,7 +334,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
                     "var e = form.ownerDocument.createEvent('Event');\n" .
                     "e.initEvent('submit', true, true);\n" .
                     "if (form.dispatchEvent(e)) { HTMLFormElement.prototype.submit.call(form) }\n",
-                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]]
+                'args' => [[self::ELEMENT_FILED => $command->getParameters()[':id']]],
             ]
         );
     }
@@ -337,7 +351,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             [
                 'text' => implode($command->getParameters()['value']),
                 'value' => W3CKeysEncoder::encode($command->getParameters()['value']),
-                ':id' => $command->getParameters()[':id']
+                ':id' => $command->getParameters()[':id'],
             ]
         );
     }
@@ -403,9 +417,10 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         return new WebDriverCommand(
             $command->getSessionID(),
             DriverCommand::ACTIONS,
-            ['actions' => [$this->encodeActions(
-                $this->translateParameters($command->getName(), $command->getParameters())
-            )
+            ['actions' => [
+                $this->encodeActions(
+                    $this->translateParameters($command->getName(), $command->getParameters())
+                ),
             ]]
         );
     }
@@ -418,7 +433,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
     {
         $w3cParams = [
             'type' => 'pointerMove',
-            'duration' => 250
+            'duration' => 250,
         ];
         $w3cParams['x'] = !empty($params['xoffset']) ? (int) $params['xoffset'] : 0;
         $w3cParams['y'] = !empty($params['yoffset']) ? (int) $params['yoffset'] : 0;
@@ -439,7 +454,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         return [
             'type' => 'pointerDown',
             'duration' => 0,
-            'button' => isset($params['button']) ? $params['button'] : 0
+            'button' => isset($params['button']) ? $params['button'] : 0,
         ];
     }
 
@@ -452,7 +467,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         return [
             'type' => 'pointerUp',
             'duration' => 0,
-            'button' => isset($params['button']) ? $params['button'] : 0
+            'button' => isset($params['button']) ? $params['button'] : 0,
         ];
     }
 
@@ -464,21 +479,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
     {
         return [
             'type' => 'pause',
-            'duration' => $params['duration'] * 1000
-        ];
-    }
-
-    /**
-     * @param array $actions
-     * @return array
-     */
-    public function encodeActions($actions)
-    {
-        return [
-            'type' => 'pointer',
-            'parameters' => ['pointerType' => 'mouse'],
-            'id' => uniqid('mouse_', true),
-            'actions' => $actions
+            'duration' => $params['duration'] * 1000,
         ];
     }
 }

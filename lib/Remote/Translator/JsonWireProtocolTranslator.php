@@ -136,6 +136,7 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
             throw new \InvalidArgumentException($command->getName() . ' is not a valid command.');
         }
         $meta = self::$commands[$command->getName()];
+
         return new ExecutableWebDriverCommand(
             $meta['url'],
             $meta['method'],
@@ -157,6 +158,7 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
                 $params['value'] = WebDriverKeys::encode($params['value']);
                 break;
         }
+
         return $params;
     }
 }

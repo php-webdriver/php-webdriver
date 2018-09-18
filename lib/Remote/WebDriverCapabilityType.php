@@ -74,14 +74,14 @@ class WebDriverCapabilityType
         $profile = !empty($capabilities['firefox_profile']) ? $capabilities['firefox_profile'] : null;
         $alwaysMatch = [];
         if (!empty($capabilities['proxy']['proxyType'])) {
-            $capabilities['proxy']['proxyType'] = strtolower($capabilities['proxy']['proxyType']);
+            $capabilities['proxy']['proxyType'] = mb_strtolower($capabilities['proxy']['proxyType']);
         }
 
         foreach ($capabilities as $k => $v) {
             if (!empty($v) && in_array($k, self::PROTOCOLS_CONVERSION, true)) {
-                $alwaysMatch[self::PROTOCOLS_CONVERSION[$k]] = ($k === 'platform') ? strtolower($v) : $v;
+                $alwaysMatch[self::PROTOCOLS_CONVERSION[$k]] = ($k === 'platform') ? mb_strtolower($v) : $v;
             }
-            if (in_array($k, self::W3C_CAPABILITY_NAME, true) || false !== strpos($k, ':')) {
+            if (in_array($k, self::W3C_CAPABILITY_NAME, true) || false !== mb_strpos($k, ':')) {
                 $alwaysMatch[$k] = $v;
             }
         }
@@ -96,7 +96,7 @@ class WebDriverCapabilityType
         }
 
         return [
-            'alwaysMatch' => $alwaysMatch
+            'alwaysMatch' => $alwaysMatch,
         ];
     }
 }

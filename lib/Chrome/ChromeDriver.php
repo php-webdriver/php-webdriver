@@ -77,7 +77,6 @@ class ChromeDriver extends RemoteWebDriver
      * @param DesiredCapabilities $required_capabilities
      * @param LoggerInterface|null $logger
      * @throws WebDriverException
-     * @return void
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',

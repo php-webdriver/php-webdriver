@@ -20,6 +20,14 @@ class WebDriverDialect
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->dialect;
+    }
+
+    /**
      * @return WebDriverDialect
      */
     public static function createW3C()
@@ -52,14 +60,7 @@ class WebDriverDialect
         if (!isset($result['status'])) {
             return self::createW3C();
         }
-        return self::createJsonWireProtocol();
-    }
 
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->dialect;
+        return self::createJsonWireProtocol();
     }
 }

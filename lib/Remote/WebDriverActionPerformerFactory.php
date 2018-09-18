@@ -5,16 +5,14 @@ namespace Facebook\WebDriver\Remote;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\Action\JsonWireProtocolActionPerformer;
 use Facebook\WebDriver\Remote\Action\W3CProtocolActionPerformer;
-use Facebook\WebDriver\Remote\Action\WebDriverActionPerformer;
-use PhpCoveralls\Bundle\CoverallsBundle\Entity\Git\Remote;
 
 class WebDriverActionPerformerFactory
 {
     /**
      * @param WebDriverDialect $dialect
      * @param RemoteExecuteMethod $interactionExecutionMethod
-     * @return JsonWireProtocolActionPerformer|W3CProtocolActionPerformer
      * @throws WebDriverException
+     * @return JsonWireProtocolActionPerformer|W3CProtocolActionPerformer
      */
     public static function create(
         WebDriverDialect $dialect,
@@ -22,7 +20,8 @@ class WebDriverActionPerformerFactory
     ) {
         if (!$dialect->isW3C()) {
             return new JsonWireProtocolActionPerformer();
-        } elseif ($interactionExecutionMethod instanceof BunchActionExecuteMethod) {
+        }
+        if ($interactionExecutionMethod instanceof BunchActionExecuteMethod) {
             return new W3CProtocolActionPerformer($interactionExecutionMethod);
         }
         throw new WebDriverException('Cannot resolve dialect: ' . $dialect);

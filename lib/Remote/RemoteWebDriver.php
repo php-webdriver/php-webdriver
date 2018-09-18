@@ -63,8 +63,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param HttpCommandExecutor $commandExecutor
      * @param WebDriverDialect $dialect
      * @param string $sessionId
-     * @throws WebDriverException
      * @param WebDriverCapabilities|null $capabilities
+     * @throws WebDriverException
      */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
@@ -469,18 +469,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * @throws WebDriverException
-     * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
-     */
-    private function getActionPerformer()
-    {
-        return WebDriverActionPerformerFactory::create(
-            $this->getDialect(),
-            $this->getInteractionExecuteMethod()
-        );
-    }
-
-    /**
      * Set the command executor of this RemoteWebdriver
      *
      * @deprecated To be removed in the future. Executor should be passed in the constructor.
@@ -587,8 +575,32 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $result = $this->executor->execute($executableCommand);
             $response = WebDriverResponseFactory::create($result, $this->dialect);
             return $response->getValue();
+
         }
+
         return null;
+    }
+    
+    /**
+     * @return RemoteExecuteMethod
+     */
+    public function getExecuteMethod()
+    {
+        return new RemoteExecuteMethod($this);
+    }
+    
+    /**
+     * @return RemoteExecuteMethod | BunchActionExecuteMethod
+     */
+    public function getInteractionExecuteMethod()
+    {
+        if (null === $this->interactionExecutionMethod) {
+            $this->interactionExecutionMethod = $this->dialect->isW3C()
+                ? new BunchActionExecuteMethod($this)
+                : new RemoteExecuteMethod($this);
+        }
+
+        return $this->interactionExecutionMethod;
     }
 
     /**
@@ -612,27 +624,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return $args;
-    }
-
-    /**
-     * @return RemoteExecuteMethod
-     */
-    public function getExecuteMethod()
-    {
-        return new RemoteExecuteMethod($this);
-    }
-
-    /**
-     * @return RemoteExecuteMethod | BunchActionExecuteMethod
-     */
-    public function getInteractionExecuteMethod()
-    {
-        if (null === $this->interactionExecutionMethod) {
-            $this->interactionExecutionMethod = $this->dialect->isW3C()
-                ? new BunchActionExecuteMethod($this)
-                : new RemoteExecuteMethod($this);
-        }
-        return $this->interactionExecutionMethod;
     }
 
     /**
@@ -665,5 +656,17 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return $desired_capabilities;
+    }
+    
+    /**
+     * @throws WebDriverException
+     * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
+     */
+    private function getActionPerformer()
+    {
+        return WebDriverActionPerformerFactory::create(
+            $this->getDialect(),
+            $this->getInteractionExecuteMethod()
+        );
     }
 }
