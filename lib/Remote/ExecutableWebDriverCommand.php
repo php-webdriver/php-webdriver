@@ -4,11 +4,9 @@ namespace Facebook\WebDriver\Remote;
 
 /**
  * Class ExecutableWebDriverCommand
- * @package Facebook\WebDriver\Remote
  */
 class ExecutableWebDriverCommand
 {
-
     /**
      * @var string
      */

@@ -415,7 +415,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         if ($this->dialect->isW3C()) {
             return $this->id === $other->getID();
         }
-    
+
         return $this->executor->execute(DriverCommand::ELEMENT_EQUALS, [
             ':id' => $this->id,
             ':other' => $other->getID(),

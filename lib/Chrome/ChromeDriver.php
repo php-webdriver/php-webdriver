@@ -61,7 +61,7 @@ class ChromeDriver extends RemoteWebDriver
         );
         $result = $this->executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
         $response = WebDriverResponseFactory::create($result);
-    
+
         $this->sessionID = $response->getSessionID();
     }
 
@@ -76,8 +76,8 @@ class ChromeDriver extends RemoteWebDriver
      * @param int|null $http_proxy_port
      * @param DesiredCapabilities $required_capabilities
      * @param LoggerInterface|null $logger
-     * @return void
      * @throws WebDriverException
+     * @return void
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',
@@ -100,8 +100,8 @@ class ChromeDriver extends RemoteWebDriver
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
-     * @return RemoteWebDriver|void
      * @throws WebDriverException
+     * @return RemoteWebDriver|void
      */
     public static function createBySessionID(
         $session_id,

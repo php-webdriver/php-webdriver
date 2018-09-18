@@ -76,7 +76,7 @@ class WebDriverCapabilityType
         if (!empty($capabilities['proxy']['proxyType'])) {
             $capabilities['proxy']['proxyType'] = strtolower($capabilities['proxy']['proxyType']);
         }
-    
+
         foreach ($capabilities as $k => $v) {
             if (!empty($v) && in_array($k, self::PROTOCOLS_CONVERSION, true)) {
                 $alwaysMatch[self::PROTOCOLS_CONVERSION[$k]] = ($k === 'platform') ? strtolower($v) : $v;
@@ -85,7 +85,7 @@ class WebDriverCapabilityType
                 $alwaysMatch[$k] = $v;
             }
         }
-    
+
         if ($profile) {
             $mozOpts = !empty($alwaysMatch['moz:firefoxOptions']) ? $alwaysMatch['moz:firefoxOptions'] : [];
             if (!array_key_exists('profile', $mozOpts)) {
@@ -94,7 +94,7 @@ class WebDriverCapabilityType
                 $alwaysMatch['moz:firefoxOptions'] = $newMozOpts;
             }
         }
-    
+
         return [
             'alwaysMatch' => $alwaysMatch
         ];

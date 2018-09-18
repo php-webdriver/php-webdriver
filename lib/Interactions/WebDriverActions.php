@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Interactions;
 
-use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverClickAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;

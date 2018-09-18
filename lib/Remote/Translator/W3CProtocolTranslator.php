@@ -127,7 +127,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         if (!isset(self::$commands[$command->getName()])) {
             throw new \InvalidArgumentException($command->getName() . ' is not a valid command.');
         }
-    
+
         switch ($command->getName()) {
             case DriverCommand::SET_SCRIPT_TIMEOUT:
                 $command = $this->translateSetScriptTimeout($command);

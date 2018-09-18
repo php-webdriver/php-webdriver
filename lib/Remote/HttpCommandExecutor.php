@@ -19,7 +19,6 @@ use BadMethodCallException;
 use Facebook\WebDriver\Exception\WebDriverCurlException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\WebDriverCommandExecutor;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -77,7 +76,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
         $this->setRequestTimeout(30000);
         $this->setConnectionTimeout(30000);
-    
+
         $this->logger = new NullLogger();
     }
 
@@ -158,11 +157,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
-    
+
         curl_setopt($this->curl, CURLOPT_VERBOSE, true);
         $verbose = fopen('php://temp', 'w+');
         curl_setopt($this->curl, CURLOPT_STDERR, $verbose);
-    
+
         // https://github.com/facebook/php-webdriver/issues/173
         if ($command->getName() === DriverCommand::NEW_SESSION) {
             curl_setopt($this->curl, CURLOPT_POST, 1);
@@ -188,7 +187,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $raw_results = trim(curl_exec($this->curl));
         rewind($verbose);
         $curlContent = stream_get_contents($verbose);
-    
+
         if ($error = curl_error($this->curl)) {
             $msg = sprintf(
                 'Curl error thrown for http %s to %s',
@@ -222,10 +221,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             [
                 'url' => $this->url . $url,
                 'payload' => $encoded_params,
-                'response' => $results
+                'response' => $results,
             ]
         );
-    
+
         return $results;
     }
 

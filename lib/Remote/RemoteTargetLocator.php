@@ -112,7 +112,6 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      * currently "switched to", or the body element if this cannot be detected.
      *
      * @return RemoteWebElement
-     * @throws WebDriverException
      */
     public function activeElement()
     {

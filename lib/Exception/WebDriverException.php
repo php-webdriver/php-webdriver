@@ -165,7 +165,7 @@ class WebDriverException extends Exception
             case 'no such alert':
                 throw new NoAlertOpenException($error, $results);
             default:
-                throw new WebDriverException($error, $results);
+                throw new self($error, $results);
         }
     }
 }

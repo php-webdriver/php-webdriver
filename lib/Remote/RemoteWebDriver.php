@@ -17,10 +17,10 @@ namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Exception\UnknownServerException;
 use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
-use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
+use Facebook\WebDriver\Remote\Translator\JsonWireProtocolTranslator;
+use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverCapabilities;
@@ -63,8 +63,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param HttpCommandExecutor $commandExecutor
      * @param WebDriverDialect $dialect
      * @param string $sessionId
-     * @param WebDriverCapabilities|null $capabilities
      * @throws WebDriverException
+     * @param WebDriverCapabilities|null $capabilities
      */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
@@ -93,8 +93,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param int|null $http_proxy_port The proxy port to tunnel requests to the remote Selenium WebDriver through
      * @param DesiredCapabilities $required_capabilities The required capabilities
      * @param LoggerInterface|null $logger
-     * @return static
      * @throws WebDriverException
+     * @return static
      */
     public static function create(
         $selenium_server_url = 'http://localhost:4444/wd/hub',
@@ -133,14 +133,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             DriverCommand::NEW_SESSION,
             [
                 'capabilities' => WebDriverCapabilityType::makeW3C($desired_capabilities->toArray()),
-                'desiredCapabilities' => $desired_capabilities->toArray()
+                'desiredCapabilities' => $desired_capabilities->toArray(),
             ]
         );
 
         $result = $executor->execute(ExecutableWebDriverCommand::getNewSessionCommand($command));
         $dialect = WebDriverDialect::guessByNewSessionResultBody($result);
         $response = WebDriverResponseFactory::create($result);
-    
+
         $returnedCapabilities = new DesiredCapabilities($response->getValue());
 
         $driver = new static($executor, $dialect, $response->getSessionID(), $returnedCapabilities);
@@ -158,8 +158,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string $session_id The existing session id
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
-     * @return static
      * @throws WebDriverException
+     * @return static
      */
     public static function createBySessionID(
         $session_id,
@@ -460,8 +460,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Construct a new action builder.
      *
-     * @return WebDriverActions
      * @throws WebDriverException
+     * @return WebDriverActions
      */
     public function action()
     {
@@ -469,8 +469,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
      * @throws WebDriverException
+     * @return Action\JsonWireProtocolActionPerformer|Action\W3CProtocolActionPerformer
      */
     private function getActionPerformer()
     {
@@ -547,9 +547,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      *
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int $timeout_in_ms
-     * @return array
      * @throws UnknownServerException
      * @throws WebDriverException
+     * @return array
      */
     public static function getAllSessions($selenium_server_url = 'http://localhost:4444/wd/hub', $timeout_in_ms = 30000)
     {
@@ -564,15 +564,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $result = $executor->execute((new JsonWireProtocolTranslator())->translateCommand($command));
         $response = WebDriverResponseFactory::create($result, WebDriverDialect::createJsonWireProtocol());
-    
+
         return $response->getValue();
     }
 
     /**
      * @param string $command_name
      * @param array $params
-     * @return mixed|null
      * @throws WebDriverException
+     * @return mixed|null
      */
     public function execute($command_name, $params = [])
     {
@@ -639,8 +639,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * Return the WebDriverElement with the given id.
      *
      * @param string $id The id of the element to be created.
-     * @return RemoteWebElement
      * @throws WebDriverException
+     * @return RemoteWebElement
      */
     protected function newElement($id)
     {

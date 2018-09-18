@@ -7,7 +7,7 @@ use Facebook\WebDriver\Exception\WebDriverException;
 class WebDriverResponseFactory
 {
     /**
-     * @param $result
+     * @param mixed $result
      * @param WebDriverDialect|null $dialect
      * @return WebDriverResponse
      * @throws WebDriverException
