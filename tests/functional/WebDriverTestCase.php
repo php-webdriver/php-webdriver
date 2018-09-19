@@ -60,6 +60,9 @@ class WebDriverTestCase extends TestCase
                 $chromeOptions->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             }
+            if ($browserName === WebDriverBrowserType::FIREFOX) {
+                $this->desiredCapabilities = DesiredCapabilities::firefox();
+            }
 
             $this->desiredCapabilities->setBrowserName($browserName);
         }

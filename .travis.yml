@@ -41,7 +41,7 @@ matrix:
 
     # Saucelabs builds
     - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="latest" PLATFORM="Windows 10"
+      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="61.0" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
