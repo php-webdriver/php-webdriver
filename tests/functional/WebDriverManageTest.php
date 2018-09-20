@@ -1,0 +1,123 @@
+<?php
+// Copyright 2004-present Facebook. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+namespace Facebook\WebDriver;
+
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
+
+
+/**
+ * @coversDefaultClass \Facebook\WebDriver\WebDriverOptions
+ * @coversDefaultClass \Facebook\WebDriver\WebDriverWindow
+ */
+class WebDriverManageTest extends WebDriverTestCase
+{
+    /**
+     * @covers WebDriverWindow::maximize
+     */
+    public function testShouldMaximizeWindow()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->manage()->window()->maximize();
+    }
+
+    /**
+     * @covers WebDriverWindow::minimize
+     */
+    public function testShouldMinimizeWindow()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        if (false === $this->driver->getDialect()->isW3C()) {
+            $this->markTestSkipped('Minimize is supported only in W3C');
+        }
+
+        $this->driver->manage()->window()->minimize();
+    }
+
+    /**
+     * @covers WebDriverWindow::fullscreen
+     */
+    public function testShouldFullscreenWindow()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        if (false === $this->driver->getDialect()->isW3C()) {
+            $this->markTestSkipped('Fullscreen is supported only in W3C');
+        }
+        $this->driver->manage()->window()->fullscreen();
+    }
+
+    /**
+     * @covers WebDriverWindow::setSize
+     * @covers WebDriverWindow::getSize
+     * @covers WebDriverWindow::getScreenOrientation
+     * @covers WebDriverWindow::setScreenOrientation
+     * @covers WebDriverWindow::setPosition
+     * @covers WebDriverWindow::getPosition
+     */
+    public function testShouldSetSizeAndGetPositionWindow()
+    {
+        if (WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
+            $this->markTestSkipped('Chrome does not cooperate. Some capabilities?');
+        }
+        
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $window = $this->driver->manage()->window();
+
+        $window->setSize(new WebDriverDimension(500, 600));
+        $size = $window->getSize();
+        $this->assertEquals(500, $size->getWidth());
+        $this->assertEquals(600, $size->getHeight());
+
+        $this->assertEquals('PORTRAIT', $window->getScreenOrientation());
+        $window->setScreenOrientation('LANDSCAPE');
+        $this->assertEquals('LANDSCAPE', $window->getScreenOrientation());
+        
+        $window->setPosition(new WebDriverPoint(20, 40));
+        $point = $window->getPosition();
+        $this->assertEquals(20, $point->getX());
+        $this->assertEquals(40, $point->getY());
+    }
+
+    /**
+     * @covers WebDriverOptions::addCookie
+     * @covers WebDriverOptions::getCookies
+     * @covers WebDriverOptions::getCookieNamed
+     * @covers WebDriverOptions::deleteCookieNamed
+     * @covers WebDriverOptions::deleteAllCookies
+     */
+    public function testShouldSetReadAndDeleteCookie()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $manage = $this->driver->manage();
+        
+        $cookieName = \uniqid('cookie_');
+        $manage->addCookie(new Cookie($cookieName, '1'));
+        $manage->addCookie(new Cookie('another_cookie', '2'));
+
+        $this->assertCount(1, array_filter(
+            $manage->getCookies(),
+            function (Cookie $cookie) use ($cookieName) {
+                return $cookieName === $cookie->getName();
+            }
+        ));
+
+        $this->assertEquals(1, $manage->getCookieNamed($cookieName)->getValue());
+        $manage->deleteCookieNamed($cookieName);
+        $this->assertCount(1, $manage->getCookies());
+
+        $manage->deleteAllCookies();
+        $this->assertCount(0, $manage->getCookies());
+    }
+}

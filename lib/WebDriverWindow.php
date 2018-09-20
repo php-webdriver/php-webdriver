@@ -24,6 +24,9 @@ use Facebook\WebDriver\Remote\ExecuteMethod;
  */
 class WebDriverWindow
 {
+    const ORIENTATION_LANDSCAPE = 'LANDSCAPE';
+    const ORIENTATION_PORTRAIT = 'PORTRAIT';
+    
     /**
      * @var ExecuteMethod
      */
@@ -88,6 +91,36 @@ class WebDriverWindow
     }
 
     /**
+     * Minimizes the current window if it is not already minimized
+     *
+     * @return WebDriverWindow The instance.
+     */
+    public function minimize()
+    {
+        $this->executor->execute(
+            DriverCommand::MINIMIZE_WINDOW,
+            []
+        );
+
+        return $this;
+    }
+
+    /**
+     * Set the current window in fullscreen if it is not already set
+     *
+     * @return WebDriverWindow The instance.
+     */
+    public function fullscreen()
+    {
+        $this->executor->execute(
+            DriverCommand::FULLSCREEN_WINDOW,
+            []
+        );
+
+        return $this;
+    }
+
+    /**
      * Set the size of the current window. This will change the outer window
      * dimension, not just the view port.
      *
@@ -132,6 +165,14 @@ class WebDriverWindow
      */
     public function getScreenOrientation()
     {
+        if ($this->executor->getDialect()->isW3C()) {
+            $size = $this->getSize();
+
+            return ($size->getHeight() >= $size->getWidth())
+                ? self::ORIENTATION_PORTRAIT
+                : self::ORIENTATION_LANDSCAPE;
+        }
+        
         return $this->executor->execute(DriverCommand::GET_SCREEN_ORIENTATION);
     }
 
@@ -146,10 +187,20 @@ class WebDriverWindow
     public function setScreenOrientation($orientation)
     {
         $orientation = mb_strtoupper($orientation);
-        if (!in_array($orientation, ['PORTRAIT', 'LANDSCAPE'])) {
+        if (!in_array($orientation, [self::ORIENTATION_PORTRAIT, self::ORIENTATION_LANDSCAPE], true)) {
             throw new IndexOutOfBoundsException(
                 'Orientation must be either PORTRAIT, or LANDSCAPE'
             );
+        }
+
+        if ($this->executor->getDialect()->isW3C()) {
+            $currentOrientation = $this->getScreenOrientation();
+            if ($currentOrientation !== $orientation) {
+                $size = $this->getSize();
+                $this->setSize(new WebDriverDimension($size->getHeight(), $size->getWidth()));
+            }
+            
+            return $this;
         }
 
         $this->executor->execute(

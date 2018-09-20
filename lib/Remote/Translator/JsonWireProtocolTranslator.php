@@ -23,6 +23,8 @@ use Facebook\WebDriver\WebDriverKeys;
 
 class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
 {
+    const ELEMENT_FIELD = 'ELEMENT';
+
     /**
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#command-reference
      */
@@ -173,5 +175,15 @@ class JsonWireProtocolTranslator implements WebDriverProtocolTranslator
         }
 
         return $params;
+    }
+
+    /**
+     * @param string $command_name
+     * @param mixed $value
+     * @return mixed
+     */
+    public function translateResponse($command_name, $value)
+    {
+        return $value;
     }
 }

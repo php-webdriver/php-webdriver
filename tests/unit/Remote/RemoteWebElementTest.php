@@ -30,8 +30,13 @@ class RemoteWebElementTest extends TestCase
      */
     public function testShouldConstructNewInstance()
     {
+        /** @var RemoteExecuteMethod $executeMethod */
         $executeMethod = $this->createMock(RemoteExecuteMethod::class);
-        $element = new RemoteWebElement($executeMethod, WebDriverDialect::createJsonWireProtocol(), 333);
+        $executeMethod
+            ->expects($this->once())
+            ->method('getDialect')
+            ->willReturn(WebDriverDialect::createW3C());
+        $element = new RemoteWebElement($executeMethod, 333);
 
         $this->assertSame(333, $element->getID());
     }

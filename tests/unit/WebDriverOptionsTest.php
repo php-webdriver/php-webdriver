@@ -17,6 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
+use Facebook\WebDriver\Remote\WebDriverDialect;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,6 +33,10 @@ class WebDriverOptionsTest extends TestCase
         $this->executor = $this->getMockBuilder(ExecuteMethod::class)
             ->disableOriginalConstructor()
             ->getMock();
+        
+        $this->executor
+            ->method('getDialect')
+            ->willReturn($this->createMock(WebDriverDialect::class));
     }
 
     public function testShouldAddCookieFromArray()

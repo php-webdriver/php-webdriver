@@ -271,16 +271,17 @@ class W3CProtocolTranslatorTest extends TestCase
         $systemUnderTest = new W3CProtocolTranslator();
         $systemUnderTest->translateCommand($command);
     }
-
+    
     /**
      * @dataProvider getParametersDataProvider
      * @param string $commandName
      * @param array $params
+     * @param array $expectedParams
      */
-    public function testShouldTranslateParameters($commandName, $params)
+    public function testShouldTranslateParameters($commandName, $params, $expectedParams)
     {
         $systemUnderTest = new W3CProtocolTranslator();
-        $this->assertNotEquals($params, $systemUnderTest->translateParameters($commandName, $params));
+        $this->assertEquals($expectedParams, $systemUnderTest->translateParameters($commandName, $params));
     }
 
     /**
@@ -407,9 +408,11 @@ class W3CProtocolTranslatorTest extends TestCase
                 DriverCommand::MOUSE_UP,
                 [],
                 [
-                    'type' => 'pointerUp',
-                    'duration' => 0,
-                    'button' => 0,
+                    [
+                        'type' => 'pointerUp',
+                        'duration' => 0,
+                        'button' => 0,
+                    ]
                 ],
             ],
             DriverCommand::MOUSE_DOWN => [
@@ -418,25 +421,17 @@ class W3CProtocolTranslatorTest extends TestCase
                     'button' => 2,
                 ],
                 [
-                    'type' => 'pointerDown',
-                    'duration' => 0,
-                    'button' => 2,
+                    [
+                        'type' => 'pointerDown',
+                        'duration' => 0,
+                        'button' => 2,
+                    ]
                 ],
             ],
             DriverCommand::CLICK => [
                 DriverCommand::CLICK,
                 [],
                 [
-                    [
-                        'type' => 'pointerDown',
-                        'duration' => 0,
-                        'button' => 0,
-                    ],
-                    [
-                        'type' => 'pointerUp',
-                        'duration' => 0,
-                        'button' => 0,
-                    ],
                     [
                         'type' => 'pointerDown',
                         'duration' => 0,
@@ -475,25 +470,30 @@ class W3CProtocolTranslatorTest extends TestCase
                         'duration' => 0,
                         'button' => 2,
                     ],
-                    [
-                        'type' => 'pointerDown',
-                        'duration' => 0,
-                        'button' => 2,
+                ],
+            ],
+            DriverCommand::ADD_COOKIE => [
+                DriverCommand::ADD_COOKIE,
+                [
+                    'cookie' => [
+                        'name' => null,
+                        'value' => null,
+                        'path' => null,
+                        'domain' => null,
+                        'expiry' => null,
+                        'secure' => null,
+                        'httpOnly' => null,
                     ],
-                    [
-                        'type' => 'pointerUp',
-                        'duration' => 0,
-                        'button' => 2,
-                    ],
-                    [
-                        'type' => 'pointerDown',
-                        'duration' => 0,
-                        'button' => 2,
-                    ],
-                    [
-                        'type' => 'pointerUp',
-                        'duration' => 0,
-                        'button' => 2,
+                ],
+                [
+                    'cookie' => [
+                        'name' => null,
+                        'value' => null,
+                        'path' => null,
+                        'domain' => null,
+                        'expiry' => null,
+                        'secure' => false,
+                        'httpOnly' => false,
                     ],
                 ],
             ],

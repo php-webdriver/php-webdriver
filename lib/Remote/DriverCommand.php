@@ -140,8 +140,11 @@ class DriverCommand
     const SET_WINDOW_RECT = 'setWindowRect';
     const SET_WINDOW_POSITION = 'setWindowPosition';
     const GET_WINDOW_SIZE = 'getWindowSize';
+    const GET_WINDOW_RECT = 'getWindowRect';
     const GET_WINDOW_POSITION = 'getWindowPosition';
     const MAXIMIZE_WINDOW = 'maximizeWindow';
+    const MINIMIZE_WINDOW = 'minimizeWindow';
+    const FULLSCREEN_WINDOW = 'fullscreenWindow';
     // Logging API
     const GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes';
     const GET_LOG = 'getLog';

@@ -38,4 +38,11 @@ interface WebDriverProtocolTranslator
      * @return array
      */
     public function translateParameters($command_name, $params);
+
+    /**
+     * @param string $command_name
+     * @param mixed $value
+     * @return mixed
+     */
+    public function translateResponse($command_name, $value);
 }

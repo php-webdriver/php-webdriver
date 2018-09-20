@@ -42,4 +42,12 @@ class RemoteExecuteMethod implements ExecuteMethod
     {
         return $this->driver->execute($command_name, $parameters);
     }
+    
+    /**
+     * @return WebDriverDialect
+     */
+    public function getDialect()
+    {
+        return $this->driver->getDialect();
+    }
 }

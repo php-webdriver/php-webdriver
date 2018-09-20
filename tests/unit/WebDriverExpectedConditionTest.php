@@ -36,6 +36,9 @@ class WebDriverExpectedConditionTest extends TestCase
     protected function setUp()
     {
         $this->driverMock = $this->createMock(RemoteWebDriver::class);
+        $this->driverMock
+            ->method('getDialect')
+            ->willReturn(WebDriverDialect::createJsonWireProtocol());
         $this->wait = new WebDriverWait($this->driverMock, 1, 1);
     }
 
@@ -119,11 +122,7 @@ class WebDriverExpectedConditionTest extends TestCase
 
     public function testShouldDetectPresenceOfElementLocatedCondition()
     {
-        $element = new RemoteWebElement(
-            new RemoteExecuteMethod($this->driverMock),
-            WebDriverDialect::createJsonWireProtocol(),
-            'id'
-        );
+        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
 
         $this->driverMock->expects($this->at(0))
             ->method('findElement')

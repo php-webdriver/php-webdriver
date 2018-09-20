@@ -30,18 +30,13 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      */
     protected $executor;
     /**
-     * @var string
-     */
-    protected $dialect;
-    /**
      * @var WebDriver
      */
     protected $driver;
 
-    public function __construct($executor, $dialect, $driver)
+    public function __construct($executor, $driver)
     {
         $this->executor = $executor;
-        $this->dialect = $dialect;
         $this->driver = $driver;
     }
 
@@ -117,6 +112,6 @@ class RemoteTargetLocator implements WebDriverTargetLocator
         $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT, []);
         $method = new RemoteExecuteMethod($this->driver);
 
-        return new RemoteWebElement($method, $this->dialect, $response['ELEMENT']);
+        return new RemoteWebElement($method, $response['ELEMENT']);
     }
 }

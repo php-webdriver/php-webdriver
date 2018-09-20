@@ -76,20 +76,17 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         DriverCommand::GET_CAPABILITIES => ['method' => 'GET', 'url' => '/session/:sessionId'],
         DriverCommand::GET_TITLE => ['method' => 'GET', 'url' => '/session/:sessionId/title'],
         DriverCommand::GET_WINDOW_HANDLES => ['method' => 'GET', 'url' => '/session/:sessionId/window/handles'],
-        DriverCommand::GET_WINDOW_POSITION => [
-            'method' => 'GET',
-            'url' => '/session/:sessionId/window/:windowHandle/position',
-        ],
-        DriverCommand::GET_WINDOW_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/window/:windowHandle/rect'],
+        DriverCommand::GET_WINDOW_POSITION => DriverCommand::GET_WINDOW_RECT,
+        DriverCommand::GET_WINDOW_RECT => ['method' => 'GET', 'url' => '/session/:sessionId/window/rect'],
+        DriverCommand::GET_WINDOW_SIZE => DriverCommand::GET_WINDOW_RECT,
         DriverCommand::GO_BACK => ['method' => 'POST', 'url' => '/session/:sessionId/back'],
         DriverCommand::GO_FORWARD => ['method' => 'POST', 'url' => '/session/:sessionId/forward'],
         DriverCommand::IS_ELEMENT_DISPLAYED => DriverCommand::EXECUTE_SCRIPT,
         DriverCommand::IS_ELEMENT_ENABLED => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/enabled'],
         DriverCommand::IS_ELEMENT_SELECTED => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/selected'],
-        DriverCommand::MAXIMIZE_WINDOW => [
-            'method' => 'POST',
-            'url' => '/session/:sessionId/window/:windowHandle/maximize',
-        ],
+        DriverCommand::MAXIMIZE_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/maximize'],
+        DriverCommand::MINIMIZE_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/minimize'],
+        DriverCommand::FULLSCREEN_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/fullscreen'],
         DriverCommand::MOUSE_DOWN => DriverCommand::ACTIONS,
         DriverCommand::MOUSE_UP => DriverCommand::ACTIONS,
         DriverCommand::CLICK => DriverCommand::ACTIONS,
@@ -103,13 +100,9 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
         DriverCommand::SET_ALERT_VALUE => ['method' => 'POST', 'url' => '/session/:sessionId/alert/text'],
         DriverCommand::SEND_KEYS_TO_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'],
         DriverCommand::IMPLICITLY_WAIT => DriverCommand::SET_TIMEOUT,
-        DriverCommand::SET_SCREEN_ORIENTATION => ['method' => 'POST', 'url' => '/session/:sessionId/orientation'],
         DriverCommand::SET_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
         DriverCommand::SET_SCRIPT_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
-        DriverCommand::SET_WINDOW_POSITION => [
-            'method' => 'POST',
-            'url' => '/session/:sessionId/window/:windowHandle/position',
-        ],
+        DriverCommand::SET_WINDOW_POSITION => DriverCommand::SET_WINDOW_RECT,
         DriverCommand::SET_WINDOW_RECT => ['method' => 'POST', 'url' => '/session/:sessionId/window/rect'],
         DriverCommand::SET_WINDOW_SIZE => DriverCommand::SET_WINDOW_RECT,
         DriverCommand::SUBMIT_ELEMENT => DriverCommand::EXECUTE_SCRIPT,
@@ -238,11 +231,33 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             case DriverCommand::MOVE_TO:
                 $params = [$this->translateActionPointerMoveTo($params)];
                 break;
+            case DriverCommand::ADD_COOKIE:
+                $params = $this->translateAddCookie($params);
+                break;
         }
 
         return $params;
     }
 
+    /**
+     * @param string $command_name
+     * @param mixed $value
+     * @return mixed
+     */
+    public function translateResponse($command_name, $value)
+    {
+        if (\is_array($value)) {
+            foreach ($value as $index => $v) {
+                if (self::ELEMENT_FILED === $index) {
+                    $index = JsonWireProtocolTranslator::ELEMENT_FIELD;
+                }
+                $value[$index] = $this->translateResponse($command_name, $v);
+            }
+        }
+
+        return $value;
+    }
+    
     /**
      * @param array $actions
      * @return array
@@ -488,6 +503,23 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
             'duration' => 0,
             'button' => isset($params['button']) ? $params['button'] : 0,
         ];
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    private function translateAddCookie(array $params)
+    {
+        $cookie = $params['cookie'];
+        if (null === $cookie['secure']) {
+            $params['cookie']['secure'] = false;
+        }
+        if (null === $cookie['httpOnly']) {
+            $params['cookie']['httpOnly'] = false;
+        }
+
+        return $params;
     }
 
     /**

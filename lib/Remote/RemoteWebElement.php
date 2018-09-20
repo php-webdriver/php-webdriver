@@ -36,10 +36,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected $executor;
     /**
-     * @var WebDriverDialect
-     */
-    protected $dialect;
-    /**
      * @var string
      */
     protected $id;
@@ -54,16 +50,14 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
 
     /**
      * @param RemoteExecuteMethod $executor
-     * @param WebDriverDialect $dialect
      * @param string $id
      */
-    public function __construct(RemoteExecuteMethod $executor, $dialect, $id)
+    public function __construct(RemoteExecuteMethod $executor, $id)
     {
         $this->executor = $executor;
-        $this->dialect = $dialect;
         $this->id = $id;
         $this->fileDetector = new UselessFileDetector();
-        $this->protocolTranslator = WebDriverTranslatorFactory::createByDialect($this->dialect);
+        $this->protocolTranslator = WebDriverTranslatorFactory::createByDialect($this->executor->getDialect());
     }
 
     /**
@@ -116,7 +110,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             $this->protocolTranslator->translateParameters(DriverCommand::FIND_CHILD_ELEMENT, $params)
         );
 
-        return $this->newElement($this->protocolTranslator->translateElement($raw_element));
+        return $this->newElement($raw_element['ELEMENT']);
     }
 
     /**
@@ -141,7 +135,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($this->protocolTranslator->translateElement($raw_element));
+            $elements[] = $this->newElement($raw_element['ELEMENT']);
         }
 
         return $elements;
@@ -412,7 +406,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function equals(WebDriverElement $other)
     {
-        if ($this->dialect->isW3C()) {
+        if ($this->executor->getDialect()->isW3C()) {
             return $this->id === $other->getID();
         }
 
@@ -431,7 +425,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected function newElement($id)
     {
-        return new static($this->executor, $this->dialect, $id);
+        return new static($this->executor, $id);
     }
 
     /**

@@ -17,6 +17,8 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
+use Facebook\WebDriver\Remote\Translator\WebDriverProtocolTranslator;
+use Facebook\WebDriver\Remote\WebDriverTranslatorFactory;
 use InvalidArgumentException;
 
 /**
@@ -28,10 +30,15 @@ class WebDriverOptions
      * @var ExecuteMethod
      */
     protected $executor;
+    /**
+     * @var WebDriverProtocolTranslator
+     */
+    protected $translator;
 
     public function __construct(ExecuteMethod $executor)
     {
         $this->executor = $executor;
+        $this->translator = WebDriverTranslatorFactory::createByDialect($executor->getDialect());
     }
 
     /**
@@ -52,7 +59,7 @@ class WebDriverOptions
 
         $this->executor->execute(
             DriverCommand::ADD_COOKIE,
-            ['cookie' => $cookie->toArray()]
+            $this->translator->translateParameters(DriverCommand::ADD_COOKIE, ['cookie' => $cookie->toArray()])
         );
 
         return $this;

@@ -215,7 +215,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $this->protocolTranslator->translateParameters(DriverCommand::FIND_ELEMENT, $params)
         );
 
-        return $this->newElement($this->protocolTranslator->translateElement($raw_element));
+        return $this->newElement($raw_element['ELEMENT']);
     }
 
     /**
@@ -235,7 +235,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($this->protocolTranslator->translateElement($raw_element));
+            $elements[] = $this->newElement($raw_element['ELEMENT']);
         }
 
         return $elements;
@@ -431,7 +431,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function switchTo()
     {
-        return new RemoteTargetLocator($this->getExecuteMethod(), $this->dialect, $this);
+        return new RemoteTargetLocator($this->getExecuteMethod(), $this);
     }
 
     /**
@@ -576,7 +576,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $result = $this->executor->execute($executableCommand);
             $response = WebDriverResponseFactory::create($result, $this->dialect);
 
-            return $response->getValue();
+            return $this->protocolTranslator->translateResponse($command_name, $response->getValue());
         }
 
         return null;
@@ -636,7 +636,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     protected function newElement($id)
     {
-        return new RemoteWebElement($this->getExecuteMethod(), $this->dialect, $id);
+        return new RemoteWebElement($this->getExecuteMethod(), $id);
     }
 
     /**
