@@ -19,7 +19,6 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 
 /**
- * @coversDefaultClass \Facebook\WebDriver\WebDriverOptions
  * @coversDefaultClass \Facebook\WebDriver\WebDriverWindow
  */
 class WebDriverManageTest extends WebDriverTestCase
