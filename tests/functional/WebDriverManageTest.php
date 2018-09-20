@@ -24,7 +24,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 class WebDriverManageTest extends WebDriverTestCase
 {
     /**
-     * @covers WebDriverWindow::maximize
+     * @covers ::maximize
      */
     public function testShouldMaximizeWindow()
     {
@@ -33,7 +33,7 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @covers WebDriverWindow::minimize
+     * @covers ::minimize
      */
     public function testShouldMinimizeWindow()
     {
@@ -46,7 +46,7 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @covers WebDriverWindow::fullscreen
+     * @covers ::fullscreen
      */
     public function testShouldFullscreenWindow()
     {
@@ -58,15 +58,18 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @covers WebDriverWindow::setSize
-     * @covers WebDriverWindow::getSize
-     * @covers WebDriverWindow::getScreenOrientation
-     * @covers WebDriverWindow::setScreenOrientation
-     * @covers WebDriverWindow::setPosition
-     * @covers WebDriverWindow::getPosition
+     * @covers ::setSize
+     * @covers ::getSize
+     * @covers ::getScreenOrientation
+     * @covers ::setScreenOrientation
+     * @covers ::setPosition
+     * @covers ::getPosition
      */
     public function testShouldSetSizeAndGetPositionWindow()
     {
+        if (WebDriverBrowserType::HTMLUNIT === $this->driver->getCapabilities()->getBrowserName()) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
         if (WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
             $this->markTestSkipped('Chrome does not cooperate. Some capabilities?');
         }
@@ -90,11 +93,11 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @covers WebDriverOptions::addCookie
-     * @covers WebDriverOptions::getCookies
-     * @covers WebDriverOptions::getCookieNamed
-     * @covers WebDriverOptions::deleteCookieNamed
-     * @covers WebDriverOptions::deleteAllCookies
+     * @covers ::addCookie
+     * @covers ::getCookies
+     * @covers ::getCookieNamed
+     * @covers ::deleteCookieNamed
+     * @covers ::deleteAllCookies
      */
     public function testShouldSetReadAndDeleteCookie()
     {
