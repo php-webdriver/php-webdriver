@@ -26,7 +26,7 @@ class WebDriverWindow
 {
     const ORIENTATION_LANDSCAPE = 'LANDSCAPE';
     const ORIENTATION_PORTRAIT = 'PORTRAIT';
-    
+
     /**
      * @var ExecuteMethod
      */
@@ -172,7 +172,7 @@ class WebDriverWindow
                 ? self::ORIENTATION_PORTRAIT
                 : self::ORIENTATION_LANDSCAPE;
         }
-        
+
         return $this->executor->execute(DriverCommand::GET_SCREEN_ORIENTATION);
     }
 
@@ -199,7 +199,7 @@ class WebDriverWindow
                 $size = $this->getSize();
                 $this->setSize(new WebDriverDimension($size->getHeight(), $size->getWidth()));
             }
-            
+
             return $this;
         }
 

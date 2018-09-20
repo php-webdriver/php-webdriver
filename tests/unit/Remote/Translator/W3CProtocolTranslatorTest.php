@@ -271,7 +271,7 @@ class W3CProtocolTranslatorTest extends TestCase
         $systemUnderTest = new W3CProtocolTranslator();
         $systemUnderTest->translateCommand($command);
     }
-    
+
     /**
      * @dataProvider getParametersDataProvider
      * @param string $commandName
@@ -412,7 +412,7 @@ class W3CProtocolTranslatorTest extends TestCase
                         'type' => 'pointerUp',
                         'duration' => 0,
                         'button' => 0,
-                    ]
+                    ],
                 ],
             ],
             DriverCommand::MOUSE_DOWN => [
@@ -425,7 +425,7 @@ class W3CProtocolTranslatorTest extends TestCase
                         'type' => 'pointerDown',
                         'duration' => 0,
                         'button' => 2,
-                    ]
+                    ],
                 ],
             ],
             DriverCommand::CLICK => [

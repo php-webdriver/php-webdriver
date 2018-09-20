@@ -33,7 +33,7 @@ class WebDriverOptionsTest extends TestCase
         $this->executor = $this->getMockBuilder(ExecuteMethod::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->executor
             ->method('getDialect')
             ->willReturn($this->createMock(WebDriverDialect::class));

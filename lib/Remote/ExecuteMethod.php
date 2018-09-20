@@ -23,7 +23,7 @@ interface ExecuteMethod
      * @return WebDriverResponse
      */
     public function execute($command_name, array $parameters = []);
-    
+
     /**
      * @return WebDriverDialect
      */

@@ -257,7 +257,7 @@ class W3CProtocolTranslator implements WebDriverProtocolTranslator
 
         return $value;
     }
-    
+
     /**
      * @param array $actions
      * @return array

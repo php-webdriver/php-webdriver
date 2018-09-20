@@ -17,7 +17,6 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
-
 /**
  * @coversDefaultClass \Facebook\WebDriver\WebDriverWindow
  */
@@ -73,7 +72,7 @@ class WebDriverManageTest extends WebDriverTestCase
         if (WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
             $this->markTestSkipped('Chrome does not cooperate. Some capabilities?');
         }
-        
+
         $this->driver->get($this->getTestPageUrl('index.html'));
         $window = $this->driver->manage()->window();
 
@@ -85,7 +84,7 @@ class WebDriverManageTest extends WebDriverTestCase
         $this->assertEquals('PORTRAIT', $window->getScreenOrientation());
         $window->setScreenOrientation('LANDSCAPE');
         $this->assertEquals('LANDSCAPE', $window->getScreenOrientation());
-        
+
         $window->setPosition(new WebDriverPoint(20, 40));
         $point = $window->getPosition();
         $this->assertEquals(20, $point->getX());
@@ -103,7 +102,7 @@ class WebDriverManageTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
         $manage = $this->driver->manage();
-        
+
         $cookieName = \uniqid('cookie_');
         $manage->addCookie(new Cookie($cookieName, '1'));
         $manage->addCookie(new Cookie('another_cookie', '2'));
