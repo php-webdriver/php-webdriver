@@ -23,6 +23,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 class WebDriverManageTest extends WebDriverTestCase
 {
     /**
+     * @group exclude-travis
      * @covers ::maximize
      */
     public function testShouldMaximizeWindow()
@@ -32,6 +33,7 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-travis
      * @covers ::minimize
      */
     public function testShouldMinimizeWindow()
@@ -92,11 +94,11 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::addCookie
-     * @covers ::getCookies
-     * @covers ::getCookieNamed
-     * @covers ::deleteCookieNamed
-     * @covers ::deleteAllCookies
+     * @covers \Facebook\WebDriver\WebDriverOptions::addCookie
+     * @covers \Facebook\WebDriver\WebDriverOptions::getCookies
+     * @covers \Facebook\WebDriver\WebDriverOptions::getCookieNamed
+     * @covers \Facebook\WebDriver\WebDriverOptions::deleteCookieNamed
+     * @covers \Facebook\WebDriver\WebDriverOptions::deleteAllCookies
      */
     public function testShouldSetReadAndDeleteCookie()
     {

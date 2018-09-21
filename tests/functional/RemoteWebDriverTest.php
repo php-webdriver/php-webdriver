@@ -77,6 +77,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
             $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
         }
@@ -98,6 +101,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
             $this->markTestSkipped('POST /sessions is not support in W3C protocol.');
         }

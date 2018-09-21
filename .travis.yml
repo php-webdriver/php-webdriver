@@ -19,7 +19,7 @@ matrix:
   include:
     # Add build to run tests against Firefox inside Travis environment
     - php: 7.2
-      env: BROWSER_NAME="firefox"
+      env: BROWSER_NAME="firefox" MOZ_HEADLESS=1
       addons:
         firefox: "latest"
 
@@ -103,9 +103,9 @@ before_script:
   - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
 
 script:
-  - if [ -n "$SAUCELABS" ]; then EXCLUDE_GROUP+="exclude-saucelabs,"; fi
-  - if [ "$BROWSER_NAME" = "MicrosoftEdge" ]; then EXCLUDE_GROUP+="exclude-edge,"; fi
-  - if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
+  - if [ -n "$SAUCELABS" ]; then EXCLUDE_GROUP+=",exclude-saucelabs,"; fi
+  - if [ "$BROWSER_NAME" = "MicrosoftEdge" ]; then EXCLUDE_GROUP+=",exclude-edge,"; fi
+  - if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group exclude-travis$EXCLUDE_GROUP";php  fi
   - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml $EXTRA_PARAMS
 
 after_script:
