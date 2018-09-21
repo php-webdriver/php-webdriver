@@ -30,7 +30,7 @@ class RemoteWebElementTest extends TestCase
      */
     public function testShouldConstructNewInstance()
     {
-        /** @var RemoteExecuteMethod $executeMethod */
+        /** @var RemoteExecuteMethod | \PHPUnit_Framework_MockObject_MockObject $executeMethod */
         $executeMethod = $this->createMock(RemoteExecuteMethod::class);
         $executeMethod
             ->expects($this->once())
