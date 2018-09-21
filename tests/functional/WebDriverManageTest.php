@@ -47,6 +47,7 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-travis
      * @covers ::fullscreen
      */
     public function testShouldFullscreenWindow()
