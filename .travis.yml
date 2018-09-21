@@ -106,7 +106,7 @@ script:
   - EXCLUDE_GROUP="exclude-travis"
   - if [ -n "$SAUCELABS" ]; then EXCLUDE_GROUP+=",exclude-saucelabs,"; fi
   - if [ "$BROWSER_NAME" = "MicrosoftEdge" ]; then EXCLUDE_GROUP+=",exclude-edge,"; fi
-  - if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP";php  fi
+  - if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
   - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml $EXTRA_PARAMS
 
 after_script:
