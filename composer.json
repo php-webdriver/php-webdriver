@@ -14,9 +14,9 @@
   "require": {
     "php": "^5.6 || ~7.0",
     "symfony/process": "^2.8 || ^3.1 || ^4.0 || ^5.0",
+    "symfony/polyfill-mbstring": "^1.12",
     "ext-curl": "*",
     "ext-zip": "*",
-    "ext-mbstring": "*",
     "ext-json": "*"
   },
   "require-dev": {
