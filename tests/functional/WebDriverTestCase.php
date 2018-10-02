@@ -61,7 +61,11 @@ class WebDriverTestCase extends TestCase
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             }
             if ($browserName === WebDriverBrowserType::FIREFOX) {
+                if (getenv('GECKODRIVER')) {
+                    $this->serverUrl = 'http://localhost:4444';
+                }
                 $this->desiredCapabilities = DesiredCapabilities::firefox();
+                $this->desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['--headless']]);
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);

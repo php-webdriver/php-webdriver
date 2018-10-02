@@ -13,13 +13,19 @@ env:
     - DISPLAY=:99.0
     - BROWSER_NAME="htmlunit"
     - CHROMEDRIVER_VERSION="2.38"
-    - GECKODRIVER_VERSION="0.21.0"
+    - GECKODRIVER_VERSION="0.22.0"
 
 matrix:
   include:
     # Add build to run tests against Firefox inside Travis environment
     - php: 7.2
-      env: BROWSER_NAME="firefox" MOZ_HEADLESS=1
+      env: BROWSER_NAME="firefox" MOZ_HEADLESS="1"
+      addons:
+        firefox: "latest"
+
+    # Add build to run tests against Firefox inside Travis environment with native geckodriver
+    - php: 7.2
+      env: BROWSER_NAME="firefox" GECKODRIVER="1" MOZ_HEADLESS="1"
       addons:
         firefox: "latest"
 

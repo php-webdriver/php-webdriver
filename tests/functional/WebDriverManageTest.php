@@ -28,6 +28,9 @@ class WebDriverManageTest extends WebDriverTestCase
      */
     public function testShouldMaximizeWindow()
     {
+        if ($this->driver->getCapabilities()->is('moz:headless')) {
+            $this->markTestSkipped('Cannot be executed in headless mode.');
+        }
         $this->driver->get($this->getTestPageUrl('index.html'));
         $this->driver->manage()->window()->maximize();
     }
@@ -38,11 +41,13 @@ class WebDriverManageTest extends WebDriverTestCase
      */
     public function testShouldMinimizeWindow()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
         if (false === $this->driver->getDialect()->isW3C()) {
-            $this->markTestSkipped('Minimize is supported only in W3C');
+            $this->markTestSkipped('Minimize window command is not supported in OSS protocol.');
         }
-
+        if ($this->driver->getCapabilities()->is('moz:headless')) {
+            $this->markTestSkipped('Cannot be executed in headless mode.');
+        }
+        $this->driver->get($this->getTestPageUrl('index.html'));
         $this->driver->manage()->window()->minimize();
     }
 
@@ -52,10 +57,13 @@ class WebDriverManageTest extends WebDriverTestCase
      */
     public function testShouldFullscreenWindow()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
         if (false === $this->driver->getDialect()->isW3C()) {
-            $this->markTestSkipped('Fullscreen is supported only in W3C');
+            $this->markTestSkipped('Minimize window command is not supported in OSS protocol.');
         }
+        if ($this->driver->getCapabilities()->is('moz:headless')) {
+            $this->markTestSkipped('Cannot be executed in headless mode.');
+        }
+        $this->driver->get($this->getTestPageUrl('index.html'));
         $this->driver->manage()->window()->fullscreen();
     }
 
@@ -73,7 +81,7 @@ class WebDriverManageTest extends WebDriverTestCase
             $this->markTestSkipped('Not supported by HtmlUnit browser');
         }
         if (WebDriverBrowserType::CHROME === $this->driver->getCapabilities()->getBrowserName()) {
-            $this->markTestSkipped('Chrome does not cooperate. Some capabilities?');
+            $this->markTestSkipped('Chrome does not support screen orientation commands.');
         }
 
         $this->driver->get($this->getTestPageUrl('index.html'));
