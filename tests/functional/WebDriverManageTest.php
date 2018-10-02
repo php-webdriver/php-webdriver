@@ -23,7 +23,6 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 class WebDriverManageTest extends WebDriverTestCase
 {
     /**
-     * @group exclude-travis
      * @covers ::maximize
      */
     public function testShouldMaximizeWindow()
@@ -36,7 +35,6 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-travis
      * @covers ::minimize
      */
     public function testShouldMinimizeWindow()
@@ -52,7 +50,6 @@ class WebDriverManageTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-travis
      * @covers ::fullscreen
      */
     public function testShouldFullscreenWindow()
