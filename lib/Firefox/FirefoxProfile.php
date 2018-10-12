@@ -196,6 +196,8 @@ class FirefoxProfile
     /**
      * @param string $extension The path to the extension.
      * @param string $profile_dir The path to the profile directory.
+     * @throws WebDriverException
+     * @throws \Exception
      * @return string The path to the directory of this extension.
      */
     private function installExtension($extension, $profile_dir)
@@ -208,28 +210,31 @@ class FirefoxProfile
         $mozilla_rsa_binary_data = file_get_contents($mozilla_rsa_path);
         $mozilla_rsa_hex = bin2hex($mozilla_rsa_binary_data);
 
-        //Find plugin id. This is second occurrence of object identifyer "2.5.4.3 commonName"
-        $object_identifyer_hex_marker = '0603550403';
-        $first_marker_pos_in_hex = mb_strpos($mozilla_rsa_hex, $object_identifyer_hex_marker);
+        //We need to find plugin id. This is second occurrence of object identifier "2.5.4.3 commonName"
+
+        //That is marker "2.5.4.3 commonName" in hex:
+        $object_identifier_hex_marker = '0603550403';
+
+        $first_marker_pos_in_hex = strpos($mozilla_rsa_hex, $object_identifier_hex_marker); // phpcs:ignore
 
         $second_marker_pos_in_hex_string =
-            mb_strpos($mozilla_rsa_hex, $object_identifyer_hex_marker, $first_marker_pos_in_hex + 2);
+            strpos($mozilla_rsa_hex, $object_identifier_hex_marker, $first_marker_pos_in_hex + 2);
 
         if ($second_marker_pos_in_hex_string === false) {
             throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
         }
 
         $common_name_string_position_in_binary =
-            ($second_marker_pos_in_hex_string + mb_strlen($object_identifyer_hex_marker)) / 2;
+            ($second_marker_pos_in_hex_string + strlen($object_identifier_hex_marker)) / 2;
 
         $common_name_string_length = ord($mozilla_rsa_binary_data[$common_name_string_position_in_binary + 1]);
-        $addon_common_name = mb_substr(
+        $addon_common_name = substr(
             $mozilla_rsa_binary_data,
             $common_name_string_position_in_binary + 2,
             $common_name_string_length
         );
 
-        if (empty($addon_common_name)) {
+        if (!preg_match('/^\\{[0-9a-f-]{36}\\}$/', $addon_common_name)) {
             throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
         }
 
@@ -243,6 +248,11 @@ class FirefoxProfile
 
         if (!copy($extension, $ext_dir . $addon_common_name . '.xpi')) {
             throw new WebDriverException('Cannot install extension - cannot copy file');
+        }
+
+        //extension installation with empty preferences (empty users.js) fails:
+        if (empty($this->preferences)) {
+            $this->setPreference('dom.webdriver.enabled', true);
         }
 
         return $ext_dir;
