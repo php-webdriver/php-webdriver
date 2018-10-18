@@ -174,6 +174,14 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
+        @$urlHost = parse_url($url, PHP_URL_HOST);
+        @$urlHost = explode('.',$url);
+        @end($urlHost);
+        $key = key($urlHost);
+        if ($urlHost !== false AND $urlHost[$key] === 'local') {
+            curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
+        }
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
         $this->setRequestTimeout(30000);
         $this->setConnectionTimeout(30000);
