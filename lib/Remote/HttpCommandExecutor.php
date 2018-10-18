@@ -177,7 +177,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         @$urlHost = parse_url($url, PHP_URL_HOST);
         @$urlHost = explode('.',$url);
         @end($urlHost);
-        $key = key($urlHost);
+        @$key = key($urlHost);
         if ($urlHost !== false AND $urlHost[$key] === 'local') {
             curl_setopt($this->curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
