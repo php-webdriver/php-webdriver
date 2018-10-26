@@ -37,15 +37,24 @@ class HttpCommandExecutorTest extends TestCase
      * @param bool $shouldResetExpectHeader
      * @param string $expectedUrl
      * @param string $expectedPostData
+     * @param null|array $customCommandParameters
      */
     public function testShouldSendRequestToAssembledUrl(
         $command,
         array $params,
         $shouldResetExpectHeader,
         $expectedUrl,
-        $expectedPostData
+        $expectedPostData,
+        $customCommandParameters = null
     ) {
         $command = new WebDriverCommand('foo-123', $command, $params);
+
+        if ($customCommandParameters !== null) {
+            $command->setCustomRequestParameters(
+                $customCommandParameters['url'],
+                $customCommandParameters['method']
+            );
+        }
 
         $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
         $curlSetoptMock->expects($this->at(0))
@@ -118,6 +127,28 @@ class HttpCommandExecutorTest extends TestCase
                 false,
                 'http://localhost:4444/sessions',
                 null,
+            ],
+            'Custom GET command' => [
+                DriverCommand::CUSTOM_COMMAND,
+                [':someParameter' => 'someValue'],
+                false,
+                'http://localhost:4444/session/foo-123/custom-command/someValue',
+                null,
+                [
+                    'url' => '/session/:sessionId/custom-command/:someParameter',
+                    'method' => 'GET',
+                ],
+            ],
+            'Custom POST command' => [
+                DriverCommand::CUSTOM_COMMAND,
+                ['someParameter' => 'someValue'],
+                true,
+                'http://localhost:4444/session/foo-123/custom-post-command/',
+                '{"someParameter":"someValue"}',
+                [
+                    'url' => '/session/:sessionId/custom-post-command/',
+                    'method' => 'POST',
+                ],
             ],
         ];
     }
