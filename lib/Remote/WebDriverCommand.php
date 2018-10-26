@@ -2,14 +2,22 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\WebDriverException;
+
 class WebDriverCommand
 {
+    const METHOD_GET = 'GET';
+    const METHOD_POST = 'POST';
     /** @var string */
     private $sessionID;
     /** @var string */
     private $name;
     /** @var array */
     private $parameters;
+    /** @var string */
+    private $customUrl;
+    /** @var string */
+    private $customMethod;
 
     /**
      * @param string $session_id
@@ -46,5 +54,49 @@ class WebDriverCommand
     public function getParameters()
     {
         return $this->parameters;
+    }
+
+    /**
+     * @param string $custom_url
+     * @param string $custom_method
+     * @throws WebDriverException
+     */
+    public function setCustomRequestParameters($custom_url, $custom_method)
+    {
+        if (!in_array($custom_method, [static::METHOD_GET, static::METHOD_POST])) {
+            throw new WebDriverException('Invalid custom method');
+        }
+        $this->customMethod = $custom_method;
+
+        if (mb_substr($custom_url, 0, 1) !== '/') {
+            throw new WebDriverException('Custom url should start with /');
+        }
+        $this->customUrl = $custom_url;
+    }
+
+    /**
+     * @throws WebDriverException
+     * @return string
+     */
+    public function getCustomUrl()
+    {
+        if ($this->customUrl === null) {
+            throw new WebDriverException('Custom url is not set');
+        }
+
+        return $this->customUrl;
+    }
+
+    /**
+     * @throws WebDriverException
+     * @return string
+     */
+    public function getCustomMethod()
+    {
+        if ($this->customUrl === null) {
+            throw new WebDriverException('Custom url is not set');
+        }
+
+        return $this->customMethod;
     }
 }
