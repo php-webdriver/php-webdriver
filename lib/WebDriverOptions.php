@@ -17,6 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
+use Facebook\WebDriver\Remote\WebDriverResponse;
 use InvalidArgumentException;
 
 /**
@@ -71,7 +72,7 @@ class WebDriverOptions
     }
 
     /**
-     * Delete the cookie with the give name.
+     * Delete the cookie with the given name.
      *
      * @param string $name
      * @return WebDriverOptions The current instance.
@@ -146,7 +147,7 @@ class WebDriverOptions
      * Get the log for a given log type. Log buffer is reset after each request.
      *
      * @param string $log_type The log type.
-     * @return array The list of log entries.
+     * @return WebDriverResponse The list of log entries.
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#log-type
      */
     public function getLog($log_type)
@@ -160,7 +161,7 @@ class WebDriverOptions
     /**
      * Get available log types.
      *
-     * @return array The list of available log types.
+     * @return WebDriverResponse The list of available log types.
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#log-type
      */
     public function getAvailableLogTypes()
