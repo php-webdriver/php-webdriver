@@ -55,6 +55,12 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertSame('j3a', $c->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    public function testGetFirstSelectedOptionWithSameNameDifferentForm()
+    {
+        $radio = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@id="j4b"]')));
+        $this->assertEquals('j4b', $radio->getFirstSelectedOption()->getAttribute('value'));
+    }
+
     public function testSelectByValue()
     {
         $c = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));

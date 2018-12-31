@@ -51,6 +51,12 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertSame('j2a', $c->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    public function testGetFirstSelectedOptionWithSameNameDifferentForm()
+    {
+        $radio = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@id="j5b"]')));
+        $this->assertEquals('j5b', $radio->getFirstSelectedOption()->getAttribute('value'));
+    }
+
     public function testSelectByValue()
     {
         $selectedOptions = ['j2b', 'j2c'];

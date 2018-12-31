@@ -218,12 +218,17 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
             }
         }
 
-        return $this->element->findElements(WebDriverBy::xpath(sprintf(
-            '//form[@id = %1$s]//input[@name = %2$s%3$s] | //input[@form = %1$s and @name = %2$s%3$s]',
-            XPathEscaper::escapeQuotes($formId),
-            XPathEscaper::escapeQuotes($this->name),
-            $valueSelector
-        )));
+        // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#form
+        return $this->element->findElements(
+            WebDriverBy::xpath(sprintf(
+                '//form[@id = %1$s]//input[@name = %2$s%3$s'
+                . ' and ((boolean(@form) = true() and @form = %1$s) or boolean(@form) = false())]'
+                . ' | //input[@form = %1$s and @name = %2$s%3$s]',
+                XPathEscaper::escapeQuotes($formId),
+                XPathEscaper::escapeQuotes($this->name),
+                $valueSelector
+            ))
+        );
     }
 
     /**
