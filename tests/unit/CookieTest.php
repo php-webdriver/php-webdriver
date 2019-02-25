@@ -63,6 +63,28 @@ class CookieTest extends TestCase
     }
 
     /**
+     * Test that there are no null values in the cookie array.
+     *
+     * Both JsonWireProtocol and w3c protocol say to leave an entry off
+     * rather than having a null value.
+     *
+     * https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
+     * https://w3c.github.io/webdriver/#add-cookie
+     */
+    public function testShouldNotContainNullValues()
+    {
+        $cookie = new Cookie('cookieName', 'someValue');
+
+        $cookie->setHttpOnly(null);
+        $cookie->setPath(null);
+        $cookieArray = $cookie->toArray();
+
+        foreach ($cookieArray as $key => $value) {
+            $this->assertNotNull($value, $key . ' should not be null');
+        }
+    }
+
+    /**
      * @depends testShouldSetAllProperties
      * @param Cookie $cookie
      */
