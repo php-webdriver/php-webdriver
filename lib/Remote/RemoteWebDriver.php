@@ -106,8 +106,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         if ($connection_timeout_in_ms !== null) {
             $executor->setConnectionTimeout($connection_timeout_in_ms);
         }
+        else {
+            $executor->setConnectionTimeout(30000);
+        }
+
         if ($request_timeout_in_ms !== null) {
             $executor->setRequestTimeout($request_timeout_in_ms);
+        }
+        else {
+            $executor->setRequestTimeout(30000);
         }
 
         if ($required_capabilities !== null) {
