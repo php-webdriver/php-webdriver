@@ -257,7 +257,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
-        $screenshotPath = sys_get_temp_dir() . '/selenium-screenshot.png';
+        // Intentionally save screenshot to subdirectory to tests it is being created
+        $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/selenium-screenshot.png';
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
@@ -270,6 +271,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertGreaterThan(0, imagesy($image));
 
         unlink($screenshotPath);
+        rmdir(dirname($screenshotPath));
     }
 
     /**

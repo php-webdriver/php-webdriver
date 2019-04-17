@@ -373,7 +373,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $screenshot = base64_decode(
             $this->execute(DriverCommand::SCREENSHOT)
         );
+
         if ($save_as) {
+            $directoryPath = dirname($save_as);
+
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0777, true);
+            }
+
             file_put_contents($save_as, $screenshot);
         }
 
