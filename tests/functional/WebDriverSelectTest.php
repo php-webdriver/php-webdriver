@@ -20,6 +20,7 @@ use Facebook\WebDriver\Exception\UnexpectedTagNameException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 /**
+ * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\WebDriverSelect
  * @covers \Facebook\WebDriver\Exception\UnexpectedTagNameException
  */

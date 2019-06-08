@@ -18,6 +18,10 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
+/**
+ * @covers \Facebook\WebDriver\WebDriverRadios
+ * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ */
 class WebDriverRadiosTest extends WebDriverTestCase
 {
     protected function setUp()
