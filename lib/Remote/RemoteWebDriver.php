@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
@@ -101,6 +102,19 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
 
         $desired_capabilities = self::castToDesiredCapabilitiesObject($desired_capabilities);
+
+        // Hotfix: W3C WebDriver protocol is not yet supported by php-webdriver, so we must force Chromedriver to
+        // not use the W3C protocol by default (which is what Chromedriver does starting with version 75).
+        if ($desired_capabilities->getBrowserName() === WebDriverBrowserType::CHROME) {
+            $currentChromeOptions = $desired_capabilities->getCapability(ChromeOptions::CAPABILITY);
+            $chromeOptions = !empty($currentChromeOptions) ? $currentChromeOptions : new ChromeOptions();
+
+            if (!isset($chromeOptions->toArray()['w3c'])) {
+                $chromeOptions->setExperimentalOption('w3c', false);
+            }
+
+            $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
+        }
 
         $executor = new HttpCommandExecutor($selenium_server_url, $http_proxy, $http_proxy_port);
         if ($connection_timeout_in_ms !== null) {
