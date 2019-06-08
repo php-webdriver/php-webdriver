@@ -17,6 +17,10 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
+/**
+ * @covers \Facebook\WebDriver\WebDriverCheckboxes
+ * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ */
 class WebDriverCheckboxesTest extends WebDriverTestCase
 {
     protected function setUp()
