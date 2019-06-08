@@ -122,10 +122,7 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->doubleClick($element)
             ->perform();
 
-        $this->assertSame(
-            ['mouseover item-3', 'mousedown item-3', 'mouseup item-3', 'click item-3', 'dblclick item-3'],
-            $this->retrieveLoggedEvents()
-        );
+        $this->assertContains('dblclick item-3', $this->retrieveLoggedEvents());
     }
 
     /**

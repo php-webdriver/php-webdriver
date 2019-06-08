@@ -49,7 +49,7 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
     - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
+      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="74.0" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -58,7 +58,7 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
     - php: 7.2
-      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="15.15063" PLATFORM="Windows 10"
+      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="16.16299" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"

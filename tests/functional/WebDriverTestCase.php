@@ -44,7 +44,7 @@ class WebDriverTestCase extends TestCase
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
-        if ($this->isSauceLabsBuild()) {
+        if (static::isSauceLabsBuild()) {
             $this->setUpSauceLabs();
         } else {
             if (getenv('BROWSER_NAME')) {
@@ -87,7 +87,7 @@ class WebDriverTestCase extends TestCase
     /**
      * @return bool
      */
-    public function isSauceLabsBuild()
+    public static function isSauceLabsBuild()
     {
         return getenv('SAUCELABS') ? true : false;
     }

@@ -42,7 +42,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('delayed_element.html'));
 
-        $this->driver->manage()->timeouts()->implicitlyWait(1);
+        $this->driver->manage()->timeouts()->implicitlyWait(2);
         $element = $this->driver->findElement(WebDriverBy::id('delayed'));
 
         $this->assertInstanceOf(RemoteWebElement::class, $element);
@@ -54,7 +54,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
      */
     public function testShouldFailIfPageIsLoadingLongerThanPageLoadTimeout()
     {
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Not supported by HtmlUnit browser');
         }
 

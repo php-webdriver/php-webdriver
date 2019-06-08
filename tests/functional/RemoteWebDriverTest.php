@@ -145,6 +145,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::executeScript
+     * @group exclude-saucelabs
      */
     public function testShouldExecuteScriptAndDoNotBlockExecution()
     {
@@ -153,17 +154,18 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
+        $start = microtime(true);
         $this->driver->executeScript('
             setTimeout(
-                function(){document.getElementById("id_test").innerHTML = "Text changed by script"},
-                500
+                function(){document.getElementById("id_test").innerHTML = "Text changed by script";},
+                250
             )');
+        $end = microtime(true);
 
-        // Make sure the script don't block the test execution
-        $this->assertSame('Test by ID', $element->getText());
+        $this->assertLessThan(250, $end - $start, 'executeScript() should not block execution');
 
-        // If we wait, the script should be executed
-        usleep(1000000); // wait 1000 ms
+        // If we wait, the script should be executed and its value changed
+        usleep(300000); // wait 300 ms
         $this->assertSame('Text changed by script', $element->getText());
     }
 
@@ -180,6 +182,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
 
+        $start = microtime(true);
         $this->driver->executeAsyncScript(
             'var callback = arguments[arguments.length - 1];
             setTimeout(
@@ -189,6 +192,13 @@ class RemoteWebDriverTest extends WebDriverTestCase
                  },
                 250
             );'
+        );
+        $end = microtime(true);
+
+        $this->assertGreaterThan(
+            0.250,
+            $end - $start,
+            'executeAsyncScript() should block execution until callback() is called'
         );
 
         // The result must be immediately available, as the executeAsyncScript should block the execution until the
@@ -204,7 +214,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
@@ -227,7 +237,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
