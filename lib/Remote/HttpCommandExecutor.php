@@ -273,6 +273,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         if ($http_method === 'POST' && $params && is_array($params)) {
             $encoded_params = json_encode($params);
+        } elseif ($http_method === 'POST' && $encoded_params === null) {
+            // Workaround for bug https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943 in Chrome 75.
+            // Chromedriver now erroneously does not allow POST body to be empty even for the JsonWire protocol.
+            // If the command POST is empty, here we send some dummy data as a workaround:
+            $encoded_params = json_encode(['_' => '_']);
         }
 
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $encoded_params);
