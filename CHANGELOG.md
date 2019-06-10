@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.7.0 - 2019-06-10
 ### Added
 - `WebDriverCheckboxes` and `WebDriverRadios` helper classes to simplify interaction with checkboxes and radio buttons.
 
