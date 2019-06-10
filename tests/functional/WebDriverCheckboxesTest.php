@@ -32,36 +32,64 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
 
     public function testIsMultiple()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
-        $this->assertTrue($c->isMultiple());
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
+
+        $this->assertTrue($checkboxes->isMultiple());
     }
 
     public function testGetOptions()
     {
-        $c = new WebDriverCheckboxes(
+        $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//form[2]//input[@type="checkbox"]'))
         );
-        $this->assertNotEmpty($c->getOptions());
+
+        $this->assertNotEmpty($checkboxes->getOptions());
     }
 
     public function testGetFirstSelectedOption()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
-        $c->selectByValue('j2a');
-        $this->assertSame('j2a', $c->getFirstSelectedOption()->getAttribute('value'));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
+
+        $checkboxes->selectByValue('j2a');
+
+        $this->assertSame('j2a', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
+    }
+
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm()
+    {
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@id="j5b"]'))
+        );
+
+        $this->assertEquals('j5b', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
+    }
+
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId()
+    {
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@id="j5d"]'))
+        );
+
+        $this->assertEquals('j5c', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
     public function testSelectByValue()
     {
         $selectedOptions = ['j2b', 'j2c'];
 
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
         foreach ($selectedOptions as $index => $selectedOption) {
-            $c->selectByValue($selectedOption);
+            $checkboxes->selectByValue($selectedOption);
         }
 
         $selectedValues = [];
-        foreach ($c->getAllSelectedOptions() as $option) {
+        foreach ($checkboxes->getAllSelectedOptions() as $option) {
             $selectedValues[] = $option->getAttribute('value');
         }
         $this->assertSame($selectedOptions, $selectedValues);
@@ -69,24 +97,28 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
 
     public function testSelectByValueInvalid()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
         $this->expectException(NoSuchElementException::class);
         $this->expectExceptionMessage('Cannot locate checkbox with value: notexist');
-        $c->selectByValue('notexist');
+        $checkboxes->selectByValue('notexist');
     }
 
     public function testSelectByIndex()
     {
         $selectedOptions = [1 => 'j2b', 2 => 'j2c'];
 
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
         foreach ($selectedOptions as $index => $selectedOption) {
-            $c->selectByIndex($index);
+            $checkboxes->selectByIndex($index);
         }
 
         $selectedValues = [];
-        foreach ($c->getAllSelectedOptions() as $option) {
+        foreach ($checkboxes->getAllSelectedOptions() as $option) {
             $selectedValues[] = $option->getAttribute('value');
         }
         $this->assertSame(array_values($selectedOptions), $selectedValues);
@@ -94,11 +126,13 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
 
     public function testSelectByIndexInvalid()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
         $this->expectException(NoSuchElementException::class);
         $this->expectExceptionMessage('Cannot locate checkbox with index: ' . PHP_INT_MAX);
-        $c->selectByIndex(PHP_INT_MAX);
+        $checkboxes->selectByIndex(PHP_INT_MAX);
     }
 
     /**
@@ -109,9 +143,13 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      */
     public function testSelectByVisibleText($text, $value)
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
-        $c->selectByVisibleText($text);
-        $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
+
+        $checkboxes->selectByVisibleText($text);
+
+        $this->assertSame($value, $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
     /**
@@ -133,9 +171,13 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      */
     public function testSelectByVisiblePartialText($text, $value)
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
-        $c->selectByVisiblePartialText($text);
-        $this->assertSame($value, $c->getFirstSelectedOption()->getAttribute('value'));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
+
+        $checkboxes->selectByVisiblePartialText($text);
+
+        $this->assertSame($value, $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
     /**
@@ -151,51 +193,61 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
 
     public function testDeselectAll()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
-        $c->selectByIndex(0);
-        $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectAll();
-        $this->assertEmpty($c->getAllSelectedOptions());
+        $checkboxes->selectByIndex(0);
+        $this->assertCount(1, $checkboxes->getAllSelectedOptions());
+        $checkboxes->deselectAll();
+        $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
     public function testDeselectByIndex()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
-        $c->selectByIndex(0);
-        $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectByIndex(0);
-        $this->assertEmpty($c->getAllSelectedOptions());
+        $checkboxes->selectByIndex(0);
+        $this->assertCount(1, $checkboxes->getAllSelectedOptions());
+        $checkboxes->deselectByIndex(0);
+        $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
     public function testDeselectByValue()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
-        $c->selectByValue('j2a');
-        $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectByValue('j2a');
-        $this->assertEmpty($c->getAllSelectedOptions());
+        $checkboxes->selectByValue('j2a');
+        $this->assertCount(1, $checkboxes->getAllSelectedOptions());
+        $checkboxes->deselectByValue('j2a');
+        $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
     public function testDeselectByVisibleText()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
-        $c->selectByVisibleText('J 2 B');
-        $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectByVisibleText('J 2 B');
-        $this->assertEmpty($c->getAllSelectedOptions());
+        $checkboxes->selectByVisibleText('J 2 B');
+        $this->assertCount(1, $checkboxes->getAllSelectedOptions());
+        $checkboxes->deselectByVisibleText('J 2 B');
+        $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
     public function testDeselectByVisiblePartialText()
     {
-        $c = new WebDriverCheckboxes($this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]')));
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
+        );
 
-        $c->selectByVisiblePartialText('2C');
-        $this->assertCount(1, $c->getAllSelectedOptions());
-        $c->deselectByVisiblePartialText('2C');
-        $this->assertEmpty($c->getAllSelectedOptions());
+        $checkboxes->selectByVisiblePartialText('2C');
+        $this->assertCount(1, $checkboxes->getAllSelectedOptions());
+        $checkboxes->deselectByVisiblePartialText('2C');
+        $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 }
