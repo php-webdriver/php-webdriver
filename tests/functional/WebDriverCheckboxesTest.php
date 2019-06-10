@@ -68,6 +68,15 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEquals('j5b', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId()
+    {
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@id="j5d"]'))
+        );
+
+        $this->assertEquals('j5c', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
+    }
+
     public function testSelectByValue()
     {
         $selectedOptions = ['j2b', 'j2c'];

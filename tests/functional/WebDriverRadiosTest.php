@@ -60,9 +60,18 @@ class WebDriverRadiosTest extends WebDriverTestCase
 
     public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm()
     {
-        $radio = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@id="j4b"]')));
+        $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@id="j4b"]')));
 
-        $this->assertEquals('j4b', $radio->getFirstSelectedOption()->getAttribute('value'));
+        $this->assertEquals('j4b', $radios->getFirstSelectedOption()->getAttribute('value'));
+    }
+
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId()
+    {
+        $radios = new WebDriverRadios(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@id="j4c"]'))
+        );
+
+        $this->assertEquals('j4c', $radios->getFirstSelectedOption()->getAttribute('value'));
     }
 
     public function testSelectByValue()
