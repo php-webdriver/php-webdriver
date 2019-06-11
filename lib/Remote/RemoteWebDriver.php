@@ -109,8 +109,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $currentChromeOptions = $desired_capabilities->getCapability(ChromeOptions::CAPABILITY);
             $chromeOptions = !empty($currentChromeOptions) ? $currentChromeOptions : new ChromeOptions();
 
-            if (!isset($chromeOptions->toArray()['w3c'])) {
+            if ($chromeOptions instanceof ChromeOptions && !isset($chromeOptions->toArray()['w3c'])) {
                 $chromeOptions->setExperimentalOption('w3c', false);
+            } elseif (is_array($chromeOptions) && !isset($chromeOptions['w3c'])) {
+                $chromeOptions['w3c'] = false;
             }
 
             $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);

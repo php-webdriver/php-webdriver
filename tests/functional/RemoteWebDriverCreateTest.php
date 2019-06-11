@@ -49,6 +49,19 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
     }
 
+    public function testShouldAcceprCapabilitiesAsAnArray()
+    {
+        // Method has a side-effect of converting whole content of desiredCapabilities to an array
+        $this->desiredCapabilities->toArray();
+
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout
+        );
+    }
+
     public function testShouldCreateWebDriverWithRequiredCapabilities()
     {
         $requiredCapabilities = new DesiredCapabilities();
