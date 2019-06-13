@@ -3,6 +3,11 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.7.1 - 2019-06-13
+### Fixed
+- Error `Call to a member function toArray()` if capabilities were already converted to an array.
+- Temporarily do not send capabilities to disable W3C WebDriver protocol when BrowserStack hub is used.
+
 ## 1.7.0 - 2019-06-10
 ### Added
 - `WebDriverCheckboxes` and `WebDriverRadios` helper classes to simplify interaction with checkboxes and radio buttons.
