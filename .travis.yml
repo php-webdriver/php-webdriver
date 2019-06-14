@@ -47,7 +47,7 @@ matrix:
 
     # Stable Chrome + Chromedriver 75+ inside Travis environment
     - php: '7.3'
-      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" CHROMEDRIVER_VERSION="75.0.3770.8"
+      env: BROWSER_NAME="chrome" CHROME_HEADLESS="1" CHROMEDRIVER_VERSION="75.0.3770.90"
       addons:
         chrome: stable
 
