@@ -126,6 +126,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             'method' => 'POST',
             'url' => '/session/:sessionId/window/:windowHandle/size',
         ],
+        DriverCommand::STATUS => ['method' => 'GET', 'url' => '/status'],
         DriverCommand::SUBMIT_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/:id/submit'],
         DriverCommand::SCREENSHOT => ['method' => 'GET', 'url' => '/session/:sessionId/screenshot'],
         DriverCommand::TOUCH_SINGLE_TAP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/click'],
