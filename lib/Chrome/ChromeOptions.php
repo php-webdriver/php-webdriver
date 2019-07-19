@@ -27,7 +27,7 @@ class ChromeOptions
     /**
      * The key of chrome options in desired capabilities.
      */
-    const CAPABILITY = 'chromeOptions';
+    const CAPABILITY = 'goog:chromeOptions';
     /**
      * @var array
      */
