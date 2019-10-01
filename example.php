@@ -23,7 +23,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
 
-// start Chrome with 5 second timeout
+// start Chrome with 5 seconds timeout
 $host = 'http://localhost:4444/wd/hub'; // this is the default
 $capabilities = DesiredCapabilities::chrome();
 $driver = RemoteWebDriver::create($host, $capabilities, 5000);
