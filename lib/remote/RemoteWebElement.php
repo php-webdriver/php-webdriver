@@ -88,7 +88,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
       $params
     );
 
-    return $this->newElement($raw_element['ELEMENT']);
+    return $this->newElement($raw_element[key($raw_element)]);
   }
 
   /**
@@ -112,7 +112,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable {
 
     $elements = array();
     foreach ($raw_elements as $raw_element) {
-      $elements[] = $this->newElement($raw_element['ELEMENT']);
+      $elements[] = $this->newElement(key($raw_element));
     }
     return $elements;
   }
