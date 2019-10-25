@@ -225,7 +225,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
-            $elements[] = $this->newElement($raw_element['ELEMENT']);
+            if (isset($raw_element['ELEMENT'])) {
+                $elements[] = $this->newElement($raw_element['ELEMENT']);
+            } else {
+                $elements[] = $this->newElement($raw_element['element-6066-11e4-a52e-4f735466cecf']);
+            }
         }
 
         return $elements;
