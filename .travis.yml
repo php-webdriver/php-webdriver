@@ -108,7 +108,7 @@ install:
 before_script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; CHROMEDRIVER_VERSION=$(wget -qO- "https://chromedriver.storage.googleapis.com/LATEST_RELEASE"); wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
-  - if [ "$GECKODRIVER" = "1" ]; then mkdir geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz; tar xzf geckodriver-v0.24.0-linux64.tar.gz -C geckodriver; fi
+  - if [ "$GECKODRIVER" = "1" ]; then mkdir geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz; tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver; fi
   - sh -e /etc/init.d/xvfb start
   - if [ ! -f jar/selenium-server-standalone-3.8.1.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar; fi
   - if [ "$GECKODRIVER" = "1" ]; then
