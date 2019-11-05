@@ -44,16 +44,16 @@ abstract class JsonWireCompat
 
     /**
      * @param WebDriverBy $by
-     * @param bool $w3cCompliant
+     * @param bool $isW3cCompliant
      *
      * @return array
      */
-    public static function getUsing(WebDriverBy $by, $w3cCompliant)
+    public static function getUsing(WebDriverBy $by, $isW3cCompliant)
     {
         $mechanism = $by->getMechanism();
         $value = $by->getValue();
 
-        if ($w3cCompliant) {
+        if ($isW3cCompliant) {
             switch ($mechanism) {
                 // Convert to CSS selectors
                 case 'class name':
@@ -89,7 +89,7 @@ abstract class JsonWireCompat
     {
         return preg_replace_callback('/[^a-z0-9]/iSu', function ($matches) {
             $chr = $matches[0];
-            if (mb_strlen($chr) == 1) {
+            if (mb_strlen($chr) === 1) {
                 $ord = ord($chr);
             } else {
                 $chr = mb_convert_encoding($chr, 'UTF-32BE', 'UTF-8');

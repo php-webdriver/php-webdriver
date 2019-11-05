@@ -46,19 +46,19 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * @var bool
      */
-    protected $w3cCompliant;
+    protected $isW3cCompliant;
 
     /**
      * @param RemoteExecuteMethod $executor
      * @param string $id
-     * @param bool $w3cCompliant
+     * @param bool $isW3cCompliant
      */
-    public function __construct(RemoteExecuteMethod $executor, $id, $w3cCompliant = false)
+    public function __construct(RemoteExecuteMethod $executor, $id, $isW3cCompliant = false)
     {
         $this->executor = $executor;
         $this->id = $id;
         $this->fileDetector = new UselessFileDetector();
-        $this->w3cCompliant = $w3cCompliant;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -73,20 +73,22 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             [':id' => $this->id]
         );
 
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(DriverCommand::ACTIONS, [
-                'actions' => [[
-                    'type' => 'key',
-                    'id' => 'keyboard',
-                    'actions' => [
-                        ['type' => 'keyDown' , 'value' => WebDriverKeys::CONTROL],
-                        ['type' => 'keyDown' , 'value' => 'a'],
-                        ['type' => 'keyUp' , 'value' => WebDriverKeys::CONTROL],
-                        ['type' => 'keyUp' , 'value' => 'a'],
-                        ['type' => 'keyDown' , 'value' => WebDriverKeys::BACKSPACE],
-                        ['type' => 'keyUp' , 'value' => WebDriverKeys::BACKSPACE],
+                'actions' => [
+                    [
+                        'type' => 'key',
+                        'id' => 'keyboard',
+                        'actions' => [
+                            ['type' => 'keyDown', 'value' => WebDriverKeys::CONTROL],
+                            ['type' => 'keyDown', 'value' => 'a'],
+                            ['type' => 'keyUp', 'value' => WebDriverKeys::CONTROL],
+                            ['type' => 'keyUp', 'value' => 'a'],
+                            ['type' => 'keyDown', 'value' => WebDriverKeys::BACKSPACE],
+                            ['type' => 'keyUp', 'value' => WebDriverKeys::BACKSPACE],
+                        ],
                     ],
-                ]],
+                ],
             ]);
         }
 
@@ -118,7 +120,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function findElement(WebDriverBy $by)
     {
-        $params = JsonWireCompat::getUsing($by, $this->w3cCompliant);
+        $params = JsonWireCompat::getUsing($by, $this->isW3cCompliant);
         $params[':id'] = $this->id;
 
         $raw_element = $this->executor->execute(
@@ -139,7 +141,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function findElements(WebDriverBy $by)
     {
-        $params = JsonWireCompat::getUsing($by, $this->w3cCompliant);
+        $params = JsonWireCompat::getUsing($by, $this->isW3cCompliant);
         $params[':id'] = $this->id;
         $raw_elements = $this->executor->execute(
             DriverCommand::FIND_CHILD_ELEMENTS,
@@ -167,7 +169,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             ':id' => $this->id,
         ];
 
-        if ($this->w3cCompliant && ($attribute_name === 'value' || $attribute_name === 'index')) {
+        if ($this->isW3cCompliant && ($attribute_name === 'value' || $attribute_name === 'index')) {
             $value = $this->executor->execute(DriverCommand::GET_ELEMENT_PROPERTY, $params);
 
             if ($value === true) {
@@ -357,7 +359,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     {
         $local_file = $this->fileDetector->getLocalFile($value);
         if ($local_file === null) {
-            if ($this->w3cCompliant) {
+            if ($this->isW3cCompliant) {
                 $params = [
                     'text' => (string) $value,
                     ':id' => $this->id,
@@ -374,7 +376,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             return $this;
         }
 
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $params = [
                 'text' => $local_file,
                 ':id' => $this->id,
@@ -420,7 +422,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function submit()
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, [
                 // cannot call the submit method directly in case an input of this form is named "submit"
                 'script' => sprintf(
@@ -459,7 +461,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function equals(WebDriverElement $other)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             throw new UnsupportedOperationException('"elementEquals" is not supported by the W3C specification');
         }
 
@@ -478,7 +480,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected function newElement($id)
     {
-        return new static($this->executor, $id, $this->w3cCompliant);
+        return new static($this->executor, $id, $this->isW3cCompliant);
     }
 
     /**

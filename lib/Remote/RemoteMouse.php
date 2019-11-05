@@ -30,16 +30,16 @@ class RemoteMouse implements WebDriverMouse
     /**
      * @var bool
      */
-    private $w3cCompliant;
+    private $isW3cCompliant;
 
     /**
      * @param RemoteExecuteMethod $executor
-     * @param bool $w3cCompliant
+     * @param bool $isW3cCompliant
      */
-    public function __construct(RemoteExecuteMethod $executor, $w3cCompliant = false)
+    public function __construct(RemoteExecuteMethod $executor, $isW3cCompliant = false)
     {
         $this->executor = $executor;
-        $this->w3cCompliant = $w3cCompliant;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -49,7 +49,7 @@ class RemoteMouse implements WebDriverMouse
      */
     public function click(WebDriverCoordinates $where = null)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $moveAction = $where ? [$this->createMoveAction($where)] : [];
             $this->executor->execute(DriverCommand::ACTIONS, [
                 'actions' => [
@@ -80,7 +80,7 @@ class RemoteMouse implements WebDriverMouse
      */
     public function contextClick(WebDriverCoordinates $where = null)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $moveAction = $where ? [$this->createMoveAction($where)] : [];
             $this->executor->execute(DriverCommand::ACTIONS, [
                 'actions' => [
@@ -122,7 +122,7 @@ class RemoteMouse implements WebDriverMouse
      */
     public function doubleClick(WebDriverCoordinates $where = null)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $clickActions = $this->createClickActions();
             $moveAction = null === $where ? [] : [$this->createMoveAction($where)];
             $this->executor->execute(DriverCommand::ACTIONS, [
@@ -152,7 +152,7 @@ class RemoteMouse implements WebDriverMouse
      */
     public function mouseDown(WebDriverCoordinates $where = null)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(DriverCommand::ACTIONS, [
                 'actions' => [
                     [
@@ -192,7 +192,7 @@ class RemoteMouse implements WebDriverMouse
         $x_offset = null,
         $y_offset = null
     ) {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(DriverCommand::ACTIONS, [
                 'actions' => [
                     [
@@ -230,7 +230,7 @@ class RemoteMouse implements WebDriverMouse
      */
     public function mouseUp(WebDriverCoordinates $where = null)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $moveAction = $where ? [$this->createMoveAction($where)] : [];
 
             $this->executor->execute(DriverCommand::ACTIONS, [

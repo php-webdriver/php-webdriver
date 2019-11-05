@@ -31,12 +31,12 @@ class WebDriverOptions
     /**
      * @var bool
      */
-    protected $w3cCompliant;
+    protected $isW3cCompliant;
 
-    public function __construct(ExecuteMethod $executor, $w3cCompliant = false)
+    public function __construct(ExecuteMethod $executor, $isW3cCompliant = false)
     {
         $this->executor = $executor;
-        $this->w3cCompliant = $w3cCompliant;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -133,7 +133,7 @@ class WebDriverOptions
      */
     public function timeouts()
     {
-        return new WebDriverTimeouts($this->executor, $this->w3cCompliant);
+        return new WebDriverTimeouts($this->executor, $this->isW3cCompliant);
     }
 
     /**

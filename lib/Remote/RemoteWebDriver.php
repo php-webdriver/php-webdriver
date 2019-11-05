@@ -62,23 +62,23 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * @var bool
      */
-    protected $w3cCompliant;
+    protected $isW3cCompliant;
 
     /**
      * @param HttpCommandExecutor $commandExecutor
      * @param string $sessionId
      * @param WebDriverCapabilities|null $capabilities
-     * @param bool $w3cCompliant false to use the legacy JsonWire protocol, true for the W3C WebDriver spec
+     * @param bool $isW3cCompliant false to use the legacy JsonWire protocol, true for the W3C WebDriver spec
      */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
         $sessionId,
         WebDriverCapabilities $capabilities = null,
-        $w3cCompliant = false
+        $isW3cCompliant = false
     ) {
         $this->executor = $commandExecutor;
         $this->sessionID = $sessionId;
-        $this->w3cCompliant = $w3cCompliant;
+        $this->isW3cCompliant = $isW3cCompliant;
 
         if ($capabilities !== null) {
             $this->capabilities = $capabilities;
@@ -168,7 +168,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $value = $response->getValue();
 
         if (!$w3c_compliant = isset($value['capabilities'])) {
-            $executor->disableW3CCompliance();
+            $executor->disableW3cCompliance();
         }
 
         $returnedCapabilities = new DesiredCapabilities($w3c_compliant ? $value['capabilities'] : $value);
@@ -232,7 +232,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         $raw_element = $this->execute(
             DriverCommand::FIND_ELEMENT,
-            JsonWireCompat::getUsing($by, $this->w3cCompliant)
+            JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
 
         return $this->newElement(JsonWireCompat::getElement($raw_element));
@@ -249,7 +249,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     {
         $raw_elements = $this->execute(
             DriverCommand::FIND_ELEMENTS,
-            JsonWireCompat::getUsing($by, $this->w3cCompliant)
+            JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
 
         $elements = [];
@@ -428,7 +428,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function manage()
     {
-        return new WebDriverOptions($this->getExecuteMethod(), $this->w3cCompliant);
+        return new WebDriverOptions($this->getExecuteMethod(), $this->isW3cCompliant);
     }
 
     /**
@@ -459,7 +459,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function getMouse()
     {
         if (!$this->mouse) {
-            $this->mouse = new RemoteMouse($this->getExecuteMethod(), $this->w3cCompliant);
+            $this->mouse = new RemoteMouse($this->getExecuteMethod(), $this->isW3cCompliant);
         }
 
         return $this->mouse;
@@ -605,7 +605,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function isW3cCompliant()
     {
-        return $this->w3cCompliant;
+        return $this->isW3cCompliant;
     }
 
     /**
@@ -620,10 +620,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         foreach ($arguments as $key => $value) {
             if ($value instanceof WebDriverElement) {
                 $args[$key] = [
-                    $this->w3cCompliant ? JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER : 'ELEMENT' => $value->getID(),
+                    $this->isW3cCompliant ?
+                        JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER
+                        : 'ELEMENT' => $value->getID(),
                 ];
             } else {
-                if (\is_array($value)) {
+                if (is_array($value)) {
                     $value = $this->prepareScriptArguments($value);
                 }
                 $args[$key] = $value;
@@ -653,7 +655,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     protected function newElement($id)
     {
-        return new RemoteWebElement($this->getExecuteMethod(), $id, $this->w3cCompliant);
+        return new RemoteWebElement($this->getExecuteMethod(), $id, $this->isW3cCompliant);
     }
 
     /**
@@ -669,7 +671,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             return new DesiredCapabilities();
         }
 
-        if (\is_array($desired_capabilities)) {
+        if (is_array($desired_capabilities)) {
             return new DesiredCapabilities($desired_capabilities);
         }
 

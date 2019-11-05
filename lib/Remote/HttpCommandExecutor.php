@@ -171,7 +171,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @var bool
      */
-    protected $w3cCompliant = true;
+    protected $isW3cCompliant = true;
 
     /**
      * @param string $url
@@ -208,9 +208,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $this->setConnectionTimeout(30000);
     }
 
-    public function disableW3CCompliance()
+    public function disableW3cCompliance()
     {
-        $this->w3cCompliant = false;
+        $this->isW3cCompliant = false;
     }
 
     /**
@@ -262,12 +262,12 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     {
         $commandName = $command->getName();
         if (!isset(self::$commands[$commandName])) {
-            if ($this->w3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
+            if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
                 throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
             }
         }
 
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $raw = self::$w3cCompliantCommands[$command->getName()];
         } else {
             $raw = self::$commands[$command->getName()];
@@ -316,7 +316,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         if ($http_method === 'POST') {
             if ($params && is_array($params)) {
                 $encoded_params = json_encode($params);
-            } elseif ($this->w3cCompliant) {
+            } elseif ($this->isW3cCompliant) {
                 // POST body must be valid JSON in W3C, even if empty: https://www.w3.org/TR/webdriver/#processing-model
                 $encoded_params = '{}';
             }

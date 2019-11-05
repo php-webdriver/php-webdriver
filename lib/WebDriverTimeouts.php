@@ -30,12 +30,12 @@ class WebDriverTimeouts
     /**
      * @var bool
      */
-    protected $w3cCompliant;
+    protected $isW3cCompliant;
 
-    public function __construct(ExecuteMethod $executor, $w3cCompliant = false)
+    public function __construct(ExecuteMethod $executor, $isW3cCompliant = false)
     {
         $this->executor = $executor;
-        $this->w3cCompliant = $w3cCompliant;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -46,7 +46,7 @@ class WebDriverTimeouts
      */
     public function implicitlyWait($seconds)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::IMPLICITLY_WAIT,
                 ['implicit' => $seconds * 1000]
@@ -71,7 +71,7 @@ class WebDriverTimeouts
      */
     public function setScriptTimeout($seconds)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::SET_SCRIPT_TIMEOUT,
                 ['script' => $seconds * 1000]
@@ -96,7 +96,7 @@ class WebDriverTimeouts
      */
     public function pageLoadTimeout($seconds)
     {
-        if ($this->w3cCompliant) {
+        if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::SET_SCRIPT_TIMEOUT,
                 ['pageLoad' => $seconds * 1000]
