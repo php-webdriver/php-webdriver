@@ -25,7 +25,6 @@ use Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction;
 use Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
-use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverHasInputDevices;
 

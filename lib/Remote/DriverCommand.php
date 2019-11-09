@@ -146,6 +146,10 @@ class DriverCommand
     const GET_NETWORK_CONNECTION = 'getNetworkConnection';
     const SET_NETWORK_CONNECTION = 'setNetworkConnection';
 
+    // W3C specific
+    const ACTIONS = 'actions';
+    const GET_ELEMENT_PROPERTY = 'getElementProperty';
+
     private function __construct()
     {
     }

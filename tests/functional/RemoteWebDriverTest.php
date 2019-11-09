@@ -77,7 +77,11 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
-        $sessions = RemoteWebDriver::getAllSessions($this->serverUrl);
+        if (getenv('GECKODRIVER') === '1') {
+            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
+        }
+
+        $sessions = RemoteWebDriver::getAllSessions($this->serverUrl, 30000);
 
         $this->assertInternalType('array', $sessions);
         $this->assertCount(1, $sessions);
@@ -94,12 +98,22 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        $this->assertCount(1, RemoteWebDriver::getAllSessions($this->serverUrl));
+        if (getenv('GECKODRIVER') === '1') {
+            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
+        }
+
+        $this->assertCount(
+            1,
+            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+        );
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
         $this->driver->quit();
 
-        $this->assertCount(0, RemoteWebDriver::getAllSessions($this->serverUrl));
+        $this->assertCount(
+            0,
+            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+        );
         $this->assertNull($this->driver->getCommandExecutor());
     }
 
@@ -135,6 +149,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->get($this->getTestPageUrl('open_new_window.html'));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
+
+        // Mandatory for Geckodriver
+        $this->driver->wait()->until(WebDriverExpectedCondition::numberOfWindowsToBe(2));
 
         $this->assertCount(2, $this->driver->getWindowHandles());
 

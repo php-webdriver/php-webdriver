@@ -36,7 +36,7 @@ class WebDriverPoint
      */
     public function getX()
     {
-        return $this->x;
+        return (int) $this->x;
     }
 
     /**
@@ -46,7 +46,7 @@ class WebDriverPoint
      */
     public function getY()
     {
-        return $this->y;
+        return (int) $this->y;
     }
 
     /**

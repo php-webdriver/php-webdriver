@@ -138,6 +138,29 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
     ];
     /**
+     * @var array Will be merged with $commands
+     */
+    protected static $w3cCompliantCommands = [
+        DriverCommand::ACCEPT_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/accept'],
+        DriverCommand::ACTIONS => ['method' => 'POST', 'url' => '/session/:sessionId/actions'],
+        DriverCommand::DISMISS_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/dismiss'],
+        DriverCommand::EXECUTE_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/sync'],
+        DriverCommand::EXECUTE_ASYNC_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/async'],
+        DriverCommand::GET_CURRENT_WINDOW_HANDLE => ['method' => 'GET', 'url' => '/session/:sessionId/window'],
+        DriverCommand::GET_ELEMENT_LOCATION => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
+        DriverCommand::GET_ELEMENT_PROPERTY => [
+            'method' => 'GET',
+            'url' => '/session/:sessionId/element/:id/property/:name',
+        ],
+        DriverCommand::GET_ELEMENT_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
+        DriverCommand::GET_WINDOW_HANDLES => ['method' => 'GET', 'url' => '/session/:sessionId/window/handles'],
+        DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert/text'],
+        DriverCommand::IMPLICITLY_WAIT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
+        DriverCommand::SET_ALERT_VALUE => ['method' => 'POST', 'url' => '/session/:sessionId/alert/text'],
+        DriverCommand::SET_SCRIPT_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
+        DriverCommand::SET_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
+    ];
+    /**
      * @var string
      */
     protected $url;
@@ -145,6 +168,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @var resource
      */
     protected $curl;
+    /**
+     * @var bool
+     */
+    protected $isW3cCompliant = true;
 
     /**
      * @param string $url
@@ -153,6 +180,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      */
     public function __construct($url, $http_proxy = null, $http_proxy_port = null)
     {
+        self::$w3cCompliantCommands = array_merge(self::$commands, self::$w3cCompliantCommands);
+
         $this->url = $url;
         $this->curl = curl_init();
 
@@ -177,6 +206,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
         $this->setRequestTimeout(30000);
         $this->setConnectionTimeout(30000);
+    }
+
+    public function disableW3cCompliance()
+    {
+        $this->isW3cCompliant = false;
     }
 
     /**
@@ -226,11 +260,19 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      */
     public function execute(WebDriverCommand $command)
     {
-        if (!isset(self::$commands[$command->getName()])) {
-            throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
+        $commandName = $command->getName();
+        if (!isset(self::$commands[$commandName])) {
+            if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
+                throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
+            }
         }
 
-        $raw = self::$commands[$command->getName()];
+        if ($this->isW3cCompliant) {
+            $raw = self::$w3cCompliantCommands[$command->getName()];
+        } else {
+            $raw = self::$commands[$command->getName()];
+        }
+
         $http_method = $raw['method'];
         $url = $raw['url'];
         $url = str_replace(':sessionId', $command->getSessionID(), $url);
@@ -271,8 +313,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         $encoded_params = null;
 
-        if ($http_method === 'POST' && $params && is_array($params)) {
-            $encoded_params = json_encode($params);
+        if ($http_method === 'POST') {
+            if ($params && is_array($params)) {
+                $encoded_params = json_encode($params);
+            } elseif ($this->isW3cCompliant) {
+                // POST body must be valid JSON in W3C, even if empty: https://www.w3.org/TR/webdriver/#processing-model
+                $encoded_params = '{}';
+            }
         }
 
         curl_setopt($this->curl, CURLOPT_POSTFIELDS, $encoded_params);
@@ -317,12 +364,23 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         }
 
         $sessionId = null;
-        if (is_array($results) && array_key_exists('sessionId', $results)) {
+        if (is_array($value) && array_key_exists('sessionId', $value)) {
+            // W3C's WebDriver
+            $sessionId = $value['sessionId'];
+        } elseif (is_array($results) && array_key_exists('sessionId', $results)) {
+            // Legacy JsonWire
             $sessionId = $results['sessionId'];
         }
 
+        // @see https://w3c.github.io/webdriver/webdriver-spec.html#handling-errors
+        if (isset($value['error'])) {
+            // W3C's WebDriver
+            WebDriverException::throwException($value['error'], $message, $results);
+        }
+
         $status = isset($results['status']) ? $results['status'] : 0;
-        if ($status != 0) {
+        if ($status !== 0) {
+            // Legacy JsonWire
             WebDriverException::throwException($status, $message, $results);
         }
 
