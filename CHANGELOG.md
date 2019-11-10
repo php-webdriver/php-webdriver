@@ -7,6 +7,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).
 - Allow installation of Symfony 5 components.
 
+### Fixed
+- `WebDriverExpectedCondition::presenceOfElementLocated()` works correctly when used within `WebDriverExpectedCondition::not()`.
+
 ## 1.7.1 - 2019-06-13
 ### Fixed
 - Error `Call to a member function toArray()` if capabilities were already converted to an array.
