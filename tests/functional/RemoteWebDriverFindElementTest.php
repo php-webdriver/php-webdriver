@@ -62,6 +62,9 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $elements);
     }
 
+    /**
+     * @group exclude-saucelabs
+     */
     public function testEscapeCssSelector()
     {
         if (getenv('GECKODRIVER') !== '1') {

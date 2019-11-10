@@ -88,6 +88,7 @@ class WebDriverActionsTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::__construct
      * @covers ::contextClick
      * @covers ::perform
