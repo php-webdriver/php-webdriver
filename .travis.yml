@@ -13,6 +13,7 @@ env:
   global:
     - DISPLAY=:99.0
     - BROWSER_NAME="htmlunit"
+    - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" # Latest version including HtmlUnit
 
 matrix:
   include:
@@ -36,9 +37,11 @@ matrix:
       env: DEPENDENCIES="--prefer-lowest"
 
     # Firefox inside Travis environment
-    - name: 'Firefox 45 on Travis (OSS protocol); via Selenium server'
+    - name: 'Firefox 45 on Travis (OSS protocol); via legacy Selenium server'
       php: '7.3'
-      env: BROWSER_NAME="firefox"
+      env:
+        - BROWSER_NAME="firefox"
+        - SELENIUM_SERVER="legacy"
       addons:
         firefox: "45.8.0esr"
 
@@ -114,7 +117,6 @@ matrix:
 cache:
   directories:
     - $HOME/.composer/cache
-    - jar
 
 install:
   - travis_retry composer self-update
@@ -123,15 +125,24 @@ install:
 before_script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then mkdir chromedriver; CHROMEDRIVER_VERSION=$(wget -qO- "https://chromedriver.storage.googleapis.com/LATEST_RELEASE"); wget -q -t 3 https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip; unzip chromedriver_linux64 -d chromedriver; fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
-  - if [ "$GECKODRIVER" = "1" ]; then mkdir geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz; tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver; fi
-  - sh -e /etc/init.d/xvfb start
-  - if [ ! -f jar/selenium-server-standalone-3.8.1.jar ]; then wget -q -t 3 -P jar https://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar; fi
+  - if [ "$GECKODRIVER" = "1" ]; then mkdir -p geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz; tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver; fi
+  - sh -e /etc/init.d/xvfb start # TODO: start only when needed (ie. not in headless mode)
+  - if [ ! -f jar/selenium-server-standalone.jar ] && [ -n "$SELENIUM_SERVER" ]; then
+      mkdir -p jar;
+      if [ "$SELENIUM_SERVER" = "legacy" ]; then
+        wget -q -t 3 -O jar/selenium-server-standalone.jar https://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar;
+      else
+        wget -q -t 3 -O jar/selenium-server-standalone.jar $SELENIUM_SERVER;
+      fi
+    fi
   - if [ "$GECKODRIVER" = "1" ]; then
       geckodriver/geckodriver &> ./logs/geckodriver.log &
     elif [ "$CHROMEDRIVER" = "1" ]; then
       chromedriver/chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
+    elif [ "$SELENIUM_SERVER" = "legacy" ]; then
+      java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$PWD/chromedriver/chromedriver" -jar jar/selenium-server-standalone.jar -enablePassThrough false -log ./logs/selenium.log &
     else
-      java -Dwebdriver.firefox.marionette=false -Dwebdriver.chrome.driver="$CHROMEDRIVER_PATH" -jar jar/selenium-server-standalone-3.8.1.jar -enablePassThrough false -log ./logs/selenium.log &
+      java -Dwebdriver.chrome.driver="$PWD/chromedriver/chromedriver" -Dwebdriver.gecko.driver="$PWD/geckodriver/geckodriver" -jar jar/selenium-server-standalone.jar -log ./logs/selenium.log &
     fi
   - until $(echo | nc localhost 4444); do sleep 1; echo Waiting for Selenium server on port 4444...; done; echo "Selenium server started"
   - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
