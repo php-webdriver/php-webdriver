@@ -49,7 +49,7 @@ class WebDriverActionsTest extends WebDriverTestCase
         $logs = ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'];
         $loggedEvents = $this->retrieveLoggedEvents();
 
-        if ('1' === getenv('GECKODRIVER')) {
+        if (getenv('GECKODRIVER') === '1') {
             $loggedEvents = array_slice($loggedEvents, 0, count($logs));
             // Firefox sometimes triggers some extra events
             // it's not related to Geckodriver, it's Firefox's own behavior
@@ -77,7 +77,7 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->release()
             ->perform();
 
-        if ('1' === getenv('GECKODRIVER')) {
+        if (self::isW3cProtocolBuild()) {
             $this->assertArraySubset(['mouseover item-1', 'mousedown item-1'], $this->retrieveLoggedEvents());
         } else {
             $this->assertSame(

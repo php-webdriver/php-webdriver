@@ -103,6 +103,32 @@ class WebDriverTestCase extends TestCase
     }
 
     /**
+     * @return bool
+     */
+    public static function isW3cProtocolBuild()
+    {
+        return getenv('GECKODRIVER') === '1'
+            || (getenv('BROWSER_NAME') === 'chrome'
+                && getenv('DISABLE_W3C_PROTOCOL') !== '1'
+                && !self::isSauceLabsBuild());
+    }
+
+    public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
+    {
+        if (static::isW3cProtocolBuild()) {
+            static::markTestSkipped($message);
+        }
+    }
+
+    public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
+    {
+        if (getenv('GECKODRIVER') !== '1'
+            && (getenv('CHROMEDRIVER') !== '1' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+            static::markTestSkipped($message);
+        }
+    }
+
+    /**
      * Get the URL of given test HTML on running webserver.
      *
      * @param string $path

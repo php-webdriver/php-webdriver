@@ -67,11 +67,9 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
      */
     public function testEscapeCssSelector()
     {
-        if (getenv('GECKODRIVER') !== '1') {
-            $this->markTestSkipped(
-                'CSS selectors containing special characters are not supported by the legacy protocol'
-            );
-        }
+        self::skipForJsonWireProtocol(
+            'CSS selectors containing special characters are not supported by the legacy protocol'
+        );
 
         $this->driver->get($this->getTestPageUrl('escape_css.html'));
 
