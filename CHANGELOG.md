@@ -3,6 +3,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+- Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
+
 ### Changed
 - Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).
 - Allow installation of Symfony 5 components.

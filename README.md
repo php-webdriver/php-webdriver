@@ -9,15 +9,15 @@
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
 
-This library is compatible with Selenium server version 2.x and 3.x.
-It implements the [JsonWireProtocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol), which is currently supported
-by the Selenium server and will also implement the [W3C WebDriver](https://w3c.github.io/webdriver/webdriver-spec.html) specification in the future.
+This library is compatible with Selenium server version 2.x, 3.x and 4.x.
+
+The library supports [JsonWireProtocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol) and also
+implements **experimental support** of [W3C WebDriver](https://w3c.github.io/webdriver/webdriver-spec.html).
+The W3C WebDriver support is not yet full-featured, however it should allow to control Firefox via Geckodriver and new
+versions of Chrome and Chromedriver with just a slight limitations.
 
 The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
 [Selenium project](https://github.com/SeleniumHQ/selenium/).
-
-**As of 2013, this PHP client has been rewritten from scratch.**
-Using the old version? Check out [Adam Goucher's fork](https://github.com/Element-34/php-webdriver) of it.
 
 Looking for API documentation of php-webdriver? See [https://facebook.github.io/php-webdriver/](https://facebook.github.io/php-webdriver/latest/)
 
@@ -41,11 +41,9 @@ Then install the library:
 
 The required server is the `selenium-server-standalone-#.jar` file provided here: http://selenium-release.storage.googleapis.com/index.html
 
-Download and run the server by replacing # with the current server version. Keep in mind **you must have Java 8+ installed to run this command**.
+Download and run the server by **replacing #** with the current server version. Keep in mind **you must have Java 8+ installed to run this command**.
 
     java -jar selenium-server-standalone-#.jar
-
-**NOTE:** If using Firefox, see alternate command below.
 
 ### Create a Browser Session
 
@@ -53,12 +51,15 @@ When creating a browser session, be sure to pass the url of your running server.
 
 ```php
 // This would be the url of the host running the server-standalone.jar
-$host = 'http://localhost:4444/wd/hub'; // this is the default
+$host = 'http://localhost:4444/wd/hub'; // this is the default url and port where Selenium server starts
 ```
 
 ##### Launch Chrome
 
-Make sure to have latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) versions installed.
+Install latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+
+The `chromedriver` binary must be placed in system `PATH` directory, otherwise you must provide the path when starting Selenium server
+(eg. `java -Dwebdriver.chrome.driver="/path/to/chromedriver" -jar selenium-server-standalone-#.jar`).
 
 ```php
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
@@ -66,14 +67,11 @@ $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
 
 ##### Launch Firefox
 
-Make sure to have latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases) installed.
+Install latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases).
 
-Because Firefox (and Geckodriver) only support the new W3C WebDriver protocol (which is yet to be implemented by php-webdriver - see [issue #469](https://github.com/facebook/php-webdriver/issues/469)),
-the protocols must be translated by Selenium Server - this feature is *partially* available in Selenium Server versions 3.5.0-3.8.1 and you can enable it like this:
+The `geckodriver` binary must be placed in system `PATH` directory, otherwise you must provide the path when starting Selenium server
+(eg. `java -Dwebdriver.gecko.driver="/path/to/geckodriver" -jar selenium-server-standalone-#.jar`).
 
-    java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false
-
-Now you can start Firefox from your code:
 
 ```php
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
@@ -82,9 +80,9 @@ $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
 ### Customize Desired Capabilities
 
 ```php
-$desired_capabilities = DesiredCapabilities::firefox();
-$desired_capabilities->setCapability('acceptSslCerts', false);
-$driver = RemoteWebDriver::create($host, $desired_capabilities);
+$desiredCapabilities = DesiredCapabilities::firefox();
+$desiredCapabilities->setCapability('acceptSslCerts', false);
+$driver = RemoteWebDriver::create($host, $desiredCapabilities);
 ```
 
 * See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities for more details.
