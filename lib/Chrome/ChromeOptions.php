@@ -25,9 +25,14 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 class ChromeOptions
 {
     /**
-     * The key of chrome options in desired capabilities.
+     * The key of chrome options desired capabilities (in legacy OSS JsonWire protocol)
+     * @deprecated
      */
     const CAPABILITY = 'chromeOptions';
+    /**
+     * The key of chrome options desired capabilities (in W3C compatible protocol)
+     */
+    const CAPABILITY_W3C = 'goog:chromeOptions';
     /**
      * @var array
      */

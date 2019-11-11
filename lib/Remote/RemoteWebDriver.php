@@ -140,15 +140,15 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         // W3C
         $parameters = [
             'capabilities' => [
-                'firstMatch' => [$desired_capabilities->toArray()],
+                'firstMatch' => [static::convertCapabilitiesToW3c($desired_capabilities->toArray())],
             ],
         ];
 
-        // Legacy protocol
-        if (null !== $required_capabilities && $required_capabilities_array = $required_capabilities->toArray()) {
-            $parameters['capabilities']['alwaysMatch'] = $required_capabilities_array;
+        if ($required_capabilities !== null && $required_capabilities_array = $required_capabilities->toArray()) {
+            $parameters['capabilities']['alwaysMatch'] = static::convertCapabilitiesToW3c($required_capabilities_array);
         }
 
+        // Legacy protocol
         if ($required_capabilities !== null) {
             // TODO: Selenium (as of v3.0.1) does accept requiredCapabilities only as a property of desiredCapabilities.
             // This has changed with the W3C WebDriver spec, but is the only way how to pass these
@@ -676,5 +676,29 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return $desired_capabilities;
+    }
+
+    /**
+     * Convert keys invalid in W3C capabilities to corresponding ones for W3C.
+     *
+     * @param array $capabilitiesArray
+     * @return array
+     */
+    protected static function convertCapabilitiesToW3c(array $capabilitiesArray)
+    {
+        if (array_key_exists(ChromeOptions::CAPABILITY, $capabilitiesArray)) {
+            if (array_key_exists(ChromeOptions::CAPABILITY_W3C, $capabilitiesArray)) {
+                $capabilitiesArray[ChromeOptions::CAPABILITY_W3C] = array_merge(
+                    $capabilitiesArray[ChromeOptions::CAPABILITY],
+                    $capabilitiesArray[ChromeOptions::CAPABILITY_W3C]
+                );
+            } else {
+                $capabilitiesArray[ChromeOptions::CAPABILITY_W3C] = $capabilitiesArray[ChromeOptions::CAPABILITY];
+            }
+
+            unset($capabilitiesArray[ChromeOptions::CAPABILITY]);
+        }
+
+        return $capabilitiesArray;
     }
 }
