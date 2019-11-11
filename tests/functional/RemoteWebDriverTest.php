@@ -150,7 +150,6 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl('open_new_window.html'));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
 
-        // Mandatory for Geckodriver
         $this->driver->wait()->until(WebDriverExpectedCondition::numberOfWindowsToBe(2));
 
         $this->assertCount(2, $this->driver->getWindowHandles());

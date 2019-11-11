@@ -57,6 +57,11 @@ class WebDriverTestCase extends TestCase
                 $chromeOptions = new ChromeOptions();
                 // --no-sandbox is a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
                 $chromeOptions->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
+
+                if (getenv('DISABLE_W3C_PROTOCOL')) {
+                    $chromeOptions->setExperimentalOption('w3c', false);
+                }
+
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             } elseif (getenv('GECKODRIVER') === '1') {
                 $this->serverUrl = 'http://localhost:4444';
@@ -95,6 +100,32 @@ class WebDriverTestCase extends TestCase
     public static function isSauceLabsBuild()
     {
         return getenv('SAUCELABS') ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+    public static function isW3cProtocolBuild()
+    {
+        return getenv('GECKODRIVER') === '1'
+            || (getenv('BROWSER_NAME') === 'chrome'
+                && getenv('DISABLE_W3C_PROTOCOL') !== '1'
+                && !self::isSauceLabsBuild());
+    }
+
+    public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
+    {
+        if (static::isW3cProtocolBuild()) {
+            static::markTestSkipped($message);
+        }
+    }
+
+    public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
+    {
+        if (getenv('GECKODRIVER') !== '1'
+            && (getenv('CHROMEDRIVER') !== '1' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+            static::markTestSkipped($message);
+        }
     }
 
     /**
