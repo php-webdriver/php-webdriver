@@ -112,23 +112,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $desired_capabilities = self::castToDesiredCapabilitiesObject($desired_capabilities);
 
-        // Hotfix: W3C WebDriver protocol is not yet supported by php-webdriver, so we must force Chromedriver to
-        // not use the W3C protocol by default (which is what Chromedriver does starting with version 75).
-        if ($desired_capabilities->getBrowserName() === WebDriverBrowserType::CHROME
-            && mb_strpos($selenium_server_url, 'browserstack') === false // see https://github.com/facebook/php-webdriver/issues/644
-        ) {
-            $currentChromeOptions = $desired_capabilities->getCapability(ChromeOptions::CAPABILITY);
-            $chromeOptions = !empty($currentChromeOptions) ? $currentChromeOptions : new ChromeOptions();
-
-            if ($chromeOptions instanceof ChromeOptions && !isset($chromeOptions->toArray()['w3c'])) {
-                $chromeOptions->setExperimentalOption('w3c', false);
-            } elseif (is_array($chromeOptions) && !isset($chromeOptions['w3c'])) {
-                $chromeOptions['w3c'] = false;
-            }
-
-            $desired_capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-        }
-
         $executor = new HttpCommandExecutor($selenium_server_url, $http_proxy, $http_proxy_port);
         if ($connection_timeout_in_ms !== null) {
             $executor->setConnectionTimeout($connection_timeout_in_ms);
