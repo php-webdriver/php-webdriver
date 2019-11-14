@@ -144,8 +144,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::ACCEPT_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/accept'],
         DriverCommand::ACTIONS => ['method' => 'POST', 'url' => '/session/:sessionId/actions'],
         DriverCommand::DISMISS_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/dismiss'],
-        DriverCommand::EXECUTE_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/sync'],
         DriverCommand::EXECUTE_ASYNC_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/async'],
+        DriverCommand::EXECUTE_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/sync'],
+        DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert/text'],
         DriverCommand::GET_CURRENT_WINDOW_HANDLE => ['method' => 'GET', 'url' => '/session/:sessionId/window'],
         DriverCommand::GET_ELEMENT_LOCATION => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
         DriverCommand::GET_ELEMENT_PROPERTY => [
@@ -154,11 +155,15 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         ],
         DriverCommand::GET_ELEMENT_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
         DriverCommand::GET_WINDOW_HANDLES => ['method' => 'GET', 'url' => '/session/:sessionId/window/handles'],
-        DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert/text'],
+        DriverCommand::GET_WINDOW_POSITION => ['method' => 'GET', 'url' => '/session/:sessionId/window/rect'],
+        DriverCommand::GET_WINDOW_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/window/rect'],
         DriverCommand::IMPLICITLY_WAIT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
+        DriverCommand::MAXIMIZE_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/maximize'],
         DriverCommand::SET_ALERT_VALUE => ['method' => 'POST', 'url' => '/session/:sessionId/alert/text'],
         DriverCommand::SET_SCRIPT_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
         DriverCommand::SET_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
+        DriverCommand::SET_WINDOW_SIZE => ['method' => 'POST', 'url' => '/session/:sessionId/window/rect'],
+        DriverCommand::SET_WINDOW_POSITION => ['method' => 'POST', 'url' => '/session/:sessionId/window/rect'],
     ];
     /**
      * @var string
