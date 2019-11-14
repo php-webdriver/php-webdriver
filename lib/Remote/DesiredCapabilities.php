@@ -179,6 +179,79 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
+     * @return array
+     */
+    public function toW3cCompatibleArray()
+    {
+        $ossToW3c = [
+            WebDriverCapabilityType::PLATFORM => 'platformName',
+            WebDriverCapabilityType::VERSION => 'browserVersion',
+            WebDriverCapabilityType::ACCEPT_SSL_CERTS => 'acceptInsecureCerts',
+            ChromeOptions::CAPABILITY => ChromeOptions::CAPABILITY_W3C,
+        ];
+
+        $allowedW3cCapabilities = [
+            'browserName',
+            'browserVersion',
+            'platformName',
+            'acceptInsecureCerts',
+            'pageLoadStrategy',
+            'proxy',
+            'setWindowRect',
+            'timeouts',
+            'strictFileInteractability',
+            'unhandledPromptBehavior',
+        ];
+
+        $ossCapabilities = $this->toArray();
+        $w3cCapabilities = [];
+
+        foreach ($ossCapabilities as $capabilityKey => $capabilityValue) {
+            // Copy already W3C compatible capabilities
+            if (in_array($capabilityKey, $allowedW3cCapabilities, true)) {
+                $w3cCapabilities[$capabilityKey] = $capabilityValue;
+            }
+
+            // Convert capabilitites with changed name
+            if (array_key_exists($capabilityKey, $ossToW3c)) {
+                if ($capabilityKey === 'platform') {
+                    $w3cCapabilities[$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+                } else {
+                    $w3cCapabilities[$ossToW3c[$capabilityKey]] = $capabilityValue;
+                }
+            }
+
+            // Copy vendor extensions
+            if (mb_strpos($capabilityKey, ':') !== false) {
+                $w3cCapabilities[$capabilityKey] = $capabilityValue;
+            }
+        }
+
+        // Convert ChromeOptions
+        if (array_key_exists(ChromeOptions::CAPABILITY, $ossCapabilities)) {
+            if (array_key_exists(ChromeOptions::CAPABILITY_W3C, $ossCapabilities)) {
+                $w3cCapabilities[ChromeOptions::CAPABILITY_W3C] = array_merge_recursive(
+                    $ossCapabilities[ChromeOptions::CAPABILITY],
+                    $ossCapabilities[ChromeOptions::CAPABILITY_W3C]
+                );
+            } else {
+                $w3cCapabilities[ChromeOptions::CAPABILITY_W3C] = $ossCapabilities[ChromeOptions::CAPABILITY];
+            }
+        }
+
+        // Convert Firefox profile
+        if (array_key_exists(FirefoxDriver::PROFILE, $ossCapabilities)) {
+            // Convert profile only if not already set in moz:firefoxOptions
+            if (!array_key_exists('moz:firefoxOptions', $ossCapabilities)
+                || !array_key_exists('profile', $ossCapabilities['moz:firefoxOptions'])) {
+                $w3cCapabilities['moz:firefoxOptions']['profile'] = $ossCapabilities[FirefoxDriver::PROFILE];
+            }
+        }
+
+        return $w3cCapabilities;
+    }
+
+    /**
      * @return static
      */
     public static function android()

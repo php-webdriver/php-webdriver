@@ -15,7 +15,6 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
@@ -123,12 +122,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         // W3C
         $parameters = [
             'capabilities' => [
-                'firstMatch' => [static::convertCapabilitiesToW3c($desired_capabilities->toArray())],
+                'firstMatch' => [$desired_capabilities->toW3cCompatibleArray()],
             ],
         ];
 
-        if ($required_capabilities !== null && $required_capabilities_array = $required_capabilities->toArray()) {
-            $parameters['capabilities']['alwaysMatch'] = static::convertCapabilitiesToW3c($required_capabilities_array);
+        if ($required_capabilities !== null && !empty($required_capabilities->toArray())) {
+            $parameters['capabilities']['alwaysMatch'] = $required_capabilities->toW3cCompatibleArray();
         }
 
         // Legacy protocol
@@ -659,29 +658,5 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return $desired_capabilities;
-    }
-
-    /**
-     * Convert keys invalid in W3C capabilities to corresponding ones for W3C.
-     *
-     * @param array $capabilitiesArray
-     * @return array
-     */
-    protected static function convertCapabilitiesToW3c(array $capabilitiesArray)
-    {
-        if (array_key_exists(ChromeOptions::CAPABILITY, $capabilitiesArray)) {
-            if (array_key_exists(ChromeOptions::CAPABILITY_W3C, $capabilitiesArray)) {
-                $capabilitiesArray[ChromeOptions::CAPABILITY_W3C] = array_merge(
-                    $capabilitiesArray[ChromeOptions::CAPABILITY],
-                    $capabilitiesArray[ChromeOptions::CAPABILITY_W3C]
-                );
-            } else {
-                $capabilitiesArray[ChromeOptions::CAPABILITY_W3C] = $capabilitiesArray[ChromeOptions::CAPABILITY];
-            }
-
-            unset($capabilitiesArray[ChromeOptions::CAPABILITY]);
-        }
-
-        return $capabilitiesArray;
     }
 }
