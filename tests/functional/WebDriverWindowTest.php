@@ -7,6 +7,9 @@ namespace Facebook\WebDriver;
  */
 class WebDriverWindowTest extends WebDriverTestCase
 {
+    /**
+     * @group exclude-saucelabs
+     */
     public function testShouldGetPosition()
     {
         $position = $this->driver->manage()
@@ -45,6 +48,9 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertGreaterThanOrEqual($sizeBefore->getHeight(), $sizeAfter->getHeight());
     }
 
+    /**
+     * @group exclude-saucelabs
+     */
     public function testShouldSetSize()
     {
         $sizeBefore = $this->driver->manage()
