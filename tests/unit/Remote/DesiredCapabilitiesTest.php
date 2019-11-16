@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Firefox\FirefoxDriver;
 use Facebook\WebDriver\Firefox\FirefoxPreferences;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
@@ -129,5 +130,141 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
 
         $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
+    }
+
+    /**
+     * @dataProvider provideW3cCapabilities
+     * @param DesiredCapabilities $inputJsonWireCapabilities
+     * @param array $expectedW3cCapabilities
+     */
+    public function testShouldConvertCapabilitiesToW3cCompatible(
+        DesiredCapabilities $inputJsonWireCapabilities,
+        array $expectedW3cCapabilities
+    ) {
+        $this->assertEquals(
+            $expectedW3cCapabilities,
+            $inputJsonWireCapabilities->toW3cCompatibleArray()
+        );
+    }
+
+    /**
+     * @return array[]
+     */
+    public function provideW3cCapabilities()
+    {
+        $chromeOptions = new ChromeOptions();
+        $chromeOptions->addArguments([
+            '--headless',
+        ]);
+
+        $firefoxProfileEncoded = (new FirefoxProfile())->encode();
+
+        return [
+            'changed name' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::CHROME,
+                    WebDriverCapabilityType::VERSION => '67.0.1',
+                    WebDriverCapabilityType::PLATFORM => WebDriverPlatform::LINUX,
+                    WebDriverCapabilityType::ACCEPT_SSL_CERTS => true,
+                ]),
+                [
+                    'browserName' => 'chrome',
+                    'browserVersion' => '67.0.1',
+                    'platformName' => 'linux',
+                    'acceptInsecureCerts' => true,
+                ],
+            ],
+            'removed capabilitites' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::WEB_STORAGE_ENABLED => true,
+                    WebDriverCapabilityType::TAKES_SCREENSHOT => false,
+                ]),
+                [],
+            ],
+            'custom invalid capability should be removed' => [
+                new DesiredCapabilities([
+                    'customInvalidCapability' => 'shouldBeRemoved',
+                ]),
+                [],
+            ],
+            'already W3C capabilitites' => [
+                new DesiredCapabilities([
+                    'pageLoadStrategy' => 'eager',
+                    'strictFileInteractability' => false,
+                ]),
+                [
+                    'pageLoadStrategy' => 'eager',
+                    'strictFileInteractability' => false,
+                ],
+            ],
+            'custom vendor extension' => [
+                new DesiredCapabilities([
+                    'vendor:prefix' => 'vendor extension should be kept',
+                ]),
+                [
+                    'vendor:prefix' => 'vendor extension should be kept',
+                ],
+            ],
+            'chromeOptions should be converted' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY => $chromeOptions,
+                ]),
+                [
+                    'goog:chromeOptions' => [
+                        'args' => ['--headless'],
+                        'binary' => '',
+                    ],
+                ],
+            ],
+            'chromeOptions should be merged if already defined' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY => $chromeOptions,
+                    ChromeOptions::CAPABILITY_W3C => [
+                        'debuggerAddress' => '127.0.0.1:38947',
+                        'args' => ['window-size=1024,768'],
+                    ],
+                ]),
+                [
+                    'goog:chromeOptions' => [
+                        'args' => ['--headless', 'window-size=1024,768'],
+                        'binary' => '',
+                        'debuggerAddress' => '127.0.0.1:38947',
+                    ],
+                ],
+            ],
+            'firefox_profile should be converted' => [
+                new DesiredCapabilities([
+                    FirefoxDriver::PROFILE => $firefoxProfileEncoded,
+                ]),
+                [
+                    'moz:firefoxOptions' => [
+                        'profile' => $firefoxProfileEncoded,
+                    ],
+                ],
+            ],
+            'firefox_profile should not be overwritten if already present' => [
+                new DesiredCapabilities([
+                    FirefoxDriver::PROFILE => $firefoxProfileEncoded,
+                    'moz:firefoxOptions' => ['profile' => 'w3cProfile'],
+                ]),
+                [
+                    'moz:firefoxOptions' => [
+                        'profile' => 'w3cProfile',
+                    ],
+                ],
+            ],
+            'firefox_profile should be merged with moz:firefoxOptions if they already exists' => [
+                new DesiredCapabilities([
+                    FirefoxDriver::PROFILE => $firefoxProfileEncoded,
+                    'moz:firefoxOptions' => ['args' => ['-headless']],
+                ]),
+                [
+                    'moz:firefoxOptions' => [
+                        'profile' => $firefoxProfileEncoded,
+                        'args' => ['-headless'],
+                    ],
+                ],
+            ],
+        ];
     }
 }
