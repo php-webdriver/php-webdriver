@@ -59,7 +59,6 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
       addons:
         chrome: stable
 
@@ -68,7 +67,6 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
         - CHROMEDRIVER="1"
       addons:
         chrome: stable
@@ -78,7 +76,6 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
         - CHROMEDRIVER="1"
         - DISABLE_W3C_PROTOCOL="1"
       addons:

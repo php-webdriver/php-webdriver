@@ -113,7 +113,7 @@ class WebDriverTestCase extends TestCase
     {
         return getenv('GECKODRIVER') === '1'
             || (getenv('BROWSER_NAME') === 'chrome' && getenv('DISABLE_W3C_PROTOCOL') !== '1')
-            || getenv('BROWSER_NAME') === 'MicrosoftEdge';
+            || (self::isSauceLabsBuild() && getenv('DISABLE_W3C_PROTOCOL') !== '1');
     }
 
     public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
