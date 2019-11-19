@@ -26,6 +26,9 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverTimeoutsTest extends WebDriverTestCase
 {
+    /**
+     * @group exclude-saucelabs
+     */
     public function testShouldFailGettingDelayedElementWithoutWait()
     {
         $this->driver->get($this->getTestPageUrl('delayed_element.html'));
