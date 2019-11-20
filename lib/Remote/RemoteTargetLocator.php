@@ -89,7 +89,12 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      */
     public function window($handle)
     {
-        $params = ['name' => (string) $handle];
+        if ($this->isW3cCompliant) {
+            $params = ['handle' => (string) $handle];
+        } else {
+            $params = ['name' => (string) $handle];
+        }
+
         $this->executor->execute(DriverCommand::SWITCH_TO_WINDOW, $params);
 
         return $this->driver;
