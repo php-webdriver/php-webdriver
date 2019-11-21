@@ -33,11 +33,16 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      * @var WebDriver
      */
     protected $driver;
+    /**
+     * @var bool
+     */
+    protected $isW3cCompliant;
 
-    public function __construct($executor, $driver)
+    public function __construct($executor, $driver, $isW3cCompliant = false)
     {
         $this->executor = $executor;
         $this->driver = $driver;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -112,8 +117,6 @@ class RemoteTargetLocator implements WebDriverTargetLocator
         $response = $this->driver->execute(DriverCommand::GET_ACTIVE_ELEMENT, []);
         $method = new RemoteExecuteMethod($this->driver);
 
-        $isW3cCompliant = ($this->driver instanceof RemoteWebDriver) ? $this->driver->isW3cCompliant() : false;
-
-        return new RemoteWebElement($method, JsonWireCompat::getElement($response), $isW3cCompliant);
+        return new RemoteWebElement($method, JsonWireCompat::getElement($response), $this->isW3cCompliant);
     }
 }

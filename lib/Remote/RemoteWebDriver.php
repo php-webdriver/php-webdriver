@@ -432,7 +432,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function switchTo()
     {
-        return new RemoteTargetLocator($this->getExecuteMethod(), $this);
+        return new RemoteTargetLocator($this->getExecuteMethod(), $this, $this->isW3cCompliant);
     }
 
     /**
