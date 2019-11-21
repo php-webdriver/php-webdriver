@@ -15,6 +15,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\RemoteWebElement;
+
 /**
  * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
  */
@@ -51,5 +53,22 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         // After switchTo() is called, the active window should be changed
         $this->assertContains('index.html', $this->driver->getCurrentURL());
         $this->assertNotSame($originalWindowHandle, $this->driver->getWindowHandle());
+    }
+
+    /**
+     * @cover ::activeElement
+     */
+    public function testActiveElement()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $activeElement = $this->driver->switchTo()->activeElement();
+        $this->assertInstanceOf(RemoteWebElement::class, $activeElement);
+        $this->assertSame('body', $activeElement->getTagName());
+
+        $this->driver->findElement(WebDriverBy::name('test_name'))->click();
+        $activeElement = $this->driver->switchTo()->activeElement();
+        $this->assertSame('input', $activeElement->getTagName());
+        $this->assertSame('test_name', $activeElement->getAttribute('name'));
     }
 }
