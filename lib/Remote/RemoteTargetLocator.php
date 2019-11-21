@@ -62,16 +62,39 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     /**
      * Switch to the iframe by its id or name.
      *
-     * @param WebDriverElement|string $frame The WebDriverElement,
+     * @param WebDriverElement|null|int|string $frame The WebDriverElement,
      * the id or the name of the frame.
+     * When null, switch to the current top-level browsing context
+     * When int, switch to the WindowProxy identified by the value
+     * When an Element, switch to that Element.
+     *
+     * @throws \InvalidArgumentException
      * @return WebDriver The driver focused on the given frame.
      */
     public function frame($frame)
     {
-        if ($frame instanceof WebDriverElement) {
-            $id = ['ELEMENT' => $frame->getID()];
+        if ($this->isW3cCompliant) {
+            if ($frame instanceof WebDriverElement) {
+                $id = [JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $frame->getID()];
+            } elseif ($frame === null) {
+                $id = null;
+            } elseif (is_int($frame)) {
+                $id = $frame;
+            } else {
+                throw new \InvalidArgumentException(
+                    'In W3C compliance mode frame must be either instance of WebDriverElement, integer or null'
+                );
+            }
         } else {
-            $id = (string) $frame;
+            if ($frame instanceof WebDriverElement) {
+                $id = ['ELEMENT' => $frame->getID()];
+            } elseif ($frame === null) {
+                $id = null;
+            } elseif (is_int($frame)) {
+                $id = $frame;
+            } else {
+                $id = (string) $frame;
+            }
         }
 
         $params = ['id' => $id];
