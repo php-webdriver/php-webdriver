@@ -71,4 +71,76 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->assertSame('input', $activeElement->getTagName());
         $this->assertSame('test_name', $activeElement->getAttribute('name'));
     }
+
+    /**
+     * @cover ::frame
+     */
+    public function testShouldSwitchToFrameByItsId()
+    {
+        $parentPage = 'This is the host page which contains an iFrame';
+        $firstChildFrame = 'This is the content of the iFrame';
+        $secondChildFrame = 'open new window';
+
+        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+
+        $this->assertContains($parentPage, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->frame(0);
+        $this->assertContains($firstChildFrame, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->frame(null);
+        $this->assertContains($parentPage, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->frame(1);
+        $this->assertContains($secondChildFrame, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->frame(null);
+        $this->assertContains($parentPage, $this->driver->getPageSource());
+    }
+
+    /**
+     * @cover ::frame
+     */
+    public function testShouldSwitchToFrameByElement()
+    {
+        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('iframe_content'));
+        $this->driver->switchTo()->frame($element);
+
+        $this->assertContains('This is the content of the iFrame', $this->driver->getPageSource());
+    }
+
+    /**
+     * @cover ::frame
+     * @group exclude-saucelabs
+     */
+    public function testShouldNotAcceptStringAsFrameIdInW3cMode()
+    {
+        self::skipForJsonWireProtocol();
+
+        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'In W3C compliance mode frame must be either instance of WebDriverElement, integer or null'
+        );
+
+        $this->driver->switchTo()->frame('iframe_content');
+    }
+
+    /**
+     * @cover ::frame
+     * @group exclude-saucelabs
+     */
+    public function testShouldAcceptStringAsFrameIdInJsonWireMode()
+    {
+        self::skipForW3cProtocol();
+
+        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+
+        $this->driver->switchTo()->frame('iframe_content');
+
+        $this->assertContains('This is the content of the iFrame', $this->driver->getPageSource());
+    }
 }
