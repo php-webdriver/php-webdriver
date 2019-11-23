@@ -21,6 +21,7 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
 /**
  * @covers \Facebook\WebDriver\WebDriverRadios
  * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ * @group exclude-edge
  */
 class WebDriverRadiosTest extends WebDriverTestCase
 {
