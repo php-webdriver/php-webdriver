@@ -358,6 +358,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     public function sendKeys($value)
     {
         $local_file = $this->fileDetector->getLocalFile($value);
+
         if ($local_file === null) {
             if ($this->isW3cCompliant) {
                 $params = [
@@ -370,22 +371,18 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
                     ':id' => $this->id,
                 ];
             }
-
-            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);
-
-            return $this;
-        }
-
-        if ($this->isW3cCompliant) {
-            $params = [
-                'text' => $local_file,
-                ':id' => $this->id,
-            ];
         } else {
-            $params = [
-                'value' => WebDriverKeys::encode($this->upload($local_file)),
-                ':id' => $this->id,
-            ];
+            if ($this->isW3cCompliant) {
+                $params = [
+                    'text' => $local_file,
+                    ':id' => $this->id,
+                ];
+            } else {
+                $params = [
+                    'value' => WebDriverKeys::encode($this->upload($local_file)),
+                    ':id' => $this->id,
+                ];
+            }
         }
 
         $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);

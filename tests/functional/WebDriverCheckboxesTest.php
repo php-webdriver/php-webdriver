@@ -20,6 +20,7 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 /**
  * @covers \Facebook\WebDriver\WebDriverCheckboxes
  * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ * @group exclude-edge
  */
 class WebDriverCheckboxesTest extends WebDriverTestCase
 {

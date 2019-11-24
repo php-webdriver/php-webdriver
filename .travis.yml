@@ -59,7 +59,6 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
       addons:
         chrome: stable
 
@@ -68,7 +67,6 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
         - CHROMEDRIVER="1"
       addons:
         chrome: stable
@@ -78,15 +76,15 @@ matrix:
       php: '7.3'
       env:
         - BROWSER_NAME="chrome"
-        - CHROME_HEADLESS="1"
         - CHROMEDRIVER="1"
         - DISABLE_W3C_PROTOCOL="1"
       addons:
         chrome: stable
 
     # Saucelabs builds
-    - php: '7.3'
-      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10"
+    - name: 'Sauce Labs, Firefox 47, OSS protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="firefox" VERSION="47.0" PLATFORM="Windows 10" DISABLE_W3C_PROTOCOL="1"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -95,8 +93,9 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 
-    - php: '7.3'
-      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="74.0" PLATFORM="Windows 10" # 74 is the last version which don't use W3C WebDriver by default
+    - name: 'Sauce Labs, Chrome 74, OSS protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="74.0" PLATFORM="Windows 10" DISABLE_W3C_PROTOCOL="1" # 74 is the last version which don't use W3C WebDriver by default
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -105,8 +104,9 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 
-    - php: '7.3'
-      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="75.0" PLATFORM="Windows 10"
+    - name: 'Sauce Labs, Chrome latest, W3C protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="chrome" VERSION="latest" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"
@@ -115,8 +115,9 @@ matrix:
         jwt:
           secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
 
-    - php: '7.3'
-      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="16.16299" PLATFORM="Windows 10"
+    - name: 'Sauce Labs, Edge latest, W3C protocol'
+      php: '7.3'
+      env: SAUCELABS=1 BROWSER_NAME="MicrosoftEdge" VERSION="latest" PLATFORM="Windows 10"
       before_script:
         - php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
         - until $(echo | nc localhost 8000); do sleep 1; echo waiting for PHP server on port 8000...; done; echo "PHP server started"

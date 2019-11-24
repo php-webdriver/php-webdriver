@@ -112,9 +112,8 @@ class WebDriverTestCase extends TestCase
     public static function isW3cProtocolBuild()
     {
         return getenv('GECKODRIVER') === '1'
-            || (getenv('BROWSER_NAME') === 'chrome'
-                && getenv('DISABLE_W3C_PROTOCOL') !== '1'
-                && !self::isSauceLabsBuild());
+            || (getenv('BROWSER_NAME') === 'chrome' && getenv('DISABLE_W3C_PROTOCOL') !== '1')
+            || (self::isSauceLabsBuild() && getenv('DISABLE_W3C_PROTOCOL') !== '1');
     }
 
     public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
@@ -153,12 +152,32 @@ class WebDriverTestCase extends TestCase
         $this->desiredCapabilities->setBrowserName(getenv('BROWSER_NAME'));
         $this->desiredCapabilities->setVersion(getenv('VERSION'));
         $this->desiredCapabilities->setPlatform(getenv('PLATFORM'));
-        $this->desiredCapabilities->setCapability('name', get_class($this) . '::' . $this->getName());
-        $this->desiredCapabilities->setCapability('tags', [get_class($this)]);
+        $name = get_class($this) . '::' . $this->getName();
+        $tags = [get_class($this)];
 
         if (getenv('TRAVIS_JOB_NUMBER')) {
-            $this->desiredCapabilities->setCapability('tunnel-identifier', getenv('TRAVIS_JOB_NUMBER'));
-            $this->desiredCapabilities->setCapability('build', getenv('TRAVIS_JOB_NUMBER'));
+            $tunnelIdentifier = getenv('TRAVIS_JOB_NUMBER');
+            $build = getenv('TRAVIS_JOB_NUMBER');
+        }
+
+        if (!getenv('DISABLE_W3C_PROTOCOL')) {
+            $sauceOptions = [
+                'name' => $name,
+                'tags' => $tags,
+            ];
+            if (isset($tunnelIdentifier, $build)) {
+                $sauceOptions['tunnelIdentifier'] = $tunnelIdentifier;
+                $sauceOptions['build'] = $build;
+            }
+            $this->desiredCapabilities->setCapability('sauce:options', (object) $sauceOptions);
+        } else {
+            $this->desiredCapabilities->setCapability('name', $name);
+            $this->desiredCapabilities->setCapability('tags', $tags);
+
+            if (isset($tunnelIdentifier, $build)) {
+                $this->desiredCapabilities->setCapability('tunnel-identifier', $tunnelIdentifier);
+                $this->desiredCapabilities->setCapability('build', $build);
+            }
         }
     }
 }
