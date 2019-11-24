@@ -16,8 +16,9 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * Occurs if the given session id is not in the list of active sessions, meaning the session either does not exist
+ * or that it’s not active.
  */
-class InvalidCoordinatesException extends WebDriverException
+class InvalidSessionIdException extends WebDriverException
 {
 }

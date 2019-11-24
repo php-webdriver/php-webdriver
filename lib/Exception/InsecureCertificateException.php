@@ -16,8 +16,9 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * Navigation caused the user agent to hit a certificate warning, which is usually the result of an expired
+ * or invalid TLS certificate.
  */
-class InvalidCoordinatesException extends WebDriverException
+class InsecureCertificateException extends WebDriverException
 {
 }

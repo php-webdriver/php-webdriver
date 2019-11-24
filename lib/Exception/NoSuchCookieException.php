@@ -16,8 +16,9 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * No cookie matching the given path name was found amongst the associated cookies of the current browsing context’s
+ * active document.
  */
-class InvalidCoordinatesException extends WebDriverException
+class NoSuchCookieException extends WebDriverException
 {
 }

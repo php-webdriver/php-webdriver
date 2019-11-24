@@ -16,6 +16,7 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoAlertOpenException;
+use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
@@ -42,7 +43,12 @@ class WebDriverAlertTest extends WebDriverTestCase
 
         $this->driver->switchTo()->alert()->accept();
 
-        $this->expectException(NoAlertOpenException::class);
+        if (self::isW3cProtocolBuild()) {
+            $this->expectException(NoSuchAlertException::class);
+        } else {
+            $this->expectException(NoAlertOpenException::class);
+        }
+
         $this->driver->switchTo()->alert()->accept();
     }
 

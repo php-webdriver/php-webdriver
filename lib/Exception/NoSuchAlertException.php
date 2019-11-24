@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * An attempt was made to operate on a modal dialog when one was not open.
  */
-class InvalidCoordinatesException extends WebDriverException
+class NoSuchAlertException extends WebDriverException
 {
 }

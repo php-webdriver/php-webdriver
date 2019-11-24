@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * A screen capture was made impossible.
  */
-class InvalidCoordinatesException extends WebDriverException
+class UnableToCaptureScreenException extends WebDriverException
 {
 }

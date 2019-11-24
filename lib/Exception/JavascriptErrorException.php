@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * An error occurred while executing JavaScript supplied by the user.
  */
-class InvalidCoordinatesException extends WebDriverException
+class JavascriptErrorException extends WebDriverException
 {
 }

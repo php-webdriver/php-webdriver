@@ -16,7 +16,7 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Exception\TimeoutException;
 
 /**
  * A utility class, designed to help the user to wait until a condition turns true.
@@ -52,7 +52,7 @@ class WebDriverWait
      * @param string $message
      *
      * @throws NoSuchElementException
-     * @throws TimeOutException
+     * @throws TimeoutException
      * @throws \Exception
      * @return mixed The return value of $func_or_ec
      */
@@ -81,6 +81,6 @@ class WebDriverWait
             throw $last_exception;
         }
 
-        throw new TimeOutException($message);
+        throw new TimeoutException($message);
     }
 }

@@ -16,7 +16,7 @@
 namespace Facebook\WebDriver\Net;
 
 use Exception;
-use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Exception\TimeoutException;
 
 class URLChecker
 {
@@ -34,7 +34,7 @@ class URLChecker
             usleep(self::POLL_INTERVAL_MS);
         }
 
-        throw new TimeOutException(sprintf(
+        throw new TimeoutException(sprintf(
             'Timed out waiting for %s to become available after %d ms.',
             $url,
             $timeout_in_ms
@@ -52,7 +52,7 @@ class URLChecker
             usleep(self::POLL_INTERVAL_MS);
         }
 
-        throw new TimeOutException(sprintf(
+        throw new TimeoutException(sprintf(
             'Timed out waiting for %s to become unavailable after %d ms.',
             $url,
             $timeout_in_ms

@@ -15,6 +15,9 @@
 
 namespace Facebook\WebDriver\Exception;
 
-class NoAlertOpenException extends WebDriverException
+/**
+ * @deprecated Use Facebook\WebDriver\Exception\NoSuchAlertException
+ */
+class NoAlertOpenException extends NoSuchAlertException
 {
 }

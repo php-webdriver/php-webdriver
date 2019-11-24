@@ -17,7 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
-use Facebook\WebDriver\Exception\TimeOutException;
+use Facebook\WebDriver\Exception\TimeoutException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
@@ -65,8 +65,8 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
 
         try {
             $this->driver->get($this->getTestPageUrl('slow_loading.html'));
-            $this->fail('ScriptTimeoutException or TimeOutException exception should be thrown');
-        } catch (TimeOutException $e) { // thrown by Selenium 3.0.0+
+            $this->fail('ScriptTimeoutException or TimeoutException exception should be thrown');
+        } catch (TimeoutException $e) { // thrown by Selenium 3.0.0+
         } catch (ScriptTimeoutException $e) { // thrown by Selenium 2
         }
     }
