@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * An unknown error occurred in the remote end while processing the command.
  */
-class InvalidCoordinatesException extends WebDriverException
+class UnknownErrorException extends WebDriverException
 {
 }

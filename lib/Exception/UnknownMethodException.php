@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * The requested command matched a known URL but did not match an method for that URL.
  */
-class InvalidCoordinatesException extends WebDriverException
+class UnknownMethodException extends WebDriverException
 {
 }

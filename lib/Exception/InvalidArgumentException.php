@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * The arguments passed to a command are either invalid or malformed.
  */
-class InvalidCoordinatesException extends WebDriverException
+class InvalidArgumentException extends WebDriverException
 {
 }

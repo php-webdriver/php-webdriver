@@ -16,8 +16,8 @@
 namespace Facebook\WebDriver\Exception;
 
 /**
- * @deprecated Removed in W3C WebDriver
+ * A command could not be completed because the element is not pointer- or keyboard interactable.
  */
-class InvalidCoordinatesException extends WebDriverException
+class ElementNotInteractableException extends WebDriverException
 {
 }
