@@ -21,6 +21,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @covers \Facebook\WebDriver\WebDriverAlert
+ * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {
