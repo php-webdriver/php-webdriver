@@ -137,6 +137,30 @@ class WebDriverActionsTest extends WebDriverTestCase
     }
 
     /**
+     * @covers ::__construct
+     * @covers ::dragAndDrop
+     * @covers ::perform
+     */
+    public function testShouldDragAndDrop()
+    {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Not supported by HtmlUnit browser');
+        }
+
+        $element = $this->driver->findElement(WebDriverBy::id('item-3'));
+        $target = $this->driver->findElement(WebDriverBy::id('item-1'));
+
+        $this->driver->action()
+            ->dragAndDrop($element, $target)
+            ->perform();
+
+        $this->assertContains('mouseover item-3', $this->retrieveLoggedEvents());
+        $this->assertContains('mousedown item-3', $this->retrieveLoggedEvents());
+        $this->assertContains('mouseover item-1', $this->retrieveLoggedEvents());
+        $this->assertContains('mouseup item-1', $this->retrieveLoggedEvents());
+    }
+
+    /**
      * @return array
      */
     private function retrieveLoggedEvents()

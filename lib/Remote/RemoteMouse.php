@@ -241,7 +241,7 @@ class RemoteMouse implements WebDriverMouse
                         'parameters' => ['pointerType' => 'mouse'],
                         'actions' => array_merge($moveAction, [
                             [
-                                'type' => 'pointerDown',
+                                'type' => 'pointerUp',
                                 'duration' => 0,
                                 'button' => 0,
                             ],
