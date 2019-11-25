@@ -140,6 +140,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      * @covers ::__construct
      * @covers ::dragAndDrop
      * @covers ::perform
+     * @group exclude-saucelabs
      */
     public function testShouldDragAndDrop()
     {
