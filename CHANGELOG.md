@@ -5,6 +5,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
+- `getStatus()` method of RemoteWebDriver to get information about remote-end readiness to create new sessions.
 
 ### Changed
 - Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).

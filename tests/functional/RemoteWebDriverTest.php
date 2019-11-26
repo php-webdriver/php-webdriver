@@ -271,4 +271,20 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         unlink($screenshotPath);
     }
+
+    /**
+     * @covers ::getStatus
+     * @covers \Facebook\WebDriver\Remote\RemoteStatus
+     * @group exclude-saucelabs
+     * Status endpoint is not supported on Sauce Labs
+     */
+    public function testShouldGetRemoteEndStatus()
+    {
+        $status = $this->driver->getStatus();
+
+        $this->assertInternalType('boolean', $status->isReady());
+        $this->assertNotEmpty($status->getMessage());
+
+        $this->assertInternalType('array', $status->getMeta());
+    }
 }
