@@ -24,7 +24,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 class WebDriverByTest extends WebDriverTestCase
 {
     /**
-     * @dataProvider textElementsProvider
+     * @dataProvider provideTextElements
      * @param string $webDriverByLocatorMethod
      * @param string $webDriverByLocatorValue
      * @param string $expectedText
@@ -52,7 +52,10 @@ class WebDriverByTest extends WebDriverTestCase
         }
     }
 
-    public function textElementsProvider()
+    /**
+     * @return array[]
+     */
+    public function provideTextElements()
     {
         return [
             'id' => ['id', 'id_test', 'Test by ID'],

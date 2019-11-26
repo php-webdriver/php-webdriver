@@ -33,7 +33,7 @@ class WebDriverSendKeysActionTest extends TestCase
     /** @var array */
     private $keys;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->webDriverKeyboard = $this->getMockBuilder(WebDriverKeyboard::class)->getMock();
         $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
@@ -54,7 +54,7 @@ class WebDriverSendKeysActionTest extends TestCase
             ->disableOriginalConstructor()->getMock();
         $this->webDriverKeyboard->expects($this->once())->method('sendKeys')->with($this->keys);
         $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
-        $this->locationProvider->expects($this->once())->method('getCoordinates')->will($this->returnValue($coords));
+        $this->locationProvider->expects($this->once())->method('getCoordinates')->willReturn($coords);
         $this->webDriverSendKeysAction->perform();
     }
 }

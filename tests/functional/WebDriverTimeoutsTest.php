@@ -38,8 +38,8 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::implicitlyWait
      * @covers ::__construct
+     * @covers ::implicitlyWait
      */
     public function testShouldGetDelayedElementWithImplicitWait()
     {
@@ -52,8 +52,8 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::pageLoadTimeout
      * @covers ::__construct
+     * @covers ::pageLoadTimeout
      */
     public function testShouldFailIfPageIsLoadingLongerThanPageLoadTimeout()
     {

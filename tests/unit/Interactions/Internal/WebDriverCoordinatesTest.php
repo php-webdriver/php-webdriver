@@ -28,10 +28,10 @@ class WebDriverCoordinatesTest extends TestCase
 
         $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-        self::assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
-        self::assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
-        self::assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
-        self::assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
+        $this->assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
+        $this->assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
+        $this->assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
+        $this->assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
     }
 
     public function testGetAuxiliary()
@@ -43,6 +43,6 @@ class WebDriverCoordinatesTest extends TestCase
 
         $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-        self::assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
+        $this->assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
     }
 }

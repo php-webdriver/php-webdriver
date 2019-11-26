@@ -19,8 +19,8 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverRadios
  * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ * @covers \Facebook\WebDriver\WebDriverRadios
  * @group exclude-edge
  */
 class WebDriverRadiosTest extends WebDriverTestCase
@@ -115,7 +115,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
     }
 
     /**
-     * @dataProvider selectByVisibleTextDataProvider
+     * @dataProvider provideSelectByVisibleTextData
      *
      * @param string $text
      * @param string $value
@@ -128,9 +128,9 @@ class WebDriverRadiosTest extends WebDriverTestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function selectByVisibleTextDataProvider()
+    public function provideSelectByVisibleTextData()
     {
         return [
             ['J 3 B', 'j3b'],
@@ -139,7 +139,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
     }
 
     /**
-     * @dataProvider selectByVisiblePartialTextDataProvider
+     * @dataProvider provideSelectByVisiblePartialTextData
      *
      * @param string $text
      * @param string $value
@@ -152,9 +152,9 @@ class WebDriverRadiosTest extends WebDriverTestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function selectByVisiblePartialTextDataProvider()
+    public function provideSelectByVisiblePartialTextData()
     {
         return [
             ['3 B', 'j3b'],

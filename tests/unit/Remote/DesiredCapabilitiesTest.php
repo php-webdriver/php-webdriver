@@ -83,7 +83,7 @@ class DesiredCapabilitiesTest extends TestCase
     }
 
     /**
-     * @dataProvider browserCapabilitiesProvider
+     * @dataProvider provideBrowserCapabilities
      * @param string $setupMethod
      * @param string $expectedBrowser
      * @param string $expectedPlatform
@@ -101,9 +101,9 @@ class DesiredCapabilitiesTest extends TestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function browserCapabilitiesProvider()
+    public function provideBrowserCapabilities()
     {
         return [
             ['android', WebDriverBrowserType::ANDROID, WebDriverPlatform::ANDROID],

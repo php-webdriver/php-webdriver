@@ -21,8 +21,8 @@ namespace Facebook\WebDriver;
 class WebDriverNavigationTest extends WebDriverTestCase
 {
     /**
-     * @covers ::to
      * @covers ::__construct
+     * @covers ::to
      */
     public function testShouldNavigateToUrl()
     {
