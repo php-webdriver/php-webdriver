@@ -31,7 +31,7 @@ class RemoteWebDriverTest extends TestCase
     /** @var RemoteWebDriver */
     private $driver;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->driver = RemoteWebDriver::createBySessionID('session-id', 'http://foo.bar:4444');
     }

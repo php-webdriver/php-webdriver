@@ -161,7 +161,7 @@ class CookieTest extends TestCase
     }
 
     /**
-     * @dataProvider invalidCookieProvider
+     * @dataProvider provideInvalidCookie
      * @param string $name
      * @param string $value
      * @param string $domain
@@ -185,7 +185,7 @@ class CookieTest extends TestCase
     /**
      * @return array[]
      */
-    public function invalidCookieProvider()
+    public function provideInvalidCookie()
     {
         return [
             // $name, $value, $domain, $expectedMessage

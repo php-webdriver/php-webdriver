@@ -20,8 +20,8 @@ use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverAlert
  * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
+ * @covers \Facebook\WebDriver\WebDriverAlert
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {

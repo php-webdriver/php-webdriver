@@ -61,8 +61,8 @@ class WebDriverActionsTest extends WebDriverTestCase
     /**
      * @covers ::__construct
      * @covers ::clickAndHold
-     * @covers ::release
      * @covers ::perform
+     * @covers ::release
      */
     public function testShouldClickAndHoldOnElementAndRelease()
     {

@@ -38,8 +38,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::getCurrentURL
      * @covers ::get
+     * @covers ::getCurrentURL
      */
     public function testShouldGetCurrentUrl()
     {

@@ -25,13 +25,13 @@ class HttpCommandExecutorTest extends TestCase
     /** @var HttpCommandExecutor */
     private $executor;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->executor = new HttpCommandExecutor('http://localhost:4444');
     }
 
     /**
-     * @dataProvider commandProvider
+     * @dataProvider provideCommand
      * @param int $command
      * @param array $params
      * @param bool $shouldResetExpectHeader
@@ -81,7 +81,7 @@ class HttpCommandExecutorTest extends TestCase
     /**
      * @return array[]
      */
-    public function commandProvider()
+    public function provideCommand()
     {
         return [
             'POST command having :id placeholder in url' => [

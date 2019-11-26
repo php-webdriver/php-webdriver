@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 class XPathEscaperTest extends TestCase
 {
     /**
-     * @dataProvider xpathProvider
+     * @dataProvider provideXpath
      * @param string $input
      * @param string $expectedOutput
      */
@@ -34,7 +34,7 @@ class XPathEscaperTest extends TestCase
     /**
      * @return array[]
      */
-    public function xpathProvider()
+    public function provideXpath()
     {
         return [
             'empty string encapsulate in single quotes' => ['', "''"],

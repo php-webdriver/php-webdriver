@@ -18,8 +18,8 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverCheckboxes
  * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
+ * @covers \Facebook\WebDriver\WebDriverCheckboxes
  * @group exclude-edge
  */
 class WebDriverCheckboxesTest extends WebDriverTestCase
@@ -137,7 +137,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     }
 
     /**
-     * @dataProvider selectByVisibleTextDataProvider
+     * @dataProvider provideSelectByVisibleTextData
      *
      * @param string $text
      * @param string $value
@@ -154,9 +154,9 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function selectByVisibleTextDataProvider()
+    public function provideSelectByVisibleTextData()
     {
         return [
             ['J 2 B', 'j2b'],
@@ -165,7 +165,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     }
 
     /**
-     * @dataProvider selectByVisiblePartialTextDataProvider
+     * @dataProvider provideSelectByVisiblePartialTextData
      *
      * @param string $text
      * @param string $value
@@ -182,9 +182,9 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     }
 
     /**
-     * @return array
+     * @return array[]
      */
-    public function selectByVisiblePartialTextDataProvider()
+    public function provideSelectByVisiblePartialTextData()
     {
         return [
             ['2 B', 'j2b'],
