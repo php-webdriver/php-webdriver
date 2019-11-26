@@ -381,6 +381,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
+     * Status returns information about whether a remote end is in a state in which it can create new sessions.
+     */
+    public function getStatus()
+    {
+        $response = $this->execute(DriverCommand::STATUS);
+
+        return RemoteStatus::createFromResponse($response);
+    }
+
+    /**
      * Construct a new WebDriverWait by the current WebDriver instance.
      * Sample usage:
      *
