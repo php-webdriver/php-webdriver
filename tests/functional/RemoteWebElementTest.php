@@ -17,6 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
@@ -335,5 +336,59 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertCount(5, $allElements); // there should be 5 <li> elements on page
         $this->assertCount(3, $childElements); // but we should find only subelements of one <ul>
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $childElements);
+    }
+
+    /**
+     * @covers ::takeScreenshot
+     */
+    public function testShouldTakeElementScreenshot()
+    {
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped('GD extension must be enabled');
+        }
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
+        }
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+        $outputPng = $firstElement->takeElementScreenshot();
+
+        $image = imagecreatefromstring($outputPng);
+        $this->assertInternalType('resource', $image);
+
+        $size = $firstElement->getSize();
+        $this->assertEquals($size->getWidth(), imagesx($image));
+        $this->assertEquals($size->getHeight(), imagesy($image));
+    }
+
+    /**
+     * @covers ::takeScreenshot
+     */
+    public function testShouldSaveElementScreenshotToFile()
+    {
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped('GD extension must be enabled');
+        }
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
+        }
+
+        $screenshotPath = sys_get_temp_dir() . '/selenium-screenshot.png';
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
+        $firstElement->takeElementScreenshot($screenshotPath);
+
+        $image = imagecreatefrompng($screenshotPath);
+        $this->assertInternalType('resource', $image);
+
+        $size = $firstElement->getSize();
+        $this->assertEquals($size->getWidth(), imagesx($image));
+        $this->assertEquals($size->getHeight(), imagesy($image));
+
+        unlink($screenshotPath);
     }
 }
