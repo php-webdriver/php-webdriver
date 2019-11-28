@@ -126,7 +126,7 @@ class WebDriverTestCase extends TestCase
     public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
     {
         if (getenv('GECKODRIVER') !== '1'
-            && (getenv('CHROMEDRIVER') !== '1' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+            && (getenv('BROWSER_NAME') !== 'chrome' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
             static::markTestSkipped($message);
         }
     }
