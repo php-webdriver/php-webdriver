@@ -139,7 +139,12 @@ class WebDriverTestCase extends TestCase
      */
     protected function getTestPageUrl($path)
     {
-        return 'http://localhost:8000/' . $path;
+        $host = 'http://localhost:8000';
+        if ($alternateHost = getenv('FIXTURES_HOST')) {
+            $host = $alternateHost;
+        }
+
+        return $host . '/' . $path;
     }
 
     protected function setUpSauceLabs()
