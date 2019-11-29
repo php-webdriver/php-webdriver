@@ -50,9 +50,12 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $returnedCapabilities = $this->driver->getCapabilities();
         $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
         $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+        $this->assertNotEmpty($returnedCapabilities->getPlatform());
+        $this->assertNotEmpty($returnedCapabilities);
+        $this->assertNotEmpty($returnedCapabilities->getVersion());
     }
 
-    public function testShouldAcceprCapabilitiesAsAnArray()
+    public function testShouldAcceptCapabilitiesAsAnArray()
     {
         // Method has a side-effect of converting whole content of desiredCapabilities to an array
         $this->desiredCapabilities->toArray();

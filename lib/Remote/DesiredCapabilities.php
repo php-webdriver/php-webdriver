@@ -25,14 +25,34 @@ use Facebook\WebDriver\WebDriverPlatform;
 
 class DesiredCapabilities implements WebDriverCapabilities
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $capabilities;
+
+    /** @var array */
+    private static $ossToW3c = [
+        WebDriverCapabilityType::PLATFORM => 'platformName',
+        WebDriverCapabilityType::VERSION => 'browserVersion',
+        WebDriverCapabilityType::ACCEPT_SSL_CERTS => 'acceptInsecureCerts',
+        ChromeOptions::CAPABILITY => ChromeOptions::CAPABILITY_W3C,
+    ];
 
     public function __construct(array $capabilities = [])
     {
         $this->capabilities = $capabilities;
+    }
+
+    public static function createFromW3cCapabilities(array $capabilities = [])
+    {
+        $w3cToOss = array_flip(static::$ossToW3c);
+
+        foreach ($w3cToOss as $w3cCapability => $ossCapability) {
+            // Copy W3C capabilities to OSS ones
+            if (array_key_exists($w3cCapability, $capabilities)) {
+                $capabilities[$ossCapability] = $capabilities[$w3cCapability];
+            }
+        }
+
+        return new self($capabilities);
     }
 
     /**
@@ -183,13 +203,6 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public function toW3cCompatibleArray()
     {
-        $ossToW3c = [
-            WebDriverCapabilityType::PLATFORM => 'platformName',
-            WebDriverCapabilityType::VERSION => 'browserVersion',
-            WebDriverCapabilityType::ACCEPT_SSL_CERTS => 'acceptInsecureCerts',
-            ChromeOptions::CAPABILITY => ChromeOptions::CAPABILITY_W3C,
-        ];
-
         $allowedW3cCapabilities = [
             'browserName',
             'browserVersion',
@@ -212,12 +225,12 @@ class DesiredCapabilities implements WebDriverCapabilities
                 $w3cCapabilities[$capabilityKey] = $capabilityValue;
             }
 
-            // Convert capabilitites with changed name
-            if (array_key_exists($capabilityKey, $ossToW3c)) {
-                if ($capabilityKey === 'platform') {
-                    $w3cCapabilities[$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+            // Convert capabilities with changed name
+            if (array_key_exists($capabilityKey, static::$ossToW3c)) {
+                if ($capabilityKey === WebDriverCapabilityType::PLATFORM) {
+                    $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
                 } else {
-                    $w3cCapabilities[$ossToW3c[$capabilityKey]] = $capabilityValue;
+                    $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = $capabilityValue;
                 }
             }
 
