@@ -149,13 +149,17 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $response = $executor->execute($command);
         $value = $response->getValue();
 
-        if (!$w3c_compliant = isset($value['capabilities'])) {
+        if (!$isW3cCompliant = isset($value['capabilities'])) {
             $executor->disableW3cCompliance();
         }
 
-        $returnedCapabilities = new DesiredCapabilities($w3c_compliant ? $value['capabilities'] : $value);
+        if ($isW3cCompliant) {
+            $returnedCapabilities = DesiredCapabilities::createFromW3cCapabilities($value['capabilities']);
+        } else {
+            $returnedCapabilities = new DesiredCapabilities($value);
+        }
 
-        $driver = new static($executor, $response->getSessionID(), $returnedCapabilities, $w3c_compliant);
+        $driver = new static($executor, $response->getSessionID(), $returnedCapabilities, $isW3cCompliant);
 
         return $driver;
     }
