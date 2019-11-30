@@ -76,7 +76,7 @@ class WebDriverOptions
     }
 
     /**
-     * Delete the cookie with the give name.
+     * Delete the cookie with the given name.
      *
      * @param string $name
      * @return WebDriverOptions The current instance.

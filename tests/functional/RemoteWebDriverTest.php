@@ -270,6 +270,18 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
 
+        // Validate expected red box is present on the screenshot
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($image, imagecolorat($image, 5, 5))
+        );
+
+        // And whitespace has expected background color
+        $this->assertSame(
+            ['red' => 250, 'green' => 250, 'blue' => 255, 'alpha' => 0],
+            imagecolorsforindex($image, imagecolorat($image, 15, 5))
+        );
+
         unlink($screenshotPath);
         rmdir(dirname($screenshotPath));
     }
