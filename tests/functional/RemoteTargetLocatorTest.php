@@ -55,9 +55,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->assertNotSame($originalWindowHandle, $this->driver->getWindowHandle());
     }
 
-    /**
-     * @cover ::activeElement
-     */
     public function testActiveElement()
     {
         $this->driver->get($this->getTestPageUrl('index.html'));
@@ -72,9 +69,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->assertSame('test_name', $activeElement->getAttribute('name'));
     }
 
-    /**
-     * @cover ::frame
-     */
     public function testShouldSwitchToFrameByItsId()
     {
         $parentPage = 'This is the host page which contains an iFrame';
@@ -98,9 +92,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->assertContains($parentPage, $this->driver->getPageSource());
     }
 
-    /**
-     * @cover ::frame
-     */
     public function testShouldSwitchToFrameByElement()
     {
         $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
@@ -112,7 +103,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
     }
 
     /**
-     * @cover ::frame
      * @group exclude-saucelabs
      */
     public function testShouldNotAcceptStringAsFrameIdInW3cMode()
@@ -130,7 +120,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
     }
 
     /**
-     * @cover ::frame
      * @group exclude-saucelabs
      */
     public function testShouldAcceptStringAsFrameIdInJsonWireMode()
