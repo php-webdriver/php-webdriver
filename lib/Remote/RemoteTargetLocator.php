@@ -25,17 +25,11 @@ use Facebook\WebDriver\WebDriverTargetLocator;
  */
 class RemoteTargetLocator implements WebDriverTargetLocator
 {
-    /**
-     * @var ExecuteMethod
-     */
+    /** @var ExecuteMethod */
     protected $executor;
-    /**
-     * @var WebDriver
-     */
+    /** @var WebDriver */
     protected $driver;
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $isW3cCompliant;
 
     public function __construct($executor, $driver, $isW3cCompliant = false)

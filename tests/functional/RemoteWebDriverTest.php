@@ -62,9 +62,18 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::getSessionID
+     * @covers ::isW3cCompliant
      */
     public function testShouldGetSessionId()
     {
+        // This tests is intentionally included in another test, to not slow down build.
+        // @TODO Remove following in 2.0
+        if (self::isW3cProtocolBuild()) {
+            $this->assertTrue($this->driver->isW3cCompliant());
+        } else {
+            $this->assertFalse($this->driver->isW3cCompliant());
+        }
+
         $sessionId = $this->driver->getSessionID();
 
         $this->assertInternalType('string', $sessionId);
@@ -171,12 +180,16 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Test by ID', $element->getText());
 
         $start = microtime(true);
-        $this->driver->executeScript('
+        $scriptResult = $this->driver->executeScript('
             setTimeout(
                 function(){document.getElementById("id_test").innerHTML = "Text changed by script";},
                 250
-            )');
+            );
+            return "returned value";
+            ');
         $end = microtime(true);
+
+        $this->assertSame('returned value', $scriptResult);
 
         $this->assertLessThan(250, $end - $start, 'executeScript() should not block execution');
 
@@ -199,17 +212,19 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->assertSame('Test by ID', $element->getText());
 
         $start = microtime(true);
-        $this->driver->executeAsyncScript(
+        $scriptResult = $this->driver->executeAsyncScript(
             'var callback = arguments[arguments.length - 1];
             setTimeout(
                 function(){
                     document.getElementById("id_test").innerHTML = "Text changed by script";
-                    callback();
+                    callback("returned value");
                  },
                 250
             );'
         );
         $end = microtime(true);
+
+        $this->assertSame('returned value', $scriptResult);
 
         $this->assertGreaterThan(
             0.250,
@@ -220,6 +235,31 @@ class RemoteWebDriverTest extends WebDriverTestCase
         // The result must be immediately available, as the executeAsyncScript should block the execution until the
         // callback is called.
         $this->assertSame('Text changed by script', $element->getText());
+    }
+
+    /**
+     * @covers ::executeScript
+     * @covers ::prepareScriptArguments
+     * @group exclude-saucelabs
+     */
+    public function testShouldExecuteScriptWithParamsAndReturnValue()
+    {
+        $this->driver->manage()->timeouts()->setScriptTimeout(1);
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $element1 = $this->driver->findElement(WebDriverBy::id('id_test'));
+        $element2 = $this->driver->findElement(WebDriverBy::className('test_class'));
+
+        $scriptResult = $this->driver->executeScript(
+            'var element1 = arguments[0];
+            var element2 = arguments[1];
+            return "1: " + element1.innerText + ", 2: " + element2.innerText;
+            ',
+            [$element1, $element2]
+        );
+
+        $this->assertSame('1: Test by ID, 2: Test by Class', $scriptResult);
     }
 
     /**
