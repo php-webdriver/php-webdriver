@@ -55,7 +55,7 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldAcceptAndDismissConfirmation()
     {
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
             $this->markTestSkipped('Not supported by HtmlUnit browser');
         }
@@ -82,7 +82,7 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldSubmitPromptText()
     {
-        if ($this->desiredCapabilities->getBrowserName() == WebDriverBrowserType::HTMLUNIT) {
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
             $this->markTestSkipped('Not supported by HtmlUnit browser');
         }
