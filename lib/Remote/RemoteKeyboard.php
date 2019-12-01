@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverKeyboard;
 use Facebook\WebDriver\WebDriverKeys;
 
@@ -23,17 +24,21 @@ use Facebook\WebDriver\WebDriverKeys;
  */
 class RemoteKeyboard implements WebDriverKeyboard
 {
-    /**
-     * @var RemoteExecuteMethod
-     */
+    /** @var RemoteExecuteMethod */
     private $executor;
+    /** @var WebDriver */
+    private $driver;
+    /** @var bool */
+    private $isW3cCompliant;
 
     /**
-     * @param RemoteExecuteMethod $executor
+     * @param bool $isW3cCompliant
      */
-    public function __construct(RemoteExecuteMethod $executor)
+    public function __construct(RemoteExecuteMethod $executor, WebDriver $driver, $isW3cCompliant = false)
     {
         $this->executor = $executor;
+        $this->driver = $driver;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -43,9 +48,14 @@ class RemoteKeyboard implements WebDriverKeyboard
      */
     public function sendKeys($keys)
     {
-        $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
-            'value' => WebDriverKeys::encode($keys),
-        ]);
+        if ($this->isW3cCompliant) {
+            $activeElement = $this->driver->switchTo()->activeElement();
+            $activeElement->sendKeys($keys);
+        } else {
+            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
+                'value' => WebDriverKeys::encode($keys),
+            ]);
+        }
 
         return $this;
     }
@@ -59,9 +69,21 @@ class RemoteKeyboard implements WebDriverKeyboard
      */
     public function pressKey($key)
     {
-        $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
-            'value' => [(string) $key],
-        ]);
+        if ($this->isW3cCompliant) {
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'key',
+                        'id' => 'keyboard',
+                        'actions' => [['type' => 'keyDown', 'value' => $key]],
+                    ],
+                ],
+            ]);
+        } else {
+            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
+                'value' => [(string) $key],
+            ]);
+        }
 
         return $this;
     }
@@ -75,9 +97,21 @@ class RemoteKeyboard implements WebDriverKeyboard
      */
     public function releaseKey($key)
     {
-        $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
-            'value' => [(string) $key],
-        ]);
+        if ($this->isW3cCompliant) {
+            $this->executor->execute(DriverCommand::ACTIONS, [
+                'actions' => [
+                    [
+                        'type' => 'key',
+                        'id' => 'keyboard',
+                        'actions' => [['type' => 'keyUp', 'value' => $key]],
+                    ],
+                ],
+            ]);
+        } else {
+            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT, [
+                'value' => [(string) $key],
+            ]);
+        }
 
         return $this;
     }

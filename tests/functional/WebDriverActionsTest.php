@@ -166,7 +166,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     private function retrieveLoggedEvents()
     {
-        $logElement = $this->driver->findElement(WebDriverBy::id('log'));
+        $logElement = $this->driver->findElement(WebDriverBy::id('mouseEventsLog'));
 
         return explode("\n", $logElement->getText());
     }

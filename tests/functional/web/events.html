@@ -28,23 +28,30 @@
     <li id="item-3" draggable="true">Third item</li>
 </ul>
 
-<pre id="log" style="border: 1px solid black; height: 20em; overflow: auto;"></pre>
+<pre id="mouseEventsLog" style="border: 1px solid black; height: 20em; overflow: auto;"></pre>
+
+<pre id="keyboardEventsLog" style="border: 1px solid black; height: 20em; overflow: auto;"></pre>
 
 <script>
-    function logEvent(event) {
-        var logElement = document.getElementById('log');
+    function logMouseEvent(event) {
+        var logElement = document.getElementById('mouseEventsLog');
         logElement.innerHTML += '<strong>' + event.type + '</strong> <span>' + event.target.id +'</span><br>';
-        logElement.scrollTop = logElement.scrollHeight;
+        console.log(event);
+    }
+
+    function logKeyboardEvent(event) {
+        var logElement = document.getElementById('keyboardEventsLog');
+        logElement.innerHTML += '<strong>' + event.type + '</strong> <span>&quot;' + event.key +'&quot;</span>' + "\n";
         console.log(event);
     }
 
     function handleDragenter(e) {
-        logEvent(e);
+        logMouseEvent(e);
         e.target.classList.add('active');
     }
 
     function handleDragleave(e) {
-        logEvent(e);
+        logMouseEvent(e);
         e.target.classList.remove('active');
     }
 
@@ -53,7 +60,7 @@
     }
 
     function handleDrop(e) {
-        logEvent(e);
+        logMouseEvent(e);
         e.preventDefault();
 
         var data = e.dataTransfer.getData('text');
@@ -68,18 +75,21 @@
         el.addEventListener(
             'dragstart',
             function (e) {
-                logEvent(e);
+                logMouseEvent(e);
                 e.dataTransfer.setData('text/plain', e.target.id);
             }
         );
 
-        el.addEventListener('click', logEvent);
-        el.addEventListener('contextmenu', logEvent);
-        el.addEventListener('dblclick', logEvent);
-        el.addEventListener('mouseover', logEvent);
-        el.addEventListener('mousedown', logEvent);
-        el.addEventListener('mouseup', logEvent);
+        el.addEventListener('click', logMouseEvent);
+        el.addEventListener('contextmenu', logMouseEvent);
+        el.addEventListener('dblclick', logMouseEvent);
+        el.addEventListener('mouseover', logMouseEvent);
+        el.addEventListener('mousedown', logMouseEvent);
+        el.addEventListener('mouseup', logMouseEvent);
     }
+
+    document.addEventListener('keydown', logKeyboardEvent);
+    document.addEventListener('keyup', logKeyboardEvent);
 </script>
 
 </body>

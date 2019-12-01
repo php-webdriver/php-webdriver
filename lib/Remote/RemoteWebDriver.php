@@ -474,7 +474,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     public function getKeyboard()
     {
         if (!$this->keyboard) {
-            $this->keyboard = new RemoteKeyboard($this->getExecuteMethod());
+            $this->keyboard = new RemoteKeyboard($this->getExecuteMethod(), $this, $this->isW3cCompliant);
         }
 
         return $this->keyboard;
