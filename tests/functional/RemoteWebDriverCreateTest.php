@@ -106,4 +106,87 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         // Check we reused the previous instance (window) and it has the same URL
         $this->assertContains('/index.html', $this->driver->getCurrentURL());
     }
+
+    public function testShouldRemoveAnyPlatformFromFirstMatch()
+    {
+        $this->desiredCapabilities->setPlatform(WebDriverPlatform::ANY);
+
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout,
+            null,
+            null,
+            null
+        );
+
+        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
+
+        $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
+        $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
+
+        $this->assertInternalType('string', $this->driver->getSessionID());
+        $this->assertNotEmpty($this->driver->getSessionID());
+
+        $returnedCapabilities = $this->driver->getCapabilities();
+        $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
+        $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+    }
+
+    public function testShouldRemoveAnyPlatformFromAlwaysMatch()
+    {
+        $this->desiredCapabilities->setPlatform(WebDriverPlatform::ANY);
+        $alwaysMatch = new DesiredCapabilities();
+        $alwaysMatch->setPlatform(WebDriverPlatform::ANY);
+
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout,
+            null,
+            null,
+            $alwaysMatch,
+        );
+
+        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
+
+        $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
+        $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
+
+        $this->assertInternalType('string', $this->driver->getSessionID());
+        $this->assertNotEmpty($this->driver->getSessionID());
+
+        $returnedCapabilities = $this->driver->getCapabilities();
+        $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
+        $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+    }
+
+    public function testShouldRemoveAnyPlatformFromFirstMatchEmptyDesired()
+    {
+        $desiredCapabilities = new DesiredCapabilities();
+        $desiredCapabilities->setPlatform(WebDriverPlatform::ANY);
+
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout,
+            null,
+            null,
+            null
+        );
+
+        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
+
+        $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
+        $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
+
+        $this->assertInternalType('string', $this->driver->getSessionID());
+        $this->assertNotEmpty($this->driver->getSessionID());
+
+        $returnedCapabilities = $this->driver->getCapabilities();
+        $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
+    }
 }

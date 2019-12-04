@@ -139,11 +139,12 @@ class DesiredCapabilitiesTest extends TestCase
      */
     public function testShouldConvertCapabilitiesToW3cCompatible(
         DesiredCapabilities $inputJsonWireCapabilities,
+        bool $forRequiredCapabilities,
         array $expectedW3cCapabilities
     ) {
         $this->assertEquals(
             $expectedW3cCapabilities,
-            $inputJsonWireCapabilities->toW3cCompatibleArray()
+            $inputJsonWireCapabilities->toW3cCompatibleArray($forRequiredCapabilities)
         );
     }
 
@@ -167,6 +168,7 @@ class DesiredCapabilitiesTest extends TestCase
                     WebDriverCapabilityType::PLATFORM => WebDriverPlatform::LINUX,
                     WebDriverCapabilityType::ACCEPT_SSL_CERTS => true,
                 ]),
+                false,
                 [
                     'browserName' => 'chrome',
                     'browserVersion' => '67.0.1',
@@ -179,12 +181,14 @@ class DesiredCapabilitiesTest extends TestCase
                     WebDriverCapabilityType::WEB_STORAGE_ENABLED => true,
                     WebDriverCapabilityType::TAKES_SCREENSHOT => false,
                 ]),
+                false,
                 [],
             ],
             'custom invalid capability should be removed' => [
                 new DesiredCapabilities([
                     'customInvalidCapability' => 'shouldBeRemoved',
                 ]),
+                false,
                 [],
             ],
             'already W3C capabilitites' => [
@@ -192,6 +196,7 @@ class DesiredCapabilitiesTest extends TestCase
                     'pageLoadStrategy' => 'eager',
                     'strictFileInteractability' => false,
                 ]),
+                false,
                 [
                     'pageLoadStrategy' => 'eager',
                     'strictFileInteractability' => false,
@@ -201,6 +206,7 @@ class DesiredCapabilitiesTest extends TestCase
                 new DesiredCapabilities([
                     'vendor:prefix' => 'vendor extension should be kept',
                 ]),
+                false,
                 [
                     'vendor:prefix' => 'vendor extension should be kept',
                 ],
@@ -209,6 +215,7 @@ class DesiredCapabilitiesTest extends TestCase
                 new DesiredCapabilities([
                     ChromeOptions::CAPABILITY => $chromeOptions,
                 ]),
+                false,
                 [
                     'goog:chromeOptions' => [
                         'args' => ['--headless'],
@@ -224,6 +231,7 @@ class DesiredCapabilitiesTest extends TestCase
                         'args' => ['window-size=1024,768'],
                     ],
                 ]),
+                false,
                 [
                     'goog:chromeOptions' => [
                         'args' => ['--headless', 'window-size=1024,768'],
@@ -236,6 +244,7 @@ class DesiredCapabilitiesTest extends TestCase
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
                 ]),
+                false,
                 [
                     'moz:firefoxOptions' => [
                         'profile' => $firefoxProfileEncoded,
@@ -247,6 +256,7 @@ class DesiredCapabilitiesTest extends TestCase
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
                     'moz:firefoxOptions' => ['profile' => 'w3cProfile'],
                 ]),
+                false,
                 [
                     'moz:firefoxOptions' => [
                         'profile' => 'w3cProfile',
@@ -258,11 +268,44 @@ class DesiredCapabilitiesTest extends TestCase
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
                     'moz:firefoxOptions' => ['args' => ['-headless']],
                 ]),
+                false,
                 [
                     'moz:firefoxOptions' => [
                         'profile' => $firefoxProfileEncoded,
                         'args' => ['-headless'],
                     ],
+                ],
+            ],
+            'platform of any should be removed from requiredCapabilities' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
+                    WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
+                ]),
+                true,
+                [
+                    'browserName' => 'firefox',
+                ],
+            ],
+            'platform of any should not be removed from desiredCapabilities' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
+                    WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
+                ]),
+                false,
+                [
+                    'browserName' => 'firefox',
+                    'platformName' => 'any',
+                ],
+            ],
+            'platform name of linux should not be removed from requiredCapabilities' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::BROWSER_NAME => WebDriverBrowserType::FIREFOX,
+                    WebDriverCapabilityType::PLATFORM => WebDriverPlatform::LINUX,
+                ]),
+                true,
+                [
+                    'browserName' => 'firefox',
+                    'platformName' => 'linux',
                 ],
             ],
         ];

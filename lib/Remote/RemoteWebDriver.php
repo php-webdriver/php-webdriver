@@ -120,14 +120,19 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         // W3C
-        $parameters = [
-            'capabilities' => [
-                'firstMatch' => [$desired_capabilities->toW3cCompatibleArray()],
-            ],
-        ];
+        $parameters = [];
+        $firstMatch = $desired_capabilities->toW3cCompatibleArray(true);
+        if (!empty($firstMatch)) {
+            $parameters['capabilities'] = [
+                'firstMatch' => [$desired_capabilities->toW3cCompatibleArray(true)],
+            ];
+        }
 
-        if ($required_capabilities !== null && !empty($required_capabilities->toArray())) {
-            $parameters['capabilities']['alwaysMatch'] = $required_capabilities->toW3cCompatibleArray();
+        if ($required_capabilities !== null) {
+            $alwaysMatch = $required_capabilities->toW3cCompatibleArray(true);
+            if (!empty($alwaysMatch)) {
+                $parameters['capabilities']['alwaysMatch'] = $alwaysMatch;
+            }
         }
 
         // Legacy protocol
@@ -138,7 +143,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $desired_capabilities->setCapability('requiredCapabilities', $required_capabilities->toArray());
         }
 
-        $parameters['desiredCapabilities'] = $desired_capabilities->toArray();
+        if (!empty($desired_capabilities->toArray())) {
+            $parameters['desiredCapabilities'] = $desired_capabilities->toArray();
+        }
 
         $command = new WebDriverCommand(
             null,

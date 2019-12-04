@@ -199,9 +199,10 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
+     * @param bool $forRequiredCapabilities
      * @return array
      */
-    public function toW3cCompatibleArray()
+    public function toW3cCompatibleArray($forRequiredCapabilities = false)
     {
         $allowedW3cCapabilities = [
             'browserName',
@@ -228,7 +229,9 @@ class DesiredCapabilities implements WebDriverCapabilities
             // Convert capabilities with changed name
             if (array_key_exists($capabilityKey, static::$ossToW3c)) {
                 if ($capabilityKey === WebDriverCapabilityType::PLATFORM) {
-                    $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+                    if (!$forRequiredCapabilities || $capabilityValue !== WebDriverPlatform::ANY) {
+                        $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+                    }
                 } else {
                     $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = $capabilityValue;
                 }
