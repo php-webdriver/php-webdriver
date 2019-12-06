@@ -34,7 +34,7 @@ class ChromeDriverServiceTest extends TestCase
     public function testShouldStartAndStopServiceCreatedUsingShortcutConstructor()
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
-        putenv(ChromeDriverService::CHROME_DRIVER_EXE_PROPERTY . '=' . getenv('CHROMEDRIVER_PATH'));
+        putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));
 
         $driverService = ChromeDriverService::createDefaultService();
 
@@ -66,7 +66,7 @@ class ChromeDriverServiceTest extends TestCase
 
     public function testShouldThrowExceptionIfExecutableCannotBeFound()
     {
-        putenv(ChromeDriverService::CHROME_DRIVER_EXE_PROPERTY . '=/not/existing');
+        putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=/not/existing');
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('\'/not/existing\' is not a file.');
@@ -75,7 +75,7 @@ class ChromeDriverServiceTest extends TestCase
 
     public function testShouldThrowExceptionIfExecutableIsNotExecutable()
     {
-        putenv(ChromeDriverService::CHROME_DRIVER_EXE_PROPERTY . '=' . __FILE__);
+        putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . __FILE__);
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('is not executable');

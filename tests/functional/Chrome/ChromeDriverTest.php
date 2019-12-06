@@ -46,11 +46,11 @@ class ChromeDriverTest extends TestCase
     public function testShouldStartChromeDriver()
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
-        putenv(ChromeDriverService::CHROME_DRIVER_EXE_PROPERTY . '=' . getenv('CHROMEDRIVER_PATH'));
+        putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));
 
         // Add --no-sandbox as a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
         $chromeOptions = new ChromeOptions();
-        $chromeOptions->addArguments(['--no-sandbox']);
+        $chromeOptions->addArguments(['--no-sandbox', '--headless']);
         $desiredCapabilities = DesiredCapabilities::chrome();
         $desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
 
