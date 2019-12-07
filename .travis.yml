@@ -8,6 +8,7 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
+  - '7.4snapshot'
 
 env:
   global:
@@ -47,7 +48,7 @@ matrix:
 
     # Firefox with Geckodriver (W3C mode) inside Travis environment
     - name: 'Firefox latest on Travis (W3C protocol); no Selenium server'
-      php: 7.3
+      php: '7.3'
       env:
         - BROWSER_NAME="firefox"
         - GECKODRIVER="1"
