@@ -18,6 +18,7 @@ namespace Facebook\WebDriver;
 /**
  * Representations of pressable keys that aren't text.
  * These are stored in the Unicode PUA (Private Use Area) code points.
+ * @see https://w3c.github.io/webdriver/#keyboard-actions
  */
 class WebDriverKeys
 {
@@ -27,14 +28,11 @@ class WebDriverKeys
     const BACKSPACE = "\xEE\x80\x83";
     const TAB = "\xEE\x80\x84";
     const CLEAR = "\xEE\x80\x85";
-    const RETURN_KEY = "\xEE\x80\x86"; // php does not allow RETURN
+    const RETURN_KEY = "\xEE\x80\x86";
     const ENTER = "\xEE\x80\x87";
     const SHIFT = "\xEE\x80\x88";
-    const LEFT_SHIFT = "\xEE\x80\x88";
     const CONTROL = "\xEE\x80\x89";
-    const LEFT_CONTROL = "\xEE\x80\x89";
     const ALT = "\xEE\x80\x8A";
-    const LEFT_ALT = "\xEE\x80\x8A";
     const PAUSE = "\xEE\x80\x8B";
     const ESCAPE = "\xEE\x80\x8C";
     const SPACE = "\xEE\x80\x8D";
@@ -42,13 +40,9 @@ class WebDriverKeys
     const PAGE_DOWN = "\xEE\x80\x8F";
     const END = "\xEE\x80\x90";
     const HOME = "\xEE\x80\x91";
-    const LEFT = "\xEE\x80\x92";
     const ARROW_LEFT = "\xEE\x80\x92";
-    const UP = "\xEE\x80\x93";
     const ARROW_UP = "\xEE\x80\x93";
-    const RIGHT = "\xEE\x80\x94";
     const ARROW_RIGHT = "\xEE\x80\x94";
-    const DOWN = "\xEE\x80\x95";
     const ARROW_DOWN = "\xEE\x80\x95";
     const INSERT = "\xEE\x80\x96";
     const DELETE = "\xEE\x80\x97";
@@ -83,8 +77,30 @@ class WebDriverKeys
     const F11 = "\xEE\x80\xBB";
     const F12 = "\xEE\x80\xBC";
     const META = "\xEE\x80\xBD";
-    const COMMAND = "\xEE\x80\xBD"; // ALIAS
     const ZENKAKU_HANKAKU = "\xEE\x80\xC0";
+    const RIGHT_SHIFT = "\xEE\x81\x90";
+    const RIGHT_CONTROL = "\xEE\x81\x91";
+    const RIGHT_ALT = "\xEE\x81\x92";
+    const RIGHT_META = "\xEE\x81\x93";
+    const NUMPAD_PAGE_UP = "\xEE\x81\x94";
+    const NUMPAD_PAGE_DOWN = "\xEE\x81\x95";
+    const NUMPAD_END = "\xEE\x81\x96";
+    const NUMPAD_HOME = "\xEE\x81\x97";
+    const NUMPAD_ARROW_LEFT = "\xEE\x81\x98";
+    const NUMPAD_ARROW_UP = "\xEE\x81\x99";
+    const NUMPAD_ARROW_RIGHT = "\xEE\x81\x9A";
+    const NUMPAD_ARROW_DOWN = "\xEE\x81\x9B";
+    const NUMPAD_ARROW_INSERT = "\xEE\x81\x9C";
+    const NUMPAD_ARROW_DELETE = "\xEE\x81\x9D";
+    // Aliases
+    const LEFT_SHIFT = self::SHIFT;
+    const LEFT_CONTROL = self::CONTROL;
+    const LEFT_ALT = self::ALT;
+    const LEFT = self::ARROW_LEFT;
+    const UP = self::ARROW_UP;
+    const RIGHT = self::ARROW_RIGHT;
+    const DOWN = self::ARROW_DOWN;
+    const COMMAND = self::META;
 
     /**
      * Encode input of `sendKeys()`.
