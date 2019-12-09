@@ -8,3 +8,6 @@ parameters:
         - '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
         - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
         - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+        - '#Unsafe usage of new static\(\)#'
+
+    inferPrivatePropertyTypeFromConstructor: true

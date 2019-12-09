@@ -26,7 +26,7 @@ matrix:
         - phpenv config-rm xdebug.ini
       before_script: ~
       script:
-        - composer require phpstan/phpstan-shim # Not part of require-dev, because it won't install on PHP 5.6
+        - composer require phpstan/phpstan # Not part of require-dev, because it won't install on PHP 5.6
         - composer analyze
         - composer codestyle:check
       after_script: ~

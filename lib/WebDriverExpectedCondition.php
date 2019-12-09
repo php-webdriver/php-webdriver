@@ -522,21 +522,23 @@ class WebDriverExpectedCondition
                     return $element_or_by->isSelected() === $selected;
                 }
             );
-        } else {
-            if ($element_or_by instanceof WebDriverBy) {
-                return new static(
-                    function (WebDriver $driver) use ($element_or_by, $selected) {
-                        try {
-                            $element = $driver->findElement($element_or_by);
-
-                            return $element->isSelected() === $selected;
-                        } catch (StaleElementReferenceException $e) {
-                            return null;
-                        }
-                    }
-                );
-            }
         }
+
+        if ($element_or_by instanceof WebDriverBy) {
+            return new static(
+                function (WebDriver $driver) use ($element_or_by, $selected) {
+                    try {
+                        $element = $driver->findElement($element_or_by);
+
+                        return $element->isSelected() === $selected;
+                    } catch (StaleElementReferenceException $e) {
+                        return null;
+                    }
+                }
+            );
+        }
+
+        throw new \InvalidArgumentException('Instance of either WebDriverElement or WebDriverBy must be given');
     }
 
     /**
