@@ -101,10 +101,14 @@ class WebDriverWindow
      */
     public function maximize()
     {
-        $this->executor->execute(
-            DriverCommand::MAXIMIZE_WINDOW,
-            [':windowHandle' => 'current']
-        );
+        if ($this->isW3cCompliant) {
+            $this->executor->execute(DriverCommand::MAXIMIZE_WINDOW, []);
+        } else {
+            $this->executor->execute(
+                DriverCommand::MAXIMIZE_WINDOW,
+                [':windowHandle' => 'current']
+            );
+        }
 
         return $this;
     }
