@@ -138,6 +138,7 @@ class DriverCommand
     const GET_WINDOW_SIZE = 'getWindowSize';
     const GET_WINDOW_POSITION = 'getWindowPosition';
     const MAXIMIZE_WINDOW = 'maximizeWindow';
+    const FULLSCREEN_WINDOW = 'fullscreenWindow';
     // Logging API
     const GET_AVAILABLE_LOG_TYPES = 'getAvailableLogTypes';
     const GET_LOG = 'getLog';

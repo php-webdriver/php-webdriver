@@ -49,6 +49,30 @@ class WebDriverWindowTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-edge
+     */
+    public function testShouldFullscreenWindow()
+    {
+        self::skipForJsonWireProtocol('"fullscreen" window is not supported in JsonWire protocol');
+
+        $this->driver->manage()
+            ->window()
+            ->setSize(new WebDriverDimension(400, 300));
+
+        $this->driver->manage()
+            ->window()
+            ->fullscreen();
+
+        $sizeAfter = $this->driver->manage()
+            ->window()
+            ->getSize();
+
+        // Note: Headless browsers see no effect.
+        $this->assertGreaterThanOrEqual(400, $sizeAfter->getWidth());
+        $this->assertGreaterThanOrEqual(300, $sizeAfter->getHeight());
+    }
+
+    /**
      * @group exclude-saucelabs
      * @group exclude-chrome
      * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
