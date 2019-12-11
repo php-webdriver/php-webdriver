@@ -151,6 +151,7 @@ class DriverCommand
     const GET_ELEMENT_PROPERTY = 'getElementProperty';
     const GET_NAMED_COOKIE = 'getNamedCookie';
     const TAKE_ELEMENT_SCREENSHOT = 'takeElementScreenshot';
+    const MINIMIZE_WINDOW = 'minimizeWindow';
 
     private function __construct()
     {

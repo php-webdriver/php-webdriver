@@ -162,7 +162,7 @@ class WebDriverOptions
      */
     public function window()
     {
-        return new WebDriverWindow($this->executor);
+        return new WebDriverWindow($this->executor, $this->isW3cCompliant);
     }
 
     /**
