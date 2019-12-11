@@ -101,6 +101,22 @@ class WebDriverWindow
     }
 
     /**
+     * Makes the current window full screen.
+     *
+     * @return WebDriverWindow The instance.
+     */
+    public function fullscreen()
+    {
+        if (!$this->isW3cCompliant) {
+            throw new UnsupportedOperationException('The Fullscreen window command is only supported in W3C mode');
+        }
+
+        $this->executor->execute(DriverCommand::FULLSCREEN_WINDOW, []);
+
+        return $this;
+    }
+
+    /**
      * Set the size of the current window. This will change the outer window
      * dimension, not just the view port.
      *
