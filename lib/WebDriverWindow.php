@@ -16,6 +16,7 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\IndexOutOfBoundsException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
 
@@ -28,10 +29,15 @@ class WebDriverWindow
      * @var ExecuteMethod
      */
     protected $executor;
+    /**
+     * @var bool
+     */
+    protected $isW3cCompliant;
 
-    public function __construct(ExecuteMethod $executor)
+    public function __construct(ExecuteMethod $executor, $isW3cCompliant = false)
     {
         $this->executor = $executor;
+        $this->isW3cCompliant = $isW3cCompliant;
     }
 
     /**
@@ -70,6 +76,22 @@ class WebDriverWindow
             $size['width'],
             $size['height']
         );
+    }
+
+    /**
+     * Minimizes the current window if it is not already minimized.
+     *
+     * @return WebDriverWindow The instance.
+     */
+    public function minimize()
+    {
+        if (!$this->isW3cCompliant) {
+            throw new UnsupportedOperationException('Minimize window is only supported in W3C mode');
+        }
+
+        $this->executor->execute(DriverCommand::MINIMIZE_WINDOW, []);
+
+        return $this;
     }
 
     /**
