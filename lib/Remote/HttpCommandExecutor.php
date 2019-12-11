@@ -51,6 +51,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::FIND_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element'],
         DriverCommand::FIND_ELEMENTS => ['method' => 'POST', 'url' => '/session/:sessionId/elements'],
         DriverCommand::SWITCH_TO_FRAME => ['method' => 'POST', 'url' => '/session/:sessionId/frame'],
+        DriverCommand::SWITCH_TO_PARENT_FRAME => ['method' => 'POST', 'url' => '/session/:sessionId/frame/parent'],
         DriverCommand::SWITCH_TO_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window'],
         DriverCommand::GET => ['method' => 'POST', 'url' => '/session/:sessionId/url'],
         DriverCommand::GET_ACTIVE_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/active'],
