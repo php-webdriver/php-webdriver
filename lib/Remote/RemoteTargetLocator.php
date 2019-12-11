@@ -98,6 +98,18 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
+     * Switch to the parent iframe.
+     *
+     * @return WebDriver The driver focused on the given frame.
+     */
+    public function parent()
+    {
+        $this->executor->execute(DriverCommand::SWITCH_TO_PARENT_FRAME, []);
+
+        return $this->driver;
+    }
+
+    /**
      * Switch the focus to another window by its handle.
      *
      * @param string $handle The handle of the window to be focused on.
