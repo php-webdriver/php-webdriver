@@ -62,7 +62,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * If this element is a TEXTAREA or text INPUT element, this will clear the value.
+     * Clear content editable or resettable element
      *
      * @return RemoteWebElement The current instance.
      */
@@ -72,25 +72,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             DriverCommand::CLEAR_ELEMENT,
             [':id' => $this->id]
         );
-
-        if ($this->isW3cCompliant) {
-            $this->executor->execute(DriverCommand::ACTIONS, [
-                'actions' => [
-                    [
-                        'type' => 'key',
-                        'id' => 'keyboard',
-                        'actions' => [
-                            ['type' => 'keyDown', 'value' => WebDriverKeys::CONTROL],
-                            ['type' => 'keyDown', 'value' => 'a'],
-                            ['type' => 'keyUp', 'value' => WebDriverKeys::CONTROL],
-                            ['type' => 'keyUp', 'value' => 'a'],
-                            ['type' => 'keyDown', 'value' => WebDriverKeys::BACKSPACE],
-                            ['type' => 'keyUp', 'value' => WebDriverKeys::BACKSPACE],
-                        ],
-                    ],
-                ],
-            ]);
-        }
 
         return $this;
     }
