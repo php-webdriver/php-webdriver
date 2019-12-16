@@ -392,7 +392,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
                 // cannot call the submit method directly in case an input of this form is named "submit"
                 'script' => sprintf(
                     'return Object.getPrototypeOf(%1$s).submit.call(%1$s);',
-                    'form' === $this->getTagName() ? 'arguments[0]' : 'arguments[0].form'
+                    $this->getTagName() === 'form' ? 'arguments[0]' : 'arguments[0].form'
                 ),
                 'args' => [[JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $this->id]],
             ]);
