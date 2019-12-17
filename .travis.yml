@@ -8,7 +8,7 @@ php:
   - '7.1'
   - '7.2'
   - '7.3'
-  - '7.4snapshot'
+  - '7.4'
 
 env:
   global:
@@ -20,10 +20,11 @@ matrix:
   include:
     # Codestyle check build
     - name: 'Code style and static analysis'
-      php: '7.3'
+      php: '7.4'
       env: CHECK_CODESTYLE=1
       before_install:
         - phpenv config-rm xdebug.ini
+        - phpenv config-add .travis-php74.ini
       before_script: ~
       script:
         - composer require phpstan/phpstan # Not part of require-dev, because it won't install on PHP 5.6
@@ -130,6 +131,9 @@ matrix:
 cache:
   directories:
     - $HOME/.composer/cache
+
+before_install:
+  - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then phpenv config-add .travis-php74.ini; fi
 
 install:
   - travis_retry composer self-update
