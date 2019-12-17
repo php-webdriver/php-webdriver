@@ -339,10 +339,13 @@ class RemoteWebElementTest extends WebDriverTestCase
     }
 
     /**
-     * @covers ::takeScreenshot
+     * @covers ::takeElementScreenshot
+     * @group exclude-saucelabs
      */
-    public function testShouldTakeElementScreenshot()
+    public function testShouldTakeAndSaveElementScreenshot()
     {
+        self::skipForJsonWireProtocol('Take element screenshot is only part of W3C protocol');
+
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
@@ -350,45 +353,33 @@ class RemoteWebElementTest extends WebDriverTestCase
             $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
-
-        $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
-        $outputPng = $firstElement->takeElementScreenshot();
-
-        $image = imagecreatefromstring($outputPng);
-        $this->assertInternalType('resource', $image);
-
-        $size = $firstElement->getSize();
-        $this->assertEquals($size->getWidth(), imagesx($image));
-        $this->assertEquals($size->getHeight(), imagesy($image));
-    }
-
-    /**
-     * @covers ::takeScreenshot
-     */
-    public function testShouldSaveElementScreenshotToFile()
-    {
-        if (!extension_loaded('gd')) {
-            $this->markTestSkipped('GD extension must be enabled');
-        }
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
-        }
-
-        $screenshotPath = sys_get_temp_dir() . '/selenium-screenshot.png';
+        // Intentionally save screenshot to subdirectory to tests it is being created
+        $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/element-screenshot.png';
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
-        $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
-        $firstElement->takeElementScreenshot($screenshotPath);
+        $element = $this->driver->findElement(WebDriverBy::id('red-box'));
 
-        $image = imagecreatefrompng($screenshotPath);
-        $this->assertInternalType('resource', $image);
+        $outputPngString = $element->takeElementScreenshot($screenshotPath);
 
-        $size = $firstElement->getSize();
-        $this->assertEquals($size->getWidth(), imagesx($image));
-        $this->assertEquals($size->getHeight(), imagesy($image));
+        // Assert file output
+        $imageFromFile = imagecreatefrompng($screenshotPath);
+        $this->assertEquals(5, imagesx($imageFromFile));
+        $this->assertEquals(5, imagesy($imageFromFile));
+
+        // Validate element is actually red
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($imageFromFile, imagecolorat($imageFromFile, 0, 0))
+        );
+
+        // Assert string output
+        $imageFromString = imagecreatefromstring($outputPngString);
+        $this->assertInternalType('resource', $imageFromString);
+        $this->assertEquals(5, imagesx($imageFromString));
+        $this->assertEquals(5, imagesy($imageFromString));
 
         unlink($screenshotPath);
+        rmdir(dirname($screenshotPath));
     }
 }
