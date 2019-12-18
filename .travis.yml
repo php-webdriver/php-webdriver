@@ -1,6 +1,5 @@
 language: php
-sudo: false
-dist: trusty
+dist: xenial
 
 php:
   - '5.6'
@@ -16,6 +15,9 @@ env:
     - BROWSER_NAME="htmlunit"
     - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" # Latest version including HtmlUnit
 
+services:
+  - xvfb
+
 matrix:
   include:
     # Codestyle check build
@@ -24,7 +26,6 @@ matrix:
       env: CHECK_CODESTYLE=1
       before_install:
         - phpenv config-rm xdebug.ini
-        - phpenv config-add .travis-php74.ini
       before_script: ~
       script:
         - composer require phpstan/phpstan # Not part of require-dev, because it won't install on PHP 5.6
@@ -132,9 +133,6 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-before_install:
-  - if [ "$TRAVIS_PHP_VERSION" == "7.4" ]; then phpenv config-add .travis-php74.ini; fi
-
 install:
   - travis_retry composer self-update
   - travis_retry composer update --no-interaction $DEPENDENCIES
@@ -149,7 +147,6 @@ before_script:
     fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
   - if [ "$GECKODRIVER" = "1" ]; then mkdir -p geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz; tar xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver; fi
-  - sh -e /etc/init.d/xvfb start # TODO: start only when needed (ie. not in headless mode)
   - if [ ! -f jar/selenium-server-standalone.jar ] && [ -n "$SELENIUM_SERVER" ]; then
       mkdir -p jar;
       if [ "$SELENIUM_SERVER" = "legacy" ]; then
