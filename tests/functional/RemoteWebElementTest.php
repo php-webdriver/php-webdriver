@@ -17,6 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
@@ -335,5 +336,50 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertCount(5, $allElements); // there should be 5 <li> elements on page
         $this->assertCount(3, $childElements); // but we should find only subelements of one <ul>
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $childElements);
+    }
+
+    /**
+     * @covers ::takeElementScreenshot
+     * @group exclude-saucelabs
+     */
+    public function testShouldTakeAndSaveElementScreenshot()
+    {
+        self::skipForJsonWireProtocol('Take element screenshot is only part of W3C protocol');
+
+        if (!extension_loaded('gd')) {
+            $this->markTestSkipped('GD extension must be enabled');
+        }
+        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
+            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
+        }
+
+        // Intentionally save screenshot to subdirectory to tests it is being created
+        $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/element-screenshot.png';
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('red-box'));
+
+        $outputPngString = $element->takeElementScreenshot($screenshotPath);
+
+        // Assert file output
+        $imageFromFile = imagecreatefrompng($screenshotPath);
+        $this->assertEquals(5, imagesx($imageFromFile));
+        $this->assertEquals(5, imagesy($imageFromFile));
+
+        // Validate element is actually red
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($imageFromFile, imagecolorat($imageFromFile, 0, 0))
+        );
+
+        // Assert string output
+        $imageFromString = imagecreatefromstring($outputPngString);
+        $this->assertInternalType('resource', $imageFromString);
+        $this->assertEquals(5, imagesx($imageFromString));
+        $this->assertEquals(5, imagesy($imageFromString));
+
+        unlink($screenshotPath);
+        rmdir(dirname($screenshotPath));
     }
 }

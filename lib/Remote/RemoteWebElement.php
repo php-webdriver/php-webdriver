@@ -432,6 +432,33 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
+     * Take screenshot of a specific element.
+     *
+     * @param string $save_as The path of the screenshot to be saved.
+     * @return string The screenshot in PNG format.
+     */
+    public function takeElementScreenshot($save_as = null)
+    {
+        $screenshot = base64_decode(
+            $this->executor->execute(
+                DriverCommand::TAKE_ELEMENT_SCREENSHOT,
+                [':id' => $this->id]
+            )
+        );
+
+        if ($save_as) {
+            $directoryPath = dirname($save_as);
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0777, true);
+            }
+
+            file_put_contents($save_as, $screenshot);
+        }
+
+        return $screenshot;
+    }
+
+    /**
      * Test if two element IDs refer to the same DOM element.
      *
      * @param WebDriverElement $other
