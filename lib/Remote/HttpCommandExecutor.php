@@ -295,7 +295,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             }
         }
 
-        if ($params && is_array($params) && $http_method !== 'POST') {
+        if (is_array($params) && !empty($params) && $http_method !== 'POST') {
             throw new BadMethodCallException(sprintf(
                 'The http method called for %s is %s but it has to be POST' .
                 ' if you want to pass the JSON params %s',
@@ -325,7 +325,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $encoded_params = null;
 
         if ($http_method === 'POST') {
-            if ($params && is_array($params)) {
+            if (is_array($params) && !empty($params)) {
                 $encoded_params = json_encode($params);
             } elseif ($this->isW3cCompliant) {
                 // POST body must be valid JSON in W3C, even if empty: https://www.w3.org/TR/webdriver/#processing-model
@@ -343,7 +343,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
                 $http_method,
                 $url
             );
-            if ($params && is_array($params)) {
+            if (is_array($params) && !empty($params)) {
                 $msg .= sprintf(' with params: %s', json_encode($params));
             }
 

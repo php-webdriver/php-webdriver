@@ -446,7 +446,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             )
         );
 
-        if ($save_as) {
+        if ($save_as !== null) {
             $directoryPath = dirname($save_as);
             if (!file_exists($directoryPath)) {
                 mkdir($directoryPath, 0777, true);
@@ -505,9 +505,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         // Create a temporary file in the system temp directory.
         $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverZip');
         $zip = new ZipArchive();
-        if ($zip->open($temp_zip, ZipArchive::CREATE) !== true) {
-            return false;
+        if (($errorCode = $zip->open($temp_zip, ZipArchive::CREATE)) !== true) {
+            throw new WebDriverException(sprintf('Error creating zip archive: %s', $errorCode));
         }
+
         $info = pathinfo($local_file);
         $file_name = $info['basename'];
         $zip->addFile($local_file, $file_name);
