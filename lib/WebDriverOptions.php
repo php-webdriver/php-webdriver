@@ -15,6 +15,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\NoSuchCookieException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
 use InvalidArgumentException;
@@ -48,7 +49,7 @@ class WebDriverOptions
      */
     public function addCookie($cookie)
     {
-        if (is_array($cookie)) {
+        if (is_array($cookie)) { // @todo @deprecated remove in 2.0
             $cookie = Cookie::createFromArray($cookie);
         }
         if (!$cookie instanceof Cookie) {
@@ -95,10 +96,20 @@ class WebDriverOptions
      * Get the cookie with a given name.
      *
      * @param string $name
-     * @return Cookie|null The cookie, or null if no cookie with the given name is presented.
+     * @throws NoSuchCookieException In W3C compliant mode if no cookie with the given name is present
+     * @return Cookie|null The cookie, or null in JsonWire mode if no cookie with the given name is present
      */
     public function getCookieNamed($name)
     {
+        if ($this->isW3cCompliant) {
+            $cookieArray = $this->executor->execute(
+                DriverCommand::GET_NAMED_COOKIE,
+                [':name' => $name]
+            );
+
+            return Cookie::createFromArray($cookieArray);
+        }
+
         $cookies = $this->getCookies();
         foreach ($cookies as $cookie) {
             if ($cookie['name'] === $name) {
