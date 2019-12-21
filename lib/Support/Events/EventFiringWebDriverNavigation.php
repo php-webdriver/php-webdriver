@@ -17,12 +17,12 @@ namespace Facebook\WebDriver\Support\Events;
 
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\WebDriverDispatcher;
-use Facebook\WebDriver\WebDriverNavigation;
+use Facebook\WebDriver\WebDriverNavigationInterface;
 
-class EventFiringWebDriverNavigation
+class EventFiringWebDriverNavigation implements WebDriverNavigationInterface
 {
     /**
-     * @var WebDriverNavigation
+     * @var WebDriverNavigationInterface
      */
     protected $navigator;
     /**
@@ -31,10 +31,10 @@ class EventFiringWebDriverNavigation
     protected $dispatcher;
 
     /**
-     * @param WebDriverNavigation $navigator
+     * @param WebDriverNavigationInterface $navigator
      * @param WebDriverDispatcher $dispatcher
      */
-    public function __construct(WebDriverNavigation $navigator, WebDriverDispatcher $dispatcher)
+    public function __construct(WebDriverNavigationInterface $navigator, WebDriverDispatcher $dispatcher)
     {
         $this->navigator = $navigator;
         $this->dispatcher = $dispatcher;
@@ -49,17 +49,13 @@ class EventFiringWebDriverNavigation
     }
 
     /**
-     * @return WebDriverNavigation
+     * @return WebDriverNavigationInterface
      */
     public function getNavigator()
     {
         return $this->navigator;
     }
 
-    /**
-     * @throws WebDriverException
-     * @return $this
-     */
     public function back()
     {
         $this->dispatch(
@@ -79,10 +75,6 @@ class EventFiringWebDriverNavigation
         return $this;
     }
 
-    /**
-     * @throws WebDriverException
-     * @return $this
-     */
     public function forward()
     {
         $this->dispatch(
@@ -102,10 +94,6 @@ class EventFiringWebDriverNavigation
         return $this;
     }
 
-    /**
-     * @throws WebDriverException
-     * @return $this
-     */
     public function refresh()
     {
         try {
@@ -118,11 +106,6 @@ class EventFiringWebDriverNavigation
         }
     }
 
-    /**
-     * @param mixed $url
-     * @throws WebDriverException
-     * @return $this
-     */
     public function to($url)
     {
         $this->dispatch(

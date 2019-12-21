@@ -115,7 +115,7 @@ interface WebDriver extends WebDriverSearchContext
      * An abstraction allowing the driver to access the browser's history and to
      * navigate to a given URL.
      *
-     * @return WebDriverNavigation
+     * @return WebDriverNavigationInterface
      * @see WebDriverNavigation
      */
     public function navigate();

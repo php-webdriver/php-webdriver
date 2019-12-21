@@ -18,16 +18,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
 
-/**
- * An abstraction allowing the driver to access the browser's history and to
- * navigate to a given URL.
- *
- * Note that they are all blocking functions until the page is loaded by
- * by default. It could be overridden by 'webdriver.load.strategy' in the
- * FirefoxProfile preferences.
- * https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#firefoxprofile-settings
- */
-class WebDriverNavigation
+class WebDriverNavigation implements WebDriverNavigationInterface
 {
     protected $executor;
 
@@ -36,11 +27,6 @@ class WebDriverNavigation
         $this->executor = $executor;
     }
 
-    /**
-     * Move back a single entry in the browser's history, if possible.
-     *
-     * @return WebDriverNavigation The instance.
-     */
     public function back()
     {
         $this->executor->execute(DriverCommand::GO_BACK);
@@ -48,11 +34,6 @@ class WebDriverNavigation
         return $this;
     }
 
-    /**
-     * Move forward a single entry in the browser's history, if possible.
-     *
-     * @return WebDriverNavigation The instance.
-     */
     public function forward()
     {
         $this->executor->execute(DriverCommand::GO_FORWARD);
@@ -60,11 +41,6 @@ class WebDriverNavigation
         return $this;
     }
 
-    /**
-     * Refresh the current page.
-     *
-     * @return WebDriverNavigation The instance.
-     */
     public function refresh()
     {
         $this->executor->execute(DriverCommand::REFRESH);
@@ -72,13 +48,6 @@ class WebDriverNavigation
         return $this;
     }
 
-    /**
-     * Navigate to the given URL.
-     *
-     * @see WebDriver::get()
-     * @param string $url
-     * @return WebDriverNavigation The instance.
-     */
     public function to($url)
     {
         $params = ['url' => (string) $url];
