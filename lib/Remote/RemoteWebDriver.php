@@ -378,7 +378,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $this->execute(DriverCommand::SCREENSHOT)
         );
 
-        if ($save_as) {
+        if ($save_as !== null) {
             $directoryPath = dirname($save_as);
 
             if (!file_exists($directoryPath)) {

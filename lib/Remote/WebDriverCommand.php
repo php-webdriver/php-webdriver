@@ -27,7 +27,8 @@ class WebDriverCommand
     /**
      * @param string $session_id
      * @param string $name Constant from DriverCommand
-     * @param array $parameters Array of
+     * @param array $parameters
+     * @todo In 2.0 force parameters to be an array, then remove is_array() checks in HttpCommandExecutor
      */
     public function __construct($session_id, $name, $parameters)
     {

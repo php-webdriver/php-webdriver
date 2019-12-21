@@ -142,11 +142,11 @@ class ChromeOptions
         // set the 'binary' to avoid returning an empty array.
         $options['binary'] = $this->binary;
 
-        if ($this->arguments) {
+        if (!empty($this->arguments)) {
             $options['args'] = $this->arguments;
         }
 
-        if ($this->extensions) {
+        if (!empty($this->extensions)) {
             $options['extensions'] = $this->extensions;
         }
 
