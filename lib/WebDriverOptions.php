@@ -107,6 +107,10 @@ class WebDriverOptions
                 [':name' => $name]
             );
 
+            if (!is_array($cookieArray)) { // Microsoft Edge returns null even in W3C mode => emulate proper behavior
+                throw new NoSuchCookieException('no such cookie');
+            }
+
             return Cookie::createFromArray($cookieArray);
         }
 
@@ -128,8 +132,11 @@ class WebDriverOptions
     public function getCookies()
     {
         $cookieArrays = $this->executor->execute(DriverCommand::GET_ALL_COOKIES);
-        $cookies = [];
+        if (!is_array($cookieArrays)) { // Microsoft Edge returns null if there are no cookies...
+            return [];
+        }
 
+        $cookies = [];
         foreach ($cookieArrays as $cookieArray) {
             $cookies[] = Cookie::createFromArray($cookieArray);
         }
