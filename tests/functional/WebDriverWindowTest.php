@@ -48,6 +48,11 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertGreaterThanOrEqual($sizeBefore->getHeight(), $sizeAfter->getHeight());
     }
 
+    /**
+     * @group exclude-saucelabs
+     * @group exclude-chrome
+     * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
+     */
     public function testShouldMinimizeWindow()
     {
         self::skipForJsonWireProtocol('"minimize" window is not supported in JsonWire protocol');
