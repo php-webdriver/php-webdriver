@@ -13,7 +13,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Allow installation of Symfony 5 components.
 - Rename environment variable used to pass path to ChromeDriver executable from `webdriver.chrome.driver` to `WEBDRIVER_CHROME_DRIVER`. However the old one also still works to keep backward compatibility
 - If subdirectories in a path to screenshot destination does not exists (using `takeScreenshot()` or `takeElementScreenshot()` methods), they are automatically created.
-- When zip archive cannot be crated during file upload, throw exception instead of silently returning false.
+- When zip archive cannot be created during file upload, throw an exception instead of silently returning false.
 - `WebDriverNavigation` and `EventFiringWebDriverNavigation` now both implement new `WebDriverNavigationInterface`.
 
 ### Fixed
