@@ -149,6 +149,7 @@ class DriverCommand
     // W3C specific
     const ACTIONS = 'actions';
     const GET_ELEMENT_PROPERTY = 'getElementProperty';
+    const GET_NAMED_COOKIE = 'getNamedCookie';
     const TAKE_ELEMENT_SCREENSHOT = 'takeElementScreenshot';
 
     private function __construct()

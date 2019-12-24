@@ -56,6 +56,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::GET_ACTIVE_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/active'],
         DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert_text'],
         DriverCommand::GET_ALL_COOKIES => ['method' => 'GET', 'url' => '/session/:sessionId/cookie'],
+        DriverCommand::GET_NAMED_COOKIE => ['method' => 'GET', 'url' => '/session/:sessionId/cookie/:name'],
         DriverCommand::GET_ALL_SESSIONS => ['method' => 'GET', 'url' => '/sessions'],
         DriverCommand::GET_AVAILABLE_LOG_TYPES => ['method' => 'GET', 'url' => '/session/:sessionId/log/types'],
         DriverCommand::GET_CURRENT_URL => ['method' => 'GET', 'url' => '/session/:sessionId/url'],
