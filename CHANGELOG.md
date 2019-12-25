@@ -19,6 +19,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - `WebDriverExpectedCondition::presenceOfElementLocated()` works correctly when used within `WebDriverExpectedCondition::not()`.
 - Improper behavior of Microsoft Edge when retrieving all cookies via `getCookies()` (it was causing fatal error  when there were no cookies).
+- Avoid "path is not canonical" error when uploading file to Chromedriver.
 
 ## 1.7.1 - 2019-06-13
 ### Fixed

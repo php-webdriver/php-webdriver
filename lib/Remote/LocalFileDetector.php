@@ -25,7 +25,7 @@ class LocalFileDetector implements FileDetector
     public function getLocalFile($file)
     {
         if (is_file($file)) {
-            return $file;
+            return realpath($file);
         }
 
         return null;
