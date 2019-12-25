@@ -17,6 +17,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Exception\NoSuchWindowException;
+use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
@@ -130,6 +131,30 @@ class WebDriverTestCase extends TestCase
         if (getenv('GECKODRIVER') !== '1'
             && (getenv('BROWSER_NAME') !== 'chrome' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
             static::markTestSkipped($message);
+        }
+    }
+
+    /**
+     * Rerun failed tests.
+     * @TODO Replace with PHPUnit 7.3+ builtin functionality once upgraded to PHP 7.1+
+     */
+    public function runBare()
+    {
+        $e = null;
+        $numberOfRetires = 3;
+
+        for ($i = 0; $i < $numberOfRetires; ++$i) {
+            try {
+                parent::runBare();
+
+                return;
+            } catch (WebDriverException $e) {
+                // repeat
+            }
+        }
+
+        if ($e !== null) {
+            throw $e;
         }
     }
 
