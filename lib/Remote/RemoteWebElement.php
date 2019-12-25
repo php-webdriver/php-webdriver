@@ -40,7 +40,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected $id;
     /**
-     * @var UselessFileDetector
+     * @var FileDetector
      */
     protected $fileDetector;
     /**
