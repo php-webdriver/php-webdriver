@@ -270,6 +270,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::equals
+     * @group exclude-saucelabs
      */
     public function testShouldCompareEqualsElement()
     {
