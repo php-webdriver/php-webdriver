@@ -23,6 +23,7 @@ namespace Facebook\WebDriver;
 class WebDriverPlatform
 {
     const ANDROID = 'ANDROID';
+    /** @deprecated */
     const ANY = 'ANY';
     const LINUX = 'LINUX';
     const MAC = 'MAC';

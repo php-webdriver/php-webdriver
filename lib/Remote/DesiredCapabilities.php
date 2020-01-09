@@ -229,6 +229,11 @@ class DesiredCapabilities implements WebDriverCapabilities
             if (array_key_exists($capabilityKey, static::$ossToW3c)) {
                 if ($capabilityKey === WebDriverCapabilityType::PLATFORM) {
                     $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+
+                    // Remove platformName if it is set to "any"
+                    if ($w3cCapabilities[static::$ossToW3c[$capabilityKey]] === 'any') {
+                        unset($w3cCapabilities[static::$ossToW3c[$capabilityKey]]);
+                    }
                 } else {
                     $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = $capabilityValue;
                 }

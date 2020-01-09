@@ -187,7 +187,7 @@ class DesiredCapabilitiesTest extends TestCase
                 ]),
                 [],
             ],
-            'already W3C capabilitites' => [
+            'already W3C capabilities' => [
                 new DesiredCapabilities([
                     'pageLoadStrategy' => 'eager',
                     'strictFileInteractability' => false,
@@ -196,6 +196,12 @@ class DesiredCapabilitiesTest extends TestCase
                     'pageLoadStrategy' => 'eager',
                     'strictFileInteractability' => false,
                 ],
+            ],
+            '"ANY" platform should be completely removed' => [
+                new DesiredCapabilities([
+                    WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
+                ]),
+                [],
             ],
             'custom vendor extension' => [
                 new DesiredCapabilities([
