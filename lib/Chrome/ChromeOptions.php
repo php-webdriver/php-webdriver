@@ -59,7 +59,7 @@ class ChromeOptions
      */
     public function setBinary($path)
     {
-        $this->binary = $path;
+        $this->binary = (string) $path;
 
         return $this;
     }
