@@ -44,7 +44,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $source = $this->driver->getPageSource();
         $this->assertContains('<h1 id="welcome">', $source);
-        $this->assertContains('Welcome to the facebook/php-webdriver testing page.', $source);
+        $this->assertContains('Welcome to the php-webdriver testing page.', $source);
     }
 
     /**

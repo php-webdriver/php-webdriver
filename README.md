@@ -19,7 +19,7 @@ versions of Chrome and Chromedriver with just a slight limitations.
 The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
 [Selenium project](https://github.com/SeleniumHQ/selenium/).
 
-Looking for API documentation of php-webdriver? See [https://facebook.github.io/php-webdriver/](https://facebook.github.io/php-webdriver/latest/)
+Looking for API documentation of php-webdriver? See [https://php-webdriver.github.io/php-webdriver/](https://php-webdriver.github.io/php-webdriver/latest/)
 
 Any complaints, questions, or ideas? Post them in the user group https://www.facebook.com/groups/phpwebdriver/.
 
@@ -94,7 +94,7 @@ For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 ## More information
 
-Some how-tos are provided right here in [our GitHub wiki](https://github.com/facebook/php-webdriver/wiki).
+Some how-tos are provided right here in [our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
 
 You may also want to check out the Selenium [docs](http://docs.seleniumhq.org/docs/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
 
@@ -113,7 +113,7 @@ We have a great community willing to help you!
 
 - **Via our Facebook Group** - If you have questions or are an active contributor consider joining our [facebook group](https://www.facebook.com/groups/phpwebdriver/) and contribute to communal discussion and support
 - **Via StackOverflow** - You can also [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver) or find many already answered question on StackOverflow
-- **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/facebook/php-webdriver/issues/new) as a new issue
+- **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue
 
 ## Contributing
 
