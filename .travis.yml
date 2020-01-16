@@ -80,7 +80,7 @@ matrix:
       addons:
         sauce_connect: true
         jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+          secure: 5s8iQfH1dHgEm0DeP9VZ/MCzCeiE/HnMWqPFzRmg6VD2qJ53oYdseo8j+QCbE25MIwoSnIbKzlnbCN6fVzZc/0S7Mo45xJiq8xVLPSdMjDoOeqYE4of+t5Srq4iSzGLPCLiMTtB4xDEl6blUVGhYxN5rA/tVN+cVtLNQvo3ovRon3Mw3MqR4pgCE6PofcLXtyJc3KuOBlUJLWdPGRdlZrpKWE5ogyj4a1h4bVwidckZqkOF+gm58Gf0zVfFazDQFIw2Xuq7SZmiNgdOD5yUEePkrMhy2tbOlPNAIgHCpzHldv5Y+GYyxIYHZ0mGlGxHrfjrcAoSA6r2iXB9q2ijLVwqOARpcvGcBzZBil9aMAHRIXHAOV9Ihv4velrzmiLKADtD60Bfj2zzntGYZA3EGucitMMkkP7vfAa769i5QWK1Lniq3+VUuGNVjRzl4GuQPpc0wMWeJvQGc5Uf9Kk/sOCkPp0SPWcZ6nNAUebRy3V5OoADA9IntyXxfTlZdOHSbJTsG+eOGve0uLGRAOS+oeCstO7Gk4e/Ylozju+ixkINEY7HHDGt6AyHGtjPdy08Y0XrIqs0JMxsHKrtTVNxDjIFKbMees+vtxU3DEr/tNo1sTo34ieGKZP2Cp5mG/IrcjD1saebUaCngQO3QfeuKcU8pBTR7l7PtFNHm3HrmdkY=
 
     - name: 'Sauce Labs, Chrome 74, OSS protocol'
       php: '7.3'
@@ -91,7 +91,7 @@ matrix:
       addons:
         sauce_connect: true
         jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+          secure: 5s8iQfH1dHgEm0DeP9VZ/MCzCeiE/HnMWqPFzRmg6VD2qJ53oYdseo8j+QCbE25MIwoSnIbKzlnbCN6fVzZc/0S7Mo45xJiq8xVLPSdMjDoOeqYE4of+t5Srq4iSzGLPCLiMTtB4xDEl6blUVGhYxN5rA/tVN+cVtLNQvo3ovRon3Mw3MqR4pgCE6PofcLXtyJc3KuOBlUJLWdPGRdlZrpKWE5ogyj4a1h4bVwidckZqkOF+gm58Gf0zVfFazDQFIw2Xuq7SZmiNgdOD5yUEePkrMhy2tbOlPNAIgHCpzHldv5Y+GYyxIYHZ0mGlGxHrfjrcAoSA6r2iXB9q2ijLVwqOARpcvGcBzZBil9aMAHRIXHAOV9Ihv4velrzmiLKADtD60Bfj2zzntGYZA3EGucitMMkkP7vfAa769i5QWK1Lniq3+VUuGNVjRzl4GuQPpc0wMWeJvQGc5Uf9Kk/sOCkPp0SPWcZ6nNAUebRy3V5OoADA9IntyXxfTlZdOHSbJTsG+eOGve0uLGRAOS+oeCstO7Gk4e/Ylozju+ixkINEY7HHDGt6AyHGtjPdy08Y0XrIqs0JMxsHKrtTVNxDjIFKbMees+vtxU3DEr/tNo1sTo34ieGKZP2Cp5mG/IrcjD1saebUaCngQO3QfeuKcU8pBTR7l7PtFNHm3HrmdkY=
 
     - name: 'Sauce Labs, Chrome latest, W3C protocol'
       php: '7.3'
@@ -102,7 +102,7 @@ matrix:
       addons:
         sauce_connect: true
         jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+          secure: 5s8iQfH1dHgEm0DeP9VZ/MCzCeiE/HnMWqPFzRmg6VD2qJ53oYdseo8j+QCbE25MIwoSnIbKzlnbCN6fVzZc/0S7Mo45xJiq8xVLPSdMjDoOeqYE4of+t5Srq4iSzGLPCLiMTtB4xDEl6blUVGhYxN5rA/tVN+cVtLNQvo3ovRon3Mw3MqR4pgCE6PofcLXtyJc3KuOBlUJLWdPGRdlZrpKWE5ogyj4a1h4bVwidckZqkOF+gm58Gf0zVfFazDQFIw2Xuq7SZmiNgdOD5yUEePkrMhy2tbOlPNAIgHCpzHldv5Y+GYyxIYHZ0mGlGxHrfjrcAoSA6r2iXB9q2ijLVwqOARpcvGcBzZBil9aMAHRIXHAOV9Ihv4velrzmiLKADtD60Bfj2zzntGYZA3EGucitMMkkP7vfAa769i5QWK1Lniq3+VUuGNVjRzl4GuQPpc0wMWeJvQGc5Uf9Kk/sOCkPp0SPWcZ6nNAUebRy3V5OoADA9IntyXxfTlZdOHSbJTsG+eOGve0uLGRAOS+oeCstO7Gk4e/Ylozju+ixkINEY7HHDGt6AyHGtjPdy08Y0XrIqs0JMxsHKrtTVNxDjIFKbMees+vtxU3DEr/tNo1sTo34ieGKZP2Cp5mG/IrcjD1saebUaCngQO3QfeuKcU8pBTR7l7PtFNHm3HrmdkY=
 
     - name: 'Sauce Labs, Edge latest, W3C protocol'
       php: '7.3'
@@ -113,7 +113,7 @@ matrix:
       addons:
         sauce_connect: true
         jwt:
-          secure: HPq5xFhosa1eSGnaRdJzeyEuaE0mhRlG1gf3G7+dKS0VniF30husSyrxZhbGCCKBGxmIySoAQzd43BCwL69EkUEVKDN87Cpid1Ce9KrSfU3cnN8XIb+4QINyy7x1a47RUAfaaOEx53TrW0ShalvjD+ZwDE8LrgagSox6KQ+nQLE=
+          secure: 5s8iQfH1dHgEm0DeP9VZ/MCzCeiE/HnMWqPFzRmg6VD2qJ53oYdseo8j+QCbE25MIwoSnIbKzlnbCN6fVzZc/0S7Mo45xJiq8xVLPSdMjDoOeqYE4of+t5Srq4iSzGLPCLiMTtB4xDEl6blUVGhYxN5rA/tVN+cVtLNQvo3ovRon3Mw3MqR4pgCE6PofcLXtyJc3KuOBlUJLWdPGRdlZrpKWE5ogyj4a1h4bVwidckZqkOF+gm58Gf0zVfFazDQFIw2Xuq7SZmiNgdOD5yUEePkrMhy2tbOlPNAIgHCpzHldv5Y+GYyxIYHZ0mGlGxHrfjrcAoSA6r2iXB9q2ijLVwqOARpcvGcBzZBil9aMAHRIXHAOV9Ihv4velrzmiLKADtD60Bfj2zzntGYZA3EGucitMMkkP7vfAa769i5QWK1Lniq3+VUuGNVjRzl4GuQPpc0wMWeJvQGc5Uf9Kk/sOCkPp0SPWcZ6nNAUebRy3V5OoADA9IntyXxfTlZdOHSbJTsG+eOGve0uLGRAOS+oeCstO7Gk4e/Ylozju+ixkINEY7HHDGt6AyHGtjPdy08Y0XrIqs0JMxsHKrtTVNxDjIFKbMees+vtxU3DEr/tNo1sTo34ieGKZP2Cp5mG/IrcjD1saebUaCngQO3QfeuKcU8pBTR7l7PtFNHm3HrmdkY=
 
 cache:
   directories:
