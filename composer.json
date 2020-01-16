@@ -4,7 +4,7 @@
   "keywords": ["webdriver", "selenium", "php", "facebook"],
   "homepage": "https://github.com/facebook/php-webdriver",
   "type": "library",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "support": {
     "issues": "https://github.com/facebook/php-webdriver/issues",
     "forum": "https://www.facebook.com/groups/phpwebdriver/",
