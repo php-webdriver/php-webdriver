@@ -1,15 +1,10 @@
 {
   "name": "facebook/webdriver",
   "description": "A PHP client for Selenium WebDriver",
-  "keywords": ["webdriver", "selenium", "php", "facebook"],
-  "homepage": "https://github.com/facebook/php-webdriver",
+  "keywords": ["webdriver", "selenium", "php"],
+  "homepage": "https://github.com/php-webdriver/php-webdriver",
   "type": "library",
   "license": "MIT",
-  "support": {
-    "issues": "https://github.com/facebook/php-webdriver/issues",
-    "forum": "https://www.facebook.com/groups/phpwebdriver/",
-    "source": "https://github.com/facebook/php-webdriver"
-  },
   "minimum-stability": "beta",
   "require": {
     "php": "^5.6 || ~7.0",
