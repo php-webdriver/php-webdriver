@@ -1,7 +1,7 @@
 {
-  "name": "facebook/webdriver",
-  "description": "A PHP client for Selenium WebDriver",
-  "keywords": ["webdriver", "selenium", "php"],
+  "name": "php-webdriver/webdriver",
+  "description": "A PHP client for Selenium WebDriver. Previously facebook/php-webdriver.",
+  "keywords": ["webdriver", "selenium", "php", "geckodriver", "chromedriver"],
   "homepage": "https://github.com/php-webdriver/php-webdriver",
   "type": "library",
   "license": "MIT",
