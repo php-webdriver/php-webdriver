@@ -9,6 +9,8 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - `takeElementScreenshot()` method of `RemoteWebElement` to do the obvious - take screenshot of the particular element.
 
 ### Changed
+- The repository was migrated to [`php-webdriver/php-webdriver`](https://github.com/php-webdriver/php-webdriver/).
+- The Packagist package was renamed to [`php-webdriver/webdriver`](https://packagist.org/packages/php-webdriver/webdriver) and the original [`facebook/webdriver`](https://packagist.org/packages/facebook/webdriver) was marked as abandoned.
 - Revert no longer needed workaround for Chromedriver bug [2943](https://bugs.chromium.org/p/chromedriver/issues/detail?id=2943).
 - Allow installation of Symfony 5 components.
 - Rename environment variable used to pass path to ChromeDriver executable from `webdriver.chrome.driver` to `WEBDRIVER_CHROME_DRIVER`. However the old one also still works to keep backward compatibility
