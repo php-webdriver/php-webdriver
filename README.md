@@ -1,10 +1,9 @@
 # php-webdriver – Selenium WebDriver bindings for PHP
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/facebook/webdriver.svg?style=flat-square)](https://packagist.org/packages/facebook/webdriver)
+[![Latest Stable Version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
 [![Travis Build](https://img.shields.io/travis/php-webdriver/php-webdriver/community.svg?style=flat-square)](https://travis-ci.com/php-webdriver/php-webdriver)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/php-webdriver)](https://saucelabs.com/u/php-webdriver)
-[![Total Downloads](https://img.shields.io/packagist/dt/facebook/webdriver.svg?style=flat-square)](https://packagist.org/packages/facebook/webdriver)
-[![License](https://img.shields.io/packagist/l/facebook/webdriver.svg?style=flat-square)](https://packagist.org/packages/facebook/webdriver)
+[![Total Downloads](https://img.shields.io/packagist/dt/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
 
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
@@ -33,7 +32,7 @@ If you don't already use Composer, you can download the `composer.phar` binary:
 
 Then install the library:
 
-    php composer.phar require facebook/webdriver
+    php composer.phar require php-webdriver/webdriver
 
 ## Getting started
 
