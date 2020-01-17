@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
 [![Travis Build](https://img.shields.io/travis/php-webdriver/php-webdriver/community.svg?style=flat-square)](https://travis-ci.com/php-webdriver/php-webdriver)
 [![Sauce Test Status](https://saucelabs.com/buildstatus/php-webdriver)](https://saucelabs.com/u/php-webdriver)
-[![Total Downloads](https://img.shields.io/packagist/dt/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
+[![Total Downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
 
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
