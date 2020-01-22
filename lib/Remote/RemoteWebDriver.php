@@ -590,20 +590,19 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
-     * @param string $url
+     * @param string $endpointUrl
      * @param string $method
      * @param array $params
      * @return mixed|null
      */
-    public function executeCustomCommand($url, $method = 'GET', $params = [])
+    public function executeCustomCommand($endpointUrl, $method = 'GET', $params = [])
     {
-        $command = new WebDriverCommand(
+        $command = new CustomWebDriverCommand(
             $this->sessionID,
-            DriverCommand::CUSTOM_COMMAND,
+            $endpointUrl,
+            $method,
             $params
         );
-
-        $command->setCustomRequestParameters($url, $method);
 
         if ($this->executor) {
             $response = $this->executor->execute($command);

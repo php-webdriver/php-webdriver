@@ -130,7 +130,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::TOUCH_MOVE => ['method' => 'POST', 'url' => '/session/:sessionId/touch/move'],
         DriverCommand::TOUCH_SCROLL => ['method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'],
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
-        DriverCommand::CUSTOM_COMMAND => false,
+        DriverCommand::CUSTOM_COMMAND => [],
     ];
     /**
      * @var array Will be merged with $commands
@@ -409,7 +409,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             $raw = self::$commands[$command->getName()];
         }
 
-        if ($raw === false) {
+        if ($command instanceof CustomWebDriverCommand) {
             $url = $command->getCustomUrl();
             $method = $command->getCustomMethod();
         } else {
