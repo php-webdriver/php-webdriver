@@ -61,7 +61,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-community": "1.8.x-dev"
+      "dev-master": "1.8.x-dev"
     }
   }
 }
