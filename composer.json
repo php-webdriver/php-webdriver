@@ -52,7 +52,7 @@
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
     ],
     "analyze": [
-      "vendor/bin/parallel-lint -j 10 ./lib ./tests",
+      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
       "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
     ]
   },
