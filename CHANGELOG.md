@@ -7,6 +7,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
 - `getStatus()` method of `RemoteWebDriver` to get information about remote-end readiness to create new sessions.
 - `takeElementScreenshot()` method of `RemoteWebElement` to do the obvious - take screenshot of the particular element.
+- Support for sending custom commands via `executeCustomCommand()`. See [wiki](https://github.com/php-webdriver/php-webdriver/wiki/Custom-commands) for more information.
 
 ### Changed
 - The repository was migrated to [`php-webdriver/php-webdriver`](https://github.com/php-webdriver/php-webdriver/).
