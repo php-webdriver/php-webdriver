@@ -5,11 +5,11 @@ namespace Facebook\WebDriver\Remote;
 class WebDriverCommand
 {
     /** @var string */
-    private $sessionID;
+    protected $sessionID;
     /** @var string */
-    private $name;
+    protected $name;
     /** @var array */
-    private $parameters;
+    protected $parameters;
 
     /**
      * @param string $session_id

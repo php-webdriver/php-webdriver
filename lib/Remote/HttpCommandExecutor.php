@@ -130,6 +130,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::TOUCH_MOVE => ['method' => 'POST', 'url' => '/session/:sessionId/touch/move'],
         DriverCommand::TOUCH_SCROLL => ['method' => 'POST', 'url' => '/session/:sessionId/touch/scroll'],
         DriverCommand::TOUCH_UP => ['method' => 'POST', 'url' => '/session/:sessionId/touch/up'],
+        DriverCommand::CUSTOM_COMMAND => [],
     ];
     /**
      * @var array Will be merged with $commands
@@ -262,21 +263,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      */
     public function execute(WebDriverCommand $command)
     {
-        $commandName = $command->getName();
-        if (!isset(self::$commands[$commandName])) {
-            if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
-                throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
-            }
-        }
+        $http_options = $this->getCommandHttpOptions($command);
+        $http_method = $http_options['method'];
+        $url = $http_options['url'];
 
-        if ($this->isW3cCompliant) {
-            $raw = self::$w3cCompliantCommands[$command->getName()];
-        } else {
-            $raw = self::$commands[$command->getName()];
-        }
-
-        $http_method = $raw['method'];
-        $url = $raw['url'];
         $url = str_replace(':sessionId', $command->getSessionID(), $url);
         $params = $command->getParameters();
         foreach ($params as $name => $value) {
@@ -399,5 +389,37 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     public function getAddressOfRemoteServer()
     {
         return $this->url;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCommandHttpOptions(WebDriverCommand $command)
+    {
+        $commandName = $command->getName();
+        if (!isset(self::$commands[$commandName])) {
+            if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
+                throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
+            }
+        }
+
+        if ($this->isW3cCompliant) {
+            $raw = self::$w3cCompliantCommands[$command->getName()];
+        } else {
+            $raw = self::$commands[$command->getName()];
+        }
+
+        if ($command instanceof CustomWebDriverCommand) {
+            $url = $command->getCustomUrl();
+            $method = $command->getCustomMethod();
+        } else {
+            $url = $raw['url'];
+            $method = $raw['method'];
+        }
+
+        return [
+            'url' => $url,
+            'method' => $method,
+        ];
     }
 }

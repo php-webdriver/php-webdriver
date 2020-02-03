@@ -19,21 +19,17 @@ class HttpCommandExecutorTest extends TestCase
 
     /**
      * @dataProvider provideCommand
-     * @param int $command
-     * @param array $params
+     * @param WebDriverCommand $command
      * @param bool $shouldResetExpectHeader
      * @param string $expectedUrl
-     * @param string $expectedPostData
+     * @param string|null $expectedPostData
      */
     public function testShouldSendRequestToAssembledUrl(
-        $command,
-        array $params,
+        WebDriverCommand $command,
         $shouldResetExpectHeader,
         $expectedUrl,
         $expectedPostData
     ) {
-        $command = new WebDriverCommand('foo-123', $command, $params);
-
         $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
         $curlSetoptMock->expects($this->at(0))
             ->with($this->anything(), CURLOPT_URL, $expectedUrl);
@@ -72,39 +68,60 @@ class HttpCommandExecutorTest extends TestCase
     {
         return [
             'POST command having :id placeholder in url' => [
-                DriverCommand::SEND_KEYS_TO_ELEMENT,
-                ['value' => 'submitted-value', ':id' => '1337'],
+                new WebDriverCommand(
+                    'fooSession',
+                    DriverCommand::SEND_KEYS_TO_ELEMENT,
+                    ['value' => 'submitted-value', ':id' => '1337']
+                ),
                 true,
-                'http://localhost:4444/session/foo-123/element/1337/value',
+                'http://localhost:4444/session/fooSession/element/1337/value',
                 '{"value":"submitted-value"}',
             ],
             'POST command without :id placeholder in url' => [
-                DriverCommand::TOUCH_UP,
-                ['x' => 3, 'y' => 6],
+                new WebDriverCommand('fooSession', DriverCommand::TOUCH_UP, ['x' => 3, 'y' => 6]),
                 true,
-                'http://localhost:4444/session/foo-123/touch/up',
+                'http://localhost:4444/session/fooSession/touch/up',
                 '{"x":3,"y":6}',
             ],
             'Extra useless placeholder parameter should be removed' => [
-                DriverCommand::TOUCH_UP,
-                ['x' => 3, 'y' => 6, ':useless' => 'foo'],
+                new WebDriverCommand('fooSession', DriverCommand::TOUCH_UP, ['x' => 3, 'y' => 6, ':useless' => 'foo']),
                 true,
-                'http://localhost:4444/session/foo-123/touch/up',
+                'http://localhost:4444/session/fooSession/touch/up',
                 '{"x":3,"y":6}',
             ],
             'DELETE command' => [
-                DriverCommand::DELETE_COOKIE,
-                [':name' => 'cookie-name'],
+                new WebDriverCommand('fooSession', DriverCommand::DELETE_COOKIE, [':name' => 'cookie-name']),
                 false,
-                'http://localhost:4444/session/foo-123/cookie/cookie-name',
+                'http://localhost:4444/session/fooSession/cookie/cookie-name',
                 null,
             ],
             'GET command without session in URL' => [
-                DriverCommand::GET_ALL_SESSIONS,
-                [],
+                new WebDriverCommand('fooSession', DriverCommand::GET_ALL_SESSIONS, []),
                 false,
                 'http://localhost:4444/sessions',
                 null,
+            ],
+            'Custom GET command' => [
+                new CustomWebDriverCommand(
+                    'fooSession',
+                    '/session/:sessionId/custom-command/:someParameter',
+                    'GET',
+                    [':someParameter' => 'someValue']
+                ),
+                false,
+                'http://localhost:4444/session/fooSession/custom-command/someValue',
+                null,
+            ],
+            'Custom POST command' => [
+                new CustomWebDriverCommand(
+                    'fooSession',
+                    '/session/:sessionId/custom-post-command/',
+                    'POST',
+                    ['someParameter' => 'someValue']
+                ),
+                true,
+                'http://localhost:4444/session/fooSession/custom-post-command/',
+                '{"someParameter":"someValue"}',
             ],
         ];
     }
