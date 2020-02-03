@@ -102,6 +102,8 @@ You may also want to check out the Selenium [docs](http://docs.seleniumhq.org/do
 To take advantage of automatized testing you may want to integrate php-webdriver to your testing framework.
 There are some projects already providing this:
 
+- [Symfony Panther](https://github.com/symfony/panther) uses php-webdriver and integrates with PHPUnit using `PantherTestCase`
+- [Laravel Dusk](https://laravel.com/docs/dusk) is another project using php-webdriver, could be used for testing via `DuskTestCase`
 - [Steward](https://github.com/lmc-eu/steward) integrates php-webdriver directly to [PHPUnit](https://phpunit.de/), and provides parallelization
 - [Codeception](http://codeception.com) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](http://codeception.com/docs/modules/WebDriver)
 - You can also check out this [blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration
