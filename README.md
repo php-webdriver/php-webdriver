@@ -36,66 +36,137 @@ Then install the library:
 
 ## Getting started
 
-### Start Server
+### 1. Start server (aka. remote end)
 
-The required server is the `selenium-server-standalone-#.jar` file provided here: http://selenium-release.storage.googleapis.com/index.html
+To control a browser, you need to start a *remote end* (server), which will listen to the commands sent
+from this library and will execute them in the respective browser.
 
-Download and run the server by **replacing #** with the current server version. Keep in mind **you must have Java 8+ installed to run this command**.
+This could be Selenium standalone server, but for local development, you can send them directly to so-called "browser driver" like Chromedriver or Geckodriver.
 
-    java -jar selenium-server-standalone-#.jar
+#### a) Chromedriver
 
-### Create a Browser Session
+Install the latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+Make sure to have a compatible version of Chromedriver and Chrome!
+
+Run `chromedriver` binary, you can pass `port` argument, so that it listens on port 4444:
+
+```sh
+chromedriver --port=4444
+```
+
+#### b) Geckodriver
+
+Install the latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases).
+Make sure to have a compatible version of Geckodriver and Firefox!
+
+Run `geckodriver` binary (it start to listen on port 4444 by default):
+
+```sh
+geckodriver
+```
+
+#### c) Selenium standalone server
+
+[Selenium server](https://selenium.dev/downloads/) is useful especially when you need to execute multiple tests at once
+or your tests are run in different browsers - like on your CI server.
+
+Selenium server receives commands and starts new sessions using browser drivers acting like hub distributing the commands
+among multiple nodes.
+
+To run the standalone server, download [`selenium-server-standalone-#.jar` file](http://selenium-release.storage.googleapis.com/index.html)
+(replace # with the current server version). Keep in mind **you must have Java 8+ installed**.
+
+Run the server:
+
+```sh
+java -jar selenium-server-standalone-#.jar
+```
+
+You may need to provide path to `chromedriver`/`geckodriver` binary (if they are not placed in system `PATH` directory):
+
+```sh
+# Chromedriver:
+java -Dwebdriver.chrome.driver="/opt/chromium-browser/chromedriver" -jar vendor/bin/selenium-server-standalone-#.jar
+# Geckodriver:
+java -Dwebdriver.gecko.driver="/home/john/bin/geckodriver" -jar vendor/bin/selenium-server-standalone-#.jar
+
+# (These options could be combined)
+```
+
+If you want to distribute browser sessions among multiple servers ("grid mode" - one Selenium hub and multiple Selenium nodes) please
+[refer to the documentation](https://selenium.dev/documentation/en/grid/).
+
+#### d) Docker
+
+Selenium server could also be started inside Docker container - see [docker-selenium project](https://github.com/SeleniumHQ/docker-selenium).
+
+### 2. Create a Browser Session
 
 When creating a browser session, be sure to pass the url of your running server.
 
+For example:
+
 ```php
-// This would be the url of the host running the server-standalone.jar
-$host = 'http://localhost:4444/wd/hub'; // this is the default url and port where Selenium server starts
+// Chromedriver (if started using --port=4444 as above)
+$host = 'http://localhost:4444';
+// Geckodriver
+$host = 'http://localhost:4444';
+// selenium-server-standalone-#.jar (version 2.x or 3.x)
+$host = 'http://localhost:4444/wd/hub';
+// selenium-server-standalone-#.jar (version 4.x)
+$host = 'http://localhost:4444';
 ```
 
-##### Launch Chrome
-
-Install latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
-
-The `chromedriver` binary must be placed in system `PATH` directory, otherwise you must provide the path when starting Selenium server
-(eg. `java -Dwebdriver.chrome.driver="/path/to/chromedriver" -jar selenium-server-standalone-#.jar`).
+Now you can start browser of your choice:
 
 ```php
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+
+// Chrome
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
-```
-
-##### Launch Firefox
-
-Install latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases).
-
-The `geckodriver` binary must be placed in system `PATH` directory, otherwise you must provide the path when starting Selenium server
-(eg. `java -Dwebdriver.gecko.driver="/path/to/geckodriver" -jar selenium-server-standalone-#.jar`).
-
-
-```php
+// Firefox
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+// Microsoft Edge
+$driver = RemoteWebDriver::create($host, DesiredCapabilities::microsoftEdge());
 ```
 
-### Customize Desired Capabilities
+### 3. Customize Desired Capabilities
+
+Desired capabilities define properties of the browser you are about to start.
+
+They can be customized:
 
 ```php
+use Facebook\WebDriver\Remote\DesiredCapabilities;
+
 $desiredCapabilities = DesiredCapabilities::firefox();
+
+// Disable accepting SSL certificates
 $desiredCapabilities->setCapability('acceptSslCerts', false);
+
+// Run headless firefox
+$desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
+
 $driver = RemoteWebDriver::create($host, $desiredCapabilities);
 ```
 
-* See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities for more details.
+They can also be used to [configure proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
+To configure Chrome, you may use ChromeOptions - see [details in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/ChromeOptions).
 
-**NOTE:** Above snippets are not intended to be a working example by simply copy-pasting. See [example.php](example.php) for working example.
+* See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
+
+**NOTE:** Above snippets are not intended to be a working example by simply copy-pasting. See [example.php](example.php) for a working example.
 
 ## Changelog
 For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 ## More information
 
-Some how-tos are provided right here in [our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+Some basic usage example is provided in [example.php](example.php) file.
 
-You may also want to check out the Selenium [docs](http://docs.seleniumhq.org/docs/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
+How-tos are provided right here in [our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+
+You may also want to check out the Selenium [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
 
 ## Testing framework integration
 
@@ -118,4 +189,4 @@ We have a great community willing to help you!
 
 ## Contributing
 
-We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](CONTRIBUTING.md) for more information about contributing and developing php-webdriver.
+We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for more information about contributing and developing php-webdriver.
