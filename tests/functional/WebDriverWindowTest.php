@@ -50,6 +50,8 @@ class WebDriverWindowTest extends WebDriverTestCase
 
     /**
      * @group exclude-edge
+     * @group exclude-chrome
+     * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1049336
      */
     public function testShouldFullscreenWindow()
     {
