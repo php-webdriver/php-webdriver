@@ -341,8 +341,17 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             }
         } else {
             if ($this->isW3cCompliant) {
+                try {
+                    // Attempt to upload the file to the remote browser.
+                    // This is so far non-W3C compliant method, so it may fail - if so, we just ignore the exception.
+                    // @see https://github.com/w3c/webdriver/issues/1355
+                    $fileName = $this->upload($local_file);
+                } catch (WebDriverException $e) {
+                    $fileName = $local_file;
+                }
+
                 $params = [
-                    'text' => $local_file,
+                    'text' => $fileName,
                     ':id' => $this->id,
                 ];
             } else {
