@@ -50,6 +50,21 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertSame(333, $capabilities->getVersion());
     }
 
+    public function testShouldAccessCapabilitiesIsser()
+    {
+        $capabilities = new DesiredCapabilities();
+
+        $capabilities->setCapability('custom', 1337);
+        $capabilities->setCapability('customBooleanTrue', true);
+        $capabilities->setCapability('customBooleanFalse', false);
+        $capabilities->setCapability('customNull', null);
+
+        $this->assertTrue($capabilities->is('custom'));
+        $this->assertTrue($capabilities->is('customBooleanTrue'));
+        $this->assertFalse($capabilities->is('customBooleanFalse'));
+        $this->assertFalse($capabilities->is('customNull'));
+    }
+
     public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser()
     {
         $this->expectException(\Exception::class);

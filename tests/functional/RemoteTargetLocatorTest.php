@@ -77,6 +77,12 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->switchTo()->frame(null);
         $this->assertContains($parentPage, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->frame(0);
+        $this->assertContains($firstChildFrame, $this->driver->getPageSource());
+
+        $this->driver->switchTo()->defaultContent();
+        $this->assertContains($parentPage, $this->driver->getPageSource());
     }
 
     public function testShouldSwitchToParentFrame()
