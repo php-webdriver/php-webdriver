@@ -27,8 +27,8 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
-     * Switch to the main document if the page contains iframes. Otherwise, switch
-     * to the first frame on the page.
+     * Set the current browsing context to the current top-level browsing context.
+     * This is the same as calling `RemoteTargetLocator::frame(null);`
      *
      * @return WebDriver The driver focused on the top window or the first frame.
      */
