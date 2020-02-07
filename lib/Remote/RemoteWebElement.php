@@ -498,26 +498,38 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             throw new WebDriverException('You may only upload files: ' . $local_file);
         }
 
+        $temp_zip_path = $this->createTemporaryZipArchive($local_file);
+
+        $remote_path = $this->executor->execute(
+            DriverCommand::UPLOAD_FILE,
+            ['file' => base64_encode(file_get_contents($temp_zip_path))]
+        );
+
+        unlink($temp_zip_path);
+
+        return $remote_path;
+    }
+
+    /**
+     * @param string $fileToZip
+     * @return string
+     */
+    protected function createTemporaryZipArchive($fileToZip)
+    {
         // Create a temporary file in the system temp directory.
-        $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverZip');
+        // Intentionally do not use `tempnam()`, as it creates empty file which zip extension may not handle.
+        $tempZipPath = sys_get_temp_dir() . '/' . uniqid('WebDriverZip', false);
+
         $zip = new ZipArchive();
-        if (($errorCode = $zip->open($temp_zip, ZipArchive::CREATE)) !== true) {
+        if (($errorCode = $zip->open($tempZipPath, ZipArchive::CREATE)) !== true) {
             throw new WebDriverException(sprintf('Error creating zip archive: %s', $errorCode));
         }
 
-        $info = pathinfo($local_file);
+        $info = pathinfo($fileToZip);
         $file_name = $info['basename'];
-        $zip->addFile($local_file, $file_name);
+        $zip->addFile($fileToZip, $file_name);
         $zip->close();
-        $params = [
-            'file' => base64_encode(file_get_contents($temp_zip)),
-        ];
-        $remote_path = $this->executor->execute(
-            DriverCommand::UPLOAD_FILE,
-            $params
-        );
-        unlink($temp_zip);
 
-        return $remote_path;
+        return $tempZipPath;
     }
 }
