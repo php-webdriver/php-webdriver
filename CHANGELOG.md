@@ -3,6 +3,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.8.0 - 2020-02-10
 ### Added
 - Experimental W3C WebDriver protocol support. The protocol will be used automatically when remote end (like Geckodriver, newer Chromedriver etc.) supports it.
 - `getStatus()` method of `RemoteWebDriver` to get information about remote-end readiness to create new sessions.
