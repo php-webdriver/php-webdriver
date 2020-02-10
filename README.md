@@ -34,6 +34,21 @@ Then install the library:
 
     php composer.phar require php-webdriver/webdriver
 
+## Upgrade from version <1.8.0
+
+Starting from version 1.8.0, the project has been renamed from `facebook/php-webdriver` to `php-webdriver/webdriver`.
+
+In order to receive the new version and future updates, **you need to rename it in your composer.json**:
+
+```diff
+"require": {
+-    "facebook/webdriver": "(version you use)",
++    "php-webdriver/webdriver": "(version you use)",
+}
+```
+
+and run `composer update`.
+
 ## Getting started
 
 ### 1. Start server (aka. remote end)
