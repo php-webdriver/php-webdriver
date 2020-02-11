@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Fixed
+- Accept array as possible input to `sendKeys()` method. (Unintentional BC break in 1.8.0.)
 
 ## 1.8.0 - 2020-02-10
 ### Added
