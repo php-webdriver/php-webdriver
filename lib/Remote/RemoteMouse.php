@@ -273,13 +273,15 @@ class RemoteMouse implements WebDriverMouse
     ) {
         $move_action = [
             'type' => 'pointerMove',
-            'duration' => 0,
+            'duration' => 100, // to simulate human delay
             'x' => $x_offset === null ? 0 : $x_offset,
             'y' => $y_offset === null ? 0 : $y_offset,
         ];
 
         if ($where !== null) {
             $move_action['origin'] = [JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $where->getAuxiliary()];
+        } else {
+            $move_action['origin'] = 'pointer';
         }
 
         return $move_action;
