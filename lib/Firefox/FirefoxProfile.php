@@ -150,7 +150,7 @@ class FirefoxProfile
 
         $zip = new ZipArchive();
         $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverFirefoxProfileZip');
-        $zip->open($temp_zip.".zip", ZipArchive::CREATE);
+        $zip->open($temp_zip . ".zip", ZipArchive::CREATE);
 
         $dir = new RecursiveDirectoryIterator($temp_dir);
         $files = new RecursiveIteratorIterator($dir);
