@@ -10,6 +10,13 @@ use Facebook\WebDriver\WebDriverMouse;
  */
 class RemoteMouse implements WebDriverMouse
 {
+    /** @internal */
+    const BUTTON_LEFT = 0;
+    /** @internal */
+    const BUTTON_MIDDLE = 1;
+    /** @internal */
+    const BUTTON_RIGHT = 2;
+
     /**
      * @var RemoteExecuteMethod
      */
@@ -54,7 +61,7 @@ class RemoteMouse implements WebDriverMouse
 
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::CLICK, [
-            'button' => 0,
+            'button' => self::BUTTON_LEFT,
         ]);
 
         return $this;
@@ -78,13 +85,11 @@ class RemoteMouse implements WebDriverMouse
                         'actions' => array_merge($moveAction, [
                             [
                                 'type' => 'pointerDown',
-                                'duration' => 0,
-                                'button' => 2,
+                                'button' => self::BUTTON_RIGHT,
                             ],
                             [
                                 'type' => 'pointerUp',
-                                'duration' => 0,
-                                'button' => 2,
+                                'button' => self::BUTTON_RIGHT,
                             ],
                         ]),
                     ],
@@ -96,7 +101,7 @@ class RemoteMouse implements WebDriverMouse
 
         $this->moveIfNeeded($where);
         $this->executor->execute(DriverCommand::CLICK, [
-            'button' => 2,
+            'button' => self::BUTTON_RIGHT,
         ]);
 
         return $this;
@@ -150,8 +155,7 @@ class RemoteMouse implements WebDriverMouse
                             $this->createMoveAction($where),
                             [
                                 'type' => 'pointerDown',
-                                'duration' => 0,
-                                'button' => 0,
+                                'button' => self::BUTTON_LEFT,
                             ],
                         ],
                     ],
@@ -229,8 +233,7 @@ class RemoteMouse implements WebDriverMouse
                         'actions' => array_merge($moveAction, [
                             [
                                 'type' => 'pointerUp',
-                                'duration' => 0,
-                                'button' => 0,
+                                'button' => self::BUTTON_LEFT,
                             ],
                         ]),
                     ],
@@ -290,13 +293,11 @@ class RemoteMouse implements WebDriverMouse
         return [
             [
                 'type' => 'pointerDown',
-                'duration' => 0,
-                'button' => 0,
+                'button' => self::BUTTON_LEFT,
             ],
             [
                 'type' => 'pointerUp',
-                'duration' => 0,
-                'button' => 0,
+                'button' => self::BUTTON_LEFT,
             ],
         ];
     }
