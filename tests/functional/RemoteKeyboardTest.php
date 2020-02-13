@@ -9,6 +9,8 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class RemoteKeyboardTest extends WebDriverTestCase
 {
+    use RetrieveEventsTrait;
+
     /**
      * @group exclude-firefox
      * Firefox does not properly support keyboard actions:
@@ -55,7 +57,7 @@ class RemoteKeyboardTest extends WebDriverTestCase
                     'keyup "Shift"',
                     'keyup "f"',
                 ],
-                $this->retrieveLoggedEvents()
+                $this->retrieveLoggedKeyboardEvents()
             );
         } else {
             $this->assertEquals(
@@ -79,18 +81,8 @@ class RemoteKeyboardTest extends WebDriverTestCase
                     'keydown "f"',
                     'keyup "f"',
                 ],
-                $this->retrieveLoggedEvents()
+                $this->retrieveLoggedKeyboardEvents()
             );
         }
-    }
-
-    /**
-     * @return array
-     */
-    private function retrieveLoggedEvents()
-    {
-        $logElement = $this->driver->findElement(WebDriverBy::id('keyboardEventsLog'));
-
-        return explode("\n", $logElement->getText());
     }
 }
