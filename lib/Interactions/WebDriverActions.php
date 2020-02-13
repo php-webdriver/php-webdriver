@@ -245,7 +245,7 @@ class WebDriverActions
 
     /**
      * Send keys by keyboard.
-     * If $element is provided, focus on that element first.
+     * If $element is provided, focus on that element first (using single mouse click).
      *
      * @see WebDriverKeys for special keys like CONTROL, ALT, etc.
      * @param WebDriverElement $element
