@@ -330,7 +330,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         if ($local_file === null) {
             if ($this->isW3cCompliant) {
                 $params = [
-                    'text' => (string) $value,
+                    'text' => WebDriverKeys::encode($value, true),
                     ':id' => $this->id,
                 ];
             } else {

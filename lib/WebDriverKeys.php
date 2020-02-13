@@ -90,11 +90,13 @@ class WebDriverKeys
     const COMMAND = self::META;
 
     /**
-     * Encode input of `sendKeys()`.
+     * Encode input of `sendKeys()` to appropriate format according to protocol.
+     *
      * @param string|array|int|float $keys
-     * @return array
+     * @param bool $isW3cCompliant
+     * @return array|string
      */
-    public static function encode($keys)
+    public static function encode($keys, $isW3cCompliant = false)
     {
         if (is_numeric($keys)) {
             $keys = (string) $keys;
@@ -105,7 +107,11 @@ class WebDriverKeys
         }
 
         if (!is_array($keys)) {
-            return [];
+            if (!$isW3cCompliant) {
+                return [];
+            }
+
+            return '';
         }
 
         $encoded = [];
@@ -117,6 +123,10 @@ class WebDriverKeys
             $encoded[] = (string) $key;
         }
 
-        return $encoded;
+        if (!$isW3cCompliant) {
+            return $encoded;
+        }
+
+        return implode('', $encoded);
     }
 }
