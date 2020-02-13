@@ -5,6 +5,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @covers \Facebook\WebDriver\Remote\HttpCommandExecutor
@@ -36,7 +37,12 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         $returnedCapabilities = $this->driver->getCapabilities();
         $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
-        $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+
+        // MicrosoftEdge on Sauce Labs started to identify itself back as "msedge"
+        if ($this->desiredCapabilities->getBrowserName() !== WebDriverBrowserType::MICROSOFT_EDGE) {
+            $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+        }
+
         $this->assertNotEmpty($returnedCapabilities->getPlatform());
         $this->assertNotEmpty($returnedCapabilities);
         $this->assertNotEmpty($returnedCapabilities->getVersion());
