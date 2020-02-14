@@ -1,11 +1,16 @@
 {
   "name": "php-webdriver/webdriver",
-  "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
-  "keywords": ["webdriver", "selenium", "php", "geckodriver", "chromedriver"],
-  "homepage": "https://github.com/php-webdriver/php-webdriver",
   "type": "library",
+  "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
+  "keywords": [
+    "webdriver",
+    "selenium",
+    "php",
+    "geckodriver",
+    "chromedriver"
+  ],
+  "homepage": "https://github.com/php-webdriver/php-webdriver",
   "license": "MIT",
-  "minimum-stability": "beta",
   "require": {
     "php": "^5.6 || ~7.0",
     "ext-curl": "*",
@@ -28,34 +33,6 @@
   "suggest": {
     "ext-SimpleXML": "For Firefox profile creation"
   },
-  "autoload": {
-    "files": [
-      "lib/Exception/TimeoutException.php"
-    ],
-    "psr-4": {
-      "Facebook\\WebDriver\\": "lib/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Facebook\\WebDriver\\": ["tests/unit", "tests/functional"]
-    },
-    "classmap": ["tests/functional/"]
-  },
-  "scripts": {
-    "codestyle:check": [
-      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
-      "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
-    ],
-    "codestyle:fix": [
-      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
-      "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
-    ],
-    "analyze": [
-      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
-      "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
-    ]
-  },
   "config": {
     "sort-packages": true
   },
@@ -63,5 +40,39 @@
     "branch-alias": {
       "dev-master": "1.8.x-dev"
     }
+  },
+  "autoload": {
+    "psr-4": {
+      "Facebook\\WebDriver\\": "lib/"
+    },
+    "files": [
+      "lib/Exception/TimeoutException.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Facebook\\WebDriver\\": [
+        "tests/unit",
+        "tests/functional"
+      ]
+    },
+    "classmap": [
+      "tests/functional/"
+    ]
+  },
+  "minimum-stability": "beta",
+  "scripts": {
+    "analyze": [
+      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
+      "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
+    ],
+    "codestyle:check": [
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
+      "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
+    ],
+    "codestyle:fix": [
+      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
+      "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+    ]
   }
 }

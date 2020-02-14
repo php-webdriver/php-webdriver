@@ -22,7 +22,13 @@ jobs:
       - name: Install dependencies
         run: |
           composer update --no-interaction
-          composer require phpstan/phpstan # Not part of require-dev, because it won't install on PHP 5.6
+          composer require --dev phpstan/phpstan # Not part of require-dev, because it won't install on PHP 5.6
+          composer require --dev ergebnis/composer-normalize
+
+      - name: Check composer.json
+        run: |
+          composer validate --strict
+          composer normalize --dry-run
 
       - name: Run checks
         run: |
