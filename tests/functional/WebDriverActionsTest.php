@@ -121,6 +121,9 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->assertContains('dblclick item-3', $this->retrieveLoggedMouseEvents());
     }
 
+    /**
+     * @group exclude-saucelabs
+     */
     public function testShouldSendKeysUpAndDown()
     {
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
@@ -199,6 +202,9 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-saucelabs
+     */
     public function testShouldDragAndDrop()
     {
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
