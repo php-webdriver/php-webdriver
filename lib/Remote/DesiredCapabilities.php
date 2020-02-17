@@ -288,9 +288,12 @@ class DesiredCapabilities implements WebDriverCapabilities
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
         ]);
 
-        // disable the "Reader View" help tooltip, which can hide elements in the window.document
         $profile = new FirefoxProfile();
+        // disable the "Reader View" help tooltip, which can hide elements in the window.document
         $profile->setPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED, false);
+        // disable JSON viewer and let JSON be rendered as raw data
+        $profile->setPreference(FirefoxPreferences::DEVTOOLS_JSONVIEW, false);
+
         $caps->setCapability(FirefoxDriver::PROFILE, $profile);
 
         return $caps;

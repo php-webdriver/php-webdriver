@@ -16,6 +16,8 @@ class FirefoxPreferences
     const READER_PARSE_ON_LOAD_ENABLED = 'reader.parse-on-load.enabled';
     /** @var string Browser homepage */
     const BROWSER_STARTUP_HOMEPAGE = 'browser.startup.homepage';
+    /** @var string Should the Devtools JSON view be enabled? */
+    const DEVTOOLS_JSONVIEW = 'devtools.jsonview.enabled';
 
     private function __construct()
     {
