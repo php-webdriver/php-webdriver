@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.8.1 - 2020-02-17
 ### Fixed
 - Accept array as possible input to `sendKeys()` method. (Unintentional BC break in 1.8.0.)
 - Use relative offset when moving mouse pointer in W3C WebDriver mode.
