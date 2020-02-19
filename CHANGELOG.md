@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- Reimplement element `equals()` method to be working in W3C mode.
 
 ## 1.8.1 - 2020-02-17
 ### Fixed

@@ -262,12 +262,9 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::equals
-     * @group exclude-saucelabs
      */
     public function testShouldCompareEqualsElement()
     {
-        self::skipForW3cProtocol('"equals" is not supported by the W3C specification');
-
         $this->driver->get($this->getTestPageUrl('index.html'));
 
         $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));

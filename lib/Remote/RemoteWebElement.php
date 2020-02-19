@@ -2,7 +2,6 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
@@ -463,7 +462,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     public function equals(WebDriverElement $other)
     {
         if ($this->isW3cCompliant) {
-            throw new UnsupportedOperationException('"elementEquals" is not supported by the W3C specification');
+            return $this->getID() === $other->getID();
         }
 
         return $this->executor->execute(DriverCommand::ELEMENT_EQUALS, [
