@@ -148,8 +148,10 @@ class FirefoxProfile
         }
         file_put_contents($temp_dir . '/user.js', $content);
 
+        // Intentionally do not use `tempnam()`, as it creates empty file which zip extension may not handle.
+        $temp_zip = sys_get_temp_dir() . '/' . uniqid('WebDriverFirefoxProfileZip', false);
+
         $zip = new ZipArchive();
-        $temp_zip = tempnam(sys_get_temp_dir(), 'WebDriverFirefoxProfileZip');
         $zip->open($temp_zip, ZipArchive::CREATE);
 
         $dir = new RecursiveDirectoryIterator($temp_dir);
