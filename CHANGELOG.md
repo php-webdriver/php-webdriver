@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Reimplement element `equals()` method to be working in W3C mode.
 
+### Fixed
+- Properly read fifth parameter whether W3C compliant instance should be created when using `createBySessionID()`.
+
 ## 1.8.1 - 2020-02-17
 ### Fixed
 - Accept array as possible input to `sendKeys()` method. (Unintentional BC break in 1.8.0.)
