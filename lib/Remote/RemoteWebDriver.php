@@ -161,6 +161,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string $session_id The existing session id
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
+     * @param bool $isW3cCompliant false to use the legacy JsonWire protocol, true for the W3C WebDriver spec
      * @return static
      */
     public static function createBySessionID(
@@ -170,7 +171,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $request_timeout_in_ms = null
     ) {
         // BC layer to not break the method signature
-        $w3c_compliant = func_num_args() > 3 ? func_get_arg(3) : false;
+        $isW3cCompliant = func_num_args() > 4 ? func_get_arg(4) : false;
+
         $executor = new HttpCommandExecutor($selenium_server_url, null, null);
         if ($connection_timeout_in_ms !== null) {
             $executor->setConnectionTimeout($connection_timeout_in_ms);
@@ -179,7 +181,11 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executor->setRequestTimeout($request_timeout_in_ms);
         }
 
-        return new static($executor, $session_id, null, $w3c_compliant);
+        if (!$isW3cCompliant) {
+            $executor->disableW3cCompliance();
+        }
+
+        return new static($executor, $session_id, null, $isW3cCompliant);
     }
 
     /**
