@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.8.2 - 2020-03-04
 ### Changed
 - Reimplement element `equals()` method to be working in W3C mode.
 - New instance of `RemoteWebDriver` created via `createBySessionID()` by default expects W3C mode. This could be disabled using fifth parameter of `createBySessionID()`.
