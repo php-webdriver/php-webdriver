@@ -5,9 +5,11 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Reimplement element `equals()` method to be working in W3C mode.
 - New instance of `RemoteWebDriver` created via `createBySessionID()` by default expects W3C mode. This could be disabled using fifth parameter of `createBySessionID()`.
+- Disable JSON viewer in Firefox to let JSON response be rendered as-is.
 
 ### Fixed
 - Properly read fifth parameter whether W3C compliant instance should be created when using `createBySessionID()`.
+- Creating of Firefox profile with libzip 1.6+ (eg. on Mac OS Catalina).
 
 ## 1.8.1 - 2020-02-17
 ### Fixed
