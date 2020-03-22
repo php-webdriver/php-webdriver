@@ -589,7 +589,8 @@ class WebDriverExpectedCondition
      * An expectation with the logical AND condition of the given conditions.
      *
      * @param WebDriverExpectedCondition[] $conditions Array of the conditions to be satisfied.
-     * @return static|false Array of the getApply() values of all satisfied conditions or FALSE if some condition failed.
+     * @return static|false Array of the getApply() values of all satisfied conditions or FALSE if some condition
+     * failed.
      */
     public static function all($conditions)
     {
