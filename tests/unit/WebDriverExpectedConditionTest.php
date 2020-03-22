@@ -475,7 +475,7 @@ class WebDriverExpectedConditionTest extends TestCase
         ]);
 
         $result = $this->wait->until($condition);
-        $this->assertTrue(is_array($result));
+        $this->assertInternalType('array', $result);
         $this->assertSame($element1, $result[0]);
         $this->assertSame($element2, $result[1]);
 
