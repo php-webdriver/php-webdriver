@@ -478,7 +478,6 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertInternalType('array', $result);
         $this->assertSame($element1, $result[0]);
         $this->assertSame($element2, $result[1]);
-
     }
 
     public function testAllConditionFailure()
