@@ -603,7 +603,7 @@ class WebDriverExpectedCondition
                     }
                     $result = $result && call_user_func($condition->getApply(), $driver);
 
-                    if(!$result) {
+                    if (!$result) {
                         return false;
                     }
                 }
