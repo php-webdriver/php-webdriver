@@ -589,13 +589,14 @@ class WebDriverExpectedCondition
      * An expectation with the logical AND condition of the given conditions.
      *
      * @param WebDriverExpectedCondition[] $conditions Array of the conditions to be satisfied.
-     * @return static Are all conditions satisfied or not.
+     * @return static Array of the getApply() values of all satisfied conditions or FALSE if some condition failed.
      */
     public static function all($conditions)
     {
         return new static(
             function (WebDriver $driver) use ($conditions) {
-                $result = true;
+                $results = [];
+                $allExist = true;
 
                 foreach ($conditions as $condition) {
                     if (!$condition instanceof self) {
@@ -603,14 +604,16 @@ class WebDriverExpectedCondition
                             '$condition must be instance of WebDriverExpectedCondition class'
                         );
                     }
-                    $result = $result && call_user_func($condition->getApply(), $driver);
+                    $result = call_user_func($condition->getApply(), $driver);
+                    $allExist = $allExist && $result;
+                    $results[] = $result;
 
-                    if (!$result) {
+                    if (!$allExist) {
                         return false;
                     }
                 }
 
-                return $result;
+                return $results;
             }
         );
     }
