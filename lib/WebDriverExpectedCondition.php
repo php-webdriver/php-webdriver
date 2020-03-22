@@ -588,8 +588,8 @@ class WebDriverExpectedCondition
     /**
      * An expectation with the logical AND condition of the given conditions.
      *
-     * @param WebDriverExpectedCondition[] $conditions
-     * @return WebDriverExpectedCondition
+     * @param WebDriverExpectedCondition[] $conditions Array of the conditions to be satisfied.
+     * @return static Are all conditions satisfied or not.
      */
     public static function all($conditions)
     {
@@ -616,8 +616,8 @@ class WebDriverExpectedCondition
     /**
      * An expectation with the logical OR condition of the given conditions.
      *
-     * @param WebDriverExpectedCondition[] $conditions
-     * @return WebDriverExpectedCondition
+     * @param WebDriverExpectedCondition[] $conditions Array of the conditions one of them to be satisfied.
+     * @return static Condition returns the return value of the getApply() of the first satisfied condition.
      */
     public static function any($conditions)
     {
