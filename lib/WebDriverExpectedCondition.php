@@ -6,6 +6,7 @@ use Facebook\WebDriver\Exception\NoAlertOpenException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\NoSuchFrameException;
 use Facebook\WebDriver\Exception\StaleElementReferenceException;
+use InvalidArgumentException;
 
 /**
  * Canned ExpectedConditions which are generally useful within webdriver tests.
@@ -580,6 +581,59 @@ class WebDriverExpectedCondition
                 $result = call_user_func($condition->getApply(), $driver);
 
                 return !$result;
+            }
+        );
+    }
+
+    /**
+     * An expectation with the logical AND condition of the given conditions.
+     *
+     * @param WebDriverExpectedCondition[] $conditions
+     * @return WebDriverExpectedCondition
+     */
+    public static function all($conditions)
+    {
+        return new static(
+            function (WebDriver $driver) use ($conditions) {
+                $result = true;
+
+                foreach ($conditions as $condition) {
+                    if (!$condition instanceof self) {
+                        throw new InvalidArgumentException('$condition must be instance of WebDriverExpectedCondition class');
+                    }
+                    $result = $result && call_user_func($condition->getApply(), $driver);
+
+                    if( !$result) {
+                        return false;
+                    }
+                }
+
+                return $result;
+            }
+        );
+    }
+
+    /**
+     * An expectation with the logical OR condition of the given conditions.
+     *
+     * @param WebDriverExpectedCondition[] $conditions
+     * @return WebDriverExpectedCondition
+     */
+    public static function any($conditions)
+    {
+        return new static(
+            function (WebDriver $driver) use ($conditions) {
+                foreach ($conditions as $condition) {
+                    if (!$condition instanceof self) {
+                        throw new InvalidArgumentException('$condition must be instance of WebDriverExpectedCondition class');
+                    }
+
+                    if ($result = call_user_func($condition->getApply(), $driver)) {
+                        return $result;
+                    }
+                }
+
+                return false;
             }
         );
     }
