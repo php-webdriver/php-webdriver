@@ -599,7 +599,9 @@ class WebDriverExpectedCondition
 
                 foreach ($conditions as $condition) {
                     if (!$condition instanceof self) {
-                        throw new InvalidArgumentException('$condition must be instance of WebDriverExpectedCondition class');
+                        throw new InvalidArgumentException(
+                            '$condition must be instance of WebDriverExpectedCondition class'
+                        );
                     }
                     $result = $result && call_user_func($condition->getApply(), $driver);
 
@@ -625,7 +627,9 @@ class WebDriverExpectedCondition
             function (WebDriver $driver) use ($conditions) {
                 foreach ($conditions as $condition) {
                     if (!$condition instanceof self) {
-                        throw new InvalidArgumentException('$condition must be instance of WebDriverExpectedCondition class');
+                        throw new InvalidArgumentException(
+                            '$condition must be instance of WebDriverExpectedCondition class'
+                        );
                     }
 
                     if ($result = call_user_func($condition->getApply(), $driver)) {
