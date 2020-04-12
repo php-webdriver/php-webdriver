@@ -124,7 +124,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Get the value of a the given attribute of the element.
+     * Get the value of the given attribute of the element.
      *
      * @param string $attribute_name The name of the attribute.
      * @return string|null The value of the attribute.
