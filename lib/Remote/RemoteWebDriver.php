@@ -81,6 +81,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param string|null $http_proxy The proxy to tunnel requests to the remote Selenium WebDriver through
      * @param int|null $http_proxy_port The proxy port to tunnel requests to the remote Selenium WebDriver through
      * @param DesiredCapabilities $required_capabilities The required capabilities
+     * @param array $curl_options Extra curl options to set
      *
      * @return static
      */
@@ -91,7 +92,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $request_timeout_in_ms = null,
         $http_proxy = null,
         $http_proxy_port = null,
-        DesiredCapabilities $required_capabilities = null
+        DesiredCapabilities $required_capabilities = null,
+        $curl_options = array()
     ) {
         // BC layer to not break the method signature
         $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
@@ -99,11 +101,16 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $desired_capabilities = self::castToDesiredCapabilitiesObject($desired_capabilities);
 
         $executor = new HttpCommandExecutor($selenium_server_url, $http_proxy, $http_proxy_port);
+        
         if ($connection_timeout_in_ms !== null) {
             $executor->setConnectionTimeout($connection_timeout_in_ms);
         }
         if ($request_timeout_in_ms !== null) {
             $executor->setRequestTimeout($request_timeout_in_ms);
+        }
+        
+        if(!empty($curl_options)){
+            $executor->setCurlOptions($curl_options);
         }
 
         // W3C
