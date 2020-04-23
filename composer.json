@@ -1,5 +1,5 @@
 {
-  "name": "php-webdriver/webdriver",
+  "name": "mariopenterman/webdriver",
   "type": "library",
   "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
   "keywords": [
@@ -9,7 +9,7 @@
     "geckodriver",
     "chromedriver"
   ],
-  "homepage": "https://github.com/php-webdriver/php-webdriver",
+  "homepage": "https://github.com/mariopenterman/php-webdriver",
   "license": "MIT",
   "require": {
     "php": "^5.6 || ~7.0",
