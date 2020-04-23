@@ -213,7 +213,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     
     /**
      * Allows to specify the curl options
-     * @param $options
+     * @param array $options
      */
     public function setCurlOptions(array $options)
     {
