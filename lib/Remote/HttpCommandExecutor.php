@@ -210,6 +210,14 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $this->setRequestTimeout(30000);
         $this->setConnectionTimeout(30000);
     }
+    
+    /**
+     * Allows to specify the curl options
+     * @param $options
+     */
+    public function setCurlOptions($options){
+        curl_setopt_array($this->curl, $options);
+    }
 
     public function disableW3cCompliance()
     {
