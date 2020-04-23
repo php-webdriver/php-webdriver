@@ -1,5 +1,5 @@
 {
-  "name": "mariopenterman/webdriver",
+  "name": "mariopenterman/php-webdriver",
   "type": "library",
   "description": "A PHP client for Selenium WebDriver. Previously facebook/webdriver.",
   "keywords": [
