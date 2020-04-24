@@ -21,9 +21,9 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.0",
-    "jakub-onderka/php-parallel-lint": "^1.0",
     "php-coveralls/php-coveralls": "^2.0",
     "php-mock/php-mock-phpunit": "^1.1",
+    "php-parallel-lint/php-parallel-lint": "^1.2",
     "phpunit/phpunit": "^5.7",
     "sebastian/environment": "^1.3.4 || ^2.0 || ^3.0",
     "sminnee/phpunit-mock-objects": "^3.4",
