@@ -7,13 +7,18 @@
 <body>
 
 <p>
-    <a href="#" onclick="javascript:alert('This is alert'); return false;" id="open-alert">Open alert</a>
+    <a href="#" onclick="alert('This is alert'); return false;" id="open-alert">Open alert</a>
     <br>
 
-    <a href="#" onclick="javascript:openConfirm(); return false;" id="open-confirm">Open confirm</a>
+    <a href="#" onclick="setTimeout(function(){ alert('This is alert');}, 1000); return false;" id="open-alert-delayed">
+        Open alert after 1 second
+    </a>
     <br>
 
-    <a href="#" onclick="javascript:openPrompt(); return false;" id="open-prompt">Open prompt</a>
+    <a href="#" onclick="openConfirm(); return false;" id="open-confirm">Open confirm</a>
+    <br>
+
+    <a href="#" onclick="openPrompt(); return false;" id="open-prompt">Open prompt</a>
     <br>
 </p>
 

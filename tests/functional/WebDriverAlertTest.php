@@ -21,8 +21,8 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldAcceptAlert()
     {
-        // Open alert
-        $this->driver->findElement(WebDriverBy::id('open-alert'))->click();
+        // Open alert (it is delayed for 1 second, to make sure following wait for alertIsPresent works properly)
+        $this->driver->findElement(WebDriverBy::id('open-alert-delayed'))->click();
 
         // Wait until present
         $this->driver->wait()->until(WebDriverExpectedCondition::alertIsPresent());
