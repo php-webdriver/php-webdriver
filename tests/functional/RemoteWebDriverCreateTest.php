@@ -78,6 +78,22 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
     }
 
+    /**
+     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server, Saucelabs etc.)
+     * @group exclude-saucelabs
+     */
+    public function testShouldCreateWebDriverWithoutCapabilities()
+    {
+        if (getenv('GECKODRIVER') !== '1' && getenv('CHROMEDRIVER') !== '1') {
+            $this->markTestSkipped('This test makes sense only when run directly via specific browser driver');
+        }
+
+        $this->driver = RemoteWebDriver::create($this->serverUrl);
+
+        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
+        $this->assertNotEmpty($this->driver->getSessionID());
+    }
+
     public function testShouldCreateInstanceFromExistingSessionId()
     {
         // Create driver instance and load page "index.html"

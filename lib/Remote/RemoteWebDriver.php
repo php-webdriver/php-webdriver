@@ -93,7 +93,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $http_proxy_port = null,
         DesiredCapabilities $required_capabilities = null
     ) {
-        // BC layer to not break the method signature
         $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
 
         $desired_capabilities = self::castToDesiredCapabilitiesObject($desired_capabilities);
@@ -109,12 +108,12 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         // W3C
         $parameters = [
             'capabilities' => [
-                'firstMatch' => [$desired_capabilities->toW3cCompatibleArray()],
+                'firstMatch' => [(object) $desired_capabilities->toW3cCompatibleArray()],
             ],
         ];
 
         if ($required_capabilities !== null && !empty($required_capabilities->toArray())) {
-            $parameters['capabilities']['alwaysMatch'] = $required_capabilities->toW3cCompatibleArray();
+            $parameters['capabilities']['alwaysMatch'] = (object) $required_capabilities->toW3cCompatibleArray();
         }
 
         // Legacy protocol
@@ -122,10 +121,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             // TODO: Selenium (as of v3.0.1) does accept requiredCapabilities only as a property of desiredCapabilities.
             // This has changed with the W3C WebDriver spec, but is the only way how to pass these
             // values with the legacy protocol.
-            $desired_capabilities->setCapability('requiredCapabilities', $required_capabilities->toArray());
+            $desired_capabilities->setCapability('requiredCapabilities', (object) $required_capabilities->toArray());
         }
 
-        $parameters['desiredCapabilities'] = $desired_capabilities->toArray();
+        $parameters['desiredCapabilities'] = (object) $desired_capabilities->toArray();
 
         $command = new WebDriverCommand(
             null,
