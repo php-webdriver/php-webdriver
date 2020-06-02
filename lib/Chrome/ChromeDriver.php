@@ -39,6 +39,12 @@ class ChromeDriver extends RemoteWebDriver
             ]
         );
         $response = $this->executor->execute($command);
+        $value = $response->getValue();
+
+        if (!$this->isW3cCompliant = isset($value['capabilities'])) {
+            $this->executor->disableW3cCompliance();
+        }
+
         $this->sessionID = $response->getSessionID();
     }
 
