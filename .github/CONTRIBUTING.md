@@ -14,7 +14,7 @@ The code of conduct is described in [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 2. Implement your code changes into separate branch
 3. Make sure all PHPUnit tests passes and code-style matches PSR-2 (see below). We also have Travis CI build which will automatically run tests on your pull request.
 4. When implementing notable change, fix or a new feature, add record to Unreleased section of [CHANGELOG.md](CHANGELOG.md)
-5. Submit your [pull request](https://github.com/php-webdriver/php-webdriver/pulls) against `master` branch
+5. Submit your [pull request](https://github.com/php-webdriver/php-webdriver/pulls) against `main` branch
  
 When you are going to contribute, please keep in mind that this webdriver client aims to be as close as possible to other languages Java/Ruby/Python/C#.
 FYI, here is the overview of [the official Java API](http://seleniumhq.github.io/selenium/docs/api/java/)
