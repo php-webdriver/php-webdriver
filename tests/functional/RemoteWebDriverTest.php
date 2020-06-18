@@ -48,6 +48,40 @@ class RemoteWebDriverTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
+     * @covers ::window
+     */
+    public function testShouldCreateNewWindow()
+    {
+        self::skipForJsonWireProtocol('Create new window is not supported in JsonWire protocol');
+
+        // Ensure that the initial context matches.
+        $initialHandle = $this->driver->getWindowHandle();
+        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->assertEquals($this->getTestPageUrl('index.html'), $this->driver->getCurrentUrl());
+        $source = $this->driver->getPageSource();
+        $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
+        $this->compatAssertStringContainsString('Welcome to the php-webdriver testing page.', $source);
+        $windowHandles = $this->driver->getWindowHandles();
+        $this->assertCount(1, $windowHandles);
+
+        // Create a new window
+        $this->driver->newWindow();
+
+        $windowHandles = $this->driver->getWindowHandles();
+        $this->assertCount(2, $windowHandles);
+
+        $newWindowHandle = $this->driver->getWindowHandle();
+        $this->driver->get($this->getTestPageUrl('upload.html'));
+        $this->assertEquals($this->getTestPageUrl('upload.html'), $this->driver->getCurrentUrl());
+        $this->assertNotEquals($initialHandle, $newWindowHandle);
+
+        // Switch back to original context.
+        $this->driver->switchTo()->window($initialHandle);
+        $this->assertEquals($this->getTestPageUrl('index.html'), $this->driver->getCurrentUrl());
+    }
+
+    /**
      * @covers ::getSessionID
      * @covers ::isW3cCompliant
      */

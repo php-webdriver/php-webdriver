@@ -140,6 +140,7 @@ class DriverCommand
     const ACTIONS = 'actions';
     const GET_ELEMENT_PROPERTY = 'getElementProperty';
     const GET_NAMED_COOKIE = 'getNamedCookie';
+    const NEW_WINDOW = 'newWindow';
     const TAKE_ELEMENT_SCREENSHOT = 'takeElementScreenshot';
     const MINIMIZE_WINDOW = 'minimizeWindow';
 
