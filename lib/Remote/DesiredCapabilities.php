@@ -235,9 +235,11 @@ class DesiredCapabilities implements WebDriverCapabilities
         // Convert ChromeOptions
         if (array_key_exists(ChromeOptions::CAPABILITY, $ossCapabilities)) {
             if (array_key_exists(ChromeOptions::CAPABILITY_W3C, $ossCapabilities)) {
-                $w3cCapabilities[ChromeOptions::CAPABILITY_W3C] = array_merge_recursive(
-                    $ossCapabilities[ChromeOptions::CAPABILITY],
-                    $ossCapabilities[ChromeOptions::CAPABILITY_W3C]
+                $w3cCapabilities[ChromeOptions::CAPABILITY_W3C] = new \ArrayObject(
+                    array_merge_recursive(
+                        (array) $ossCapabilities[ChromeOptions::CAPABILITY],
+                        (array) $ossCapabilities[ChromeOptions::CAPABILITY_W3C]
+                    )
                 );
             } else {
                 $w3cCapabilities[ChromeOptions::CAPABILITY_W3C] = $ossCapabilities[ChromeOptions::CAPABILITY];
