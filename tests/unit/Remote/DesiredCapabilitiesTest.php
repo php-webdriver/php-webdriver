@@ -213,15 +213,24 @@ class DesiredCapabilitiesTest extends TestCase
                     'vendor:prefix' => 'vendor extension should be kept',
                 ],
             ],
+            'chromeOptions should be an object if empty' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY => new ChromeOptions(),
+                ]),
+                [
+                    'goog:chromeOptions' => new \ArrayObject(),
+                ],
+            ],
             'chromeOptions should be converted' => [
                 new DesiredCapabilities([
                     ChromeOptions::CAPABILITY => $chromeOptions,
                 ]),
                 [
-                    'goog:chromeOptions' => [
-                        'args' => ['--headless'],
-                        'binary' => '',
-                    ],
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless'],
+                        ]
+                    ),
                 ],
             ],
             'chromeOptions should be merged if already defined' => [
@@ -233,11 +242,12 @@ class DesiredCapabilitiesTest extends TestCase
                     ],
                 ]),
                 [
-                    'goog:chromeOptions' => [
-                        'args' => ['--headless', 'window-size=1024,768'],
-                        'binary' => '',
-                        'debuggerAddress' => '127.0.0.1:38947',
-                    ],
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless', 'window-size=1024,768'],
+                            'debuggerAddress' => '127.0.0.1:38947',
+                        ]
+                    ),
                 ],
             ],
             'firefox_profile should be converted' => [
