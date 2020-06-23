@@ -4,6 +4,7 @@ namespace Facebook\WebDriver\Interactions\Internal;
 
 use Facebook\WebDriver\Internal\WebDriverLocatable;
 use Facebook\WebDriver\WebDriverKeyboard;
+use Facebook\WebDriver\WebDriverKeys;
 use Facebook\WebDriver\WebDriverMouse;
 use PHPUnit\Framework\TestCase;
 
@@ -20,21 +21,21 @@ class WebDriverKeyDownActionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->webDriverKeyboard = $this->getMockBuilder(WebDriverKeyboard::class)->getMock();
-        $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
-        $this->locationProvider = $this->getMockBuilder(WebDriverLocatable::class)->getMock();
+        $this->webDriverKeyboard = $this->createMock(WebDriverKeyboard::class);
+        $this->webDriverMouse = $this->createMock(WebDriverMouse::class);
+        $this->locationProvider = $this->createMock(WebDriverLocatable::class);
 
         $this->webDriverKeyDownAction = new WebDriverKeyDownAction(
             $this->webDriverKeyboard,
             $this->webDriverMouse,
-            $this->locationProvider
+            $this->locationProvider,
+            WebDriverKeys::LEFT_SHIFT
         );
     }
 
     public function testPerformFocusesOnElementAndSendPressKeyCommand()
     {
-        $coords = $this->getMockBuilder(WebDriverCoordinates::class)
-            ->disableOriginalConstructor()->getMock();
+        $coords = $this->createMock(WebDriverCoordinates::class);
         $this->webDriverMouse->expects($this->once())->method('click')->with($coords);
         $this->locationProvider->expects($this->once())->method('getCoordinates')->willReturn($coords);
         $this->webDriverKeyboard->expects($this->once())->method('pressKey');
