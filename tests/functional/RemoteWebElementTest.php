@@ -152,11 +152,19 @@ class RemoteWebElementTest extends WebDriverTestCase
         $input->sendKeys(' baz');
         $this->assertSame('foo bar baz', $input->getAttribute('value'));
 
+        $input->clear();
+        $input->sendKeys([WebDriverKeys::SHIFT, 'H', WebDriverKeys::NULL, 'ello']);
+        $this->assertSame('Hello', $input->getAttribute('value'));
+
         $textarea->clear();
         $textarea->sendKeys('foo bar');
         $this->assertSame('foo bar', $textarea->getAttribute('value'));
         $textarea->sendKeys(' baz');
         $this->assertSame('foo bar baz', $textarea->getAttribute('value'));
+
+        $textarea->clear();
+        $textarea->sendKeys([WebDriverKeys::SHIFT, 'H', WebDriverKeys::NULL, 'ello']);
+        $this->assertSame('Hello', $textarea->getAttribute('value'));
 
         // Send keys as array
         $textarea->clear();
