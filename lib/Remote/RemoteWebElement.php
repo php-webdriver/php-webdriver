@@ -325,14 +325,20 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     {
         $local_file = $this->fileDetector->getLocalFile($value);
 
+        $params = [];
         if ($local_file === null) {
             if ($this->isW3cCompliant) {
-                $params = [
-                    'text' => WebDriverKeys::encode($value, true),
-                    ':id' => $this->id,
-                ];
+                // Work around the Geckodriver NULL issue by splitting on NULL and calling sendKeys multiple times.
+                // See https://bugzilla.mozilla.org/show_bug.cgi?id=1494661.
+                $encodedValues = explode(WebDriverKeys::NULL, WebDriverKeys::encode($value, true));
+                foreach ($encodedValues as $encodedValue) {
+                    $params[] = [
+                        'text' => $encodedValue,
+                        ':id' => $this->id,
+                    ];
+                }
             } else {
-                $params = [
+                $params[] = [
                     'value' => WebDriverKeys::encode($value),
                     ':id' => $this->id,
                 ];
@@ -348,19 +354,21 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
                     $fileName = $local_file;
                 }
 
-                $params = [
+                $params[] = [
                     'text' => $fileName,
                     ':id' => $this->id,
                 ];
             } else {
-                $params = [
+                $params[] = [
                     'value' => WebDriverKeys::encode($this->upload($local_file)),
                     ':id' => $this->id,
                 ];
             }
         }
 
-        $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $params);
+        foreach ($params as $param) {
+            $this->executor->execute(DriverCommand::SEND_KEYS_TO_ELEMENT, $param);
+        }
 
         return $this;
     }
