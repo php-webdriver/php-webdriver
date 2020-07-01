@@ -144,10 +144,10 @@ class WebDriverActions
             new WebDriverClickAndHoldAction($this->mouse, $source)
         );
         $this->action->addAction(
-            new WebDriverMoveToOffsetAction($this->mouse, null, $x_offset, $y_offset)
+            new WebDriverMoveToOffsetAction($this->mouse, $source, $x_offset, $y_offset)
         );
         $this->action->addAction(
-            new WebDriverButtonReleaseAction($this->mouse, null)
+            new WebDriverButtonReleaseAction($this->mouse, $source)
         );
 
         return $this;
