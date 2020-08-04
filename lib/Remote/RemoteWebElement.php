@@ -81,8 +81,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * Find the first WebDriverElement within this element using the given mechanism.
      *
      * @param WebDriverBy $by
-     * @return RemoteWebElement NoSuchElementException is thrown in
-     *    HttpCommandExecutor if no element is found.
+     * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
     public function findElement(WebDriverBy $by)
@@ -213,10 +212,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         $element = $this;
 
         $on_screen = null; // planned but not yet implemented
-        $in_view_port = function () use ($element) {
+        $in_view_port = static function () use ($element) {
             return $element->getLocationOnScreenOnceScrolledIntoView();
         };
-        $on_page = function () use ($element) {
+        $on_page = static function () use ($element) {
             return $element->getLocation();
         };
         $auxiliary = $this->getID();
@@ -304,7 +303,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Determine whether or not this element is selected or not.
+     * Determine whether this element is selected or not.
      *
      * @return bool
      */
@@ -367,8 +366,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Set the fileDetector in order to let the RemoteWebElement to know that
-     * you are going to upload a file.
+     * Set the fileDetector in order to let the RemoteWebElement to know that you are going to upload a file.
      *
      * Basically, if you want WebDriver trying to send a file, set the fileDetector
      * to be LocalFileDetector. Otherwise, keep it UselessFileDetector.
@@ -427,7 +425,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Take screenshot of a specific element.
+     * Take a screenshot of a specific element.
      *
      * @param string $save_as The path of the screenshot to be saved.
      * @return string The screenshot in PNG format.
@@ -454,7 +452,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * Test if two element IDs refer to the same DOM element.
+     * Test if two elements IDs refer to the same DOM element.
      *
      * @param WebDriverElement $other
      * @return bool
