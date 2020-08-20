@@ -125,12 +125,14 @@ class DesiredCapabilitiesTest extends TestCase
 
     public function testShouldSetupFirefoxProfileAndDisableReaderViewForFirefoxBrowser()
     {
-        $capabilities = DesiredCapabilities::firefox();
+        $preferences = ['javascript.enabled' => false];
+        $capabilities = DesiredCapabilities::firefox($preferences);
 
         /** @var FirefoxProfile $firefoxProfile */
         $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
-        $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
 
+        $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
+        $this->assertSame('false', $firefoxProfile->getPreference('javascript.enabled'));
         $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
     }
 
