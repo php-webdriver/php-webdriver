@@ -29,7 +29,7 @@ class FirefoxProfile
 
     /**
      * @param string $extension The path to the xpi extension.
-     * @return FirefoxProfile
+     * @return $this
      */
     public function addExtension($extension)
     {
@@ -40,7 +40,7 @@ class FirefoxProfile
 
     /**
      * @param string $extension_datas The path to the folder containing the datas to add to the extension
-     * @return FirefoxProfile
+     * @return $this
      */
     public function addExtensionDatas($extension_datas)
     {
@@ -55,7 +55,7 @@ class FirefoxProfile
 
     /**
      * @param string $rdf_file The path to the rdf file
-     * @return FirefoxProfile
+     * @return $this
      */
     public function setRdfFile($rdf_file)
     {
@@ -72,7 +72,7 @@ class FirefoxProfile
      * @param string $key
      * @param string|bool|int $value
      * @throws WebDriverException
-     * @return FirefoxProfile
+     * @return $this
      */
     public function setPreference($key, $value)
     {

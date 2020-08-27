@@ -123,17 +123,32 @@ class DesiredCapabilitiesTest extends TestCase
         ];
     }
 
-    public function testShouldSetupFirefoxProfileAndDisableReaderViewForFirefoxBrowser()
+    public function testShouldSetupFirefoxProfileWithDefaultPreferences()
     {
-        $preferences = ['javascript.enabled' => false];
-        $capabilities = DesiredCapabilities::firefox($preferences);
+        $capabilities = DesiredCapabilities::firefox();
 
         /** @var FirefoxProfile $firefoxProfile */
         $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
 
         $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
-        $this->assertSame('false', $firefoxProfile->getPreference('javascript.enabled'));
         $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
+        $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::DEVTOOLS_JSONVIEW));
+    }
+
+    public function testShouldSetupFirefoxProfileWithCustomPreferences()
+    {
+        $preferences = [
+            'javascript.enabled' => false,
+            FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED => true, // overwrite the default 'false' value
+        ];
+
+        $capabilities = DesiredCapabilities::firefox($preferences);
+
+        /** @var FirefoxProfile $firefoxProfile */
+        $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
+
+        $this->assertSame('false', $firefoxProfile->getPreference('javascript.enabled'));
+        $this->assertSame('true', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
     }
 
     /**

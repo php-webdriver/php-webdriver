@@ -281,7 +281,7 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
-     * @param array<string,string> $preferences Preferences to be added to the profile
+     * @param array<string,string|bool|int> $preferences Preferences to be added to the profile
      * @return static
      */
     public static function firefox(array $preferences = [])
@@ -297,7 +297,7 @@ class DesiredCapabilities implements WebDriverCapabilities
         // disable JSON viewer and let JSON be rendered as raw data
         $profile->setPreference(FirefoxPreferences::DEVTOOLS_JSONVIEW, false);
 
-        //set custom firefox preferences
+        // set custom firefox preferences
         foreach ($preferences as $key => $value) {
             $profile->setPreference($key, $value);
         }
