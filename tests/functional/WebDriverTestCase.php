@@ -8,6 +8,7 @@ use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use OndraM\CiDetector\CiDetector;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -174,9 +175,18 @@ class WebDriverTestCase extends TestCase
         $name = get_class($this) . '::' . $this->getName();
         $tags = [get_class($this)];
 
-        if (getenv('TRAVIS_JOB_NUMBER')) {
-            $tunnelIdentifier = getenv('TRAVIS_JOB_NUMBER');
-            $build = getenv('TRAVIS_JOB_NUMBER');
+        $ciDetector = new CiDetector();
+        if ($ciDetector->isCiDetected()) {
+            $ci = $ciDetector->detect();
+            if (!empty($ci->getBuildNumber())) {
+                // SAUCE_TUNNEL_IDENTIFIER appended as a workaround for GH actions not having environment value
+                // to distinguish runs of the matrix
+                $build = $ci->getBuildNumber() . '.' . getenv('SAUCE_TUNNEL_IDENTIFIER');
+            }
+        }
+
+        if (getenv('SAUCE_TUNNEL_IDENTIFIER')) {
+            $tunnelIdentifier = getenv('SAUCE_TUNNEL_IDENTIFIER');
         }
 
         if (!getenv('DISABLE_W3C_PROTOCOL')) {
@@ -184,17 +194,21 @@ class WebDriverTestCase extends TestCase
                 'name' => $name,
                 'tags' => $tags,
             ];
-            if (isset($tunnelIdentifier, $build)) {
-                $sauceOptions['tunnelIdentifier'] = $tunnelIdentifier;
+            if (isset($build)) {
                 $sauceOptions['build'] = $build;
+            }
+            if (isset($tunnelIdentifier)) {
+                $sauceOptions['tunnelIdentifier'] = $tunnelIdentifier;
             }
             $this->desiredCapabilities->setCapability('sauce:options', (object) $sauceOptions);
         } else {
             $this->desiredCapabilities->setCapability('name', $name);
             $this->desiredCapabilities->setCapability('tags', $tags);
 
-            if (isset($tunnelIdentifier, $build)) {
+            if (isset($tunnelIdentifier)) {
                 $this->desiredCapabilities->setCapability('tunnel-identifier', $tunnelIdentifier);
+            }
+            if (isset($build)) {
                 $this->desiredCapabilities->setCapability('build', $build);
             }
         }
