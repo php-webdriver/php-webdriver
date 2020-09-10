@@ -24,6 +24,7 @@
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^2.0",
+    "ondram/ci-detector": "^2.1 || ^3.5",
     "php-coveralls/php-coveralls": "^2.0",
     "php-mock/php-mock-phpunit": "^1.1",
     "php-parallel-lint/php-parallel-lint": "^1.2",
