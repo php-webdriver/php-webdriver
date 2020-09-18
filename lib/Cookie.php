@@ -58,6 +58,9 @@ class Cookie implements \ArrayAccess
         if (isset($cookieArray['httpOnly'])) {
             $cookie->setHttpOnly($cookieArray['httpOnly']);
         }
+        if (isset($cookieArray['sameSite'])) {
+            $cookie->setSameSite($cookieArray['sameSite']);
+        }
 
         return $cookie;
     }
@@ -170,6 +173,24 @@ class Cookie implements \ArrayAccess
     public function isHttpOnly()
     {
         return $this->offsetGet('httpOnly');
+    }
+
+    /**
+     * The cookie's same-site value.
+     *
+     * @param string $sameSite
+     */
+    public function setSameSite($sameSite)
+    {
+        $this->offsetSet('sameSite', $sameSite);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSameSite()
+    {
+        return $this->offsetGet('sameSite');
     }
 
     /**
