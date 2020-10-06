@@ -13,6 +13,13 @@ use InvalidArgumentException;
  */
 class Cookie implements \ArrayAccess
 {
+    /** @var string */
+    const SAMESITE_LAX = 'Lax';
+    /** @var string */
+    const SAMESITE_STRICT = 'Strict';
+    /** @var string */
+    const SAMESITE_NONE = 'None';
+
     /** @var array */
     protected $cookie = [];
 
@@ -182,6 +189,12 @@ class Cookie implements \ArrayAccess
      */
     public function setSameSite($sameSite)
     {
+        if (!in_array($sameSite, [self::SAMESITE_LAX, self::SAMESITE_STRICT, self::SAMESITE_NONE, null], true)) {
+            throw new InvalidArgumentException(
+                'The "sameSite" parameter value is not valid, must be one of "Lax", "Strict" or "None"'
+            );
+        }
+
         $this->offsetSet('sameSite', $sameSite);
     }
 

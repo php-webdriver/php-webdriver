@@ -17,7 +17,7 @@ class CookieTest extends TestCase
         $cookie->setExpiry(1485388387);
         $cookie->setSecure(true);
         $cookie->setHttpOnly(true);
-        $cookie->setSameSite('Lax');
+        $cookie->setSameSite(Cookie::SAMESITE_LAX);
 
         $this->assertSame('cookieName', $cookie->getName());
         $this->assertSame('someValue', $cookie->getValue());
@@ -46,7 +46,7 @@ class CookieTest extends TestCase
                 'expiry' => 1485388387,
                 'secure' => true,
                 'httpOnly' => true,
-                'sameSite' => 'Lax',
+                'sameSite' => Cookie::SAMESITE_LAX,
             ],
             $cookie->toArray()
         );
@@ -88,7 +88,7 @@ class CookieTest extends TestCase
         $this->assertSame(1485388387, $cookie['expiry']);
         $this->assertTrue($cookie['secure']);
         $this->assertTrue($cookie['httpOnly']);
-        $this->assertSame('Lax', $cookie['sameSite']);
+        $this->assertSame(Cookie::SAMESITE_LAX, $cookie['sameSite']);
 
         $cookie->offsetSet('domain', 'bar.com');
         $this->assertSame('bar.com', $cookie['domain']);
@@ -143,7 +143,7 @@ class CookieTest extends TestCase
             'expiry' => 1485388333,
             'secure' => false,
             'httpOnly' => false,
-            'sameSite' => 'Lax',
+            'sameSite' => Cookie::SAMESITE_LAX,
         ];
 
         $cookie = Cookie::createFromArray($sourceArray);
@@ -155,17 +155,18 @@ class CookieTest extends TestCase
         $this->assertSame(1485388333, $cookie['expiry']);
         $this->assertFalse($cookie['secure']);
         $this->assertFalse($cookie['httpOnly']);
-        $this->assertSame('Lax', $cookie['sameSite']);
+        $this->assertSame(Cookie::SAMESITE_LAX, $cookie['sameSite']);
     }
 
     /**
      * @dataProvider provideInvalidCookie
+     * @param string $expectedMessage
      * @param string $name
      * @param string $value
      * @param string $domain
-     * @param string $expectedMessage
+     * @param string|null $sameSite
      */
-    public function testShouldValidateCookieOnConstruction($name, $value, $domain, $expectedMessage)
+    public function testShouldValidateCookieOnConstruction($expectedMessage, $name, $value, $domain, $sameSite = null)
     {
         if ($expectedMessage) {
             $this->expectException(\InvalidArgumentException::class);
@@ -175,6 +176,9 @@ class CookieTest extends TestCase
         $cookie = new Cookie($name, $value);
         if ($domain !== null) {
             $cookie->setDomain($domain);
+        }
+        if ($sameSite !== null) {
+            $cookie->setSameSite($sameSite);
         }
 
         $this->assertInstanceOf(Cookie::class, $cookie);
@@ -187,18 +191,25 @@ class CookieTest extends TestCase
     {
         return [
             // $name, $value, $domain, $expectedMessage
-            'name cannot be empty' => ['', 'foo', null, 'Cookie name should be non-empty'],
-            'name cannot be null' => [null, 'foo', null, 'Cookie name should be non-empty'],
-            'name cannot contain semicolon' => ['name;semicolon', 'foo', null, 'Cookie name should not contain a ";"'],
-            'value could be empty string' => ['name', '', null, null],
-            'value cannot be null' => ['name', null, null, 'Cookie value is required when setting a cookie'],
-            'domain cannot containt port' => [
+            'name cannot be empty' => ['Cookie name should be non-empty', '', 'foo', null],
+            'name cannot be null' => ['Cookie name should be non-empty', null, 'foo', null],
+            'name cannot contain semicolon' => ['Cookie name should not contain a ";"', 'name;semicolon', 'foo', null],
+            'value could be empty string' => [null, 'name', '', null],
+            'value cannot be null' => ['Cookie value is required when setting a cookie', 'name', null, null],
+            'domain cannot contain port' => [
+                'Cookie domain "localhost:443" should not contain a port',
                 'name',
                 'value',
                 'localhost:443',
-                'Cookie domain "localhost:443" should not contain a port',
             ],
-            'cookie with valid values' => ['name', 'value', '*.localhost', null],
+            'invalid value for samesite from allowed values' => [
+                'The "sameSite" parameter value is not valid',
+                'name',
+                'value',
+                '*.localhost',
+                'FooBar',
+            ],
+            'cookie with valid values' => [null, 'name', 'value', '*.localhost', Cookie::SAMESITE_LAX],
         ];
     }
 }

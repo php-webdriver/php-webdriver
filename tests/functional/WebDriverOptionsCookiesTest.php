@@ -3,6 +3,7 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchCookieException;
+use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @covers \Facebook\WebDriver\WebDriverOptions
@@ -20,7 +21,6 @@ class WebDriverOptionsCookiesTest extends WebDriverTestCase
     {
         $cookie1 = new Cookie('cookie1', 'cookie1Value');
         $cookie2 = new Cookie('cookie2', 'cookie2Value');
-        $cookie3 = new Cookie('cookie3', 'cookie3Value');
 
         // Verify initial state - no cookies are present
         $this->assertSame([], $this->driver->manage()->getCookies());
@@ -91,5 +91,32 @@ class WebDriverOptionsCookiesTest extends WebDriverTestCase
         $this->driver->manage()->deleteAllCookies();
 
         $this->assertSame([], $this->driver->manage()->getCookies());
+    }
+
+    public function testShouldGetAllPropertiesOfCookie()
+    {
+        $cookie = new Cookie('cookie1', 'cookie1Value');
+        $expiryTime = time() + 3600;
+        $cookie->setExpiry($expiryTime);
+        $cookie->setHttpOnly(true);
+        $cookie->setSameSite(Cookie::SAMESITE_STRICT);
+        $this->driver->manage()->addCookie($cookie);
+
+        $receivedCookie = $this->driver->manage()->getCookieNamed('cookie1');
+
+        $this->assertSame('cookie1Value', $receivedCookie->getValue());
+        $this->assertSame('/', $receivedCookie->getPath());
+        $this->assertSame('localhost', $receivedCookie->getDomain());
+        $this->assertSame($expiryTime, $receivedCookie->getExpiry());
+        $this->assertFalse($receivedCookie->isSecure());
+
+        $browserName = $this->desiredCapabilities->getBrowserName();
+        // Don't test HttpOnly and SameSite in HtmlUnit or on legacy Firefox
+        if (($browserName !== WebDriverBrowserType::HTMLUNIT && $browserName !== WebDriverBrowserType::FIREFOX)
+            || ($browserName === WebDriverBrowserType::FIREFOX && getenv('GECKODRIVER') === '1')
+        ) {
+            $this->assertTrue($receivedCookie->isHttpOnly());
+            $this->assertSame(Cookie::SAMESITE_STRICT, $receivedCookie->getSameSite());
+        }
     }
 }
