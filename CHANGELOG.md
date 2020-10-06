@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.8.3 - 2020-10-06
 ### Fixed
 - Make `alertIsPresent()` condition working in W3C mode.
 - `RemoteWebDriver::create()` cannot be used without providing the second parameter (which is in fact optional).
