@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- Support of SameSite cookie property.
 
 ## 1.8.3 - 2020-10-06
 ### Fixed
