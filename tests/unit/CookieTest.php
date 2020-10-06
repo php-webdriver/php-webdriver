@@ -17,6 +17,7 @@ class CookieTest extends TestCase
         $cookie->setExpiry(1485388387);
         $cookie->setSecure(true);
         $cookie->setHttpOnly(true);
+        $cookie->setSameSite('Lax');
 
         $this->assertSame('cookieName', $cookie->getName());
         $this->assertSame('someValue', $cookie->getValue());
@@ -25,6 +26,7 @@ class CookieTest extends TestCase
         $this->assertSame(1485388387, $cookie->getExpiry());
         $this->assertTrue($cookie->isSecure());
         $this->assertTrue($cookie->isHttpOnly());
+        $this->assertSame('Lax', $cookie->getSameSite());
 
         return $cookie;
     }
@@ -44,6 +46,7 @@ class CookieTest extends TestCase
                 'expiry' => 1485388387,
                 'secure' => true,
                 'httpOnly' => true,
+                'sameSite' => 'Lax',
             ],
             $cookie->toArray()
         );
@@ -84,6 +87,7 @@ class CookieTest extends TestCase
         $this->assertSame(1485388387, $cookie['expiry']);
         $this->assertTrue($cookie['secure']);
         $this->assertTrue($cookie['httpOnly']);
+        $this->assertSame('Lax', $cookie['sameSite']);
 
         $cookie->offsetSet('domain', 'bar.com');
         $this->assertSame('bar.com', $cookie['domain']);
@@ -122,6 +126,10 @@ class CookieTest extends TestCase
         $this->assertArrayNotHasKey('httpOnly', $cookie);
         $this->assertNull($cookie['httpOnly']);
         $this->assertNull($cookie->isHttpOnly());
+
+        $this->assertArrayNotHasKey('sameSite', $cookie);
+        $this->assertNull($cookie['sameSite']);
+        $this->assertNull($cookie->getSameSite());
     }
 
     public function testShouldBeCreatableFromAnArrayWithAllValues()
@@ -134,6 +142,7 @@ class CookieTest extends TestCase
             'expiry' => 1485388333,
             'secure' => false,
             'httpOnly' => false,
+            'sameSite' => 'Lax',
         ];
 
         $cookie = Cookie::createFromArray($sourceArray);
@@ -145,6 +154,7 @@ class CookieTest extends TestCase
         $this->assertSame(1485388333, $cookie['expiry']);
         $this->assertFalse($cookie['secure']);
         $this->assertFalse($cookie['httpOnly']);
+        $this->assertSame('Lax', $cookie['sameSite']);
     }
 
     /**
