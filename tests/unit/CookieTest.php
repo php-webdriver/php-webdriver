@@ -67,6 +67,7 @@ class CookieTest extends TestCase
 
         $cookie->setHttpOnly(null);
         $cookie->setPath(null);
+        $cookie->setSameSite(null);
         $cookieArray = $cookie->toArray();
 
         foreach ($cookieArray as $key => $value) {
