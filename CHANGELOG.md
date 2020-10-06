@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Make `alertIsPresent()` condition working in W3C mode.
 - `RemoteWebDriver::create()` cannot be used without providing the second parameter (which is in fact optional).
+- `ChromeDriver::start()` starts in inconsistent state mixing W3C/OSS mode.
+- Modifier keys are not released when sending NULL key in GeckoDriver (workaround for GeckoDriver bug [1494661](https://bugzilla.mozilla.org/show_bug.cgi?id=1494661)).
+- Do not set unnecessary `binary` value of `goog:chromeOptions` while keep the object in proper data type required by ChromeDriver.
 
 ## 1.8.2 - 2020-03-04
 ### Changed
