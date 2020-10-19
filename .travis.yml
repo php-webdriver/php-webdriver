@@ -20,7 +20,14 @@ services:
   - xvfb
 
 matrix:
+  allow_failures:
+    - php: 'nightly'
+
   include:
+    - name: 'PHP nightly build'
+      php: 'nightly'
+      env: DEPENDENCIES="--ignore-platform-reqs"
+
     # Build with lowest possible dependencies on lowest possible PHP
     - name: 'Lowest dependencies build'
       php: '5.6'
