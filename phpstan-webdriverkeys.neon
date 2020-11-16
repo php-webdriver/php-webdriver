@@ -1,6 +1,0 @@
-# WebDriverKeys.php breaks PHPStan parallel processing, so we must analyze the file separately.
-# See https://github.com/phpstan/phpstan/issues/3956 and https://github.com/clue/reactphp-ndjson/issues/21
-parameters:
-    level: 2
-    paths:
-        - lib/WebDriverKeys.php
