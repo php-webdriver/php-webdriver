@@ -68,7 +68,8 @@
   "scripts": {
     "analyze": [
       "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
-      "vendor/bin/phpstan.phar analyze ./lib ./tests --level 2 -c phpstan.neon --ansi"
+      "vendor/bin/phpstan.phar analyze -c phpstan.neon --ansi",
+      "vendor/bin/phpstan.phar analyze -c phpstan-webdriverkeys.neon --ansi"
     ],
     "codestyle:check": [
       "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
