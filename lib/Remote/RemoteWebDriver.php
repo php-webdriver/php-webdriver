@@ -319,6 +319,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Get all window handles available to the current session.
      *
+     * Note: Do not use `end($driver->getWindowHandles())` to find the last open window, for proper solution see:
+     * https://github.com/php-webdriver/php-webdriver/wiki/Alert,-tabs,-frames,-iframes#switch-to-the-new-window
+     *
      * @return array An array of string containing all available window handles.
      */
     public function getWindowHandles()
