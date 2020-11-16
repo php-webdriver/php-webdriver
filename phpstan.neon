@@ -16,3 +16,6 @@ parameters:
           path: 'lib/Remote/RemoteWebDriver.php'
 
     inferPrivatePropertyTypeFromConstructor: true
+
+    excludes_analyse:
+        - lib/WebDriverKeys.php
