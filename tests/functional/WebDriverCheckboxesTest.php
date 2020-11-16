@@ -11,7 +11,7 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
  */
 class WebDriverCheckboxesTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

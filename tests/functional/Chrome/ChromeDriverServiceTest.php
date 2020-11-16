@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ChromeDriverServiceTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!getenv('BROWSER_NAME') === 'chrome' || getenv('SAUCELABS') || !getenv('CHROMEDRIVER_PATH')) {
             $this->markTestSkipped('ChromeDriverServiceTest is run only when running against local chrome');

@@ -14,12 +14,12 @@ use PHPUnit\Framework\TestCase;
  */
 class WebDriverExpectedConditionTest extends TestCase
 {
-    /** @var RemoteWebDriver|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RemoteWebDriver|\PHPUnit\Framework\MockObject\MockObject */
     private $driverMock;
     /** @var WebDriverWait */
     private $wait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->driverMock = $this->createMock(RemoteWebDriver::class);
         $this->wait = new WebDriverWait($this->driverMock, 1, 1);

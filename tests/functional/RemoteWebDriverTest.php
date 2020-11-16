@@ -43,8 +43,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl('index.html'));
 
         $source = $this->driver->getPageSource();
-        $this->assertContains('<h1 id="welcome">', $source);
-        $this->assertContains('Welcome to the php-webdriver testing page.', $source);
+        $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
+        $this->compatAssertStringContainsString('Welcome to the php-webdriver testing page.', $source);
     }
 
     /**
@@ -63,7 +63,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $sessionId = $this->driver->getSessionID();
 
-        $this->assertInternalType('string', $sessionId);
+        $this->assertTrue(is_string($sessionId));
         $this->assertNotEmpty($sessionId);
     }
 
@@ -79,7 +79,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl, 30000);
 
-        $this->assertInternalType('array', $sessions);
+        $this->assertTrue(is_array($sessions));
         $this->assertCount(1, $sessions);
 
         $this->assertArrayHasKey('capabilities', $sessions[0]);
@@ -124,7 +124,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $windowHandle = $this->driver->getWindowHandle();
         $windowHandles = $this->driver->getWindowHandles();
 
-        $this->assertInternalType('string', $windowHandle);
+        $this->assertTrue(is_string($windowHandle));
         $this->assertNotEmpty($windowHandle);
         $this->assertSame([$windowHandle], $windowHandles);
 
@@ -266,7 +266,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $outputPng = $this->driver->takeScreenshot();
 
         $image = imagecreatefromstring($outputPng);
-        $this->assertInternalType('resource', $image);
+        $this->assertTrue(is_resource($image));
 
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
@@ -292,7 +292,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->takeScreenshot($screenshotPath);
 
         $image = imagecreatefrompng($screenshotPath);
-        $this->assertInternalType('resource', $image);
+        $this->assertTrue(is_resource($image));
 
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
@@ -323,9 +323,9 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $status = $this->driver->getStatus();
 
-        $this->assertInternalType('boolean', $status->isReady());
+        $this->assertTrue(is_bool($status->isReady()));
         $this->assertNotEmpty($status->getMessage());
 
-        $this->assertInternalType('array', $status->getMeta());
+        $this->assertTrue(is_array($status->getMeta()));
     }
 }

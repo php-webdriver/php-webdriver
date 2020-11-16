@@ -12,7 +12,7 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
  */
 class WebDriverRadiosTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

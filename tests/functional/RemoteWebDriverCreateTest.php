@@ -32,7 +32,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
         $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
 
-        $this->assertInternalType('string', $this->driver->getSessionID());
+        $this->assertTrue(is_string($this->driver->getSessionID()));
         $this->assertNotEmpty($this->driver->getSessionID());
 
         $returnedCapabilities = $this->driver->getCapabilities();
@@ -104,7 +104,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->requestTimeout
         );
         $originalDriver->get($this->getTestPageUrl('index.html'));
-        $this->assertContains('/index.html', $originalDriver->getCurrentURL());
+        $this->compatAssertStringContainsString('/index.html', $originalDriver->getCurrentURL());
 
         // Store session ID
         $sessionId = $originalDriver->getSessionID();
@@ -114,7 +114,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->driver = RemoteWebDriver::createBySessionID($sessionId, $this->serverUrl, null, null, $isW3cCompliant);
 
         // Check we reused the previous instance (window) and it has the same URL
-        $this->assertContains('/index.html', $this->driver->getCurrentURL());
+        $this->compatAssertStringContainsString('/index.html', $this->driver->getCurrentURL());
 
         // Do some interaction with the new driver
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());

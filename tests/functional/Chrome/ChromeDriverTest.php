@@ -16,14 +16,14 @@ class ChromeDriverTest extends TestCase
     /** @var ChromeDriver */
     protected $driver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         if (!getenv('BROWSER_NAME') === 'chrome' || getenv('SAUCELABS') || !getenv('CHROMEDRIVER_PATH')) {
             $this->markTestSkipped('ChromeDriverServiceTest is run only when running against local chrome');
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ($this->driver instanceof RemoteWebDriver && $this->driver->getCommandExecutor() !== null) {
             $this->driver->quit();

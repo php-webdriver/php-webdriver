@@ -12,7 +12,7 @@ class HttpCommandExecutorTest extends TestCase
     /** @var HttpCommandExecutor */
     private $executor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->executor = new HttpCommandExecutor('http://localhost:4444');
     }

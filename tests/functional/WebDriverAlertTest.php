@@ -12,7 +12,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

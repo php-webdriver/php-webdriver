@@ -34,7 +34,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('not_existing'));
 
-        $this->assertInternalType('array', $elements);
+        $this->assertTrue(is_array($elements));
         $this->assertCount(0, $elements);
     }
 
@@ -44,7 +44,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('ul > li'));
 
-        $this->assertInternalType('array', $elements);
+        $this->assertTrue(is_array($elements));
         $this->assertCount(5, $elements);
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $elements);
     }

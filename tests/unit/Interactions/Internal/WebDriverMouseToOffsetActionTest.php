@@ -12,12 +12,12 @@ class WebDriverMouseToOffsetActionTest extends TestCase
      * @type WebDriverMoveToOffsetAction
      */
     private $webDriverMoveToOffsetAction;
-    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WebDriverMouse|\PHPUnit\Framework\MockObject\MockObject */
     private $webDriverMouse;
-    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WebDriverLocatable|\PHPUnit\Framework\MockObject\MockObject */
     private $locationProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
         $this->locationProvider = $this->getMockBuilder(WebDriverLocatable::class)->getMock();
