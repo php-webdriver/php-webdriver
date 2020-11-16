@@ -52,7 +52,7 @@ return PhpCsFixer\Config::create()
         'ordered_class_elements' => true,
         'ordered_imports' => true,
         'php_unit_construct' => true,
-        'php_unit_dedicate_assert' => true,
+        'php_unit_dedicate_assert' => false,
         'php_unit_expectation' => ['target' => '5.6'],
         'php_unit_method_casing' => ['case' => 'camel_case'],
         'php_unit_mock' => true,
