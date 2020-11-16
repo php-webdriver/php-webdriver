@@ -13,7 +13,7 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
  */
 class WebDriverSelectTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

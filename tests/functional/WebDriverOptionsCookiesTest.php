@@ -9,7 +9,7 @@ use Facebook\WebDriver\Exception\NoSuchCookieException;
  */
 class WebDriverOptionsCookiesTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

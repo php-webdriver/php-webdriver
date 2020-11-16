@@ -29,7 +29,7 @@ class WebDriverTestCase extends TestCase
     /** @var int */
     protected $requestTimeout = 60000;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->desiredCapabilities = new DesiredCapabilities();
 
@@ -78,7 +78,7 @@ class WebDriverTestCase extends TestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         if ($this->driver instanceof RemoteWebDriver && $this->driver->getCommandExecutor()) {
             try {
@@ -126,7 +126,7 @@ class WebDriverTestCase extends TestCase
      * Rerun failed tests.
      * @TODO Replace with PHPUnit 7.3+ builtin functionality once upgraded to PHP 7.1+
      */
-    public function runBare()
+    public function runBare(): void
     {
         $e = null;
         $numberOfRetires = 3;
@@ -212,5 +212,21 @@ class WebDriverTestCase extends TestCase
                 $this->desiredCapabilities->setCapability('build', $build);
             }
         }
+    }
+
+    /**
+     * Uses assertStringContainsString when it is available or uses assertContains for old phpunit versions
+     * @param string $needle
+     * @param string $haystack
+     * @param string $message
+     */
+    protected function compatAssertStringContainsString($needle, $haystack, $message = '')
+    {
+        if (method_exists($this, 'assertStringContainsString')) {
+            parent::assertStringContainsString($needle, $haystack, $message);
+
+            return;
+        }
+        parent::assertContains($needle, $haystack, $message);
     }
 }

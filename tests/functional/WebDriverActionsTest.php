@@ -67,7 +67,8 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->perform();
 
         if (self::isW3cProtocolBuild()) {
-            $this->assertArraySubset(['mouseover item-1', 'mousedown item-1'], $this->retrieveLoggedMouseEvents());
+            $this->assertContains('mouseover item-1', $this->retrieveLoggedMouseEvents());
+            $this->assertContains('mousedown item-1', $this->retrieveLoggedMouseEvents());
         } else {
             $this->assertSame(
                 ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],

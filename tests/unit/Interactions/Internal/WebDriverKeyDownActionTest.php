@@ -11,14 +11,14 @@ class WebDriverKeyDownActionTest extends TestCase
 {
     /** @var WebDriverKeyDownAction */
     private $webDriverKeyDownAction;
-    /** @var WebDriverKeyboard|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WebDriverKeyboard|\PHPUnit\Framework\MockObject\MockObject */
     private $webDriverKeyboard;
-    /** @var WebDriverMouse|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WebDriverMouse|\PHPUnit\Framework\MockObject\MockObject */
     private $webDriverMouse;
-    /** @var WebDriverLocatable|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var WebDriverLocatable|\PHPUnit\Framework\MockObject\MockObject */
     private $locationProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->webDriverKeyboard = $this->getMockBuilder(WebDriverKeyboard::class)->getMock();
         $this->webDriverMouse = $this->getMockBuilder(WebDriverMouse::class)->getMock();
