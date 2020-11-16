@@ -1,4 +1,9 @@
 parameters:
+    level: 2
+    paths:
+        - lib/
+        - tests/
+
     ignoreErrors:
         # To be fixed:
         - '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
