@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.9.0 - 2020-11-19
 ### Added
 - Support of SameSite cookie property.
 - Command `RemoteWebDriver::newWindow()` for W3C mode to open new top-level browsing context (aka window).
