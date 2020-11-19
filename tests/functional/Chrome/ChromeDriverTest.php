@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\Chrome\ChromeDriver
+ * @covers \Facebook\WebDriver\Chrome\ChromeDriverCommandExecutor
  */
 class ChromeDriverTest extends TestCase
 {
