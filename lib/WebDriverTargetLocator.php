@@ -7,6 +7,11 @@ namespace Facebook\WebDriver;
  */
 interface WebDriverTargetLocator
 {
+    /** @var string */
+    const WINDOW_TYPE_WINDOW = 'window';
+    /** @var string */
+    const WINDOW_TYPE_TAB = 'tab';
+
     /**
      * Switch to the main document if the page contains iframes. Otherwise, switch
      * to the first frame on the page.
@@ -40,6 +45,9 @@ interface WebDriverTargetLocator
      * @see WebDriver::getWindowHandles
      */
     public function window($handle);
+
+    // TODO: Add in next major release (BC)
+    //public function newWindow($windowType = self::WINDOW_TYPE_TAB);
 
     /**
      * Switch to the currently active modal dialog for this particular driver
