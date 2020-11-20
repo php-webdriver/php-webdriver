@@ -32,6 +32,36 @@ class ChromeDriverTest extends TestCase
 
     public function testShouldStartChromeDriver()
     {
+        $this->startChromeDriver();
+
+        $this->assertInstanceOf(ChromeDriver::class, $this->driver);
+        $this->assertInstanceOf(DriverCommandExecutor::class, $this->driver->getCommandExecutor());
+
+        $this->driver->get('http://localhost:8000/');
+
+        $this->assertSame('http://localhost:8000/', $this->driver->getCurrentURL());
+    }
+
+    public function testShouldInstantiateDevTools()
+    {
+        $this->startChromeDriver();
+
+        $devTools = $this->driver->getDevTools();
+
+        $this->assertInstanceOf(ChromeDevToolsDriver::class, $devTools);
+
+        $this->driver->get('http://localhost:8000/');
+
+        $cdpResult = $devTools->execute(
+            'Runtime.evaluate',
+            ['expression' => 'window.location.toString()']
+        );
+
+        $this->assertSame(['result' => ['type' => 'string', 'value' => 'http://localhost:8000/']], $cdpResult);
+    }
+
+    private function startChromeDriver()
+    {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));
 
@@ -42,14 +72,5 @@ class ChromeDriverTest extends TestCase
         $desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
 
         $this->driver = ChromeDriver::start($desiredCapabilities);
-
-        $this->assertInstanceOf(ChromeDriver::class, $this->driver);
-        $this->assertInstanceOf(DriverCommandExecutor::class, $this->driver->getCommandExecutor());
-
-        $this->driver->get('http://localhost:8000/');
-
-        $this->assertSame('http://localhost:8000/', $this->driver->getCurrentURL());
-
-        $this->driver->quit();
     }
 }
