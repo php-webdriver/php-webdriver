@@ -618,6 +618,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     }
 
     /**
+     * Execute custom commands on remote end.
+     * For example vendor-specific commands or other commands not implemented by php-webdriver.
+     *
+     * @see https://github.com/php-webdriver/php-webdriver/wiki/Custom-commands
      * @param string $endpointUrl
      * @param string $method
      * @param array $params
