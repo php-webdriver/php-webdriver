@@ -10,8 +10,7 @@ use Facebook\WebDriver\Remote\WebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverResponse;
 
 /**
- * A HttpCommandExecutor that talks to a local driver service instead of
- * a remote server.
+ * A HttpCommandExecutor that talks to a local driver service instead of a remote server.
  */
 class DriverCommandExecutor extends HttpCommandExecutor
 {

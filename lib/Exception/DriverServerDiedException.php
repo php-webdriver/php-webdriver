@@ -10,6 +10,6 @@ class DriverServerDiedException extends WebDriverException
     public function __construct(\Exception $previous = null)
     {
         parent::__construct('The driver server has died.');
-        \Exception::__construct($this->getMessage(), 0, $previous);
+        \Exception::__construct($this->getMessage(), $this->getCode(), $previous);
     }
 }
