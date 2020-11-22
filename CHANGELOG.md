@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- Throw `DriverServerDiedException` on driver server process terminating unexpectedly in `DriverCommandExecutor`, with triggering error attached to improve debugging of 'The driver server has died' errors. 
 
 ## 1.9.0 - 2020-11-19
 ### Added

@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote\Service;
 
+use Facebook\WebDriver\Exception\DriverServerDiedException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
@@ -9,8 +10,7 @@ use Facebook\WebDriver\Remote\WebDriverCommand;
 use Facebook\WebDriver\Remote\WebDriverResponse;
 
 /**
- * A HttpCommandExecutor that talks to a local driver service instead of
- * a remote server.
+ * A HttpCommandExecutor that talks to a local driver service instead of a remote server.
  */
 class DriverCommandExecutor extends HttpCommandExecutor
 {
@@ -47,7 +47,7 @@ class DriverCommandExecutor extends HttpCommandExecutor
             return $value;
         } catch (\Exception $e) {
             if (!$this->service->isRunning()) {
-                throw new WebDriverException('The driver server has died.');
+                throw new DriverServerDiedException($e);
             }
             throw $e;
         }
