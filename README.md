@@ -1,9 +1,10 @@
 # php-webdriver – Selenium WebDriver bindings for PHP
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
-[![Travis Build](https://img.shields.io/travis/php-webdriver/php-webdriver/main.svg?style=flat-square)](https://travis-ci.com/php-webdriver/php-webdriver)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/php-webdriver)](https://saucelabs.com/u/php-webdriver)
-[![Total Downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
+[![Latest stable version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square&label=Packagist)](https://packagist.org/packages/php-webdriver/webdriver)
+[![Travis build status](https://img.shields.io/travis/php-webdriver/php-webdriver/main.svg?style=flat-square&label=Travis)](https://travis-ci.com/php-webdriver/php-webdriver)
+[![GitHub Actions build status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/PHP?style=flat-square&label=GitHub%20Actions)](https://github.com/php-webdriver/php-webdriver/actions)
+[![SauceLabs test status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/Sauce%20Labs?style=flat-square&label=SauceLabs)](https://saucelabs.com/u/php-webdriver)
+[![Total downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square&label=Downloads)](https://packagist.org/packages/php-webdriver/webdriver)
 
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
@@ -19,8 +20,6 @@ The concepts of this library are very similar to the "official" Java, .NET, Pyth
 [Selenium project](https://github.com/SeleniumHQ/selenium/).
 
 Looking for API documentation of php-webdriver? See [https://php-webdriver.github.io/php-webdriver/](https://php-webdriver.github.io/php-webdriver/latest/)
-
-Any complaints, questions, or ideas? Post them in the user group https://www.facebook.com/groups/phpwebdriver/.
 
 ## Installation
 
@@ -198,8 +197,8 @@ There are some projects already providing this:
 
 We have a great community willing to help you!
 
+- **Via StackOverflow** - You can [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver+php-webdriver) or find many already answered question on StackOverflow
 - **Via our Facebook Group** - If you have questions or are an active contributor consider joining our [facebook group](https://www.facebook.com/groups/phpwebdriver/) and contribute to communal discussion and support
-- **Via StackOverflow** - You can also [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver) or find many already answered question on StackOverflow
 - **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue
 
 ## Contributing
