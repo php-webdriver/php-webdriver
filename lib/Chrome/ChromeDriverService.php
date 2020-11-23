@@ -11,18 +11,27 @@ class ChromeDriverService extends DriverService
      * @deprecated Use ChromeDriverService::CHROME_DRIVER_EXECUTABLE
      */
     const CHROME_DRIVER_EXE_PROPERTY = 'webdriver.chrome.driver';
-    // The environment variable storing the path to the chrome driver executable
+    /** @var string The environment variable storing the path to the chrome driver executable */
     const CHROME_DRIVER_EXECUTABLE = 'WEBDRIVER_CHROME_DRIVER';
+    /**
+     * @var string Default executable used when no other is provided
+     * @internal
+     */
+    const DEFAULT_EXECUTABLE = 'chromedriver';
 
     /**
      * @return static
      */
     public static function createDefaultService()
     {
-        $exe = getenv(self::CHROME_DRIVER_EXECUTABLE) ?: getenv(self::CHROME_DRIVER_EXE_PROPERTY);
+        $pathToExecutable = getenv(self::CHROME_DRIVER_EXECUTABLE) ?: getenv(self::CHROME_DRIVER_EXE_PROPERTY);
+        if ($pathToExecutable === false) {
+            $pathToExecutable = static::DEFAULT_EXECUTABLE;
+        }
+
         $port = 9515; // TODO: Get another port if the default port is used.
         $args = ['--port=' . $port];
 
-        return new static($exe, $port, $args);
+        return new static($pathToExecutable, $port, $args);
     }
 }
