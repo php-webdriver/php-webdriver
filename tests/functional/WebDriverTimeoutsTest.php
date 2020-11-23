@@ -39,6 +39,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-saucelabs
      * @covers ::__construct
      * @covers ::pageLoadTimeout
      */
