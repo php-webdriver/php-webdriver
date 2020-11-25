@@ -19,8 +19,6 @@ versions of Chrome and Chromedriver with just a slight limitations.
 The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
 [Selenium project](https://github.com/SeleniumHQ/selenium/).
 
-Looking for API documentation of php-webdriver? See [https://php-webdriver.github.io/php-webdriver/](https://php-webdriver.github.io/php-webdriver/latest/)
-
 ## Installation
 
 Installation is possible using [Composer](https://getcomposer.org/).
@@ -59,7 +57,7 @@ This could be Selenium standalone server, but for local development, you can sen
 
 #### a) Chromedriver
 
-📙 Below you find only simple example, make sure to read our wiki for [more information on Chrome/Chromedriver](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
+📙 Below you will find a simple example. Make sure to read our wiki for [more information on Chrome/Chromedriver](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
 
 Install the latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 Make sure to have a compatible version of Chromedriver and Chrome!
@@ -83,13 +81,13 @@ geckodriver
 
 #### c) Selenium standalone server
 
-Selenium server is useful especially when you need to execute multiple tests at once, if your tests are run
-in different browsers (like on your CI server) or eg. when you need to distribute tests amongst multiple machines
-in grid mode (one Selenium server hub and multiple Selenium nodes).
+Selenium server can be useful when you need to execute multiple tests at once,
+when you run tests in several different browsers (like on your CI server), or when you need to distribute tests amongst
+several machines in grid mode (where one Selenium server acts as a hub, and others connect to it as nodes).
 
 Selenium server then act like a proxy and takes care of distributing commands to the respective nodes.
 
-The latest version can be found on [Selenium download page](https://www.selenium.dev/downloads/).
+The latest version can be found on the [Selenium download page](https://www.selenium.dev/downloads/).
 
 📙 You can find [further Selenium server information](https://github.com/php-webdriver/php-webdriver/wiki/Selenium-server)
 in our wiki.
@@ -148,7 +146,7 @@ $desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless
 $driver = RemoteWebDriver::create($serverUrl, $desiredCapabilities);
 ```
 
-Capabilities can also be used to [📙 configure proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
+Capabilities can also be used to [📙 configure a proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
 To configure Chrome capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions).
 
 * See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
@@ -189,7 +187,9 @@ Some basic usage example is provided in [example.php](example.php) file.
 
 How-tos are provided right here in [📙 our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
 
-You may also want to check out the Selenium [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
+If you don't use IDE, you may use [API documentation of php-webdriver](https://php-webdriver.github.io/php-webdriver/latest/).
+
+You may also want to check out the Selenium project [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
 
 ## Testing framework integration
 
