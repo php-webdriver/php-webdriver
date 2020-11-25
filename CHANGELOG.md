@@ -2,8 +2,12 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- Support for sending Chrome DevTools Protocol commands (see details in [wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chrome-devtools-protocol-cdp)).
+
 ### Changed
-- Throw `DriverServerDiedException` on driver server process terminating unexpectedly in `DriverCommandExecutor`, with triggering error attached to improve debugging of 'The driver server has died' errors. 
+- Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
+- Do not require `WEBDRIVER_CHROME_DRIVER` environment variable to be set if `chromedriver` binary is already available via system PATH.
 
 ## 1.9.0 - 2020-11-19
 ### Added
