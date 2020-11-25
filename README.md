@@ -59,6 +59,8 @@ This could be Selenium standalone server, but for local development, you can sen
 
 #### a) Chromedriver
 
+📙 Below you find only simple example, make sure to read our wiki for [more information on Chrome/Chromedriver](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
+
 Install the latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
 Make sure to have a compatible version of Chromedriver and Chrome!
 
@@ -81,34 +83,16 @@ geckodriver
 
 #### c) Selenium standalone server
 
-[Selenium server](https://selenium.dev/downloads/) is useful especially when you need to execute multiple tests at once
-or your tests are run in different browsers - like on your CI server.
+Selenium server is useful especially when you need to execute multiple tests at once, if your tests are run
+in different browsers (like on your CI server) or eg. when you need to distribute tests amongst multiple machines
+in grid mode (one Selenium server hub and multiple Selenium nodes).
 
-Selenium server receives commands and starts new sessions using browser drivers acting like hub distributing the commands
-among multiple nodes.
+Selenium server then act like a proxy and takes care of distributing commands to the respective nodes.
 
-To run the standalone server, download [`selenium-server-standalone-#.jar` file](http://selenium-release.storage.googleapis.com/index.html)
-(replace # with the current server version). Keep in mind **you must have Java 8+ installed**.
+The latest version can be found on [Selenium download page](https://www.selenium.dev/downloads/).
 
-Run the server:
-
-```sh
-java -jar selenium-server-standalone-#.jar
-```
-
-You may need to provide path to `chromedriver`/`geckodriver` binary (if they are not placed in system `PATH` directory):
-
-```sh
-# Chromedriver:
-java -Dwebdriver.chrome.driver="/opt/chromium-browser/chromedriver" -jar vendor/bin/selenium-server-standalone-#.jar
-# Geckodriver:
-java -Dwebdriver.gecko.driver="/home/john/bin/geckodriver" -jar vendor/bin/selenium-server-standalone-#.jar
-
-# (These options could be combined)
-```
-
-If you want to distribute browser sessions among multiple servers ("grid mode" - one Selenium hub and multiple Selenium nodes) please
-[refer to the documentation](https://selenium.dev/documentation/en/grid/).
+📙 You can find [further Selenium server information](https://github.com/php-webdriver/php-webdriver/wiki/Selenium-server)
+in our wiki.
 
 #### d) Docker
 
@@ -122,13 +106,13 @@ For example:
 
 ```php
 // Chromedriver (if started using --port=4444 as above)
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 // Geckodriver
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 // selenium-server-standalone-#.jar (version 2.x or 3.x)
-$host = 'http://localhost:4444/wd/hub';
+$serverUrl = 'http://localhost:4444/wd/hub';
 // selenium-server-standalone-#.jar (version 4.x)
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 ```
 
 Now you can start browser of your choice:
@@ -137,11 +121,11 @@ Now you can start browser of your choice:
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 // Chrome
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::chrome());
 // Firefox
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::firefox());
 // Microsoft Edge
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::microsoftEdge());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::microsoftEdge());
 ```
 
 ### 3. Customize Desired Capabilities
@@ -161,13 +145,38 @@ $desiredCapabilities->setCapability('acceptSslCerts', false);
 // Run headless firefox
 $desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
 
-$driver = RemoteWebDriver::create($host, $desiredCapabilities);
+$driver = RemoteWebDriver::create($serverUrl, $desiredCapabilities);
 ```
 
-They can also be used to [configure proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
-To configure Chrome, you may use ChromeOptions - see [details in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/ChromeOptions).
+Capabilities can also be used to [📙 configure proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
+To configure Chrome capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions).
 
 * See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
+
+### 4. Control your browser
+
+```php
+// Go to URL
+$driver->get('https://en.wikipedia.org/wiki/Selenium_(software)');
+
+// Find search element by its id, write 'PHP' inside and submit
+$driver->findElement(WebDriverBy::id('searchInput')) // find search input element
+    ->sendKeys('PHP') // fill the search box
+    ->submit(); // submit the whole form
+
+// Find element of 'History' item in menu by its css selector
+$historyButton = $driver->findElement(
+    WebDriverBy::cssSelector('#ca-history a')
+);
+// Read text of the element and print it to output
+echo 'About to click to a button with text: ' . $historyButton->getText();
+
+// Click the element to navigate to revision history page
+$historyButton->click();
+```
+
+See [example.php](example.php) for full example scenario.
+Visit our GitHub wiki for [📙 php-webdriver command reference](https://github.com/php-webdriver/php-webdriver/wiki/Example-command-reference) and further examples.
 
 **NOTE:** Above snippets are not intended to be a working example by simply copy-pasting. See [example.php](example.php) for a working example.
 
@@ -178,7 +187,7 @@ For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 Some basic usage example is provided in [example.php](example.php) file.
 
-How-tos are provided right here in [our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+How-tos are provided right here in [📙 our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
 
 You may also want to check out the Selenium [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
 
