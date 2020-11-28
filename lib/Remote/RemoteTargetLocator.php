@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\WebDriver;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\WebDriverAlert;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverTargetLocator;
@@ -12,14 +12,14 @@ use Facebook\WebDriver\WebDriverTargetLocator;
  */
 class RemoteTargetLocator implements WebDriverTargetLocator
 {
-    /** @var ExecuteMethod */
+    /** @var RemoteExecuteMethod */
     protected $executor;
-    /** @var WebDriver */
+    /** @var RemoteWebDriver */
     protected $driver;
     /** @var bool */
     protected $isW3cCompliant;
 
-    public function __construct($executor, $driver, $isW3cCompliant = false)
+    public function __construct(RemoteExecuteMethod $executor, RemoteWebDriver $driver, $isW3cCompliant = false)
     {
         $this->executor = $executor;
         $this->driver = $driver;
@@ -27,10 +27,7 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
-     * Set the current browsing context to the current top-level browsing context.
-     * This is the same as calling `RemoteTargetLocator::frame(null);`
-     *
-     * @return WebDriver The driver focused on the top window or the first frame.
+     * @return RemoteWebDriver
      */
     public function defaultContent()
     {
@@ -41,16 +38,10 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
-     * Switch to the iframe by its id or name.
-     *
-     * @param WebDriverElement|null|int|string $frame The WebDriverElement,
-     * the id or the name of the frame.
-     * When null, switch to the current top-level browsing context
-     * When int, switch to the WindowProxy identified by the value
-     * When an Element, switch to that Element.
-     *
-     * @throws \InvalidArgumentException
-     * @return WebDriver The driver focused on the given frame.
+     * @param WebDriverElement|null|int|string $frame The WebDriverElement, the id or the name of the frame.
+     * When null, switch to the current top-level browsing context When int, switch to the WindowProxy identified
+     * by the value. When an Element, switch to that Element.
+     * @return RemoteWebDriver
      */
     public function frame($frame)
     {
@@ -87,7 +78,7 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     /**
      * Switch to the parent iframe.
      *
-     * @return WebDriver The driver focused on the given frame.
+     * @return RemoteWebDriver This driver focused on the parent frame
      */
     public function parent()
     {
@@ -97,11 +88,8 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
-     * Switch the focus to another window by its handle.
-     *
      * @param string $handle The handle of the window to be focused on.
-     * @return WebDriver The driver focused on the given window.
-     * @see WebDriver::getWindowHandles
+     * @return RemoteWebDriver
      */
     public function window($handle)
     {
@@ -117,20 +105,38 @@ class RemoteTargetLocator implements WebDriverTargetLocator
     }
 
     /**
-     * Switch to the currently active modal dialog for this particular driver
-     * instance.
+     * Creates a new browser window and switches the focus for future commands of this driver to the new window.
      *
-     * @return WebDriverAlert
+     * @see https://w3c.github.io/webdriver/#new-window
+     * @param string $windowType The type of a new browser window that should be created. One of [tab, window].
+     * The created window is not guaranteed to be of the requested type; if the driver does not support the requested
+     * type, a new browser window will be created of whatever type the driver does support.
+     * @throws UnsupportedOperationException
+     * @return RemoteWebDriver This driver focused on the given window
      */
+    public function newWindow($windowType = self::WINDOW_TYPE_TAB)
+    {
+        if ($windowType !== self::WINDOW_TYPE_TAB && $windowType !== self::WINDOW_TYPE_WINDOW) {
+            throw new \InvalidArgumentException('Window type must by either "tab" or "window"');
+        }
+
+        if (!$this->isW3cCompliant) {
+            throw new UnsupportedOperationException('New window is only supported in W3C mode');
+        }
+
+        $response = $this->executor->execute(DriverCommand::NEW_WINDOW, ['type' => $windowType]);
+
+        $this->window($response['handle']);
+
+        return $this->driver;
+    }
+
     public function alert()
     {
         return new WebDriverAlert($this->executor);
     }
 
     /**
-     * Switches to the element that currently has focus within the document
-     * currently "switched to", or the body element if this cannot be detected.
-     *
      * @return RemoteWebElement
      */
     public function activeElement()
