@@ -102,7 +102,7 @@ before_script:
       unzip chromedriver_linux64.zip -d chromedriver;
     fi
   - if [ "$BROWSER_NAME" = "chrome" ]; then export CHROMEDRIVER_PATH=$PWD/chromedriver/chromedriver; fi
-  - if [ "$GECKODRIVER" = "1" ]; then mkdir -p geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.27.0/geckodriver-v0.27.0-linux64.tar.gz; tar xzf geckodriver-v0.27.0-linux64.tar.gz -C geckodriver; fi
+  - if [ "$GECKODRIVER" = "1" ]; then mkdir -p geckodriver; wget -q -t 3 https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz; tar xzf geckodriver-v0.28.0-linux64.tar.gz -C geckodriver; fi
   - if [ ! -f jar/selenium-server-standalone.jar ] && [ -n "$SELENIUM_SERVER" ]; then
       mkdir -p jar;
       if [ "$SELENIUM_SERVER" = "legacy" ]; then
