@@ -13,6 +13,7 @@ env:
     - BROWSER_NAME="htmlunit"
     - SELENIUM_SERVER="https://selenium-release.storage.googleapis.com/3.14/selenium-server-standalone-3.14.0.jar" # Latest version including HtmlUnit
     - COMPOSER_MEMORY_LIMIT=-1
+    - XDEBUG_MODE=coverage
 
 services:
   - xvfb
