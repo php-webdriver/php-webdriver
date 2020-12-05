@@ -392,6 +392,8 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
+     * @deprecated PhantomJS is no longer developed and its support will be removed in next major version.
+     * Use headless Chrome or Firefox instead.
      * @return static
      */
     public static function phantomjs()
