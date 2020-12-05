@@ -13,7 +13,7 @@ class ChromeOptions
 {
     /**
      * The key of chrome options desired capabilities (in legacy OSS JsonWire protocol)
-     * @deprecated
+     * @todo Replace value with 'goog:chromeOptions' after JsonWire protocol support is removed
      */
     const CAPABILITY = 'chromeOptions';
     /**
