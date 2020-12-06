@@ -176,7 +176,7 @@ class DesiredCapabilitiesTest extends TestCase
                     'acceptInsecureCerts' => true,
                 ],
             ],
-            'removed capabilitites' => [
+            'removed capabilities' => [
                 new DesiredCapabilities([
                     WebDriverCapabilityType::WEB_STORAGE_ENABLED => true,
                     WebDriverCapabilityType::TAKES_SCREENSHOT => false,

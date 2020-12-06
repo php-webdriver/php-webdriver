@@ -163,7 +163,7 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
-     * @todo Remove side-effects - not change ie. ChromeOptions::CAPABILITY from instance of ChromeOptions to an array
+     * @todo Remove side-effects - not change eg. ChromeOptions::CAPABILITY from instance of ChromeOptions to an array
      * @return array
      */
     public function toArray()
@@ -392,6 +392,8 @@ class DesiredCapabilities implements WebDriverCapabilities
     }
 
     /**
+     * @deprecated PhantomJS is no longer developed and its support will be removed in next major version.
+     * Use headless Chrome or Firefox instead.
      * @return static
      */
     public static function phantomjs()

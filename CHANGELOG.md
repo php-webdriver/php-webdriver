@@ -8,6 +8,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
 - Do not require `WEBDRIVER_CHROME_DRIVER` environment variable to be set if `chromedriver` binary is already available via system PATH.
+- Mark PhantomJS deprecated, as it is no longer developed and maintained.
 
 ## 1.9.0 - 2020-11-19
 ### Added
