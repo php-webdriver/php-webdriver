@@ -5,17 +5,23 @@ We love to have your help to make php-webdriver better!
 Feel free to open an [issue](https://github.com/php-webdriver/php-webdriver/issues) if you run into any problem, or
 send a pull request (see bellow) with your contribution.
 
+## Before you contribute
+
+Do not hesitate to ask for a guidance before you implement notable change, or a new feature - use the associated [issue](https://github.com/php-webdriver/php-webdriver/issues) or use [Discussions](https://github.com/php-webdriver/php-webdriver/discussions).
+Because any new code means increased effort in library maintenance (which is being done by volunteers in their free time),
+please understand not every pull request is automatically accepted. This is why we recommend using the mentioned channels to discuss bigger changes in the source code first.
+
+When you are going to contribute, also please keep in mind that this webdriver client aims to be similar to clients in languages Java/Ruby/Python/C#.
+Here is the [official documentation](https://www.selenium.dev/documentation/en/) and overview of [the official Java API](http://seleniumhq.github.io/selenium/docs/api/java/)
+
 ## Workflow when contributing a patch
 
 1. Fork the project on GitHub
 2. Implement your code changes into separate branch
-3. Make sure all PHPUnit tests passes and code-style matches PSR-2 (see below). We also have Travis CI build which will automatically run tests on your pull request.
+3. Make sure all PHPUnit tests passes and code-style matches PSR-2 (see below). We also have CI builds which will automatically run tests on your pull request. Make sure to fix any reported issues reported by these automated tests.
 4. When implementing a notable change, fix or a new feature, add record to the Unreleased section of [CHANGELOG.md](../CHANGELOG.md)
 5. Submit your [pull request](https://github.com/php-webdriver/php-webdriver/pulls) against `main` branch
  
-When you are going to contribute, please keep in mind that this webdriver client aims to be similar to clients in languages Java/Ruby/Python/C#.
-Here is the [official documentation](https://www.selenium.dev/documentation/en/) and overview of [the official Java API](http://seleniumhq.github.io/selenium/docs/api/java/)
-
 ### Run unit tests
 
 There are two test-suites: one with unit tests only, second with functional tests, which require running selenium server.

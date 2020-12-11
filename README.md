@@ -206,10 +206,16 @@ There are some projects already providing this:
 
 We have a great community willing to help you!
 
-- **Via StackOverflow** - You can [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver+php-webdriver) or find many already answered question on StackOverflow
-- **Via our Facebook Group** - If you have questions or are an active contributor consider joining our [facebook group](https://www.facebook.com/groups/phpwebdriver/) and contribute to communal discussion and support
-- **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue
+❓ Do you have a **question, idea or some general feedback**? Visit our [Discussions](https://github.com/php-webdriver/php-webdriver/discussions) page.
+(Alternatively, you can [look for many answered questions also on StackOverflow](https://stackoverflow.com/questions/tagged/php+selenium-webdriver)).
 
-## Contributing
+🐛 Something isn't working, and you want to **report a bug**? [Submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue.
+
+📙 Looking for a **how-to** or **reference documentation**? See [our wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+
+## Contributing ❤️
 
 We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for more information about contributing and developing php-webdriver.
+
+Php-webdriver is community project - if you want to join the effort with maintaining and developing this library, the best is to look on [issues marked with "help wanted"](https://github.com/php-webdriver/php-webdriver/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+label. Let us know in the issue comments if you want to contribute and if you want any guidance, and we will be delighted to help you to prepare your pull request.
