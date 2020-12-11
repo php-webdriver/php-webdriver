@@ -24,43 +24,60 @@ Here is the [official documentation](https://www.selenium.dev/documentation/en/)
  
 ### Run unit tests
 
-There are two test-suites: one with unit tests only, second with functional tests, which require running selenium server.
+There are two test-suites: one with **unit tests** only (called `unit`), second with **functional tests** (called `functional`),
+which requires running Selenium server and local PHP server.
 
-To execute all tests simply run:
+To execute **all tests** in both suites run:
 
-    ./vendor/bin/phpunit
+```sh
+./vendor/bin/phpunit
+```
 
-If you want to execute just the unit tests, run:
+If you want to execute **just the unit tests**, run:
 
-    ./vendor/bin/phpunit --testsuite unit
+```sh
+./vendor/bin/phpunit --testsuite unit
+```
 
-For the functional tests you must first [download](http://selenium-release.storage.googleapis.com/index.html) and start
-the selenium standalone server, start the local PHP server which will serve the test pages and then run the `functional`
-test suite:
+**Functional tests** are run against a real browser. It means they take a bit longer and also require an additional setup:
+you must first [download](https://www.selenium.dev/downloads/) and start the Selenium standalone server,
+then start the local PHP server which will serve the test pages and then run the `functional` test suite:
 
-    java -jar selenium-server-standalone-3.9.1.jar -log selenium.log &
-    php -S localhost:8000 -t tests/functional/web/ &
-    ./vendor/bin/phpunit --testsuite functional
+```sh
+java -jar selenium-server-standalone-X.X.X.jar -log selenium.log &
+php -S localhost:8000 -t tests/functional/web/ &
+./vendor/bin/phpunit --testsuite functional
+```
 
-The functional tests will be started in HtmlUnit headless browser by default. If you want to run them in eg. Firefox,
-simply set the `BROWSER_NAME` environment variable:
+The functional tests will be started in HtmlUnit headless browser by default. If you want to run them in other browser
+like Chrome, set the `BROWSER_NAME` environment variable:
 
-    ...
-    export BROWSER_NAME="firefox"
-    ./vendor/bin/phpunit --testsuite functional
+```sh
+...
+export BROWSER_NAME="chrome"
+./vendor/bin/phpunit --testsuite functional
+```
 
-To test with Geckodriver, [download](https://github.com/mozilla/geckodriver/releases) and start the server, then run:
+Don't forget you also need to setup browser driver (Chromedriver/Geckodriver), as its [explained in wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
 
-    export GECKODRIVER=1
-    export BROWSER_NAME=firefox
-    ./vendor/bin/phpunit --testsuite functional
+To test with Firefox/Geckodriver, you must also set `GECKODRIVER` environment variable:
+
+```sh
+export GECKODRIVER=1
+export BROWSER_NAME=firefox
+./vendor/bin/phpunit --testsuite functional
+```
 
 ### Check coding style
 
 Your code-style should comply with [PSR-2](http://www.php-fig.org/psr/psr-2/). To make sure your code matches this requirement run:
 
-    composer codestyle:check
+```sh
+composer codestyle:check
+```
 
 To auto-fix the codestyle simply run:
 
-    composer codestyle:fix
+```sh
+composer codestyle:fix
+```
