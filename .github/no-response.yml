@@ -4,7 +4,7 @@
 daysUntilClose: 14
 
 # Label requiring a response
-responseRequiredLabel: waiting for reaction
+responseRequiredLabel: "waiting for reaction"
 
 # Comment to post when closing an Issue for lack of response. Set to `false` to disable
 closeComment: >
