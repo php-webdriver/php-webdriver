@@ -64,17 +64,33 @@
   },
   "minimum-stability": "beta",
   "scripts": {
-    "analyze": [
-      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
-      "vendor/bin/phpstan analyze -c phpstan.neon --ansi"
+    "all": [
+      "@lint",
+      "@analyze",
+      "@test"
     ],
-    "codestyle:check": [
+    "analyze": [
+      "vendor/bin/phpstan analyze -c phpstan.neon --ansi",
       "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
       "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
     ],
-    "codestyle:fix": [
+    "fix": [
+      "@composer normalize",
       "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+    ],
+    "lint": [
+      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
+      "@composer validate",
+      "@composer normalize --dry-run"
+    ],
+    "preinstall": [
+      "@composer update --no-progress --no-interaction",
+      "@composer require --dev phpstan/phpstan",
+      "@composer require --dev ergebnis/composer-normalize"
+    ],
+    "test": [
+      "vendor/bin/phpunit --colors=always"
     ]
   }
 }
