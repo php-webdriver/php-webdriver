@@ -175,6 +175,13 @@ class DesiredCapabilities implements WebDriverCapabilities
                 $this->capabilities[ChromeOptions::CAPABILITY]->toArray();
         }
 
+        if (isset($this->capabilities[ChromeOptions::CAPABILITY_W3C]) &&
+            $this->capabilities[ChromeOptions::CAPABILITY_W3C] instanceof ChromeOptions
+        ) {
+            $this->capabilities[ChromeOptions::CAPABILITY_W3C] =
+                $this->capabilities[ChromeOptions::CAPABILITY_W3C]->toArray();
+        }
+
         if (isset($this->capabilities[FirefoxDriver::PROFILE]) &&
             $this->capabilities[FirefoxDriver::PROFILE] instanceof FirefoxProfile
         ) {
