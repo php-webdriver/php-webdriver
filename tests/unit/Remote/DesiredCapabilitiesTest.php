@@ -143,9 +143,9 @@ class DesiredCapabilitiesTest extends TestCase
         DesiredCapabilities $inputJsonWireCapabilities,
         array $expectedW3cCapabilities
     ) {
-        $this->assertEquals(
-            $expectedW3cCapabilities,
-            $inputJsonWireCapabilities->toW3cCompatibleArray()
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($expectedW3cCapabilities),
+            json_encode($inputJsonWireCapabilities->toW3cCompatibleArray())
         );
     }
 
@@ -224,6 +224,18 @@ class DesiredCapabilitiesTest extends TestCase
             'chromeOptions should be converted' => [
                 new DesiredCapabilities([
                     ChromeOptions::CAPABILITY => $chromeOptions,
+                ]),
+                [
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless'],
+                        ]
+                    ),
+                ],
+            ],
+            'chromeOptions as W3C capability should be converted' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY_W3C => $chromeOptions,
                 ]),
                 [
                     'goog:chromeOptions' => new \ArrayObject(
