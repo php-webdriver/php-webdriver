@@ -5,6 +5,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Support for sending Chrome DevTools Protocol commands (see details in [wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chrome-devtools-protocol-cdp)).
 
+### Fixed
+- Actually start ChromeDriver in W3C mode if it is supported by the browser driver. Until now, when it was initialized using `ChromeDriver::start()`, it has always been unintentionally started in OSS mode.
+
 ### Changed
 - Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
 - Do not require `WEBDRIVER_CHROME_DRIVER` environment variable to be set if `chromedriver` binary is already available via system PATH.

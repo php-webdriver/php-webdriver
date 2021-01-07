@@ -38,6 +38,9 @@ class ChromeDriver extends RemoteWebDriver
             null,
             DriverCommand::NEW_SESSION,
             [
+                'capabilities' => [
+                    'firstMatch' => [(object) $desired_capabilities->toW3cCompatibleArray()],
+                ],
                 'desiredCapabilities' => (object) $desired_capabilities->toArray(),
             ]
         );
