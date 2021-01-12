@@ -36,7 +36,7 @@ class WebDriverTestCase extends TestCase
         if (static::isSauceLabsBuild()) {
             $this->setUpSauceLabs();
         } else {
-            $browserName = (string) getenv('BROWSER_NAME');
+            $browserName = getenv('BROWSER_NAME');
             if ($browserName === '') {
                 $this->markTestSkipped(
                     'To execute functional tests browser name must be provided in BROWSER_NAME environment variable'
@@ -119,6 +119,25 @@ class WebDriverTestCase extends TestCase
     {
         if (getenv('GECKODRIVER') !== '1'
             && (getenv('BROWSER_NAME') !== 'chrome' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+            static::markTestSkipped($message);
+        }
+    }
+
+    /**
+     * Mark a test as skipped if the current browser is not in the list of browsers.
+     *
+     * @param array $browsers List of browsers for this test
+     * @param string|null $message
+     */
+    public static function skipForUnmatchedBrowsers($browsers = [], $message = null)
+    {
+        $browserName = (string) getenv('BROWSER_NAME');
+        if (array_search($browserName, $browsers) === false) {
+            if (!$message) {
+                $browserlist = implode(', ', $browsers);
+                $message = 'Browser ' . $browserName . ' not supported for this test (' . $browserlist . ')';
+            }
+
             static::markTestSkipped($message);
         }
     }

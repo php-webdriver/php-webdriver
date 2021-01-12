@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test page for geckodriver#653 workaround</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" id="a-index-plain">Link text</a>
+
+    <a href="index.html" id="a-index-plain-hidden" class="hidden">Link text</a>
+
+    <a href="index.html" id="a-index-block-child">
+        <div>Link in a block element</div>
+    </a>
+
+    <a href="index.html" id="a-index-hidden-block-child" class="hidden">
+        <div>Link in a block element</div>
+    </a>
+
+    <a href="index.html" id="a-index-block-child-hidden">
+        <div class="hidden">Hidden link</div>
+        <div>Link in a block element</div>
+    </a>
+
+    <a href="index.html" id="a-index-second-child-hidden">
+        Link text
+        <div class="hidden">A description in a block-level element</div>
+    </a>
+</body>
+</html>
