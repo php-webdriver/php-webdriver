@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
@@ -69,10 +70,17 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function click()
     {
-        $this->executor->execute(
-            DriverCommand::CLICK_ELEMENT,
-            [':id' => $this->id]
-        );
+        try {
+            $this->executor->execute(
+                DriverCommand::CLICK_ELEMENT,
+                [':id' => $this->id]
+            );
+        } catch (ElementNotInteractableException $e) {
+            // An issue with geckodriver (https://github.com/mozilla/geckodriver/issues/653) prevents clicking on a link
+            // if the first child is a block-level element.
+            // The workaround in this case is to click on a child element.
+            $this->clickChildElement($e);
+        }
 
         return $this;
     }
@@ -475,6 +483,40 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             ':id' => $this->id,
             ':other' => $other->getID(),
         ]);
+    }
+
+    /**
+     * Attempt to click on a child level element.
+     *
+     * This provides a workaround for geckodriver bug 653 whereby a link whose first element is a block-level element
+     * throws an ElementNotInteractableException could not scroll into view exception.
+     *
+     * The workaround provided here attempts to click on a child node of the element.
+     * In case the first child is hidden, other elements are processed until we run out of elements.
+     *
+     * @param ElementNotInteractableException $originalException The exception to throw if unable to click on any child
+     * @see https://github.com/mozilla/geckodriver/issues/653
+     * @see https://bugzilla.mozilla.org/show_bug.cgi?id=1374283
+     */
+    protected function clickChildElement(ElementNotInteractableException $originalException)
+    {
+        $children = $this->findElements(WebDriverBy::xpath('./*'));
+        foreach ($children as $child) {
+            try {
+                // Note: This does not use $child->click() as this would cause recursion into all children.
+                // Where the element is hidden, all children will also be hidden.
+                $this->executor->execute(
+                    DriverCommand::CLICK_ELEMENT,
+                    [':id' => $child->id]
+                );
+
+                return;
+            } catch (ElementNotInteractableException $e) {
+                // Ignore the ElementNotInteractableException exception on this node. Try the next child instead.
+            }
+        }
+
+        throw $originalException;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
@@ -115,6 +116,70 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->driver->wait()->until(
             WebDriverExpectedCondition::urlContains('form.html')
         );
+    }
+
+    /**
+     * This test checks that the workarounds in place for https://github.com/mozilla/geckodriver/issues/653 work as
+     * expected where child links can be clicked.
+     *
+     * @covers ::click
+     * @covers ::clickChildElement
+     * @group exclude-chrome
+     * @group exclude-edge
+     * @group exclude-htmlunit
+     */
+    public function testShouldClickOnBlockLevelElement()
+    {
+        self::skipForUnmatchedBrowsers(['firefox']);
+
+        $links = [
+            'a-index-plain',
+            'a-index-block-child',
+            'a-index-block-child-hidden',
+            'a-index-second-child-hidden',
+        ];
+
+        foreach ($links as $linkid) {
+            $this->driver->get($this->getTestPageUrl('gecko653.html'));
+            $linkElement = $this->driver->findElement(WebDriverBy::id($linkid));
+
+            $linkElement->click();
+            $this->assertStringContainsString('index.html', $this->driver->getCurrentUrl());
+        }
+    }
+
+    /**
+     * This test checks that the workarounds in place for https://github.com/mozilla/geckodriver/issues/653 work as
+     * expected where child links cannot be clicked, and that appropriate exceptions are thrown.
+     *
+     * @covers ::click
+     * @covers ::clickChildElement
+     * @group exclude-chrome
+     * @group exclude-edge
+     * @group exclude-htmlunit
+     */
+    public function testShouldClickNotInteractable()
+    {
+        self::skipForUnmatchedBrowsers(['firefox']);
+        self::skipForJsonWireProtocol('Broken in legacy Firefox');
+
+        $this->driver->get($this->getTestPageUrl('gecko653.html'));
+
+        $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-plain-hidden'));
+        try {
+            $linkElement->click();
+            $this->fail('No exception was thrown when clicking an inaccessible link');
+        } catch (ElementNotInteractableException $e) {
+            $this->assertInstanceOf(ElementNotInteractableException::class, $e);
+        }
+
+        $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-hidden-block-child'));
+        try {
+            $linkElement->click();
+            $this->fail('No exception was thrown when clicking an inaccessible link');
+        } catch (ElementNotInteractableException $e) {
+            $this->assertInstanceOf(ElementNotInteractableException::class, $e);
+        }
     }
 
     /**
