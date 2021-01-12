@@ -7,6 +7,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Actually start ChromeDriver in W3C mode if it is supported by the browser driver. Until now, when it was initialized using `ChromeDriver::start()`, it has always been unintentionally started in OSS mode.
+- ChromeOptions were ignored when passed to DesiredCapabilities as `ChromeOptions::CAPABILITY_W3C`.
 
 ### Changed
 - Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
