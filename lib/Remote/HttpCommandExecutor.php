@@ -326,7 +326,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
                 $url
             );
             if (is_array($params) && !empty($params)) {
-                $msg .= sprintf(' with params: %s', json_encode($params));
+                $msg .= sprintf(' with params: %s', json_encode($params, JSON_UNESCAPED_SLASHES));
             }
 
             throw new WebDriverCurlException($msg . "\n\n" . $error);
