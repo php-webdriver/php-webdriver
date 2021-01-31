@@ -126,7 +126,7 @@ class WebDriverTestCase extends TestCase
     /**
      * Mark a test as skipped if the current browser is not in the list of browsers.
      *
-     * @param array $browsers List of browsers for this test
+     * @param string[] $browsers List of browsers for this test
      * @param string|null $message
      */
     public static function skipForUnmatchedBrowsers($browsers = [], $message = null)
