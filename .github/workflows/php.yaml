@@ -36,3 +36,59 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: 'yes'
+
+  unit-tests:
+    name: "Unit tests"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['5.6', '7.1', '7.2', '7.3', '7.4']
+        dependencies: ['']
+        include:
+          - { php-version: '5.6', dependencies: '--prefer-lowest' }
+          - { php-version: '8.0', dependencies: '--ignore-platform-req=php' }
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, zip
+          coverage: xdebug
+          ini-values: ${{ matrix.xdebug-ini-values }}
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer update --no-interaction ${{ matrix.dependencies }}
+
+      - name: Apply PHPUnit patches
+        if: ${{ matrix.php-version < 7.2 }}
+        run: scripts/apply-phpunit-patches.sh
+
+      - name: Run tests
+        run: vendor/bin/phpunit --testsuite unit --colors=always --coverage-clover ./logs/clover.xml
+
+      - name: Submit coverage to Coveralls
+        # We use php-coveralls library for this, as the official Coveralls GitHub Action lacks support for clover reports:
+        # https://github.com/coverallsapp/github-action/issues/15
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: ${{ github.job }}-PHP-${{ matrix.php-version }} ${{ matrix.dependencies }}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          ~/.composer/vendor/bin/php-coveralls -v
+
+  tests-finished:
+    name: Tests finished
+    needs: [unit-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
