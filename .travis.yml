@@ -133,7 +133,7 @@ script:
   - if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
   - if [ "$BROWSER_NAME" = "htmlunit" ]; then EXCLUDE_GROUP+="exclude-htmlunit,"; fi
   - if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
-  - ./vendor/bin/phpunit --coverage-clover ./logs/coverage-clover.xml $EXTRA_PARAMS
+  - ./vendor/bin/phpunit --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
 
 after_script:
   - if [ -f ./logs/selenium.log ]; then cat ./logs/selenium.log; fi
