@@ -122,7 +122,7 @@ class DriverService
             throw new Exception(
                 sprintf(
                     '"%s" is not executable. Make sure the path is correct or use environment variable to specify'
-                     . 'location of the executable.',
+                     . ' location of the executable.',
                     $executable
                 )
             );

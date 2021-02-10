@@ -19,7 +19,7 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, intl, zip
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer preinstall
 
       - name: Lint
@@ -61,7 +61,7 @@ jobs:
           ini-values: ${{ matrix.xdebug-ini-values }}
           tools: composer:v2
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer update --no-interaction ${{ matrix.dependencies }}
 
       - name: Apply PHPUnit patches
@@ -82,9 +82,72 @@ jobs:
           composer global require php-coveralls/php-coveralls
           ~/.composer/vendor/bin/php-coveralls -v
 
+  functional-tests:
+    name: "Functional tests"
+    runs-on: ubuntu-latest
+
+    env:
+      SELENIUM_SERVER_DOWNLOAD_URL: http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: mbstring, intl, zip
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        run: composer update --no-interaction
+
+      - name: Start Selenium standalone server
+        # If you want to run your Selenium WebDriver tests on GitHub actions, we recommend using service containers
+        # with eg. selenium/standalone-chrome image. See https://docs.github.com/en/actions/guides/about-service-containers
+        # But for the purpose of testing this library itself, we need more control so we set everything up manually.
+        run: |
+          google-chrome --version
+          chromedriver --version
+          mkdir -p build
+          wget -q -t 3 -O build/selenium-server-standalone.jar $SELENIUM_SERVER_DOWNLOAD_URL
+          java -jar build/selenium-server-standalone.jar -version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server-standalone.jar -log logs/selenium-server.log &
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for Selenium server to start...; sleep 1; done
+
+      - name: Start local PHP server
+        run: |
+          php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+
+      - name: Run tests
+        env:
+          BROWSER_NAME: chrome # TODO: add browser from matrix
+        run: |
+          if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
+          if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
+          vendor/bin/phpunit --testsuite functional --colors=always --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
+
+      - name: Submit coverage to Coveralls
+        # We use php-coveralls library for this, as the official Coveralls GitHub Action lacks support for clover reports:
+        # https://github.com/coverallsapp/github-action/issues/15
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: ${{ github.job }} # TODO: add browser name
+        run: |
+          composer global require php-coveralls/php-coveralls
+          ~/.composer/vendor/bin/php-coveralls -v
+
+      - name: Print logs
+        if: ${{ always() }}
+        run: |
+          if [ -f ./logs/selenium-server.log ]; then cat ./logs/selenium-server.log; fi
+          if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+
   tests-finished:
     name: Tests finished
-    needs: [unit-tests]
+    needs: [unit-tests, functional-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Notify Coveralls

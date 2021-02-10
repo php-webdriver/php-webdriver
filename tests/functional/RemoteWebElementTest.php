@@ -128,7 +128,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @group exclude-edge
      * @group exclude-htmlunit
      */
-    public function testShouldClickOnBlockLevelElement()
+    public function testGeckoDriverShouldClickOnBlockLevelElement()
     {
         self::skipForUnmatchedBrowsers(['firefox']);
 
@@ -158,7 +158,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @group exclude-edge
      * @group exclude-htmlunit
      */
-    public function testShouldClickNotInteractable()
+    public function testGeckoDriverShouldClickNotInteractable()
     {
         self::skipForUnmatchedBrowsers(['firefox']);
         self::skipForJsonWireProtocol('Broken in legacy Firefox');

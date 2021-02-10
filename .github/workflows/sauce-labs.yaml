@@ -33,7 +33,7 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, intl, zip
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer update --no-interaction
 
       - name: Start local PHP server

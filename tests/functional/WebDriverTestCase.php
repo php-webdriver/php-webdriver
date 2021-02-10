@@ -37,7 +37,7 @@ class WebDriverTestCase extends TestCase
             $this->setUpSauceLabs();
         } else {
             $browserName = getenv('BROWSER_NAME');
-            if ($browserName === '') {
+            if ($browserName === '' || $browserName === false) {
                 $this->markTestSkipped(
                     'To execute functional tests browser name must be provided in BROWSER_NAME environment variable'
                 );
