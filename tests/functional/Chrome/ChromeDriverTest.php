@@ -5,6 +5,7 @@ namespace Facebook\WebDriver\Chrome;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
+use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +19,8 @@ class ChromeDriverTest extends TestCase
 
     protected function setUp(): void
     {
-        if (!getenv('BROWSER_NAME') === 'chrome' || getenv('SAUCELABS') || !getenv('CHROMEDRIVER_PATH')) {
+        if (getenv('BROWSER_NAME') !== 'chrome' || empty(getenv('CHROMEDRIVER_PATH'))
+            || WebDriverTestCase::isSauceLabsBuild()) {
             $this->markTestSkipped('ChromeDriverServiceTest is run only when running against local chrome');
         }
     }

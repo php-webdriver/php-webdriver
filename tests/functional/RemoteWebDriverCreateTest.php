@@ -88,7 +88,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
      */
     public function testShouldCreateWebDriverWithoutCapabilities()
     {
-        if (getenv('GECKODRIVER') !== '1' && getenv('CHROMEDRIVER') !== '1') {
+        if (getenv('GECKODRIVER') !== '1' && empty(getenv('CHROMEDRIVER_PATH'))) {
             $this->markTestSkipped('This test makes sense only when run directly via specific browser driver');
         }
 

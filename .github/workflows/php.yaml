@@ -92,8 +92,12 @@ jobs:
       matrix:
         browser: ['chrome', 'firefox']
         selenium-server: [true, false] # Whether to run via Selenium server or directly via browser driver
+        w3c: [true] # Although all builds negotiate protocol by default, it implies W3C protocol for both Chromedriver and Geckodriver
+        include:
+          # Force OSS (JsonWire) protocol on ChromeDriver - to make sure we keep compatibility
+          - { browser: 'chrome', selenium-server: false, w3c: false }
 
-    name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }})"
+    name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }}, W3C: ${{ matrix.w3c }})"
 
     steps:
       - uses: actions/checkout@v2
@@ -147,6 +151,9 @@ jobs:
           BROWSER_NAME: ${{ matrix.browser }}
           # When running directly against Firefox, we test only using geckodriver (not against legacy Firefox =<45), so we must declare GECKODRIVER=1
           GECKODRIVER: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '1' || '0' }}"
+          # We must provide CHROMEDRIVER_PATH so that ChromeDriverTest is able to start Chromedriver itself
+          CHROMEDRIVER_PATH: "${{ (matrix.browser == 'chrome' && !matrix.selenium-server) && '/usr/local/share/chrome_driver/chromedriver' || '' }}"
+          DISABLE_W3C_PROTOCOL: "${{ matrix.w3c && '0' || '1' }}"
         run: |
           if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
           if [ "$BROWSER_NAME" = "firefox" ]; then EXCLUDE_GROUP+="exclude-firefox,"; fi
@@ -159,7 +166,7 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
-          COVERALLS_FLAG_NAME: ${{ github.job }}-${{ matrix.browser }}-selenium-${{ matrix.selenium-server }}
+          COVERALLS_FLAG_NAME: ${{ github.job }}-${{ matrix.browser }}-selenium-${{ matrix.selenium-server }}-w3c-${{ matrix.w3c }}
         run: |
           composer global require php-coveralls/php-coveralls
           ~/.composer/vendor/bin/php-coveralls -v
