@@ -100,15 +100,19 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $this->assertCount(
             1,
-            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+            RemoteWebDriver::getAllSessions($this->serverUrl)
         );
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
         $this->driver->quit();
 
+        // Wait a while until chromedriver finishes deleting the session.
+        // https://bugs.chromium.org/p/chromedriver/issues/detail?id=3736
+        usleep(250000); // 250 ms
+
         $this->assertCount(
             0,
-            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+            RemoteWebDriver::getAllSessions($this->serverUrl)
         );
         $this->assertNull($this->driver->getCommandExecutor());
     }
