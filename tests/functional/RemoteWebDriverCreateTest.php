@@ -59,6 +59,8 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->connectionTimeout,
             $this->requestTimeout
         );
+
+        $this->assertNotNull($this->driver->getCapabilities());
     }
 
     public function testShouldCreateWebDriverWithRequiredCapabilities()

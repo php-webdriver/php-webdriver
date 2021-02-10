@@ -85,7 +85,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('none', $elementWithoutBorder->getCSSValue('border-left-style'));
 
         // Browser could report color in either rgb (like MS Edge) or rgba (like everyone else)
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/rgba?\(0, 0, 0(, 1)?\)/',
             $elementWithBorder->getCSSValue('border-left-color')
         );
@@ -116,6 +116,8 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->driver->wait()->until(
             WebDriverExpectedCondition::urlContains('form.html')
         );
+
+        $this->assertTrue(true); // To generate coverage, see https://github.com/sebastianbergmann/phpunit/issues/3016
     }
 
     /**

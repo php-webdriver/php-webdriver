@@ -57,5 +57,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
         } catch (TimeoutException $e) { // thrown by Selenium 3.0.0+
         } catch (ScriptTimeoutException $e) { // thrown by Selenium 2
         }
+
+        $this->assertTrue(true); // To generate coverage, see https://github.com/sebastianbergmann/phpunit/issues/3016
     }
 }

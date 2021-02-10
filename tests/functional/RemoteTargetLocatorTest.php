@@ -113,7 +113,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
     /**
      * @group exclude-saucelabs
-     * @covers ::window
      */
     public function testShouldCreateNewWindow()
     {
