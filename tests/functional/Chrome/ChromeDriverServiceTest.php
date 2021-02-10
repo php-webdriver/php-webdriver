@@ -74,7 +74,7 @@ class ChromeDriverServiceTest extends TestCase
 
     public function testShouldUseDefaultExecutableIfNoneProvided()
     {
-        // Put path where ChromeDriver was downloaded to system PATH
+        // Put path where ChromeDriver binary is actually located to system PATH, to make sure we can locate it
         putenv('PATH=' . getenv('PATH') . ':' . dirname(getenv('CHROMEDRIVER_PATH')));
 
         // Unset CHROME_DRIVER_EXECUTABLE so that ChromeDriverService will attempt to run the binary from system PATH
