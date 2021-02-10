@@ -81,7 +81,9 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
     }
 
     /**
-     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server, Saucelabs etc.)
+     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server,
+     * Saucelabs etc.). But when running directly via browser driver, they could be empty.
+     * However the the browser driver must be able to create non-headless instance (eg. inside xvfb).
      * @group exclude-saucelabs
      */
     public function testShouldCreateWebDriverWithoutCapabilities()

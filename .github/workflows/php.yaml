@@ -90,7 +90,7 @@ jobs:
 
     strategy:
       matrix:
-        browser: ['chrome']
+        browser: ['chrome', 'firefox']
         selenium-server: [true, false] # Whether to run via Selenium server or directly via browser driver
 
     name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }})"
@@ -125,8 +125,18 @@ jobs:
         if: ${{ !matrix.selenium-server && matrix.browser == 'chrome' }}
         run: |
           google-chrome --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
           chromedriver --port=4444 --url-base=/wd/hub --log-level=DEBUG &> ./logs/chromedriver.log &
           while ! nc -z localhost 4444 </dev/null; do echo Waiting for ChromeDriver to start...; sleep 1; done
+
+      - name: Start GeckoDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'firefox' }}
+        run: |
+          firefox --version
+          geckodriver --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
+          geckodriver &> ./logs/geckodriver.log &
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for GeckoDriver to start...; sleep 1; done
 
       - name: Start local PHP server
         run: |
@@ -135,8 +145,11 @@ jobs:
       - name: Run tests
         env:
           BROWSER_NAME: ${{ matrix.browser }}
+          # When running directly against Firefox, we test only using geckodriver (not against legacy Firefox =<45), so we must declare GECKODRIVER=1
+          GECKODRIVER: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '1' || '0' }}"
         run: |
           if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
+          if [ "$BROWSER_NAME" = "firefox" ]; then EXCLUDE_GROUP+="exclude-firefox,"; fi
           if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
           vendor/bin/phpunit --testsuite functional --colors=always --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
 
@@ -156,6 +169,7 @@ jobs:
         run: |
           if [ -f ./logs/selenium-server.log ]; then cat ./logs/selenium-server.log; fi
           if [ -f ./logs/chromedriver.log ]; then cat ./logs/chromedriver.log; fi
+          if [ -f ./logs/geckodriver.log ]; then cat ./logs/geckodriver.log; fi
           if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
 
   tests-finished:
