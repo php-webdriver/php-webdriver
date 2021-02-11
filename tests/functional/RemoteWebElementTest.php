@@ -163,7 +163,6 @@ class RemoteWebElementTest extends WebDriverTestCase
     public function testGeckoDriverShouldClickNotInteractable()
     {
         self::skipForUnmatchedBrowsers(['firefox']);
-        self::skipForJsonWireProtocol('Broken in legacy Firefox');
 
         $this->driver->get($this->getTestPageUrl('gecko653.html'));
 

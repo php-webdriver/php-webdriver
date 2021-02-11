@@ -131,10 +131,6 @@ class WebDriverActionsTest extends WebDriverTestCase
             $this->markTestSkipped('Not supported by HtmlUnit browser');
         }
 
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $this->driver->action()
@@ -210,10 +206,6 @@ class WebDriverActionsTest extends WebDriverTestCase
     {
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
             $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
         }
 
         $this->driver->get($this->getTestPageUrl('sortable.html'));
