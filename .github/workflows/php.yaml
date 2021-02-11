@@ -123,15 +123,13 @@ jobs:
           wget -q -t 3 -O build/selenium-server-standalone.jar $SELENIUM_SERVER_DOWNLOAD_URL
           java -jar build/selenium-server-standalone.jar -version
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server-standalone.jar -log logs/selenium-server.log &
-          while ! nc -z localhost 4444 </dev/null; do echo Waiting for Selenium server to start...; sleep 1; done
 
       - name: Start ChromeDriver
         if: ${{ !matrix.selenium-server && matrix.browser == 'chrome' }}
         run: |
           google-chrome --version
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
-          chromedriver --port=4444 --url-base=/wd/hub --log-level=DEBUG &> ./logs/chromedriver.log &
-          while ! nc -z localhost 4444 </dev/null; do echo Waiting for ChromeDriver to start...; sleep 1; done
+          chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
 
       - name: Start GeckoDriver
         if: ${{ !matrix.selenium-server && matrix.browser == 'firefox' }}
@@ -140,11 +138,15 @@ jobs:
           geckodriver --version
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
           geckodriver &> ./logs/geckodriver.log &
-          while ! nc -z localhost 4444 </dev/null; do echo Waiting for GeckoDriver to start...; sleep 1; done
 
       - name: Start local PHP server
         run: |
           php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+
+      - name: Wait for browser & PHP to start
+        run: |
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for remote driver to start...; sleep 1; done
+          while ! nc -z localhost 8000 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
 
       - name: Run tests
         env:
