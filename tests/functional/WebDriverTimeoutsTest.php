@@ -6,7 +6,6 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\ScriptTimeoutException;
 use Facebook\WebDriver\Exception\TimeoutException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\WebDriverTimeouts
@@ -45,10 +44,6 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
      */
     public function testShouldFailIfPageIsLoadingLongerThanPageLoadTimeout()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->manage()->timeouts()->pageLoadTimeout(1);
 
         try {

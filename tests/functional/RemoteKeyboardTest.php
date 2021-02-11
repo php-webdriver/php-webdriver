@@ -2,8 +2,6 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
-
 /**
  * @covers  \Facebook\WebDriver\Remote\RemoteKeyboard
  */
@@ -21,10 +19,6 @@ class RemoteKeyboardTest extends WebDriverTestCase
      */
     public function testShouldPressSendAndReleaseKeys()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not peorperly supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $this->driver->getKeyboard()->sendKeys('ab');

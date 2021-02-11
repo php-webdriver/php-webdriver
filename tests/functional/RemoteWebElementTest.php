@@ -5,7 +5,6 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
@@ -128,7 +127,6 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @covers ::clickChildElement
      * @group exclude-chrome
      * @group exclude-edge
-     * @group exclude-htmlunit
      */
     public function testGeckoDriverShouldClickOnBlockLevelElement()
     {
@@ -158,7 +156,6 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @covers ::clickChildElement
      * @group exclude-chrome
      * @group exclude-edge
-     * @group exclude-htmlunit
      */
     public function testGeckoDriverShouldClickNotInteractable()
     {
@@ -412,9 +409,6 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
-        }
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
         }
 
         // Intentionally save screenshot to subdirectory to tests it is being created
