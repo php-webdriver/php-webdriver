@@ -59,6 +59,8 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->connectionTimeout,
             $this->requestTimeout
         );
+
+        $this->assertNotNull($this->driver->getCapabilities());
     }
 
     public function testShouldCreateWebDriverWithRequiredCapabilities()
@@ -79,12 +81,14 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
     }
 
     /**
-     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server, Saucelabs etc.)
+     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server,
+     * Saucelabs etc.). But when running directly via browser driver, they could be empty.
+     * However the the browser driver must be able to create non-headless instance (eg. inside xvfb).
      * @group exclude-saucelabs
      */
     public function testShouldCreateWebDriverWithoutCapabilities()
     {
-        if (getenv('GECKODRIVER') !== '1' && getenv('CHROMEDRIVER') !== '1') {
+        if (getenv('GECKODRIVER') !== '1' && empty(getenv('CHROMEDRIVER_PATH'))) {
             $this->markTestSkipped('This test makes sense only when run directly via specific browser driver');
         }
 

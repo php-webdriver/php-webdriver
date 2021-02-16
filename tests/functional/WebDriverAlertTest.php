@@ -4,7 +4,6 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoAlertOpenException;
 use Facebook\WebDriver\Exception\NoSuchAlertException;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
@@ -42,11 +41,6 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldAcceptAndDismissConfirmation()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-confirm'))->click();
 
@@ -69,11 +63,6 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldSubmitPromptText()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-prompt'))->click();
 

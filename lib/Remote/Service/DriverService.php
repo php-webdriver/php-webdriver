@@ -45,7 +45,7 @@ class DriverService
      */
     public function __construct($executable, $port, $args = [], $environment = null)
     {
-        $this->executable = self::checkExecutable($executable);
+        $this->setExecutable($executable);
         $this->url = sprintf('http://localhost:%d', $port);
         $this->args = $args;
         $this->environment = $environment ?: $_ENV;
@@ -110,25 +110,35 @@ class DriverService
     }
 
     /**
-     * Check if the executable is executable.
-     *
+     * @deprecated Has no effect. Will be removed in next major version. Executable is now checked
+     * when calling setExecutable().
      * @param string $executable
-     * @throws Exception
      * @return string
      */
     protected static function checkExecutable($executable)
     {
-        if (!is_executable($executable)) {
-            throw new Exception(
-                sprintf(
-                    '"%s" is not executable. Make sure the path is correct or use environment variable to specify'
-                     . 'location of the executable.',
-                    $executable
-                )
-            );
+        return $executable;
+    }
+
+    /**
+     * @param string $executable
+     * @throws Exception
+     */
+    protected function setExecutable($executable)
+    {
+        if ($this->isExecutable($executable)) {
+            $this->executable = $executable;
+
+            return;
         }
 
-        return $executable;
+        throw new Exception(
+            sprintf(
+                '"%s" is not executable. Make sure the path is correct or use environment variable to specify'
+                 . ' location of the executable.',
+                $executable
+            )
+        );
     }
 
     /**
@@ -169,5 +179,30 @@ class DriverService
         $commandLine = array_merge([$this->executable], $this->args);
 
         return new Process($commandLine, null, $this->environment);
+    }
+
+    /**
+     * Check whether given file is executable directly or using system PATH
+     *
+     * @param string $filename
+     * @return bool
+     */
+    private function isExecutable($filename)
+    {
+        if (is_executable($filename)) {
+            return true;
+        }
+        if ($filename !== basename($filename)) { // $filename is an absolute path, do no try to search it in PATH
+            return false;
+        }
+
+        $paths = explode(PATH_SEPARATOR, getenv('PATH'));
+        foreach ($paths as $path) {
+            if (is_executable($path . DIRECTORY_SEPARATOR . $filename)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

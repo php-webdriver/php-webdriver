@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Chrome;
 
+use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,7 +17,8 @@ class ChromeDriverServiceTest extends TestCase
 
     protected function setUp(): void
     {
-        if (!getenv('BROWSER_NAME') === 'chrome' || getenv('SAUCELABS') || !getenv('CHROMEDRIVER_PATH')) {
+        if (getenv('BROWSER_NAME') !== 'chrome' || empty(getenv('CHROMEDRIVER_PATH'))
+            || WebDriverTestCase::isSauceLabsBuild()) {
             $this->markTestSkipped('ChromeDriverServiceTest is run only when running against local chrome');
         }
     }
@@ -72,7 +74,7 @@ class ChromeDriverServiceTest extends TestCase
 
     public function testShouldUseDefaultExecutableIfNoneProvided()
     {
-        // Put path where ChromeDriver was downloaded to system PATH
+        // Put path where ChromeDriver binary is actually located to system PATH, to make sure we can locate it
         putenv('PATH=' . getenv('PATH') . ':' . dirname(getenv('CHROMEDRIVER_PATH')));
 
         // Unset CHROME_DRIVER_EXECUTABLE so that ChromeDriverService will attempt to run the binary from system PATH

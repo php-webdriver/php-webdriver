@@ -44,6 +44,8 @@ class WebDriverNavigationTest extends WebDriverTestCase
         $this->driver->wait()->until(
             WebDriverExpectedCondition::urlContains('form.html')
         );
+
+        $this->assertTrue(true); // To generate coverage, see https://github.com/sebastianbergmann/phpunit/issues/3016
     }
 
     /**

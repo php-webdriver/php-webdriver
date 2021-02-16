@@ -1,4 +1,4 @@
-name: PHP
+name: Tests
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, intl, zip
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer preinstall
 
       - name: Lint
@@ -61,7 +61,7 @@ jobs:
           ini-values: ${{ matrix.xdebug-ini-values }}
           tools: composer:v2
 
-      - name: Install dependencies
+      - name: Install PHP dependencies
         run: composer update --no-interaction ${{ matrix.dependencies }}
 
       - name: Apply PHPUnit patches
@@ -82,9 +82,108 @@ jobs:
           composer global require php-coveralls/php-coveralls
           ~/.composer/vendor/bin/php-coveralls -v
 
+  functional-tests:
+
+    runs-on: ubuntu-latest
+    env:
+      SELENIUM_SERVER_DOWNLOAD_URL: http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+
+    strategy:
+      matrix:
+        browser: ['chrome', 'firefox']
+        selenium-server: [true, false] # Whether to run via Selenium server or directly via browser driver
+        w3c: [true] # Although all builds negotiate protocol by default, it implies W3C protocol for both Chromedriver and Geckodriver
+        include:
+          # Force OSS (JsonWire) protocol on ChromeDriver - to make sure we keep compatibility
+          - { browser: 'chrome', selenium-server: false, w3c: false }
+
+    name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }}, W3C: ${{ matrix.w3c }})"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: mbstring, intl, zip
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        run: composer update --no-interaction
+
+      - name: Start Selenium standalone server
+        # If you want to run your Selenium WebDriver tests on GitHub actions, we recommend using service containers
+        # with eg. selenium/standalone-chrome image. See https://docs.github.com/en/actions/guides/about-service-containers
+        # But for the purpose of testing this library itself, we need more control so we set everything up manually.
+        if: ${{ matrix.selenium-server }}
+        run: |
+          mkdir -p build
+          wget -q -t 3 -O build/selenium-server-standalone.jar $SELENIUM_SERVER_DOWNLOAD_URL
+          java -jar build/selenium-server-standalone.jar -version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server-standalone.jar -log logs/selenium-server.log &
+
+      - name: Start ChromeDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'chrome' }}
+        run: |
+          google-chrome --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
+          chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
+
+      - name: Start GeckoDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'firefox' }}
+        run: |
+          firefox --version
+          geckodriver --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
+          geckodriver &> ./logs/geckodriver.log &
+
+      - name: Start local PHP server
+        run: |
+          php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+
+      - name: Wait for browser & PHP to start
+        run: |
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for remote driver to start...; sleep 1; done
+          while ! nc -z localhost 8000 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
+
+      - name: Run tests
+        env:
+          BROWSER_NAME: ${{ matrix.browser }}
+          # When running directly against Firefox, we test only using geckodriver (not against legacy Firefox =<45), so we must declare GECKODRIVER=1
+          GECKODRIVER: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '1' || '0' }}"
+          # We must provide CHROMEDRIVER_PATH so that ChromeDriverTest is able to start Chromedriver itself
+          CHROMEDRIVER_PATH: "${{ (matrix.browser == 'chrome' && !matrix.selenium-server) && '/usr/local/share/chrome_driver/chromedriver' || '' }}"
+          DISABLE_W3C_PROTOCOL: "${{ matrix.w3c && '0' || '1' }}"
+        run: |
+          if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
+          if [ "$BROWSER_NAME" = "firefox" ]; then EXCLUDE_GROUP+="exclude-firefox,"; fi
+          if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
+          vendor/bin/phpunit --testsuite functional --colors=always --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
+
+      - name: Submit coverage to Coveralls
+        # We use php-coveralls library for this, as the official Coveralls GitHub Action lacks support for clover reports:
+        # https://github.com/coverallsapp/github-action/issues/15
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: ${{ github.job }}-${{ matrix.browser }}-selenium-${{ matrix.selenium-server }}-w3c-${{ matrix.w3c }}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          ~/.composer/vendor/bin/php-coveralls -v
+
+      - name: Print logs
+        if: ${{ always() }}
+        run: |
+          if [ -f ./logs/selenium-server.log ]; then cat ./logs/selenium-server.log; fi
+          if [ -f ./logs/chromedriver.log ]; then cat ./logs/chromedriver.log; fi
+          if [ -f ./logs/geckodriver.log ]; then cat ./logs/geckodriver.log; fi
+          if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+
   tests-finished:
     name: Tests finished
-    needs: [unit-tests]
+    needs: [unit-tests, functional-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Notify Coveralls

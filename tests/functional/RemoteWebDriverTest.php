@@ -4,7 +4,6 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
@@ -100,15 +99,19 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $this->assertCount(
             1,
-            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+            RemoteWebDriver::getAllSessions($this->serverUrl)
         );
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
 
         $this->driver->quit();
 
+        // Wait a while until chromedriver finishes deleting the session.
+        // https://bugs.chromium.org/p/chromedriver/issues/detail?id=3736
+        usleep(250000); // 250 ms
+
         $this->assertCount(
             0,
-            RemoteWebDriver::getAllSessions($this->serverUrl, 30000)
+            RemoteWebDriver::getAllSessions($this->serverUrl)
         );
         $this->assertNull($this->driver->getCommandExecutor());
     }
@@ -257,10 +260,6 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('index.html'));
 
         $outputPng = $this->driver->takeScreenshot();
@@ -280,10 +279,6 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
-        }
-
         // Intentionally save screenshot to subdirectory to tests it is being created
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/selenium-screenshot.png';
 

@@ -27,10 +27,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
@@ -53,10 +49,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickAndHoldOnElementAndRelease()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
@@ -82,10 +74,6 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldContextClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::MICROSOFT_EDGE) {
             $this->markTestSkipped('Getting stuck in EdgeDriver');
         }
@@ -107,10 +95,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldDoubleClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-3'));
@@ -127,14 +111,6 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldSendKeysUpAndDown()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
-        }
-
         $this->driver->get($this->getTestPageUrl('events.html'));
 
         $this->driver->action()
@@ -160,10 +136,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldMoveToElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('sortable.html'));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
@@ -183,10 +155,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldMoveByOffset()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('sortable.html'));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
@@ -208,14 +176,6 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldDragAndDrop()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
-        }
-
         $this->driver->get($this->getTestPageUrl('sortable.html'));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
@@ -244,10 +204,6 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldDragAndDropBy()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         $this->driver->get($this->getTestPageUrl('sortable.html'));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));

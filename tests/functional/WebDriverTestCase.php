@@ -37,7 +37,7 @@ class WebDriverTestCase extends TestCase
             $this->setUpSauceLabs();
         } else {
             $browserName = getenv('BROWSER_NAME');
-            if ($browserName === '') {
+            if ($browserName === '' || $browserName === false) {
                 $this->markTestSkipped(
                     'To execute functional tests browser name must be provided in BROWSER_NAME environment variable'
                 );
@@ -48,7 +48,7 @@ class WebDriverTestCase extends TestCase
                 // --no-sandbox is a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
                 $chromeOptions->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
 
-                if (getenv('DISABLE_W3C_PROTOCOL')) {
+                if (!static::isW3cProtocolBuild()) {
                     $chromeOptions->setExperimentalOption('w3c', false);
                 }
 
@@ -103,9 +103,7 @@ class WebDriverTestCase extends TestCase
      */
     public static function isW3cProtocolBuild()
     {
-        return getenv('GECKODRIVER') === '1'
-            || (getenv('BROWSER_NAME') === 'chrome' && getenv('DISABLE_W3C_PROTOCOL') !== '1')
-            || (self::isSauceLabsBuild() && getenv('DISABLE_W3C_PROTOCOL') !== '1');
+        return getenv('DISABLE_W3C_PROTOCOL') !== '1';
     }
 
     public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
@@ -117,8 +115,7 @@ class WebDriverTestCase extends TestCase
 
     public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
     {
-        if (getenv('GECKODRIVER') !== '1'
-            && (getenv('BROWSER_NAME') !== 'chrome' || getenv('DISABLE_W3C_PROTOCOL') === '1')) {
+        if (!static::isW3cProtocolBuild()) {
             static::markTestSkipped($message);
         }
     }
@@ -209,7 +206,7 @@ class WebDriverTestCase extends TestCase
             $tunnelIdentifier = getenv('SAUCE_TUNNEL_IDENTIFIER');
         }
 
-        if (!getenv('DISABLE_W3C_PROTOCOL')) {
+        if (static::isW3cProtocolBuild()) {
             $sauceOptions = [
                 'name' => $name,
                 'tags' => $tags,
