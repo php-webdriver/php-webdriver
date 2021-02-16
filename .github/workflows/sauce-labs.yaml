@@ -16,12 +16,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#         # Firefox 47 is the last Firefox with OSS protocol support
-          - { name: "Firefox 47, OSS protocol", BROWSER_NAME: "firefox", VERSION: "47.0", PLATFORM: "Windows 10", DISABLE_W3C_PROTOCOL: "1", tunnel-id: "gh-1" }
           # Chrome 74 is the last version which doesn't use W3C WebDriver by default and rather use OSS protocol
-          - { name: "Chrome 74, OSS protocol", BROWSER_NAME: "chrome", VERSION: "74.0", PLATFORM: "Windows 10", DISABLE_W3C_PROTOCOL: "1", tunnel-id: "gh-2" }
-          - { name: "Chrome latest, W3C protocol", BROWSER_NAME: "chrome", VERSION: "latest", PLATFORM: "Windows 10", tunnel-id: "gh-3" }
-          - { name: "Edge latest, W3C protocol", BROWSER_NAME: "MicrosoftEdge", VERSION: "latest", PLATFORM: "Windows 10", tunnel-id: "gh-4" }
+          - { name: "Chrome 74, OSS protocol", BROWSER_NAME: "chrome", VERSION: "74.0", PLATFORM: "Windows 10", DISABLE_W3C_PROTOCOL: "1", tunnel-id: "gh-1" }
+          - { name: "Chrome latest, W3C protocol", BROWSER_NAME: "chrome", VERSION: "latest", PLATFORM: "Windows 10", tunnel-id: "gh-2" }
+          - { name: "Edge latest, W3C protocol", BROWSER_NAME: "MicrosoftEdge", VERSION: "latest", PLATFORM: "Windows 10", tunnel-id: "gh-3" }
 
     name: ${{ matrix.name }} (${{ matrix.tunnel-id }})
     steps:
