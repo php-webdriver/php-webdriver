@@ -9,13 +9,14 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - Actually start ChromeDriver in W3C mode if it is supported by the browser driver. Until now, when it was initialized using `ChromeDriver::start()`, it has always been unintentionally started in OSS mode.
 - ChromeOptions were ignored when passed to DesiredCapabilities as `ChromeOptions::CAPABILITY_W3C`.
-- Clicking an block element inside `<a>` element (workaround for GeckoDriver bug [1374283](https://bugzilla.mozilla.org/show_bug.cgi?id=1374283)).
+- Clicking a block element inside `<a>` element in Firefox (workaround for GeckoDriver bug [1374283](https://bugzilla.mozilla.org/show_bug.cgi?id=1374283)).
 
 ### Changed
 - Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
 - Do not require `WEBDRIVER_CHROME_DRIVER` environment variable to be set if `chromedriver` binary is already available via system PATH.
 - Mark PhantomJS deprecated, as it is no longer developed and maintained.
 - Deprecate `RemoteWebDriver::newWindow()` in favor of `$driver->switchTo()->newWindow()`.
+- Don't escape slashes in CURL exception message to improve readability.
 
 ## 1.9.0 - 2020-11-19
 ### Added
