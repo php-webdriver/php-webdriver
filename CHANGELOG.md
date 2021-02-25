@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.10.0 - 2021-02-25
 ### Added
 - Support for sending Chrome DevTools Protocol commands (see details in [wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chrome-devtools-protocol-cdp)).
 - Option to specify type of new window (window or tab) when using `$driver->switchTo()->newWindow()`.
