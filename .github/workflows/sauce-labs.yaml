@@ -41,7 +41,7 @@ jobs:
           php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
 
       - name: Start Sauce Connect
-        uses: saucelabs/sauce-connect-action@master
+        uses: saucelabs/sauce-connect-action@v1
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
