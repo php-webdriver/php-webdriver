@@ -433,7 +433,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         // Assert string output
         $imageFromString = imagecreatefromstring($outputPngString);
-        $this->assertTrue(is_resource($imageFromString));
+        $this->assertNotFalse($imageFromString);
         $this->assertEquals(5, imagesx($imageFromString));
         $this->assertEquals(5, imagesy($imageFromString));
 

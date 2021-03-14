@@ -265,7 +265,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $outputPng = $this->driver->takeScreenshot();
 
         $image = imagecreatefromstring($outputPng);
-        $this->assertTrue(is_resource($image));
+        $this->assertNotFalse($image);
 
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
@@ -287,7 +287,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->takeScreenshot($screenshotPath);
 
         $image = imagecreatefrompng($screenshotPath);
-        $this->assertTrue(is_resource($image));
+        $this->assertNotFalse($image);
 
         $this->assertGreaterThan(0, imagesx($image));
         $this->assertGreaterThan(0, imagesy($image));
