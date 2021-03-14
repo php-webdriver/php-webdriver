@@ -437,6 +437,12 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertEquals(5, imagesx($imageFromString));
         $this->assertEquals(5, imagesy($imageFromString));
 
+        // Validate element is actually red
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($imageFromString, imagecolorat($imageFromString, 0, 0))
+        );
+
         unlink($screenshotPath);
         rmdir(dirname($screenshotPath));
     }
