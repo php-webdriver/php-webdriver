@@ -50,7 +50,7 @@ class WebDriverTestCase extends TestCase
                     '--headless',
                     '--window-size=1024,768',
                     '--no-sandbox',
-                    '--force-color-profile=srgb'
+                    '--force-color-profile=srgb',
                 ]);
 
                 if (!static::isW3cProtocolBuild()) {
