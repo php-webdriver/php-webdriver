@@ -93,6 +93,10 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->assertContains('contextmenu item-2', $loggedEvents);
     }
 
+    /**
+     * @group exclude-safari
+     *        https://github.com/webdriverio/webdriverio/issues/231
+     */
     public function testShouldDoubleClickOnElement()
     {
         $this->driver->get($this->getTestPageUrl('events.html'));
@@ -134,6 +138,10 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     */
     public function testShouldMoveToElement()
     {
         $this->driver->get($this->getTestPageUrl('sortable.html'));
@@ -153,6 +161,10 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     */
     public function testShouldMoveByOffset()
     {
         $this->driver->get($this->getTestPageUrl('sortable.html'));
@@ -173,6 +185,8 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     /**
      * @group exclude-saucelabs
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
      */
     public function testShouldDragAndDrop()
     {
@@ -202,6 +216,11 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     *        it does not work even with Python Selenium, looks like Safaridriver does not implements Interaction API
+     */
     public function testShouldDragAndDropBy()
     {
         $this->driver->get($this->getTestPageUrl('sortable.html'));
@@ -236,12 +255,9 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     private function retrieveListContent()
     {
-        $list1 = $this->driver->findElement(WebDriverBy::cssSelector('#sortable1'));
-        $list2 = $this->driver->findElement(WebDriverBy::cssSelector('#sortable2'));
-
         return [
-            explode("\n", $list1->getText()),
-            explode("\n", $list2->getText()),
+            $this->retrieveLoggerEvents(WebDriverBy::cssSelector('#sortable1')),
+            $this->retrieveLoggerEvents(WebDriverBy::cssSelector('#sortable2')),
         ];
     }
 }

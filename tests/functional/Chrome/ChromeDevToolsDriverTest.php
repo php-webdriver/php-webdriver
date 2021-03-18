@@ -7,8 +7,9 @@ use Facebook\WebDriver\WebDriverTestCase;
 
 /**
  * @group exclude-saucelabs
- * @group exclude-firefox
  * @group exclude-edge
+ * @group exclude-firefox
+ * @group exclude-safari
  */
 class ChromeDevToolsDriverTest extends WebDriverTestCase
 {

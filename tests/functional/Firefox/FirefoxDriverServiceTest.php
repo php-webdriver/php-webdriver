@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
+ * @group exclude-edge
+ * @group exclude-chrome
+ * @group exclude-safari
  * @covers \Facebook\WebDriver\Firefox\FirefoxDriverService
  */
 class FirefoxDriverServiceTest extends TestCase

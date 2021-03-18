@@ -76,6 +76,7 @@ class WebDriverWindowTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      * @group exclude-chrome
+     * @group exclude-safari
      * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
      */
     public function testShouldMinimizeWindow()
@@ -114,6 +115,9 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertSame(666, $sizeAfter->getHeight());
     }
 
+    /**
+     * @todo Skip when running headless mode
+     */
     public function testShouldSetWindowPosition()
     {
         $this->driver->manage()

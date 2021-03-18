@@ -82,19 +82,21 @@ jobs:
           ~/.composer/vendor/bin/php-coveralls -v
 
   functional-tests:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     env:
       SELENIUM_SERVER_DOWNLOAD_URL: http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
 
     strategy:
       fail-fast: false
       matrix:
+        os: ['ubuntu-latest']
         browser: ['chrome', 'firefox']
         selenium-server: [true, false] # Whether to run via Selenium server or directly via browser driver
         w3c: [true] # Although all builds negotiate protocol by default, it implies W3C protocol for both Chromedriver and Geckodriver
         include:
-          # Force OSS (JsonWire) protocol on ChromeDriver - to make sure we keep compatibility
-          - { browser: 'chrome', selenium-server: false, w3c: false }
+          - { browser: 'safari', os: 'macos-latest', selenium-server: false, w3c: true }
+          # Force OSS (JsonWire) protocol on ChromeDriver - to make sure we keep compatibility:
+          - { browser: 'chrome', os: 'ubuntu-latest', selenium-server: false, w3c: false }
 
     name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }}, W3C: ${{ matrix.w3c }})"
 
@@ -137,9 +139,15 @@ jobs:
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
           geckodriver &> ./logs/geckodriver.log &
 
+      - name: Start SafariDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'safari' }}
+        run: |
+          defaults read /Applications/Safari.app/Contents/Info CFBundleShortVersionString
+          /usr/bin/safaridriver -p 4444 --diagnose &
+
       - name: Start local PHP server
         run: |
-          php -S 127.0.0.1:8000 -t tests/functional/web/ &>>./logs/php-server.log &
+          php -S 127.0.0.1:8000 -t tests/functional/web/ &> ./logs/php-server.log &
 
       - name: Wait for browser & PHP to start
         run: |
@@ -158,6 +166,7 @@ jobs:
         run: |
           if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
           if [ "$BROWSER_NAME" = "firefox" ]; then EXCLUDE_GROUP+="exclude-firefox,"; fi
+          if [ "$BROWSER_NAME" = "safari" ]; then EXCLUDE_GROUP+="exclude-safari,"; fi
           if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
           vendor/bin/phpunit --testsuite functional --colors=always --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
 
@@ -179,6 +188,9 @@ jobs:
           if [ -f ./logs/chromedriver.log ]; then cat ./logs/chromedriver.log; fi
           if [ -f ./logs/geckodriver.log ]; then cat ./logs/geckodriver.log; fi
           if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+          if [ "$BROWSER_NAME" = "safari" ]; then
+            cat  ~/Library/Logs/com.apple.WebDriver/safaridriver.*
+          fi
 
   tests-finished:
     name: Tests finished

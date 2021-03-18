@@ -5,6 +5,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
+use OndraM\CiDetector\CiDetector;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
@@ -14,7 +15,9 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getText
      * @group exclude-edge
-     * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5569343/
+     *        https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5569343/
+     * @group exclude-safari
+     *      Safari does not normalize white-spaces
      */
     public function testShouldGetText()
     {
@@ -23,6 +26,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $elementWithTextWithSpaces = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
 
         $this->assertEquals('Foo bar text', $elementWithSimpleText->getText());
+
         $this->assertEquals('Multiple spaces are stripped', $elementWithTextWithSpaces->getText());
     }
 
@@ -411,6 +415,10 @@ class RemoteWebElementTest extends WebDriverTestCase
             $this->markTestSkipped('GD extension must be enabled');
         }
 
+        // When running this test on real devices, it has a retina display so 5px will be converted into 10px
+        $isCi = (new CiDetector())->isCiDetected();
+        $isSafari = getenv('BROWSER_NAME') === 'safari';
+
         // Intentionally save screenshot to subdirectory to tests it is being created
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/element-screenshot.png';
 
@@ -422,8 +430,14 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         // Assert file output
         $imageFromFile = imagecreatefrompng($screenshotPath);
-        $this->assertEquals(5, imagesx($imageFromFile));
-        $this->assertEquals(5, imagesy($imageFromFile));
+
+        if ($isSafari && !$isCi) {
+            $this->assertEquals(10, imagesx($imageFromFile));
+            $this->assertEquals(10, imagesy($imageFromFile));
+        } else {
+            $this->assertEquals(5, imagesx($imageFromFile));
+            $this->assertEquals(5, imagesy($imageFromFile));
+        }
 
         // Validate element is actually red
         $this->assertSame(
@@ -434,8 +448,15 @@ class RemoteWebElementTest extends WebDriverTestCase
         // Assert string output
         $imageFromString = imagecreatefromstring($outputPngString);
         $this->assertNotFalse($imageFromString);
-        $this->assertEquals(5, imagesx($imageFromString));
-        $this->assertEquals(5, imagesy($imageFromString));
+        $this->assertTrue(is_resource($imageFromString));
+
+        if ($isSafari && !$isCi) {
+            $this->assertEquals(10, imagesx($imageFromString));
+            $this->assertEquals(10, imagesy($imageFromString));
+        } else {
+            $this->assertEquals(5, imagesx($imageFromString));
+            $this->assertEquals(5, imagesy($imageFromString));
+        }
 
         // Validate element is actually red
         $this->assertSame(

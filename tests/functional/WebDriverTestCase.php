@@ -67,31 +67,29 @@ class WebDriverTestCase extends TestCase
                 $firefoxOptions = new FirefoxOptions();
                 $firefoxOptions->addArguments(['-headless']);
                 $this->desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
+            } elseif ($browserName === WebDriverBrowserType::SAFARI) {
+                $this->serverUrl = 'http://localhost:4444';
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);
         }
 
-        if ($this->createWebDriver) {
-            $this->driver = RemoteWebDriver::create(
-                $this->serverUrl,
-                $this->desiredCapabilities,
-                $this->connectionTimeout,
-                $this->requestTimeout,
-                null,
-                null,
-                null
-            );
-        }
+        $this->createWebDriver();
     }
 
     protected function tearDown(): void
     {
-        if ($this->driver instanceof RemoteWebDriver && $this->driver->getCommandExecutor()) {
+        if ($this->driver !== null) {
             try {
                 $this->driver->quit();
             } catch (NoSuchWindowException $e) {
                 // browser may have died or is already closed
+            }
+            $this->driver = null;
+
+            if (getenv('BROWSER_NAME') === 'safari') {
+                // The Safari instance is already paired with another WebDriver session
+                usleep(2e5); // 200ms
             }
         }
     }
@@ -251,5 +249,18 @@ class WebDriverTestCase extends TestCase
             return;
         }
         parent::assertContains($needle, $haystack, $message);
+    }
+
+    protected function createWebDriver()
+    {
+        $this->driver = RemoteWebDriver::create(
+            $this->serverUrl,
+            $this->desiredCapabilities,
+            $this->connectionTimeout,
+            $this->requestTimeout,
+            null,
+            null,
+            null
+        );
     }
 }

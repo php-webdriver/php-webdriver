@@ -204,10 +204,25 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      */
     public function getLocationOnScreenOnceScrolledIntoView()
     {
-        $location = $this->executor->execute(
-            DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW,
-            [':id' => $this->id]
-        );
+        if ($this->isW3cCompliant) {
+            $script = <<<JS
+var e = arguments[0];
+e.scrollIntoView({ behavior: 'instant', block: 'end', inline: 'nearest' }); 
+var rect = e.getBoundingClientRect(); 
+return {'x': rect.left, 'y': rect.top};
+JS;
+
+            $result = $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, [
+                'script' => $script,
+                'args' => [[JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $this->id]],
+            ]);
+            $location = ['x' => $result['x'], 'y' => $result['y']];
+        } else {
+            $location = $this->executor->execute(
+                DriverCommand::GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW,
+                [':id' => $this->id]
+            );
+        }
 
         return new WebDriverPoint($location['x'], $location['y']);
     }

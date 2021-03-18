@@ -13,8 +13,6 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {
-    protected $createWebDriver = false;
-
     public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver()
     {
         $this->driver = RemoteWebDriver::create(
@@ -40,7 +38,10 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         // MicrosoftEdge on Sauce Labs started to identify itself back as "msedge"
         if ($this->desiredCapabilities->getBrowserName() !== WebDriverBrowserType::MICROSOFT_EDGE) {
-            $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+            $this->assertEqualsIgnoringCase(
+                $this->desiredCapabilities->getBrowserName(),
+                $returnedCapabilities->getBrowserName()
+            );
         }
 
         $this->assertNotEmpty($returnedCapabilities->getPlatform());
@@ -122,5 +123,9 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         // Do some interaction with the new driver
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());
+    }
+
+    protected function createWebDriver()
+    {
     }
 }
