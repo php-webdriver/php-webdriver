@@ -16,6 +16,8 @@ class RemoteKeyboardTest extends WebDriverTestCase
      * https://github.com/mozilla/geckodriver/issues/646
      * https://github.com/mozilla/geckodriver/issues/944
      * @group exclude-edge
+     * @group exclude-safari
+     * https://feedbackassistant.apple.com/feedback/9051272
      */
     public function testShouldPressSendAndReleaseKeys()
     {

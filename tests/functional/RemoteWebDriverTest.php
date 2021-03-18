@@ -72,9 +72,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetAllSessions()
     {
-        if (getenv('GECKODRIVER') === '1') {
-            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
-        }
+        self::skipForW3cProtocol();
 
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl, 30000);
 
@@ -93,9 +91,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldQuitAndUnsetExecutor()
     {
-        if (getenv('GECKODRIVER') === '1') {
-            $this->markTestSkipped('"getAllSessions" is not supported by the W3C specification');
-        }
+        self::skipForW3cProtocol();
 
         $this->assertCount(
             1,
@@ -273,6 +269,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::takeScreenshot
+     * @group exclude-safari
+     *        Safari is returning different color profile and it does not have way to configure "force-color-profile"
      */
     public function testShouldSaveScreenshotToFile()
     {
@@ -319,8 +317,10 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $status = $this->driver->getStatus();
 
         $this->assertTrue(is_bool($status->isReady()));
-        $this->assertNotEmpty($status->getMessage());
-
         $this->assertTrue(is_array($status->getMeta()));
+
+        if (getenv('BROWSER_NAME') !== 'safari') {
+            $this->assertNotEmpty($status->getMessage());
+        }
     }
 }
