@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # All commands below must no fail
-set -e
+set -ex
 
 # Be in the root dir
 cd "$(dirname $0)/../"
