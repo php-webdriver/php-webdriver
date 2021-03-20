@@ -207,6 +207,12 @@ class WebDriverWindow
      */
     public function getScreenOrientation()
     {
+        if ($this->isW3cCompliant) {
+            throw new UnsupportedOperationException(
+                'The Screen Orientation window command is only supported in OSS mode'
+            );
+        }
+
         return $this->executor->execute(DriverCommand::GET_SCREEN_ORIENTATION);
     }
 
@@ -220,6 +226,12 @@ class WebDriverWindow
      */
     public function setScreenOrientation($orientation)
     {
+        if ($this->isW3cCompliant) {
+            throw new UnsupportedOperationException(
+                'The Screen Orientation window command is only supported in OSS mode'
+            );
+        }
+
         $orientation = mb_strtoupper($orientation);
         if (!in_array($orientation, ['PORTRAIT', 'LANDSCAPE'])) {
             throw new IndexOutOfBoundsException(
