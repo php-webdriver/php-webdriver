@@ -46,7 +46,12 @@ class WebDriverTestCase extends TestCase
             if ($browserName === WebDriverBrowserType::CHROME) {
                 $chromeOptions = new ChromeOptions();
                 // --no-sandbox is a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
-                $chromeOptions->addArguments(['--headless', 'window-size=1024,768', '--no-sandbox']);
+                $chromeOptions->addArguments([
+                    '--headless',
+                    '--window-size=1024,768',
+                    '--no-sandbox',
+                    '--force-color-profile=srgb',
+                ]);
 
                 if (!static::isW3cProtocolBuild()) {
                     $chromeOptions->setExperimentalOption('w3c', false);
