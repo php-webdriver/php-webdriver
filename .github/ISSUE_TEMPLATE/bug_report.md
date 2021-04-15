@@ -8,6 +8,9 @@ assignees: ''
 
 <!--
 For questions, ask in Discussions: https://github.com/php-webdriver/php-webdriver/discussions
+
+If reporting a bug, please FILL THE TEMPLATE COMPLETELY, otherwise the community and maintainers
+cannot provide a prompt feedback and help solving the issue.
 -->
 
 ### Bug description
@@ -26,11 +29,12 @@ Steps to reproduce the behavior:
 // You can insert your PHP code here (or remove this block if it is not relevant for the issue).
 
 // For example you can provide how you create WebDrivere instance:
+$capabilities = DesiredCapabilities::chrome();
 $driver = RemoteWebDriver::create('http://localhost:4444/', $capabilities);
 
 // And the code you use to execute the php-webdriver commands, for example:
 $driver->get('http://site.localhost/foo.html');
-$button = $driver->findElement(WebDriverBy::cssSelector('#foo');
+$button = $driver->findElement(WebDriverBy::cssSelector('#foo'));
 $button->click();
 ```
 
@@ -47,13 +51,15 @@ $button->click();
 ### Details
 <!-- Please fill relevant following items: -->
 
-* Php-webdriver version: 
-* PHP version: 
-* How do you start the browser: (for example: via Selenium server / with chromedriver command / using Laravel Dusk / in Docker etc.)
-* Selenium server version: 
-* Operating system: 
-* Browser used + version: 
-* Browser driver (chromedriver/geckodriver...) version: 
+* Php-webdriver version: <!-- You can run `composer show php-webdriver/webdriver` to find the version -->
+* PHP version:  <!-- You can run `php -v` to find the version -->
+* How do you start the browser driver or Selenium server:
+  <!-- For example Selenium server, chromedriver command, Laravel Dusk, Docker, SauceLabs etc. -->
+  <!-- If relevant, provide the complete command you use to start the browser driver or Selenium server -->
+* Selenium server version: <!-- Relevant only if you use Selenium server -->
+* Browser driver (chromedriver/geckodriver...) version: <!-- Run `chromedriver --version` or `geckodriver --version` -->
+* Browser used + version:
+* Operating system:
 
 ### Additional context
 <!-- Add any other context about the problem here. -->
