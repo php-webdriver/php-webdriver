@@ -69,6 +69,8 @@ chromedriver --port=4444
 
 #### b) Geckodriver
 
+📙 Below you will find a simple example. Make sure to read our wiki for [more information on Firefox/Geckodriver](https://github.com/php-webdriver/php-webdriver/wiki/Firefox).
+
 Install the latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases).
 Make sure to have a compatible version of Geckodriver and Firefox!
 
@@ -146,7 +148,8 @@ $driver = RemoteWebDriver::create($serverUrl, $desiredCapabilities);
 ```
 
 Capabilities can also be used to [📙 configure a proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
-To configure Chrome capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions).
+To configure browser-specific capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions)
+or [📙 FirefoxOptions](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefox-options).
 
 * See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
 
