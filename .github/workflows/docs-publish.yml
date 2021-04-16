@@ -1,0 +1,35 @@
+name: Publish API documentation
+
+on:
+  repository_dispatch:
+    types: [ run-build-api-docs ]
+  workflow_dispatch:
+  schedule:
+    - cron: "00 12 * * *"
+
+jobs:
+  publish-pages:
+    environment:
+      name: API documentation
+      url: https://php-webdriver.github.io/php-webdriver/
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ssh-key: ${{ secrets.SSH_KEY_DEPLOY }}
+
+      - name: Build PHP documentation
+        uses: sudo-bot/action-doctum@v5
+        with:
+          config-file: scripts/doctum.php
+          method: 'update'
+          cli-args: '--output-format=github --no-ansi --no-progress -v --ignore-parse-errors'
+
+      - name: Set commit author
+        run: |
+          git config user.name "Automated"
+          git config user.email "actions@users.noreply.github.com"
+      - name: Push the changes
+        run: ./scripts/update-built-docs.sh

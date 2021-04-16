@@ -7,6 +7,7 @@ tools/php-cs-fixer/vendor
 .phpunit.result.cache
 phpunit.xml
 logs/
+build/
 
 # generic files to ignore
 *.lock
