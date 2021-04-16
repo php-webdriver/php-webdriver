@@ -3,6 +3,7 @@
 namespace Facebook\WebDriver\Firefox;
 
 /**
+ * @todo Implement service to start local geckodriver
  * @codeCoverageIgnore
  */
 class FirefoxDriver
