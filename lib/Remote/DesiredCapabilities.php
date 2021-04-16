@@ -5,7 +5,7 @@ namespace Facebook\WebDriver\Remote;
 use Exception;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Firefox\FirefoxDriver;
-use Facebook\WebDriver\Firefox\FirefoxPreferences;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
 use Facebook\WebDriver\WebDriverCapabilities;
 use Facebook\WebDriver\WebDriverPlatform;
@@ -96,6 +96,15 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     public function setCapability($name, $value)
     {
+        // When setting 'moz:firefoxOptions' from an array and not from instance of FirefoxOptions, we must merge
+        // it with default FirefoxOptions to keep previous behavior (where the default preferences were added
+        // using FirefoxProfile, thus not overwritten by adding 'moz:firefoxOptions')
+        // TODO: remove in next major version, once FirefoxOptions are only accepted as object instance and not as array
+        if ($name === FirefoxOptions::CAPABILITY && is_array($value)) {
+            $defaultOptions = (new FirefoxOptions())->toArray();
+            $value = array_merge($defaultOptions, $value);
+        }
+
         $this->set($name, $value);
 
         return $this;
@@ -175,6 +184,13 @@ class DesiredCapabilities implements WebDriverCapabilities
                 $this->capabilities[ChromeOptions::CAPABILITY]->toArray();
         }
 
+        if (isset($this->capabilities[FirefoxOptions::CAPABILITY]) &&
+            $this->capabilities[FirefoxOptions::CAPABILITY] instanceof FirefoxOptions
+        ) {
+            $this->capabilities[FirefoxOptions::CAPABILITY] =
+                $this->capabilities[FirefoxOptions::CAPABILITY]->toArray();
+        }
+
         if (isset($this->capabilities[FirefoxDriver::PROFILE]) &&
             $this->capabilities[FirefoxDriver::PROFILE] instanceof FirefoxProfile
         ) {
@@ -249,9 +265,9 @@ class DesiredCapabilities implements WebDriverCapabilities
         // Convert Firefox profile
         if (array_key_exists(FirefoxDriver::PROFILE, $ossCapabilities)) {
             // Convert profile only if not already set in moz:firefoxOptions
-            if (!array_key_exists('moz:firefoxOptions', $ossCapabilities)
-                || !array_key_exists('profile', $ossCapabilities['moz:firefoxOptions'])) {
-                $w3cCapabilities['moz:firefoxOptions']['profile'] = $ossCapabilities[FirefoxDriver::PROFILE];
+            if (!array_key_exists(FirefoxOptions::CAPABILITY, $ossCapabilities)
+                || !array_key_exists('profile', $ossCapabilities[FirefoxOptions::CAPABILITY])) {
+                $w3cCapabilities[FirefoxOptions::CAPABILITY]['profile'] = $ossCapabilities[FirefoxDriver::PROFILE];
             }
         }
 
@@ -290,13 +306,7 @@ class DesiredCapabilities implements WebDriverCapabilities
             WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY,
         ]);
 
-        $profile = new FirefoxProfile();
-        // disable the "Reader View" help tooltip, which can hide elements in the window.document
-        $profile->setPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED, false);
-        // disable JSON viewer and let JSON be rendered as raw data
-        $profile->setPreference(FirefoxPreferences::DEVTOOLS_JSONVIEW, false);
-
-        $caps->setCapability(FirefoxDriver::PROFILE, $profile);
+        $caps->setCapability(FirefoxOptions::CAPABILITY, new FirefoxOptions()); // to add default options
 
         return $caps;
     }

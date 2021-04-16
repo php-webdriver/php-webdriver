@@ -134,6 +134,7 @@ Desired capabilities define properties of the browser you are about to start.
 They can be customized:
 
 ```php
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 
 $desiredCapabilities = DesiredCapabilities::firefox();
@@ -141,15 +142,18 @@ $desiredCapabilities = DesiredCapabilities::firefox();
 // Disable accepting SSL certificates
 $desiredCapabilities->setCapability('acceptSslCerts', false);
 
-// Run headless firefox
-$desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
+// Add arguments via FirefoxOptions to start headless firefox
+$firefoxOptions = new FirefoxOptions();
+$firefoxOptions->addArguments(['-headless']);
+$desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
 
 $driver = RemoteWebDriver::create($serverUrl, $desiredCapabilities);
 ```
 
 Capabilities can also be used to [📙 configure a proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
+
 To configure browser-specific capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions)
-or [📙 FirefoxOptions](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefox-options).
+or [📙 FirefoxOptions](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
 
 * See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
 

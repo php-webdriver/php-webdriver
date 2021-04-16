@@ -2,6 +2,7 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+- Add `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
 
 ## 1.10.0 - 2021-02-25
 ### Added
