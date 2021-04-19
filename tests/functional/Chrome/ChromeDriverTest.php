@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\Chrome\ChromeDriver
+ * @covers \Facebook\WebDriver\Local\LocalWebDriver
  */
 class ChromeDriverTest extends TestCase
 {
