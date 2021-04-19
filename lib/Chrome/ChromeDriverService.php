@@ -25,7 +25,7 @@ class ChromeDriverService extends DriverService
     public static function createDefaultService()
     {
         $pathToExecutable = getenv(self::CHROME_DRIVER_EXECUTABLE) ?: getenv(self::CHROME_DRIVER_EXE_PROPERTY);
-        if ($pathToExecutable === false) {
+        if ($pathToExecutable === false || $pathToExecutable === '') {
             $pathToExecutable = static::DEFAULT_EXECUTABLE;
         }
 
