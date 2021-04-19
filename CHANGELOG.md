@@ -2,7 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
-- Add `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
+- Add `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).`
+- Add `FirefoxDriver` to easy local start of Firefox instance without a need to start the `geckodriver` process manually.
 
 ## 1.10.0 - 2021-02-25
 ### Added
