@@ -4,7 +4,8 @@ namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Firefox\FirefoxDriver;
-use Facebook\WebDriver\Firefox\FirefoxPreferences;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
+use Facebook\WebDriver\Firefox\FirefoxOptionsTest;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
 use Facebook\WebDriver\WebDriverPlatform;
 use PHPUnit\Framework\TestCase;
@@ -123,15 +124,53 @@ class DesiredCapabilitiesTest extends TestCase
         ];
     }
 
-    public function testShouldSetupFirefoxProfileAndDisableReaderViewForFirefoxBrowser()
+    public function testShouldSetupFirefoxWithDefaultOptions()
+    {
+        $capabilitiesArray = DesiredCapabilities::firefox()->toArray();
+
+        $this->assertSame('firefox', $capabilitiesArray['browserName']);
+        $this->assertSame(
+            [
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+            ],
+            $capabilitiesArray['moz:firefoxOptions']
+        );
+    }
+
+    public function testShouldSetupFirefoxWithCustomOptions()
+    {
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments(['-headless']);
+        $firefoxOptions->setOption('binary', '/foo/bar/firefox');
+
+        $capabilities = DesiredCapabilities::firefox();
+        $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
+
+        $capabilitiesArray = $capabilities->toArray();
+
+        $this->assertSame('firefox', $capabilitiesArray['browserName']);
+        $this->assertSame(
+            [
+                'binary' => '/foo/bar/firefox',
+                'args' => ['-headless'],
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+            ],
+            $capabilitiesArray['moz:firefoxOptions']
+        );
+    }
+
+    public function testShouldNotOverwriteDefaultFirefoxOptionsWhenAddingFirefoxOptionAsArray()
     {
         $capabilities = DesiredCapabilities::firefox();
+        $capabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
 
-        /** @var FirefoxProfile $firefoxProfile */
-        $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
-        $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
-
-        $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
+        $this->assertSame(
+            [
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+                'args' => ['-headless'],
+            ],
+            $capabilities->toArray()['moz:firefoxOptions']
+        );
     }
 
     /**
@@ -155,9 +194,10 @@ class DesiredCapabilitiesTest extends TestCase
     public function provideW3cCapabilities()
     {
         $chromeOptions = new ChromeOptions();
-        $chromeOptions->addArguments([
-            '--headless',
-        ]);
+        $chromeOptions->addArguments(['--headless']);
+
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments(['-headless']);
 
         $firefoxProfileEncoded = (new FirefoxProfile())->encode();
 
@@ -275,7 +315,7 @@ class DesiredCapabilitiesTest extends TestCase
             'firefox_profile should not be overwritten if already present' => [
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
-                    'moz:firefoxOptions' => ['profile' => 'w3cProfile'],
+                    FirefoxOptions::CAPABILITY => ['profile' => 'w3cProfile'],
                 ]),
                 [
                     'moz:firefoxOptions' => [
@@ -286,12 +326,13 @@ class DesiredCapabilitiesTest extends TestCase
             'firefox_profile should be merged with moz:firefoxOptions if they already exists' => [
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
-                    'moz:firefoxOptions' => ['args' => ['-headless']],
+                    FirefoxOptions::CAPABILITY => $firefoxOptions,
                 ]),
                 [
                     'moz:firefoxOptions' => [
                         'profile' => $firefoxProfileEncoded,
                         'args' => ['-headless'],
+                        'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
                     ],
                 ],
             ],

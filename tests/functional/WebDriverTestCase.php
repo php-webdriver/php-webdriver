@@ -5,6 +5,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Exception\NoSuchWindowException;
 use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
@@ -62,10 +63,10 @@ class WebDriverTestCase extends TestCase
                 if (getenv('GECKODRIVER') === '1') {
                     $this->serverUrl = 'http://localhost:4444';
                 }
-                $this->desiredCapabilities->setCapability(
-                    'moz:firefoxOptions',
-                    ['args' => ['-headless']]
-                );
+
+                $firefoxOptions = new FirefoxOptions();
+                $firefoxOptions->addArguments(['-headless']);
+                $this->desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);
