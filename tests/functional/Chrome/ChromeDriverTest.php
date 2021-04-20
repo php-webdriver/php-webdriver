@@ -36,9 +36,12 @@ class ChromeDriverTest extends TestCase
     public function testShouldStartChromeDriver()
     {
         $this->startChromeDriver();
-
         $this->assertInstanceOf(ChromeDriver::class, $this->driver);
         $this->assertInstanceOf(DriverCommandExecutor::class, $this->driver->getCommandExecutor());
+
+        // Make sure actual browser capabilities were set
+        $this->assertNotEmpty($this->driver->getCapabilities()->getVersion());
+        $this->assertNotEmpty($this->driver->getCapabilities()->getCapability('goog:chromeOptions'));
 
         $this->driver->get('http://localhost:8000/');
 
