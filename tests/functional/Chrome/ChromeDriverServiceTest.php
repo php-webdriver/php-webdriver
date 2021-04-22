@@ -19,7 +19,7 @@ class ChromeDriverServiceTest extends TestCase
     {
         if (getenv('BROWSER_NAME') !== 'chrome' || empty(getenv('CHROMEDRIVER_PATH'))
             || WebDriverTestCase::isSauceLabsBuild()) {
-            $this->markTestSkipped('ChromeDriverServiceTest is run only when running against local chrome');
+            $this->markTestSkipped('The test is run only when running against local chrome');
         }
     }
 

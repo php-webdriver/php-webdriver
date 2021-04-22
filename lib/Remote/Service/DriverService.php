@@ -9,6 +9,7 @@ use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Start local WebDriver service (when remote WebDriver server is not used).
+ * This will start new process of respective browser driver and take care of its lifecycle.
  */
 class DriverService
 {
