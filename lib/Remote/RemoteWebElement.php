@@ -410,12 +410,23 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     public function submit()
     {
         if ($this->isW3cCompliant) {
+            // Submit method cannot be called directly in case an input of this form is named "submit".
+            // We use this polyfill to trigger 'submit' event using form.dispatchEvent().
+            $submitPolyfill = $script = <<<HTXT
+                var form = arguments[0];
+                while (form.nodeName !== "FORM" && form.parentNode) { // find the parent form of this element
+                    form = form.parentNode;
+                }
+                if (!form) {
+                    throw Error('Unable to find containing form element');
+                }
+                var event = new Event('submit', {bubbles: true, cancelable: true});
+                if (form.dispatchEvent(event)) {
+                    HTMLFormElement.prototype.submit.call(form);
+                }
+HTXT;
             $this->executor->execute(DriverCommand::EXECUTE_SCRIPT, [
-                // cannot call the submit method directly in case an input of this form is named "submit"
-                'script' => sprintf(
-                    'return Object.getPrototypeOf(%1$s).submit.call(%1$s);',
-                    $this->getTagName() === 'form' ? 'arguments[0]' : 'arguments[0].form'
-                ),
+                'script' => $submitPolyfill,
                 'args' => [[JsonWireCompat::WEB_DRIVER_ELEMENT_IDENTIFIER => $this->id]],
             ]);
 
