@@ -33,16 +33,34 @@ class ChromeDriverTest extends TestCase
         }
     }
 
-    public function testShouldStartChromeDriver()
+    /**
+     * @dataProvider provideDialect
+     * @param bool $isW3cDialect
+     */
+    public function testShouldStartChromeDriver($isW3cDialect)
     {
-        $this->startChromeDriver();
-
+        $this->startChromeDriver($isW3cDialect);
         $this->assertInstanceOf(ChromeDriver::class, $this->driver);
         $this->assertInstanceOf(DriverCommandExecutor::class, $this->driver->getCommandExecutor());
+
+        // Make sure actual browser capabilities were set
+        $this->assertNotEmpty($this->driver->getCapabilities()->getVersion());
+        $this->assertNotEmpty($this->driver->getCapabilities()->getCapability('goog:chromeOptions'));
 
         $this->driver->get('http://localhost:8000/');
 
         $this->assertSame('http://localhost:8000/', $this->driver->getCurrentURL());
+    }
+
+    /**
+     * @return array[]
+     */
+    public function provideDialect()
+    {
+        return [
+            'w3c' => [true],
+            'oss' => [false],
+        ];
     }
 
     public function testShouldInstantiateDevTools()
@@ -63,7 +81,7 @@ class ChromeDriverTest extends TestCase
         $this->assertSame(['result' => ['type' => 'string', 'value' => 'http://localhost:8000/']], $cdpResult);
     }
 
-    private function startChromeDriver()
+    private function startChromeDriver($w3cDialect = true)
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));
@@ -71,6 +89,7 @@ class ChromeDriverTest extends TestCase
         // Add --no-sandbox as a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
         $chromeOptions = new ChromeOptions();
         $chromeOptions->addArguments(['--no-sandbox', '--headless']);
+        $chromeOptions->setExperimentalOption('w3c', $w3cDialect);
         $desiredCapabilities = DesiredCapabilities::chrome();
         $desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
 
