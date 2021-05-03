@@ -4,15 +4,16 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 ### Added
-- `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).`
-- `FirefoxDriver` to easy local start of Firefox instance without a need to start the `geckodriver` process manually.
+- `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
+g- `FirefoxDriver` to easy local start of Firefox instance without a need to start the `geckodriver` process manually. [See wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#start-directly-using-firefoxdriver-class) for usage examples.
 - Method `ChromeDriver::startUsingDriverService()` to be used for creating ChromeDriver instance with custom service.
 
 ### Fixed
 - Driver capabilities received from the browser when creating now session were not set to the instance of ChromeDriver (when ChromeDriver::start() was used).
 
 ### Changed
-- Deprecate `ChromeDriver::startSession`. However the method was supposed to be used only internally.
+- Deprecate `ChromeDriver::startSession`. However, the method was supposed to be used only internally.
+- KeyDown and KeyUp actions will throw an exception when not used with modifier keys.
 
 ## 1.10.0 - 2021-02-25
 ### Added
