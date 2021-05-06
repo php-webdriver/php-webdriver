@@ -177,6 +177,9 @@ echo 'About to click to a button with text: ' . $historyButton->getText();
 
 // Click the element to navigate to revision history page
 $historyButton->click();
+
+// Make sure to always call quit() at the end to terminate the browser session
+$driver->quit();
 ```
 
 See [example.php](example.php) for full example scenario.

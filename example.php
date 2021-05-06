@@ -70,5 +70,5 @@ $driver->manage()->addCookie($cookie);
 $cookies = $driver->manage()->getCookies();
 print_r($cookies);
 
-// close the browser
+// terminate the session and close the browser
 $driver->quit();
