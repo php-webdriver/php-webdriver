@@ -60,6 +60,31 @@ class RemoteWebElementTest extends WebDriverTestCase
     }
 
     /**
+     * @covers ::getLocationOnScreenOnceScrolledIntoView
+     */
+    public function testShouldGetLocationOnScreenOnceScrolledIntoView()
+    {
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('element-out-of-viewport'));
+
+        // Location before scrolling into view is out of viewport
+        $elementLocation = $element->getLocation();
+        $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
+        $this->assertSame(33, $elementLocation->getX());
+        $this->assertSame(5000, $elementLocation->getY());
+
+        // Location once scrolled into view
+        $elementLocationOnceScrolledIntoView = $element->getLocationOnScreenOnceScrolledIntoView();
+        $this->assertInstanceOf(WebDriverPoint::class, $elementLocationOnceScrolledIntoView);
+        $this->assertSame(33, $elementLocationOnceScrolledIntoView->getX());
+        $this->assertLessThan(
+            1000, // screen size is ~768, so this should be less
+            $elementLocationOnceScrolledIntoView->getY()
+        );
+    }
+
+    /**
      * @covers ::getSize
      */
     public function testShouldGetSize()
