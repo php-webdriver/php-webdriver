@@ -37,6 +37,11 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->switchTo()->window($newWindowHandle);
 
+        $this->driver->wait()->until(function () {
+            // The window contents is sometimes not yet loaded and needs a while to actually show the index.html page
+            return mb_strpos($this->driver->getCurrentURL(), 'index.html') !== false;
+        });
+
         // After switchTo() is called, the active window should be changed
         $this->compatAssertStringContainsString('index.html', $this->driver->getCurrentURL());
         $this->assertNotSame($originalWindowHandle, $this->driver->getWindowHandle());
