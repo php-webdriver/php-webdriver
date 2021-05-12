@@ -38,11 +38,6 @@
   "config": {
     "sort-packages": true
   },
-  "extra": {
-    "branch-alias": {
-      "dev-main": "1.8.x-dev"
-    }
-  },
   "autoload": {
     "psr-4": {
       "Facebook\\WebDriver\\": "lib/"
