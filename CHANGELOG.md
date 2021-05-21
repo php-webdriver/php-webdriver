@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.11.1 - 2021-05-21
 ### Fixed
 - `RemoteWebElement::getLocationOnScreenOnceScrolledIntoView()` was missing polyfill implementation for W3C mode and not working in eg. Safari.
 
