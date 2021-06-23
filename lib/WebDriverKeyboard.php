@@ -30,3 +30,5 @@ interface WebDriverKeyboard
      */
     public function releaseKey($key);
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverKeyboard::class, \Facebook\WebDriver\WebDriverKeyboard::class);

@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoStringWrapperException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoStringWrapperException::class, \Facebook\WebDriver\Exception\NoStringWrapperException::class);

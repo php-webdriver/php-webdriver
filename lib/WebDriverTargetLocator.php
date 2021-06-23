@@ -67,3 +67,5 @@ interface WebDriverTargetLocator
      */
     public function activeElement();
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverTargetLocator::class, \Facebook\WebDriver\WebDriverTargetLocator::class);

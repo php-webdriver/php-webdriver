@@ -9,3 +9,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoSuchCookieException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoSuchCookieException::class, \Facebook\WebDriver\Exception\NoSuchCookieException::class);

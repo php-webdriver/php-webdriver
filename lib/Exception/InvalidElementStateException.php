@@ -9,3 +9,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class InvalidElementStateException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\InvalidElementStateException::class, \Facebook\WebDriver\Exception\InvalidElementStateException::class);

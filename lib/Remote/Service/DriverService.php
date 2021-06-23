@@ -207,3 +207,5 @@ class DriverService
         return false;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\Service\DriverService::class, \Facebook\WebDriver\Remote\Service\DriverService::class);

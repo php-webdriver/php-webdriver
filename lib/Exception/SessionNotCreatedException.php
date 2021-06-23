@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class SessionNotCreatedException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\SessionNotCreatedException::class, \Facebook\WebDriver\Exception\SessionNotCreatedException::class);

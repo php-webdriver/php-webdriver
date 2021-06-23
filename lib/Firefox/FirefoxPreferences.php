@@ -23,3 +23,5 @@ class FirefoxPreferences
     {
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Firefox\FirefoxPreferences::class, \Facebook\WebDriver\Firefox\FirefoxPreferences::class);

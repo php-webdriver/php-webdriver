@@ -141,3 +141,5 @@ interface WebDriver extends WebDriverSearchContext
     // */
     //public function executeCustomCommand($endpointUrl, $method = 'GET', $params = []);
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriver::class, \Facebook\WebDriver\WebDriver::class);

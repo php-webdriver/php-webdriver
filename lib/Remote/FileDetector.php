@@ -14,3 +14,5 @@ interface FileDetector
      */
     public function getLocalFile($file);
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\FileDetector::class, \Facebook\WebDriver\Remote\FileDetector::class);

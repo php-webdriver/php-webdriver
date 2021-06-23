@@ -130,3 +130,5 @@ class WebDriverKeys
         return implode('', $encoded);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverKeys::class, \Facebook\WebDriver\WebDriverKeys::class);

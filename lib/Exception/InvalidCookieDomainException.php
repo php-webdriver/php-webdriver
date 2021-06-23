@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class InvalidCookieDomainException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\InvalidCookieDomainException::class, \Facebook\WebDriver\Exception\InvalidCookieDomainException::class);

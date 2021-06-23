@@ -14,3 +14,5 @@ interface WebDriverLocatable
      */
     public function getCoordinates();
 }
+
+class_alias(\PhpWebDriver\WebDriver\Internal\WebDriverLocatable::class, \Facebook\WebDriver\Internal\WebDriverLocatable::class);

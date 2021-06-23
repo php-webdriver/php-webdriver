@@ -29,3 +29,5 @@ interface WebDriverSearchContext
      */
     public function findElements(WebDriverBy $locator);
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverSearchContext::class, \Facebook\WebDriver\WebDriverSearchContext::class);

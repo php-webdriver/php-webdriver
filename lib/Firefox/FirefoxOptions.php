@@ -106,3 +106,5 @@ class FirefoxOptions implements \JsonSerializable
         return new \ArrayObject($this->toArray());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Firefox\FirefoxOptions::class, \Facebook\WebDriver\Firefox\FirefoxOptions::class);

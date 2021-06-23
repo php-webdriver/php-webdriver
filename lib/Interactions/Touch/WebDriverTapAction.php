@@ -11,3 +11,5 @@ class WebDriverTapAction extends WebDriverTouchAction implements WebDriverAction
         $this->touchScreen->tap($this->locationProvider);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTapAction::class, \Facebook\WebDriver\Interactions\Touch\WebDriverTapAction::class);

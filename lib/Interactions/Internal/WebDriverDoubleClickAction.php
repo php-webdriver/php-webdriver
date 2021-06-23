@@ -11,3 +11,5 @@ class WebDriverDoubleClickAction extends WebDriverMouseAction implements WebDriv
         $this->mouse->doubleClick($this->getActionLocation());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverDoubleClickAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverDoubleClickAction::class);

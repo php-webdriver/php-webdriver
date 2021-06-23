@@ -40,3 +40,5 @@ abstract class WebDriverTouchAction
             ? $this->locationProvider->getCoordinates() : null;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTouchAction::class, \Facebook\WebDriver\Interactions\Touch\WebDriverTouchAction::class);

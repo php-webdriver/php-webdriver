@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class JavascriptErrorException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\JavascriptErrorException::class, \Facebook\WebDriver\Exception\JavascriptErrorException::class);

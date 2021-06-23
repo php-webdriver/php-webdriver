@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoStringLengthException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoStringLengthException::class, \Facebook\WebDriver\Exception\NoStringLengthException::class);

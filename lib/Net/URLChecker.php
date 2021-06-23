@@ -70,3 +70,5 @@ class URLChecker
         return $code;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Net\URLChecker::class, \Facebook\WebDriver\Net\URLChecker::class);

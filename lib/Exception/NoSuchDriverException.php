@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoSuchDriverException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoSuchDriverException::class, \Facebook\WebDriver\Exception\NoSuchDriverException::class);

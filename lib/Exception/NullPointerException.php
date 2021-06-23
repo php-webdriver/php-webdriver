@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NullPointerException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NullPointerException::class, \Facebook\WebDriver\Exception\NullPointerException::class);

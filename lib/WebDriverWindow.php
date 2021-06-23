@@ -189,3 +189,5 @@ class WebDriverWindow
         return $this;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverWindow::class, \Facebook\WebDriver\WebDriverWindow::class);

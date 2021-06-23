@@ -266,3 +266,5 @@ class WebDriverActions
         return $this;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\WebDriverActions::class, \Facebook\WebDriver\Interactions\WebDriverActions::class);

@@ -14,3 +14,5 @@ class WebDriverClickAndHoldAction extends WebDriverMouseAction implements WebDri
         $this->mouse->mouseDown($this->getActionLocation());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction::class);

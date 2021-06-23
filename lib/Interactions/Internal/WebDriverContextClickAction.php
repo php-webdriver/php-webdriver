@@ -14,3 +14,5 @@ class WebDriverContextClickAction extends WebDriverMouseAction implements WebDri
         $this->mouse->contextClick($this->getActionLocation());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverContextClickAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverContextClickAction::class);

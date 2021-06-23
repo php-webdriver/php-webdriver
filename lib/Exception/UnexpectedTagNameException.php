@@ -21,3 +21,5 @@ class UnexpectedTagNameException extends WebDriverException
         );
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\UnexpectedTagNameException::class, \Facebook\WebDriver\Exception\UnexpectedTagNameException::class);

@@ -9,3 +9,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class ElementClickInterceptedException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\ElementClickInterceptedException::class, \Facebook\WebDriver\Exception\ElementClickInterceptedException::class);

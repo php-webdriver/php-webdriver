@@ -70,3 +70,5 @@ class WebDriverAlert
         return $this;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverAlert::class, \Facebook\WebDriver\WebDriverAlert::class);

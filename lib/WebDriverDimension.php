@@ -57,3 +57,5 @@ class WebDriverDimension
         return $this->height === $dimension->getHeight() && $this->width === $dimension->getWidth();
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverDimension::class, \Facebook\WebDriver\WebDriverDimension::class);

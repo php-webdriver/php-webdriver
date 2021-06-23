@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class InvalidSelectorException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\InvalidSelectorException::class, \Facebook\WebDriver\Exception\InvalidSelectorException::class);

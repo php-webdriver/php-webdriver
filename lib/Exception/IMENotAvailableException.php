@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class IMENotAvailableException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\IMENotAvailableException::class, \Facebook\WebDriver\Exception\IMENotAvailableException::class);

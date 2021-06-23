@@ -112,3 +112,5 @@ interface WebDriverTouchScreen
      */
     public function up($x, $y);
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTouchScreen::class, \Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen::class);

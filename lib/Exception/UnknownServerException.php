@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class UnknownServerException extends UnknownErrorException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\UnknownServerException::class, \Facebook\WebDriver\Exception\UnknownServerException::class);

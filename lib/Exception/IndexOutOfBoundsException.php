@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class IndexOutOfBoundsException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\IndexOutOfBoundsException::class, \Facebook\WebDriver\Exception\IndexOutOfBoundsException::class);

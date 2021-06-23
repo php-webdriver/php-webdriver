@@ -44,3 +44,5 @@ interface WebDriverCapabilities
     // */
     //public function toArray();
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverCapabilities::class, \Facebook\WebDriver\WebDriverCapabilities::class);

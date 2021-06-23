@@ -14,3 +14,5 @@ class WebDriverButtonReleaseAction extends WebDriverMouseAction implements WebDr
         $this->mouse->mouseUp($this->getActionLocation());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction::class);

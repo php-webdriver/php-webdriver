@@ -186,3 +186,5 @@ class RemoteTouchScreen implements WebDriverTouchScreen
         return $this;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\RemoteTouchScreen::class, \Facebook\WebDriver\Remote\RemoteTouchScreen::class);

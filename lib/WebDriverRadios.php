@@ -50,3 +50,5 @@ class WebDriverRadios extends AbstractWebDriverCheckboxOrRadio
         throw new UnsupportedOperationException('You cannot deselect radio buttons');
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverRadios::class, \Facebook\WebDriver\WebDriverRadios::class);

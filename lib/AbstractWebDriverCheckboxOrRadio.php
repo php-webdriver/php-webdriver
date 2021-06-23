@@ -238,3 +238,5 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
         }
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\AbstractWebDriverCheckboxOrRadio::class, \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio::class);

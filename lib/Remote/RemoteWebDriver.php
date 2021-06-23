@@ -727,3 +727,5 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         return $desired_capabilities;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\RemoteWebDriver::class, \Facebook\WebDriver\Remote\RemoteWebDriver::class);

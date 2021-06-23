@@ -108,3 +108,5 @@ class ChromeDriver extends LocalWebDriver
         return $this->devTools;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Chrome\ChromeDriver::class, \Facebook\WebDriver\Chrome\ChromeDriver::class);

@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoAlertOpenException extends NoSuchAlertException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoAlertOpenException::class, \Facebook\WebDriver\Exception\NoAlertOpenException::class);

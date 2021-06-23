@@ -51,3 +51,5 @@ interface WebDriverMouse
      */
     public function mouseUp(WebDriverCoordinates $where);
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverMouse::class, \Facebook\WebDriver\WebDriverMouse::class);

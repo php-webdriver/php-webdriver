@@ -33,3 +33,5 @@ interface JavaScriptExecutor
      */
     public function executeAsyncScript($script, array $arguments = []);
 }
+
+class_alias(\PhpWebDriver\WebDriver\JavaScriptExecutor::class, \Facebook\WebDriver\JavaScriptExecutor::class);

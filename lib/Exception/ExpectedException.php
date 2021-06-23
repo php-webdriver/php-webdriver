@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class ExpectedException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\ExpectedException::class, \Facebook\WebDriver\Exception\ExpectedException::class);

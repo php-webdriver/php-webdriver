@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class InvalidCoordinatesException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\InvalidCoordinatesException::class, \Facebook\WebDriver\Exception\InvalidCoordinatesException::class);

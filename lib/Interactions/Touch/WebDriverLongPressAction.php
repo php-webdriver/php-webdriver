@@ -11,3 +11,5 @@ class WebDriverLongPressAction extends WebDriverTouchAction implements WebDriver
         $this->touchScreen->longPress($this->locationProvider);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverLongPressAction::class, \Facebook\WebDriver\Interactions\Touch\WebDriverLongPressAction::class);

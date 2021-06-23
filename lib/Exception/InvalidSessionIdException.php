@@ -9,3 +9,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class InvalidSessionIdException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\InvalidSessionIdException::class, \Facebook\WebDriver\Exception\InvalidSessionIdException::class);

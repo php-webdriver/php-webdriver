@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class ElementNotVisibleException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\ElementNotVisibleException::class, \Facebook\WebDriver\Exception\ElementNotVisibleException::class);

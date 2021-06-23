@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoStringException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoStringException::class, \Facebook\WebDriver\Exception\NoStringException::class);

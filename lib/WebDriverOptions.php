@@ -178,3 +178,5 @@ class WebDriverOptions
         return $this->executor->execute(DriverCommand::GET_AVAILABLE_LOG_TYPES);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverOptions::class, \Facebook\WebDriver\WebDriverOptions::class);

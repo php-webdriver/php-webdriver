@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoCollectionException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoCollectionException::class, \Facebook\WebDriver\Exception\NoCollectionException::class);

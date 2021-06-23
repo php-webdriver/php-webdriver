@@ -47,3 +47,5 @@ class WebDriverCompositeAction implements WebDriverAction
         }
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\WebDriverCompositeAction::class, \Facebook\WebDriver\Interactions\WebDriverCompositeAction::class);

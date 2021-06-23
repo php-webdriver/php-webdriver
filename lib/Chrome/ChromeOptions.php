@@ -178,3 +178,5 @@ class ChromeOptions implements JsonSerializable
         return $this;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Chrome\ChromeOptions::class, \Facebook\WebDriver\Chrome\ChromeOptions::class);

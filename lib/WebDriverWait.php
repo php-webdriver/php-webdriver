@@ -71,3 +71,5 @@ class WebDriverWait
         throw new TimeoutException($message);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverWait::class, \Facebook\WebDriver\WebDriverWait::class);

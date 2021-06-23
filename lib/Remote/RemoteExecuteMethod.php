@@ -27,3 +27,5 @@ class RemoteExecuteMethod implements ExecuteMethod
         return $this->driver->execute($command_name, $parameters);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\RemoteExecuteMethod::class, \Facebook\WebDriver\Remote\RemoteExecuteMethod::class);

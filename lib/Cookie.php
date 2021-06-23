@@ -255,3 +255,5 @@ class Cookie implements \ArrayAccess
         }
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Cookie::class, \Facebook\WebDriver\Cookie::class);

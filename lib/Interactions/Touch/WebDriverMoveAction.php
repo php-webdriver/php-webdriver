@@ -26,3 +26,5 @@ class WebDriverMoveAction extends WebDriverTouchAction implements WebDriverActio
         $this->touchScreen->move($this->x, $this->y);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverMoveAction::class, \Facebook\WebDriver\Interactions\Touch\WebDriverMoveAction::class);

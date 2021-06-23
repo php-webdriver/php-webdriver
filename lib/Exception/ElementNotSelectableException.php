@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class ElementNotSelectableException extends ElementNotInteractableException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\ElementNotSelectableException::class, \Facebook\WebDriver\Exception\ElementNotSelectableException::class);

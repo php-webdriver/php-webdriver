@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class IMEEngineActivationFailedException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\IMEEngineActivationFailedException::class, \Facebook\WebDriver\Exception\IMEEngineActivationFailedException::class);

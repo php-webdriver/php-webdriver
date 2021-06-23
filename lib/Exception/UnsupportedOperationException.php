@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class UnsupportedOperationException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\UnsupportedOperationException::class, \Facebook\WebDriver\Exception\UnsupportedOperationException::class);

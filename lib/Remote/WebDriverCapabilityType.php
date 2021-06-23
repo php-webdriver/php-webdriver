@@ -30,3 +30,5 @@ class WebDriverCapabilityType
     {
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\WebDriverCapabilityType::class, \Facebook\WebDriver\Remote\WebDriverCapabilityType::class);

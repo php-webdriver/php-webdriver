@@ -80,3 +80,5 @@ class CustomWebDriverCommand extends WebDriverCommand
         $this->customUrl = $custom_url;
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\CustomWebDriverCommand::class, \Facebook\WebDriver\Remote\CustomWebDriverCommand::class);

@@ -38,3 +38,5 @@ class WebDriverBrowserType
     {
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\WebDriverBrowserType::class, \Facebook\WebDriver\Remote\WebDriverBrowserType::class);

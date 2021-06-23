@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class XPathLookupException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\XPathLookupException::class, \Facebook\WebDriver\Exception\XPathLookupException::class);

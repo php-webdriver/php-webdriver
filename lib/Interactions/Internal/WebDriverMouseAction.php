@@ -46,3 +46,5 @@ class WebDriverMouseAction
         $this->mouse->mouseMove($this->locationProvider);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMouseAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverMouseAction::class);

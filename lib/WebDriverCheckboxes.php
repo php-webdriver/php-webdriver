@@ -51,3 +51,5 @@ class WebDriverCheckboxes extends AbstractWebDriverCheckboxOrRadio
         $this->byVisibleText($text, true, false);
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverCheckboxes::class, \Facebook\WebDriver\WebDriverCheckboxes::class);

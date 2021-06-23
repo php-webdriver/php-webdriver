@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoScriptResultException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoScriptResultException::class, \Facebook\WebDriver\Exception\NoScriptResultException::class);

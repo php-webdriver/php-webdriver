@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class MoveTargetOutOfBoundsException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\MoveTargetOutOfBoundsException::class, \Facebook\WebDriver\Exception\MoveTargetOutOfBoundsException::class);

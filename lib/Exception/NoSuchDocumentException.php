@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class NoSuchDocumentException extends NoSuchWindowException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\NoSuchDocumentException::class, \Facebook\WebDriver\Exception\NoSuchDocumentException::class);

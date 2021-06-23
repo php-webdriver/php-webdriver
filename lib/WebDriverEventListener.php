@@ -92,3 +92,5 @@ interface WebDriverEventListener
      */
     public function onException(WebDriverException $exception, EventFiringWebDriver $driver = null);
 }
+
+class_alias(\PhpWebDriver\WebDriver\WebDriverEventListener::class, \Facebook\WebDriver\WebDriverEventListener::class);

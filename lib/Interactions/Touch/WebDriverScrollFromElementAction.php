@@ -36,3 +36,5 @@ class WebDriverScrollFromElementAction extends WebDriverTouchAction implements W
         );
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Touch\WebDriverScrollFromElementAction::class, \Facebook\WebDriver\Interactions\Touch\WebDriverScrollFromElementAction::class);

@@ -304,3 +304,5 @@ class RemoteMouse implements WebDriverMouse
         ];
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Remote\RemoteMouse::class, \Facebook\WebDriver\Remote\RemoteMouse::class);

@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class UnexpectedAlertOpenException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\UnexpectedAlertOpenException::class, \Facebook\WebDriver\Exception\UnexpectedAlertOpenException::class);

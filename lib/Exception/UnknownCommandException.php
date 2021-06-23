@@ -8,3 +8,5 @@ namespace PhpWebDriver\WebDriver\Exception;
 class UnknownCommandException extends WebDriverException
 {
 }
+
+class_alias(\PhpWebDriver\WebDriver\Exception\UnknownCommandException::class, \Facebook\WebDriver\Exception\UnknownCommandException::class);

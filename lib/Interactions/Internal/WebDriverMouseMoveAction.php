@@ -11,3 +11,5 @@ class WebDriverMouseMoveAction extends WebDriverMouseAction implements WebDriver
         $this->mouse->mouseMove($this->getActionLocation());
     }
 }
+
+class_alias(\PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMouseMoveAction::class, \Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction::class);
