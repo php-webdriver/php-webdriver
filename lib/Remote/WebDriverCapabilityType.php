@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
 /**
  * WebDriverCapabilityType contains all constants defined in the WebDriver Wire Protocol.

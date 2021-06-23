@@ -1,12 +1,12 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for locator strategies provided by WebDriverBy.
- * @covers \Facebook\WebDriver\WebDriverBy
+ * @covers \PhpWebDriver\WebDriver\WebDriverBy
  */
 class WebDriverByTest extends WebDriverTestCase
 {

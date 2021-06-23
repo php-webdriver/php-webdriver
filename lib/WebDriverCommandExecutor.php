@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\WebDriverCommand;
-use Facebook\WebDriver\Remote\WebDriverResponse;
+use PhpWebDriver\WebDriver\Remote\WebDriverCommand;
+use PhpWebDriver\WebDriver\Remote\WebDriverResponse;
 
 /**
  * Interface for all command executor.

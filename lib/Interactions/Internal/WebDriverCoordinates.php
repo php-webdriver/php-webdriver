@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\WebDriverPoint;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\WebDriverPoint;
 
 /**
  * Interface representing basic mouse operations.

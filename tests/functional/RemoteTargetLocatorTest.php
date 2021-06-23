@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 
 /**
- * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
+ * @covers \PhpWebDriver\WebDriver\Remote\RemoteTargetLocator
  */
 class RemoteTargetLocatorTest extends WebDriverTestCase
 {

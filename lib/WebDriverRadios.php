@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
 
 /**
  * Provides helper methods for radio buttons.

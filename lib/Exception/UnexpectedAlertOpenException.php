@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * A modal dialog was open, blocking this operation.

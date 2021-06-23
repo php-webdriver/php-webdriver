@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
  * Interface representing a single user-interaction action.

@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchAlertException;
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\NoSuchFrameException;
-use Facebook\WebDriver\Exception\StaleElementReferenceException;
+use PhpWebDriver\WebDriver\Exception\NoSuchAlertException;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\NoSuchFrameException;
+use PhpWebDriver\WebDriver\Exception\StaleElementReferenceException;
 
 /**
  * Canned ExpectedConditions which are generally useful within webdriver tests.

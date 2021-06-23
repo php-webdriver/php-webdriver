@@ -40,7 +40,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Facebook\\WebDriver\\": "lib/"
+      "PhpWebDriver\\WebDriver\\": "lib/"
     },
     "files": [
       "lib/Exception/TimeoutException.php"
@@ -48,7 +48,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Facebook\\WebDriver\\": [
+      "PhpWebDriver\\WebDriver\\": [
         "tests/unit",
         "tests/functional"
       ]

@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver\Local;
+namespace PhpWebDriver\WebDriver\Local;
 
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 /**
  * @todo Break inheritance from RemoteWebDriver in next major version. (Composition over inheritance!)

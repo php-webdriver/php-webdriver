@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\WebDriverAction;
+use PhpWebDriver\WebDriver\WebDriverAction;
 
 /**
  * Move the the location, click and hold.

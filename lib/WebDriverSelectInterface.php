@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
 
 /**
  * Models an element of select type, providing helper methods to select and deselect options.

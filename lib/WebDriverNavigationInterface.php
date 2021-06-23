@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
  * An abstraction allowing the driver to access the browser's history and to

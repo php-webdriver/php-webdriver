@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * A command to set a cookie’s value could not be satisfied.

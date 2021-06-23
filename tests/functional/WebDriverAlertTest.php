@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoAlertOpenException;
-use Facebook\WebDriver\Exception\NoSuchAlertException;
+use PhpWebDriver\WebDriver\Exception\NoAlertOpenException;
+use PhpWebDriver\WebDriver\Exception\NoSuchAlertException;
 
 /**
- * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
- * @covers \Facebook\WebDriver\WebDriverAlert
+ * @covers \PhpWebDriver\WebDriver\Remote\RemoteTargetLocator
+ * @covers \PhpWebDriver\WebDriver\WebDriverAlert
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {

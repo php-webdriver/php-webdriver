@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * Navigation caused the user agent to hit a certificate warning, which is usually the result of an expired

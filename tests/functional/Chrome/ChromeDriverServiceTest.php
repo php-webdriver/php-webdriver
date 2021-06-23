@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\WebDriverTestCase;
+use PhpWebDriver\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
- * @covers \Facebook\WebDriver\Chrome\ChromeDriverService
- * @covers \Facebook\WebDriver\Remote\Service\DriverService
+ * @covers \PhpWebDriver\WebDriver\Chrome\ChromeDriverService
+ * @covers \PhpWebDriver\WebDriver\Remote\Service\DriverService
  */
 class ChromeDriverServiceTest extends TestCase
 {

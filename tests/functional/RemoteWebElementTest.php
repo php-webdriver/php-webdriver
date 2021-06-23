@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\ElementNotInteractableException;
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Exception\ElementNotInteractableException;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 use OndraM\CiDetector\CiDetector;
 
 /**
- * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
+ * @coversDefaultClass \PhpWebDriver\WebDriver\Remote\RemoteWebElement
  */
 class RemoteWebElementTest extends WebDriverTestCase
 {

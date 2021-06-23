@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * The driver server process is unexpectedly no longer available.

@@ -1,17 +1,17 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
-use Facebook\WebDriver\WebDriverTestCase;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\Service\DriverCommandExecutor;
+use PhpWebDriver\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
- * @covers \Facebook\WebDriver\Chrome\ChromeDriver
- * @covers \Facebook\WebDriver\Local\LocalWebDriver
+ * @covers \PhpWebDriver\WebDriver\Chrome\ChromeDriver
+ * @covers \PhpWebDriver\WebDriver\Local\LocalWebDriver
  */
 class ChromeDriverTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
  * Representations of pressable keys that aren't text.

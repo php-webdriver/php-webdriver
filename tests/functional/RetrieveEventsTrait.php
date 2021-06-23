@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 trait RetrieveEventsTrait
 {

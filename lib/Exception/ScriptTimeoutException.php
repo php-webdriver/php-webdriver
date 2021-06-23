@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * A script did not complete before its timeout expired.

@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
 use Exception;
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Firefox\FirefoxDriver;
-use Facebook\WebDriver\Firefox\FirefoxOptions;
-use Facebook\WebDriver\Firefox\FirefoxProfile;
-use Facebook\WebDriver\WebDriverCapabilities;
-use Facebook\WebDriver\WebDriverPlatform;
+use PhpWebDriver\WebDriver\Chrome\ChromeOptions;
+use PhpWebDriver\WebDriver\Firefox\FirefoxDriver;
+use PhpWebDriver\WebDriver\Firefox\FirefoxOptions;
+use PhpWebDriver\WebDriver\Firefox\FirefoxProfile;
+use PhpWebDriver\WebDriver\WebDriverCapabilities;
+use PhpWebDriver\WebDriver\WebDriverPlatform;
 
 class DesiredCapabilities implements WebDriverCapabilities
 {

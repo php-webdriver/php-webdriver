@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver\Support\Events;
+namespace PhpWebDriver\WebDriver\Support\Events;
 
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\WebDriverDispatcher;
-use Facebook\WebDriver\WebDriverNavigationInterface;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\WebDriverDispatcher;
+use PhpWebDriver\WebDriver\WebDriverNavigationInterface;
 
 class EventFiringWebDriverNavigation implements WebDriverNavigationInterface
 {

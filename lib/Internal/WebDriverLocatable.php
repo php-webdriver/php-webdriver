@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Internal;
+namespace PhpWebDriver\WebDriver\Internal;
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverCoordinates;
 
 /**
  * Interface representing basic mouse operations.

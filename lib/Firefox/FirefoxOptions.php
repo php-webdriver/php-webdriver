@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
 /**
  * Class to manage Firefox-specific capabilities

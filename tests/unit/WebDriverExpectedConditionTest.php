@@ -1,16 +1,16 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\StaleElementReferenceException;
-use Facebook\WebDriver\Remote\RemoteExecuteMethod;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\StaleElementReferenceException;
+use PhpWebDriver\WebDriver\Remote\RemoteExecuteMethod;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverExpectedCondition
+ * @covers \PhpWebDriver\WebDriver\WebDriverExpectedCondition
  */
 class WebDriverExpectedConditionTest extends TestCase
 {

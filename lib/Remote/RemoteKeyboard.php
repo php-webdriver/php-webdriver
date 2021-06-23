@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\WebDriver;
-use Facebook\WebDriver\WebDriverKeyboard;
-use Facebook\WebDriver\WebDriverKeys;
+use PhpWebDriver\WebDriver\WebDriver;
+use PhpWebDriver\WebDriver\WebDriverKeyboard;
+use PhpWebDriver\WebDriver\WebDriverKeys;
 
 /**
  * Execute keyboard commands for RemoteWebDriver.

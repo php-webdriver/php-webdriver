@@ -1,15 +1,15 @@
 <?php
 
-namespace Facebook\WebDriver\Support\Events;
+namespace PhpWebDriver\WebDriver\Support\Events;
 
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
-use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverDimension;
-use Facebook\WebDriver\WebDriverDispatcher;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverPoint;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverCoordinates;
+use PhpWebDriver\WebDriver\Internal\WebDriverLocatable;
+use PhpWebDriver\WebDriver\WebDriverBy;
+use PhpWebDriver\WebDriver\WebDriverDimension;
+use PhpWebDriver\WebDriver\WebDriverDispatcher;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverPoint;
 
 class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
 {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\ElementNotInteractableException;
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
-use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverDimension;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverKeys;
-use Facebook\WebDriver\WebDriverPoint;
+use PhpWebDriver\WebDriver\Exception\ElementNotInteractableException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverCoordinates;
+use PhpWebDriver\WebDriver\Internal\WebDriverLocatable;
+use PhpWebDriver\WebDriver\WebDriverBy;
+use PhpWebDriver\WebDriver\WebDriverDimension;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverKeys;
+use PhpWebDriver\WebDriver\WebDriverPoint;
 use ZipArchive;
 
 /**

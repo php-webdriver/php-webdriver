@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchCookieException;
+use PhpWebDriver\WebDriver\Exception\NoSuchCookieException;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverOptions
+ * @covers \PhpWebDriver\WebDriver\WebDriverOptions
  */
 class WebDriverOptionsCookiesTest extends WebDriverTestCase
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
-use Facebook\WebDriver\WebDriverTestCase;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\Service\DriverCommandExecutor;
+use PhpWebDriver\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @group exclude-saucelabs
- * @covers \Facebook\WebDriver\Firefox\FirefoxDriver
- * @covers \Facebook\WebDriver\Local\LocalWebDriver
+ * @covers \PhpWebDriver\WebDriver\Firefox\FirefoxDriver
+ * @covers \PhpWebDriver\WebDriver\Local\LocalWebDriver
  */
 class FirefoxDriverTest extends TestCase
 {

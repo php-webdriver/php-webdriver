@@ -1,12 +1,12 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Local\LocalWebDriver;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
-use Facebook\WebDriver\Remote\WebDriverCommand;
+use PhpWebDriver\WebDriver\Local\LocalWebDriver;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\DriverCommand;
+use PhpWebDriver\WebDriver\Remote\Service\DriverCommandExecutor;
+use PhpWebDriver\WebDriver\Remote\WebDriverCommand;
 
 class ChromeDriver extends LocalWebDriver
 {

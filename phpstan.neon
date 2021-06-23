@@ -6,9 +6,9 @@ parameters:
 
     ignoreErrors:
         # To be fixed:
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+        - '#Call to an undefined method PhpWebDriver\\WebDriver\\WebDriver::getTouch\(\)#'
+        - '#Call to an undefined method PhpWebDriver\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
+        - '#Call to an undefined method PhpWebDriver\\WebDriver\\WebDriverElement::equals\(\)#'
         - '#Unsafe usage of new static\(\)#'
 
         # Parameter is intentionally not part of signature to not break BC

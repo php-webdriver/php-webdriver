@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverWindow
+ * @covers \PhpWebDriver\WebDriver\WebDriverWindow
  */
 class WebDriverWindowTest extends WebDriverTestCase
 {

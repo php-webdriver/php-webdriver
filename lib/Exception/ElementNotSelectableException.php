@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
- * @deprecated Use Facebook\WebDriver\Exception\ElementNotInteractableException
+ * @deprecated Use PhpWebDriver\WebDriver\Exception\ElementNotInteractableException
  */
 class ElementNotSelectableException extends ElementNotInteractableException
 {

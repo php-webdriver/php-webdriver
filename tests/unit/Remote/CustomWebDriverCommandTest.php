@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
 use PHPUnit\Framework\TestCase;
 
 class CustomWebDriverCommandTest extends TestCase

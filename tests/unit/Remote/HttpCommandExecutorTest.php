@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
 use phpmock\phpunit\PHPMock;
 use PHPUnit\Framework\TestCase;

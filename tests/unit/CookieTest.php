@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Facebook\WebDriver\Cookie
+ * @covers \PhpWebDriver\WebDriver\Cookie
  */
 class CookieTest extends TestCase
 {

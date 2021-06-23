@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
 use PHPUnit\Framework\TestCase;
 

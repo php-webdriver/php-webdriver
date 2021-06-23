@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Firefox\FirefoxDriver;
-use Facebook\WebDriver\Firefox\FirefoxOptions;
-use Facebook\WebDriver\Firefox\FirefoxOptionsTest;
-use Facebook\WebDriver\Firefox\FirefoxProfile;
-use Facebook\WebDriver\WebDriverPlatform;
+use PhpWebDriver\WebDriver\Chrome\ChromeOptions;
+use PhpWebDriver\WebDriver\Firefox\FirefoxDriver;
+use PhpWebDriver\WebDriver\Firefox\FirefoxOptions;
+use PhpWebDriver\WebDriver\Firefox\FirefoxOptionsTest;
+use PhpWebDriver\WebDriver\Firefox\FirefoxProfile;
+use PhpWebDriver\WebDriver\WebDriverPlatform;
 use PHPUnit\Framework\TestCase;
 
 class DesiredCapabilitiesTest extends TestCase

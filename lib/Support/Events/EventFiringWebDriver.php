@@ -1,18 +1,18 @@
 <?php
 
-namespace Facebook\WebDriver\Support\Events;
+namespace PhpWebDriver\WebDriver\Support\Events;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
-use Facebook\WebDriver\JavaScriptExecutor;
-use Facebook\WebDriver\WebDriver;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverDispatcher;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverOptions;
-use Facebook\WebDriver\WebDriverTargetLocator;
-use Facebook\WebDriver\WebDriverWait;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+use PhpWebDriver\WebDriver\JavaScriptExecutor;
+use PhpWebDriver\WebDriver\WebDriver;
+use PhpWebDriver\WebDriver\WebDriverBy;
+use PhpWebDriver\WebDriver\WebDriverDispatcher;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverOptions;
+use PhpWebDriver\WebDriver\WebDriverTargetLocator;
+use PhpWebDriver\WebDriver\WebDriverWait;
 
 class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
 {

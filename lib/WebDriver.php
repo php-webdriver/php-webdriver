@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTouchScreen;
 
 /**
  * The interface for WebDriver.

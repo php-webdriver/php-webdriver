@@ -1,17 +1,17 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Interactions\WebDriverActions;
-use Facebook\WebDriver\WebDriverNavigation;
-use Facebook\WebDriver\WebDriverOptions;
-use Facebook\WebDriver\WebDriverWait;
+use PhpWebDriver\WebDriver\Interactions\WebDriverActions;
+use PhpWebDriver\WebDriver\WebDriverNavigation;
+use PhpWebDriver\WebDriver\WebDriverOptions;
+use PhpWebDriver\WebDriver\WebDriverWait;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Unit part of RemoteWebDriver tests. Ie. tests for behavior which do not interact with the real remote server.
  *
- * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass \PhpWebDriver\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends TestCase
 {

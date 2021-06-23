@@ -1,18 +1,18 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Interactions\WebDriverActions;
-use Facebook\WebDriver\JavaScriptExecutor;
-use Facebook\WebDriver\WebDriver;
-use Facebook\WebDriver\WebDriverBy;
-use Facebook\WebDriver\WebDriverCapabilities;
-use Facebook\WebDriver\WebDriverCommandExecutor;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverHasInputDevices;
-use Facebook\WebDriver\WebDriverNavigation;
-use Facebook\WebDriver\WebDriverOptions;
-use Facebook\WebDriver\WebDriverWait;
+use PhpWebDriver\WebDriver\Interactions\WebDriverActions;
+use PhpWebDriver\WebDriver\JavaScriptExecutor;
+use PhpWebDriver\WebDriver\WebDriver;
+use PhpWebDriver\WebDriver\WebDriverBy;
+use PhpWebDriver\WebDriver\WebDriverCapabilities;
+use PhpWebDriver\WebDriver\WebDriverCommandExecutor;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverHasInputDevices;
+use PhpWebDriver\WebDriver\WebDriverNavigation;
+use PhpWebDriver\WebDriver\WebDriverOptions;
+use PhpWebDriver\WebDriver\WebDriverWait;
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInputDevices
 {

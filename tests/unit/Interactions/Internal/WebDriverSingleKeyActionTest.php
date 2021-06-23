@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverKeyboard;
-use Facebook\WebDriver\WebDriverMouse;
+use PhpWebDriver\WebDriver\Internal\WebDriverLocatable;
+use PhpWebDriver\WebDriver\WebDriverKeyboard;
+use PhpWebDriver\WebDriver\WebDriverMouse;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverSingleKeyAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverSingleKeyAction
  */
 class WebDriverSingleKeyActionTest extends TestCase
 {

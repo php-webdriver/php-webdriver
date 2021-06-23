@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchCookieException;
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\ExecuteMethod;
+use PhpWebDriver\WebDriver\Exception\NoSuchCookieException;
+use PhpWebDriver\WebDriver\Remote\DriverCommand;
+use PhpWebDriver\WebDriver\Remote\ExecuteMethod;
 use InvalidArgumentException;
 
 /**

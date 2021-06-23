@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
  * Used to locate a given frame or window.

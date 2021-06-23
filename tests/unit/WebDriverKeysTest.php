@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverKeys
+ * @covers \PhpWebDriver\WebDriver\WebDriverKeys
  */
 class WebDriverKeysTest extends TestCase
 {

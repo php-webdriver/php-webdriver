@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver\Remote\Service;
+namespace PhpWebDriver\WebDriver\Remote\Service;
 
-use Facebook\WebDriver\Exception\DriverServerDiedException;
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\HttpCommandExecutor;
-use Facebook\WebDriver\Remote\WebDriverCommand;
-use Facebook\WebDriver\Remote\WebDriverResponse;
+use PhpWebDriver\WebDriver\Exception\DriverServerDiedException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Remote\DriverCommand;
+use PhpWebDriver\WebDriver\Remote\HttpCommandExecutor;
+use PhpWebDriver\WebDriver\Remote\WebDriverCommand;
+use PhpWebDriver\WebDriver\Remote\WebDriverResponse;
 
 /**
  * A HttpCommandExecutor that talks to a local driver service instead of a remote server.

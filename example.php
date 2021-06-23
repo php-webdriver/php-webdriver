@@ -3,10 +3,10 @@
 // An example of using php-webdriver.
 // Do not forget to run composer install before. You must also have Selenium server started and listening on port 4444.
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
 

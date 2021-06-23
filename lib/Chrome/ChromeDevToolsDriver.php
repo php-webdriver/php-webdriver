@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 /**
  * Provide access to Chrome DevTools Protocol (CDP) commands via HTTP endpoint of Chromedriver.

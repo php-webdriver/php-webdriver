@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\ExecuteMethod;
+use PhpWebDriver\WebDriver\Remote\DriverCommand;
+use PhpWebDriver\WebDriver\Remote\ExecuteMethod;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Facebook\WebDriver\WebDriverOptions
+ * @covers \PhpWebDriver\WebDriver\WebDriverOptions
  */
 class WebDriverOptionsTest extends TestCase
 {

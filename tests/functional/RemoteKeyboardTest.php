@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
 /**
- * @covers  \Facebook\WebDriver\Remote\RemoteKeyboard
+ * @covers  \PhpWebDriver\WebDriver\Remote\RemoteKeyboard
  */
 class RemoteKeyboardTest extends WebDriverTestCase
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\LocalFileDetector;
+use PhpWebDriver\WebDriver\Remote\LocalFileDetector;
 
 /**
- * @covers \Facebook\WebDriver\Remote\LocalFileDetector
- * @covers \Facebook\WebDriver\Remote\RemoteWebElement
+ * @covers \PhpWebDriver\WebDriver\Remote\LocalFileDetector
+ * @covers \PhpWebDriver\WebDriver\Remote\RemoteWebElement
  */
 class FileUploadTest extends WebDriverTestCase
 {

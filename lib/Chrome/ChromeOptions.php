@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
 use JsonSerializable;
 
 /**

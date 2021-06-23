@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Net;
+namespace PhpWebDriver\WebDriver\Net;
 
 use Exception;
-use Facebook\WebDriver\Exception\TimeoutException;
+use PhpWebDriver\WebDriver\Exception\TimeoutException;
 
 class URLChecker
 {

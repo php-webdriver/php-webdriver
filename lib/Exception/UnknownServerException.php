@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
- * @deprecated Use Facebook\WebDriver\Exception\UnknownErrorException
+ * @deprecated Use PhpWebDriver\WebDriver\Exception\UnknownErrorException
  */
 class UnknownServerException extends UnknownErrorException
 {

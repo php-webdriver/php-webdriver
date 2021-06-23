@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Support\Events\EventFiringWebDriver;
+use PhpWebDriver\WebDriver\Support\Events\EventFiringWebDriver;
 
 class WebDriverDispatcher
 {

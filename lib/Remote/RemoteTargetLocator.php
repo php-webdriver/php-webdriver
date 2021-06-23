@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\WebDriverAlert;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverTargetLocator;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\WebDriverAlert;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverTargetLocator;
 
 /**
  * Used to locate a given frame or window for RemoteWebDriver.

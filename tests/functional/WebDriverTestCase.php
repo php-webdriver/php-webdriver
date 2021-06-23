@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Exception\NoSuchWindowException;
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Firefox\FirefoxOptions;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use PhpWebDriver\WebDriver\Chrome\ChromeOptions;
+use PhpWebDriver\WebDriver\Exception\NoSuchWindowException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Firefox\FirefoxOptions;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\WebDriverBrowserType;
 use OndraM\CiDetector\CiDetector;
 use PHPUnit\Framework\TestCase;
 

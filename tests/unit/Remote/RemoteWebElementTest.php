@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver\Remote;
+namespace PhpWebDriver\WebDriver\Remote;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Unit part of RemoteWebDriver tests. Ie. tests for behavior which do not interact with the real remote server.
  *
- * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
+ * @coversDefaultClass \PhpWebDriver\WebDriver\Remote\RemoteWebElement
  */
 class RemoteWebElementTest extends TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions;
+namespace PhpWebDriver\WebDriver\Interactions;
 
-use Facebook\WebDriver\WebDriverAction;
+use PhpWebDriver\WebDriver\WebDriverAction;
 
 /**
  * An action for aggregating actions and triggering all of them afterwards.

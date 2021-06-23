@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
  * The target for mouse interaction is not in the browser’s viewport and cannot be brought into that viewport.

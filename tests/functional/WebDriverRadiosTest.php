@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
 
 /**
- * @covers \Facebook\WebDriver\AbstractWebDriverCheckboxOrRadio
- * @covers \Facebook\WebDriver\WebDriverRadios
+ * @covers \PhpWebDriver\WebDriver\AbstractWebDriverCheckboxOrRadio
+ * @covers \PhpWebDriver\WebDriver\WebDriverRadios
  * @group exclude-edge
  */
 class WebDriverRadiosTest extends WebDriverTestCase

@@ -117,7 +117,7 @@ $serverUrl = 'http://localhost:4444';
 Now you can start browser of your choice:
 
 ```php
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 // Chrome
 $driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::chrome());
@@ -134,8 +134,8 @@ Desired capabilities define properties of the browser you are about to start.
 They can be customized:
 
 ```php
-use Facebook\WebDriver\Firefox\FirefoxOptions;
-use Facebook\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Firefox\FirefoxOptions;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
 
 $desiredCapabilities = DesiredCapabilities::firefox();
 

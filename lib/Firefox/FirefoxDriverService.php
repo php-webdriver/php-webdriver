@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
-use Facebook\WebDriver\Remote\Service\DriverService;
+use PhpWebDriver\WebDriver\Remote\Service\DriverService;
 
 class FirefoxDriverService extends DriverService
 {

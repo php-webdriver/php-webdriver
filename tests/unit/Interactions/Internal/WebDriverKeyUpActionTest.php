@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverKeyboard;
-use Facebook\WebDriver\WebDriverKeys;
-use Facebook\WebDriver\WebDriverMouse;
+use PhpWebDriver\WebDriver\Internal\WebDriverLocatable;
+use PhpWebDriver\WebDriver\WebDriverKeyboard;
+use PhpWebDriver\WebDriver\WebDriverKeys;
+use PhpWebDriver\WebDriver\WebDriverMouse;
 use PHPUnit\Framework\TestCase;
 
 class WebDriverKeyUpActionTest extends TestCase

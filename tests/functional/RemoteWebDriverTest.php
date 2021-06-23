@@ -1,12 +1,12 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\HttpCommandExecutor;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\HttpCommandExecutor;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
 
 /**
- * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
+ * @coversDefaultClass \PhpWebDriver\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverTest extends WebDriverTestCase
 {
@@ -186,7 +186,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::executeAsyncScript
-     * @covers \Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
+     * @covers \PhpWebDriver\WebDriver\WebDriverTimeouts::setScriptTimeout
      */
     public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
     {
@@ -308,7 +308,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::getStatus
-     * @covers \Facebook\WebDriver\Remote\RemoteStatus
+     * @covers \PhpWebDriver\WebDriver\Remote\RemoteStatus
      * @group exclude-saucelabs
      * Status endpoint is not supported on Sauce Labs
      */

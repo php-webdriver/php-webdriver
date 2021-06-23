@@ -1,13 +1,13 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 
 /**
  * Tests for findElement() and findElements() method of RemoteWebDriver.
- * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
+ * @covers \PhpWebDriver\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {

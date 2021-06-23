@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnexpectedTagNameException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\Support\XPathEscaper;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\UnexpectedTagNameException;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Support\XPathEscaper;
 
 /**
  * Models a default HTML `<select>` tag, providing helper methods to select and deselect options.

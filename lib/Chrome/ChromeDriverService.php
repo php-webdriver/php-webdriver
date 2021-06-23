@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Remote\Service\DriverService;
+use PhpWebDriver\WebDriver\Remote\Service\DriverService;
 
 class ChromeDriverService extends DriverService
 {

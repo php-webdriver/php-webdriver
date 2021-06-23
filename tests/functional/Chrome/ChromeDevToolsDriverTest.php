@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Chrome;
+namespace PhpWebDriver\WebDriver\Chrome;
 
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
-use Facebook\WebDriver\WebDriverTestCase;
+use PhpWebDriver\WebDriver\Remote\WebDriverBrowserType;
+use PhpWebDriver\WebDriver\WebDriverTestCase;
 
 /**
  * @group exclude-saucelabs

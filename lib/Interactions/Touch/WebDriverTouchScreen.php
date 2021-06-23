@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Touch;
+namespace PhpWebDriver\WebDriver\Interactions\Touch;
 
-use Facebook\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverElement;
 
 /**
  * Interface representing touch screen operations.

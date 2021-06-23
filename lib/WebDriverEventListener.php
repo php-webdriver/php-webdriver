@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Support\Events\EventFiringWebDriver;
-use Facebook\WebDriver\Support\Events\EventFiringWebElement;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Support\Events\EventFiringWebDriver;
+use PhpWebDriver\WebDriver\Support\Events\EventFiringWebElement;
 
 interface WebDriverEventListener
 {

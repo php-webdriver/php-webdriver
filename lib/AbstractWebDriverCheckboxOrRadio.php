@@ -1,11 +1,11 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnexpectedTagNameException;
-use Facebook\WebDriver\Exception\WebDriverException;
-use Facebook\WebDriver\Support\XPathEscaper;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\UnexpectedTagNameException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Support\XPathEscaper;
 
 /**
  * Provides helper methods for checkboxes and radio buttons.

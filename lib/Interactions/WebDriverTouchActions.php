@@ -1,20 +1,20 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions;
+namespace PhpWebDriver\WebDriver\Interactions;
 
-use Facebook\WebDriver\Interactions\Touch\WebDriverDoubleTapAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverDownAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverFlickAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverFlickFromElementAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverLongPressAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverMoveAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverScrollAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverScrollFromElementAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverTapAction;
-use Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen;
-use Facebook\WebDriver\WebDriver;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverUpAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverDoubleTapAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverDownAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverFlickAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverFlickFromElementAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverLongPressAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverMoveAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverScrollAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverScrollFromElementAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTapAction;
+use PhpWebDriver\WebDriver\Interactions\Touch\WebDriverTouchScreen;
+use PhpWebDriver\WebDriver\WebDriver;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverUpAction;
 
 /**
  * WebDriver action builder for touch events

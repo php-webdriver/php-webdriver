@@ -1,14 +1,14 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\ScriptTimeoutException;
-use Facebook\WebDriver\Exception\TimeoutException;
-use Facebook\WebDriver\Remote\RemoteWebElement;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\ScriptTimeoutException;
+use PhpWebDriver\WebDriver\Exception\TimeoutException;
+use PhpWebDriver\WebDriver\Remote\RemoteWebElement;
 
 /**
- * @coversDefaultClass \Facebook\WebDriver\WebDriverTimeouts
+ * @coversDefaultClass \PhpWebDriver\WebDriver\WebDriverTimeouts
  */
 class WebDriverTimeoutsTest extends WebDriverTestCase
 {

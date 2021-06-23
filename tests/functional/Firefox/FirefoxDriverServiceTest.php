@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
-use Facebook\WebDriver\WebDriverTestCase;
+use PhpWebDriver\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
  * @group exclude-edge
  * @group exclude-chrome
  * @group exclude-safari
- * @covers \Facebook\WebDriver\Firefox\FirefoxDriverService
+ * @covers \PhpWebDriver\WebDriver\Firefox\FirefoxDriverService
  */
 class FirefoxDriverServiceTest extends TestCase
 {

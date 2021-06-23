@@ -1,25 +1,25 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use PhpWebDriver\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverClickAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverContextClickAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverDoubleClickAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverKeyDownAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverKeysRelatedAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverMouseAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction
- * @covers \Facebook\WebDriver\Interactions\Internal\WebDriverSingleKeyAction
- * @covers \Facebook\WebDriver\Interactions\WebDriverActions
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverClickAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverContextClickAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverCoordinates
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverDoubleClickAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverKeyDownAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverKeysRelatedAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverKeyUpAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMouseAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMouseMoveAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverSendKeysAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\Internal\WebDriverSingleKeyAction
+ * @covers \PhpWebDriver\WebDriver\Interactions\WebDriverActions
  */
 class WebDriverActionsTest extends WebDriverTestCase
 {

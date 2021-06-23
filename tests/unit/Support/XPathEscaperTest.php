@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Support;
+namespace PhpWebDriver\WebDriver\Support;
 
 use PHPUnit\Framework\TestCase;
 

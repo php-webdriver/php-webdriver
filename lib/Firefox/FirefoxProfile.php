@@ -1,8 +1,8 @@
 <?php
 
-namespace Facebook\WebDriver\Firefox;
+namespace PhpWebDriver\WebDriver\Firefox;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use PhpWebDriver\WebDriver\Exception\WebDriverException;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;

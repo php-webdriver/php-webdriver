@@ -1,15 +1,15 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Exception\NoSuchElementException;
-use Facebook\WebDriver\Exception\UnexpectedTagNameException;
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
+use PhpWebDriver\WebDriver\Exception\NoSuchElementException;
+use PhpWebDriver\WebDriver\Exception\UnexpectedTagNameException;
+use PhpWebDriver\WebDriver\Exception\UnsupportedOperationException;
 
 /**
  * @group exclude-saucelabs
- * @covers \Facebook\WebDriver\Exception\UnexpectedTagNameException
- * @covers \Facebook\WebDriver\WebDriverSelect
+ * @covers \PhpWebDriver\WebDriver\Exception\UnexpectedTagNameException
+ * @covers \PhpWebDriver\WebDriver\WebDriverSelect
  */
 class WebDriverSelectTest extends WebDriverTestCase
 {

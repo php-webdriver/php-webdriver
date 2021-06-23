@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
- * @deprecated Use Facebook\WebDriver\Exception\NoSuchAlertException
+ * @deprecated Use PhpWebDriver\WebDriver\Exception\NoSuchAlertException
  */
 class NoAlertOpenException extends NoSuchAlertException
 {

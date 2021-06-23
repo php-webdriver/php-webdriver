@@ -1,10 +1,10 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\Internal\WebDriverLocatable;
-use Facebook\WebDriver\WebDriverKeyboard;
-use Facebook\WebDriver\WebDriverMouse;
+use PhpWebDriver\WebDriver\Internal\WebDriverLocatable;
+use PhpWebDriver\WebDriver\WebDriverKeyboard;
+use PhpWebDriver\WebDriver\WebDriverMouse;
 
 /**
  * Base class for all keyboard-related actions.

@@ -1,15 +1,15 @@
 <?php
 
-namespace Facebook\WebDriver;
+namespace PhpWebDriver\WebDriver;
 
-use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\HttpCommandExecutor;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use PhpWebDriver\WebDriver\Remote\DesiredCapabilities;
+use PhpWebDriver\WebDriver\Remote\HttpCommandExecutor;
+use PhpWebDriver\WebDriver\Remote\RemoteWebDriver;
+use PhpWebDriver\WebDriver\Remote\WebDriverBrowserType;
 
 /**
- * @covers \Facebook\WebDriver\Remote\HttpCommandExecutor
- * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
+ * @covers \PhpWebDriver\WebDriver\Remote\HttpCommandExecutor
+ * @covers \PhpWebDriver\WebDriver\Remote\RemoteWebDriver
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {

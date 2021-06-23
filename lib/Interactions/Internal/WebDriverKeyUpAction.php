@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions\Internal;
+namespace PhpWebDriver\WebDriver\Interactions\Internal;
 
 class WebDriverKeyUpAction extends WebDriverSingleKeyAction
 {

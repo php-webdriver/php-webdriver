@@ -1,19 +1,19 @@
 <?php
 
-namespace Facebook\WebDriver\Interactions;
+namespace PhpWebDriver\WebDriver\Interactions;
 
-use Facebook\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverClickAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverContextClickAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverDoubleClickAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverKeyDownAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction;
-use Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
-use Facebook\WebDriver\WebDriverElement;
-use Facebook\WebDriver\WebDriverHasInputDevices;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverButtonReleaseAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverClickAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverClickAndHoldAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverContextClickAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverDoubleClickAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverKeyDownAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverKeyUpAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMouseMoveAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction;
+use PhpWebDriver\WebDriver\Interactions\Internal\WebDriverSendKeysAction;
+use PhpWebDriver\WebDriver\WebDriverElement;
+use PhpWebDriver\WebDriver\WebDriverHasInputDevices;
 
 /**
  * WebDriver action builder. It implements the builder pattern.

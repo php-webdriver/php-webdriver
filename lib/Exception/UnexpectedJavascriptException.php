@@ -1,9 +1,9 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace PhpWebDriver\WebDriver\Exception;
 
 /**
- * @deprecated Use Facebook\WebDriver\Exception\JavascriptErrorException
+ * @deprecated Use PhpWebDriver\WebDriver\Exception\JavascriptErrorException
  */
 class UnexpectedJavascriptException extends JavascriptErrorException
 {
