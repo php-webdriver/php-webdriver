@@ -178,3 +178,5 @@ class WebDriverTouchActions extends WebDriverActions
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\WebDriverTouchActions', 'PhpWebDriver\Interactions\WebDriverTouchActions');

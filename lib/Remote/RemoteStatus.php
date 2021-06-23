@@ -78,3 +78,5 @@ class RemoteStatus
         $this->meta = $meta;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\RemoteStatus', 'PhpWebDriver\Remote\RemoteStatus');

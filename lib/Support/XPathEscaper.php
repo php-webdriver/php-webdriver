@@ -30,3 +30,5 @@ class XPathEscaper
         );
     }
 }
+
+class_alias('Facebook\WebDriver\Support\XPathEscaper', 'PhpWebDriver\Support\XPathEscaper');

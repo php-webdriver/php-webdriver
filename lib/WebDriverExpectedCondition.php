@@ -584,3 +584,5 @@ class WebDriverExpectedCondition
         );
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverExpectedCondition', 'PhpWebDriver\WebDriverExpectedCondition');

@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class UnableToSetCookieException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\UnableToSetCookieException', 'PhpWebDriver\Exception\UnableToSetCookieException');

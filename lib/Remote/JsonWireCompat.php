@@ -87,3 +87,5 @@ abstract class JsonWireCompat
         }, $selector);
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\JsonWireCompat', 'PhpWebDriver\Remote\JsonWireCompat');

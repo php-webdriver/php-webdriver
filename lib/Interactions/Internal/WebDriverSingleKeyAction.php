@@ -51,3 +51,5 @@ abstract class WebDriverSingleKeyAction extends WebDriverKeysRelatedAction imple
         $this->key = $key;
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverSingleKeyAction', 'PhpWebDriver\Interactions\Internal\WebDriverSingleKeyAction');

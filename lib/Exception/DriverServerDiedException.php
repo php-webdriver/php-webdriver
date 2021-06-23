@@ -13,3 +13,5 @@ class DriverServerDiedException extends WebDriverException
         \Exception::__construct($this->getMessage(), $this->getCode(), $previous);
     }
 }
+
+class_alias('Facebook\WebDriver\Exception\DriverServerDiedException', 'PhpWebDriver\Exception\DriverServerDiedException');

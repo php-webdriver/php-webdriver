@@ -43,3 +43,5 @@ class WebDriverMoveToOffsetAction extends WebDriverMouseAction implements WebDri
         );
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverMoveToOffsetAction', 'PhpWebDriver\Interactions\Internal\WebDriverMoveToOffsetAction');

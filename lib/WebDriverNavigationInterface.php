@@ -41,3 +41,5 @@ interface WebDriverNavigationInterface
      */
     public function to($url);
 }
+
+class_alias('Facebook\WebDriver\WebDriverNavigationInterface', 'PhpWebDriver\WebDriverNavigationInterface');

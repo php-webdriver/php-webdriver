@@ -62,3 +62,5 @@ class FirefoxDriver extends LocalWebDriver
         return new static($executor, $sessionId, $returnedCapabilities, true);
     }
 }
+
+class_alias('Facebook\WebDriver\Firefox\FirefoxDriver', 'PhpWebDriver\Firefox\FirefoxDriver');

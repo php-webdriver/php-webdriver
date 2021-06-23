@@ -11,3 +11,5 @@ class WebDriverDoubleTapAction extends WebDriverTouchAction implements WebDriver
         $this->touchScreen->doubleTap($this->locationProvider);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Touch\WebDriverDoubleTapAction', 'PhpWebDriver\Interactions\Touch\WebDriverDoubleTapAction');

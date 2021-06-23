@@ -10,3 +10,5 @@ class WebDriverKeyUpAction extends WebDriverSingleKeyAction
         $this->keyboard->releaseKey($this->key);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverKeyUpAction', 'PhpWebDriver\Interactions\Internal\WebDriverKeyUpAction');

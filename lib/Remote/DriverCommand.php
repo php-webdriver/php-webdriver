@@ -148,3 +148,5 @@ class DriverCommand
     {
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\DriverCommand', 'PhpWebDriver\Remote\DriverCommand');

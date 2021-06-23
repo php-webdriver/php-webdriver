@@ -76,3 +76,5 @@ class WebDriverCoordinates
         return $this->auxiliary;
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates', 'PhpWebDriver\Interactions\Internal\WebDriverCoordinates');

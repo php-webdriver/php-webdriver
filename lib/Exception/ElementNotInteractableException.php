@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class ElementNotInteractableException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\ElementNotInteractableException', 'PhpWebDriver\Exception\ElementNotInteractableException');

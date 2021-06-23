@@ -32,3 +32,5 @@ class FirefoxDriverService extends DriverService
         return new static($pathToExecutable, $port, $args);
     }
 }
+
+class_alias('Facebook\WebDriver\Firefox\FirefoxDriverService', 'PhpWebDriver\Firefox\FirefoxDriverService');

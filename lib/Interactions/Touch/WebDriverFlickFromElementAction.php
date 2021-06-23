@@ -50,3 +50,5 @@ class WebDriverFlickFromElementAction extends WebDriverTouchAction implements We
         );
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Touch\WebDriverFlickFromElementAction', 'PhpWebDriver\Interactions\Touch\WebDriverFlickFromElementAction');

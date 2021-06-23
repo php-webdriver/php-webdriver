@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class StaleElementReferenceException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\StaleElementReferenceException', 'PhpWebDriver\Exception\StaleElementReferenceException');

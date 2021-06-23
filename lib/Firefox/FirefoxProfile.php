@@ -289,3 +289,5 @@ class FirefoxProfile
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\Firefox\FirefoxProfile', 'PhpWebDriver\Firefox\FirefoxProfile');

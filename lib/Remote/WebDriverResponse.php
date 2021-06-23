@@ -82,3 +82,5 @@ class WebDriverResponse
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\WebDriverResponse', 'PhpWebDriver\Remote\WebDriverResponse');

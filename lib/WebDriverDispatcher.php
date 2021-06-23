@@ -76,3 +76,5 @@ class WebDriverDispatcher
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverDispatcher', 'PhpWebDriver\WebDriverDispatcher');

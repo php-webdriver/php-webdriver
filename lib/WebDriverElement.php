@@ -129,3 +129,5 @@ interface WebDriverElement extends WebDriverSearchContext
      */
     //public function takeElementScreenshot($save_as = null);
 }
+
+class_alias('Facebook\WebDriver\WebDriverElement', 'PhpWebDriver\WebDriverElement');

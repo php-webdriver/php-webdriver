@@ -103,3 +103,5 @@ class RemoteKeyboard implements WebDriverKeyboard
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\RemoteKeyboard', 'PhpWebDriver\Remote\RemoteKeyboard');

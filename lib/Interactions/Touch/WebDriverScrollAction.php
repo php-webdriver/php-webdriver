@@ -26,3 +26,5 @@ class WebDriverScrollAction extends WebDriverTouchAction implements WebDriverAct
         $this->touchScreen->scroll($this->x, $this->y);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Touch\WebDriverScrollAction', 'PhpWebDriver\Interactions\Touch\WebDriverScrollAction');

@@ -138,3 +138,5 @@ class EventFiringWebDriverNavigation implements WebDriverNavigationInterface
         $this->dispatch('onException', $exception);
     }
 }
+
+class_alias('Facebook\WebDriver\Support\Events\EventFiringWebDriverNavigation', 'PhpWebDriver\Support\Events\EventFiringWebDriverNavigation');

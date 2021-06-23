@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class NoSuchElementException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\NoSuchElementException', 'PhpWebDriver\Exception\NoSuchElementException');

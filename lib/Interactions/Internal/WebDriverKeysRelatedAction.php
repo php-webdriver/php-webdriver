@@ -46,3 +46,5 @@ abstract class WebDriverKeysRelatedAction
         }
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverKeysRelatedAction', 'PhpWebDriver\Interactions\Internal\WebDriverKeysRelatedAction');

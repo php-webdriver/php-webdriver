@@ -399,3 +399,5 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
         return new static($element, $this->getDispatcher());
     }
 }
+
+class_alias('Facebook\WebDriver\Support\Events\EventFiringWebElement', 'PhpWebDriver\Support\Events\EventFiringWebElement');

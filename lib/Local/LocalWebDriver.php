@@ -53,3 +53,5 @@ abstract class LocalWebDriver extends RemoteWebDriver
         throw new WebDriverException('Use start() method to start local WebDriver.');
     }
 }
+
+class_alias('Facebook\WebDriver\Local\LocalWebDriver', 'PhpWebDriver\Local\LocalWebDriver');

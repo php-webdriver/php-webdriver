@@ -32,3 +32,5 @@ class WebDriverDownAction extends WebDriverTouchAction implements WebDriverActio
         $this->touchScreen->down($this->x, $this->y);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Touch\WebDriverDownAction', 'PhpWebDriver\Interactions\Touch\WebDriverDownAction');

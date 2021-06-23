@@ -48,3 +48,5 @@ class WebDriverCommand
         return $this->parameters;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\WebDriverCommand', 'PhpWebDriver\Remote\WebDriverCommand');

@@ -17,3 +17,5 @@ interface WebDriverCommandExecutor
      */
     public function execute(WebDriverCommand $command);
 }
+
+class_alias('Facebook\WebDriver\WebDriverCommandExecutor', 'PhpWebDriver\WebDriverCommandExecutor');

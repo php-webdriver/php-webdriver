@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class InvalidArgumentException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\InvalidArgumentException', 'PhpWebDriver\Exception\InvalidArgumentException');

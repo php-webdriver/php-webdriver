@@ -32,3 +32,5 @@ class WebDriverFlickAction extends WebDriverTouchAction implements WebDriverActi
         $this->touchScreen->flick($this->x, $this->y);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Touch\WebDriverFlickAction', 'PhpWebDriver\Interactions\Touch\WebDriverFlickAction');

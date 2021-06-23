@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class UnableToCaptureScreenException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\UnableToCaptureScreenException', 'PhpWebDriver\Exception\UnableToCaptureScreenException');

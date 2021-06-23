@@ -10,3 +10,5 @@ class WebDriverKeyDownAction extends WebDriverSingleKeyAction
         $this->keyboard->pressKey($this->key);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverKeyDownAction', 'PhpWebDriver\Interactions\Internal\WebDriverKeyDownAction');

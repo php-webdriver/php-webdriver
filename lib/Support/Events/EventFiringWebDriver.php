@@ -402,3 +402,5 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
         $this->dispatch('onException', $exception, $this);
     }
 }
+
+class_alias('Facebook\WebDriver\Support\Events\EventFiringWebDriver', 'PhpWebDriver\Support\Events\EventFiringWebDriver');

@@ -53,3 +53,5 @@ class DriverCommandExecutor extends HttpCommandExecutor
         }
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\Service\DriverCommandExecutor', 'PhpWebDriver\Remote\Service\DriverCommandExecutor');

@@ -23,3 +23,5 @@ class WebDriverPlatform
     {
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverPlatform', 'PhpWebDriver\WebDriverPlatform');

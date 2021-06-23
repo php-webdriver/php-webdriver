@@ -8,3 +8,5 @@ namespace Facebook\WebDriver\Exception;
 class TimeoutException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\TimeoutException', 'PhpWebDriver\Exception\TimeoutException');

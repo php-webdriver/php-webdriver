@@ -18,3 +18,5 @@ class LocalFileDetector implements FileDetector
         return null;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\LocalFileDetector', 'PhpWebDriver\Remote\LocalFileDetector');

@@ -220,3 +220,5 @@ class WebDriverException extends Exception
         }
     }
 }
+
+class_alias('Facebook\WebDriver\Exception\WebDriverException', 'PhpWebDriver\Exception\WebDriverException');

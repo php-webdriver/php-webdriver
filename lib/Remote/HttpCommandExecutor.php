@@ -424,3 +424,5 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         ];
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\HttpCommandExecutor', 'PhpWebDriver\Remote\HttpCommandExecutor');

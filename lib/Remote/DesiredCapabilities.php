@@ -438,3 +438,5 @@ class DesiredCapabilities implements WebDriverCapabilities
             : $default;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\DesiredCapabilities', 'PhpWebDriver\Remote\DesiredCapabilities');

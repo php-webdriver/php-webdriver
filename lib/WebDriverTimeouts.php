@@ -100,3 +100,5 @@ class WebDriverTimeouts
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverTimeouts', 'PhpWebDriver\WebDriverTimeouts');

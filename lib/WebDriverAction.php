@@ -9,3 +9,5 @@ interface WebDriverAction
 {
     public function perform();
 }
+
+class_alias('Facebook\WebDriver\WebDriverAction', 'PhpWebDriver\WebDriverAction');

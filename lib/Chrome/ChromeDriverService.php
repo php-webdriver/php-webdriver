@@ -35,3 +35,5 @@ class ChromeDriverService extends DriverService
         return new static($pathToExecutable, $port, $args);
     }
 }
+
+class_alias('Facebook\WebDriver\Chrome\ChromeDriverService', 'PhpWebDriver\Chrome\ChromeDriverService');

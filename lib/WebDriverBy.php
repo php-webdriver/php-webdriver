@@ -132,3 +132,5 @@ class WebDriverBy
         return new static('xpath', $xpath);
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverBy', 'PhpWebDriver\WebDriverBy');

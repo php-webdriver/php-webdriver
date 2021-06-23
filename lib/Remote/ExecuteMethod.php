@@ -11,3 +11,5 @@ interface ExecuteMethod
      */
     public function execute($command_name, array $parameters = []);
 }
+
+class_alias('Facebook\WebDriver\Remote\ExecuteMethod', 'PhpWebDriver\Remote\ExecuteMethod');

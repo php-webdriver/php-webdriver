@@ -43,3 +43,5 @@ class WebDriverNavigation implements WebDriverNavigationInterface
         return $this;
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverNavigation', 'PhpWebDriver\WebDriverNavigation');

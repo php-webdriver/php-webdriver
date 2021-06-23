@@ -36,3 +36,5 @@ class WebDriverSendKeysAction extends WebDriverKeysRelatedAction implements WebD
         $this->keyboard->sendKeys($this->keys);
     }
 }
+
+class_alias('Facebook\WebDriver\Interactions\Internal\WebDriverSendKeysAction', 'PhpWebDriver\Interactions\Internal\WebDriverSendKeysAction');

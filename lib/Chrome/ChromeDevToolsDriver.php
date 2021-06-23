@@ -44,3 +44,5 @@ class ChromeDevToolsDriver
         );
     }
 }
+
+class_alias('Facebook\WebDriver\Chrome\ChromeDevToolsDriver', 'PhpWebDriver\Chrome\ChromeDevToolsDriver');

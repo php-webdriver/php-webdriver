@@ -27,3 +27,5 @@ class WebDriverUpAction extends WebDriverTouchAction implements WebDriverAction
         $this->touchScreen->up($this->x, $this->y);
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverUpAction', 'PhpWebDriver\WebDriverUpAction');

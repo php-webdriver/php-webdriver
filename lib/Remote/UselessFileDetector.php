@@ -9,3 +9,5 @@ class UselessFileDetector implements FileDetector
         return null;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\UselessFileDetector', 'PhpWebDriver\Remote\UselessFileDetector');

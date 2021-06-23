@@ -606,3 +606,5 @@ HTXT;
         return $tempZipPath;
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\RemoteWebElement', 'PhpWebDriver\Remote\RemoteWebElement');

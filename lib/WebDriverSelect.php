@@ -243,3 +243,5 @@ class WebDriverSelect implements WebDriverSelectInterface
         }
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverSelect', 'PhpWebDriver\WebDriverSelect');

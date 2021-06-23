@@ -78,3 +78,5 @@ class WebDriverPoint
         $this->y === $point->getY();
     }
 }
+
+class_alias('Facebook\WebDriver\WebDriverPoint', 'PhpWebDriver\WebDriverPoint');

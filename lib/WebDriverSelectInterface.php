@@ -126,3 +126,5 @@ interface WebDriverSelectInterface
      */
     public function deselectByVisiblePartialText($text);
 }
+
+class_alias('Facebook\WebDriver\WebDriverSelectInterface', 'PhpWebDriver\WebDriverSelectInterface');

@@ -17,3 +17,5 @@ interface WebDriverHasInputDevices
      */
     public function getMouse();
 }
+
+class_alias('Facebook\WebDriver\WebDriverHasInputDevices', 'PhpWebDriver\WebDriverHasInputDevices');

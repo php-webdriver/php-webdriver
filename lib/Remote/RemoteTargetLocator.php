@@ -147,3 +147,5 @@ class RemoteTargetLocator implements WebDriverTargetLocator
         return new RemoteWebElement($method, JsonWireCompat::getElement($response), $this->isW3cCompliant);
     }
 }
+
+class_alias('Facebook\WebDriver\Remote\RemoteTargetLocator', 'PhpWebDriver\Remote\RemoteTargetLocator');

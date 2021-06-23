@@ -9,3 +9,5 @@ namespace Facebook\WebDriver\Exception;
 class InsecureCertificateException extends WebDriverException
 {
 }
+
+class_alias('Facebook\WebDriver\Exception\InsecureCertificateException', 'PhpWebDriver\Exception\InsecureCertificateException');
