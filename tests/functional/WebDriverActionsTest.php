@@ -184,9 +184,9 @@ class WebDriverActionsTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-saucelabs
      * @group exclude-safari
      *        https://developer.apple.com/forums/thread/662677
+     * @group exclude-saucelabs
      */
     public function testShouldDragAndDrop()
     {

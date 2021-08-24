@@ -6,10 +6,10 @@ use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @group exclude-saucelabs
- * @group exclude-edge
  * @group exclude-chrome
+ * @group exclude-edge
  * @group exclude-safari
+ * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\Firefox\FirefoxDriverService
  */
 class FirefoxDriverServiceTest extends TestCase

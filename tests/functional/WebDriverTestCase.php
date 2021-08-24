@@ -133,10 +133,10 @@ class WebDriverTestCase extends TestCase
     public static function skipForUnmatchedBrowsers($browsers = [], $message = null)
     {
         $browserName = (string) getenv('BROWSER_NAME');
-        if (array_search($browserName, $browsers) === false) {
+        if (!in_array($browserName, $browsers, true)) {
             if (!$message) {
-                $browserlist = implode(', ', $browsers);
-                $message = 'Browser ' . $browserName . ' not supported for this test (' . $browserlist . ')';
+                $browserList = implode(', ', $browsers);
+                $message = 'Browser ' . $browserName . ' not supported for this test (' . $browserList . ')';
             }
 
             static::markTestSkipped($message);

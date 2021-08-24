@@ -28,8 +28,8 @@ class DriverCommandExecutor extends HttpCommandExecutor
     /**
      * @param WebDriverCommand $command
      *
-     * @throws WebDriverException
      * @throws \Exception
+     * @throws WebDriverException
      * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command)

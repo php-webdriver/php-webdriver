@@ -478,7 +478,8 @@ HTXT;
             $this->executor->execute(
                 DriverCommand::TAKE_ELEMENT_SCREENSHOT,
                 [':id' => $this->id]
-            )
+            ),
+            true
         );
 
         if ($save_as !== null) {
