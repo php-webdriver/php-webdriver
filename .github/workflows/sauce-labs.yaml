@@ -8,6 +8,8 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    # Source: https://github.community/t/do-not-run-cron-workflows-in-forks/17636/2
+    if: (github.event_name == 'schedule' && github.repository == 'php-webdriver/php-webdriver') || (github.event_name != 'schedule')
     env:
       SAUCELABS: 1
       SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
