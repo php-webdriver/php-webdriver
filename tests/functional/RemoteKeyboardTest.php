@@ -10,12 +10,12 @@ class RemoteKeyboardTest extends WebDriverTestCase
     use RetrieveEventsTrait;
 
     /**
+     * @group exclude-edge
      * @group exclude-firefox
      * Firefox does not properly support keyboard actions:
      * https://github.com/mozilla/geckodriver/issues/245
      * https://github.com/mozilla/geckodriver/issues/646
      * https://github.com/mozilla/geckodriver/issues/944
-     * @group exclude-edge
      * @group exclude-safari
      * https://feedbackassistant.apple.com/feedback/9051272
      */

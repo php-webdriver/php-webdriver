@@ -49,8 +49,8 @@ class WebDriverWindowTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-saucelabs
      * @group exclude-edge
+     * @group exclude-saucelabs
      */
     public function testShouldFullscreenWindow()
     {
@@ -74,10 +74,10 @@ class WebDriverWindowTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-saucelabs
+     * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
      * @group exclude-chrome
      * @group exclude-safari
-     * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
+     * @group exclude-saucelabs
      */
     public function testShouldMinimizeWindow()
     {

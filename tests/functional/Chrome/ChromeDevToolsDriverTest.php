@@ -6,10 +6,10 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
 use Facebook\WebDriver\WebDriverTestCase;
 
 /**
- * @group exclude-saucelabs
  * @group exclude-edge
  * @group exclude-firefox
  * @group exclude-safari
+ * @group exclude-saucelabs
  */
 class ChromeDevToolsDriverTest extends WebDriverTestCase
 {

@@ -193,6 +193,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl('gecko653.html'));
 
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-plain-hidden'));
+
         try {
             $linkElement->click();
             $this->fail('No exception was thrown when clicking an inaccessible link');
@@ -201,6 +202,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         }
 
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-hidden-block-child'));
+
         try {
             $linkElement->click();
             $this->fail('No exception was thrown when clicking an inaccessible link');

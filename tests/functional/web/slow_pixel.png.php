@@ -6,5 +6,6 @@ sleep(5);
 header('Content-Type: image/png');
 echo base64_decode(
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjY'
-    . 'AAAAAIAAeIhvDMAAAAASUVORK5CYII='
+    . 'AAAAAIAAeIhvDMAAAAASUVORK5CYII=',
+    true
 );

@@ -175,7 +175,7 @@ class WebDriverWindow
     public function setScreenOrientation($orientation)
     {
         $orientation = mb_strtoupper($orientation);
-        if (!in_array($orientation, ['PORTRAIT', 'LANDSCAPE'])) {
+        if (!in_array($orientation, ['PORTRAIT', 'LANDSCAPE'], true)) {
             throw new IndexOutOfBoundsException(
                 'Orientation must be either PORTRAIT, or LANDSCAPE'
             );

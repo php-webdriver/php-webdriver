@@ -59,6 +59,7 @@ class URLChecker
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT_MS, self::CONNECT_TIMEOUT_MS);
 
         $code = null;
+
         try {
             curl_exec($ch);
             $info = curl_getinfo($ch);

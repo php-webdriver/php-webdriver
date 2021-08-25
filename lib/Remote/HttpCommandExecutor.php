@@ -296,7 +296,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $http_method);
         }
 
-        if (in_array($http_method, ['POST', 'PUT'])) {
+        if (in_array($http_method, ['POST', 'PUT'], true)) {
             // Disable sending 'Expect: 100-Continue' header, as it is causing issues with eg. squid proxy
             // https://tools.ietf.org/html/rfc7231#section-5.1.1
             curl_setopt($this->curl, CURLOPT_HTTPHEADER, array_merge(static::DEFAULT_HTTP_HEADERS, ['Expect:']));

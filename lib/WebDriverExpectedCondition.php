@@ -422,6 +422,7 @@ class WebDriverExpectedCondition
                     $visibility_of_element_located->getApply(),
                     $driver
                 );
+
                 try {
                     if ($element !== null && $element->isEnabled()) {
                         return $element;
