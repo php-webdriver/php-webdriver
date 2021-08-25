@@ -23,7 +23,6 @@
     "facebook/webdriver": "*"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.0",
     "ondram/ci-detector": "^2.1 || ^3.5 || ^4.0",
     "php-coveralls/php-coveralls": "^2.4",
     "php-mock/php-mock-phpunit": "^1.1 || ^2.0",
@@ -59,6 +58,12 @@
   },
   "minimum-stability": "beta",
   "scripts": {
+    "post-install-cmd": [
+      "php -r 'if (PHP_VERSION_ID > 70103) { exit(1); }' || composer install --working-dir=tools/php-cs-fixer --no-progress --no-interaction"
+    ],
+    "post-update-cmd": [
+      "php -r 'if (PHP_VERSION_ID > 70103) { exit(1); }' || composer update --working-dir=tools/php-cs-fixer --no-progress --no-interaction"
+    ],
     "all": [
       "@lint",
       "@analyze",
@@ -66,12 +71,12 @@
     ],
     "analyze": [
       "vendor/bin/phpstan analyze -c phpstan.neon --ansi",
-      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff --dry-run -vvv --ansi",
+      "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --ansi",
       "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
     ],
     "fix": [
       "@composer normalize",
-      "vendor/bin/php-cs-fixer fix --diff --diff-format=udiff -vvv || exit 0",
+      "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff -vvv || exit 0",
       "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
     ],
     "lint": [

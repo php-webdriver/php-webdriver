@@ -38,9 +38,9 @@ class WebDriverWait
      * @param callable|WebDriverExpectedCondition $func_or_ec
      * @param string $message
      *
+     * @throws \Exception
      * @throws NoSuchElementException
      * @throws TimeoutException
-     * @throws \Exception
      * @return mixed The return value of $func_or_ec
      */
     public function until($func_or_ec, $message = '')

@@ -116,7 +116,7 @@ class RemoteMouse implements WebDriverMouse
     {
         if ($this->isW3cCompliant) {
             $clickActions = $this->createClickActions();
-            $moveAction = null === $where ? [] : [$this->createMoveAction($where)];
+            $moveAction = $where === null ? [] : [$this->createMoveAction($where)];
             $this->executor->execute(DriverCommand::ACTIONS, [
                 'actions' => [
                     [
