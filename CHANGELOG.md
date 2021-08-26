@@ -2,6 +2,9 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- `RemoteWebElement::getDomProperty()` method to read JavaScript properties of an element (like the value of `innerHTML` etc.) in W3C mode.
+
 ### Changed
 - Allow installation of Symfony 6 components.
 

@@ -42,6 +42,29 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('note', $element->getAttribute('role'));
         $this->assertSame('height: 5em; border: 1px solid black;', $element->getAttribute('style'));
         $this->assertSame('text-simple', $element->getAttribute('id'));
+        $this->assertNull($element->getAttribute('notExisting'));
+    }
+
+    /**
+     * @covers ::getDomProperty
+     */
+    public function testShouldGetDomPropertyValue()
+    {
+        self::skipForJsonWireProtocol();
+
+        $this->driver->get($this->getTestPageUrl('index.html'));
+
+        $element = $this->driver->findElement(WebDriverBy::id('div-with-html'));
+
+        $this->assertStringContainsString(
+            ' <p>This <code>div</code> has some more <strong>html</strong> inside.</p>',
+            $element->getDomProperty('innerHTML')
+        );
+        $this->assertSame('foo bar', $element->getDomProperty('className')); // IDL property
+        $this->assertSame('foo bar', $element->getAttribute('class')); // HTML attribute should be the same
+        $this->assertSame('DIV', $element->getDomProperty('tagName'));
+        $this->assertSame(2, $element->getDomProperty('childElementCount'));
+        $this->assertNull($element->getDomProperty('notExistingProperty'));
     }
 
     /**
@@ -56,7 +79,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $elementLocation = $element->getLocation();
         $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
         $this->assertSame(33, $elementLocation->getX());
-        $this->assertSame(500, $elementLocation->getY());
+        $this->assertSame(550, $elementLocation->getY());
     }
 
     /**
