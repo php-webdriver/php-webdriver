@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Changed
+- Allow installation of Symfony 6 components.
 
 ## 1.11.1 - 2021-05-21
 ### Fixed
