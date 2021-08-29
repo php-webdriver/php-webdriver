@@ -3,6 +3,7 @@
 namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Exception\ElementNotInteractableException;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
@@ -132,6 +133,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
 
     /**
      * Get the value of the given attribute of the element.
+     * Attribute is meant what is declared in the HTML markup of the element.
+     * To read a value of a IDL "JavaScript" property (like `innerHTML`), use `getDomProperty()` method.
      *
      * @param string $attribute_name The name of the attribute.
      * @return string|null The value of the attribute.
@@ -160,6 +163,28 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
         }
 
         return $this->executor->execute(DriverCommand::GET_ELEMENT_ATTRIBUTE, $params);
+    }
+
+    /**
+     * Gets the value of a IDL JavaScript property of this element (for example `innerHTML`, `tagName` etc.).
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Glossary/IDL
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element#properties
+     * @param string $propertyName
+     * @return string|null The property's current value or null if the value is not set or the property does not exist.
+     */
+    public function getDomProperty($propertyName)
+    {
+        if (!$this->isW3cCompliant) {
+            throw new UnsupportedOperationException('This method is only supported in W3C mode');
+        }
+
+        $params = [
+            ':name' => $propertyName,
+            ':id' => $this->id,
+        ];
+
+        return $this->executor->execute(DriverCommand::GET_ELEMENT_PROPERTY, $params);
     }
 
     /**

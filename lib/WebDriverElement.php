@@ -22,12 +22,25 @@ interface WebDriverElement extends WebDriverSearchContext
     public function click();
 
     /**
-     * Get the value of a the given attribute of the element.
+     * Get the value of the given attribute of the element.
+     * Attribute is meant what is declared in the HTML markup of the element.
+     * To read a value of a IDL "JavaScript" property (like `innerHTML`), use `getDomProperty()` method.
      *
      * @param string $attribute_name The name of the attribute.
      * @return string|null The value of the attribute.
      */
     public function getAttribute($attribute_name);
+
+    /*
+     * Gets the value of a IDL JavaScript property of this element (for example `innerHTML`, `tagName` etc.).
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Glossary/IDL
+     * @see https://developer.mozilla.org/en-US/docs/Web/API/Element#properties
+     * @param string $propertyName
+     * @return string|null The property's current value or null if the value is not set or the property does not exist.
+     * @todo Add in next major release (BC)
+     */
+    // public function getDomProperty($propertyName);
 
     /**
      * Get the value of a given CSS property.
