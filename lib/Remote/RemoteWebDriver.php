@@ -126,11 +126,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         $parameters['desiredCapabilities'] = (object) $desired_capabilities->toArray();
 
-        $command = new WebDriverCommand(
-            null,
-            DriverCommand::NEW_SESSION,
-            $parameters
-        );
+        $command = WebDriverCommand::newSession($parameters);
 
         $response = $executor->execute($command);
 

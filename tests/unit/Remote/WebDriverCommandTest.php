@@ -14,4 +14,13 @@ class WebDriverCommandTest extends TestCase
         $this->assertSame('bar-baz-name', $command->getName());
         $this->assertSame(['foo' => 'bar'], $command->getParameters());
     }
+
+    public function testShouldCreateNewSessionCommand()
+    {
+        $command = WebDriverCommand::newSession(['bar' => 'baz']);
+
+        $this->assertNull($command->getSessionID());
+        $this->assertSame('newSession', $command->getName());
+        $this->assertSame(['bar' => 'baz'], $command->getParameters());
+    }
 }

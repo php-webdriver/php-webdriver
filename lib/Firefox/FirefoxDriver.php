@@ -4,7 +4,6 @@ namespace Facebook\WebDriver\Firefox;
 
 use Facebook\WebDriver\Local\LocalWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 
@@ -44,9 +43,7 @@ class FirefoxDriver extends LocalWebDriver
         }
 
         $executor = new DriverCommandExecutor($service);
-        $newSessionCommand = new WebDriverCommand(
-            null,
-            DriverCommand::NEW_SESSION,
+        $newSessionCommand = WebDriverCommand::newSession(
             [
                 'capabilities' => [
                     'firstMatch' => [(object) $capabilities->toW3cCompatibleArray()],
