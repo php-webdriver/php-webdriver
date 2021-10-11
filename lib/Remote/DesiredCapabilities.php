@@ -30,7 +30,7 @@ class DesiredCapabilities implements WebDriverCapabilities
 
     public static function createFromW3cCapabilities(array $capabilities = [])
     {
-        $w3cToOss = array_flip(static::$ossToW3c);
+        $w3cToOss = array_flip(self::$ossToW3c);
 
         foreach ($w3cToOss as $w3cCapability => $ossCapability) {
             // Copy W3C capabilities to OSS ones
@@ -229,16 +229,16 @@ class DesiredCapabilities implements WebDriverCapabilities
             }
 
             // Convert capabilities with changed name
-            if (array_key_exists($capabilityKey, static::$ossToW3c)) {
+            if (array_key_exists($capabilityKey, self::$ossToW3c)) {
                 if ($capabilityKey === WebDriverCapabilityType::PLATFORM) {
-                    $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
+                    $w3cCapabilities[self::$ossToW3c[$capabilityKey]] = mb_strtolower($capabilityValue);
 
                     // Remove platformName if it is set to "any"
-                    if ($w3cCapabilities[static::$ossToW3c[$capabilityKey]] === 'any') {
-                        unset($w3cCapabilities[static::$ossToW3c[$capabilityKey]]);
+                    if ($w3cCapabilities[self::$ossToW3c[$capabilityKey]] === 'any') {
+                        unset($w3cCapabilities[self::$ossToW3c[$capabilityKey]]);
                     }
                 } else {
-                    $w3cCapabilities[static::$ossToW3c[$capabilityKey]] = $capabilityValue;
+                    $w3cCapabilities[self::$ossToW3c[$capabilityKey]] = $capabilityValue;
                 }
             }
 
