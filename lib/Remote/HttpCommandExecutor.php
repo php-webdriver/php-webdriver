@@ -268,7 +268,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $http_method = $http_options['method'];
         $url = $http_options['url'];
 
-        $url = str_replace(':sessionId', $command->getSessionID(), $url);
+        $sessionID = $command->getSessionID();
+        $url = str_replace(':sessionId', $sessionID === null ? '' : $sessionID, $url);
         $params = $command->getParameters();
         foreach ($params as $name => $value) {
             if ($name[0] === ':') {

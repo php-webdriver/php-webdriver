@@ -1,6 +1,7 @@
 <?php
 
 namespace Facebook\WebDriver\Firefox;
+use ReturnTypeWillChange;
 
 /**
  * Class to manage Firefox-specific capabilities
@@ -101,6 +102,7 @@ class FirefoxOptions implements \JsonSerializable
         return $array;
     }
 
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return new \ArrayObject($this->toArray());
