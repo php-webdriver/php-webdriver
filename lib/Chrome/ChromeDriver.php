@@ -4,7 +4,6 @@ namespace Facebook\WebDriver\Chrome;
 
 use Facebook\WebDriver\Local\LocalWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 
@@ -48,9 +47,7 @@ class ChromeDriver extends LocalWebDriver
         }
 
         $executor = new DriverCommandExecutor($service);
-        $newSessionCommand = new WebDriverCommand(
-            null,
-            DriverCommand::NEW_SESSION,
+        $newSessionCommand = WebDriverCommand::newSession(
             [
                 'capabilities' => [
                     'firstMatch' => [(object) $capabilities->toW3cCompatibleArray()],
@@ -76,9 +73,7 @@ class ChromeDriver extends LocalWebDriver
      */
     public function startSession(DesiredCapabilities $desired_capabilities)
     {
-        $command = new WebDriverCommand(
-            null,
-            DriverCommand::NEW_SESSION,
+        $command = WebDriverCommand::newSession(
             [
                 'capabilities' => [
                     'firstMatch' => [(object) $desired_capabilities->toW3cCompatibleArray()],
