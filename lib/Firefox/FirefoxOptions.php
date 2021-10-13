@@ -1,6 +1,7 @@
 <?php
 
 namespace Facebook\WebDriver\Firefox;
+
 use ReturnTypeWillChange;
 
 /**
