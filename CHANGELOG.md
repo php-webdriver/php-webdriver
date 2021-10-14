@@ -9,6 +9,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Allow installation of Symfony 6 components.
 
+### Fixed
+- PHP 8.1 compatibility.
+
 ## 1.11.1 - 2021-05-21
 ### Fixed
 - `RemoteWebElement::getLocationOnScreenOnceScrolledIntoView()` was missing polyfill implementation for W3C mode and not working in eg. Safari.
