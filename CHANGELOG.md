@@ -1,7 +1,7 @@
 # Changelog
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 1.12.0 - 2021-10-14
 ### Added
 - `RemoteWebElement::getDomProperty()` method to read JavaScript properties of an element (like the value of `innerHTML` etc.) in W3C mode.
 - `WebDriverCommand::newSession()` constructor to create new session command without violating typehints.
