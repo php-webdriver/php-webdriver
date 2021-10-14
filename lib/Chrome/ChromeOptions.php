@@ -4,6 +4,7 @@ namespace Facebook\WebDriver\Chrome;
 
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use JsonSerializable;
+use ReturnTypeWillChange;
 
 /**
  * The class manages the capabilities in ChromeDriver.
@@ -43,6 +44,7 @@ class ChromeOptions implements JsonSerializable
      *
      * @return array
      */
+    #[ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return $this->toArray();
