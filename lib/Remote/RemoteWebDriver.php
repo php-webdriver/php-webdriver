@@ -378,6 +378,34 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
         return $screenshot;
     }
+    
+    /**
+     * Take a cropped screenshot of the current page.
+     *
+     * @param array $crop_data The $rect argument of imagecrop()
+     * @param string $save_as The path of the screenshot to be saved.
+     * @return string The screenshot in PNG format.
+     */
+    public function takeCroppedScreenshot($crop_data, $save_as = null) {
+        $screenshot = base64_decode($this->execute(DriverCommand::SCREENSHOT), true);
+
+        $croppedScreenshot = imagecrop(imagecreatefromstring($screenshot), array(
+            'x' => $crop_data['x'], 'y' => $crop_data['y'],
+            'width' => $crop_data['width'], 'height' => $crop_data['height']
+        ));
+
+        if ($save_as !== null) {
+            $directoryPath = dirname($save_as);
+
+            if (!file_exists($directoryPath)) {
+                mkdir($directoryPath, 0777, true);
+            }
+
+            imagejpeg($croppedScreenshot, $save_as, 100);
+        }
+
+        return $croppedScreenshot;
+    }
 
     /**
      * Status returns information about whether a remote end is in a state in which it can create new sessions.
