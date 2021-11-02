@@ -13,6 +13,7 @@ use Facebook\WebDriver\WebDriverHasInputDevices;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
+use Facebook\WebDriver\Exception\NoSuchElementException;
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInputDevices
 {
@@ -207,6 +208,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             DriverCommand::FIND_ELEMENT,
             JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
+
+        if (empty($raw_element)) {
+            throw new Facebook\WebDriver\Exception\NoSuchElementException();
+        }
 
         return $this->newElement(JsonWireCompat::getElement($raw_element));
     }
