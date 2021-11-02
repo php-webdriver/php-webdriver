@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\WebDriver;
@@ -13,7 +14,6 @@ use Facebook\WebDriver\WebDriverHasInputDevices;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
-use Facebook\WebDriver\Exception\NoSuchElementException;
 
 class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInputDevices
 {
@@ -210,7 +210,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         if (empty($raw_element)) {
-            throw new Facebook\WebDriver\Exception\NoSuchElementException();
+            throw new NoSuchElementException('findElement failed to get a $raw_element');
         }
 
         return $this->newElement(JsonWireCompat::getElement($raw_element));
