@@ -137,7 +137,8 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * To read a value of a IDL "JavaScript" property (like `innerHTML`), use `getDomProperty()` method.
      *
      * @param string $attribute_name The name of the attribute.
-     * @return string|null The value of the attribute.
+     * @return string|true|null The value of the attribute. If this is boolean attribute, return true if the element
+     *      has it, otherwise return null.
      */
     public function getAttribute($attribute_name)
     {
@@ -171,7 +172,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * @see https://developer.mozilla.org/en-US/docs/Glossary/IDL
      * @see https://developer.mozilla.org/en-US/docs/Web/API/Element#properties
      * @param string $propertyName
-     * @return string|null The property's current value or null if the value is not set or the property does not exist.
+     * @return mixed|null The property's current value or null if the value is not set or the property does not exist.
      */
     public function getDomProperty($propertyName)
     {
