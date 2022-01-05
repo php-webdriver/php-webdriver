@@ -89,6 +89,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Find the first WebDriverElement within this element using the given mechanism.
      *
+     * When using xpath be aware that webdriver follows standard conventions: a search prefixed with "//" will
+     * search the entire document from the root, not just the children (relative context) of this current node.
+     * Use ".//" to limit your search to the children of this element.
+     *
      * @param WebDriverBy $by
      * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
@@ -108,6 +112,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
 
     /**
      * Find all WebDriverElements within this element using the given mechanism.
+     *
+     * When using xpath be aware that webdriver follows standard conventions: a search prefixed with "//" will
+     * search the entire document from the root, not just the children (relative context) of this current node.
+     * Use ".//" to limit your search to the children of this element.
      *
      * @param WebDriverBy $by
      * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
