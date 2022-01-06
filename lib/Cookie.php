@@ -229,6 +229,7 @@ class Cookie implements \ArrayAccess
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->cookie[$offset]);
