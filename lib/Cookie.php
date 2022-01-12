@@ -208,6 +208,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
+     * @param mixed $offset
      * @return bool
      */
     #[\ReturnTypeWillChange]
@@ -217,6 +218,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
+     * @param mixed $offset
      * @return mixed
      */
     #[\ReturnTypeWillChange]
@@ -226,6 +228,8 @@ class Cookie implements \ArrayAccess
     }
 
     /**
+     * @param mixed $offset
+     * @param mixed $value
      * @return void
      */
     #[\ReturnTypeWillChange]
@@ -239,6 +243,7 @@ class Cookie implements \ArrayAccess
     }
 
     /**
+     * @param mixed $offset
      * @return void
      */
     #[\ReturnTypeWillChange]
