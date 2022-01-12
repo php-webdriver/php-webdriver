@@ -207,16 +207,25 @@ class Cookie implements \ArrayAccess
         return $cookie;
     }
 
+    /**
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return isset($this->cookie[$offset]);
     }
 
+    /**
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset) ? $this->cookie[$offset] : null;
     }
 
+    /**
+     * @return void
+     */
     public function offsetSet($offset, $value)
     {
         if ($value === null) {
@@ -226,6 +235,9 @@ class Cookie implements \ArrayAccess
         }
     }
 
+    /**
+     * @return void
+     */
     public function offsetUnset($offset)
     {
         unset($this->cookie[$offset]);
