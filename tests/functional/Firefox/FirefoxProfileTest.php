@@ -20,40 +20,42 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverTestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @group firefox
+ * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\Firefox\FirefoxProfile
  */
-class FirefoxProfileTest extends WebDriverTestCase
+class FirefoxProfileTest extends TestCase
 {
+    /** @var FirefoxDriver */
+    protected $driver;
+
     protected $firefoxTestExtensionFilename =
         __DIR__ . DIRECTORY_SEPARATOR .
         '..' . DIRECTORY_SEPARATOR .
         'Fixtures/FirefoxWebdriverTestExtension-0.1-fx.xpi';
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        if (getenv('BROWSER_NAME') !== 'firefox' || getenv('SAUCELABS')) {
-            $this->markTestSkipped('FirefoxProfileTest is run only when running against local firefox');
+        if (getenv('BROWSER_NAME') !== 'firefox' || empty(getenv('GECKODRIVER_PATH'))
+            || WebDriverTestCase::isSauceLabsBuild()) {
+            $this->markTestSkipped('The test is run only when running against local firefox');
+        }
+    }
+
+    protected function tearDown(): void
+    {
+        if ($this->driver instanceof RemoteWebDriver && $this->driver->getCommandExecutor() !== null) {
+            $this->driver->quit();
         }
     }
 
     public function testShouldInstallExtension()
     {
-        $this->desiredCapabilities = DesiredCapabilities::firefox();
-
         $firefoxProfile = new FirefoxProfile();
         $firefoxProfile->addExtension($this->firefoxTestExtensionFilename);
-
-        $this->desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
-
-        $this->driver = RemoteWebDriver::create(
-            $this->serverUrl,
-            $this->desiredCapabilities,
-            $this->connectionTimeout,
-            $this->requestTimeout
-        );
+        $this->driver = $this->startFirefoxDriver($firefoxProfile, ['-headless']);
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
@@ -61,36 +63,29 @@ class FirefoxProfileTest extends WebDriverTestCase
 
         $element = $this->driver->findElement(WebDriverBy::id('webDriverExtensionTest'));
         $this->assertInstanceOf(RemoteWebElement::class, $element);
-
-        $this->driver->quit();
     }
 
-    public function testShouldInstallExtensionInHeadlessMode()
+    protected function getTestPageUrl($path)
     {
-        $this->desiredCapabilities = DesiredCapabilities::firefox();
+        $host = 'http://localhost:8000';
+        if ($alternateHost = getenv('FIXTURES_HOST')) {
+            $host = $alternateHost;
+        }
 
-        $firefoxProfile = new FirefoxProfile();
-        $firefoxProfile->addExtension($this->firefoxTestExtensionFilename);
+        return $host . '/' . $path;
+    }
 
-        $this->desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
+    private function startFirefoxDriver(FirefoxProfile $firefoxProfile, array $arguments = [])
+    {
+        // The createDefaultService() method expect path to the executable to be present in the environment variable
+        putenv(FirefoxDriverService::WEBDRIVER_FIREFOX_DRIVER . '=' . getenv('GECKODRIVER_PATH'));
 
-        $arguments[] = '--headless';
-        $this->desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => $arguments]);
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments($arguments);
+        $desiredCapabilities = DesiredCapabilities::firefox();
+        $desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
+        $desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
 
-        $this->driver = RemoteWebDriver::create(
-            $this->serverUrl,
-            $this->desiredCapabilities,
-            $this->connectionTimeout,
-            $this->requestTimeout
-        );
-
-        $this->driver->get($this->getTestPageUrl('index.html'));
-
-        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
-
-        $element = $this->driver->findElement(WebDriverBy::id('webDriverExtensionTest'));
-        $this->assertInstanceOf(RemoteWebElement::class, $element);
-
-        $this->driver->quit();
+        return FirefoxDriver::start($desiredCapabilities);
     }
 }
