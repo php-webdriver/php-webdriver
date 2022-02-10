@@ -182,10 +182,19 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @param string|null $http_proxy
      * @param int|null $http_proxy_port
      */
-    public function __construct($url, $http_proxy = null, $http_proxy_port = null)
+    public function __construct($url, $http_proxy = null, $http_proxy_port = null, $http_proxy_user = null, $http_proxy_pass = null)
     {
         self::$w3cCompliantCommands = array_merge(self::$commands, self::$w3cCompliantCommands);
 
+        $uri = parse_url($http_proxy);
+        if ($uri !== false) {
+            $http_proxy = $uri['host'];
+            $http_proxy_port = $uri['port'];
+            $http_proxy_user = $uri['user'];
+            $http_proxy_pass = $uri['pass'];
+        }
+        unsewt($uri);
+        
         $this->url = $url;
         $this->curl = curl_init();
 
@@ -193,6 +202,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             curl_setopt($this->curl, CURLOPT_PROXY, $http_proxy);
             if ($http_proxy_port !== null) {
                 curl_setopt($this->curl, CURLOPT_PROXYPORT, $http_proxy_port);
+            }
+            if ($http_proxy_user !== null && $http_proxy_pass !== null) {
+                curl_setopt($this->curl, CURLOPT_PROXYUSERPWD, $http_proxy_user . ':' . $http_proxy_pass);
             }
         }
 
