@@ -82,7 +82,7 @@ return (new PhpCsFixer\Config())
         'phpdoc_add_missing_param_annotation' => true,
         'phpdoc_indent' => true,
         'phpdoc_no_access' => true,
-        'phpdoc_no_empty_return' => true,
+        // 'phpdoc_no_empty_return' => true, // disabled to allow forward compatibility with PHP 8.1
         'phpdoc_no_package' => true,
         'phpdoc_order_by_value' => ['annotations' => ['covers', 'group', 'throws']],
         'phpdoc_order' => true,
