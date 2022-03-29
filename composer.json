@@ -55,6 +55,9 @@
     ]
   },
   "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
     "sort-packages": true
   },
   "scripts": {
