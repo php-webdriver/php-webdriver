@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:referrer="http://a9.com/-/opensearch/extensions/referrer/">
+    <ShortName>php-webdriver API (main)</ShortName>
+    <Description>Searches php-webdriver API (main)</Description>
+    <Tags>php-webdriver API</Tags>
+    <Url type="text/html" method="GET" template="https://php-webdriver.github.io/php-webdriver/%version/search.html?search={searchTerms}&amp;utm_source={referrer:source?}"/>
+    <InputEncoding>UTF-8</InputEncoding>
+    <AdultContent>false</AdultContent>
+</OpenSearchDescription>
