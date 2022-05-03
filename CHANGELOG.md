@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.12.1 - 2022-05-03
 ### Fixed
 - Improper PHP documentation for `getAttribute()` and `getDomProperty()`.
 - Unsafe use of `static::` when accessing private property in `DesiredCapabilities`.
