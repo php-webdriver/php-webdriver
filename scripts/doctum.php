@@ -24,7 +24,7 @@ return new Doctum($iterator, [
     'build_dir' => $root . '/build/dist/%version%/',
     'cache_dir' => $root . '/build/cache/%version%/',
     'include_parent_data' => true,
-    'remote_repository'    => new GitHubRemoteRepository('php-webdriver/php-webdriver', $srcRoot),
+    'remote_repository' => new GitHubRemoteRepository('php-webdriver/php-webdriver', $srcRoot),
     'versions' => $versions,
-    'base_url' => 'https://php-webdriver.github.io/php-webdriver/%version/'
+    'base_url' => 'https://php-webdriver.github.io/php-webdriver/%version%/'
 ]);
