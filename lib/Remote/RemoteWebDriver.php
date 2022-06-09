@@ -364,6 +364,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function takeScreenshot($save_as = null)
     {
+        if ($this->executor === null) {
+            return '';
+        }
+
         $screenshot = base64_decode($this->execute(DriverCommand::SCREENSHOT), true);
 
         if ($save_as !== null) {
