@@ -58,7 +58,7 @@ This could be Selenium standalone server, but for local development, you can sen
 
 📙 Below you will find a simple example. Make sure to read our wiki for [more information on Chrome/Chromedriver](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
 
-Install the latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+Install the latest Chrome and [Chromedriver](https://sites.google.com/chromium.org/driver/downloads).
 Make sure to have a compatible version of Chromedriver and Chrome!
 
 Run `chromedriver` binary, you can pass `port` argument, so that it listens on port 4444:
