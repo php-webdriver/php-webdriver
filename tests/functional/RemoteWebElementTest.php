@@ -455,6 +455,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::takeElementScreenshot
+     * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      * @group exclude-saucelabs
      */
     public function testShouldTakeAndSaveElementScreenshot()
@@ -469,7 +470,6 @@ class RemoteWebElementTest extends WebDriverTestCase
         $isCi = (new CiDetector())->isCiDetected();
         $isSafari = getenv('BROWSER_NAME') === 'safari';
 
-        // Intentionally save screenshot to subdirectory to tests it is being created
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/element-screenshot.png';
 
         $this->driver->get($this->getTestPageUrl('index.html'));

@@ -250,6 +250,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::takeScreenshot
+     * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      */
     public function testShouldTakeScreenshot()
     {
@@ -269,6 +270,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
     /**
      * @covers ::takeScreenshot
+     * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      * @group exclude-safari
      *        Safari is returning different color profile and it does not have way to configure "force-color-profile"
      */
@@ -277,7 +279,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        // Intentionally save screenshot to subdirectory to tests it is being created
+
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/selenium-screenshot.png';
 
         $this->driver->get($this->getTestPageUrl('index.html'));

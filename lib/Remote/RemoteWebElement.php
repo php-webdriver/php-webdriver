@@ -7,6 +7,7 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
 use Facebook\WebDriver\Internal\WebDriverLocatable;
+use Facebook\WebDriver\Support\ScreenshotHelper;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverDimension;
 use Facebook\WebDriver\WebDriverElement;
@@ -508,24 +509,7 @@ HTXT;
      */
     public function takeElementScreenshot($save_as = null)
     {
-        $screenshot = base64_decode(
-            $this->executor->execute(
-                DriverCommand::TAKE_ELEMENT_SCREENSHOT,
-                [':id' => $this->id]
-            ),
-            true
-        );
-
-        if ($save_as !== null) {
-            $directoryPath = dirname($save_as);
-            if (!file_exists($directoryPath)) {
-                mkdir($directoryPath, 0777, true);
-            }
-
-            file_put_contents($save_as, $screenshot);
-        }
-
-        return $screenshot;
+        return (new ScreenshotHelper($this->executor))->takeElementScreenshot($this->id, $save_as);
     }
 
     /**
