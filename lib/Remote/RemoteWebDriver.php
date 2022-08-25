@@ -555,6 +555,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Returns a list of the currently active sessions.
      *
+     * @deprecated Removed in W3C WebDriver.
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int $timeout_in_ms
      * @return array
