@@ -4,6 +4,7 @@ namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
+use Facebook\WebDriver\Support\ScreenshotHelper;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverCapabilities;
@@ -364,19 +365,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     public function takeScreenshot($save_as = null)
     {
-        $screenshot = base64_decode($this->execute(DriverCommand::SCREENSHOT), true);
-
-        if ($save_as !== null) {
-            $directoryPath = dirname($save_as);
-
-            if (!file_exists($directoryPath)) {
-                mkdir($directoryPath, 0777, true);
-            }
-
-            file_put_contents($save_as, $screenshot);
-        }
-
-        return $screenshot;
+        return (new ScreenshotHelper($this->getExecuteMethod()))->takePageScreenshot($save_as);
     }
 
     /**
