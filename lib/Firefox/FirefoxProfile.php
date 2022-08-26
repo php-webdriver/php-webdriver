@@ -184,63 +184,28 @@ class FirefoxProfile
 
     /**
      * @param string $extension The path to the extension.
-     * @param string $profile_dir The path to the profile directory.
+     * @param string $profileDir The path to the profile directory.
      * @throws \Exception
      * @throws WebDriverException
-     * @return string The path to the directory of this extension.
      */
-    private function installExtension($extension, $profile_dir)
+    private function installExtension($extension, $profileDir)
     {
-        $temp_dir = $this->createTempDirectory();
+        $extensionCommonName = $this->parseExtensionName($extension);
 
-        $this->extractTo($extension, $temp_dir);
-
-        $mozilla_rsa_path = $temp_dir . '/META-INF/mozilla.rsa';
-        $mozilla_rsa_binary_data = file_get_contents($mozilla_rsa_path);
-        $mozilla_rsa_hex = bin2hex($mozilla_rsa_binary_data);
-
-        //We need to find plugin id. This is second occurrence of object identifier "2.5.4.3 commonName"
-
-        //That is marker "2.5.4.3 commonName" in hex:
-        $object_identifier_hex_marker = '0603550403';
-
-        $first_marker_pos_in_hex = strpos($mozilla_rsa_hex, $object_identifier_hex_marker); // phpcs:ignore
-
-        $second_marker_pos_in_hex_string =
-            strpos($mozilla_rsa_hex, $object_identifier_hex_marker, $first_marker_pos_in_hex + 2); // phpcs:ignore
-
-        if ($second_marker_pos_in_hex_string === false) {
-            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
+        // install extension to profile directory
+        $extensionDir = $profileDir . '/extensions/';
+        if (!is_dir($extensionDir) && !mkdir($extensionDir, 0777, true) && !is_dir($extensionDir)) {
+            throw new WebDriverException('Cannot install Firefox extension - cannot create directory');
         }
 
-        $common_name_string_position_in_binary =
-            ($second_marker_pos_in_hex_string + strlen($object_identifier_hex_marker)) / 2; // phpcs:ignore
-
-        $common_name_string_length = ord($mozilla_rsa_binary_data[$common_name_string_position_in_binary + 1]);
-        $addon_common_name = substr( // phpcs:ignore
-            $mozilla_rsa_binary_data,
-            $common_name_string_position_in_binary + 2,
-            $common_name_string_length
-        );
-
-        $this->deleteDirectory($temp_dir);
-
-        //install extension to profile directory
-        $ext_dir = $profile_dir . '/extensions/';
-        if (!is_dir($ext_dir) && !mkdir($ext_dir, 0777, true) && !is_dir($ext_dir)) {
-            throw new WebDriverException('Cannot install extension - cannot create directory');
+        if (!copy($extension, $extensionDir . $extensionCommonName . '.xpi')) {
+            throw new WebDriverException('Cannot install Firefox extension - cannot copy file');
         }
 
-        if (!copy($extension, $ext_dir . $addon_common_name . '.xpi')) {
-            throw new WebDriverException('Cannot install extension - cannot copy file');
-        }
-
-        //extension installation with empty preferences (empty users.js) fails:
+        // extension installation with empty preferences (empty users.js) fails, thus add some dummy data
         if (empty($this->preferences)) {
-            $this->setPreference('dom.webdriver.enabled', true);
+            $this->setPreference('dummy.preference', true);
         }
-
-        return $ext_dir;
     }
 
     /**
@@ -304,5 +269,45 @@ class FirefoxProfile
         }
 
         return $this;
+    }
+
+    private function parseExtensionName($extensionPath)
+    {
+        $temp_dir = $this->createTempDirectory();
+
+        $this->extractTo($extensionPath, $temp_dir);
+
+        $mozillaRsaPath = $temp_dir . '/META-INF/mozilla.rsa';
+        $mozillaRsaBinaryData = file_get_contents($mozillaRsaPath);
+        $mozillaRsaHex = bin2hex($mozillaRsaBinaryData);
+
+        //We need to find the plugin id. This is the second occurrence of object identifier "2.5.4.3 commonName".
+
+        //That is marker "2.5.4.3 commonName" in hex:
+        $objectIdentifierHexMarker = '0603550403';
+
+        $firstMarkerPosInHex = strpos($mozillaRsaHex, $objectIdentifierHexMarker); // phpcs:ignore
+
+        $secondMarkerPosInHexString =
+            strpos($mozillaRsaHex, $objectIdentifierHexMarker, $firstMarkerPosInHex + 2); // phpcs:ignore
+
+        if ($secondMarkerPosInHexString === false) {
+            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
+        }
+
+        // phpcs:ignore
+        $commonNameStringPositionInBinary = ($secondMarkerPosInHexString + strlen($objectIdentifierHexMarker)) / 2;
+
+        $commonNameStringLength = ord($mozillaRsaBinaryData[$commonNameStringPositionInBinary + 1]);
+        // phpcs:ignore
+        $extensionCommonName = substr(
+            $mozillaRsaBinaryData,
+            $commonNameStringPositionInBinary + 2,
+            $commonNameStringLength
+        );
+
+        $this->deleteDirectory($temp_dir);
+
+        return $extensionCommonName;
     }
 }
