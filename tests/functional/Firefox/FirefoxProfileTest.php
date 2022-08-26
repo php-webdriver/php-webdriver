@@ -17,12 +17,26 @@ namespace Facebook\WebDriver\Firefox;
 
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-use Facebook\WebDriver\Remote\RemoteWebElement;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * ## Generating/updating the Firefox extension fixture ##
+ *
+ * For testing purposes, we use dummy Firefox extension (`Fixtures/FirefoxExtension.xpi`), which adds `<div>` element
+ * with some text at the end of each page Firefox renders.
+ *
+ * In case the extension will need to be modified, steps below must be followed,
+ * otherwise firefox won't load the modified extension:
+ *
+ * - Extract the xpi file (it is a zip archive) to some temporary directory
+ * - Make needed changes in the files
+ * - Install web-ext tool from Mozilla (@see https://github.com/mozilla/web-ext)
+ * - Sign in to https://addons.mozilla.org/cs/developers/addon/api/key/ to get your JWT API key and JWT secret
+ * - Run `web-ext sign --channel=unlisted --api-key=[you-api-key] --api-secret=[your-api-secret]` in the extension dir
+ * - Store the output file (`web-ext-artifacts/[...].xpi`) to the Fixtures/ directory
+ *
  * @group exclude-saucelabs
  * @covers \Facebook\WebDriver\Firefox\FirefoxProfile
  */
@@ -31,10 +45,7 @@ class FirefoxProfileTest extends TestCase
     /** @var FirefoxDriver */
     protected $driver;
 
-    protected $firefoxTestExtensionFilename =
-        __DIR__ . DIRECTORY_SEPARATOR .
-        '..' . DIRECTORY_SEPARATOR .
-        'Fixtures/FirefoxWebdriverTestExtension-0.1-fx.xpi';
+    protected $firefoxTestExtensionFilename = __DIR__ . '/Fixtures/FirefoxExtension.xpi';
 
     protected function setUp(): void
     {
@@ -62,7 +73,7 @@ class FirefoxProfileTest extends TestCase
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
 
         $element = $this->driver->findElement(WebDriverBy::id('webDriverExtensionTest'));
-        $this->assertInstanceOf(RemoteWebElement::class, $element);
+        $this->assertEquals('This element was added by browser extension', $element->getText());
     }
 
     protected function getTestPageUrl($path)
