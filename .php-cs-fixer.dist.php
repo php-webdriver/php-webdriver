@@ -1,6 +1,7 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
+    ->notPath('Firefox/FirefoxProfile.php') // need to use str_* instead of mb_str_* methods
     ->in([__DIR__ . '/lib', __DIR__ . '/tests']);
 
 return (new PhpCsFixer\Config())

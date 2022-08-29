@@ -21,7 +21,7 @@ class FirefoxDriverServiceTest extends TestCase
     {
         if (getenv('BROWSER_NAME') !== 'firefox' || empty(getenv('GECKODRIVER_PATH'))
             || WebDriverTestCase::isSauceLabsBuild()) {
-            $this->markTestSkipped('The test is run only when running against local chrome');
+            $this->markTestSkipped('The test is run only when running against local firefox');
         }
     }
 
