@@ -84,7 +84,7 @@ jobs:
   functional-tests:
     runs-on: ${{ matrix.os }}
     env:
-      SELENIUM_SERVER_DOWNLOAD_URL: http://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.3.0/selenium-server-4.3.0.jar
 
     strategy:
       fail-fast: false
@@ -116,13 +116,13 @@ jobs:
       - name: Start Selenium standalone server
         # If you want to run your Selenium WebDriver tests on GitHub actions, we recommend using service containers
         # with eg. selenium/standalone-chrome image. See https://docs.github.com/en/actions/guides/about-service-containers
-        # But for the purpose of testing this library itself, we need more control so we set everything up manually.
+        # But for the purpose of testing this library itself, we need more control, so we set everything up manually.
         if: ${{ matrix.selenium-server }}
         run: |
-          mkdir -p build
-          wget -q -t 3 -O build/selenium-server-standalone.jar $SELENIUM_SERVER_DOWNLOAD_URL
-          java -jar build/selenium-server-standalone.jar -version
-          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server-standalone.jar -log logs/selenium-server.log &
+          mkdir -p build logs
+          wget -q -t 3 -O build/selenium-server.jar $SELENIUM_SERVER_DOWNLOAD_URL
+          java -jar build/selenium-server.jar standalone --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server.jar standalone --log logs/selenium-server.log &
 
       - name: Start ChromeDriver
         if: ${{ !matrix.selenium-server && matrix.browser == 'chrome' }}
