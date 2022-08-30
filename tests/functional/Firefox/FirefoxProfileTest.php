@@ -62,11 +62,24 @@ class FirefoxProfileTest extends TestCase
         }
     }
 
+    public function testShouldStartDriverWithEmptyProfile()
+    {
+        $firefoxProfile = new FirefoxProfile();
+        $this->startFirefoxDriverWithProfile($firefoxProfile);
+
+        $this->driver->get('http://localhost:8000/');
+        $element = $this->driver->findElement(WebDriverBy::id('welcome'));
+        $this->assertSame(
+            'Welcome to the php-webdriver testing page.',
+            $element->getText()
+        );
+    }
+
     public function testShouldInstallExtension()
     {
         $firefoxProfile = new FirefoxProfile();
         $firefoxProfile->addExtension($this->firefoxTestExtensionFilename);
-        $this->driver = $this->startFirefoxDriver($firefoxProfile, ['-headless']);
+        $this->startFirefoxDriverWithProfile($firefoxProfile);
 
         $this->driver->get($this->getTestPageUrl('index.html'));
 
@@ -74,6 +87,25 @@ class FirefoxProfileTest extends TestCase
 
         $element = $this->driver->findElement(WebDriverBy::id('webDriverExtensionTest'));
         $this->assertEquals('This element was added by browser extension', $element->getText());
+    }
+
+    public function testShouldUseProfilePreferences()
+    {
+        $firefoxProfile = new FirefoxProfile();
+
+        // Please note, although it is possible to set preferences right into the profile (what this test does),
+        // we recommend using the setPreference() method on FirefoxOptions instead, so that you don't need to
+        // create FirefoxProfile.
+        $firefoxProfile->setPreference('javascript.enabled', false);
+
+        $this->startFirefoxDriverWithProfile($firefoxProfile);
+        $this->driver->get('http://localhost:8000/');
+
+        $noScriptElement = $this->driver->findElement(WebDriverBy::id('noscript'));
+        $this->assertEquals(
+            'This element is only shown with JavaScript disabled.',
+            $noScriptElement->getText()
+        );
     }
 
     protected function getTestPageUrl($path)
@@ -86,17 +118,17 @@ class FirefoxProfileTest extends TestCase
         return $host . '/' . $path;
     }
 
-    private function startFirefoxDriver(FirefoxProfile $firefoxProfile, array $arguments = [])
+    private function startFirefoxDriverWithProfile(FirefoxProfile $firefoxProfile)
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(FirefoxDriverService::WEBDRIVER_FIREFOX_DRIVER . '=' . getenv('GECKODRIVER_PATH'));
 
         $firefoxOptions = new FirefoxOptions();
-        $firefoxOptions->addArguments($arguments);
+        $firefoxOptions->addArguments(['-headless']);
         $desiredCapabilities = DesiredCapabilities::firefox();
         $desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
         $desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
 
-        return FirefoxDriver::start($desiredCapabilities);
+        $this->driver = FirefoxDriver::start($desiredCapabilities);
     }
 }
