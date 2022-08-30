@@ -125,9 +125,9 @@ class FirefoxProfileTest extends TestCase
 
         $firefoxOptions = new FirefoxOptions();
         $firefoxOptions->addArguments(['-headless']);
+        $firefoxOptions->setProfile($firefoxProfile);
         $desiredCapabilities = DesiredCapabilities::firefox();
         $desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
-        $desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
 
         $this->driver = FirefoxDriver::start($desiredCapabilities);
     }
