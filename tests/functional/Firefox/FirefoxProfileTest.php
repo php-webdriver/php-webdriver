@@ -97,6 +97,7 @@ class FirefoxProfileTest extends TestCase
         // we recommend using the setPreference() method on FirefoxOptions instead, so that you don't need to
         // create FirefoxProfile.
         $firefoxProfile->setPreference('javascript.enabled', false);
+        $this->assertSame('false', $firefoxProfile->getPreference('javascript.enabled'));
 
         $this->startFirefoxDriverWithProfile($firefoxProfile);
         $this->driver->get('http://localhost:8000/');
