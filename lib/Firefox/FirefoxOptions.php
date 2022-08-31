@@ -17,6 +17,8 @@ class FirefoxOptions implements \JsonSerializable
     const OPTION_ARGS = 'args';
     /** @var string */
     const OPTION_PREFS = 'prefs';
+    /** @var string */
+    const OPTION_PROFILE = 'profile';
 
     /** @var array */
     private $options = [];
@@ -24,6 +26,8 @@ class FirefoxOptions implements \JsonSerializable
     private $arguments = [];
     /** @var array */
     private $preferences = [];
+    /** @var FirefoxProfile */
+    private $profile;
 
     public function __construct()
     {
@@ -49,6 +53,9 @@ class FirefoxOptions implements \JsonSerializable
         }
         if ($name === self::OPTION_ARGS) {
             throw new \InvalidArgumentException('Use addArguments() method to add Firefox arguments');
+        }
+        if ($name === self::OPTION_PROFILE) {
+            throw new \InvalidArgumentException('Use setProfile() method to set Firefox profile');
         }
 
         $this->options[$name] = $value;
@@ -88,6 +95,18 @@ class FirefoxOptions implements \JsonSerializable
     }
 
     /**
+     * @see https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefox-profile
+     * @param FirefoxProfile $profile
+     * @return self
+     */
+    public function setProfile(FirefoxProfile $profile)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -98,6 +117,9 @@ class FirefoxOptions implements \JsonSerializable
         }
         if (!empty($this->preferences)) {
             $array[self::OPTION_PREFS] = $this->preferences;
+        }
+        if (!empty($this->profile)) {
+            $array[self::OPTION_PROFILE] = $this->profile->encode();
         }
 
         return $array;

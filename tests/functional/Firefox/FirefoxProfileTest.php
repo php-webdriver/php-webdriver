@@ -97,6 +97,7 @@ class FirefoxProfileTest extends TestCase
         // we recommend using the setPreference() method on FirefoxOptions instead, so that you don't need to
         // create FirefoxProfile.
         $firefoxProfile->setPreference('javascript.enabled', false);
+        $this->assertSame('false', $firefoxProfile->getPreference('javascript.enabled'));
 
         $this->startFirefoxDriverWithProfile($firefoxProfile);
         $this->driver->get('http://localhost:8000/');
@@ -125,9 +126,9 @@ class FirefoxProfileTest extends TestCase
 
         $firefoxOptions = new FirefoxOptions();
         $firefoxOptions->addArguments(['-headless']);
+        $firefoxOptions->setProfile($firefoxProfile);
         $desiredCapabilities = DesiredCapabilities::firefox();
         $desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
-        $desiredCapabilities->setCapability(FirefoxDriver::PROFILE, $firefoxProfile);
 
         $this->driver = FirefoxDriver::start($desiredCapabilities);
     }

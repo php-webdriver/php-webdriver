@@ -107,6 +107,9 @@ class ChromeOptions implements JsonSerializable
     /**
      * Sets an experimental option which has not exposed officially.
      *
+     * When using "prefs" to set Chrome preferences, please be aware they are so far not supported by
+     * Chrome running in headless mode, see https://bugs.chromium.org/p/chromium/issues/detail?id=775911
+     *
      * @param string $name
      * @param mixed $value
      * @return ChromeOptions

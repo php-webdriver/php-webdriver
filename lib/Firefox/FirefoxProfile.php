@@ -201,11 +201,6 @@ class FirefoxProfile
         if (!copy($extension, $extensionDir . $extensionCommonName . '.xpi')) {
             throw new WebDriverException('Cannot install Firefox extension - cannot copy file');
         }
-
-        // extension installation with empty preferences (empty users.js) fails, thus add some dummy data
-        if (empty($this->preferences)) {
-            $this->setPreference('dummy.preference', true);
-        }
     }
 
     /**
