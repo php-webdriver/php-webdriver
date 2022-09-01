@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\UnknownErrorException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\Support\ScreenshotHelper;
@@ -209,6 +210,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
 
+        if ($raw_element === null) {
+            throw new UnknownErrorException('Unexpected server response to findElement command');
+        }
+
         return $this->newElement(JsonWireCompat::getElement($raw_element));
     }
 
@@ -225,6 +230,10 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             DriverCommand::FIND_ELEMENTS,
             JsonWireCompat::getUsing($by, $this->isW3cCompliant)
         );
+
+        if ($raw_elements === null) {
+            throw new UnknownErrorException('Unexpected server response to findElements command');
+        }
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {
