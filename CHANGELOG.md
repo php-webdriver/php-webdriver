@@ -9,6 +9,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Handle errors when taking screenshots. `WebDriverException` is thrown if WebDriver returns empty or invalid screenshot data.
 - Deprecate `FirefoxDriver::PROFILE` constant. Instead, use `setProfile()` method of `FirefoxOptions` to set Firefox Profile.
 
+### Fixed
+- Throw `UnknownErrorException` instead of fatal error if remote end returns invalid response for `findElement()`/`findElements()` commands.
+
 ## 1.12.1 - 2022-05-03
 ### Fixed
 - Improper PHP documentation for `getAttribute()` and `getDomProperty()`.
