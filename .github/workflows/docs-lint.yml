@@ -1,5 +1,8 @@
 name: Lint PHP documentation
 
+permissions:
+  contents: read
+
 on:
   push:
   pull_request:
