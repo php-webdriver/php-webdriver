@@ -3,11 +3,13 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 ### Added
+- Support for current Firefox XPI extension format. Extensions could now be loaded into `FirefoxProfile` using `addExtension()` method.
 - `setProfile()` method to `FirefoxOptions`, which is now a preferred way to set Firefox Profile.
 
 ### Changed
 - Handle errors when taking screenshots. `WebDriverException` is thrown if WebDriver returns empty or invalid screenshot data.
 - Deprecate `FirefoxDriver::PROFILE` constant. Instead, use `setProfile()` method of `FirefoxOptions` to set Firefox Profile.
+- Deprecate `getAllSessions()` method of `RemoteWebDriver` (which is not part of W3C WebDriver).
 
 ### Fixed
 - Throw `UnknownErrorException` instead of fatal error if remote end returns invalid response for `findElement()`/`findElements()` commands.
