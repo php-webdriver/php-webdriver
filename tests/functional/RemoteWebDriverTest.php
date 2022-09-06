@@ -15,7 +15,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetPageTitle()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $this->assertEquals(
             'php-webdriver test page',
@@ -29,7 +29,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetCurrentUrl()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $this->assertStringEndsWith('/index.html', $this->driver->getCurrentURL());
     }
@@ -39,7 +39,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetPageSource()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $source = $this->driver->getPageSource();
         $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
@@ -118,7 +118,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldGetWindowHandles()
     {
-        $this->driver->get($this->getTestPageUrl('open_new_window.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::OPEN_NEW_WINDOW));
 
         $windowHandle = $this->driver->getWindowHandle();
         $windowHandles = $this->driver->getWindowHandles();
@@ -142,7 +142,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldCloseWindow()
     {
-        $this->driver->get($this->getTestPageUrl('open_new_window.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::OPEN_NEW_WINDOW));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
 
         $this->driver->wait()->until(WebDriverExpectedCondition::numberOfWindowsToBe(2));
@@ -160,7 +160,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      */
     public function testShouldExecuteScriptAndDoNotBlockExecution()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
@@ -192,7 +192,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
         $this->assertSame('Test by ID', $element->getText());
@@ -232,7 +232,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element1 = $this->driver->findElement(WebDriverBy::id('id_test'));
         $element2 = $this->driver->findElement(WebDriverBy::className('test_class'));
@@ -257,7 +257,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $outputPng = $this->driver->takeScreenshot();
 
@@ -282,7 +282,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/selenium-screenshot.png';
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $this->driver->takeScreenshot($screenshotPath);
 

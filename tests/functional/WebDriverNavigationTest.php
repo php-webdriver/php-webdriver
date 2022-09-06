@@ -13,7 +13,7 @@ class WebDriverNavigationTest extends WebDriverTestCase
      */
     public function testShouldNavigateToUrl()
     {
-        $this->driver->navigate()->to($this->getTestPageUrl('index.html'));
+        $this->driver->navigate()->to($this->getTestPageUrl(TestPage::INDEX));
 
         $this->assertStringEndsWith('/index.html', $this->driver->getCurrentURL());
     }
@@ -24,25 +24,25 @@ class WebDriverNavigationTest extends WebDriverTestCase
      */
     public function testShouldNavigateBackAndForward()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
 
         $linkElement->click();
 
         $this->driver->wait()->until(
-            WebDriverExpectedCondition::urlContains('form.html')
+            WebDriverExpectedCondition::urlContains(TestPage::FORM)
         );
 
         $this->driver->navigate()->back();
 
         $this->driver->wait()->until(
-            WebDriverExpectedCondition::urlContains('index.html')
+            WebDriverExpectedCondition::urlContains(TestPage::INDEX)
         );
 
         $this->driver->navigate()->forward();
 
         $this->driver->wait()->until(
-            WebDriverExpectedCondition::urlContains('form.html')
+            WebDriverExpectedCondition::urlContains(TestPage::FORM)
         );
 
         $this->assertTrue(true); // To generate coverage, see https://github.com/sebastianbergmann/phpunit/issues/3016
@@ -53,7 +53,7 @@ class WebDriverNavigationTest extends WebDriverTestCase
      */
     public function testShouldRefreshPage()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         // Change input element content, to make sure it was refreshed (=> cleared to original value)
         $inputElement = $this->driver->findElement(WebDriverBy::name('test_name'));

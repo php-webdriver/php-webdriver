@@ -11,7 +11,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 {
     public function testShouldSwitchToWindow()
     {
-        $this->driver->get($this->getTestPageUrl('open_new_window.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::OPEN_NEW_WINDOW));
         $originalWindowHandle = $this->driver->getWindowHandle();
         $windowHandlesBefore = $this->driver->getWindowHandles();
 
@@ -49,7 +49,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
     public function testActiveElement()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $activeElement = $this->driver->switchTo()->activeElement();
         $this->assertInstanceOf(RemoteWebElement::class, $activeElement);
@@ -67,7 +67,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $firstChildFrame = 'This is the content of the iFrame';
         $secondChildFrame = 'open new window';
 
-        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
         $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
 
@@ -95,7 +95,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $parentPage = 'This is the host page which contains an iFrame';
         $firstChildFrame = 'This is the content of the iFrame';
 
-        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
         $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
 
@@ -108,7 +108,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
     public function testShouldSwitchToFrameByElement()
     {
-        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
         $element = $this->driver->findElement(WebDriverBy::id('iframe_content'));
         $this->driver->switchTo()->frame($element);
@@ -125,8 +125,8 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         // Ensure that the initial context matches.
         $initialHandle = $this->driver->getWindowHandle();
-        $this->driver->get($this->getTestPageUrl('index.html'));
-        $this->assertEquals($this->getTestPageUrl('index.html'), $this->driver->getCurrentUrl());
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+        $this->assertEquals($this->getTestPageUrl(TestPage::INDEX), $this->driver->getCurrentUrl());
         $source = $this->driver->getPageSource();
         $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
         $this->compatAssertStringContainsString('Welcome to the php-webdriver testing page.', $source);
@@ -140,13 +140,13 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->assertCount(2, $windowHandles);
 
         $newWindowHandle = $this->driver->getWindowHandle();
-        $this->driver->get($this->getTestPageUrl('upload.html'));
-        $this->assertEquals($this->getTestPageUrl('upload.html'), $this->driver->getCurrentUrl());
+        $this->driver->get($this->getTestPageUrl(TestPage::UPLOAD));
+        $this->assertEquals($this->getTestPageUrl(TestPage::UPLOAD), $this->driver->getCurrentUrl());
         $this->assertNotEquals($initialHandle, $newWindowHandle);
 
         // Switch back to original context.
         $this->driver->switchTo()->window($initialHandle);
-        $this->assertEquals($this->getTestPageUrl('index.html'), $this->driver->getCurrentUrl());
+        $this->assertEquals($this->getTestPageUrl(TestPage::INDEX), $this->driver->getCurrentUrl());
     }
 
     /**
@@ -156,7 +156,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
     {
         self::skipForJsonWireProtocol();
 
-        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -173,7 +173,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
     {
         self::skipForW3cProtocol();
 
-        $this->driver->get($this->getTestPageUrl('page_with_frame.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
         $this->driver->switchTo()->frame('iframe_content');
 

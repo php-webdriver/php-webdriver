@@ -17,6 +17,7 @@ namespace Facebook\WebDriver\Firefox;
 
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\TestPage;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
@@ -81,7 +82,7 @@ class FirefoxProfileTest extends TestCase
         $firefoxProfile->addExtension($this->firefoxTestExtensionFilename);
         $this->startFirefoxDriverWithProfile($firefoxProfile);
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
 

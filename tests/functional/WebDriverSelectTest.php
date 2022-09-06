@@ -17,7 +17,7 @@ class WebDriverSelectTest extends WebDriverTestCase
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
     }
 
     public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple()

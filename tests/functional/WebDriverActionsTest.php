@@ -27,7 +27,7 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickOnElement()
     {
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
 
@@ -49,7 +49,7 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickAndHoldOnElementAndRelease()
     {
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
 
@@ -78,7 +78,7 @@ class WebDriverActionsTest extends WebDriverTestCase
             $this->markTestSkipped('Getting stuck in EdgeDriver');
         }
 
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-2'));
 
@@ -99,7 +99,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldDoubleClickOnElement()
     {
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-3'));
 
@@ -115,7 +115,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldSendKeysUpAndDown()
     {
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $this->driver->action()
             ->keyDown(null, WebDriverKeys::CONTROL)
@@ -144,7 +144,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldMoveToElement()
     {
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
         $item24 = $this->driver->findElement(WebDriverBy::id('item-2-4'));
@@ -167,7 +167,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldMoveByOffset()
     {
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
 
@@ -190,7 +190,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldDragAndDrop()
     {
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
         $item24 = $this->driver->findElement(WebDriverBy::id('item-2-4'));
@@ -223,7 +223,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldDragAndDropBy()
     {
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
 
