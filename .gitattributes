@@ -8,6 +8,7 @@
 /example.php export-ignore
 /phpunit.xml.dist export-ignore
 /.github export-ignore
-/.php_cs.dist export-ignore
+/.php-cs-fixer.dist.php export-ignore
 /phpstan.neon export-ignore
 /.coveralls.yml export-ignore
+/logs export-ignore

@@ -1,5 +1,8 @@
 name: Sauce Labs
 
+permissions:
+  contents: read
+
 on:
   push:
   schedule:

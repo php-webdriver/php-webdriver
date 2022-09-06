@@ -141,8 +141,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
      * You cannot pass the desired capabilities because the session was created before.
      *
-     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param string $session_id The existing session id
+     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @param bool $isW3cCompliant True to use W3C WebDriver (default), false to use the legacy JsonWire protocol

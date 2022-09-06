@@ -1,5 +1,8 @@
 name: Publish API documentation
 
+permissions:
+  contents: read
+
 on:
   repository_dispatch:
     types: [ run-build-api-docs ]
