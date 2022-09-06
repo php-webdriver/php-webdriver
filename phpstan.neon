@@ -16,6 +16,8 @@ parameters:
           path: 'lib/Support/Events/EventFiringWebElement.php'
         - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::takeElementScreenshot\(\)#'
           path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getShadowRoot\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
         - '#Unsafe usage of new static\(\)#'
 
         # Parameter is intentionally not part of signature to not break BC

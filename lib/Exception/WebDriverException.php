@@ -119,12 +119,16 @@ class WebDriverException extends Exception
                     throw new NoSuchFrameException($message, $results);
                 case 'no such window':
                     throw new NoSuchWindowException($message, $results);
+                case 'no such shadow root':
+                    throw new NoSuchShadowRootException($message, $results);
                 case 'script timeout':
                     throw new ScriptTimeoutException($message, $results);
                 case 'session not created':
                     throw new SessionNotCreatedException($message, $results);
                 case 'stale element reference':
                     throw new StaleElementReferenceException($message, $results);
+                case 'detached shadow root':
+                    throw new DetachedShadowRootException($message, $results);
                 case 'timeout':
                     throw new TimeoutException($message, $results);
                 case 'unable to set cookie':

@@ -2,6 +2,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Remote\ShadowRoot;
+
 /**
  * Interface for an HTML element in the WebDriver framework.
  */
@@ -141,4 +143,12 @@ interface WebDriverElement extends WebDriverSearchContext
      * @todo Add in next major release (BC)
      */
     //public function takeElementScreenshot($save_as = null);
+
+    /**
+     * Get representation of an element's shadow root for accessing the shadow DOM of a web component.
+     *
+     * @return ShadowRoot
+     * @todo Add in next major release (BC)
+     */
+    //public function getShadowRoot();
 }

@@ -378,6 +378,16 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
         }
     }
 
+    public function getShadowRoot()
+    {
+        try {
+            return $this->element->getShadowRoot();
+        } catch (WebDriverException $exception) {
+            $this->dispatchOnException($exception);
+            throw $exception;
+        }
+    }
+
     /**
      * @param WebDriverException $exception
      */
