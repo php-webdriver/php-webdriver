@@ -13,6 +13,7 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Throw `UnknownErrorException` instead of fatal error if remote end returns invalid response for `findElement()`/`findElements()` commands.
+- Increase default request timeout to 3 minutes (instead of 30 seconds).
 
 ## 1.12.1 - 2022-05-03
 ### Fixed

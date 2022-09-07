@@ -208,8 +208,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
-        $this->setRequestTimeout(30000);
-        $this->setConnectionTimeout(30000);
+
+        $this->setConnectionTimeout(30 * 1000); // 30 seconds
+        $this->setRequestTimeout(180 * 1000); // 3 minutes
     }
 
     public function disableW3cCompliance()
