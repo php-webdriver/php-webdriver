@@ -13,7 +13,7 @@ class WebDriverOptionsCookiesTest extends WebDriverTestCase
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
     }
 
     public function testShouldSetGetAndDeleteCookies()

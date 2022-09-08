@@ -23,7 +23,7 @@ class WebDriverByTest extends WebDriverTestCase
         $expectedText = null,
         $expectedAttributeValue = null
     ) {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $by = call_user_func([WebDriverBy::class, $webDriverByLocatorMethod], $webDriverByLocatorValue);
         $element = $this->driver->findElement($by);

@@ -16,7 +16,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('form_checkbox_radio.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM_CHECKBOX_RADIO));
     }
 
     public function testIsMultiple()

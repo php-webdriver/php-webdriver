@@ -21,7 +21,7 @@ class RemoteKeyboardTest extends WebDriverTestCase
      */
     public function testShouldPressSendAndReleaseKeys()
     {
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $this->driver->getKeyboard()->sendKeys('ab');
         $this->driver->getKeyboard()->pressKey(WebDriverKeys::SHIFT);

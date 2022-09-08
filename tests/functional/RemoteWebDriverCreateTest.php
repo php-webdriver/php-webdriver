@@ -108,7 +108,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->connectionTimeout,
             $this->requestTimeout
         );
-        $originalDriver->get($this->getTestPageUrl('index.html'));
+        $originalDriver->get($this->getTestPageUrl(TestPage::INDEX));
         $this->compatAssertStringContainsString('/index.html', $originalDriver->getCurrentURL());
 
         // Store session ID

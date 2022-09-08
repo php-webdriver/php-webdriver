@@ -15,7 +15,7 @@ class WebDriverAlertTest extends WebDriverTestCase
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('alert.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::ALERT));
     }
 
     public function testShouldAcceptAlert()
