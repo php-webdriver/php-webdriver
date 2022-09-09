@@ -10,13 +10,11 @@ Php-webdriver library is PHP language binding for Selenium WebDriver, which allo
 
 This library is compatible with Selenium server version 2.x, 3.x and 4.x.
 
-The library supports [JsonWireProtocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol) and also
-implements **experimental support** of [W3C WebDriver](https://w3c.github.io/webdriver/webdriver-spec.html).
-The W3C WebDriver support is not yet full-featured, however it should allow to control Firefox via Geckodriver and new
-versions of Chrome and Chromedriver with just a slight limitations.
+The library supports modern [W3C WebDriver](https://w3c.github.io/webdriver/) protocol, as well
+as legacy [JsonWireProtocol](https://www.selenium.dev/documentation/legacy/json_wire_protocol/).
 
-The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
-[Selenium project](https://github.com/SeleniumHQ/selenium/).
+The concepts of this library are very similar to the "official" Java, JavaScript, .NET, Python and Ruby libraries
+which are developed as part of the [Selenium project](https://github.com/SeleniumHQ/selenium/).
 
 ## Installation
 
@@ -208,8 +206,8 @@ There are some projects already providing this:
 - [Symfony Panther](https://github.com/symfony/panther) uses php-webdriver and integrates with PHPUnit using `PantherTestCase`
 - [Laravel Dusk](https://laravel.com/docs/dusk) is another project using php-webdriver, could be used for testing via `DuskTestCase`
 - [Steward](https://github.com/lmc-eu/steward) integrates php-webdriver directly to [PHPUnit](https://phpunit.de/), and provides parallelization
-- [Codeception](http://codeception.com) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](http://codeception.com/docs/modules/WebDriver)
-- You can also check out this [blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration
+- [Codeception](https://codeception.com/) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](https://codeception.com/docs/modules/WebDriver)
+- You can also check out this [blogpost](https://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration
 
 ## Support
 
