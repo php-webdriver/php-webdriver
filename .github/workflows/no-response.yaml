@@ -8,7 +8,7 @@ on:
   issue_comment:
     types: [created]
   schedule:
-    - cron: '33 * * * *' # every hour at :33
+    - cron: '* */8 * * *' # every hour at :33
 
 jobs:
   noResponse:
