@@ -290,6 +290,24 @@ class RemoteWebElementTest extends WebDriverTestCase
     }
 
     /**
+     * @covers ::isDisplayed
+     * @group exclude-safari
+     *      Safari does not support /displayed endpoint.
+     */
+    public function testShouldDetectElementDisplayedness()
+    {
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+
+        $visibleElement = $this->driver->findElement(WebDriverBy::cssSelector('.test_class'));
+        $elementOutOfViewport = $this->driver->findElement(WebDriverBy::id('element-out-of-viewport'));
+        $hiddenElement = $this->driver->findElement(WebDriverBy::id('hidden-element'));
+
+        $this->assertTrue($visibleElement->isDisplayed());
+        $this->assertTrue($elementOutOfViewport->isDisplayed());
+        $this->assertFalse($hiddenElement->isDisplayed());
+    }
+
+    /**
      * @covers ::isEnabled
      */
     public function testShouldDetectEnabledInputs()
