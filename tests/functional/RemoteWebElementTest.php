@@ -291,8 +291,8 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::isDisplayed
-     * @group exclude-safari
-     *      Safari does not support /displayed endpoint.
+     * @covers \Facebook\WebDriver\Remote\RemoteWebDriver::execute
+     * @covers \Facebook\WebDriver\Support\IsElementDisplayedAtom
      */
     public function testShouldDetectElementDisplayedness()
     {
