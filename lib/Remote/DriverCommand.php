@@ -143,6 +143,9 @@ class DriverCommand
     const NEW_WINDOW = 'newWindow';
     const TAKE_ELEMENT_SCREENSHOT = 'takeElementScreenshot';
     const MINIMIZE_WINDOW = 'minimizeWindow';
+    const GET_ELEMENT_SHADOW_ROOT = 'getElementShadowRoot';
+    const FIND_ELEMENT_FROM_SHADOW_ROOT = 'findElementFromShadowRoot';
+    const FIND_ELEMENTS_FROM_SHADOW_ROOT = 'findElementsFromShadowRoot';
 
     private function __construct()
     {

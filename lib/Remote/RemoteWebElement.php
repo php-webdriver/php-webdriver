@@ -533,6 +533,27 @@ HTXT;
     }
 
     /**
+     * Get representation of an element's shadow root for accessing the shadow DOM of a web component.
+     *
+     * @return ShadowRoot
+     */
+    public function getShadowRoot()
+    {
+        if (!$this->isW3cCompliant) {
+            throw new UnsupportedOperationException('This method is only supported in W3C mode');
+        }
+
+        $response = $this->executor->execute(
+            DriverCommand::GET_ELEMENT_SHADOW_ROOT,
+            [
+                ':id' => $this->id,
+            ]
+        );
+
+        return ShadowRoot::createFromResponse($this->executor, $response);
+    }
+
+    /**
      * Attempt to click on a child level element.
      *
      * This provides a workaround for geckodriver bug 653 whereby a link whose first element is a block-level element

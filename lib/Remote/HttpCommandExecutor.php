@@ -141,6 +141,14 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::DISMISS_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/dismiss'],
         DriverCommand::EXECUTE_ASYNC_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/async'],
         DriverCommand::EXECUTE_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/sync'],
+        DriverCommand::FIND_ELEMENT_FROM_SHADOW_ROOT => [
+            'method' => 'POST',
+            'url' => '/session/:sessionId/shadow/:id/element',
+        ],
+        DriverCommand::FIND_ELEMENTS_FROM_SHADOW_ROOT => [
+            'method' => 'POST',
+            'url' => '/session/:sessionId/shadow/:id/elements',
+        ],
         DriverCommand::FULLSCREEN_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/fullscreen'],
         DriverCommand::GET_ACTIVE_ELEMENT => ['method' => 'GET', 'url' => '/session/:sessionId/element/active'],
         DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert/text'],
@@ -149,6 +157,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::GET_ELEMENT_PROPERTY => [
             'method' => 'GET',
             'url' => '/session/:sessionId/element/:id/property/:name',
+        ],
+        DriverCommand::GET_ELEMENT_SHADOW_ROOT => [
+            'method' => 'GET',
+            'url' => '/session/:sessionId/element/:id/shadow',
         ],
         DriverCommand::GET_ELEMENT_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
         DriverCommand::GET_WINDOW_HANDLES => ['method' => 'GET', 'url' => '/session/:sessionId/window/handles'],

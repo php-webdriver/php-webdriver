@@ -5,10 +5,19 @@ parameters:
         - tests/
 
     ignoreErrors:
-        # To be fixed:
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+        # To be fixed in next major version:
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
+          path: 'lib/Interactions/WebDriverTouchActions.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
+          path: 'lib/Support/Events/EventFiringWebDriver.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::takeElementScreenshot\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getShadowRoot\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
         - '#Unsafe usage of new static\(\)#'
 
         # Parameter is intentionally not part of signature to not break BC
