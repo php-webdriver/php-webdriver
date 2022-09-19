@@ -17,13 +17,27 @@ class WebDriverDimension
     private $width;
 
     /**
+     * @var int|float|null
+     */
+    private $x;
+
+    /**
+     * @var int|float|null
+     */
+    private $y;
+
+    /**
      * @param int|float $width
      * @param int|float $height
+     * @param int|float|null $x
+     * @param int|float|null $y
      */
-    public function __construct($width, $height)
+    public function __construct($width, $height, $x = null, $y = null)
     {
         $this->width = $width;
         $this->height = $height;
+        $this->x = $x;
+        $this->y = $y;
     }
 
     /**
@@ -55,5 +69,21 @@ class WebDriverDimension
     public function equals(self $dimension)
     {
         return $this->height === $dimension->getHeight() && $this->width === $dimension->getWidth();
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getScreenX()
+    {
+        return $this->x;
+    }
+
+    /**
+     * @return float|int|null
+     */
+    public function getScreenY()
+    {
+        return $this->y;
     }
 }
