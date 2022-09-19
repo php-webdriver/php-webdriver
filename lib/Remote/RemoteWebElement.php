@@ -336,8 +336,6 @@ JS;
      * Is this element displayed or not? This method avoids the problem of having
      * to parse an element's "style" attribute.
      *
-     * However, not all browsers implement this feature, because it is not part of W3C WebDriver.
-     * @see https://w3c.github.io/webdriver/#element-displayedness
      * @return bool
      */
     public function isDisplayed()

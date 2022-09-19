@@ -75,12 +75,12 @@
     "analyze": [
       "vendor/bin/phpstan analyze -c phpstan.neon --ansi",
       "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --ansi",
-      "vendor/bin/phpcs --standard=PSR2 ./lib/ ./tests/"
+      "vendor/bin/phpcs --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
     ],
     "fix": [
       "@composer normalize",
       "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff -vvv || exit 0",
-      "vendor/bin/phpcbf --standard=PSR2 ./lib/ ./tests/"
+      "vendor/bin/phpcbf --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
     ],
     "lint": [
       "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",

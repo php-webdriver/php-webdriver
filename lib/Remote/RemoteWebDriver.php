@@ -5,6 +5,7 @@ namespace Facebook\WebDriver\Remote;
 use Facebook\WebDriver\Exception\UnknownErrorException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
+use Facebook\WebDriver\Support\IsElementDisplayedAtom;
 use Facebook\WebDriver\Support\ScreenshotHelper;
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
@@ -574,6 +575,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
 
     public function execute($command_name, $params = [])
     {
+        // As we so far only use atom for IS_ELEMENT_DISPLAYED, this condition is hardcoded here. In case more atoms
+        // are used, this should be rewritten and separated from this class (e.g. to some abstract matcher logic).
+        if ($command_name === DriverCommand::IS_ELEMENT_DISPLAYED
+            && IsElementDisplayedAtom::match($this->getCapabilities()->getBrowserName())) {
+            return (new IsElementDisplayedAtom($this))->execute($params);
+        }
+
         $command = new WebDriverCommand(
             $this->sessionID,
             $command_name,
