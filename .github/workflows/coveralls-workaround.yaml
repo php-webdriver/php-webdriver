@@ -1,0 +1,21 @@
+name: Coveralls coverage
+# Must be run in separate workflow to have access to repository secrets even for PR from forks.
+# See https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+
+permissions:
+  contents: read
+
+on:
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
+jobs:
+  coveralls:
+    name: Coveralls coverage workaround
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls coverage workaround
+        # see https://github.com/lemurheavy/coveralls-public/issues/1653#issuecomment-1251587119
+        run: |
+          curl --location --request GET 'https://coveralls.io/rerun_build?repo_token=${{ secrets.COVERALLS_REPO_TOKEN }}&build_num=${{ github.run_id }}'
