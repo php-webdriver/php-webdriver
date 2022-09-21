@@ -205,3 +205,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
+      # Save run_id to be used by follow-up workflow
+      - name: Save run_id to file
+        run: |
+          mkdir -p ./data
+          echo ${{ github.run_id }} > ./data/run_id
+      - uses: actions/upload-artifact@v3
+        with:
+          name: data
+          path: data/
