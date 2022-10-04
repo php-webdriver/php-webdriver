@@ -62,7 +62,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $sessionId = $this->driver->getSessionID();
 
-        $this->assertTrue(is_string($sessionId));
+        $this->assertIsString($sessionId);
         $this->assertNotEmpty($sessionId);
     }
 
@@ -76,7 +76,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
 
         $sessions = RemoteWebDriver::getAllSessions($this->serverUrl, 30000);
 
-        $this->assertTrue(is_array($sessions));
+        $this->assertIsArray($sessions);
         $this->assertCount(1, $sessions);
 
         $this->assertArrayHasKey('capabilities', $sessions[0]);
@@ -123,7 +123,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $windowHandle = $this->driver->getWindowHandle();
         $windowHandles = $this->driver->getWindowHandles();
 
-        $this->assertTrue(is_string($windowHandle));
+        $this->assertIsString($windowHandle);
         $this->assertNotEmpty($windowHandle);
         $this->assertSame([$windowHandle], $windowHandles);
 
@@ -318,8 +318,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
     {
         $status = $this->driver->getStatus();
 
-        $this->assertTrue(is_bool($status->isReady()));
-        $this->assertTrue(is_array($status->getMeta()));
+        $this->assertIsBool($status->isReady());
+        $this->assertIsArray($status->getMeta());
 
         if (getenv('BROWSER_NAME') !== 'safari') {
             $this->assertNotEmpty($status->getMessage());

@@ -30,7 +30,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
         $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
 
-        $this->assertTrue(is_string($this->driver->getSessionID()));
+        $this->assertIsString($this->driver->getSessionID());
         $this->assertNotEmpty($this->driver->getSessionID());
 
         $returnedCapabilities = $this->driver->getCapabilities();
