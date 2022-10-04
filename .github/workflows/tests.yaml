@@ -66,10 +66,6 @@ jobs:
       - name: Install PHP dependencies
         run: composer update --no-interaction ${{ matrix.dependencies }}
 
-      - name: Apply PHPUnit patches
-        if: ${{ matrix.php-version < 7.2 }}
-        run: scripts/apply-phpunit-patches.sh
-
       - name: Run tests
         run: vendor/bin/phpunit --testsuite unit --colors=always --coverage-clover ./logs/clover.xml
 
