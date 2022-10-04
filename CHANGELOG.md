@@ -3,6 +3,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Changed
+- Require PHP ^7.3.
+
 ## 1.13.0 - 2022-10-03
 ### Added
 - Support for current Firefox XPI extension format. Extensions could now be loaded into `FirefoxProfile` using `addExtension()` method.
