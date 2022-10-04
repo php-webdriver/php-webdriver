@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ScreenshotHelperTest extends TestCase
 {
-    const BLACK_PIXEL = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+    public const BLACK_PIXEL = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 
     public function testShouldSavePageScreenshotToSubdirectoryIfNotExists()
     {

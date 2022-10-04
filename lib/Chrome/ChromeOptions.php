@@ -17,11 +17,11 @@ class ChromeOptions implements JsonSerializable
      * The key of chromeOptions in desired capabilities (in legacy OSS JsonWire protocol)
      * @todo Replace value with 'goog:chromeOptions' after JsonWire protocol support is removed
      */
-    const CAPABILITY = 'chromeOptions';
+    public const CAPABILITY = 'chromeOptions';
     /**
      * The key of chromeOptions in desired capabilities (in W3C compatible protocol)
      */
-    const CAPABILITY_W3C = 'goog:chromeOptions';
+    public const CAPABILITY_W3C = 'goog:chromeOptions';
     /**
      * @var array
      */

@@ -10,7 +10,7 @@ use Facebook\WebDriver\WebDriverMouse;
 
 abstract class WebDriverSingleKeyAction extends WebDriverKeysRelatedAction implements WebDriverAction
 {
-    const MODIFIER_KEYS = [
+    public const MODIFIER_KEYS = [
         WebDriverKeys::SHIFT,
         WebDriverKeys::LEFT_SHIFT,
         WebDriverKeys::RIGHT_SHIFT,

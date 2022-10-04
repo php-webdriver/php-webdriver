@@ -183,8 +183,8 @@ class DesiredCapabilitiesTest extends TestCase
         array $expectedW3cCapabilities
     ) {
         $this->assertJsonStringEqualsJsonString(
-            json_encode($expectedW3cCapabilities),
-            json_encode($inputJsonWireCapabilities->toW3cCompatibleArray())
+            json_encode($expectedW3cCapabilities, JSON_THROW_ON_ERROR),
+            json_encode($inputJsonWireCapabilities->toW3cCompatibleArray(), JSON_THROW_ON_ERROR)
         );
     }
 

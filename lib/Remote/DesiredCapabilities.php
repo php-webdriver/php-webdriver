@@ -433,8 +433,6 @@ class DesiredCapabilities implements WebDriverCapabilities
      */
     private function get($key, $default = null)
     {
-        return isset($this->capabilities[$key])
-            ? $this->capabilities[$key]
-            : $default;
+        return $this->capabilities[$key] ?? $default;
     }
 }

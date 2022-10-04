@@ -4,20 +4,20 @@ namespace Facebook\WebDriver;
 
 class TestPage
 {
-    const ALERT = 'alert.html';
-    const DELAYED_ELEMENT = 'delayed_element.html';
-    const ESCAPE_CSS = 'escape_css.html';
-    const EVENTS = 'events.html';
-    const FORM = 'form.html';
-    const FORM_CHECKBOX_RADIO = 'form_checkbox_radio.html';
-    const GECKO_653 = 'gecko653.html';
-    const INDEX = 'index.html';
-    const OPEN_NEW_WINDOW = 'open_new_window.html';
-    const PAGE_WITH_FRAME = 'page_with_frame.html';
-    const SLOW_LOADING = 'slow_loading.html';
-    const SORTABLE = 'sortable.html';
-    const UPLOAD = 'upload.html';
-    const WEB_COMPONENTS = 'web_components.html';
+    public const ALERT = 'alert.html';
+    public const DELAYED_ELEMENT = 'delayed_element.html';
+    public const ESCAPE_CSS = 'escape_css.html';
+    public const EVENTS = 'events.html';
+    public const FORM = 'form.html';
+    public const FORM_CHECKBOX_RADIO = 'form_checkbox_radio.html';
+    public const GECKO_653 = 'gecko653.html';
+    public const INDEX = 'index.html';
+    public const OPEN_NEW_WINDOW = 'open_new_window.html';
+    public const PAGE_WITH_FRAME = 'page_with_frame.html';
+    public const SLOW_LOADING = 'slow_loading.html';
+    public const SORTABLE = 'sortable.html';
+    public const UPLOAD = 'upload.html';
+    public const WEB_COMPONENTS = 'web_components.html';
 
     private function __construct()
     {

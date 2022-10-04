@@ -12,13 +12,13 @@ use ReturnTypeWillChange;
 class FirefoxOptions implements \JsonSerializable
 {
     /** @var string The key of FirefoxOptions in desired capabilities */
-    const CAPABILITY = 'moz:firefoxOptions';
+    public const CAPABILITY = 'moz:firefoxOptions';
     /** @var string */
-    const OPTION_ARGS = 'args';
+    public const OPTION_ARGS = 'args';
     /** @var string */
-    const OPTION_PREFS = 'prefs';
+    public const OPTION_PREFS = 'prefs';
     /** @var string */
-    const OPTION_PROFILE = 'profile';
+    public const OPTION_PROFILE = 'profile';
 
     /** @var array */
     private $options = [];

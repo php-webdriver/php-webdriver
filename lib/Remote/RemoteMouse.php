@@ -11,11 +11,11 @@ use Facebook\WebDriver\WebDriverMouse;
 class RemoteMouse implements WebDriverMouse
 {
     /** @internal */
-    const BUTTON_LEFT = 0;
+    public const BUTTON_LEFT = 0;
     /** @internal */
-    const BUTTON_MIDDLE = 1;
+    public const BUTTON_MIDDLE = 1;
     /** @internal */
-    const BUTTON_RIGHT = 2;
+    public const BUTTON_RIGHT = 2;
 
     /**
      * @var RemoteExecuteMethod
@@ -274,8 +274,8 @@ class RemoteMouse implements WebDriverMouse
         $move_action = [
             'type' => 'pointerMove',
             'duration' => 100, // to simulate human delay
-            'x' => $x_offset === null ? 0 : $x_offset,
-            'y' => $y_offset === null ? 0 : $y_offset,
+            'x' => $x_offset ?? 0,
+            'y' => $y_offset ?? 0,
         ];
 
         if ($where !== null) {

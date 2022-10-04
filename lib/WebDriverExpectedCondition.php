@@ -375,9 +375,7 @@ class WebDriverExpectedCondition
             function (WebDriver $driver) use ($by) {
                 try {
                     return !$driver->findElement($by)->isDisplayed();
-                } catch (NoSuchElementException $e) {
-                    return true;
-                } catch (StaleElementReferenceException $e) {
+                } catch (NoSuchElementException|StaleElementReferenceException $e) {
                     return true;
                 }
             }
@@ -397,9 +395,7 @@ class WebDriverExpectedCondition
             function (WebDriver $driver) use ($by, $text) {
                 try {
                     return !($driver->findElement($by)->getText() === $text);
-                } catch (NoSuchElementException $e) {
-                    return true;
-                } catch (StaleElementReferenceException $e) {
+                } catch (NoSuchElementException|StaleElementReferenceException $e) {
                     return true;
                 }
             }
