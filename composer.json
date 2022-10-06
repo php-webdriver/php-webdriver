@@ -20,6 +20,7 @@
     "symfony/process": "^5.0 || ^6.0"
   },
   "require-dev": {
+    "ergebnis/composer-normalize": "^2.20.0",
     "ondram/ci-detector": "^4.0",
     "php-coveralls/php-coveralls": "^2.4",
     "php-mock/php-mock-phpunit": "^2.0",
@@ -62,10 +63,12 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "php -r 'if (PHP_VERSION_ID > 70103) { exit(1); }' || composer install --working-dir=tools/php-cs-fixer --no-progress --no-interaction"
+      "composer install --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
+      "composer install --working-dir=tools/phpstan --no-progress --no-interaction"
     ],
     "post-update-cmd": [
-      "php -r 'if (PHP_VERSION_ID > 70103) { exit(1); }' || composer update --working-dir=tools/php-cs-fixer --no-progress --no-interaction"
+      "composer update --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
+      "composer update --working-dir=tools/phpstan --no-progress --no-interaction"
     ],
     "all": [
       "@lint",
@@ -73,7 +76,7 @@
       "@test"
     ],
     "analyze": [
-      "vendor/bin/phpstan analyze -c phpstan.neon --ansi",
+      "tools/phpstan/vendor/bin/phpstan analyze -c phpstan.neon --ansi",
       "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --ansi",
       "vendor/bin/phpcs --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
     ],
@@ -86,11 +89,6 @@
       "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
       "@composer validate",
       "@composer normalize --dry-run"
-    ],
-    "preinstall": [
-      "@composer update --no-progress --no-interaction",
-      "@composer require --dev phpstan/phpstan",
-      "@composer require --dev ergebnis/composer-normalize"
     ],
     "test": [
       "vendor/bin/phpunit --colors=always"

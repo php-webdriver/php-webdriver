@@ -27,8 +27,6 @@ Here is the [official documentation](https://www.selenium.dev/documentation/en/)
 To make sure your code comply with [PSR-2](http://www.php-fig.org/psr/psr-2/) coding style, tests passes and to execute other automated checks, run locally:
 
 ```sh
-composer preinstall # Run this only on the first run - this will install some additional dependencies
-
 composer all
 ```
 
