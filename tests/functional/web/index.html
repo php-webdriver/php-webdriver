@@ -15,7 +15,6 @@
     </style>
 </head>
 <body style="background-color: #fafaff;">
-
     <div id="red-box"></div>
 
     <h1 id="welcome">Welcome to the php-webdriver testing page.</h1>
@@ -37,6 +36,8 @@
     <a href="events.html" id="a-drag">Events</a>
     |
     <a href="sortable.html" id="a-sortable">Sortable</a>
+    |
+    <a href="web-components.html" id="a-web-components">WebComponents</a>
 
     <p id="id_test">Test by ID</p>
     <p class="test_class">Test by Class</p>
@@ -60,10 +61,26 @@
     stripped
 </p>
 
-<div id="element-with-location" style="position: absolute; top: 500px; left: 33px; width: 333px; height: 66px;">
+<div id="div-with-html" style="font-size: inherit;" title="Title" class="foo bar">
+    <p>This <code>div</code> has some more <strong>html</strong> inside.</p>
+    <hr />
+</div>
+
+<noscript id="noscript">
+    <p>This element is only shown with JavaScript disabled.</p>
+</noscript>
+
+<div id="element-with-location" style="position: absolute; top: 550px; left: 33px; width: 333px; height: 66px;">
     Foo
 </div>
 
+<div id="element-out-of-viewport" style="position: absolute; top: 5000px; left: 33px; width: 333px; height: 66px;">
+    Bar
+</div>
+
+<div id="hidden-element" style="display: none;">
+    This is not visible!
+</div>
 
 </body>
 </html>

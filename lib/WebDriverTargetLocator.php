@@ -7,9 +7,14 @@ namespace Facebook\WebDriver;
  */
 interface WebDriverTargetLocator
 {
+    /** @var string */
+    const WINDOW_TYPE_WINDOW = 'window';
+    /** @var string */
+    const WINDOW_TYPE_TAB = 'tab';
+
     /**
-     * Switch to the main document if the page contains iframes. Otherwise, switch
-     * to the first frame on the page.
+     * Set the current browsing context to the current top-level browsing context.
+     * This is the same as calling `RemoteTargetLocator::frame(null);`
      *
      * @return WebDriver The driver focused on the top window or the first frame.
      */
@@ -18,17 +23,20 @@ interface WebDriverTargetLocator
     /**
      * Switch to the iframe by its id or name.
      *
-     * @param WebDriverElement|string $frame The WebDriverElement,
-     *                                       the id or the name of the frame.
+     * @param WebDriverElement|null|int|string $frame The WebDriverElement, the id or the name of the frame.
+     * When null, switch to the current top-level browsing context When int, switch to the WindowProxy identified
+     * by the value. When an Element, switch to that Element.
+     *
+     * @throws \InvalidArgumentException
      * @return WebDriver The driver focused on the given frame.
      */
     public function frame($frame);
 
+    // TODO: Add in next major release (BC)
     ///**
     // * Switch to the parent iframe.
     // *
-    // * @todo Add in next major release (BC)
-    // * @return WebDriver The driver focused on the given frame.
+    // * @return WebDriver This driver focused on the parent frame
     // */
     //public function parent();
 
@@ -41,17 +49,19 @@ interface WebDriverTargetLocator
      */
     public function window($handle);
 
+    // TODO: Add in next major release (BC)
+    //public function newWindow($windowType = self::WINDOW_TYPE_TAB);
+
     /**
-     * Switch to the currently active modal dialog for this particular driver
-     * instance.
+     * Switch to the currently active modal dialog for this particular driver instance.
      *
      * @return WebDriverAlert
      */
     public function alert();
 
     /**
-     * Switches to the element that currently has focus within the document
-     * currently "switched to", or the body element if this cannot be detected.
+     * Switches to the element that currently has focus within the document currently "switched to",
+     * or the body element if this cannot be detected.
      *
      * @return WebDriverElement
      */

@@ -27,11 +27,7 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
 
@@ -53,11 +49,7 @@ class WebDriverActionsTest extends WebDriverTestCase
 
     public function testShouldClickAndHoldOnElementAndRelease()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-1'));
 
@@ -67,7 +59,8 @@ class WebDriverActionsTest extends WebDriverTestCase
             ->perform();
 
         if (self::isW3cProtocolBuild()) {
-            $this->assertArraySubset(['mouseover item-1', 'mousedown item-1'], $this->retrieveLoggedMouseEvents());
+            $this->assertContains('mouseover item-1', $this->retrieveLoggedMouseEvents());
+            $this->assertContains('mousedown item-1', $this->retrieveLoggedMouseEvents());
         } else {
             $this->assertSame(
                 ['mouseover item-1', 'mousedown item-1', 'mouseup item-1', 'click item-1'],
@@ -81,15 +74,11 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldContextClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::MICROSOFT_EDGE) {
             $this->markTestSkipped('Getting stuck in EdgeDriver');
         }
 
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-2'));
 
@@ -104,13 +93,13 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->assertContains('contextmenu item-2', $loggedEvents);
     }
 
+    /**
+     * @group exclude-safari
+     *        https://github.com/webdriverio/webdriverio/issues/231
+     */
     public function testShouldDoubleClickOnElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $element = $this->driver->findElement(WebDriverBy::id('item-3'));
 
@@ -126,15 +115,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     public function testShouldSendKeysUpAndDown()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
-        }
-
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $this->driver->action()
             ->keyDown(null, WebDriverKeys::CONTROL)
@@ -157,13 +138,13 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     */
     public function testShouldMoveToElement()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
         $item24 = $this->driver->findElement(WebDriverBy::id('item-2-4'));
@@ -180,13 +161,13 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     */
     public function testShouldMoveByOffset()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
 
@@ -203,19 +184,13 @@ class WebDriverActionsTest extends WebDriverTestCase
     }
 
     /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
      * @group exclude-saucelabs
      */
     public function testShouldDragAndDrop()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::FIREFOX) {
-            self::skipForJsonWireProtocol('Broken in legacy Firefox');
-        }
-
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
         $item24 = $this->driver->findElement(WebDriverBy::id('item-2-4'));
@@ -241,13 +216,14 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
+    /**
+     * @group exclude-safari
+     *        https://developer.apple.com/forums/thread/662677
+     *        it does not work even with Python Selenium, looks like Safaridriver does not implements Interaction API
+     */
     public function testShouldDragAndDropBy()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('sortable.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
         $item13 = $this->driver->findElement(WebDriverBy::id('item-1-3'));
 
@@ -279,12 +255,9 @@ class WebDriverActionsTest extends WebDriverTestCase
      */
     private function retrieveListContent()
     {
-        $list1 = $this->driver->findElement(WebDriverBy::cssSelector('#sortable1'));
-        $list2 = $this->driver->findElement(WebDriverBy::cssSelector('#sortable2'));
-
         return [
-            explode("\n", $list1->getText()),
-            explode("\n", $list2->getText()),
+            $this->retrieveLoggerEvents(WebDriverBy::cssSelector('#sortable1')),
+            $this->retrieveLoggerEvents(WebDriverBy::cssSelector('#sortable2')),
         ];
     }
 }

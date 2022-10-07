@@ -1,13 +1,23 @@
 parameters:
+    level: 2
+    paths:
+        - lib/
+        - tests/
+
     ignoreErrors:
-        - '#Class Symfony\\Component\\Process\\ProcessBuilder not found.#'
-        - '#Instantiated class Symfony\\Component\\Process\\ProcessBuilder not found.#'
-        - '#Call to method setPrefix\(\) on an unknown class Symfony\\Component\\Process\\ProcessBuilder#'
-        # To be fixed:
-        - '#Call to an undefined method RecursiveIteratorIterator::getSubPathName\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
-        - '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+        # To be fixed in next major version:
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
+          path: 'lib/Interactions/WebDriverTouchActions.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriver::getTouch\(\)#'
+          path: 'lib/Support/Events/EventFiringWebDriver.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getCoordinates\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::equals\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::takeElementScreenshot\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
+        - message: '#Call to an undefined method Facebook\\WebDriver\\WebDriverElement::getShadowRoot\(\)#'
+          path: 'lib/Support/Events/EventFiringWebElement.php'
         - '#Unsafe usage of new static\(\)#'
 
         # Parameter is intentionally not part of signature to not break BC

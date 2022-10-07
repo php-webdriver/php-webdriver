@@ -15,12 +15,12 @@ use PHPUnit\Framework\TestCase;
  */
 class WebDriverExpectedConditionTest extends TestCase
 {
-    /** @var RemoteWebDriver|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RemoteWebDriver|\PHPUnit\Framework\MockObject\MockObject */
     private $driverMock;
     /** @var WebDriverWait */
     private $wait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->driverMock = $this->createMock(RemoteWebDriver::class);
         $this->wait = new WebDriverWait($this->driverMock, 1, 1);
@@ -108,15 +108,13 @@ class WebDriverExpectedConditionTest extends TestCase
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
 
-        $this->driverMock->expects($this->at(0))
+        $this->driverMock->expects($this->exactly(2))
             ->method('findElement')
             ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willThrowException(new NoSuchElementException(''));
-
-        $this->driverMock->expects($this->at(1))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new NoSuchElementException('')),
+                $element
+            );
 
         $condition = WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -127,15 +125,13 @@ class WebDriverExpectedConditionTest extends TestCase
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
 
-        $this->driverMock->expects($this->at(0))
+        $this->driverMock->expects($this->exactly(2))
             ->method('findElement')
             ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
-
-        $this->driverMock->expects($this->at(1))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willThrowException(new NoSuchElementException(''));
+            ->willReturnOnConsecutiveCalls(
+                $element,
+                $this->throwException(new NoSuchElementException(''))
+            );
 
         $condition = WebDriverExpectedCondition::not(
             WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo'))
@@ -149,15 +145,13 @@ class WebDriverExpectedConditionTest extends TestCase
     {
         $element = $this->createMock(RemoteWebElement::class);
 
-        $this->driverMock->expects($this->at(0))
+        $this->driverMock->expects($this->exactly(2))
             ->method('findElements')
             ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn([]);
-
-        $this->driverMock->expects($this->at(1))
-            ->method('findElements')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn([$element]);
+            ->willReturnOnConsecutiveCalls(
+                [],
+                [$element]
+            );
 
         $condition = WebDriverExpectedCondition::presenceOfAllElementsLocatedBy(WebDriverBy::cssSelector('.foo'));
 
@@ -173,19 +167,15 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #4: return Element, isDisplayed will return true and condition will match
 
         $element = $this->createMock(RemoteWebElement::class);
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(3))
             ->method('isDisplayed')
-            ->willThrowException(new StaleElementReferenceException(''));
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new StaleElementReferenceException('')),
+                false,
+                true
+            );
 
-        $element->expects($this->at(1))
-            ->method('isDisplayed')
-            ->willReturn(false);
-
-        $element->expects($this->at(2))
-            ->method('isDisplayed')
-            ->willReturn(true);
-
-        $this->setupDriverToReturnElementAfterAnException($element, 4);
+        $this->setupDriverToReturnElementAfterAnException($element, 3);
 
         $condition = WebDriverExpectedCondition::visibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -226,19 +216,17 @@ class WebDriverExpectedConditionTest extends TestCase
     {
         $element = $this->createMock(RemoteWebElement::class);
 
-        $this->driverMock->expects($this->at(0))
+        $this->driverMock->expects($this->exactly(2))
             ->method('findElement')
             ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willReturn($element);
+            ->willReturn(
+                $element,
+                $this->throwException(new NoSuchElementException(''))
+            );
 
-        $element->expects($this->at(0))
+        $element->expects($this->once())
             ->method('isDisplayed')
             ->willReturn(true);
-
-        $this->driverMock->expects($this->at(1))
-            ->method('findElement')
-            ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willThrowException(new NoSuchElementException(''));
 
         $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -254,13 +242,12 @@ class WebDriverExpectedConditionTest extends TestCase
             ->with($this->isInstanceOf(WebDriverBy::class))
             ->willReturn($element);
 
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(2))
             ->method('isDisplayed')
-            ->willReturn(true);
-
-        $element->expects($this->at(1))
-            ->method('isDisplayed')
-            ->willThrowException(new StaleElementReferenceException(''));
+            ->willReturnOnConsecutiveCalls(
+                true,
+                $this->throwException(new StaleElementReferenceException(''))
+            );
 
         $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -276,13 +263,12 @@ class WebDriverExpectedConditionTest extends TestCase
             ->with($this->isInstanceOf(WebDriverBy::class))
             ->willReturn($element);
 
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(2))
             ->method('isDisplayed')
-            ->willReturn(true);
-
-        $element->expects($this->at(1))
-            ->method('isDisplayed')
-            ->willReturn(false);
+            ->willReturnOnConsecutiveCalls(
+                true,
+                false
+            );
 
         $condition = WebDriverExpectedCondition::invisibilityOfElementLocated(WebDriverBy::cssSelector('.foo'));
 
@@ -292,13 +278,12 @@ class WebDriverExpectedConditionTest extends TestCase
     public function testShouldDetectVisibilityOfCondition()
     {
         $element = $this->createMock(RemoteWebElement::class);
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(2))
             ->method('isDisplayed')
-            ->willReturn(false);
-
-        $element->expects($this->at(1))
-            ->method('isDisplayed')
-            ->willReturn(true);
+            ->willReturn(
+                false,
+                true
+            );
 
         $condition = WebDriverExpectedCondition::visibilityOf($element);
 
@@ -314,19 +299,15 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #4: return Element, getText will return new text and condition will match
 
         $element = $this->createMock(RemoteWebElement::class);
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(3))
             ->method('getText')
-            ->willReturn('this is an old text');
+            ->willReturnOnConsecutiveCalls(
+                'this is an old text',
+                $this->throwException(new StaleElementReferenceException('')),
+                'this is a new text'
+            );
 
-        $element->expects($this->at(1))
-            ->method('getText')
-            ->willThrowException(new StaleElementReferenceException(''));
-
-        $element->expects($this->at(2))
-            ->method('getText')
-            ->willReturn('this is a new text');
-
-        $this->setupDriverToReturnElementAfterAnException($element, 4);
+        $this->setupDriverToReturnElementAfterAnException($element, 3);
 
         $condition = WebDriverExpectedCondition::elementTextContains(WebDriverBy::cssSelector('.foo'), 'new');
 
@@ -342,19 +323,15 @@ class WebDriverExpectedConditionTest extends TestCase
         // Call #4: return Element, getText will return new text and condition will match
 
         $element = $this->createMock(RemoteWebElement::class);
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(3))
             ->method('getText')
-            ->willThrowException(new StaleElementReferenceException(''));
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new StaleElementReferenceException('')),
+                'this is a new text, but not exactly',
+                'this is a new text'
+            );
 
-        $element->expects($this->at(1))
-            ->method('getText')
-            ->willReturn('this is a new text, but not exactly');
-
-        $element->expects($this->at(2))
-            ->method('getText')
-            ->willReturn('this is a new text');
-
-        $this->setupDriverToReturnElementAfterAnException($element, 4);
+        $this->setupDriverToReturnElementAfterAnException($element, 3);
 
         $condition = WebDriverExpectedCondition::elementTextIs(
             WebDriverBy::cssSelector('.foo'),
@@ -374,19 +351,15 @@ class WebDriverExpectedConditionTest extends TestCase
 
         $element = $this->createMock(RemoteWebElement::class);
 
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(3))
             ->method('getText')
-            ->willThrowException(new StaleElementReferenceException(''));
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new StaleElementReferenceException('')),
+                'non-matching',
+                'matching-123'
+            );
 
-        $element->expects($this->at(1))
-            ->method('getText')
-            ->willReturn('non-matching');
-
-        $element->expects($this->at(2))
-            ->method('getText')
-            ->willReturn('matching-123');
-
-        $this->setupDriverToReturnElementAfterAnException($element, 4);
+        $this->setupDriverToReturnElementAfterAnException($element, 3);
 
         $condition = WebDriverExpectedCondition::elementTextMatches(
             WebDriverBy::cssSelector('.foo'),
@@ -406,22 +379,16 @@ class WebDriverExpectedConditionTest extends TestCase
 
         $element = $this->createMock(RemoteWebElement::class);
 
-        $element->expects($this->at(0))
+        $element->expects($this->exactly(3))
             ->method('getAttribute')
             ->with('value')
-            ->willThrowException(new StaleElementReferenceException(''));
+            ->willReturnOnConsecutiveCalls(
+                $this->throwException(new StaleElementReferenceException('')),
+                'wrong text',
+                'matching text'
+            );
 
-        $element->expects($this->at(1))
-            ->method('getAttribute')
-            ->with('value')
-            ->willReturn('wrong text');
-
-        $element->expects($this->at(2))
-            ->method('getAttribute')
-            ->with('value')
-            ->willReturn('matching text');
-
-        $this->setupDriverToReturnElementAfterAnException($element, 4);
+        $this->setupDriverToReturnElementAfterAnException($element, 3);
 
         $condition = WebDriverExpectedCondition::elementValueContains(
             WebDriverBy::cssSelector('.foo'),
@@ -554,16 +521,17 @@ class WebDriverExpectedConditionTest extends TestCase
      */
     private function setupDriverToReturnElementAfterAnException($element, $expectedNumberOfFindElementCalls)
     {
-        $this->driverMock->expects($this->at(0))
+        $consecutiveReturn = [
+            $this->throwException(new NoSuchElementException('')),
+        ];
+
+        for ($i = 0; $i < $expectedNumberOfFindElementCalls; $i++) {
+            $consecutiveReturn[] = $element;
+        }
+
+        $this->driverMock->expects($this->exactly(count($consecutiveReturn)))
             ->method('findElement')
             ->with($this->isInstanceOf(WebDriverBy::class))
-            ->willThrowException(new NoSuchElementException(''));
-
-        for ($i = 1; $i < $expectedNumberOfFindElementCalls; $i++) {
-            $this->driverMock->expects($this->at($i))
-                ->method('findElement')
-                ->with($this->isInstanceOf(WebDriverBy::class))
-                ->willReturn($element);
-        }
+            ->willReturnOnConsecutiveCalls(...$consecutiveReturn);
     }
 }

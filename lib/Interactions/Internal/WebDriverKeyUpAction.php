@@ -2,9 +2,7 @@
 
 namespace Facebook\WebDriver\Interactions\Internal;
 
-use Facebook\WebDriver\WebDriverAction;
-
-class WebDriverKeyUpAction extends WebDriverSingleKeyAction implements WebDriverAction
+class WebDriverKeyUpAction extends WebDriverSingleKeyAction
 {
     public function perform()
     {

@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Interactions\Internal;
 
+use Facebook\WebDriver\WebDriverPoint;
 use PHPUnit\Framework\TestCase;
 
 class WebDriverCoordinatesTest extends TestCase
@@ -9,27 +10,16 @@ class WebDriverCoordinatesTest extends TestCase
     public function testConstruct()
     {
         $in_view_port = function () {
+            return new WebDriverPoint(0, 0);
         };
         $on_page = function () {
+            return new WebDriverPoint(10, 10);
         };
 
         $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
 
-        $this->assertAttributeEquals(null, 'onScreen', $webDriverCoordinates);
-        $this->assertAttributeEquals($in_view_port, 'inViewPort', $webDriverCoordinates);
-        $this->assertAttributeEquals($on_page, 'onPage', $webDriverCoordinates);
-        $this->assertAttributeEquals('auxiliary', 'auxiliary', $webDriverCoordinates);
-    }
-
-    public function testGetAuxiliary()
-    {
-        $in_view_port = function () {
-        };
-        $on_page = function () {
-        };
-
-        $webDriverCoordinates = new WebDriverCoordinates(null, $in_view_port, $on_page, 'auxiliary');
-
-        $this->assertEquals('auxiliary', $webDriverCoordinates->getAuxiliary());
+        $this->assertEquals(new WebDriverPoint(0, 0), $webDriverCoordinates->inViewPort());
+        $this->assertEquals(new WebDriverPoint(10, 10), $webDriverCoordinates->onPage());
+        $this->assertSame('auxiliary', $webDriverCoordinates->getAuxiliary());
     }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>WebComponents and Shadow DOM tests</title>
+
+    <style>
+        custom-checkbox-element {
+            margin-top: 1ex;
+            padding: 1ex;
+            display: block;
+            background-color: #eeeeff;
+        }
+    </style>
+</head>
+<body>
+<h1>WebComponents and Shadow DOM tests</h1>
+
+<div><label>Input out of Shadow DOM: <input id="no-shadow-root"/></label></div>
+<div>
+    <custom-checkbox-element></custom-checkbox-element>
+</div>
+<script>
+  customElements.define('custom-checkbox-element',
+      class extends HTMLElement {
+        constructor() {
+          super();
+          this.attachShadow({mode: 'open'}).innerHTML = '<div><label>Checkbox in Shadow DOM: ' +
+              '<input type="checkbox"/></label>' +
+              '<div><p>Paragraph in Shadow DOM</p></div>' +
+              '</div>';
+        }
+      }
+  );
+</script>
+
+</body>
+</html>

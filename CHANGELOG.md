@@ -4,6 +4,90 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 - Add `all` and `any` expected conditions
 
+## 1.13.0 - 2022-10-03
+### Added
+- Support for current Firefox XPI extension format. Extensions could now be loaded into `FirefoxProfile` using `addExtension()` method.
+- `setProfile()` method to `FirefoxOptions`, which is now a preferred way to set Firefox Profile.
+- Element `isDisplayed()` can now be used even for browsers not supporting native API endpoint (like Safari), thanks to javascript atom workaround.
+
+### Changed
+- Handle errors when taking screenshots. `WebDriverException` is thrown if WebDriver returns empty or invalid screenshot data.
+- Deprecate `FirefoxDriver::PROFILE` constant. Instead, use `setProfile()` method of `FirefoxOptions` to set Firefox Profile.
+- Deprecate `getAllSessions()` method of `RemoteWebDriver` (which is not part of W3C WebDriver).
+- Increase default request timeout to 3 minutes (instead of 30 seconds).
+
+### Fixed
+- Throw `UnknownErrorException` instead of fatal error if remote end returns invalid response for `findElement()`/`findElements()` commands.
+
+## 1.12.1 - 2022-05-03
+### Fixed
+- Improper PHP documentation for `getAttribute()` and `getDomProperty()`.
+- Unsafe use of `static::` when accessing private property in `DesiredCapabilities`.
+- PHP 8.1 deprecations in the `Cookie` class.
+
+### Changed
+- Docs: Extend `findElement()`/`findElements()` method documentation to better explain XPath behavior.
+- Add `@return` and `@param` type annotations to Cookie class to avoid deprecations in PHP 8.1.
+
+## 1.12.0 - 2021-10-14
+### Added
+- `RemoteWebElement::getDomProperty()` method to read JavaScript properties of an element (like the value of `innerHTML` etc.) in W3C mode.
+- `WebDriverCommand::newSession()` constructor to create new session command without violating typehints.
+
+### Changed
+- Allow installation of Symfony 6 components.
+
+### Fixed
+- PHP 8.1 compatibility.
+
+## 1.11.1 - 2021-05-21
+### Fixed
+- `RemoteWebElement::getLocationOnScreenOnceScrolledIntoView()` was missing polyfill implementation for W3C mode and not working in eg. Safari.
+
+## 1.11.0 - 2021-05-03
+### Added
+- `FirefoxOptions` class to simplify passing Firefox capabilities. Usage is covered [in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
+- `FirefoxDriver` to easy local start of Firefox instance without a need to start the `geckodriver` process manually. [See wiki](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#start-directly-using-firefoxdriver-class) for usage examples.
+- Method `ChromeDriver::startUsingDriverService()` to be used for creating ChromeDriver instance with custom service.
+
+### Fixed
+- Driver capabilities received from the browser when creating now session were not set to the instance of ChromeDriver (when ChromeDriver::start() was used).
+
+### Changed
+- Deprecate `ChromeDriver::startSession`. However, the method was supposed to be used only internally.
+- KeyDown and KeyUp actions will throw an exception when not used with modifier keys.
+
+## 1.10.0 - 2021-02-25
+### Added
+- Support for sending Chrome DevTools Protocol commands (see details in [wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chrome-devtools-protocol-cdp)).
+- Option to specify type of new window (window or tab) when using `$driver->switchTo()->newWindow()`.
+
+### Fixed
+- Actually start ChromeDriver in W3C mode if it is supported by the browser driver. Until now, when it was initialized using `ChromeDriver::start()`, it has always been unintentionally started in OSS mode.
+- ChromeOptions were ignored when passed to DesiredCapabilities as `ChromeOptions::CAPABILITY_W3C`.
+- Clicking a block element inside `<a>` element in Firefox (workaround for GeckoDriver bug [1374283](https://bugzilla.mozilla.org/show_bug.cgi?id=1374283)).
+
+### Changed
+- Throw `DriverServerDiedException` on local driver process terminating unexpectedly and provide full details of original exception to improve debugging.
+- Do not require `WEBDRIVER_CHROME_DRIVER` environment variable to be set if `chromedriver` binary is already available via system PATH.
+- Mark PhantomJS deprecated, as it is no longer developed and maintained.
+- Deprecate `RemoteWebDriver::newWindow()` in favor of `$driver->switchTo()->newWindow()`.
+- Don't escape slashes in CURL exception message to improve readability.
+
+## 1.9.0 - 2020-11-19
+### Added
+- Support of SameSite cookie property.
+- Command `RemoteWebDriver::newWindow()` for W3C mode to open new top-level browsing context (aka window).
+- PHP 8.0 support.
+
+## 1.8.3 - 2020-10-06
+### Fixed
+- Make `alertIsPresent()` condition working in W3C mode.
+- `RemoteWebDriver::create()` cannot be used without providing the second parameter (which is in fact optional).
+- `ChromeDriver::start()` starts in inconsistent state mixing W3C/OSS mode.
+- Modifier keys are not released when sending NULL key in GeckoDriver (workaround for GeckoDriver bug [1494661](https://bugzilla.mozilla.org/show_bug.cgi?id=1494661)).
+- Do not set unnecessary `binary` value of `goog:chromeOptions` while keep the object in proper data type required by ChromeDriver.
+
 ## 1.8.2 - 2020-03-04
 ### Changed
 - Reimplement element `equals()` method to be working in W3C mode.

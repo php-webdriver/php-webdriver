@@ -4,7 +4,6 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoAlertOpenException;
 use Facebook\WebDriver\Exception\NoSuchAlertException;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
  * @covers \Facebook\WebDriver\Remote\RemoteTargetLocator
@@ -12,17 +11,17 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class WebDriverAlertTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('alert.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::ALERT));
     }
 
     public function testShouldAcceptAlert()
     {
-        // Open alert
-        $this->driver->findElement(WebDriverBy::id('open-alert'))->click();
+        // Open alert (it is delayed for 1 second, to make sure following wait for alertIsPresent works properly)
+        $this->driver->findElement(WebDriverBy::id('open-alert-delayed'))->click();
 
         // Wait until present
         $this->driver->wait()->until(WebDriverExpectedCondition::alertIsPresent());
@@ -42,11 +41,6 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldAcceptAndDismissConfirmation()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-confirm'))->click();
 
@@ -69,11 +63,6 @@ class WebDriverAlertTest extends WebDriverTestCase
 
     public function testShouldSubmitPromptText()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            /** @see https://github.com/SeleniumHQ/htmlunit-driver/issues/14 */
-            $this->markTestSkipped('Not supported by HtmlUnit browser');
-        }
-
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-prompt'))->click();
 

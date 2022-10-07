@@ -1,26 +1,20 @@
 # php-webdriver – Selenium WebDriver bindings for PHP
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
-[![Travis Build](https://img.shields.io/travis/php-webdriver/php-webdriver/master.svg?style=flat-square)](https://travis-ci.com/php-webdriver/php-webdriver)
-[![Sauce Test Status](https://saucelabs.com/buildstatus/php-webdriver)](https://saucelabs.com/u/php-webdriver)
-[![Total Downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square)](https://packagist.org/packages/php-webdriver/webdriver)
+[![Latest stable version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square&label=Packagist)](https://packagist.org/packages/php-webdriver/webdriver)
+[![GitHub Actions build status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/Tests?style=flat-square&label=GitHub%20Actions)](https://github.com/php-webdriver/php-webdriver/actions)
+[![SauceLabs test status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/Sauce%20Labs?style=flat-square&label=SauceLabs)](https://saucelabs.com/u/php-webdriver)
+[![Total downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square&label=Downloads)](https://packagist.org/packages/php-webdriver/webdriver)
 
 ## Description
 Php-webdriver library is PHP language binding for Selenium WebDriver, which allows you to control web browsers from PHP.
 
 This library is compatible with Selenium server version 2.x, 3.x and 4.x.
 
-The library supports [JsonWireProtocol](https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol) and also
-implements **experimental support** of [W3C WebDriver](https://w3c.github.io/webdriver/webdriver-spec.html).
-The W3C WebDriver support is not yet full-featured, however it should allow to control Firefox via Geckodriver and new
-versions of Chrome and Chromedriver with just a slight limitations.
+The library supports modern [W3C WebDriver](https://w3c.github.io/webdriver/) protocol, as well
+as legacy [JsonWireProtocol](https://www.selenium.dev/documentation/legacy/json_wire_protocol/).
 
-The concepts of this library are very similar to the "official" Java, .NET, Python and Ruby bindings from the
-[Selenium project](https://github.com/SeleniumHQ/selenium/).
-
-Looking for API documentation of php-webdriver? See [https://php-webdriver.github.io/php-webdriver/](https://php-webdriver.github.io/php-webdriver/latest/)
-
-Any complaints, questions, or ideas? Post them in the user group https://www.facebook.com/groups/phpwebdriver/.
+The concepts of this library are very similar to the "official" Java, JavaScript, .NET, Python and Ruby libraries
+which are developed as part of the [Selenium project](https://github.com/SeleniumHQ/selenium/).
 
 ## Installation
 
@@ -60,7 +54,9 @@ This could be Selenium standalone server, but for local development, you can sen
 
 #### a) Chromedriver
 
-Install the latest Chrome and [Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/downloads).
+📙 Below you will find a simple example. Make sure to read our wiki for [more information on Chrome/Chromedriver](https://github.com/php-webdriver/php-webdriver/wiki/Chrome).
+
+Install the latest Chrome and [Chromedriver](https://sites.google.com/chromium.org/driver/downloads).
 Make sure to have a compatible version of Chromedriver and Chrome!
 
 Run `chromedriver` binary, you can pass `port` argument, so that it listens on port 4444:
@@ -70,6 +66,8 @@ chromedriver --port=4444
 ```
 
 #### b) Geckodriver
+
+📙 Below you will find a simple example. Make sure to read our wiki for [more information on Firefox/Geckodriver](https://github.com/php-webdriver/php-webdriver/wiki/Firefox).
 
 Install the latest Firefox and [Geckodriver](https://github.com/mozilla/geckodriver/releases).
 Make sure to have a compatible version of Geckodriver and Firefox!
@@ -82,34 +80,16 @@ geckodriver
 
 #### c) Selenium standalone server
 
-[Selenium server](https://selenium.dev/downloads/) is useful especially when you need to execute multiple tests at once
-or your tests are run in different browsers - like on your CI server.
+Selenium server can be useful when you need to execute multiple tests at once,
+when you run tests in several different browsers (like on your CI server), or when you need to distribute tests amongst
+several machines in grid mode (where one Selenium server acts as a hub, and others connect to it as nodes).
 
-Selenium server receives commands and starts new sessions using browser drivers acting like hub distributing the commands
-among multiple nodes.
+Selenium server then act like a proxy and takes care of distributing commands to the respective nodes.
 
-To run the standalone server, download [`selenium-server-standalone-#.jar` file](http://selenium-release.storage.googleapis.com/index.html)
-(replace # with the current server version). Keep in mind **you must have Java 8+ installed**.
+The latest version can be found on the [Selenium download page](https://www.selenium.dev/downloads/).
 
-Run the server:
-
-```sh
-java -jar selenium-server-standalone-#.jar
-```
-
-You may need to provide path to `chromedriver`/`geckodriver` binary (if they are not placed in system `PATH` directory):
-
-```sh
-# Chromedriver:
-java -Dwebdriver.chrome.driver="/opt/chromium-browser/chromedriver" -jar vendor/bin/selenium-server-standalone-#.jar
-# Geckodriver:
-java -Dwebdriver.gecko.driver="/home/john/bin/geckodriver" -jar vendor/bin/selenium-server-standalone-#.jar
-
-# (These options could be combined)
-```
-
-If you want to distribute browser sessions among multiple servers ("grid mode" - one Selenium hub and multiple Selenium nodes) please
-[refer to the documentation](https://selenium.dev/documentation/en/grid/).
+📙 You can find [further Selenium server information](https://github.com/php-webdriver/php-webdriver/wiki/Selenium-server)
+in our wiki.
 
 #### d) Docker
 
@@ -123,13 +103,13 @@ For example:
 
 ```php
 // Chromedriver (if started using --port=4444 as above)
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 // Geckodriver
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 // selenium-server-standalone-#.jar (version 2.x or 3.x)
-$host = 'http://localhost:4444/wd/hub';
+$serverUrl = 'http://localhost:4444/wd/hub';
 // selenium-server-standalone-#.jar (version 4.x)
-$host = 'http://localhost:4444';
+$serverUrl = 'http://localhost:4444';
 ```
 
 Now you can start browser of your choice:
@@ -138,11 +118,11 @@ Now you can start browser of your choice:
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 // Chrome
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::chrome());
 // Firefox
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::firefox());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::firefox());
 // Microsoft Edge
-$driver = RemoteWebDriver::create($host, DesiredCapabilities::microsoftEdge());
+$driver = RemoteWebDriver::create($serverUrl, DesiredCapabilities::microsoftEdge());
 ```
 
 ### 3. Customize Desired Capabilities
@@ -152,6 +132,7 @@ Desired capabilities define properties of the browser you are about to start.
 They can be customized:
 
 ```php
+use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 
 $desiredCapabilities = DesiredCapabilities::firefox();
@@ -159,16 +140,48 @@ $desiredCapabilities = DesiredCapabilities::firefox();
 // Disable accepting SSL certificates
 $desiredCapabilities->setCapability('acceptSslCerts', false);
 
-// Run headless firefox
-$desiredCapabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
+// Add arguments via FirefoxOptions to start headless firefox
+$firefoxOptions = new FirefoxOptions();
+$firefoxOptions->addArguments(['-headless']);
+$desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
 
-$driver = RemoteWebDriver::create($host, $desiredCapabilities);
+$driver = RemoteWebDriver::create($serverUrl, $desiredCapabilities);
 ```
 
-They can also be used to [configure proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
-To configure Chrome, you may use ChromeOptions - see [details in our wiki](https://github.com/php-webdriver/php-webdriver/wiki/ChromeOptions).
+Capabilities can also be used to [📙 configure a proxy server](https://github.com/php-webdriver/php-webdriver/wiki/HowTo-Work-with-proxy) which the browser should use.
+
+To configure browser-specific capabilities, you may use [📙 ChromeOptions](https://github.com/php-webdriver/php-webdriver/wiki/Chrome#chromeoptions)
+or [📙 FirefoxOptions](https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefoxoptions).
 
 * See [legacy JsonWire protocol](https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities) documentation or [W3C WebDriver specification](https://w3c.github.io/webdriver/#capabilities) for more details.
+
+### 4. Control your browser
+
+```php
+// Go to URL
+$driver->get('https://en.wikipedia.org/wiki/Selenium_(software)');
+
+// Find search element by its id, write 'PHP' inside and submit
+$driver->findElement(WebDriverBy::id('searchInput')) // find search input element
+    ->sendKeys('PHP') // fill the search box
+    ->submit(); // submit the whole form
+
+// Find element of 'History' item in menu by its css selector
+$historyButton = $driver->findElement(
+    WebDriverBy::cssSelector('#ca-history a')
+);
+// Read text of the element and print it to output
+echo 'About to click to a button with text: ' . $historyButton->getText();
+
+// Click the element to navigate to revision history page
+$historyButton->click();
+
+// Make sure to always call quit() at the end to terminate the browser session
+$driver->quit();
+```
+
+See [example.php](example.php) for full example scenario.
+Visit our GitHub wiki for [📙 php-webdriver command reference](https://github.com/php-webdriver/php-webdriver/wiki/Example-command-reference) and further examples.
 
 **NOTE:** Above snippets are not intended to be a working example by simply copy-pasting. See [example.php](example.php) for a working example.
 
@@ -179,9 +192,11 @@ For latest changes see [CHANGELOG.md](CHANGELOG.md) file.
 
 Some basic usage example is provided in [example.php](example.php) file.
 
-How-tos are provided right here in [our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+How-tos are provided right here in [📙 our GitHub wiki](https://github.com/php-webdriver/php-webdriver/wiki).
 
-You may also want to check out the Selenium [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
+If you don't use IDE, you may use [API documentation of php-webdriver](https://php-webdriver.github.io/php-webdriver/latest/).
+
+You may also want to check out the Selenium project [docs](https://selenium.dev/documentation/en/) and [wiki](https://github.com/SeleniumHQ/selenium/wiki).
 
 ## Testing framework integration
 
@@ -191,17 +206,23 @@ There are some projects already providing this:
 - [Symfony Panther](https://github.com/symfony/panther) uses php-webdriver and integrates with PHPUnit using `PantherTestCase`
 - [Laravel Dusk](https://laravel.com/docs/dusk) is another project using php-webdriver, could be used for testing via `DuskTestCase`
 - [Steward](https://github.com/lmc-eu/steward) integrates php-webdriver directly to [PHPUnit](https://phpunit.de/), and provides parallelization
-- [Codeception](http://codeception.com) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](http://codeception.com/docs/modules/WebDriver)
-- You can also check out this [blogpost](http://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration
+- [Codeception](https://codeception.com/) testing framework provides BDD-layer on top of php-webdriver in its [WebDriver module](https://codeception.com/docs/modules/WebDriver)
+- You can also check out this [blogpost](https://codeception.com/11-12-2013/working-with-phpunit-and-selenium-webdriver.html) + [demo project](https://github.com/DavertMik/php-webdriver-demo), describing simple [PHPUnit](https://phpunit.de/) integration
 
 ## Support
 
 We have a great community willing to help you!
 
-- **Via our Facebook Group** - If you have questions or are an active contributor consider joining our [facebook group](https://www.facebook.com/groups/phpwebdriver/) and contribute to communal discussion and support
-- **Via StackOverflow** - You can also [ask a question](https://stackoverflow.com/questions/ask?tags=php+selenium-webdriver) or find many already answered question on StackOverflow
-- **Via GitHub** - Another option if you have a question (or bug report) is to [submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue
+❓ Do you have a **question, idea or some general feedback**? Visit our [Discussions](https://github.com/php-webdriver/php-webdriver/discussions) page.
+(Alternatively, you can [look for many answered questions also on StackOverflow](https://stackoverflow.com/questions/tagged/php+selenium-webdriver)).
 
-## Contributing
+🐛 Something isn't working, and you want to **report a bug**? [Submit it here](https://github.com/php-webdriver/php-webdriver/issues/new) as a new issue.
+
+📙 Looking for a **how-to** or **reference documentation**? See [our wiki](https://github.com/php-webdriver/php-webdriver/wiki).
+
+## Contributing ❤️
 
 We love to have your help to make php-webdriver better. See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for more information about contributing and developing php-webdriver.
+
+Php-webdriver is community project - if you want to join the effort with maintaining and developing this library, the best is to look on [issues marked with "help wanted"](https://github.com/php-webdriver/php-webdriver/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+label. Let us know in the issue comments if you want to contribute and if you want any guidance, and we will be delighted to help you to prepare your pull request.

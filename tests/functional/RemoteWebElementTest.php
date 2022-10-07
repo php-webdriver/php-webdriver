@@ -2,9 +2,10 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
+use OndraM\CiDetector\CiDetector;
 
 /**
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebElement
@@ -14,15 +15,18 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getText
      * @group exclude-edge
-     * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5569343/
+     *        https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/5569343/
+     * @group exclude-safari
+     *      Safari does not normalize white-spaces
      */
     public function testShouldGetText()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $elementWithSimpleText = $this->driver->findElement(WebDriverBy::id('text-simple'));
         $elementWithTextWithSpaces = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
 
         $this->assertEquals('Foo bar text', $elementWithSimpleText->getText());
+
         $this->assertEquals('Multiple spaces are stripped', $elementWithTextWithSpaces->getText());
     }
 
@@ -31,13 +35,36 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetAttributeValue()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('text-simple'));
 
         $this->assertSame('note', $element->getAttribute('role'));
         $this->assertSame('height: 5em; border: 1px solid black;', $element->getAttribute('style'));
         $this->assertSame('text-simple', $element->getAttribute('id'));
+        $this->assertNull($element->getAttribute('notExisting'));
+    }
+
+    /**
+     * @covers ::getDomProperty
+     */
+    public function testShouldGetDomPropertyValue()
+    {
+        self::skipForJsonWireProtocol();
+
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+
+        $element = $this->driver->findElement(WebDriverBy::id('div-with-html'));
+
+        $this->assertStringContainsString(
+            ' <p>This <code>div</code> has some more <strong>html</strong> inside.</p>',
+            $element->getDomProperty('innerHTML')
+        );
+        $this->assertSame('foo bar', $element->getDomProperty('className')); // IDL property
+        $this->assertSame('foo bar', $element->getAttribute('class')); // HTML attribute should be the same
+        $this->assertSame('DIV', $element->getDomProperty('tagName'));
+        $this->assertSame(2, $element->getDomProperty('childElementCount'));
+        $this->assertNull($element->getDomProperty('notExistingProperty'));
     }
 
     /**
@@ -45,14 +72,39 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetLocation()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
 
         $elementLocation = $element->getLocation();
         $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
         $this->assertSame(33, $elementLocation->getX());
-        $this->assertSame(500, $elementLocation->getY());
+        $this->assertSame(550, $elementLocation->getY());
+    }
+
+    /**
+     * @covers ::getLocationOnScreenOnceScrolledIntoView
+     */
+    public function testShouldGetLocationOnScreenOnceScrolledIntoView()
+    {
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+
+        $element = $this->driver->findElement(WebDriverBy::id('element-out-of-viewport'));
+
+        // Location before scrolling into view is out of viewport
+        $elementLocation = $element->getLocation();
+        $this->assertInstanceOf(WebDriverPoint::class, $elementLocation);
+        $this->assertSame(33, $elementLocation->getX());
+        $this->assertSame(5000, $elementLocation->getY());
+
+        // Location once scrolled into view
+        $elementLocationOnceScrolledIntoView = $element->getLocationOnScreenOnceScrolledIntoView();
+        $this->assertInstanceOf(WebDriverPoint::class, $elementLocationOnceScrolledIntoView);
+        $this->assertSame(33, $elementLocationOnceScrolledIntoView->getX());
+        $this->assertLessThan(
+            1000, // screen size is ~768, so this should be less
+            $elementLocationOnceScrolledIntoView->getY()
+        );
     }
 
     /**
@@ -60,7 +112,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetSize()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
 
@@ -75,7 +127,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetCssValue()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $elementWithBorder = $this->driver->findElement(WebDriverBy::id('text-simple'));
         $elementWithoutBorder = $this->driver->findElement(WebDriverBy::id('text-with-spaces'));
@@ -84,7 +136,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('none', $elementWithoutBorder->getCSSValue('border-left-style'));
 
         // Browser could report color in either rgb (like MS Edge) or rgba (like everyone else)
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/rgba?\(0, 0, 0(, 1)?\)/',
             $elementWithBorder->getCSSValue('border-left-color')
         );
@@ -95,7 +147,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldGetTagName()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $paragraphElement = $this->driver->findElement(WebDriverBy::id('id_test'));
 
@@ -107,14 +159,79 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldClick()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
 
         $linkElement->click();
 
         $this->driver->wait()->until(
-            WebDriverExpectedCondition::urlContains('form.html')
+            WebDriverExpectedCondition::urlContains(TestPage::FORM)
         );
+
+        $this->assertTrue(true); // To generate coverage, see https://github.com/sebastianbergmann/phpunit/issues/3016
+    }
+
+    /**
+     * This test checks that the workarounds in place for https://github.com/mozilla/geckodriver/issues/653 work as
+     * expected where child links can be clicked.
+     *
+     * @covers ::click
+     * @covers ::clickChildElement
+     * @group exclude-chrome
+     * @group exclude-edge
+     */
+    public function testGeckoDriverShouldClickOnBlockLevelElement()
+    {
+        self::skipForUnmatchedBrowsers(['firefox']);
+
+        $links = [
+            'a-index-plain',
+            'a-index-block-child',
+            'a-index-block-child-hidden',
+            'a-index-second-child-hidden',
+        ];
+
+        foreach ($links as $linkid) {
+            $this->driver->get($this->getTestPageUrl(TestPage::GECKO_653));
+            $linkElement = $this->driver->findElement(WebDriverBy::id($linkid));
+
+            $linkElement->click();
+            $this->assertStringContainsString('index.html', $this->driver->getCurrentUrl());
+        }
+    }
+
+    /**
+     * This test checks that the workarounds in place for https://github.com/mozilla/geckodriver/issues/653 work as
+     * expected where child links cannot be clicked, and that appropriate exceptions are thrown.
+     *
+     * @covers ::click
+     * @covers ::clickChildElement
+     * @group exclude-chrome
+     * @group exclude-edge
+     */
+    public function testGeckoDriverShouldClickNotInteractable()
+    {
+        self::skipForUnmatchedBrowsers(['firefox']);
+
+        $this->driver->get($this->getTestPageUrl(TestPage::GECKO_653));
+
+        $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-plain-hidden'));
+
+        try {
+            $linkElement->click();
+            $this->fail('No exception was thrown when clicking an inaccessible link');
+        } catch (ElementNotInteractableException $e) {
+            $this->assertInstanceOf(ElementNotInteractableException::class, $e);
+        }
+
+        $linkElement = $this->driver->findElement(WebDriverBy::id('a-index-hidden-block-child'));
+
+        try {
+            $linkElement->click();
+            $this->fail('No exception was thrown when clicking an inaccessible link');
+        } catch (ElementNotInteractableException $e) {
+            $this->assertInstanceOf(ElementNotInteractableException::class, $e);
+        }
     }
 
     /**
@@ -122,7 +239,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldClearFormElementText()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $input = $this->driver->findElement(WebDriverBy::id('input-text'));
         $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
@@ -141,7 +258,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSendKeysToFormElement()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $input = $this->driver->findElement(WebDriverBy::id('input-text'));
         $textarea = $this->driver->findElement(WebDriverBy::id('textarea'));
@@ -152,11 +269,19 @@ class RemoteWebElementTest extends WebDriverTestCase
         $input->sendKeys(' baz');
         $this->assertSame('foo bar baz', $input->getAttribute('value'));
 
+        $input->clear();
+        $input->sendKeys([WebDriverKeys::SHIFT, 'H', WebDriverKeys::NULL, 'ello']);
+        $this->assertSame('Hello', $input->getAttribute('value'));
+
         $textarea->clear();
         $textarea->sendKeys('foo bar');
         $this->assertSame('foo bar', $textarea->getAttribute('value'));
         $textarea->sendKeys(' baz');
         $this->assertSame('foo bar baz', $textarea->getAttribute('value'));
+
+        $textarea->clear();
+        $textarea->sendKeys([WebDriverKeys::SHIFT, 'H', WebDriverKeys::NULL, 'ello']);
+        $this->assertSame('Hello', $textarea->getAttribute('value'));
 
         // Send keys as array
         $textarea->clear();
@@ -165,11 +290,29 @@ class RemoteWebElementTest extends WebDriverTestCase
     }
 
     /**
+     * @covers ::isDisplayed
+     * @covers \Facebook\WebDriver\Remote\RemoteWebDriver::execute
+     * @covers \Facebook\WebDriver\Support\IsElementDisplayedAtom
+     */
+    public function testShouldDetectElementDisplayedness()
+    {
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+
+        $visibleElement = $this->driver->findElement(WebDriverBy::cssSelector('.test_class'));
+        $elementOutOfViewport = $this->driver->findElement(WebDriverBy::id('element-out-of-viewport'));
+        $hiddenElement = $this->driver->findElement(WebDriverBy::id('hidden-element'));
+
+        $this->assertTrue($visibleElement->isDisplayed());
+        $this->assertTrue($elementOutOfViewport->isDisplayed());
+        $this->assertFalse($hiddenElement->isDisplayed());
+    }
+
+    /**
      * @covers ::isEnabled
      */
     public function testShouldDetectEnabledInputs()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $inputEnabled = $this->driver->findElement(WebDriverBy::id('input-text'));
         $inputDisabled = $this->driver->findElement(WebDriverBy::id('input-text-disabled'));
@@ -183,7 +326,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSelectedInputsOrOptions()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $checkboxSelected = $this->driver->findElement(
             WebDriverBy::cssSelector('input[name=checkbox][value=second]')
@@ -211,7 +354,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSubmitFormBySubmitEventOnForm()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $formElement = $this->driver->findElement(WebDriverBy::cssSelector('form'));
 
@@ -229,7 +372,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSubmitFormBySubmitEventOnFormInputElement()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $inputTextElement = $this->driver->findElement(WebDriverBy::id('input-text'));
 
@@ -247,7 +390,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldSubmitFormByClickOnSubmitInput()
     {
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
         $submitElement = $this->driver->findElement(WebDriverBy::id('submit'));
 
@@ -265,7 +408,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldCompareEqualsElement()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $firstElement = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
         $differentElement = $this->driver->findElement(WebDriverBy::cssSelector('#text-simple'));
@@ -284,7 +427,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      */
     public function testShouldThrowExceptionIfChildElementCannotBeFound()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
 
         $this->expectException(NoSuchElementException::class);
@@ -293,7 +436,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     public function testShouldFindChildElementIfExistsOnAPage()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
 
         $childElement = $element->findElement(WebDriverBy::cssSelector('li'));
@@ -305,24 +448,24 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     public function testShouldReturnEmptyArrayIfChildElementsCannotBeFound()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
 
         $childElements = $element->findElements(WebDriverBy::cssSelector('not_existing'));
 
-        $this->assertInternalType('array', $childElements);
+        $this->assertTrue(is_array($childElements));
         $this->assertCount(0, $childElements);
     }
 
     public function testShouldFindMultipleChildElements()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
 
         $allElements = $this->driver->findElements(WebDriverBy::cssSelector('li'));
         $childElements = $element->findElements(WebDriverBy::cssSelector('li'));
 
-        $this->assertInternalType('array', $childElements);
+        $this->assertTrue(is_array($childElements));
         $this->assertCount(5, $allElements); // there should be 5 <li> elements on page
         $this->assertCount(3, $childElements); // but we should find only subelements of one <ul>
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $childElements);
@@ -330,6 +473,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
     /**
      * @covers ::takeElementScreenshot
+     * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      * @group exclude-saucelabs
      */
     public function testShouldTakeAndSaveElementScreenshot()
@@ -339,14 +483,14 @@ class RemoteWebElementTest extends WebDriverTestCase
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
         }
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Screenshots are not supported by HtmlUnit browser');
-        }
 
-        // Intentionally save screenshot to subdirectory to tests it is being created
+        // When running this test on real devices, it has a retina display so 5px will be converted into 10px
+        $isCi = (new CiDetector())->isCiDetected();
+        $isSafari = getenv('BROWSER_NAME') === 'safari';
+
         $screenshotPath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-') . '/element-screenshot.png';
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('red-box'));
 
@@ -354,8 +498,14 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         // Assert file output
         $imageFromFile = imagecreatefrompng($screenshotPath);
-        $this->assertEquals(5, imagesx($imageFromFile));
-        $this->assertEquals(5, imagesy($imageFromFile));
+
+        if ($isSafari && !$isCi) {
+            $this->assertEquals(10, imagesx($imageFromFile));
+            $this->assertEquals(10, imagesy($imageFromFile));
+        } else {
+            $this->assertEquals(5, imagesx($imageFromFile));
+            $this->assertEquals(5, imagesy($imageFromFile));
+        }
 
         // Validate element is actually red
         $this->assertSame(
@@ -365,9 +515,22 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         // Assert string output
         $imageFromString = imagecreatefromstring($outputPngString);
-        $this->assertInternalType('resource', $imageFromString);
-        $this->assertEquals(5, imagesx($imageFromString));
-        $this->assertEquals(5, imagesy($imageFromString));
+        $this->assertNotFalse($imageFromString);
+        $this->assertTrue(is_resource($imageFromString));
+
+        if ($isSafari && !$isCi) {
+            $this->assertEquals(10, imagesx($imageFromString));
+            $this->assertEquals(10, imagesy($imageFromString));
+        } else {
+            $this->assertEquals(5, imagesx($imageFromString));
+            $this->assertEquals(5, imagesy($imageFromString));
+        }
+
+        // Validate element is actually red
+        $this->assertSame(
+            ['red' => 255, 'green' => 0, 'blue' => 0, 'alpha' => 0],
+            imagecolorsforindex($imageFromString, imagecolorat($imageFromString, 0, 0))
+        );
 
         unlink($screenshotPath);
         rmdir(dirname($screenshotPath));

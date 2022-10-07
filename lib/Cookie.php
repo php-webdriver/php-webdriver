@@ -58,6 +58,9 @@ class Cookie implements \ArrayAccess
         if (isset($cookieArray['httpOnly'])) {
             $cookie->setHttpOnly($cookieArray['httpOnly']);
         }
+        if (isset($cookieArray['sameSite'])) {
+            $cookie->setSameSite($cookieArray['sameSite']);
+        }
 
         return $cookie;
     }
@@ -173,6 +176,24 @@ class Cookie implements \ArrayAccess
     }
 
     /**
+     * The cookie's same-site value.
+     *
+     * @param string $sameSite
+     */
+    public function setSameSite($sameSite)
+    {
+        $this->offsetSet('sameSite', $sameSite);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSameSite()
+    {
+        return $this->offsetGet('sameSite');
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -186,16 +207,32 @@ class Cookie implements \ArrayAccess
         return $cookie;
     }
 
+    /**
+     * @param mixed $offset
+     * @return bool
+     */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->cookie[$offset]);
     }
 
+    /**
+     * @param mixed $offset
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->offsetExists($offset) ? $this->cookie[$offset] : null;
     }
 
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     * @return void
+     */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if ($value === null) {
@@ -205,6 +242,11 @@ class Cookie implements \ArrayAccess
         }
     }
 
+    /**
+     * @param mixed $offset
+     * @return void
+     */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->cookie[$offset]);

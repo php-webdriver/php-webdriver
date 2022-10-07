@@ -1,0 +1,216 @@
+name: Tests
+
+permissions:
+  contents: read
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron:  '0 3 * * *'
+
+jobs:
+  analyze:
+    name: "Code style and static analysis"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, intl, zip
+
+      - name: Install PHP dependencies
+        run: composer preinstall
+
+      - name: Lint
+        run: composer lint
+
+      - name: Run analysis
+        run: composer analyze
+
+  markdown-link-check:
+    name: "Markdown link check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-verbose-mode: 'yes'
+
+  unit-tests:
+    name: "Unit tests"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version: ['5.6', '7.1', '7.2', '7.3', '7.4', '8.0']
+        dependencies: ['']
+        include:
+          - { php-version: '5.6', dependencies: '--prefer-lowest' }
+          - { php-version: '8.1', dependencies: '--ignore-platform-req=php' }
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, intl, zip
+          coverage: xdebug
+          ini-values: ${{ matrix.xdebug-ini-values }}
+
+      - name: Install PHP dependencies
+        run: composer update --no-interaction ${{ matrix.dependencies }}
+
+      - name: Apply PHPUnit patches
+        if: ${{ matrix.php-version < 7.2 }}
+        run: scripts/apply-phpunit-patches.sh
+
+      - name: Run tests
+        run: vendor/bin/phpunit --testsuite unit --colors=always --coverage-clover ./logs/clover.xml
+
+      - name: Submit coverage to Coveralls
+        # We use php-coveralls library for this, as the official Coveralls GitHub Action lacks support for clover reports:
+        # https://github.com/coverallsapp/github-action/issues/15
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: ${{ github.job }}-PHP-${{ matrix.php-version }} ${{ matrix.dependencies }}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          ~/.composer/vendor/bin/php-coveralls -v
+
+  functional-tests:
+    runs-on: ${{ matrix.os }}
+    env:
+      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.3.0/selenium-server-4.3.0.jar
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest']
+        browser: ['chrome', 'firefox']
+        selenium-server: [true, false] # Whether to run via Selenium server or directly via browser driver
+        w3c: [true] # Although all builds negotiate protocol by default, it implies W3C protocol for both Chromedriver and Geckodriver
+        include:
+          - { browser: 'safari', os: 'macos-latest', selenium-server: false, w3c: true }
+          # Force OSS (JsonWire) protocol on ChromeDriver - to make sure we keep compatibility:
+          - { browser: 'chrome', os: 'ubuntu-latest', selenium-server: false, w3c: false }
+
+    name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }}, W3C: ${{ matrix.w3c }})"
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: mbstring, intl, zip
+          coverage: xdebug
+
+      - name: Install PHP dependencies
+        run: composer update --no-interaction
+
+      - name: Start Selenium standalone server
+        # If you want to run your Selenium WebDriver tests on GitHub actions, we recommend using service containers
+        # with eg. selenium/standalone-chrome image. See https://docs.github.com/en/actions/guides/about-service-containers
+        # But for the purpose of testing this library itself, we need more control, so we set everything up manually.
+        if: ${{ matrix.selenium-server }}
+        run: |
+          mkdir -p build logs
+          wget -q -t 3 -O build/selenium-server.jar $SELENIUM_SERVER_DOWNLOAD_URL
+          java -jar build/selenium-server.jar standalone --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum java -jar build/selenium-server.jar standalone --log logs/selenium-server.log &
+
+      - name: Start ChromeDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'chrome' }}
+        run: |
+          google-chrome --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
+          chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
+
+      - name: Start GeckoDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'firefox' }}
+        run: |
+          firefox --version
+          geckodriver --version
+          xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
+          geckodriver &> ./logs/geckodriver.log &
+
+      - name: Start SafariDriver
+        if: ${{ !matrix.selenium-server && matrix.browser == 'safari' }}
+        run: |
+          defaults read /Applications/Safari.app/Contents/Info CFBundleShortVersionString
+          /usr/bin/safaridriver -p 4444 --diagnose &
+
+      - name: Start local PHP server
+        run: |
+          php -S 127.0.0.1:8000 -t tests/functional/web/ &> ./logs/php-server.log &
+
+      - name: Wait for browser & PHP to start
+        run: |
+          while ! nc -z localhost 4444 </dev/null; do echo Waiting for remote driver to start...; sleep 1; done
+          while ! nc -z localhost 8000 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
+
+      - name: Run tests
+        env:
+          BROWSER_NAME: ${{ matrix.browser }}
+          # When running directly against Firefox, we test only using geckodriver (not against legacy Firefox =<45), so we must declare GECKODRIVER=1
+          GECKODRIVER: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '1' || '0' }}"
+          # Provide CHROMEDRIVER_PATH and GECKODRIVER_PATH so that tests for local web drivers are able to start the browser
+          CHROMEDRIVER_PATH: "${{ (matrix.browser == 'chrome' && !matrix.selenium-server) && '/usr/local/share/chrome_driver/chromedriver' || '' }}"
+          GECKODRIVER_PATH: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '/usr/local/share/gecko_driver/geckodriver' || '' }}"
+          DISABLE_W3C_PROTOCOL: "${{ matrix.w3c && '0' || '1' }}"
+        run: |
+          if [ "$BROWSER_NAME" = "chrome" ]; then EXCLUDE_GROUP+="exclude-chrome,"; fi
+          if [ "$BROWSER_NAME" = "firefox" ]; then EXCLUDE_GROUP+="exclude-firefox,"; fi
+          if [ "$BROWSER_NAME" = "safari" ]; then EXCLUDE_GROUP+="exclude-safari,"; fi
+          if [ -n "$EXCLUDE_GROUP" ]; then EXTRA_PARAMS+=" --exclude-group $EXCLUDE_GROUP"; fi
+          vendor/bin/phpunit --testsuite functional --colors=always --coverage-clover ./logs/clover.xml $EXTRA_PARAMS
+
+      - name: Submit coverage to Coveralls
+        # We use php-coveralls library for this, as the official Coveralls GitHub Action lacks support for clover reports:
+        # https://github.com/coverallsapp/github-action/issues/15
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_PARALLEL: true
+          COVERALLS_FLAG_NAME: ${{ github.job }}-${{ matrix.browser }}-selenium-${{ matrix.selenium-server }}-w3c-${{ matrix.w3c }}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          ~/.composer/vendor/bin/php-coveralls -v
+
+      - name: Print logs
+        if: ${{ always() }}
+        run: |
+          if [ -f ./logs/selenium-server.log ]; then cat ./logs/selenium-server.log; fi
+          if [ -f ./logs/chromedriver.log ]; then cat ./logs/chromedriver.log; fi
+          if [ -f ./logs/geckodriver.log ]; then cat ./logs/geckodriver.log; fi
+          if [ -f ./logs/php-server.log ]; then cat ./logs/php-server.log; fi
+          if [ "$BROWSER_NAME" = "safari" ]; then
+            cat  ~/Library/Logs/com.apple.WebDriver/safaridriver.*
+          fi
+
+  tests-finished:
+    name: Tests finished
+    needs: [unit-tests, functional-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
+      # Save run_id to be used by follow-up workflow
+      - name: Save run_id to file
+        run: |
+          mkdir -p ./data
+          echo ${{ github.run_id }} > ./data/run_id
+      - uses: actions/upload-artifact@v3
+        with:
+          name: data
+          path: data/

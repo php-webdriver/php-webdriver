@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Exception\NoAlertOpenException;
+use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\NoSuchFrameException;
 use Facebook\WebDriver\Exception\StaleElementReferenceException;
@@ -423,6 +423,7 @@ class WebDriverExpectedCondition
                     $visibility_of_element_located->getApply(),
                     $driver
                 );
+
                 try {
                     if ($element !== null && $element->isEnabled()) {
                         return $element;
@@ -546,7 +547,7 @@ class WebDriverExpectedCondition
                     $alert->getText();
 
                     return $alert;
-                } catch (NoAlertOpenException $e) {
+                } catch (NoSuchAlertException $e) {
                     return null;
                 }
             }

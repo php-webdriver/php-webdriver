@@ -18,7 +18,7 @@ class FileUploadTest extends WebDriverTestCase
      */
     public function testShouldUploadAFile()
     {
-        $this->driver->get($this->getTestPageUrl('upload.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::UPLOAD));
 
         $fileElement = $this->driver->findElement(WebDriverBy::name('upload'));
 

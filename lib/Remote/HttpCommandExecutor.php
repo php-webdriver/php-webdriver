@@ -141,6 +141,14 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::DISMISS_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/alert/dismiss'],
         DriverCommand::EXECUTE_ASYNC_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/async'],
         DriverCommand::EXECUTE_SCRIPT => ['method' => 'POST', 'url' => '/session/:sessionId/execute/sync'],
+        DriverCommand::FIND_ELEMENT_FROM_SHADOW_ROOT => [
+            'method' => 'POST',
+            'url' => '/session/:sessionId/shadow/:id/element',
+        ],
+        DriverCommand::FIND_ELEMENTS_FROM_SHADOW_ROOT => [
+            'method' => 'POST',
+            'url' => '/session/:sessionId/shadow/:id/elements',
+        ],
         DriverCommand::FULLSCREEN_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/fullscreen'],
         DriverCommand::GET_ACTIVE_ELEMENT => ['method' => 'GET', 'url' => '/session/:sessionId/element/active'],
         DriverCommand::GET_ALERT_TEXT => ['method' => 'GET', 'url' => '/session/:sessionId/alert/text'],
@@ -150,6 +158,10 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             'method' => 'GET',
             'url' => '/session/:sessionId/element/:id/property/:name',
         ],
+        DriverCommand::GET_ELEMENT_SHADOW_ROOT => [
+            'method' => 'GET',
+            'url' => '/session/:sessionId/element/:id/shadow',
+        ],
         DriverCommand::GET_ELEMENT_SIZE => ['method' => 'GET', 'url' => '/session/:sessionId/element/:id/rect'],
         DriverCommand::GET_WINDOW_HANDLES => ['method' => 'GET', 'url' => '/session/:sessionId/window/handles'],
         DriverCommand::GET_WINDOW_POSITION => ['method' => 'GET', 'url' => '/session/:sessionId/window/rect'],
@@ -157,6 +169,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::IMPLICITLY_WAIT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
         DriverCommand::MAXIMIZE_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/maximize'],
         DriverCommand::MINIMIZE_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/minimize'],
+        DriverCommand::NEW_WINDOW => ['method' => 'POST', 'url' => '/session/:sessionId/window/new'],
         DriverCommand::SET_ALERT_VALUE => ['method' => 'POST', 'url' => '/session/:sessionId/alert/text'],
         DriverCommand::SET_SCRIPT_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
         DriverCommand::SET_TIMEOUT => ['method' => 'POST', 'url' => '/session/:sessionId/timeouts'],
@@ -207,8 +220,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, static::DEFAULT_HTTP_HEADERS);
-        $this->setRequestTimeout(30000);
-        $this->setConnectionTimeout(30000);
+
+        $this->setConnectionTimeout(30 * 1000); // 30 seconds
+        $this->setRequestTimeout(180 * 1000); // 3 minutes
     }
 
     public function disableW3cCompliance()
@@ -267,7 +281,8 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $http_method = $http_options['method'];
         $url = $http_options['url'];
 
-        $url = str_replace(':sessionId', $command->getSessionID(), $url);
+        $sessionID = $command->getSessionID();
+        $url = str_replace(':sessionId', $sessionID === null ? '' : $sessionID, $url);
         $params = $command->getParameters();
         foreach ($params as $name => $value) {
             if ($name[0] === ':') {
@@ -295,7 +310,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $http_method);
         }
 
-        if (in_array($http_method, ['POST', 'PUT'])) {
+        if (in_array($http_method, ['POST', 'PUT'], true)) {
             // Disable sending 'Expect: 100-Continue' header, as it is causing issues with eg. squid proxy
             // https://tools.ietf.org/html/rfc7231#section-5.1.1
             curl_setopt($this->curl, CURLOPT_HTTPHEADER, array_merge(static::DEFAULT_HTTP_HEADERS, ['Expect:']));
@@ -325,7 +340,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
                 $url
             );
             if (is_array($params) && !empty($params)) {
-                $msg .= sprintf(' with params: %s', json_encode($params));
+                $msg .= sprintf(' with params: %s', json_encode($params, JSON_UNESCAPED_SLASHES));
             }
 
             throw new WebDriverCurlException($msg . "\n\n" . $error);

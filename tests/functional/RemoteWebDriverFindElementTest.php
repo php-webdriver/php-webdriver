@@ -13,7 +13,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {
     public function testShouldThrowExceptionIfElementCannotBeFound()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $this->expectException(NoSuchElementException::class);
         $this->driver->findElement(WebDriverBy::id('not_existing'));
@@ -21,7 +21,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
     public function testShouldFindElementIfExistsOnAPage()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $element = $this->driver->findElement(WebDriverBy::id('id_test'));
 
@@ -30,21 +30,21 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
 
     public function testShouldReturnEmptyArrayIfElementsCannotBeFound()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('not_existing'));
 
-        $this->assertInternalType('array', $elements);
+        $this->assertTrue(is_array($elements));
         $this->assertCount(0, $elements);
     }
 
     public function testShouldFindMultipleElements()
     {
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $elements = $this->driver->findElements(WebDriverBy::cssSelector('ul > li'));
 
-        $this->assertInternalType('array', $elements);
+        $this->assertTrue(is_array($elements));
         $this->assertCount(5, $elements);
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $elements);
     }
@@ -58,7 +58,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
             'CSS selectors containing special characters are not supported by the legacy protocol'
         );
 
-        $this->driver->get($this->getTestPageUrl('escape_css.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::ESCAPE_CSS));
 
         $element = $this->driver->findElement(WebDriverBy::id('.fo\'oo'));
         $this->assertSame('Foo', $element->getText());

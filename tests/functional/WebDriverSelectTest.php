@@ -13,11 +13,11 @@ use Facebook\WebDriver\Exception\UnsupportedOperationException;
  */
 class WebDriverSelectTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('form.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM));
     }
 
     public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple()

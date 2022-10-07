@@ -11,10 +11,10 @@ use PHPUnit\Framework\TestCase;
  */
 class WebDriverOptionsTest extends TestCase
 {
-    /** @var ExecuteMethod|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExecuteMethod|\PHPUnit\Framework\MockObject\MockObject */
     private $executor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->executor = $this->getMockBuilder(ExecuteMethod::class)
             ->disableOriginalConstructor()

@@ -63,6 +63,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
     public function get($url)
     {
         $this->dispatch('beforeNavigateTo', $url, $this);
+
         try {
             $this->driver->get($url);
         } catch (WebDriverException $exception) {
@@ -162,6 +163,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
         }
 
         $this->dispatch('beforeScript', $script, $this);
+
         try {
             $result = $this->driver->executeAsyncScript($script, $arguments);
         } catch (WebDriverException $exception) {

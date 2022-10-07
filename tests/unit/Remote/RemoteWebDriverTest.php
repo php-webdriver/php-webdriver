@@ -2,7 +2,9 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\UnknownErrorException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
+use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverNavigation;
 use Facebook\WebDriver\WebDriverOptions;
 use Facebook\WebDriver\WebDriverWait;
@@ -18,7 +20,7 @@ class RemoteWebDriverTest extends TestCase
     /** @var RemoteWebDriver */
     private $driver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->driver = RemoteWebDriver::createBySessionID('session-id', 'http://foo.bar:4444');
     }
@@ -101,5 +103,33 @@ class RemoteWebDriverTest extends TestCase
         $wait = $this->driver->wait(15, 1337);
 
         $this->assertInstanceOf(WebDriverWait::class, $wait);
+    }
+
+    /**
+     * @param string $method
+     * @param string $expectedExceptionMessage
+     * @dataProvider provideMethods
+     */
+    public function testShouldThrowExceptionOnUnexpectedNullValueFromRemoteEnd($method, $expectedExceptionMessage)
+    {
+        $executorMock = $this->createMock(HttpCommandExecutor::class);
+        $executorMock->expects($this->once())
+            ->method('execute')
+            ->with($this->isInstanceOf(WebDriverCommand::class))
+            ->willReturn(new WebDriverResponse('session-id'));
+
+        $this->driver->setCommandExecutor($executorMock);
+
+        $this->expectException(UnknownErrorException::class);
+        $this->expectExceptionMessage($expectedExceptionMessage);
+        call_user_func([$this->driver, $method], $this->createMock(WebDriverBy::class));
+    }
+
+    public function provideMethods()
+    {
+        return [
+            ['findElement', 'Unexpected server response to findElement command'],
+            ['findElements', 'Unexpected server response to findElements command'],
+        ];
     }
 }

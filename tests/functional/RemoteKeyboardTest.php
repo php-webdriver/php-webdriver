@@ -2,8 +2,6 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Remote\WebDriverBrowserType;
-
 /**
  * @covers  \Facebook\WebDriver\Remote\RemoteKeyboard
  */
@@ -12,20 +10,18 @@ class RemoteKeyboardTest extends WebDriverTestCase
     use RetrieveEventsTrait;
 
     /**
+     * @group exclude-edge
      * @group exclude-firefox
      * Firefox does not properly support keyboard actions:
      * https://github.com/mozilla/geckodriver/issues/245
      * https://github.com/mozilla/geckodriver/issues/646
      * https://github.com/mozilla/geckodriver/issues/944
-     * @group exclude-edge
+     * @group exclude-safari
+     * https://feedbackassistant.apple.com/feedback/9051272
      */
     public function testShouldPressSendAndReleaseKeys()
     {
-        if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::HTMLUNIT) {
-            $this->markTestSkipped('Not peorperly supported by HtmlUnit browser');
-        }
-
-        $this->driver->get($this->getTestPageUrl('events.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
         $this->driver->getKeyboard()->sendKeys('ab');
         $this->driver->getKeyboard()->pressKey(WebDriverKeys::SHIFT);

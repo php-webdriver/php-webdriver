@@ -184,46 +184,23 @@ class FirefoxProfile
 
     /**
      * @param string $extension The path to the extension.
-     * @param string $profile_dir The path to the profile directory.
-     * @return string The path to the directory of this extension.
+     * @param string $profileDir The path to the profile directory.
+     * @throws \Exception
+     * @throws WebDriverException
      */
-    private function installExtension($extension, $profile_dir)
+    private function installExtension($extension, $profileDir)
     {
-        $temp_dir = $this->createTempDirectory('WebDriverFirefoxProfileExtension');
-        $this->extractTo($extension, $temp_dir);
+        $extensionCommonName = $this->parseExtensionName($extension);
 
-        // This is a hacky way to parse the id since there is no offical RDF parser library.
-        // Find the correct namespace for the id element.
-        $install_rdf_path = $temp_dir . '/install.rdf';
-        $xml = simplexml_load_file($install_rdf_path);
-        $ns = $xml->getDocNamespaces();
-        $prefix = '';
-        if (!empty($ns)) {
-            foreach ($ns as $key => $value) {
-                if (mb_strpos($value, '//www.mozilla.org/2004/em-rdf') > 0) {
-                    if ($key != '') {
-                        $prefix = $key . ':'; // Separate the namespace from the name.
-                    }
-                    break;
-                }
-            }
-        }
-        // Get the extension id from the install manifest.
-        $matches = [];
-        preg_match('#<' . $prefix . 'id>([^<]+)</' . $prefix . 'id>#', $xml->asXML(), $matches);
-        if (isset($matches[1])) {
-            $ext_dir = $profile_dir . '/extensions/' . $matches[1];
-            mkdir($ext_dir, 0777, true);
-            $this->extractTo($extension, $ext_dir);
-        } else {
-            $this->deleteDirectory($temp_dir);
-
-            throw new WebDriverException('Cannot get the extension id from the install manifest.');
+        // install extension to profile directory
+        $extensionDir = $profileDir . '/extensions/';
+        if (!is_dir($extensionDir) && !mkdir($extensionDir, 0777, true) && !is_dir($extensionDir)) {
+            throw new WebDriverException('Cannot install Firefox extension - cannot create directory');
         }
 
-        $this->deleteDirectory($temp_dir);
-
-        return $ext_dir;
+        if (!copy($extension, $extensionDir . $extensionCommonName . '.xpi')) {
+            throw new WebDriverException('Cannot install Firefox extension - cannot copy file');
+        }
     }
 
     /**
@@ -287,5 +264,45 @@ class FirefoxProfile
         }
 
         return $this;
+    }
+
+    private function parseExtensionName($extensionPath)
+    {
+        $temp_dir = $this->createTempDirectory();
+
+        $this->extractTo($extensionPath, $temp_dir);
+
+        $mozillaRsaPath = $temp_dir . '/META-INF/mozilla.rsa';
+        $mozillaRsaBinaryData = file_get_contents($mozillaRsaPath);
+        $mozillaRsaHex = bin2hex($mozillaRsaBinaryData);
+
+        //We need to find the plugin id. This is the second occurrence of object identifier "2.5.4.3 commonName".
+
+        //That is marker "2.5.4.3 commonName" in hex:
+        $objectIdentifierHexMarker = '0603550403';
+
+        $firstMarkerPosInHex = strpos($mozillaRsaHex, $objectIdentifierHexMarker); // phpcs:ignore
+
+        $secondMarkerPosInHexString =
+            strpos($mozillaRsaHex, $objectIdentifierHexMarker, $firstMarkerPosInHex + 2); // phpcs:ignore
+
+        if ($secondMarkerPosInHexString === false) {
+            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
+        }
+
+        // phpcs:ignore
+        $commonNameStringPositionInBinary = ($secondMarkerPosInHexString + strlen($objectIdentifierHexMarker)) / 2;
+
+        $commonNameStringLength = ord($mozillaRsaBinaryData[$commonNameStringPositionInBinary + 1]);
+        // phpcs:ignore
+        $extensionCommonName = substr(
+            $mozillaRsaBinaryData,
+            $commonNameStringPositionInBinary + 2,
+            $commonNameStringLength
+        );
+
+        $this->deleteDirectory($temp_dir);
+
+        return $extensionCommonName;
     }
 }

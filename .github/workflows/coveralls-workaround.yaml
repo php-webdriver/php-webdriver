@@ -1,0 +1,48 @@
+name: Coveralls coverage
+# Must be run in separate workflow to have access to repository secrets even for PR from forks.
+# See https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+
+permissions:
+  contents: read
+
+on:
+  workflow_run:
+    workflows: [ "Tests" ]
+    types:
+      - completed
+
+jobs:
+  coveralls:
+    name: Coveralls coverage workaround
+    runs-on: ubuntu-latest
+    if: >
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success'
+    steps:
+      # see https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+      - name: 'Download artifact'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "data"
+            })[0];
+            var download = await github.rest.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/data.zip', Buffer.from(download.data));
+      - run: unzip data.zip
+      - name: Coveralls coverage workaround
+        # see https://github.com/lemurheavy/coveralls-public/issues/1653#issuecomment-1251587119
+        run: |
+          BUILD_NUM=$(cat run_id)
+          curl --location --request GET "https://coveralls.io/rerun_build?repo_token=${{ secrets.COVERALLS_REPO_TOKEN }}&build_num=$BUILD_NUM"

@@ -56,6 +56,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     public function sendKeys($value)
     {
         $this->dispatch('beforeChangeValueOf', $this);
+
         try {
             $this->element->sendKeys($value);
         } catch (WebDriverException $exception) {
@@ -74,6 +75,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     public function click()
     {
         $this->dispatch('beforeClickOn', $this);
+
         try {
             $this->element->click();
         } catch (WebDriverException $exception) {
@@ -129,6 +131,7 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
             $this,
             $this->dispatcher->getDefaultDriver()
         );
+
         try {
             $elements = [];
             foreach ($this->element->findElements($by) as $element) {
@@ -359,6 +362,26 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     {
         try {
             return $this->element->equals($other);
+        } catch (WebDriverException $exception) {
+            $this->dispatchOnException($exception);
+            throw $exception;
+        }
+    }
+
+    public function takeElementScreenshot($save_as = null)
+    {
+        try {
+            return $this->element->takeElementScreenshot($save_as);
+        } catch (WebDriverException $exception) {
+            $this->dispatchOnException($exception);
+            throw $exception;
+        }
+    }
+
+    public function getShadowRoot()
+    {
+        try {
+            return $this->element->getShadowRoot();
         } catch (WebDriverException $exception) {
             $this->dispatchOnException($exception);
             throw $exception;

@@ -14,9 +14,7 @@ trait RetrieveEventsTrait
      */
     private function retrieveLoggedKeyboardEvents()
     {
-        $logElement = $this->driver->findElement(WebDriverBy::id('keyboardEventsLog'));
-
-        return explode("\n", $logElement->getText());
+        return $this->retrieveLoggerEvents(WebDriverBy::id('keyboardEventsLog'));
     }
 
     /**
@@ -24,8 +22,18 @@ trait RetrieveEventsTrait
      */
     private function retrieveLoggedMouseEvents()
     {
-        $logElement = $this->driver->findElement(WebDriverBy::id('mouseEventsLog'));
+        return $this->retrieveLoggerEvents(WebDriverBy::id('mouseEventsLog'));
+    }
 
-        return explode("\n", $logElement->getText());
+    /**
+     * @return false|string[]
+     */
+    private function retrieveLoggerEvents(WebDriverBy $by)
+    {
+        $logElement = $this->driver->findElement($by);
+
+        $text = trim($logElement->getText());
+
+        return array_map('trim', explode("\n", $text));
     }
 }

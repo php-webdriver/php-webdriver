@@ -2,87 +2,104 @@
 
 namespace Facebook\WebDriver\Chrome;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Local\LocalWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
-use Facebook\WebDriver\Remote\DriverCommand;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\Service\DriverCommandExecutor;
 use Facebook\WebDriver\Remote\WebDriverCommand;
 
-class ChromeDriver extends RemoteWebDriver
+class ChromeDriver extends LocalWebDriver
 {
+    /** @var ChromeDevToolsDriver */
+    private $devTools;
+
     /**
+     * Creates a new ChromeDriver using default configuration.
+     * This includes starting a new chromedriver process each time this method is called. However this may be
+     * unnecessary overhead - instead, you can start the process once using ChromeDriverService and pass
+     * this instance to startUsingDriverService() method.
+     *
+     * @todo Remove $service parameter. Use `ChromeDriver::startUsingDriverService` to pass custom $service instance.
      * @return static
      */
     public static function start(DesiredCapabilities $desired_capabilities = null, ChromeDriverService $service = null)
     {
-        if ($desired_capabilities === null) {
-            $desired_capabilities = DesiredCapabilities::chrome();
-        }
-        if ($service === null) {
+        if ($service === null) { // TODO: Remove the condition (always create default service)
             $service = ChromeDriverService::createDefaultService();
         }
-        $executor = new DriverCommandExecutor($service);
-        $driver = new static($executor, null, $desired_capabilities);
-        $driver->startSession($desired_capabilities);
 
-        return $driver;
+        return static::startUsingDriverService($service, $desired_capabilities);
     }
 
+    /**
+     * Creates a new ChromeDriver using given ChromeDriverService.
+     * This is usable when you for example don't want to start new chromedriver process for each individual test
+     * and want to reuse the already started chromedriver, which will lower the overhead associated with spinning up
+     * a new process.
+
+     * @return static
+     */
+    public static function startUsingDriverService(
+        ChromeDriverService $service,
+        DesiredCapabilities $capabilities = null
+    ) {
+        if ($capabilities === null) {
+            $capabilities = DesiredCapabilities::chrome();
+        }
+
+        $executor = new DriverCommandExecutor($service);
+        $newSessionCommand = WebDriverCommand::newSession(
+            [
+                'capabilities' => [
+                    'firstMatch' => [(object) $capabilities->toW3cCompatibleArray()],
+                ],
+                'desiredCapabilities' => (object) $capabilities->toArray(),
+            ]
+        );
+
+        $response = $executor->execute($newSessionCommand);
+
+        /*
+         * TODO: in next major version we may not need to use this method, because without OSS compatibility the
+         * driver creation is straightforward.
+         */
+        return static::createFromResponse($response, $executor);
+    }
+
+    /**
+     * @todo Remove in next major version. The class is internally no longer used and is kept only to keep BC.
+     * @deprecated Use start or startUsingDriverService method instead.
+     * @codeCoverageIgnore
+     * @internal
+     */
     public function startSession(DesiredCapabilities $desired_capabilities)
     {
-        $command = new WebDriverCommand(
-            null,
-            DriverCommand::NEW_SESSION,
+        $command = WebDriverCommand::newSession(
             [
-                'desiredCapabilities' => $desired_capabilities->toArray(),
+                'capabilities' => [
+                    'firstMatch' => [(object) $desired_capabilities->toW3cCompatibleArray()],
+                ],
+                'desiredCapabilities' => (object) $desired_capabilities->toArray(),
             ]
         );
         $response = $this->executor->execute($command);
+        $value = $response->getValue();
+
+        if (!$this->isW3cCompliant = isset($value['capabilities'])) {
+            $this->executor->disableW3cCompliance();
+        }
+
         $this->sessionID = $response->getSessionID();
     }
 
     /**
-     * Always throws an exception. Use ChromeDriver::start() instead.
-     *
-     * @param string $selenium_server_url
-     * @param DesiredCapabilities|array $desired_capabilities
-     * @param int|null $connection_timeout_in_ms
-     * @param int|null $request_timeout_in_ms
-     * @param string|null $http_proxy
-     * @param int|null $http_proxy_port
-     * @param DesiredCapabilities $required_capabilities
-     * @throws WebDriverException
-     * @return RemoteWebDriver
+     * @return ChromeDevToolsDriver
      */
-    public static function create(
-        $selenium_server_url = 'http://localhost:4444/wd/hub',
-        $desired_capabilities = null,
-        $connection_timeout_in_ms = null,
-        $request_timeout_in_ms = null,
-        $http_proxy = null,
-        $http_proxy_port = null,
-        DesiredCapabilities $required_capabilities = null
-    ) {
-        throw new WebDriverException('Please use ChromeDriver::start() instead.');
-    }
+    public function getDevTools()
+    {
+        if ($this->devTools === null) {
+            $this->devTools = new ChromeDevToolsDriver($this);
+        }
 
-    /**
-     * Always throws an exception. Use ChromeDriver::start() instead.
-     *
-     * @param string $session_id The existing session id
-     * @param string $selenium_server_url The url of the remote Selenium WebDriver server
-     * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
-     * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
-     * @throws WebDriverException
-     * @return RemoteWebDriver|void
-     */
-    public static function createBySessionID(
-        $session_id,
-        $selenium_server_url = 'http://localhost:4444/wd/hub',
-        $connection_timeout_in_ms = null,
-        $request_timeout_in_ms = null
-    ) {
-        throw new WebDriverException('Please use ChromeDriver::start() instead.');
+        return $this->devTools;
     }
 }

@@ -9,18 +9,17 @@ use Facebook\WebDriver\Exception\NoSuchCookieException;
  */
 class WebDriverOptionsCookiesTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('index.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
     }
 
     public function testShouldSetGetAndDeleteCookies()
     {
         $cookie1 = new Cookie('cookie1', 'cookie1Value');
         $cookie2 = new Cookie('cookie2', 'cookie2Value');
-        $cookie3 = new Cookie('cookie3', 'cookie3Value');
 
         // Verify initial state - no cookies are present
         $this->assertSame([], $this->driver->manage()->getCookies());

@@ -1,0 +1,29 @@
+name: No Response
+
+permissions:
+  issues: write
+
+# Both `issue_comment` and `scheduled` event types are required for this Action to work properly.
+on:
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '* */8 * * *' # every hour at :33
+
+jobs:
+  noResponse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lee-dohm/no-response@v0.5.0
+        with:
+          token: ${{ github.token }}
+          daysUntilClose: 14
+          responseRequiredLabel: 'waiting for reaction'
+          closeComment: >
+            This issue has been automatically closed because there has been no response
+            to our request for more information from the original author. With only the
+            information that is currently in the issue, we don't have enough information
+            to take action.
+
+            If the original issue author adds comment with more information,
+            this issue will be automatically reopened and we can investigate further.

@@ -127,4 +127,17 @@ interface WebDriver extends WebDriverSearchContext
      * @return mixed
      */
     public function execute($name, $params);
+
+    // TODO: Add in next major release (BC)
+    ///**
+    // * Execute custom commands on remote end.
+    // * For example vendor-specific commands or other commands not implemented by php-webdriver.
+    // *
+    // * @see https://github.com/php-webdriver/php-webdriver/wiki/Custom-commands
+    // * @param string $endpointUrl
+    // * @param string $method
+    // * @param array $params
+    // * @return mixed|null
+    // */
+    //public function executeCustomCommand($endpointUrl, $method = 'GET', $params = []);
 }

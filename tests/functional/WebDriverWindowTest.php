@@ -49,10 +49,8 @@ class WebDriverWindowTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-saucelabs
      * @group exclude-edge
-     * @group exclude-chrome
-     * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1049336
+     * @group exclude-saucelabs
      */
     public function testShouldFullscreenWindow()
     {
@@ -76,9 +74,10 @@ class WebDriverWindowTest extends WebDriverTestCase
     }
 
     /**
-     * @group exclude-saucelabs
-     * @group exclude-chrome
      * @see https://bugs.chromium.org/p/chromium/issues/detail?id=1038050
+     * @group exclude-chrome
+     * @group exclude-safari
+     * @group exclude-saucelabs
      */
     public function testShouldMinimizeWindow()
     {
@@ -116,6 +115,9 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertSame(666, $sizeAfter->getHeight());
     }
 
+    /**
+     * @todo Skip when running headless mode
+     */
     public function testShouldSetWindowPosition()
     {
         $this->driver->manage()

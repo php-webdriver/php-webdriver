@@ -11,11 +11,11 @@ use Facebook\WebDriver\Exception\NoSuchElementException;
  */
 class WebDriverCheckboxesTest extends WebDriverTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->driver->get($this->getTestPageUrl('form_checkbox_radio.html'));
+        $this->driver->get($this->getTestPageUrl(TestPage::FORM_CHECKBOX_RADIO));
     }
 
     public function testIsMultiple()

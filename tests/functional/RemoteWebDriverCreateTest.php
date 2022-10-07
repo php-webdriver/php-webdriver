@@ -13,8 +13,6 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {
-    protected $createWebDriver = false;
-
     public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver()
     {
         $this->driver = RemoteWebDriver::create(
@@ -32,7 +30,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertInstanceOf(HttpCommandExecutor::class, $this->driver->getCommandExecutor());
         $this->assertNotEmpty($this->driver->getCommandExecutor()->getAddressOfRemoteServer());
 
-        $this->assertInternalType('string', $this->driver->getSessionID());
+        $this->assertTrue(is_string($this->driver->getSessionID()));
         $this->assertNotEmpty($this->driver->getSessionID());
 
         $returnedCapabilities = $this->driver->getCapabilities();
@@ -40,7 +38,10 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         // MicrosoftEdge on Sauce Labs started to identify itself back as "msedge"
         if ($this->desiredCapabilities->getBrowserName() !== WebDriverBrowserType::MICROSOFT_EDGE) {
-            $this->assertSame($this->desiredCapabilities->getBrowserName(), $returnedCapabilities->getBrowserName());
+            $this->assertEqualsIgnoringCase(
+                $this->desiredCapabilities->getBrowserName(),
+                $returnedCapabilities->getBrowserName()
+            );
         }
 
         $this->assertNotEmpty($returnedCapabilities->getPlatform());
@@ -59,6 +60,8 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->connectionTimeout,
             $this->requestTimeout
         );
+
+        $this->assertNotNull($this->driver->getCapabilities());
     }
 
     public function testShouldCreateWebDriverWithRequiredCapabilities()
@@ -78,6 +81,24 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
     }
 
+    /**
+     * Capabilities (browser name) must be defined when executing via Selenium proxy (standalone server,
+     * Saucelabs etc.). But when running directly via browser driver, they could be empty.
+     * However the the browser driver must be able to create non-headless instance (eg. inside xvfb).
+     * @group exclude-saucelabs
+     */
+    public function testShouldCreateWebDriverWithoutCapabilities()
+    {
+        if (getenv('GECKODRIVER') !== '1' && empty(getenv('CHROMEDRIVER_PATH'))) {
+            $this->markTestSkipped('This test makes sense only when run directly via specific browser driver');
+        }
+
+        $this->driver = RemoteWebDriver::create($this->serverUrl);
+
+        $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
+        $this->assertNotEmpty($this->driver->getSessionID());
+    }
+
     public function testShouldCreateInstanceFromExistingSessionId()
     {
         // Create driver instance and load page "index.html"
@@ -87,8 +108,8 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->connectionTimeout,
             $this->requestTimeout
         );
-        $originalDriver->get($this->getTestPageUrl('index.html'));
-        $this->assertContains('/index.html', $originalDriver->getCurrentURL());
+        $originalDriver->get($this->getTestPageUrl(TestPage::INDEX));
+        $this->compatAssertStringContainsString('/index.html', $originalDriver->getCurrentURL());
 
         // Store session ID
         $sessionId = $originalDriver->getSessionID();
@@ -98,9 +119,13 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->driver = RemoteWebDriver::createBySessionID($sessionId, $this->serverUrl, null, null, $isW3cCompliant);
 
         // Check we reused the previous instance (window) and it has the same URL
-        $this->assertContains('/index.html', $this->driver->getCurrentURL());
+        $this->compatAssertStringContainsString('/index.html', $this->driver->getCurrentURL());
 
         // Do some interaction with the new driver
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());
+    }
+
+    protected function createWebDriver()
+    {
     }
 }

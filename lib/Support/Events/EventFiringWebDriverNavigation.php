@@ -49,6 +49,7 @@ class EventFiringWebDriverNavigation implements WebDriverNavigationInterface
             'beforeNavigateBack',
             $this->getDispatcher()->getDefaultDriver()
         );
+
         try {
             $this->navigator->back();
         } catch (WebDriverException $exception) {
@@ -68,6 +69,7 @@ class EventFiringWebDriverNavigation implements WebDriverNavigationInterface
             'beforeNavigateForward',
             $this->getDispatcher()->getDefaultDriver()
         );
+
         try {
             $this->navigator->forward();
         } catch (WebDriverException $exception) {

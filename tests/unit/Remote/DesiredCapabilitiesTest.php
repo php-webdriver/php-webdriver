@@ -4,7 +4,8 @@ namespace Facebook\WebDriver\Remote;
 
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Firefox\FirefoxDriver;
-use Facebook\WebDriver\Firefox\FirefoxPreferences;
+use Facebook\WebDriver\Firefox\FirefoxOptions;
+use Facebook\WebDriver\Firefox\FirefoxOptionsTest;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
 use Facebook\WebDriver\WebDriverPlatform;
 use PHPUnit\Framework\TestCase;
@@ -123,15 +124,53 @@ class DesiredCapabilitiesTest extends TestCase
         ];
     }
 
-    public function testShouldSetupFirefoxProfileAndDisableReaderViewForFirefoxBrowser()
+    public function testShouldSetupFirefoxWithDefaultOptions()
+    {
+        $capabilitiesArray = DesiredCapabilities::firefox()->toArray();
+
+        $this->assertSame('firefox', $capabilitiesArray['browserName']);
+        $this->assertSame(
+            [
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+            ],
+            $capabilitiesArray['moz:firefoxOptions']
+        );
+    }
+
+    public function testShouldSetupFirefoxWithCustomOptions()
+    {
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments(['-headless']);
+        $firefoxOptions->setOption('binary', '/foo/bar/firefox');
+
+        $capabilities = DesiredCapabilities::firefox();
+        $capabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
+
+        $capabilitiesArray = $capabilities->toArray();
+
+        $this->assertSame('firefox', $capabilitiesArray['browserName']);
+        $this->assertSame(
+            [
+                'binary' => '/foo/bar/firefox',
+                'args' => ['-headless'],
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+            ],
+            $capabilitiesArray['moz:firefoxOptions']
+        );
+    }
+
+    public function testShouldNotOverwriteDefaultFirefoxOptionsWhenAddingFirefoxOptionAsArray()
     {
         $capabilities = DesiredCapabilities::firefox();
+        $capabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
 
-        /** @var FirefoxProfile $firefoxProfile */
-        $firefoxProfile = $capabilities->getCapability(FirefoxDriver::PROFILE);
-        $this->assertInstanceOf(FirefoxProfile::class, $firefoxProfile);
-
-        $this->assertSame('false', $firefoxProfile->getPreference(FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED));
+        $this->assertSame(
+            [
+                'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
+                'args' => ['-headless'],
+            ],
+            $capabilities->toArray()['moz:firefoxOptions']
+        );
     }
 
     /**
@@ -143,9 +182,9 @@ class DesiredCapabilitiesTest extends TestCase
         DesiredCapabilities $inputJsonWireCapabilities,
         array $expectedW3cCapabilities
     ) {
-        $this->assertEquals(
-            $expectedW3cCapabilities,
-            $inputJsonWireCapabilities->toW3cCompatibleArray()
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($expectedW3cCapabilities),
+            json_encode($inputJsonWireCapabilities->toW3cCompatibleArray())
         );
     }
 
@@ -155,9 +194,10 @@ class DesiredCapabilitiesTest extends TestCase
     public function provideW3cCapabilities()
     {
         $chromeOptions = new ChromeOptions();
-        $chromeOptions->addArguments([
-            '--headless',
-        ]);
+        $chromeOptions->addArguments(['--headless']);
+
+        $firefoxOptions = new FirefoxOptions();
+        $firefoxOptions->addArguments(['-headless']);
 
         $firefoxProfileEncoded = (new FirefoxProfile())->encode();
 
@@ -176,7 +216,7 @@ class DesiredCapabilitiesTest extends TestCase
                     'acceptInsecureCerts' => true,
                 ],
             ],
-            'removed capabilitites' => [
+            'removed capabilities' => [
                 new DesiredCapabilities([
                     WebDriverCapabilityType::WEB_STORAGE_ENABLED => true,
                     WebDriverCapabilityType::TAKES_SCREENSHOT => false,
@@ -213,15 +253,36 @@ class DesiredCapabilitiesTest extends TestCase
                     'vendor:prefix' => 'vendor extension should be kept',
                 ],
             ],
+            'chromeOptions should be an object if empty' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY => new ChromeOptions(),
+                ]),
+                [
+                    'goog:chromeOptions' => new \ArrayObject(),
+                ],
+            ],
             'chromeOptions should be converted' => [
                 new DesiredCapabilities([
                     ChromeOptions::CAPABILITY => $chromeOptions,
                 ]),
                 [
-                    'goog:chromeOptions' => [
-                        'args' => ['--headless'],
-                        'binary' => '',
-                    ],
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless'],
+                        ]
+                    ),
+                ],
+            ],
+            'chromeOptions as W3C capability should be converted' => [
+                new DesiredCapabilities([
+                    ChromeOptions::CAPABILITY_W3C => $chromeOptions,
+                ]),
+                [
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless'],
+                        ]
+                    ),
                 ],
             ],
             'chromeOptions should be merged if already defined' => [
@@ -233,11 +294,12 @@ class DesiredCapabilitiesTest extends TestCase
                     ],
                 ]),
                 [
-                    'goog:chromeOptions' => [
-                        'args' => ['--headless', 'window-size=1024,768'],
-                        'binary' => '',
-                        'debuggerAddress' => '127.0.0.1:38947',
-                    ],
+                    'goog:chromeOptions' => new \ArrayObject(
+                        [
+                            'args' => ['--headless', 'window-size=1024,768'],
+                            'debuggerAddress' => '127.0.0.1:38947',
+                        ]
+                    ),
                 ],
             ],
             'firefox_profile should be converted' => [
@@ -253,7 +315,7 @@ class DesiredCapabilitiesTest extends TestCase
             'firefox_profile should not be overwritten if already present' => [
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
-                    'moz:firefoxOptions' => ['profile' => 'w3cProfile'],
+                    FirefoxOptions::CAPABILITY => ['profile' => 'w3cProfile'],
                 ]),
                 [
                     'moz:firefoxOptions' => [
@@ -264,12 +326,13 @@ class DesiredCapabilitiesTest extends TestCase
             'firefox_profile should be merged with moz:firefoxOptions if they already exists' => [
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
-                    'moz:firefoxOptions' => ['args' => ['-headless']],
+                    FirefoxOptions::CAPABILITY => $firefoxOptions,
                 ]),
                 [
                     'moz:firefoxOptions' => [
                         'profile' => $firefoxProfileEncoded,
                         'args' => ['-headless'],
+                        'prefs' => FirefoxOptionsTest::EXPECTED_DEFAULT_PREFS,
                     ],
                 ],
             ],
