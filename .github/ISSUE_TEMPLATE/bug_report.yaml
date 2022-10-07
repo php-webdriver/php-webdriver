@@ -1,0 +1,124 @@
+name: 🐛 Bug report
+description: Create a bug report to help us improve php-webdriver
+labels: [ "bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you have a question, [ask in Discussions](https://github.com/php-webdriver/php-webdriver/discussions) instead of filling a bug.
+        
+        If you are reporting a bug, please **fill as much as possible information**, otherwise the community and maintainers cannot provide a prompt feedback and help solving the issue.
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      description: |
+        A clear description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: How could the issue be reproduced
+      description: |
+        Provide steps to reproduce the behavior. Please include everything relevant - the PHP code you use to initialize driver instance, the PHP code causing the error, HTML snippet or URL of the page where you encounter the issue etc.
+        This will be automatically formatted into code, so no need for backticks ```.
+      placeholder: |
+        // For example you can provide how you create WebDriver instance:
+        $capabilities = DesiredCapabilities::chrome();
+        $driver = RemoteWebDriver::create('http://localhost:4444/', $capabilities);
+        // And the code you use to execute the php-webdriver commands, for example:
+        $driver->get('http://site.localhost/foo.html');
+        $button = $driver->findElement(WebDriverBy::cssSelector('#foo'));
+        $button->click();
+        <!-- You can also provide HTML snippet of the relevant part of page -->
+        <div>
+          <button id="foo">Foo</button>
+        </div>
+
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: |
+        A clear and concise description of what you expected to happen.
+    validations:
+      required: false
+
+  - type: input
+    id: php-webdriver-version
+    attributes:
+      label: Php-webdriver version
+      description: You can run `composer show php-webdriver/webdriver` to find the version number
+      placeholder: |
+        For example: 1.13.0
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      description: You can run `php -v` to find the version
+      placeholder: |
+        For example: 8.1.11
+    validations:
+      required: true
+
+  - type: input
+    id: how-start
+    attributes:
+      label: How do you start the browser driver or Selenium server
+      description: |
+        For example: Selenium server jar, Selenium in Docker, chromedriver command, Laravel Dusk, SauceLabs etc.
+        If relevant, provide the complete command you use to start the browser driver or Selenium server
+    validations:
+      required: true
+
+  - type: input
+    id: selenium-version
+    attributes:
+      label: Selenium server / Selenium Docker image version
+      description: Relevant only if you use Selenium server / Selenium in Docker
+    validations:
+      required: false
+
+  - type: input
+    id: browser-driver
+    attributes:
+      label: Browser driver (chromedriver/geckodriver...) version
+      description: You can run `chromedriver --version` or `geckodriver --version` to find the version
+      placeholder: |
+        For example: geckodriver 0.31.0
+    validations:
+      required: false
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser name and version
+      placeholder: |
+        For example: Firefox 105.0.2
+    validations:
+      required: false
+
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: |
+        Add any other context or you notes about the problem here.
+    validations:
+      required: false
