@@ -56,22 +56,19 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * @param HttpCommandExecutor $commandExecutor
      * @param string $sessionId
-     * @param WebDriverCapabilities|null $capabilities
+     * @param WebDriverCapabilities $capabilities
      * @param bool $isW3cCompliant false to use the legacy JsonWire protocol, true for the W3C WebDriver spec
      */
     protected function __construct(
         HttpCommandExecutor $commandExecutor,
         $sessionId,
-        WebDriverCapabilities $capabilities = null,
+        WebDriverCapabilities $capabilities,
         $isW3cCompliant = false
     ) {
         $this->executor = $commandExecutor;
         $this->sessionID = $sessionId;
         $this->isW3cCompliant = $isW3cCompliant;
-
-        if ($capabilities !== null) {
-            $this->capabilities = $capabilities;
-        }
+        $this->capabilities = $capabilities;
     }
 
     /**
@@ -147,6 +144,8 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      * @param int|null $connection_timeout_in_ms Set timeout for the connect phase to remote Selenium WebDriver server
      * @param int|null $request_timeout_in_ms Set the maximum time of a request to remote Selenium WebDriver server
      * @param bool $isW3cCompliant True to use W3C WebDriver (default), false to use the legacy JsonWire protocol
+     * @param WebDriverCapabilities|null $existingCapabilities Provide capabilities of the existing previously created
+     *  session. If not provided, we will attempt to read them, but this will only work when using Selenium Grid.
      * @return static
      */
     public static function createBySessionID(
@@ -157,6 +156,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     ) {
         // BC layer to not break the method signature
         $isW3cCompliant = func_num_args() > 4 ? func_get_arg(4) : true;
+        $existingCapabilities = func_num_args() > 5 ? func_get_arg(5) : null;
 
         $executor = new HttpCommandExecutor($selenium_server_url, null, null);
         if ($connection_timeout_in_ms !== null) {
@@ -170,7 +170,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executor->disableW3cCompliance();
         }
 
-        return new static($executor, $session_id, null, $isW3cCompliant);
+        if ($existingCapabilities === null) {
+            throw new UnknownErrorException(
+                'Existing capabilities must be provided when reusing previous session.'
+            );
+        }
+
+        return new static($executor, $session_id, $existingCapabilities, $isW3cCompliant);
     }
 
     /**

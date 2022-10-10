@@ -23,5 +23,7 @@ parameters:
         # Parameter is intentionally not part of signature to not break BC
         - message: '#PHPDoc tag \@param references unknown parameter: \$isW3cCompliant#'
           path: 'lib/Remote/RemoteWebDriver.php'
+        - message: '#PHPDoc tag \@param references unknown parameter: \$existingCapabilities#'
+          path: 'lib/Remote/RemoteWebDriver.php'
 
     inferPrivatePropertyTypeFromConstructor: true
