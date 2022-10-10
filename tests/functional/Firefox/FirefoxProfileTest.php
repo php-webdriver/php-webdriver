@@ -19,6 +19,7 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\TestPage;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverExpectedCondition;
 use Facebook\WebDriver\WebDriverTestCase;
 use PHPUnit\Framework\TestCase;
 
@@ -86,7 +87,11 @@ class FirefoxProfileTest extends TestCase
 
         $this->assertInstanceOf(RemoteWebDriver::class, $this->driver);
 
-        $element = $this->driver->findElement(WebDriverBy::id('webDriverExtensionTest'));
+        // it sometimes takes split of a second for the extension to render the element, so we must use wait
+        $element = $this->driver->wait(5, 1)->until(
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id('webDriverExtensionTest'))
+        );
+
         $this->assertEquals('This element was added by browser extension', $element->getText());
     }
 
