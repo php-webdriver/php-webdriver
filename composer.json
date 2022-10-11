@@ -63,12 +63,12 @@
   },
   "scripts": {
     "post-install-cmd": [
-      "composer install --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
-      "composer install --working-dir=tools/phpstan --no-progress --no-interaction"
+      "@composer install --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
+      "@composer install --working-dir=tools/phpstan --no-progress --no-interaction"
     ],
     "post-update-cmd": [
-      "composer update --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
-      "composer update --working-dir=tools/phpstan --no-progress --no-interaction"
+      "@composer update --working-dir=tools/php-cs-fixer --no-progress --no-interaction",
+      "@composer update --working-dir=tools/phpstan --no-progress --no-interaction"
     ],
     "all": [
       "@lint",
@@ -76,22 +76,22 @@
       "@test"
     ],
     "analyze": [
-      "tools/phpstan/vendor/bin/phpstan analyze -c phpstan.neon --ansi",
-      "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --ansi",
-      "vendor/bin/phpcs --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
+      "@php tools/phpstan/vendor/bin/phpstan analyze -c phpstan.neon --ansi",
+      "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff --dry-run -vvv --ansi",
+      "@php vendor/bin/phpcs --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
     ],
     "fix": [
       "@composer normalize",
-      "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff -vvv || exit 0",
-      "vendor/bin/phpcbf --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
+      "@php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --diff -vvv || exit 0",
+      "@php vendor/bin/phpcbf --standard=PSR2 --ignore=*.js ./lib/ ./tests/"
     ],
     "lint": [
-      "vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
+      "@php vendor/bin/parallel-lint -j 10 ./lib ./tests example.php",
       "@composer validate",
       "@composer normalize --dry-run"
     ],
     "test": [
-      "vendor/bin/phpunit --colors=always"
+      "@php vendor/bin/phpunit --colors=always"
     ]
   }
 }
