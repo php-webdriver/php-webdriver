@@ -24,7 +24,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
      */
     protected $executor;
     /**
-     * @var WebDriverCapabilities
+     * @var WebDriverCapabilities|null
      */
     protected $capabilities;
 
@@ -544,7 +544,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Get capabilities of the RemoteWebDriver.
      *
-     * @return WebDriverCapabilities
+     * @return WebDriverCapabilities|null
      */
     public function getCapabilities()
     {
@@ -578,7 +578,13 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         // As we so far only use atom for IS_ELEMENT_DISPLAYED, this condition is hardcoded here. In case more atoms
         // are used, this should be rewritten and separated from this class (e.g. to some abstract matcher logic).
         if ($command_name === DriverCommand::IS_ELEMENT_DISPLAYED
-            && IsElementDisplayedAtom::match($this->getCapabilities()->getBrowserName())) {
+            && (
+                // When capabilities are missing in php-webdriver 1.13.x, always fallback to use the atom
+                $this->getCapabilities() === null
+                // If capabilities are present, use the atom only if condition matches
+                || IsElementDisplayedAtom::match($this->getCapabilities()->getBrowserName())
+            )
+        ) {
             return (new IsElementDisplayedAtom($this))->execute($params);
         }
 
