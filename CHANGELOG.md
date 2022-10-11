@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Added
+- `PhpWebDriverExceptionInterface` as a common interface to identify all exceptions thrown in php-webdriver
 
 ### Changed
 - Require PHP ^7.3.
