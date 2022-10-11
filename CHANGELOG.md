@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.13.1 - 2022-10-11
 ### Fixed
 - Do not fail when using `isDisplayed()` and capabilities are missing in WebDriver instance. (Happens when driver instance was created using `RemoteWebDriver::createBySessionID()`.)
 
