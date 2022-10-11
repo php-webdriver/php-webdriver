@@ -2,8 +2,8 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Exception;
 use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Firefox\FirefoxDriver;
 use Facebook\WebDriver\Firefox\FirefoxOptions;
 use Facebook\WebDriver\Firefox\FirefoxProfile;
@@ -152,7 +152,7 @@ class DesiredCapabilities implements WebDriverCapabilities
      * This is a htmlUnit-only option.
      *
      * @param bool $enabled
-     * @throws Exception
+     * @throws UnsupportedOperationException
      * @return DesiredCapabilities
      * @see https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#read-write-capabilities
      */
@@ -160,7 +160,7 @@ class DesiredCapabilities implements WebDriverCapabilities
     {
         $browser = $this->getBrowserName();
         if ($browser && $browser !== WebDriverBrowserType::HTMLUNIT) {
-            throw new Exception(
+            throw new UnsupportedOperationException(
                 'isJavascriptEnabled() is a htmlunit-only option. ' .
                 'See https://github.com/SeleniumHQ/selenium/wiki/DesiredCapabilities#read-write-capabilities.'
             );

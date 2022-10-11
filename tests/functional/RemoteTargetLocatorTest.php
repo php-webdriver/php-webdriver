@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 
 /**
@@ -158,7 +159,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage(
             'In W3C compliance mode frame must be either instance of WebDriverElement, integer or null'
         );

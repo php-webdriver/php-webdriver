@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Exception\InvalidElementStateException;
 
 /**
  * Provides helper methods for checkboxes.
@@ -15,7 +15,7 @@ class WebDriverCheckboxes extends AbstractWebDriverCheckboxOrRadio
 
         $this->type = $element->getAttribute('type');
         if ($this->type !== 'checkbox') {
-            throw new WebDriverException('The input must be of type "checkbox".');
+            throw new InvalidElementStateException('The input must be of type "checkbox".');
         }
     }
 

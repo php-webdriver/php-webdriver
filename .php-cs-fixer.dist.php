@@ -26,7 +26,6 @@ return (new PhpCsFixer\Config())
         'implode_call' => true,
         'is_null' => true,
         'lambda_not_used_import' => true,
-        'linebreak_after_opening_tag' => true,
         'list_syntax' => true,
         'lowercase_cast' => true,
         'lowercase_static_reference' => true,

@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use PHPUnit\Framework\TestCase;
 
 class CustomWebDriverCommandTest extends TestCase
@@ -22,7 +22,7 @@ class CustomWebDriverCommandTest extends TestCase
 
     public function testCustomCommandInvalidUrlExceptionInit()
     {
-        $this->expectException(WebDriverException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('URL of custom command has to start with / but is "url-without-leading-slash"');
 
         new CustomWebDriverCommand('session-id-123', 'url-without-leading-slash', 'POST', []);
@@ -30,7 +30,7 @@ class CustomWebDriverCommandTest extends TestCase
 
     public function testCustomCommandInvalidMethodExceptionInit()
     {
-        $this->expectException(WebDriverException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Invalid custom method "invalid-method", must be one of [GET, POST]');
 
         new CustomWebDriverCommand('session-id-123', '/some-url', 'invalid-method', []);

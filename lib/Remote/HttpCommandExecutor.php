@@ -2,11 +2,11 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use BadMethodCallException;
-use Facebook\WebDriver\Exception\WebDriverCurlException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
+use Facebook\WebDriver\Exception\Internal\WebDriverCurlException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Facebook\WebDriver\WebDriverCommandExecutor;
-use InvalidArgumentException;
 
 /**
  * Command executor talking to the standalone server via HTTP.
@@ -272,7 +272,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @param WebDriverCommand $command
      *
-     * @throws WebDriverException
      * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command)
@@ -292,13 +291,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         }
 
         if (is_array($params) && !empty($params) && $http_method !== 'POST') {
-            throw new BadMethodCallException(sprintf(
-                'The http method called for %s is %s but it has to be POST' .
-                ' if you want to pass the JSON params %s',
-                $url,
-                $http_method,
-                json_encode($params)
-            ));
+            throw LogicException::forInvalidHttpMethod($url, $http_method, $params);
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
@@ -334,30 +327,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $raw_results = trim(curl_exec($this->curl));
 
         if ($error = curl_error($this->curl)) {
-            $msg = sprintf(
-                'Curl error thrown for http %s to %s',
-                $http_method,
-                $url
-            );
-            if (is_array($params) && !empty($params)) {
-                $msg .= sprintf(' with params: %s', json_encode($params, JSON_UNESCAPED_SLASHES));
-            }
-
-            throw new WebDriverCurlException($msg . "\n\n" . $error);
+            throw WebDriverCurlException::forCurlError($http_method, $url, $error, is_array($params) ? $params : null);
         }
 
         $results = json_decode($raw_results, true);
 
         if ($results === null && json_last_error() !== JSON_ERROR_NONE) {
-            throw new WebDriverException(
-                sprintf(
-                    "JSON decoding of remote response failed.\n" .
-                    "Error code: %d\n" .
-                    "The response: '%s'\n",
-                    json_last_error(),
-                    $raw_results
-                )
-            );
+            throw UnexpectedResponseException::forJsonDecodingError(json_last_error(), $raw_results);
         }
 
         $value = null;
@@ -414,7 +390,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $commandName = $command->getName();
         if (!isset(self::$commands[$commandName])) {
             if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
-                throw new InvalidArgumentException($command->getName() . ' is not a valid command.');
+                throw LogicException::forError($command->getName() . ' is not a valid command.');
             }
         }
 

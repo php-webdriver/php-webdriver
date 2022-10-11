@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Firefox;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use ReturnTypeWillChange;
 
 /**
@@ -49,13 +50,13 @@ class FirefoxOptions implements \JsonSerializable
     public function setOption($name, $value)
     {
         if ($name === self::OPTION_PREFS) {
-            throw new \InvalidArgumentException('Use setPreference() method to set Firefox preferences');
+            throw LogicException::forError('Use setPreference() method to set Firefox preferences');
         }
         if ($name === self::OPTION_ARGS) {
-            throw new \InvalidArgumentException('Use addArguments() method to add Firefox arguments');
+            throw LogicException::forError('Use addArguments() method to add Firefox arguments');
         }
         if ($name === self::OPTION_PROFILE) {
-            throw new \InvalidArgumentException('Use setProfile() method to set Firefox profile');
+            throw LogicException::forError('Use setProfile() method to set Firefox profile');
         }
 
         $this->options[$name] = $value;

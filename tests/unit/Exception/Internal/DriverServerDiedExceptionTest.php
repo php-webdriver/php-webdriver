@@ -1,6 +1,6 @@
 <?php
 
-namespace Facebook\WebDriver\Exception;
+namespace Facebook\WebDriver\Exception\Internal;
 
 use PHPUnit\Framework\TestCase;
 
@@ -8,7 +8,7 @@ class DriverServerDiedExceptionTest extends TestCase
 {
     public function testShouldCreateWithPreviousException()
     {
-        $dummyPreviousException = new WebDriverCurlException('CURL error');
+        $dummyPreviousException = UnexpectedResponseException::forError('CURL error');
 
         $exception = new DriverServerDiedException($dummyPreviousException);
 

@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Exception\WebDriverException;
 
 class CustomWebDriverCommand extends WebDriverCommand
@@ -34,7 +35,7 @@ class CustomWebDriverCommand extends WebDriverCommand
     public function getCustomUrl()
     {
         if ($this->customUrl === null) {
-            throw new WebDriverException('URL of custom command is not set');
+            throw LogicException::forError('URL of custom command is not set');
         }
 
         return $this->customUrl;
@@ -47,7 +48,7 @@ class CustomWebDriverCommand extends WebDriverCommand
     public function getCustomMethod()
     {
         if ($this->customMethod === null) {
-            throw new WebDriverException('Method of custom command is not set');
+            throw LogicException::forError('Method of custom command is not set');
         }
 
         return $this->customMethod;
@@ -62,7 +63,7 @@ class CustomWebDriverCommand extends WebDriverCommand
     {
         $allowedMethods = [static::METHOD_GET, static::METHOD_POST];
         if (!in_array($custom_method, $allowedMethods, true)) {
-            throw new WebDriverException(
+            throw LogicException::forError(
                 sprintf(
                     'Invalid custom method "%s", must be one of [%s]',
                     $custom_method,
@@ -73,7 +74,7 @@ class CustomWebDriverCommand extends WebDriverCommand
         $this->customMethod = $custom_method;
 
         if (mb_strpos($custom_url, '/') !== 0) {
-            throw new WebDriverException(
+            throw LogicException::forError(
                 sprintf('URL of custom command has to start with / but is "%s"', $custom_url)
             );
         }

@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\UnsupportedOperationException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\WebDriverAlert;
 use Facebook\WebDriver\WebDriverElement;
 use Facebook\WebDriver\WebDriverTargetLocator;
@@ -53,7 +53,7 @@ class RemoteTargetLocator implements WebDriverTargetLocator
             } elseif (is_int($frame)) {
                 $id = $frame;
             } else {
-                throw new \InvalidArgumentException(
+                throw LogicException::forError(
                     'In W3C compliance mode frame must be either instance of WebDriverElement, integer or null'
                 );
             }
@@ -111,17 +111,17 @@ class RemoteTargetLocator implements WebDriverTargetLocator
      * @param string $windowType The type of a new browser window that should be created. One of [tab, window].
      * The created window is not guaranteed to be of the requested type; if the driver does not support the requested
      * type, a new browser window will be created of whatever type the driver does support.
-     * @throws UnsupportedOperationException
+     * @throws LogicException
      * @return RemoteWebDriver This driver focused on the given window
      */
     public function newWindow($windowType = self::WINDOW_TYPE_TAB)
     {
         if ($windowType !== self::WINDOW_TYPE_TAB && $windowType !== self::WINDOW_TYPE_WINDOW) {
-            throw new \InvalidArgumentException('Window type must by either "tab" or "window"');
+            throw LogicException::forError('Window type must by either "tab" or "window"');
         }
 
         if (!$this->isW3cCompliant) {
-            throw new UnsupportedOperationException('New window is only supported in W3C mode');
+            throw LogicException::forError('New window is only supported in W3C mode');
         }
 
         $response = $this->executor->execute(DriverCommand::NEW_WINDOW, ['type' => $windowType]);

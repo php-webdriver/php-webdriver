@@ -2,10 +2,10 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Exception\NoSuchCookieException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
-use InvalidArgumentException;
 
 /**
  * Managing stuff you would do in a browser.
@@ -40,7 +40,7 @@ class WebDriverOptions
             $cookie = Cookie::createFromArray($cookie);
         }
         if (!$cookie instanceof Cookie) {
-            throw new InvalidArgumentException('Cookie must be set from instance of Cookie class or from array.');
+            throw LogicException::forError('Cookie must be set from instance of Cookie class or from array.');
         }
 
         $this->executor->execute(

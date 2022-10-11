@@ -3,6 +3,7 @@
 namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\IndexOutOfBoundsException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
@@ -176,9 +177,7 @@ class WebDriverWindow
     {
         $orientation = mb_strtoupper($orientation);
         if (!in_array($orientation, ['PORTRAIT', 'LANDSCAPE'], true)) {
-            throw new IndexOutOfBoundsException(
-                'Orientation must be either PORTRAIT, or LANDSCAPE'
-            );
+            throw LogicException::forError('Orientation must be either PORTRAIT, or LANDSCAPE');
         }
 
         $this->executor->execute(

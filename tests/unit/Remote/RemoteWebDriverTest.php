@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\UnknownErrorException;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverNavigation;
@@ -106,6 +106,9 @@ class RemoteWebDriverTest extends TestCase
     }
 
     /**
+     * @covers ::findElement
+     * @covers ::findElements
+     * @covers \Facebook\WebDriver\Exception\Internal\UnexpectedResponseException
      * @param string $method
      * @param string $expectedExceptionMessage
      * @dataProvider provideMethods
@@ -120,7 +123,7 @@ class RemoteWebDriverTest extends TestCase
 
         $this->driver->setCommandExecutor($executorMock);
 
-        $this->expectException(UnknownErrorException::class);
+        $this->expectException(UnexpectedResponseException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
         call_user_func([$this->driver, $method], $this->createMock(WebDriverBy::class));
     }

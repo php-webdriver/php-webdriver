@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\ExecuteMethod;
 use PHPUnit\Framework\TestCase;
@@ -76,7 +77,7 @@ class WebDriverOptionsTest extends TestCase
 
         $options = new WebDriverOptions($this->executor);
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Cookie must be set from instance of Cookie class or from array.');
         $options->addCookie($notCookie);
     }
