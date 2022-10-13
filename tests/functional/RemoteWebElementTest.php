@@ -453,7 +453,7 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         $childElements = $element->findElements(WebDriverBy::cssSelector('not_existing'));
 
-        $this->assertTrue(is_array($childElements));
+        $this->assertIsArray($childElements);
         $this->assertCount(0, $childElements);
     }
 
@@ -465,7 +465,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $allElements = $this->driver->findElements(WebDriverBy::cssSelector('li'));
         $childElements = $element->findElements(WebDriverBy::cssSelector('li'));
 
-        $this->assertTrue(is_array($childElements));
+        $this->assertIsArray($childElements);
         $this->assertCount(5, $allElements); // there should be 5 <li> elements on page
         $this->assertCount(3, $childElements); // but we should find only subelements of one <ul>
         $this->assertContainsOnlyInstancesOf(RemoteWebElement::class, $childElements);

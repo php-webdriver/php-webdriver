@@ -9,15 +9,15 @@ namespace Facebook\WebDriver;
  */
 class WebDriverPlatform
 {
-    const ANDROID = 'ANDROID';
+    public const ANDROID = 'ANDROID';
     /** @deprecated ANY has no meaning in W3C WebDriver, see https://github.com/php-webdriver/php-webdriver/pull/731 */
-    const ANY = 'ANY';
-    const LINUX = 'LINUX';
-    const MAC = 'MAC';
-    const UNIX = 'UNIX';
-    const VISTA = 'VISTA';
-    const WINDOWS = 'WINDOWS';
-    const XP = 'XP';
+    public const ANY = 'ANY';
+    public const LINUX = 'LINUX';
+    public const MAC = 'MAC';
+    public const UNIX = 'UNIX';
+    public const VISTA = 'VISTA';
+    public const WINDOWS = 'WINDOWS';
+    public const XP = 'XP';
 
     private function __construct()
     {

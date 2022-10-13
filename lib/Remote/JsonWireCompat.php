@@ -16,7 +16,7 @@ abstract class JsonWireCompat
      *
      * @see https://w3c.github.io/webdriver/webdriver-spec.html#elements
      */
-    const WEB_DRIVER_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
+    public const WEB_DRIVER_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
 
     public static function getElement(array $rawElement)
     {

@@ -6,8 +6,8 @@ use Facebook\WebDriver\Exception\WebDriverException;
 
 class CustomWebDriverCommand extends WebDriverCommand
 {
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
+    public const METHOD_GET = 'GET';
+    public const METHOD_POST = 'POST';
 
     /** @var string */
     private $customUrl;

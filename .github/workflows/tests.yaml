@@ -46,10 +46,10 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['5.6', '7.1', '7.2', '7.3', '7.4', '8.0']
+        php-version: ['7.3', '7.4', '8.0']
         dependencies: ['']
         include:
-          - { php-version: '5.6', dependencies: '--prefer-lowest' }
+          - { php-version: '7.3', dependencies: '--prefer-lowest' }
           - { php-version: '8.1', dependencies: '--ignore-platform-req=php' }
 
     steps:
@@ -65,10 +65,6 @@ jobs:
 
       - name: Install PHP dependencies
         run: composer update --no-interaction ${{ matrix.dependencies }}
-
-      - name: Apply PHPUnit patches
-        if: ${{ matrix.php-version < 7.2 }}
-        run: scripts/apply-phpunit-patches.sh
 
       - name: Run tests
         run: vendor/bin/phpunit --testsuite unit --colors=always --coverage-clover ./logs/clover.xml

@@ -13,7 +13,7 @@ use InvalidArgumentException;
  */
 class HttpCommandExecutor implements WebDriverCommandExecutor
 {
-    const DEFAULT_HTTP_HEADERS = [
+    public const DEFAULT_HTTP_HEADERS = [
         'Content-Type: application/json;charset=UTF-8',
         'Accept: application/json',
     ];
@@ -282,7 +282,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         $url = $http_options['url'];
 
         $sessionID = $command->getSessionID();
-        $url = str_replace(':sessionId', $sessionID === null ? '' : $sessionID, $url);
+        $url = str_replace(':sessionId', $sessionID ?? '', $url);
         $params = $command->getParameters();
         foreach ($params as $name => $value) {
             if ($name[0] === ':') {
@@ -385,7 +385,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
             WebDriverException::throwException($value['error'], $message, $results);
         }
 
-        $status = isset($results['status']) ? $results['status'] : 0;
+        $status = $results['status'] ?? 0;
         if ($status !== 0) {
             // Legacy JsonWire
             WebDriverException::throwException($status, $message, $results);

@@ -29,30 +29,31 @@ class HttpCommandExecutorTest extends TestCase
         $shouldResetExpectHeader,
         $expectedUrl,
         $expectedPostData
-    ) {
-        $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
-        $curlSetoptMock->expects($this->at(0))
-            ->with($this->anything(), CURLOPT_URL, $expectedUrl);
+    ): void {
+        $expectedCurlSetOptCalls = [
+            [$this->anything(), CURLOPT_URL, $expectedUrl],
+            [$this->anything()],
+        ];
 
         if ($shouldResetExpectHeader) {
-            $curlSetoptMock->expects($this->at(2))
-                ->with(
-                    $this->anything(),
-                    CURLOPT_HTTPHEADER,
-                    ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json', 'Expect:']
-                );
-            $curlSetoptMock->expects($this->at(3))
-                ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            $expectedCurlSetOptCalls[] = [
+                $this->anything(),
+                CURLOPT_HTTPHEADER,
+                ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json', 'Expect:'],
+            ];
         } else {
-            $curlSetoptMock->expects($this->at(2))
-                ->with(
-                    $this->anything(),
-                    CURLOPT_HTTPHEADER,
-                    ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json']
-                );
-            $curlSetoptMock->expects($this->at(3))
-                ->with($this->anything(), CURLOPT_POSTFIELDS, $expectedPostData);
+            $expectedCurlSetOptCalls[] = [
+                $this->anything(),
+                CURLOPT_HTTPHEADER,
+                ['Content-Type: application/json;charset=UTF-8', 'Accept: application/json'],
+            ];
         }
+
+        $expectedCurlSetOptCalls[] = [$this->anything(), CURLOPT_POSTFIELDS, $expectedPostData];
+
+        $curlSetoptMock = $this->getFunctionMock(__NAMESPACE__, 'curl_setopt');
+        $curlSetoptMock->expects($this->exactly(4))
+            ->withConsecutive(...$expectedCurlSetOptCalls);
 
         $curlExecMock = $this->getFunctionMock(__NAMESPACE__, 'curl_exec');
         $curlExecMock->expects($this->once())

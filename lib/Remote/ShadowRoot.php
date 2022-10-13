@@ -14,7 +14,7 @@ class ShadowRoot implements WebDriverSearchContext
      *
      * @see https://w3c.github.io/webdriver/#shadow-root
      */
-    const SHADOW_ROOT_IDENTIFIER = 'shadow-6066-11e4-a52e-4f735466cecf';
+    public const SHADOW_ROOT_IDENTIFIER = 'shadow-6066-11e4-a52e-4f735466cecf';
 
     /**
      * @var RemoteExecuteMethod

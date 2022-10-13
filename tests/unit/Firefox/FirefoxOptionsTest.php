@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class FirefoxOptionsTest extends TestCase
 {
     /** @var array<string,bool> */
-    const EXPECTED_DEFAULT_PREFS = [
+    public const EXPECTED_DEFAULT_PREFS = [
         FirefoxPreferences::READER_PARSE_ON_LOAD_ENABLED => false,
         FirefoxPreferences::DEVTOOLS_JSONVIEW => false,
     ];

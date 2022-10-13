@@ -9,12 +9,12 @@ class FirefoxDriverService extends DriverService
     /**
      * @var string Name of the environment variable storing the path to the driver binary
      */
-    const WEBDRIVER_FIREFOX_DRIVER = 'WEBDRIVER_FIREFOX_DRIVER';
+    public const WEBDRIVER_FIREFOX_DRIVER = 'WEBDRIVER_FIREFOX_DRIVER';
     /**
      * @var string Default executable used when no other is provided
      * @internal
      */
-    const DEFAULT_EXECUTABLE = 'geckodriver';
+    public const DEFAULT_EXECUTABLE = 'geckodriver';
 
     /**
      * @return static

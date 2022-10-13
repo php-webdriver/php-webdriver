@@ -9,13 +9,14 @@ use PHPUnit\Framework\TestCase;
 
 class ScreenshotHelperTest extends TestCase
 {
-    const BLACK_PIXEL = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+    public const BLACK_PIXEL =
+        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 
     public function testShouldSavePageScreenshotToSubdirectoryIfNotExists()
     {
         $fullFilePath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-', true) . '/screenshot.png';
         $directoryPath = dirname($fullFilePath);
-        $this->assertDirectoryNotExists($directoryPath);
+        $this->assertDirectoryDoesNotExist($directoryPath);
 
         $executorMock = $this->createMock(RemoteExecuteMethod::class);
         $executorMock->expects($this->once())
@@ -53,7 +54,7 @@ class ScreenshotHelperTest extends TestCase
     {
         $fullFilePath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-', true) . '/screenshot.png';
         $directoryPath = dirname($fullFilePath);
-        $this->assertDirectoryNotExists($directoryPath);
+        $this->assertDirectoryDoesNotExist($directoryPath);
         $elementId = 'foo-id';
 
         $executorMock = $this->createMock(RemoteExecuteMethod::class);
