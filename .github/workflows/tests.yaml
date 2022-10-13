@@ -23,7 +23,7 @@ jobs:
           extensions: mbstring, intl, zip
 
       - name: Install PHP dependencies
-        run: composer preinstall
+        run: composer update --no-interaction
 
       - name: Lint
         run: composer lint
