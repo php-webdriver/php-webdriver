@@ -26,4 +26,16 @@ class UnexpectedResponseException extends \RuntimeException implements PhpWebDri
             )
         );
     }
+
+    public static function forCapabilitiesRetrievalError(\Exception $previousException): self
+    {
+        return new self(
+            sprintf(
+                'Existing Capabilities were not provided, and they also cannot be read from Selenium Grid'
+                . ' (error: "%s"). You are probably not using Selenium Grid, so to reuse the previous session,'
+                . ' Capabilities must be explicitly provided to createBySessionID() method.',
+                $previousException->getMessage()
+            )
+        );
+    }
 }

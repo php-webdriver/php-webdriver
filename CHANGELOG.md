@@ -7,9 +7,10 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Require PHP ^7.3.
+- Capabilities must be either explicitly provided or retrievable from Selenium Grid when resuing session with `createBySessionID()`.
 - Throw `UnexpectedResponseException` instead of `UnknownErrorException` in `findElement()` and `findElements()` methods.
 - Throw custom php-webdriver exceptions instead of native PHP SPL exceptions.
-- Do not mix internal non-W3C WebDriver exceptions, separate them into own namespace.
+- Do not mix internal non-W3C WebDriver exceptions, separate them into own namespaces.
 
 ## 1.13.0 - 2022-10-03
 ### Added

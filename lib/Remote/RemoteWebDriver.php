@@ -136,8 +136,14 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * [Experimental] Construct the RemoteWebDriver by an existing session.
      *
-     * This constructor can boost the performance a lot by reusing the same browser for the whole test suite.
-     * You cannot pass the desired capabilities because the session was created before.
+     * This constructor can boost the performance by reusing the same browser for the whole test suite. On the other
+     * hand, because the browser is not pristine, this may lead to flaky and dependent tests. So carefully
+     * consider the tradeoffs.
+     *
+     * To create the instance, we need to know Capabilities of the previously created session. You can either
+     * pass them in $existingCapabilities parameter, or we will attempt to receive them from the Selenium Grid server.
+     * However, if Capabilities were not provided and the attempt to get them was not successful,
+     * exception will be thrown.
      *
      * @param string $session_id The existing session id
      * @param string $selenium_server_url The url of the remote Selenium WebDriver server
@@ -170,10 +176,9 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executor->disableW3cCompliance();
         }
 
+        // if  capabilities were not provided, attempt to read them from the Selenium Grid API
         if ($existingCapabilities === null) {
-            throw new UnknownErrorException(
-                'Existing capabilities must be provided when reusing previous session.'
-            );
+            $existingCapabilities = self::readExistingCapabilitiesFromSeleniumGrid($session_id, $executor);
         }
 
         return new static($executor, $session_id, $existingCapabilities, $isW3cCompliant);
@@ -732,5 +737,27 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         }
 
         return $desired_capabilities;
+    }
+
+    protected static function readExistingCapabilitiesFromSeleniumGrid(
+        string $session_id,
+        HttpCommandExecutor $executor
+    ): DesiredCapabilities {
+        $getCapabilitiesCommand = new CustomWebDriverCommand($session_id, '/se/grid/session/:sessionId', 'GET', []);
+
+        try {
+            $capabilitiesResponse = $executor->execute($getCapabilitiesCommand);
+
+            $existingCapabilities = DesiredCapabilities::createFromW3cCapabilities(
+                $capabilitiesResponse->getValue()['capabilities']
+            );
+            if ($existingCapabilities === null) {
+                throw UnexpectedResponseException::forError('Empty capabilities received');
+            }
+        } catch (\Exception $e) {
+            throw UnexpectedResponseException::forCapabilitiesRetrievalError($e);
+        }
+
+        return $existingCapabilities;
     }
 }

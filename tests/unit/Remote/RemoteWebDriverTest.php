@@ -11,7 +11,7 @@ use Facebook\WebDriver\WebDriverWait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Unit part of RemoteWebDriver tests. Ie. tests for behavior which do not interact with the real remote server.
+ * Unit part of RemoteWebDriver tests. I.e. tests for behavior which do not interact with the real remote server.
  *
  * @coversDefaultClass \Facebook\WebDriver\Remote\RemoteWebDriver
  */
@@ -22,6 +22,7 @@ class RemoteWebDriverTest extends TestCase
 
     protected function setUp(): void
     {
+        // `createBySessionID()` is used because it is the simplest way to instantiate real RemoteWebDriver
         $this->driver = RemoteWebDriver::createBySessionID(
             'session-id',
             'http://foo.bar:4444',
