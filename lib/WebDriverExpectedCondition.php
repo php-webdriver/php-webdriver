@@ -6,6 +6,7 @@ use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\NoSuchFrameException;
 use Facebook\WebDriver\Exception\StaleElementReferenceException;
+use InvalidArgumentException;
 
 /**
  * Canned ExpectedConditions which are generally useful within webdriver tests.
@@ -577,6 +578,68 @@ class WebDriverExpectedCondition
                 $result = call_user_func($condition->getApply(), $driver);
 
                 return !$result;
+            }
+        );
+    }
+
+    /**
+     * An expectation with the logical AND condition of the given conditions.
+     *
+     * @param WebDriverExpectedCondition[] $conditions Array of the conditions to be satisfied.
+     * @return static Condition returns Array of the getApply() values of all satisfied conditions or FALSE if some
+     * condition failed.
+     */
+    public static function all($conditions)
+    {
+        return new static(
+            function (WebDriver $driver) use ($conditions) {
+                $results = [];
+                $allExist = true;
+
+                foreach ($conditions as $condition) {
+                    if (!$condition instanceof self) {
+                        throw new InvalidArgumentException(
+                            '$condition must be instance of WebDriverExpectedCondition class'
+                        );
+                    }
+                    $result = call_user_func($condition->getApply(), $driver);
+                    $allExist = $allExist && $result;
+                    $results[] = $result;
+
+                    if (!$allExist) {
+                        return false;
+                    }
+                }
+
+                return $results;
+            }
+        );
+    }
+
+    /**
+     * An expectation with the logical OR condition of the given conditions.
+     *
+     * @param WebDriverExpectedCondition[] $conditions Array of the conditions one of them to be satisfied.
+     * @return static Condition returns the return value of the getApply() of the first satisfied condition or FALSE
+     * if no condition satisfied.
+     */
+    public static function any($conditions)
+    {
+        return new static(
+            function (WebDriver $driver) use ($conditions) {
+                foreach ($conditions as $condition) {
+                    if (!$condition instanceof self) {
+                        throw new InvalidArgumentException(
+                            '$condition must be instance of WebDriverExpectedCondition class'
+                        );
+                    }
+
+                    if ($result = call_user_func($condition->getApply(), $driver)) {
+                        return $result;
+                    }
+                }
+
+                return false;
             }
         );
     }

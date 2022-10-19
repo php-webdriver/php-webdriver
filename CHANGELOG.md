@@ -2,6 +2,7 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+- Add `all` and `any` expected conditions
 
 ### Changed
 - Require PHP ^7.3.

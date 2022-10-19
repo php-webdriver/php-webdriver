@@ -4,6 +4,7 @@ namespace Facebook\WebDriver;
 
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\StaleElementReferenceException;
+use Facebook\WebDriver\Exception\TimeoutException;
 use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
@@ -408,6 +409,110 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
         $this->assertFalse(call_user_func($condition->getApply(), $this->driverMock));
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
+    }
+
+    public function testAllCondition()
+    {
+        $element1 = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id1');
+        $element2 = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id2');
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element2);
+
+        $this->driverMock->expects($this->at(3))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element1);
+
+        $this->driverMock->expects($this->at(4))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element2);
+
+        $condition = WebDriverExpectedCondition::all([
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo')),
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.bar')),
+        ]);
+
+        $result = $this->wait->until($condition);
+        $this->assertInternalType('array', $result);
+        $this->assertSame($element1, $result[0]);
+        $this->assertSame($element2, $result[1]);
+    }
+
+    public function testAllConditionFailure()
+    {
+        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $this->expectException(TimeoutException::class);
+
+        $condition = WebDriverExpectedCondition::all([
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo')),
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.bar')),
+        ]);
+
+        $this->wait->until($condition);
+    }
+
+    public function testAnyOfCondition()
+    {
+        $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
+
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willReturn($element);
+
+        $condition = WebDriverExpectedCondition::any([
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo')),
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.bar')),
+        ]);
+
+        $this->assertSame($element, $this->wait->until($condition));
+    }
+
+    public function testAnyOfConditionFailure()
+    {
+        $this->driverMock->expects($this->at(0))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $this->driverMock->expects($this->at(1))
+            ->method('findElement')
+            ->with($this->isInstanceOf(WebDriverBy::class))
+            ->willThrowException(new NoSuchElementException(''));
+
+        $this->expectException(TimeoutException::class);
+
+        $condition = WebDriverExpectedCondition::any([
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.foo')),
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('.bar')),
+        ]);
+
+        $this->wait->until($condition);
     }
 
     /**
