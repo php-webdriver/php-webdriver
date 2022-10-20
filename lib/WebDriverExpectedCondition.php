@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Exception\NoSuchAlertException;
 use Facebook\WebDriver\Exception\NoSuchElementException;
 use Facebook\WebDriver\Exception\NoSuchFrameException;
@@ -522,7 +523,7 @@ class WebDriverExpectedCondition
             );
         }
 
-        throw new \InvalidArgumentException('Instance of either WebDriverElement or WebDriverBy must be given');
+        throw LogicException::forError('Instance of either WebDriverElement or WebDriverBy must be given');
     }
 
     /**

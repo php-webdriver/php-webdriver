@@ -2,8 +2,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\InvalidElementStateException;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
-use Facebook\WebDriver\Exception\WebDriverException;
 
 /**
  * Provides helper methods for radio buttons.
@@ -16,7 +16,7 @@ class WebDriverRadios extends AbstractWebDriverCheckboxOrRadio
 
         $this->type = $element->getAttribute('type');
         if ($this->type !== 'radio') {
-            throw new WebDriverException('The input must be of type "radio".');
+            throw new InvalidElementStateException('The input must be of type "radio".');
         }
     }
 

@@ -2,7 +2,8 @@
 
 namespace Facebook\WebDriver\Remote\Service;
 
-use Exception;
+use Facebook\WebDriver\Exception\Internal\IOException;
+use Facebook\WebDriver\Exception\Internal\RuntimeException;
 use Facebook\WebDriver\Net\URLChecker;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessBuilder;
@@ -123,7 +124,7 @@ class DriverService
 
     /**
      * @param string $executable
-     * @throws Exception
+     * @throws IOException
      */
     protected function setExecutable($executable)
     {
@@ -133,12 +134,10 @@ class DriverService
             return;
         }
 
-        throw new Exception(
-            sprintf(
-                '"%s" is not executable. Make sure the path is correct or use environment variable to specify'
-                 . ' location of the executable.',
-                $executable
-            )
+        throw IOException::forFileError(
+            'File is not executable. Make sure the path is correct or use environment variable to specify'
+            . ' location of the executable.',
+            $executable
         );
     }
 
@@ -150,13 +149,7 @@ class DriverService
         usleep(10000); // wait 10ms, otherwise the asynchronous process failure may not yet be propagated
 
         if (!$process->isRunning()) {
-            throw new Exception(
-                sprintf(
-                    'Error starting driver executable "%s": %s',
-                    $process->getCommandLine(),
-                    $process->getErrorOutput()
-                )
-            );
+            throw RuntimeException::forDriverError($process);
         }
     }
 

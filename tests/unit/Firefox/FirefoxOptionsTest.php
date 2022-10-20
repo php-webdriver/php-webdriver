@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Firefox;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use PHPUnit\Framework\TestCase;
 
 class FirefoxOptionsTest extends TestCase
@@ -104,7 +105,7 @@ class FirefoxOptionsTest extends TestCase
     {
         $options = new FirefoxOptions();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Use addArguments() method to add Firefox arguments');
         $options->setOption('args', []);
     }
@@ -113,7 +114,7 @@ class FirefoxOptionsTest extends TestCase
     {
         $options = new FirefoxOptions();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Use setPreference() method to set Firefox preferences');
         $options->setOption('prefs', []);
     }

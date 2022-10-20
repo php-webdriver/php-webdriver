@@ -2,11 +2,9 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \Facebook\WebDriver\Cookie
- */
 class CookieTest extends TestCase
 {
     public function testShouldSetAllProperties()
@@ -168,7 +166,7 @@ class CookieTest extends TestCase
     public function testShouldValidateCookieOnConstruction($name, $value, $domain, $expectedMessage)
     {
         if ($expectedMessage) {
-            $this->expectException(\InvalidArgumentException::class);
+            $this->expectException(LogicException::class);
             $this->expectExceptionMessage($expectedMessage);
         }
 

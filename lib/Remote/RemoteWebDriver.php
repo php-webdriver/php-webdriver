@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
-use Facebook\WebDriver\Exception\UnknownErrorException;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Interactions\WebDriverActions;
 use Facebook\WebDriver\JavaScriptExecutor;
 use Facebook\WebDriver\Support\IsElementDisplayedAtom;
@@ -212,7 +212,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         if ($raw_element === null) {
-            throw new UnknownErrorException('Unexpected server response to findElement command');
+            throw UnexpectedResponseException::forError('Unexpected server response to findElement command');
         }
 
         return $this->newElement(JsonWireCompat::getElement($raw_element));
@@ -233,7 +233,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         );
 
         if ($raw_elements === null) {
-            throw new UnknownErrorException('Unexpected server response to findElements command');
+            throw UnexpectedResponseException::forError('Unexpected server response to findElements command');
         }
 
         $elements = [];

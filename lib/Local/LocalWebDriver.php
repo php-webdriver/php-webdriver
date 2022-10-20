@@ -2,11 +2,12 @@
 
 namespace Facebook\WebDriver\Local;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 /**
+ * @codeCoverageIgnore
  * @todo Break inheritance from RemoteWebDriver in next major version. (Composition over inheritance!)
  */
 abstract class LocalWebDriver extends RemoteWebDriver
@@ -19,7 +20,7 @@ abstract class LocalWebDriver extends RemoteWebDriver
      * @param null $http_proxy
      * @param null $http_proxy_port
      * @param DesiredCapabilities|null $required_capabilities
-     * @throws WebDriverException
+     * @throws LogicException
      * @return RemoteWebDriver
      * @todo Remove in next major version (should not be inherited)
      */
@@ -32,7 +33,7 @@ abstract class LocalWebDriver extends RemoteWebDriver
         $http_proxy_port = null,
         DesiredCapabilities $required_capabilities = null
     ) {
-        throw new WebDriverException('Use start() method to start local WebDriver.');
+        throw LogicException::forError('Use start() method to start local WebDriver.');
     }
 
     /**
@@ -40,7 +41,7 @@ abstract class LocalWebDriver extends RemoteWebDriver
      * @param string $selenium_server_url
      * @param null $connection_timeout_in_ms
      * @param null $request_timeout_in_ms
-     * @throws WebDriverException
+     * @throws LogicException
      * @return RemoteWebDriver
      * @todo Remove in next major version (should not be inherited)
      */
@@ -50,6 +51,6 @@ abstract class LocalWebDriver extends RemoteWebDriver
         $connection_timeout_in_ms = null,
         $request_timeout_in_ms = null
     ) {
-        throw new WebDriverException('Use start() method to start local WebDriver.');
+        throw LogicException::forError('Use start() method to start local WebDriver.');
     }
 }

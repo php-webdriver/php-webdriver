@@ -2,7 +2,7 @@
 
 namespace Facebook\WebDriver\Support;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Remote\DriverCommand;
 use Facebook\WebDriver\Remote\RemoteExecuteMethod;
 use PHPUnit\Framework\TestCase;
@@ -89,7 +89,7 @@ class ScreenshotHelperTest extends TestCase
 
         $helper = new ScreenshotHelper($executorMock);
 
-        $this->expectException(WebDriverException::class);
+        $this->expectException(UnexpectedResponseException::class);
         $this->expectExceptionMessage($expectedExceptionMessage);
         $helper->takePageScreenshot();
     }

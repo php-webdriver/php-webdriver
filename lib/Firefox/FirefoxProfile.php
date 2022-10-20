@@ -2,7 +2,9 @@
 
 namespace Facebook\WebDriver\Firefox;
 
-use Facebook\WebDriver\Exception\WebDriverException;
+use Facebook\WebDriver\Exception\Internal\IOException;
+use Facebook\WebDriver\Exception\Internal\LogicException;
+use Facebook\WebDriver\Exception\Internal\RuntimeException;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -71,7 +73,7 @@ class FirefoxProfile
     /**
      * @param string $key
      * @param string|bool|int $value
-     * @throws WebDriverException
+     * @throws LogicException
      * @return FirefoxProfile
      */
     public function setPreference($key, $value)
@@ -85,7 +87,7 @@ class FirefoxProfile
                 if (is_bool($value)) {
                     $value = $value ? 'true' : 'false';
                 } else {
-                    throw new WebDriverException(
+                    throw LogicException::forError(
                         'The value of the preference should be either a string, int or bool.'
                     );
                 }
@@ -185,8 +187,7 @@ class FirefoxProfile
     /**
      * @param string $extension The path to the extension.
      * @param string $profileDir The path to the profile directory.
-     * @throws \Exception
-     * @throws WebDriverException
+     * @throws IOException
      */
     private function installExtension($extension, $profileDir)
     {
@@ -195,18 +196,24 @@ class FirefoxProfile
         // install extension to profile directory
         $extensionDir = $profileDir . '/extensions/';
         if (!is_dir($extensionDir) && !mkdir($extensionDir, 0777, true) && !is_dir($extensionDir)) {
-            throw new WebDriverException('Cannot install Firefox extension - cannot create directory');
+            throw IOException::forFileError(
+                'Cannot install Firefox extension - cannot create directory',
+                $extensionDir
+            );
         }
 
         if (!copy($extension, $extensionDir . $extensionCommonName . '.xpi')) {
-            throw new WebDriverException('Cannot install Firefox extension - cannot copy file');
+            throw IOException::forFileError(
+                'Cannot install Firefox extension - cannot copy file',
+                $extension
+            );
         }
     }
 
     /**
      * @param string $prefix Prefix of the temp directory.
      *
-     * @throws WebDriverException
+     * @throws IOException
      * @return string The path to the temp directory created.
      */
     private function createTempDirectory($prefix = '')
@@ -216,7 +223,10 @@ class FirefoxProfile
             unlink($temp_dir);
             mkdir($temp_dir);
             if (!is_dir($temp_dir)) {
-                throw new WebDriverException('Cannot create firefox profile.');
+                throw IOException::forFileError(
+                    'Cannot install Firefox extension - cannot create directory',
+                    $temp_dir
+                );
             }
         }
 
@@ -246,7 +256,7 @@ class FirefoxProfile
      * @param string $xpi The path to the .xpi extension.
      * @param string $target_dir The path to the unzip directory.
      *
-     * @throws \Exception
+     * @throws IOException
      * @return FirefoxProfile
      */
     private function extractTo($xpi, $target_dir)
@@ -257,10 +267,10 @@ class FirefoxProfile
                 $zip->extractTo($target_dir);
                 $zip->close();
             } else {
-                throw new \Exception("Failed to open the firefox extension. '$xpi'");
+                throw IOException::forFileError('Failed to open the firefox extension.', $xpi);
             }
         } else {
-            throw new \Exception("Firefox extension doesn't exist. '$xpi'");
+            throw IOException::forFileError('Firefox extension doesn\'t exist.', $xpi);
         }
 
         return $this;
@@ -287,7 +297,7 @@ class FirefoxProfile
             strpos($mozillaRsaHex, $objectIdentifierHexMarker, $firstMarkerPosInHex + 2); // phpcs:ignore
 
         if ($secondMarkerPosInHexString === false) {
-            throw new WebDriverException('Cannot install extension. Cannot fetch extension commonName');
+            throw RuntimeException::forError('Cannot install extension. Cannot fetch extension commonName');
         }
 
         // phpcs:ignore
