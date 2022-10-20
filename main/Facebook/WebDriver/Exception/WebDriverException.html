@@ -228,13 +228,16 @@
 
     
     <p>        class
-    <strong>WebDriverException</strong>        extends <a target="_blank" rel="noopener" href="https://www.php.net/Exception">Exception</a>        (<a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php">View source</a>)
+    <strong>WebDriverException</strong>        extends <a target="_blank" rel="noopener" href="https://www.php.net/Exception">Exception</a>        implements
+        <a href="../../../Facebook/WebDriver/Exception/PhpWebDriverExceptionInterface.html"><abbr title="Facebook\WebDriver\Exception\PhpWebDriverExceptionInterface">PhpWebDriverExceptionInterface</abbr></a>        (<a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php">View source</a>)
 </p>
 
         
     
         
 
+            <div class="description">
+            <p><p>Ancestor for all exceptions defined in W3C WebDriver standard.</p></p>            <p><p>(And also for deprecated JsonWire protocol exceptions.)</p></p>        </div>
             
         
     
@@ -282,7 +285,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method___construct">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L18">at line 18</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L21">at line 21</a></div>
         <code>                    
     <strong>__construct</strong>(string $message, mixed $results = null)
         </code>
@@ -321,7 +324,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getResults">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L27">at line 27</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L30">at line 30</a></div>
         <code>                    mixed
     <strong>getResults</strong>()
         </code>
@@ -354,7 +357,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_throwException">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L87">at line 87</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Exception/WebDriverException.php#L90">at line 90</a></div>
         <code>        static            
     <strong>throwException</strong>(int|string $status_code, string $message, mixed $results)
         </code>
