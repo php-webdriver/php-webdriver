@@ -111,7 +111,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
             $this->requestTimeout
         );
         $originalDriver->get($this->getTestPageUrl(TestPage::INDEX));
-        $this->compatAssertStringContainsString('/index.html', $originalDriver->getCurrentURL());
+        $this->assertStringContainsString('/index.html', $originalDriver->getCurrentURL());
 
         // Store session attributes
         $sessionId = $originalDriver->getSessionID();
@@ -150,7 +150,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertEqualsCanonicalizing($originalCapabilities, $this->driver->getCapabilities());
 
         // Check we reused the previous instance (window) and it has the same URL
-        $this->compatAssertStringContainsString('/index.html', $this->driver->getCurrentURL());
+        $this->assertStringContainsString('/index.html', $this->driver->getCurrentURL());
 
         // Do some interaction with the new driver
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());

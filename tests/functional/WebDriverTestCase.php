@@ -240,22 +240,6 @@ class WebDriverTestCase extends TestCase
         }
     }
 
-    /**
-     * Uses assertStringContainsString when it is available or uses assertContains for old phpunit versions
-     * @param string $needle
-     * @param string $haystack
-     * @param string $message
-     */
-    protected function compatAssertStringContainsString($needle, $haystack, $message = '')
-    {
-        if (method_exists($this, 'assertStringContainsString')) {
-            parent::assertStringContainsString($needle, $haystack, $message);
-
-            return;
-        }
-        parent::assertContains($needle, $haystack, $message);
-    }
-
     protected function createWebDriver()
     {
         $this->driver = RemoteWebDriver::create(
