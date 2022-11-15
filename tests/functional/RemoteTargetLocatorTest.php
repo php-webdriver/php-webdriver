@@ -24,7 +24,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         );
 
         // At first the window should not be switched
-        $this->compatAssertStringContainsString('open_new_window.html', $this->driver->getCurrentURL());
+        $this->assertStringContainsString('open_new_window.html', $this->driver->getCurrentURL());
         $this->assertSame($originalWindowHandle, $this->driver->getWindowHandle());
 
         /**
@@ -44,7 +44,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         });
 
         // After switchTo() is called, the active window should be changed
-        $this->compatAssertStringContainsString('index.html', $this->driver->getCurrentURL());
+        $this->assertStringContainsString('index.html', $this->driver->getCurrentURL());
         $this->assertNotSame($originalWindowHandle, $this->driver->getWindowHandle());
     }
 
@@ -70,25 +70,25 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(0);
-        $this->compatAssertStringContainsString($firstChildFrame, $this->driver->getPageSource());
+        $this->assertStringContainsString($firstChildFrame, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(null);
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(1);
-        $this->compatAssertStringContainsString($secondChildFrame, $this->driver->getPageSource());
+        $this->assertStringContainsString($secondChildFrame, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(null);
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(0);
-        $this->compatAssertStringContainsString($firstChildFrame, $this->driver->getPageSource());
+        $this->assertStringContainsString($firstChildFrame, $this->driver->getPageSource());
 
         $this->driver->switchTo()->defaultContent();
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
     }
 
     public function testShouldSwitchToParentFrame()
@@ -98,13 +98,13 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->get($this->getTestPageUrl(TestPage::PAGE_WITH_FRAME));
 
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
 
         $this->driver->switchTo()->frame(0);
-        $this->compatAssertStringContainsString($firstChildFrame, $this->driver->getPageSource());
+        $this->assertStringContainsString($firstChildFrame, $this->driver->getPageSource());
 
         $this->driver->switchTo()->parent();
-        $this->compatAssertStringContainsString($parentPage, $this->driver->getPageSource());
+        $this->assertStringContainsString($parentPage, $this->driver->getPageSource());
     }
 
     public function testShouldSwitchToFrameByElement()
@@ -114,7 +114,7 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $element = $this->driver->findElement(WebDriverBy::id('iframe_content'));
         $this->driver->switchTo()->frame($element);
 
-        $this->compatAssertStringContainsString('This is the content of the iFrame', $this->driver->getPageSource());
+        $this->assertStringContainsString('This is the content of the iFrame', $this->driver->getPageSource());
     }
 
     /**
@@ -129,8 +129,8 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $this->assertEquals($this->getTestPageUrl(TestPage::INDEX), $this->driver->getCurrentUrl());
         $source = $this->driver->getPageSource();
-        $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
-        $this->compatAssertStringContainsString('Welcome to the php-webdriver testing page.', $source);
+        $this->assertStringContainsString('<h1 id="welcome">', $source);
+        $this->assertStringContainsString('Welcome to the php-webdriver testing page.', $source);
         $windowHandles = $this->driver->getWindowHandles();
         $this->assertCount(1, $windowHandles);
 
@@ -178,6 +178,6 @@ class RemoteTargetLocatorTest extends WebDriverTestCase
 
         $this->driver->switchTo()->frame('iframe_content');
 
-        $this->compatAssertStringContainsString('This is the content of the iFrame', $this->driver->getPageSource());
+        $this->assertStringContainsString('This is the content of the iFrame', $this->driver->getPageSource());
     }
 }

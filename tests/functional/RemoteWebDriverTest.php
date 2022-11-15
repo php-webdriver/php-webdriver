@@ -42,8 +42,8 @@ class RemoteWebDriverTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $source = $this->driver->getPageSource();
-        $this->compatAssertStringContainsString('<h1 id="welcome">', $source);
-        $this->compatAssertStringContainsString('Welcome to the php-webdriver testing page.', $source);
+        $this->assertStringContainsString('<h1 id="welcome">', $source);
+        $this->assertStringContainsString('Welcome to the php-webdriver testing page.', $source);
     }
 
     /**
