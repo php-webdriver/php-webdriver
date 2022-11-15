@@ -2,12 +2,14 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\HttpCommandExecutor;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\WebDriverBrowserType;
 
 /**
+ * @covers \Facebook\WebDriver\Exception\Internal\UnexpectedResponseException
  * @covers \Facebook\WebDriver\Remote\HttpCommandExecutor
  * @covers \Facebook\WebDriver\Remote\RemoteWebDriver
  */
@@ -111,18 +113,63 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $originalDriver->get($this->getTestPageUrl(TestPage::INDEX));
         $this->compatAssertStringContainsString('/index.html', $originalDriver->getCurrentURL());
 
-        // Store session ID
+        // Store session attributes
         $sessionId = $originalDriver->getSessionID();
         $isW3cCompliant = $originalDriver->isW3cCompliant();
+        $originalCapabilities = $originalDriver->getCapabilities();
+
+        $capabilitiesForSessionReuse = $originalCapabilities;
+        if ($this->isSeleniumServerUsed()) {
+            // do not provide capabilities when selenium server is used, to test they are read from selenium server
+            $capabilitiesForSessionReuse = null;
+        }
 
         // Create new RemoteWebDriver instance based on the session ID
-        $this->driver = RemoteWebDriver::createBySessionID($sessionId, $this->serverUrl, null, null, $isW3cCompliant);
+        $this->driver = RemoteWebDriver::createBySessionID(
+            $sessionId,
+            $this->serverUrl,
+            null,
+            null,
+            $isW3cCompliant,
+            $capabilitiesForSessionReuse
+        );
+
+        // Capabilities should be retrieved and be set to the driver instance
+        $returnedCapabilities = $this->driver->getCapabilities();
+        $this->assertInstanceOf(WebDriverCapabilities::class, $returnedCapabilities);
+
+        $expectedBrowserName = $this->desiredCapabilities->getBrowserName();
+
+        if ($this->isSauceLabsBuild() && $expectedBrowserName === 'MicrosoftEdge') {
+            $expectedBrowserName = 'msedge'; // SauceLabs for some reason reports MicrosoftEdge as msedge
+        }
+        $this->assertEqualsIgnoringCase(
+            $expectedBrowserName,
+            $returnedCapabilities->getBrowserName()
+        );
+        $this->assertEqualsCanonicalizing($originalCapabilities, $this->driver->getCapabilities());
 
         // Check we reused the previous instance (window) and it has the same URL
         $this->compatAssertStringContainsString('/index.html', $this->driver->getCurrentURL());
 
         // Do some interaction with the new driver
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());
+    }
+
+    public function testShouldRequireCapabilitiesToBeSetToReuseExistingSession()
+    {
+        $this->expectException(UnexpectedResponseException::class);
+        $this->expectExceptionMessage(
+            'Existing Capabilities were not provided, and they also cannot be read from Selenium Grid'
+        );
+
+        // Do not provide capabilities, they also cannot be retrieved from the Selenium Grid
+        RemoteWebDriver::createBySessionID(
+            'sessionId',
+            'http://localhost:332', // nothing should be running there
+            null,
+            null
+        );
     }
 
     protected function createWebDriver()

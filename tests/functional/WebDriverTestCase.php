@@ -110,6 +110,11 @@ class WebDriverTestCase extends TestCase
         return getenv('DISABLE_W3C_PROTOCOL') !== '1';
     }
 
+    public static function isSeleniumServerUsed(): bool
+    {
+        return getenv('SELENIUM_SERVER') === '1';
+    }
+
     public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
     {
         if (static::isW3cProtocolBuild()) {
