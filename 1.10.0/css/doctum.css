@@ -151,7 +151,7 @@ body,
 }
 
 #api-tree .hd span {
-    padding: 2px 8px;
+    padding: 0px 8px;
     font-size: 15px;
     line-height: 85%;
 }
@@ -164,8 +164,29 @@ body,
     padding: 4px;
 }
 
-#control-panel form {
+#control-panel form, #control-panel > .search-bar {
     margin: 4px 4px 5px 4px;
+}
+
+#control-panel > .search-bar > .progress {
+    height: 5px;
+    margin-bottom: 0px;
+}
+
+#control-panel > .search-bar > .progress > .progress-bar {
+    background: #30a0e0;
+}
+
+/* Source: https://stackoverflow.com/a/38229228/5155484 */
+
+.progress-bar.indeterminate {
+    position: relative;
+    animation: progress-indeterminate 3s linear infinite;
+}
+
+@keyframes progress-indeterminate {
+    from { left: -25%; width: 25%; }
+    to { left: 100%; width: 25%;}
 }
 
 #search-form {
@@ -185,14 +206,14 @@ body,
     z-index: 2;
 }
 
-/* Typeahead */
+/** Typeahead */
 
-.twitter-typeahead {
+.auto-complete-results {
     width: 100%;
     z-index: 1;
 }
 
-.tt-dropdown-menu {
+.auto-complete-dropdown-menu {
     overflow: auto;
     max-height: 260px;
     margin-top: 9px;
@@ -203,20 +224,25 @@ body,
     padding: 8px;
 }
 
-.tt-dropdown-menu p {
-    margin: 0;
-    padding: 0;
-}
-
-.tt-suggestion {
+.auto-complete-result {
     padding: 8px;
     border-bottom: 1px solid #ccc;
     font-size: 1.1em;
 }
 
-.tt-cursor {
+.auto-complete-selected, .auto-complete-result:hover {
     background-color: #3875d7;
     color: #fff;
+}
+
+.auto-complete-selected > mark.auto-complete-highlight, .auto-complete-result:hover > mark.auto-complete-highlight {
+    color: #fff;
+}
+
+.auto-complete-highlight {
+    padding: 0px;
+    font-weight: bold;
+    background-color: transparent;
 }
 
 /** General typography **/
