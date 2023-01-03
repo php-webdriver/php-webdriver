@@ -1,8 +1,8 @@
 # php-webdriver – Selenium WebDriver bindings for PHP
 
 [![Latest stable version](https://img.shields.io/packagist/v/php-webdriver/webdriver.svg?style=flat-square&label=Packagist)](https://packagist.org/packages/php-webdriver/webdriver)
-[![GitHub Actions build status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/Tests?style=flat-square&label=GitHub%20Actions)](https://github.com/php-webdriver/php-webdriver/actions)
-[![SauceLabs test status](https://img.shields.io/github/workflow/status/php-webdriver/php-webdriver/Sauce%20Labs?style=flat-square&label=SauceLabs)](https://saucelabs.com/u/php-webdriver)
+[![GitHub Actions build status](https://img.shields.io/github/actions/workflow/status/php-webdriver/php-webdriver/tests.yaml?style=flat-square&label=GitHub%20Actions)](https://github.com/php-webdriver/php-webdriver/actions)
+[![SauceLabs test status](https://img.shields.io/github/actions/workflow/status/php-webdriver/php-webdriver/sauce-labs.yaml?style=flat-square&label=SauceLabs)](https://saucelabs.com/u/php-webdriver)
 [![Total downloads](https://img.shields.io/packagist/dd/php-webdriver/webdriver.svg?style=flat-square&label=Downloads)](https://packagist.org/packages/php-webdriver/webdriver)
 
 ## Description
