@@ -149,6 +149,7 @@ jobs:
           php -S 127.0.0.1:8000 -t tests/functional/web/ &> ./logs/php-server.log &
 
       - name: Wait for browser & PHP to start
+        timeout-minutes: 1
         run: |
           while ! nc -z localhost 4444 </dev/null; do echo Waiting for remote driver to start...; sleep 1; done
           while ! nc -z localhost 8000 </dev/null; do echo Waiting for PHP server to start...; sleep 1; done
