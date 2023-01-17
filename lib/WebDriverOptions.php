@@ -125,12 +125,8 @@ class WebDriverOptions
 
         $cookies = [];
         foreach ($cookieArrays as $cookieArray) {
-            // InvalidArgumentException: Cookie name should be non-empty trace:
+            // \Facebook\WebDriver\Cookie $cookieArray
             if (is_object($cookieArray)) {
-                /**
-                    Return the array of cookie parts from \Facebook\WebDriver\Cookie presented.
-                    @var \Facebook\WebDriver\Cookie $cookieArray
-                */
                 $cookieObj = $cookieArray;
                 $cookieArray = $cookieObj->toArray();
             }
