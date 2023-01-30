@@ -12,6 +12,10 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Throw custom php-webdriver exceptions instead of native PHP SPL exceptions.
 - Do not mix internal non-W3C WebDriver exceptions, separate them into own namespaces.
 
+## 1.13.1 - 2022-10-11
+### Fixed
+- Do not fail when using `isDisplayed()` and capabilities are missing in WebDriver instance. (Happens when driver instance was created using `RemoteWebDriver::createBySessionID()`.)
+
 ## 1.13.0 - 2022-10-03
 ### Added
 - Support for current Firefox XPI extension format. Extensions could now be loaded into `FirefoxProfile` using `addExtension()` method.
