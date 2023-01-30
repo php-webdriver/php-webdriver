@@ -12,8 +12,6 @@ class WebDriverKeysTest extends TestCase
     /**
      * @dataProvider provideKeys
      * @param mixed $keys
-     * @param array $expectedOssOutput
-     * @param string $expectedW3cOutput
      */
     public function testShouldEncodeKeysToFormatOfEachProtocol(
         $keys,

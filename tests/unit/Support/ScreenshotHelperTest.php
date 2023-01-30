@@ -77,7 +77,6 @@ class ScreenshotHelperTest extends TestCase
     /**
      * @dataProvider provideInvalidData
      * @param mixed $data
-     * @param string $expectedExceptionMessage
      */
     public function testShouldThrowExceptionWhenInvalidDataReceived($data, string $expectedExceptionMessage): void
     {

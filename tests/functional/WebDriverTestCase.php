@@ -94,17 +94,11 @@ class WebDriverTestCase extends TestCase
         }
     }
 
-    /**
-     * @return bool
-     */
     public static function isSauceLabsBuild(): bool
     {
         return getenv('SAUCELABS') ? true : false;
     }
 
-    /**
-     * @return bool
-     */
     public static function isW3cProtocolBuild(): bool
     {
         return getenv('DISABLE_W3C_PROTOCOL') !== '1';
@@ -133,7 +127,6 @@ class WebDriverTestCase extends TestCase
      * Mark a test as skipped if the current browser is not in the list of browsers.
      *
      * @param string[] $browsers List of browsers for this test
-     * @param string|null $message
      */
     public static function skipForUnmatchedBrowsers(array $browsers = [], ?string $message = null): void
     {
@@ -174,9 +167,6 @@ class WebDriverTestCase extends TestCase
 
     /**
      * Get the URL of given test HTML on running webserver.
-     *
-     * @param string $path
-     * @return string
      */
     protected function getTestPageUrl(string $path): string
     {

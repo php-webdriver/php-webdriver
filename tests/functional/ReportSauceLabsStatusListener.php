@@ -78,10 +78,6 @@ class ReportSauceLabsStatusListener implements TestListener
     {
     }
 
-    /**
-     * @param int $testStatus
-     * @return bool
-     */
     private function testWasSkippedOrIncomplete(int $testStatus): bool
     {
         if ($testStatus === \PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED
@@ -92,10 +88,6 @@ class ReportSauceLabsStatusListener implements TestListener
         return false;
     }
 
-    /**
-     * @param string $url
-     * @param array $data
-     */
     private function submitToSauceLabs(string $url, array $data): void
     {
         $curl = curl_init($url);

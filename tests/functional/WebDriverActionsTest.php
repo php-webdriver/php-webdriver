@@ -250,9 +250,6 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
-    /**
-     * @return array
-     */
     private function retrieveListContent(): array
     {
         return [

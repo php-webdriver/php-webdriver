@@ -117,8 +117,6 @@ class RemoteWebDriverTest extends TestCase
      * @covers ::findElement
      * @covers ::findElements
      * @covers \Facebook\WebDriver\Exception\Internal\UnexpectedResponseException
-     * @param string $method
-     * @param string $expectedExceptionMessage
      * @dataProvider provideMethods
      */
     public function testShouldThrowExceptionOnUnexpectedNullValueFromRemoteEnd(

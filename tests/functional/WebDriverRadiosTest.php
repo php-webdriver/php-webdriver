@@ -103,9 +103,6 @@ class WebDriverRadiosTest extends WebDriverTestCase
 
     /**
      * @dataProvider provideSelectByVisibleTextData
-     *
-     * @param string $text
-     * @param string $value
      */
     public function testSelectByVisibleText(string $text, string $value): void
     {
@@ -127,9 +124,6 @@ class WebDriverRadiosTest extends WebDriverTestCase
 
     /**
      * @dataProvider provideSelectByVisiblePartialTextData
-     *
-     * @param string $text
-     * @param string $value
      */
     public function testSelectByVisiblePartialText(string $text, string $value): void
     {

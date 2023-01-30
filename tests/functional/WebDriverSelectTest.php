@@ -46,7 +46,6 @@ class WebDriverSelectTest extends WebDriverTestCase
 
     /**
      * @dataProvider provideSelectSelector
-     * @param string $selector
      */
     public function testShouldGetOptionsOfSelect(string $selector): void
     {
@@ -423,9 +422,6 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->deselectByVisiblePartialText('First');
     }
 
-    /**
-     * @return WebDriverSelect
-     */
     protected function getWebDriverSelectForSimpleSelect(): WebDriverSelect
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select'));
@@ -433,9 +429,6 @@ class WebDriverSelectTest extends WebDriverTestCase
         return new WebDriverSelect($originalElement);
     }
 
-    /**
-     * @return WebDriverSelect
-     */
     protected function getWebDriverSelectForMultipleSelect(): WebDriverSelect
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select-multiple'));
@@ -445,7 +438,6 @@ class WebDriverSelectTest extends WebDriverTestCase
 
     /**
      * @param string[] $expectedValues
-     * @param array $options
      */
     private function assertContainsOptionsWithValues(array $expectedValues, array $options): void
     {

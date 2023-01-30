@@ -19,10 +19,6 @@ class HttpCommandExecutorTest extends TestCase
 
     /**
      * @dataProvider provideCommand
-     * @param WebDriverCommand $command
-     * @param bool $shouldResetExpectHeader
-     * @param string $expectedUrl
-     * @param string|null $expectedPostData
      */
     public function testShouldSendRequestToAssembledUrl(
         WebDriverCommand $command,

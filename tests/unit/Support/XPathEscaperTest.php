@@ -8,8 +8,6 @@ class XPathEscaperTest extends TestCase
 {
     /**
      * @dataProvider provideXpath
-     * @param string $input
-     * @param string $expectedOutput
      */
     public function testShouldInstantiateWithCapabilitiesGivenInConstructor(string $input, string $expectedOutput): void
     {

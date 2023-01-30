@@ -35,7 +35,6 @@ class ChromeDriverTest extends TestCase
 
     /**
      * @dataProvider provideDialect
-     * @param bool $isW3cDialect
      */
     public function testShouldStartChromeDriver(bool $isW3cDialect): void
     {

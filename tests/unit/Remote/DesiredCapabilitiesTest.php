@@ -87,9 +87,6 @@ class DesiredCapabilitiesTest extends TestCase
 
     /**
      * @dataProvider provideBrowserCapabilities
-     * @param string $setupMethod
-     * @param string $expectedBrowser
-     * @param string $expectedPlatform
      */
     public function testShouldProvideShortcutSetupForCapabilitiesOfEachBrowser(
         string $setupMethod,
@@ -175,8 +172,6 @@ class DesiredCapabilitiesTest extends TestCase
 
     /**
      * @dataProvider provideW3cCapabilities
-     * @param DesiredCapabilities $inputJsonWireCapabilities
-     * @param array $expectedW3cCapabilities
      */
     public function testShouldConvertCapabilitiesToW3cCompatible(
         DesiredCapabilities $inputJsonWireCapabilities,

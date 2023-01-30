@@ -62,6 +62,11 @@ return (new PhpCsFixer\Config())
         'no_leading_import_slash' => true,
         'no_leading_namespace_whitespace' => true,
         'no_singleline_whitespace_before_semicolons' => true,
+        //'no_superfluous_phpdoc_tags' => [
+        //    'allow_mixed' => true,
+        //    'remove_inheritdoc' => true,
+        //    'allow_unused_params' => false,
+        //],
         'no_trailing_comma_in_singleline' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unused_imports' => true,

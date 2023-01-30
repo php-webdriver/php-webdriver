@@ -31,7 +31,6 @@ class CookieTest extends TestCase
 
     /**
      * @depends testShouldSetAllProperties
-     * @param Cookie $cookie
      */
     public function testShouldBeConvertibleToArray(Cookie $cookie): void
     {
@@ -75,7 +74,6 @@ class CookieTest extends TestCase
 
     /**
      * @depends testShouldSetAllProperties
-     * @param Cookie $cookie
      */
     public function testShouldProvideArrayAccessToProperties(Cookie $cookie): void
     {

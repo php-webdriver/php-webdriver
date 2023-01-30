@@ -12,10 +12,6 @@ class WebDriverByTest extends WebDriverTestCase
 {
     /**
      * @dataProvider provideTextElements
-     * @param string $webDriverByLocatorMethod
-     * @param string $webDriverByLocatorValue
-     * @param string $expectedText
-     * @param string $expectedAttributeValue
      */
     public function testShouldFindTextElementByLocator(
         string $webDriverByLocatorMethod,

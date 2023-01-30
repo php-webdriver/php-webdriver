@@ -9,17 +9,11 @@ trait RetrieveEventsTrait
     /** @var RemoteWebDriver $driver */
     public $driver;
 
-    /**
-     * @return array
-     */
     private function retrieveLoggedKeyboardEvents(): array
     {
         return $this->retrieveLoggerEvents(WebDriverBy::id('keyboardEventsLog'));
     }
 
-    /**
-     * @return array
-     */
     private function retrieveLoggedMouseEvents(): array
     {
         return $this->retrieveLoggerEvents(WebDriverBy::id('mouseEventsLog'));
