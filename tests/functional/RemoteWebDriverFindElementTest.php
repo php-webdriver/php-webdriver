@@ -11,7 +11,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
  */
 class RemoteWebDriverFindElementTest extends WebDriverTestCase
 {
-    public function testShouldThrowExceptionIfElementCannotBeFound()
+    public function testShouldThrowExceptionIfElementCannotBeFound(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -19,7 +19,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->driver->findElement(WebDriverBy::id('not_existing'));
     }
 
-    public function testShouldFindElementIfExistsOnAPage()
+    public function testShouldFindElementIfExistsOnAPage(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -28,7 +28,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->assertInstanceOf(RemoteWebElement::class, $element);
     }
 
-    public function testShouldReturnEmptyArrayIfElementsCannotBeFound()
+    public function testShouldReturnEmptyArrayIfElementsCannotBeFound(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -38,7 +38,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
         $this->assertCount(0, $elements);
     }
 
-    public function testShouldFindMultipleElements()
+    public function testShouldFindMultipleElements(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -52,7 +52,7 @@ class RemoteWebDriverFindElementTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testEscapeCssSelector()
+    public function testEscapeCssSelector(): void
     {
         self::skipForJsonWireProtocol(
             'CSS selectors containing special characters are not supported by the legacy protocol'

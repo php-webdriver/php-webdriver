@@ -19,7 +19,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @group exclude-safari
      *      Safari does not normalize white-spaces
      */
-    public function testShouldGetText()
+    public function testShouldGetText(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $elementWithSimpleText = $this->driver->findElement(WebDriverBy::id('text-simple'));
@@ -33,7 +33,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getAttribute
      */
-    public function testShouldGetAttributeValue()
+    public function testShouldGetAttributeValue(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -48,7 +48,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getDomProperty
      */
-    public function testShouldGetDomPropertyValue()
+    public function testShouldGetDomPropertyValue(): void
     {
         self::skipForJsonWireProtocol();
 
@@ -70,7 +70,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getLocation
      */
-    public function testShouldGetLocation()
+    public function testShouldGetLocation(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -85,7 +85,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getLocationOnScreenOnceScrolledIntoView
      */
-    public function testShouldGetLocationOnScreenOnceScrolledIntoView()
+    public function testShouldGetLocationOnScreenOnceScrolledIntoView(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -110,7 +110,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getSize
      */
-    public function testShouldGetSize()
+    public function testShouldGetSize(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -125,7 +125,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getCSSValue
      */
-    public function testShouldGetCssValue()
+    public function testShouldGetCssValue(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -145,7 +145,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::getTagName
      */
-    public function testShouldGetTagName()
+    public function testShouldGetTagName(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -157,7 +157,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::click
      */
-    public function testShouldClick()
+    public function testShouldClick(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
@@ -180,7 +180,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @group exclude-chrome
      * @group exclude-edge
      */
-    public function testGeckoDriverShouldClickOnBlockLevelElement()
+    public function testGeckoDriverShouldClickOnBlockLevelElement(): void
     {
         self::skipForUnmatchedBrowsers(['firefox']);
 
@@ -209,7 +209,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @group exclude-chrome
      * @group exclude-edge
      */
-    public function testGeckoDriverShouldClickNotInteractable()
+    public function testGeckoDriverShouldClickNotInteractable(): void
     {
         self::skipForUnmatchedBrowsers(['firefox']);
 
@@ -237,7 +237,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::clear
      */
-    public function testShouldClearFormElementText()
+    public function testShouldClearFormElementText(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -256,7 +256,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::sendKeys
      */
-    public function testShouldSendKeysToFormElement()
+    public function testShouldSendKeysToFormElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -294,7 +294,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @covers \Facebook\WebDriver\Remote\RemoteWebDriver::execute
      * @covers \Facebook\WebDriver\Support\IsElementDisplayedAtom
      */
-    public function testShouldDetectElementDisplayedness()
+    public function testShouldDetectElementDisplayedness(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -310,7 +310,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::isEnabled
      */
-    public function testShouldDetectEnabledInputs()
+    public function testShouldDetectEnabledInputs(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -324,7 +324,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::isSelected
      */
-    public function testShouldSelectedInputsOrOptions()
+    public function testShouldSelectedInputsOrOptions(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -352,7 +352,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @covers ::submit
      * @group exclude-edge
      */
-    public function testShouldSubmitFormBySubmitEventOnForm()
+    public function testShouldSubmitFormBySubmitEventOnForm(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -370,7 +370,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::submit
      */
-    public function testShouldSubmitFormBySubmitEventOnFormInputElement()
+    public function testShouldSubmitFormBySubmitEventOnFormInputElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -388,7 +388,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::click
      */
-    public function testShouldSubmitFormByClickOnSubmitInput()
+    public function testShouldSubmitFormByClickOnSubmitInput(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
 
@@ -406,7 +406,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::equals
      */
-    public function testShouldCompareEqualsElement()
+    public function testShouldCompareEqualsElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -425,7 +425,7 @@ class RemoteWebElementTest extends WebDriverTestCase
     /**
      * @covers ::findElement
      */
-    public function testShouldThrowExceptionIfChildElementCannotBeFound()
+    public function testShouldThrowExceptionIfChildElementCannotBeFound(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
@@ -434,7 +434,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $element->findElement(WebDriverBy::id('not_existing'));
     }
 
-    public function testShouldFindChildElementIfExistsOnAPage()
+    public function testShouldFindChildElementIfExistsOnAPage(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
@@ -446,7 +446,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertSame('First', $childElement->getText());
     }
 
-    public function testShouldReturnEmptyArrayIfChildElementsCannotBeFound()
+    public function testShouldReturnEmptyArrayIfChildElementsCannotBeFound(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
@@ -457,7 +457,7 @@ class RemoteWebElementTest extends WebDriverTestCase
         $this->assertCount(0, $childElements);
     }
 
-    public function testShouldFindMultipleChildElements()
+    public function testShouldFindMultipleChildElements(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $element = $this->driver->findElement(WebDriverBy::cssSelector('ul.list'));
@@ -476,7 +476,7 @@ class RemoteWebElementTest extends WebDriverTestCase
      * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      * @group exclude-saucelabs
      */
-    public function testShouldTakeAndSaveElementScreenshot()
+    public function testShouldTakeAndSaveElementScreenshot(): void
     {
         self::skipForJsonWireProtocol('Take element screenshot is only part of W3C protocol');
 

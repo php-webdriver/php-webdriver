@@ -25,7 +25,7 @@ class WebDriverDoubleClickActionTest extends TestCase
         );
     }
 
-    public function testPerformSendsDoubleClickCommand()
+    public function testPerformSendsDoubleClickCommand(): void
     {
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();

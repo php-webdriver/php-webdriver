@@ -65,7 +65,7 @@ class HttpCommandExecutorTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideCommand()
+    public function provideCommand(): array
     {
         return [
             'POST command having :id placeholder in url' => [

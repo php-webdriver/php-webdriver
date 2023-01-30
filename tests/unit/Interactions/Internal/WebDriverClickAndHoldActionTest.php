@@ -25,7 +25,7 @@ class WebDriverClickAndHoldActionTest extends TestCase
         );
     }
 
-    public function testPerformSendsMouseDownCommand()
+    public function testPerformSendsMouseDownCommand(): void
     {
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class DesiredCapabilitiesTest extends TestCase
 {
-    public function testShouldInstantiateWithCapabilitiesGivenInConstructor()
+    public function testShouldInstantiateWithCapabilitiesGivenInConstructor(): void
     {
         $capabilities = new DesiredCapabilities(
             ['fooKey' => 'fooVal', WebDriverCapabilityType::PLATFORM => WebDriverPlatform::ANY]
@@ -27,7 +27,7 @@ class DesiredCapabilitiesTest extends TestCase
         );
     }
 
-    public function testShouldInstantiateEmptyInstance()
+    public function testShouldInstantiateEmptyInstance(): void
     {
         $capabilities = new DesiredCapabilities();
 
@@ -35,7 +35,7 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertSame([], $capabilities->toArray());
     }
 
-    public function testShouldProvideAccessToCapabilitiesUsingSettersAndGetters()
+    public function testShouldProvideAccessToCapabilitiesUsingSettersAndGetters(): void
     {
         $capabilities = new DesiredCapabilities();
         // generic capability setter
@@ -51,7 +51,7 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertSame(333, $capabilities->getVersion());
     }
 
-    public function testShouldAccessCapabilitiesIsser()
+    public function testShouldAccessCapabilitiesIsser(): void
     {
         $capabilities = new DesiredCapabilities();
 
@@ -66,7 +66,7 @@ class DesiredCapabilitiesTest extends TestCase
         $this->assertFalse($capabilities->is('customNull'));
     }
 
-    public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser()
+    public function testShouldNotAllowToDisableJavascriptForNonHtmlUnitBrowser(): void
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('isJavascriptEnabled() is a htmlunit-only option');
@@ -76,7 +76,7 @@ class DesiredCapabilitiesTest extends TestCase
         $capabilities->setJavascriptEnabled(false);
     }
 
-    public function testShouldAllowToDisableJavascriptForHtmlUnitBrowser()
+    public function testShouldAllowToDisableJavascriptForHtmlUnitBrowser(): void
     {
         $capabilities = new DesiredCapabilities();
         $capabilities->setBrowserName(WebDriverBrowserType::HTMLUNIT);
@@ -95,7 +95,7 @@ class DesiredCapabilitiesTest extends TestCase
         $setupMethod,
         $expectedBrowser,
         $expectedPlatform
-    ) {
+    ): void {
         /** @var DesiredCapabilities $capabilities */
         $capabilities = call_user_func([DesiredCapabilities::class, $setupMethod]);
 
@@ -106,7 +106,7 @@ class DesiredCapabilitiesTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideBrowserCapabilities()
+    public function provideBrowserCapabilities(): array
     {
         return [
             ['android', WebDriverBrowserType::ANDROID, WebDriverPlatform::ANDROID],
@@ -124,7 +124,7 @@ class DesiredCapabilitiesTest extends TestCase
         ];
     }
 
-    public function testShouldSetupFirefoxWithDefaultOptions()
+    public function testShouldSetupFirefoxWithDefaultOptions(): void
     {
         $capabilitiesArray = DesiredCapabilities::firefox()->toArray();
 
@@ -137,7 +137,7 @@ class DesiredCapabilitiesTest extends TestCase
         );
     }
 
-    public function testShouldSetupFirefoxWithCustomOptions()
+    public function testShouldSetupFirefoxWithCustomOptions(): void
     {
         $firefoxOptions = new FirefoxOptions();
         $firefoxOptions->addArguments(['-headless']);
@@ -159,7 +159,7 @@ class DesiredCapabilitiesTest extends TestCase
         );
     }
 
-    public function testShouldNotOverwriteDefaultFirefoxOptionsWhenAddingFirefoxOptionAsArray()
+    public function testShouldNotOverwriteDefaultFirefoxOptionsWhenAddingFirefoxOptionAsArray(): void
     {
         $capabilities = DesiredCapabilities::firefox();
         $capabilities->setCapability('moz:firefoxOptions', ['args' => ['-headless']]);
@@ -181,7 +181,7 @@ class DesiredCapabilitiesTest extends TestCase
     public function testShouldConvertCapabilitiesToW3cCompatible(
         DesiredCapabilities $inputJsonWireCapabilities,
         array $expectedW3cCapabilities
-    ) {
+    ): void {
         $this->assertJsonStringEqualsJsonString(
             json_encode($expectedW3cCapabilities, JSON_THROW_ON_ERROR),
             json_encode($inputJsonWireCapabilities->toW3cCompatibleArray(), JSON_THROW_ON_ERROR)
@@ -191,7 +191,7 @@ class DesiredCapabilitiesTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideW3cCapabilities()
+    public function provideW3cCapabilities(): array
     {
         $chromeOptions = new ChromeOptions();
         $chromeOptions->addArguments(['--headless']);

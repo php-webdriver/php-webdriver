@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class LocalFileDetectorTest extends TestCase
 {
-    public function testShouldDetectLocalFile()
+    public function testShouldDetectLocalFile(): void
     {
         $detector = new LocalFileDetector();
 
@@ -15,7 +15,7 @@ class LocalFileDetectorTest extends TestCase
         $this->assertSame(__FILE__, $file);
     }
 
-    public function testShouldReturnNullIfFileNotDetected()
+    public function testShouldReturnNullIfFileNotDetected(): void
     {
         $detector = new LocalFileDetector();
 

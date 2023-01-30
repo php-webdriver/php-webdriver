@@ -15,7 +15,7 @@ class RemoteWebElementTest extends TestCase
      * @covers ::__construct
      * @covers ::getId
      */
-    public function testShouldConstructNewInstance()
+    public function testShouldConstructNewInstance(): void
     {
         $executeMethod = $this->createMock(RemoteExecuteMethod::class);
         $element = new RemoteWebElement($executeMethod, 333);

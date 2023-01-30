@@ -20,7 +20,7 @@ class ShadowDomTest extends WebDriverTestCase
         parent::setUp();
     }
 
-    public function testShouldGetShadowRoot()
+    public function testShouldGetShadowRoot(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::WEB_COMPONENTS));
 
@@ -31,7 +31,7 @@ class ShadowDomTest extends WebDriverTestCase
         $this->assertInstanceOf(ShadowRoot::class, $shadowRoot);
     }
 
-    public function testShouldThrowExceptionWhenGettingShadowRootWithElementNotHavingShadowRoot()
+    public function testShouldThrowExceptionWhenGettingShadowRootWithElementNotHavingShadowRoot(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::WEB_COMPONENTS));
 
@@ -46,7 +46,7 @@ class ShadowDomTest extends WebDriverTestCase
      *        https://bugzilla.mozilla.org/show_bug.cgi?id=1700097
      *        Finding elements in shadow DOM is not implemented in Geckodriver
      */
-    public function testShouldFindElementUnderShadowRoot()
+    public function testShouldFindElementUnderShadowRoot(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::WEB_COMPONENTS));
 
@@ -66,7 +66,7 @@ class ShadowDomTest extends WebDriverTestCase
      *        https://bugzilla.mozilla.org/show_bug.cgi?id=1700097
      *        Finding elements in shadow DOM is not implemented in Geckodriver
      */
-    public function testShouldReferenceTheSameShadowRootAsFromExecuteScript()
+    public function testShouldReferenceTheSameShadowRootAsFromExecuteScript(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::WEB_COMPONENTS));
 

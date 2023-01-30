@@ -15,7 +15,7 @@ class WebDriverKeysTest extends TestCase
      * @param array $expectedOssOutput
      * @param string $expectedW3cOutput
      */
-    public function testShouldEncodeKeysToFormatOfEachProtocol($keys, $expectedOssOutput, $expectedW3cOutput)
+    public function testShouldEncodeKeysToFormatOfEachProtocol($keys, $expectedOssOutput, $expectedW3cOutput): void
     {
         $this->assertSame($expectedOssOutput, WebDriverKeys::encode($keys));
         $this->assertSame($expectedW3cOutput, WebDriverKeys::encode($keys, true));
@@ -24,7 +24,7 @@ class WebDriverKeysTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideKeys()
+    public function provideKeys(): array
     {
         return [
             'empty string' => ['', [''], ''],

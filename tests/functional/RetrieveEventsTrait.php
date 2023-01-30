@@ -12,7 +12,7 @@ trait RetrieveEventsTrait
     /**
      * @return array
      */
-    private function retrieveLoggedKeyboardEvents()
+    private function retrieveLoggedKeyboardEvents(): array
     {
         return $this->retrieveLoggerEvents(WebDriverBy::id('keyboardEventsLog'));
     }
@@ -20,7 +20,7 @@ trait RetrieveEventsTrait
     /**
      * @return array
      */
-    private function retrieveLoggedMouseEvents()
+    private function retrieveLoggedMouseEvents(): array
     {
         return $this->retrieveLoggerEvents(WebDriverBy::id('mouseEventsLog'));
     }

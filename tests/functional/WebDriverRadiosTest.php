@@ -19,14 +19,14 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::FORM_CHECKBOX_RADIO));
     }
 
-    public function testIsMultiple()
+    public function testIsMultiple(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
         $this->assertFalse($radios->isMultiple());
     }
 
-    public function testGetOptions()
+    public function testGetOptions(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $values = [];
@@ -37,7 +37,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertSame(['j3a', 'j3b', 'j3c'], $values);
     }
 
-    public function testGetFirstSelectedOption()
+    public function testGetFirstSelectedOption(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -46,14 +46,14 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertSame('j3a', $radios->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm()
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@id="j4b"]')));
 
         $this->assertEquals('j4b', $radios->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId()
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId(): void
     {
         $radios = new WebDriverRadios(
             $this->driver->findElement(WebDriverBy::xpath('//input[@id="j4c"]'))
@@ -62,7 +62,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertEquals('j4c', $radios->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testSelectByValue()
+    public function testSelectByValue(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByValue('j3b');
@@ -73,7 +73,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertSame('j3b', $selectedOptions[0]->getAttribute('value'));
     }
 
-    public function testSelectByValueInvalid()
+    public function testSelectByValueInvalid(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -82,7 +82,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $radios->selectByValue('notexist');
     }
 
-    public function testSelectByIndex()
+    public function testSelectByIndex(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByIndex(1);
@@ -92,7 +92,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $this->assertSame('j3b', $allSelectedOptions[0]->getAttribute('value'));
     }
 
-    public function testSelectByIndexInvalid()
+    public function testSelectByIndexInvalid(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -107,7 +107,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisibleText($text, $value)
+    public function testSelectByVisibleText($text, $value): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByVisibleText($text);
@@ -117,7 +117,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideSelectByVisibleTextData()
+    public function provideSelectByVisibleTextData(): array
     {
         return [
             ['J 3 B', 'j3b'],
@@ -131,7 +131,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisiblePartialText($text, $value)
+    public function testSelectByVisiblePartialText($text, $value): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByVisiblePartialText($text);
@@ -141,7 +141,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideSelectByVisiblePartialTextData()
+    public function provideSelectByVisiblePartialTextData(): array
     {
         return [
             ['3 B', 'j3b'],
@@ -149,7 +149,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         ];
     }
 
-    public function testDeselectAllRadio()
+    public function testDeselectAllRadio(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -158,7 +158,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $radios->deselectAll();
     }
 
-    public function testDeselectByIndexRadio()
+    public function testDeselectByIndexRadio(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -167,7 +167,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $radios->deselectByIndex(0);
     }
 
-    public function testDeselectByValueRadio()
+    public function testDeselectByValueRadio(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -176,7 +176,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $radios->deselectByValue('val');
     }
 
-    public function testDeselectByVisibleTextRadio()
+    public function testDeselectByVisibleTextRadio(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 
@@ -185,7 +185,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
         $radios->deselectByVisibleText('AB');
     }
 
-    public function testDeselectByVisiblePartialTextRadio()
+    public function testDeselectByVisiblePartialTextRadio(): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
 

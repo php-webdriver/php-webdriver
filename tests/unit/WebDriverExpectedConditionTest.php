@@ -25,7 +25,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->wait = new WebDriverWait($this->driverMock, 1, 1);
     }
 
-    public function testShouldDetectTitleIsCondition()
+    public function testShouldDetectTitleIsCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getTitle')
@@ -38,7 +38,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectTitleContainsCondition()
+    public function testShouldDetectTitleContainsCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getTitle')
@@ -51,7 +51,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectTitleMatchesCondition()
+    public function testShouldDetectTitleMatchesCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getTitle')
@@ -64,7 +64,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectUrlIsCondition()
+    public function testShouldDetectUrlIsCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getCurrentURL')
@@ -77,7 +77,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectUrlContainsCondition()
+    public function testShouldDetectUrlContainsCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getCurrentURL')
@@ -90,7 +90,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectUrlMatchesCondition()
+    public function testShouldDetectUrlMatchesCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getCurrentURL')
@@ -103,7 +103,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectPresenceOfElementLocatedCondition()
+    public function testShouldDetectPresenceOfElementLocatedCondition(): void
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
 
@@ -120,7 +120,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
-    public function testShouldDetectNotPresenceOfElementLocatedCondition()
+    public function testShouldDetectNotPresenceOfElementLocatedCondition(): void
     {
         $element = new RemoteWebElement(new RemoteExecuteMethod($this->driverMock), 'id');
 
@@ -140,7 +140,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue(call_user_func($condition->getApply(), $this->driverMock));
     }
 
-    public function testShouldDetectPresenceOfAllElementsLocatedByCondition()
+    public function testShouldDetectPresenceOfAllElementsLocatedByCondition(): void
     {
         $element = $this->createMock(RemoteWebElement::class);
 
@@ -157,7 +157,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame([$element], $this->wait->until($condition));
     }
 
-    public function testShouldDetectVisibilityOfElementLocatedCondition()
+    public function testShouldDetectVisibilityOfElementLocatedCondition(): void
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -181,7 +181,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
-    public function testShouldDetectVisibilityOfAnyElementLocated()
+    public function testShouldDetectVisibilityOfAnyElementLocated(): void
     {
         $elementList = [
             $this->createMock(RemoteWebElement::class),
@@ -211,7 +211,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame([$elementList[1], $elementList[2]], $this->wait->until($condition));
     }
 
-    public function testShouldDetectInvisibilityOfElementLocatedConditionOnNoSuchElementException()
+    public function testShouldDetectInvisibilityOfElementLocatedConditionOnNoSuchElementException(): void
     {
         $element = $this->createMock(RemoteWebElement::class);
 
@@ -232,7 +232,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectInvisibilityOfElementLocatedConditionOnStaleElementReferenceException()
+    public function testShouldDetectInvisibilityOfElementLocatedConditionOnStaleElementReferenceException(): void
     {
         $element = $this->createMock(RemoteWebElement::class);
 
@@ -253,7 +253,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectInvisibilityOfElementLocatedConditionWhenElementBecamesInvisible()
+    public function testShouldDetectInvisibilityOfElementLocatedConditionWhenElementBecamesInvisible(): void
     {
         $element = $this->createMock(RemoteWebElement::class);
 
@@ -274,7 +274,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectVisibilityOfCondition()
+    public function testShouldDetectVisibilityOfCondition(): void
     {
         $element = $this->createMock(RemoteWebElement::class);
         $element->expects($this->exactly(2))
@@ -289,7 +289,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertSame($element, $this->wait->until($condition));
     }
 
-    public function testShouldDetectElementTextContainsCondition()
+    public function testShouldDetectElementTextContainsCondition(): void
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -313,7 +313,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectElementTextIsCondition()
+    public function testShouldDetectElementTextIsCondition(): void
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -340,7 +340,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectElementTextMatchesCondition()
+    public function testShouldDetectElementTextMatchesCondition(): void
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -368,7 +368,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectElementValueContainsCondition()
+    public function testShouldDetectElementValueContainsCondition(): void
     {
         // Set-up the consecutive calls to apply() as follows:
         // Call #1: throws NoSuchElementException
@@ -397,7 +397,7 @@ class WebDriverExpectedConditionTest extends TestCase
         $this->assertTrue($this->wait->until($condition));
     }
 
-    public function testShouldDetectNumberOfWindowsToBeCondition()
+    public function testShouldDetectNumberOfWindowsToBeCondition(): void
     {
         $this->driverMock->expects($this->any())
             ->method('getWindowHandles')
@@ -414,7 +414,7 @@ class WebDriverExpectedConditionTest extends TestCase
      * @param RemoteWebElement $element
      * @param int $expectedNumberOfFindElementCalls
      */
-    private function setupDriverToReturnElementAfterAnException($element, $expectedNumberOfFindElementCalls)
+    private function setupDriverToReturnElementAfterAnException($element, $expectedNumberOfFindElementCalls): void
     {
         $consecutiveReturn = [
             $this->throwException(new NoSuchElementException('')),

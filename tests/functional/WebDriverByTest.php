@@ -22,7 +22,7 @@ class WebDriverByTest extends WebDriverTestCase
         $webDriverByLocatorValue,
         $expectedText = null,
         $expectedAttributeValue = null
-    ) {
+    ): void {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
         $by = call_user_func([WebDriverBy::class, $webDriverByLocatorMethod], $webDriverByLocatorValue);
@@ -42,7 +42,7 @@ class WebDriverByTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideTextElements()
+    public function provideTextElements(): array
     {
         return [
             'id' => ['id', 'id_test', 'Test by ID'],

@@ -18,7 +18,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::FORM_CHECKBOX_RADIO));
     }
 
-    public function testIsMultiple()
+    public function testIsMultiple(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -27,7 +27,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertTrue($checkboxes->isMultiple());
     }
 
-    public function testGetOptions()
+    public function testGetOptions(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//form[2]//input[@type="checkbox"]'))
@@ -36,7 +36,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertNotEmpty($checkboxes->getOptions());
     }
 
-    public function testGetFirstSelectedOption()
+    public function testGetFirstSelectedOption(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -47,7 +47,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertSame('j2a', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm()
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentForm(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@id="j5b"]'))
@@ -56,7 +56,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEquals('j5b', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId()
+    public function testShouldGetFirstSelectedOptionConsideringOnlyElementsAssociatedWithCurrentFormWithoutId(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@id="j5d"]'))
@@ -65,7 +65,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEquals('j5c', $checkboxes->getFirstSelectedOption()->getAttribute('value'));
     }
 
-    public function testSelectByValue()
+    public function testSelectByValue(): void
     {
         $selectedOptions = ['j2b', 'j2c'];
 
@@ -83,7 +83,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertSame($selectedOptions, $selectedValues);
     }
 
-    public function testSelectByValueInvalid()
+    public function testSelectByValueInvalid(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -94,7 +94,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $checkboxes->selectByValue('notexist');
     }
 
-    public function testSelectByIndex()
+    public function testSelectByIndex(): void
     {
         $selectedOptions = [1 => 'j2b', 2 => 'j2c'];
 
@@ -112,7 +112,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertSame(array_values($selectedOptions), $selectedValues);
     }
 
-    public function testSelectByIndexInvalid()
+    public function testSelectByIndexInvalid(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -129,7 +129,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisibleText($text, $value)
+    public function testSelectByVisibleText($text, $value): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -143,7 +143,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideSelectByVisibleTextData()
+    public function provideSelectByVisibleTextData(): array
     {
         return [
             ['J 2 B', 'j2b'],
@@ -157,7 +157,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisiblePartialText($text, $value)
+    public function testSelectByVisiblePartialText($text, $value): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -171,7 +171,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideSelectByVisiblePartialTextData()
+    public function provideSelectByVisiblePartialTextData(): array
     {
         return [
             ['2 B', 'j2b'],
@@ -179,7 +179,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         ];
     }
 
-    public function testDeselectAll()
+    public function testDeselectAll(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -191,7 +191,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
-    public function testDeselectByIndex()
+    public function testDeselectByIndex(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -203,7 +203,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
-    public function testDeselectByValue()
+    public function testDeselectByValue(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -215,7 +215,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
-    public function testDeselectByVisibleText()
+    public function testDeselectByVisibleText(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -227,7 +227,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $this->assertEmpty($checkboxes->getAllSelectedOptions());
     }
 
-    public function testDeselectByVisiblePartialText()
+    public function testDeselectByVisiblePartialText(): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))

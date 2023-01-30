@@ -25,7 +25,7 @@ class WebDriverContextClickActionTest extends TestCase
         );
     }
 
-    public function testPerformSendsContextClickCommand()
+    public function testPerformSendsContextClickCommand(): void
     {
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();

@@ -33,7 +33,7 @@ class WebDriverKeyUpActionTest extends TestCase
         );
     }
 
-    public function testPerformFocusesOnElementAndSendPressKeyCommand()
+    public function testPerformFocusesOnElementAndSendPressKeyCommand(): void
     {
         $coords = $this->createMock(WebDriverCoordinates::class);
         $this->webDriverMouse->expects($this->once())->method('click')->with($coords);

@@ -15,7 +15,7 @@ use Facebook\WebDriver\Remote\WebDriverBrowserType;
  */
 class RemoteWebDriverCreateTest extends WebDriverTestCase
 {
-    public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver()
+    public function testShouldStartBrowserAndCreateInstanceOfRemoteWebDriver(): void
     {
         $this->driver = RemoteWebDriver::create(
             $this->serverUrl,
@@ -51,7 +51,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertNotEmpty($returnedCapabilities->getVersion());
     }
 
-    public function testShouldAcceptCapabilitiesAsAnArray()
+    public function testShouldAcceptCapabilitiesAsAnArray(): void
     {
         // Method has a side-effect of converting whole content of desiredCapabilities to an array
         $this->desiredCapabilities->toArray();
@@ -66,7 +66,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertNotNull($this->driver->getCapabilities());
     }
 
-    public function testShouldCreateWebDriverWithRequiredCapabilities()
+    public function testShouldCreateWebDriverWithRequiredCapabilities(): void
     {
         $requiredCapabilities = new DesiredCapabilities();
 
@@ -89,7 +89,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
      * However the the browser driver must be able to create non-headless instance (eg. inside xvfb).
      * @group exclude-saucelabs
      */
-    public function testShouldCreateWebDriverWithoutCapabilities()
+    public function testShouldCreateWebDriverWithoutCapabilities(): void
     {
         if (getenv('GECKODRIVER') !== '1' && empty(getenv('CHROMEDRIVER_PATH'))) {
             $this->markTestSkipped('This test makes sense only when run directly via specific browser driver');
@@ -101,7 +101,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertNotEmpty($this->driver->getSessionID());
     }
 
-    public function testShouldCreateInstanceFromExistingSessionId()
+    public function testShouldCreateInstanceFromExistingSessionId(): void
     {
         // Create driver instance and load page "index.html"
         $originalDriver = RemoteWebDriver::create(
@@ -156,7 +156,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         $this->assertNotEmpty($this->driver->findElement(WebDriverBy::id('id_test'))->getText());
     }
 
-    public function testShouldRequireCapabilitiesToBeSetToReuseExistingSession()
+    public function testShouldRequireCapabilitiesToBeSetToReuseExistingSession(): void
     {
         $this->expectException(UnexpectedResponseException::class);
         $this->expectExceptionMessage(
@@ -172,7 +172,7 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
         );
     }
 
-    protected function createWebDriver()
+    protected function createWebDriver(): void
     {
     }
 }

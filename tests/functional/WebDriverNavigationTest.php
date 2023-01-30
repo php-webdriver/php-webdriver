@@ -11,7 +11,7 @@ class WebDriverNavigationTest extends WebDriverTestCase
      * @covers ::__construct
      * @covers ::to
      */
-    public function testShouldNavigateToUrl()
+    public function testShouldNavigateToUrl(): void
     {
         $this->driver->navigate()->to($this->getTestPageUrl(TestPage::INDEX));
 
@@ -22,7 +22,7 @@ class WebDriverNavigationTest extends WebDriverTestCase
      * @covers ::back
      * @covers ::forward
      */
-    public function testShouldNavigateBackAndForward()
+    public function testShouldNavigateBackAndForward(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
         $linkElement = $this->driver->findElement(WebDriverBy::id('a-form'));
@@ -51,7 +51,7 @@ class WebDriverNavigationTest extends WebDriverTestCase
     /**
      * @covers ::refresh
      */
-    public function testShouldRefreshPage()
+    public function testShouldRefreshPage(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 

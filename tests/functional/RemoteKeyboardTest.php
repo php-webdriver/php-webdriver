@@ -19,7 +19,7 @@ class RemoteKeyboardTest extends WebDriverTestCase
      * @group exclude-safari
      * https://feedbackassistant.apple.com/feedback/9051272
      */
-    public function testShouldPressSendAndReleaseKeys()
+    public function testShouldPressSendAndReleaseKeys(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 

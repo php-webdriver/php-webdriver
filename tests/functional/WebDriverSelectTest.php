@@ -20,7 +20,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
     }
 
-    public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple()
+    public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple(): void
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select'));
         $originalMultipleElement = $this->driver->findElement(WebDriverBy::cssSelector('#select-multiple'));
@@ -35,7 +35,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertTrue($selectMultiple->isMultiple());
     }
 
-    public function testShouldThrowExceptionWhenNotInstantiatedOnSelectElement()
+    public function testShouldThrowExceptionWhenNotInstantiatedOnSelectElement(): void
     {
         $notSelectElement = $this->driver->findElement(WebDriverBy::cssSelector('textarea'));
 
@@ -48,7 +48,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @dataProvider provideSelectSelector
      * @param string $selector
      */
-    public function testShouldGetOptionsOfSelect($selector)
+    public function testShouldGetOptionsOfSelect($selector): void
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector($selector));
         $select = new WebDriverSelect($originalElement);
@@ -62,7 +62,7 @@ class WebDriverSelectTest extends WebDriverTestCase
     /**
      * @return array[]
      */
-    public function provideSelectSelector()
+    public function provideSelectSelector(): array
     {
         return [
             'simple <select>' => ['#select'],
@@ -70,7 +70,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         ];
     }
 
-    public function testShouldDefaultSelectedOptionOfSimpleSelect()
+    public function testShouldDefaultSelectedOptionOfSimpleSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -85,7 +85,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame('First', $firstSelectedOption->getText());
     }
 
-    public function testShouldReturnEmptyArrayIfNoOptionsOfMultipleSelectSelected()
+    public function testShouldReturnEmptyArrayIfNoOptionsOfMultipleSelectSelected(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
 
@@ -94,7 +94,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertSame([], $selectedOptions);
     }
 
-    public function testShouldThrowExceptionIfThereIsNoFirstSelectedOptionOfMultipleSelect()
+    public function testShouldThrowExceptionIfThereIsNoFirstSelectedOptionOfMultipleSelect(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
 
@@ -103,7 +103,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->getFirstSelectedOption();
     }
 
-    public function testShouldSelectOptionOfSimpleSelectByIndex()
+    public function testShouldSelectOptionOfSimpleSelectByIndex(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
         $this->assertSame('first', $select->getFirstSelectedOption()->getAttribute('value'));
@@ -120,7 +120,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldSelectOptionOfMultipleSelectByIndex()
+    public function testShouldSelectOptionOfMultipleSelectByIndex(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $this->assertSame([], $select->getAllSelectedOptions());
@@ -138,7 +138,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second', 'fourth', 'fifth'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfThereIsNoOptionIndexToSelect()
+    public function testShouldThrowExceptionIfThereIsNoOptionIndexToSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -147,7 +147,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->selectByIndex(1337);
     }
 
-    public function testShouldSelectOptionOfSimpleSelectByValue()
+    public function testShouldSelectOptionOfSimpleSelectByValue(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
         $this->assertSame('first', $select->getFirstSelectedOption()->getAttribute('value'));
@@ -164,7 +164,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldSelectOptionOfMultipleSelectByValue()
+    public function testShouldSelectOptionOfMultipleSelectByValue(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $this->assertSame([], $select->getAllSelectedOptions());
@@ -182,7 +182,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second', 'fourth', 'fifth'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfThereIsNoOptionValueToSelect()
+    public function testShouldThrowExceptionIfThereIsNoOptionValueToSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -191,7 +191,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->selectByValue(1337);
     }
 
-    public function testShouldSelectOptionOfSimpleSelectByVisibleText()
+    public function testShouldSelectOptionOfSimpleSelectByVisibleText(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
         $this->assertSame('first', $select->getFirstSelectedOption()->getAttribute('value'));
@@ -208,7 +208,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldSelectOptionOfMultipleSelectByVisibleText()
+    public function testShouldSelectOptionOfMultipleSelectByVisibleText(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $this->assertSame([], $select->getAllSelectedOptions());
@@ -226,7 +226,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second', 'fourth', 'fifth'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfThereIsNoOptionVisibleTextToSelect()
+    public function testShouldThrowExceptionIfThereIsNoOptionVisibleTextToSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -235,7 +235,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->selectByVisibleText('second'); // the option is "This is second option"
     }
 
-    public function testShouldSelectOptionOfSimpleSelectByVisiblePartialText()
+    public function testShouldSelectOptionOfSimpleSelectByVisiblePartialText(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
         $this->assertSame('first', $select->getFirstSelectedOption()->getAttribute('value'));
@@ -252,7 +252,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldSelectOptionOfMultipleSelectByVisiblePartialText()
+    public function testShouldSelectOptionOfMultipleSelectByVisiblePartialText(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $this->assertSame([], $select->getAllSelectedOptions());
@@ -273,7 +273,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         );
     }
 
-    public function testShouldThrowExceptionIfThereIsNoOptionVisiblePartialTextToSelect()
+    public function testShouldThrowExceptionIfThereIsNoOptionVisiblePartialTextToSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -282,7 +282,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $select->selectByVisiblePartialText('Not existing option');
     }
 
-    public function testShouldThrowExceptionWhenDeselectingOnSimpleSelect()
+    public function testShouldThrowExceptionWhenDeselectingOnSimpleSelect(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -295,7 +295,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldDeselectAllOptionsOnMultipleSelect()
+    public function testShouldDeselectAllOptionsOnMultipleSelect(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
 
@@ -313,7 +313,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldDeselectOptionOnMultipleSelectByIndex()
+    public function testShouldDeselectOptionOnMultipleSelectByIndex(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // index 3
@@ -326,7 +326,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfDeselectingSimpleSelectByIndex()
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByIndex(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -339,7 +339,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldDeselectOptionOnMultipleSelectByValue()
+    public function testShouldDeselectOptionOnMultipleSelectByValue(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('third');
@@ -352,7 +352,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['first'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfDeselectingSimpleSelectByValue()
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByValue(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -365,7 +365,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldDeselectOptionOnMultipleSelectByVisibleText()
+    public function testShouldDeselectOptionOnMultipleSelectByVisibleText(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // text 'Fourth  with   spaces   inside'
@@ -380,7 +380,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['second'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisibleText()
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisibleText(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -393,7 +393,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @group exclude-edge
      * https://connect.microsoft.com/IE/feedback/details/2020772/-microsoft-edge-webdriver-cannot-select-multiple-on-select-html-tag
      */
-    public function testShouldDeselectOptionOnMultipleSelectByVisiblePartialText()
+    public function testShouldDeselectOptionOnMultipleSelectByVisiblePartialText(): void
     {
         $select = $this->getWebDriverSelectForMultipleSelect();
         $select->selectByValue('fourth'); // text 'Fourth  with   spaces   inside'
@@ -414,7 +414,7 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->assertContainsOptionsWithValues(['first'], $select->getAllSelectedOptions());
     }
 
-    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisiblePartialText()
+    public function testShouldThrowExceptionIfDeselectingSimpleSelectByVisiblePartialText(): void
     {
         $select = $this->getWebDriverSelectForSimpleSelect();
 
@@ -426,7 +426,7 @@ class WebDriverSelectTest extends WebDriverTestCase
     /**
      * @return WebDriverSelect
      */
-    protected function getWebDriverSelectForSimpleSelect()
+    protected function getWebDriverSelectForSimpleSelect(): WebDriverSelect
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select'));
 
@@ -436,7 +436,7 @@ class WebDriverSelectTest extends WebDriverTestCase
     /**
      * @return WebDriverSelect
      */
-    protected function getWebDriverSelectForMultipleSelect()
+    protected function getWebDriverSelectForMultipleSelect(): WebDriverSelect
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select-multiple'));
 
@@ -447,7 +447,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @param string[] $expectedValues
      * @param array $options
      */
-    private function assertContainsOptionsWithValues(array $expectedValues, array $options)
+    private function assertContainsOptionsWithValues(array $expectedValues, array $options): void
     {
         $expectedCount = count($expectedValues);
         $this->assertContainsOnlyInstancesOf(WebDriverElement::class, $options);

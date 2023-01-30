@@ -13,7 +13,7 @@ class FirefoxOptionsTest extends TestCase
         FirefoxPreferences::DEVTOOLS_JSONVIEW => false,
     ];
 
-    public function testShouldBeConstructedWithDefaultOptions()
+    public function testShouldBeConstructedWithDefaultOptions(): void
     {
         $options = new FirefoxOptions();
 
@@ -25,7 +25,7 @@ class FirefoxOptionsTest extends TestCase
         );
     }
 
-    public function testShouldAddCustomOptions()
+    public function testShouldAddCustomOptions(): void
     {
         $options = new FirefoxOptions();
 
@@ -40,7 +40,7 @@ class FirefoxOptionsTest extends TestCase
         );
     }
 
-    public function testShouldOverwriteDefaultOptionsWhenSpecified()
+    public function testShouldOverwriteDefaultOptionsWhenSpecified(): void
     {
         $options = new FirefoxOptions();
 
@@ -57,7 +57,7 @@ class FirefoxOptionsTest extends TestCase
         );
     }
 
-    public function testShouldSetCustomPreference()
+    public function testShouldSetCustomPreference(): void
     {
         $options = new FirefoxOptions();
 
@@ -75,7 +75,7 @@ class FirefoxOptionsTest extends TestCase
         );
     }
 
-    public function testShouldAddArguments()
+    public function testShouldAddArguments(): void
     {
         $options = new FirefoxOptions();
 
@@ -90,7 +90,7 @@ class FirefoxOptionsTest extends TestCase
         );
     }
 
-    public function testShouldJsonSerializeToArrayObject()
+    public function testShouldJsonSerializeToArrayObject(): void
     {
         $options = new FirefoxOptions();
         $options->setOption('binary', '/usr/local/firefox/bin/firefox');
@@ -101,7 +101,7 @@ class FirefoxOptionsTest extends TestCase
         $this->assertSame('/usr/local/firefox/bin/firefox', $jsonSerialized['binary']);
     }
 
-    public function testShouldNotAllowToSetArgumentsOptionDirectly()
+    public function testShouldNotAllowToSetArgumentsOptionDirectly(): void
     {
         $options = new FirefoxOptions();
 
@@ -110,7 +110,7 @@ class FirefoxOptionsTest extends TestCase
         $options->setOption('args', []);
     }
 
-    public function testShouldNotAllowToSetPreferencesOptionDirectly()
+    public function testShouldNotAllowToSetPreferencesOptionDirectly(): void
     {
         $options = new FirefoxOptions();
 

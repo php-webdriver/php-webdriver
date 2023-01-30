@@ -97,7 +97,7 @@ class WebDriverTestCase extends TestCase
     /**
      * @return bool
      */
-    public static function isSauceLabsBuild()
+    public static function isSauceLabsBuild(): bool
     {
         return getenv('SAUCELABS') ? true : false;
     }
@@ -105,7 +105,7 @@ class WebDriverTestCase extends TestCase
     /**
      * @return bool
      */
-    public static function isW3cProtocolBuild()
+    public static function isW3cProtocolBuild(): bool
     {
         return getenv('DISABLE_W3C_PROTOCOL') !== '1';
     }
@@ -115,14 +115,14 @@ class WebDriverTestCase extends TestCase
         return getenv('SELENIUM_SERVER') === '1';
     }
 
-    public static function skipForW3cProtocol($message = 'Not supported by W3C specification')
+    public static function skipForW3cProtocol($message = 'Not supported by W3C specification'): void
     {
         if (static::isW3cProtocolBuild()) {
             static::markTestSkipped($message);
         }
     }
 
-    public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol')
+    public static function skipForJsonWireProtocol($message = 'Not supported by JsonWire protocol'): void
     {
         if (!static::isW3cProtocolBuild()) {
             static::markTestSkipped($message);
@@ -135,7 +135,7 @@ class WebDriverTestCase extends TestCase
      * @param string[] $browsers List of browsers for this test
      * @param string|null $message
      */
-    public static function skipForUnmatchedBrowsers($browsers = [], $message = null)
+    public static function skipForUnmatchedBrowsers($browsers = [], $message = null): void
     {
         $browserName = (string) getenv('BROWSER_NAME');
         if (!in_array($browserName, $browsers, true)) {
@@ -178,7 +178,7 @@ class WebDriverTestCase extends TestCase
      * @param string $path
      * @return string
      */
-    protected function getTestPageUrl($path)
+    protected function getTestPageUrl($path): string
     {
         $host = 'http://localhost:8000';
         if ($alternateHost = getenv('FIXTURES_HOST')) {
@@ -188,7 +188,7 @@ class WebDriverTestCase extends TestCase
         return $host . '/' . $path;
     }
 
-    protected function setUpSauceLabs()
+    protected function setUpSauceLabs(): void
     {
         $this->serverUrl = sprintf(
             'http://%s:%s@ondemand.saucelabs.com/wd/hub',
@@ -240,7 +240,7 @@ class WebDriverTestCase extends TestCase
         }
     }
 
-    protected function createWebDriver()
+    protected function createWebDriver(): void
     {
         $this->driver = RemoteWebDriver::create(
             $this->serverUrl,

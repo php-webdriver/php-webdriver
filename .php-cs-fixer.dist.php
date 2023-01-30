@@ -98,6 +98,7 @@ return (new PhpCsFixer\Config())
         'phpdoc_trim' => true,
         'phpdoc_types' => true,
         'phpdoc_var_annotation_correct_order' => true,
+        //'pow_to_exponentiation' => true,
         'psr_autoloading' => true,
         'random_api_migration' => true,
         'self_accessor' => true,
@@ -118,6 +119,7 @@ return (new PhpCsFixer\Config())
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => ['elements' => ['method', 'property', 'const']],
+        //'void_return' => true,
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ])

@@ -37,7 +37,7 @@ class ChromeDriverTest extends TestCase
      * @dataProvider provideDialect
      * @param bool $isW3cDialect
      */
-    public function testShouldStartChromeDriver($isW3cDialect)
+    public function testShouldStartChromeDriver($isW3cDialect): void
     {
         $this->startChromeDriver($isW3cDialect);
         $this->assertInstanceOf(ChromeDriver::class, $this->driver);
@@ -55,7 +55,7 @@ class ChromeDriverTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideDialect()
+    public function provideDialect(): array
     {
         return [
             'w3c' => [true],
@@ -63,7 +63,7 @@ class ChromeDriverTest extends TestCase
         ];
     }
 
-    public function testShouldInstantiateDevTools()
+    public function testShouldInstantiateDevTools(): void
     {
         $this->startChromeDriver();
 
@@ -81,7 +81,7 @@ class ChromeDriverTest extends TestCase
         $this->assertSame(['result' => ['type' => 'string', 'value' => 'http://localhost:8000/']], $cdpResult);
     }
 
-    private function startChromeDriver($w3cDialect = true)
+    private function startChromeDriver($w3cDialect = true): void
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));

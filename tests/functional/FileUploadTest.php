@@ -16,7 +16,7 @@ class FileUploadTest extends WebDriverTestCase
      * @group exclude-saucelabs
      * W3C protocol does not support remote file upload: https://github.com/w3c/webdriver/issues/1355
      */
-    public function testShouldUploadAFile()
+    public function testShouldUploadAFile(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::UPLOAD));
 
@@ -43,7 +43,7 @@ class FileUploadTest extends WebDriverTestCase
         $this->assertSame('10', $uploadedFileSize);
     }
 
-    private function getTestFilePath()
+    private function getTestFilePath(): string
     {
         return __DIR__ . '/Fixtures/FileUploadTestFile.txt';
     }

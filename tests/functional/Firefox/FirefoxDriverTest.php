@@ -37,7 +37,7 @@ class FirefoxDriverTest extends TestCase
         }
     }
 
-    public function testShouldStartFirefoxDriver()
+    public function testShouldStartFirefoxDriver(): void
     {
         $this->startFirefoxDriver();
         $this->assertInstanceOf(FirefoxDriver::class, $this->driver);
@@ -53,7 +53,7 @@ class FirefoxDriverTest extends TestCase
         $this->assertSame('http://localhost:8000/', $this->driver->getCurrentURL());
     }
 
-    public function testShouldSetPreferenceWithFirefoxOptions()
+    public function testShouldSetPreferenceWithFirefoxOptions(): void
     {
         $firefoxOptions = new FirefoxOptions();
         $firefoxOptions->setPreference('javascript.enabled', false);
@@ -69,7 +69,7 @@ class FirefoxDriverTest extends TestCase
         );
     }
 
-    private function startFirefoxDriver(FirefoxOptions $firefoxOptions = null)
+    private function startFirefoxDriver(FirefoxOptions $firefoxOptions = null): void
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(FirefoxDriverService::WEBDRIVER_FIREFOX_DRIVER . '=' . getenv('GECKODRIVER_PATH'));
