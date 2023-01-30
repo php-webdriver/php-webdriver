@@ -26,9 +26,9 @@ class HttpCommandExecutorTest extends TestCase
      */
     public function testShouldSendRequestToAssembledUrl(
         WebDriverCommand $command,
-        $shouldResetExpectHeader,
-        $expectedUrl,
-        $expectedPostData
+        bool $shouldResetExpectHeader,
+        string $expectedUrl,
+        ?string $expectedPostData
     ): void {
         $expectedCurlSetOptCalls = [
             [$this->anything(), CURLOPT_URL, $expectedUrl],

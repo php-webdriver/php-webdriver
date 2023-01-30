@@ -96,6 +96,8 @@ return (new PhpCsFixer\Config())
         'phpdoc_scalar' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_trim' => true,
+        //'phpdoc_to_param_type' => true,
+        //'phpdoc_to_return_type' => true,
         'phpdoc_types' => true,
         'phpdoc_var_annotation_correct_order' => true,
         //'pow_to_exponentiation' => true,

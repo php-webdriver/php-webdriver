@@ -79,7 +79,7 @@ class ScreenshotHelperTest extends TestCase
      * @param mixed $data
      * @param string $expectedExceptionMessage
      */
-    public function testShouldThrowExceptionWhenInvalidDataReceived($data, $expectedExceptionMessage): void
+    public function testShouldThrowExceptionWhenInvalidDataReceived($data, string $expectedExceptionMessage): void
     {
         $executorMock = $this->createMock(RemoteExecuteMethod::class);
         $executorMock->expects($this->once())

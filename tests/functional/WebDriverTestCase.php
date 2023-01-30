@@ -135,7 +135,7 @@ class WebDriverTestCase extends TestCase
      * @param string[] $browsers List of browsers for this test
      * @param string|null $message
      */
-    public static function skipForUnmatchedBrowsers($browsers = [], $message = null): void
+    public static function skipForUnmatchedBrowsers(array $browsers = [], ?string $message = null): void
     {
         $browserName = (string) getenv('BROWSER_NAME');
         if (!in_array($browserName, $browsers, true)) {
@@ -178,7 +178,7 @@ class WebDriverTestCase extends TestCase
      * @param string $path
      * @return string
      */
-    protected function getTestPageUrl($path): string
+    protected function getTestPageUrl(string $path): string
     {
         $host = 'http://localhost:8000';
         if ($alternateHost = getenv('FIXTURES_HOST')) {

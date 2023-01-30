@@ -48,7 +48,7 @@ class WebDriverSelectTest extends WebDriverTestCase
      * @dataProvider provideSelectSelector
      * @param string $selector
      */
-    public function testShouldGetOptionsOfSelect($selector): void
+    public function testShouldGetOptionsOfSelect(string $selector): void
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector($selector));
         $select = new WebDriverSelect($originalElement);

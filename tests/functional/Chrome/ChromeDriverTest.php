@@ -37,7 +37,7 @@ class ChromeDriverTest extends TestCase
      * @dataProvider provideDialect
      * @param bool $isW3cDialect
      */
-    public function testShouldStartChromeDriver($isW3cDialect): void
+    public function testShouldStartChromeDriver(bool $isW3cDialect): void
     {
         $this->startChromeDriver($isW3cDialect);
         $this->assertInstanceOf(ChromeDriver::class, $this->driver);

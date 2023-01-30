@@ -129,7 +129,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisibleText($text, $value): void
+    public function testSelectByVisibleText(string $text, string $value): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))
@@ -157,7 +157,7 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisiblePartialText($text, $value): void
+    public function testSelectByVisiblePartialText(string $text, string $value): void
     {
         $checkboxes = new WebDriverCheckboxes(
             $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"]'))

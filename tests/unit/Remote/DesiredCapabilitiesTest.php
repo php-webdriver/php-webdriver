@@ -92,9 +92,9 @@ class DesiredCapabilitiesTest extends TestCase
      * @param string $expectedPlatform
      */
     public function testShouldProvideShortcutSetupForCapabilitiesOfEachBrowser(
-        $setupMethod,
-        $expectedBrowser,
-        $expectedPlatform
+        string $setupMethod,
+        string $expectedBrowser,
+        string $expectedPlatform
     ): void {
         /** @var DesiredCapabilities $capabilities */
         $capabilities = call_user_func([DesiredCapabilities::class, $setupMethod]);

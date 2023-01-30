@@ -121,8 +121,10 @@ class RemoteWebDriverTest extends TestCase
      * @param string $expectedExceptionMessage
      * @dataProvider provideMethods
      */
-    public function testShouldThrowExceptionOnUnexpectedNullValueFromRemoteEnd($method, $expectedExceptionMessage): void
-    {
+    public function testShouldThrowExceptionOnUnexpectedNullValueFromRemoteEnd(
+        string $method,
+        string $expectedExceptionMessage
+    ): void {
         $executorMock = $this->createMock(HttpCommandExecutor::class);
         $executorMock->expects($this->once())
             ->method('execute')

@@ -18,10 +18,10 @@ class WebDriverByTest extends WebDriverTestCase
      * @param string $expectedAttributeValue
      */
     public function testShouldFindTextElementByLocator(
-        $webDriverByLocatorMethod,
-        $webDriverByLocatorValue,
-        $expectedText = null,
-        $expectedAttributeValue = null
+        string $webDriverByLocatorMethod,
+        string $webDriverByLocatorValue,
+        string $expectedText = null,
+        string $expectedAttributeValue = null
     ): void {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 

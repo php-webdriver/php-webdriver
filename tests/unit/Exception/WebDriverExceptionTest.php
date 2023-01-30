@@ -18,11 +18,12 @@ class WebDriverExceptionTest extends TestCase
     /**
      * @dataProvider provideJsonWireStatusCode
      * @dataProvider provideW3CWebDriverErrorCode
-     * @param int $errorCode
-     * @param string $expectedExceptionType
+     * @param int|string $errorCode
      */
-    public function testShouldThrowProperExceptionBasedOnWebDriverErrorCode($errorCode, $expectedExceptionType): void
-    {
+    public function testShouldThrowProperExceptionBasedOnWebDriverErrorCode(
+        $errorCode,
+        string $expectedExceptionType
+    ): void {
         try {
             WebDriverException::throwException($errorCode, 'exception message', ['results']);
         } catch (WebDriverException $e) {

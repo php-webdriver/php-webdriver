@@ -11,7 +11,7 @@ class XPathEscaperTest extends TestCase
      * @param string $input
      * @param string $expectedOutput
      */
-    public function testShouldInstantiateWithCapabilitiesGivenInConstructor($input, $expectedOutput): void
+    public function testShouldInstantiateWithCapabilitiesGivenInConstructor(string $input, string $expectedOutput): void
     {
         $output = XPathEscaper::escapeQuotes($input);
 

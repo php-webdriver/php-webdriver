@@ -107,7 +107,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisibleText($text, $value): void
+    public function testSelectByVisibleText(string $text, string $value): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByVisibleText($text);
@@ -131,7 +131,7 @@ class WebDriverRadiosTest extends WebDriverTestCase
      * @param string $text
      * @param string $value
      */
-    public function testSelectByVisiblePartialText($text, $value): void
+    public function testSelectByVisiblePartialText(string $text, string $value): void
     {
         $radios = new WebDriverRadios($this->driver->findElement(WebDriverBy::xpath('//input[@type="radio"]')));
         $radios->selectByVisiblePartialText($text);

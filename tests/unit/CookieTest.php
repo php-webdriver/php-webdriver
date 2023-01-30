@@ -158,13 +158,13 @@ class CookieTest extends TestCase
 
     /**
      * @dataProvider provideInvalidCookie
-     * @param string $name
-     * @param string $value
-     * @param string $domain
-     * @param string $expectedMessage
      */
-    public function testShouldValidateCookieOnConstruction($name, $value, $domain, $expectedMessage): void
-    {
+    public function testShouldValidateCookieOnConstruction(
+        ?string $name,
+        ?string $value,
+        ?string $domain,
+        ?string $expectedMessage
+    ): void {
         if ($expectedMessage) {
             $this->expectException(LogicException::class);
             $this->expectExceptionMessage($expectedMessage);
