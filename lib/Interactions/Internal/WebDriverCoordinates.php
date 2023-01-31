@@ -29,8 +29,6 @@ class WebDriverCoordinates
 
     /**
      * @param null $on_screen
-     * @param callable $in_view_port
-     * @param callable $on_page
      * @param string $auxiliary
      */
     public function __construct($on_screen, callable $in_view_port, callable $on_page, $auxiliary)

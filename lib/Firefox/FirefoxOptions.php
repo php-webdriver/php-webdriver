@@ -97,7 +97,6 @@ class FirefoxOptions implements \JsonSerializable
 
     /**
      * @see https://github.com/php-webdriver/php-webdriver/wiki/Firefox#firefox-profile
-     * @param FirefoxProfile $profile
      * @return self
      */
     public function setProfile(FirefoxProfile $profile)

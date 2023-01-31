@@ -40,7 +40,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     protected $isW3cCompliant;
 
     /**
-     * @param RemoteExecuteMethod $executor
      * @param string $id
      * @param bool $isW3cCompliant
      */
@@ -96,7 +95,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * search the entire document from the root, not just the children (relative context) of this current node.
      * Use ".//" to limit your search to the children of this element.
      *
-     * @param WebDriverBy $by
      * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
@@ -120,7 +118,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * search the entire document from the root, not just the children (relative context) of this current node.
      * Use ".//" to limit your search to the children of this element.
      *
-     * @param WebDriverBy $by
      * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
      *    array if nothing matches
      * @see WebDriverBy
@@ -441,7 +438,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      *   eg. `$element->setFileDetector(new LocalFileDetector);`
      *
-     * @param FileDetector $detector
      * @return RemoteWebElement
      * @see FileDetector
      * @see LocalFileDetector
@@ -517,7 +513,6 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Test if two elements IDs refer to the same DOM element.
      *
-     * @param WebDriverElement $other
      * @return bool
      */
     public function equals(WebDriverElement $other)

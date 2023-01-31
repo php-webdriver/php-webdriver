@@ -19,10 +19,6 @@ abstract class WebDriverTouchAction
      */
     protected $locationProvider;
 
-    /**
-     * @param WebDriverTouchScreen $touch_screen
-     * @param WebDriverLocatable $location_provider
-     */
     public function __construct(
         WebDriverTouchScreen $touch_screen,
         WebDriverLocatable $location_provider = null

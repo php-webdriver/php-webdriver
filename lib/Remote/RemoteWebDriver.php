@@ -54,9 +54,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     protected $isW3cCompliant;
 
     /**
-     * @param HttpCommandExecutor $commandExecutor
      * @param string $sessionId
-     * @param WebDriverCapabilities $capabilities
      * @param bool $isW3cCompliant false to use the legacy JsonWire protocol, true for the W3C WebDriver spec
      */
     protected function __construct(
@@ -176,7 +174,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
             $executor->disableW3cCompliance();
         }
 
-        // if  capabilities were not provided, attempt to read them from the Selenium Grid API
+        // if capabilities were not provided, attempt to read them from the Selenium Grid API
         if ($existingCapabilities === null) {
             $existingCapabilities = self::readExistingCapabilitiesFromSeleniumGrid($session_id, $executor);
         }
@@ -211,7 +209,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Find the first WebDriverElement using the given mechanism.
      *
-     * @param WebDriverBy $by
      * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
@@ -232,7 +229,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Find all WebDriverElements within the current page using the given mechanism.
      *
-     * @param WebDriverBy $by
      * @return RemoteWebElement[] A list of all WebDriverElements, or an empty array if nothing matches
      * @see WebDriverBy
      */
@@ -678,7 +674,6 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
     /**
      * Prepare arguments for JavaScript injection
      *
-     * @param array $arguments
      * @return array
      */
     protected function prepareScriptArguments(array $arguments)

@@ -33,8 +33,6 @@ class ShadowRoot implements WebDriverSearchContext
     }
 
     /**
-     * @param RemoteExecuteMethod $executor
-     * @param array $response
      * @return self
      */
     public static function createFromResponse(RemoteExecuteMethod $executor, array $response)
@@ -47,7 +45,6 @@ class ShadowRoot implements WebDriverSearchContext
     }
 
     /**
-     * @param WebDriverBy $locator
      * @return RemoteWebElement
      */
     public function findElement(WebDriverBy $locator)
@@ -64,7 +61,6 @@ class ShadowRoot implements WebDriverSearchContext
     }
 
     /**
-     * @param WebDriverBy $locator
      * @return WebDriverElement[]
      */
     public function findElements(WebDriverBy $locator)

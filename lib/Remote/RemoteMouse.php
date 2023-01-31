@@ -27,7 +27,6 @@ class RemoteMouse implements WebDriverMouse
     private $isW3cCompliant;
 
     /**
-     * @param RemoteExecuteMethod $executor
      * @param bool $isW3cCompliant
      */
     public function __construct(RemoteExecuteMethod $executor, $isW3cCompliant = false)
@@ -37,8 +36,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param null|WebDriverCoordinates $where
-     *
      * @return RemoteMouse
      */
     public function click(WebDriverCoordinates $where = null)
@@ -68,8 +65,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
-     *
      * @return RemoteMouse
      */
     public function contextClick(WebDriverCoordinates $where = null)
@@ -108,8 +103,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
-     *
      * @return RemoteMouse
      */
     public function doubleClick(WebDriverCoordinates $where = null)
@@ -138,8 +131,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
-     *
      * @return RemoteMouse
      */
     public function mouseDown(WebDriverCoordinates $where = null)
@@ -172,7 +163,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
      * @param int|null $x_offset
      * @param int|null $y_offset
      *
@@ -215,8 +205,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
-     *
      * @return RemoteMouse
      */
     public function mouseUp(WebDriverCoordinates $where = null)
@@ -249,9 +237,6 @@ class RemoteMouse implements WebDriverMouse
         return $this;
     }
 
-    /**
-     * @param WebDriverCoordinates $where
-     */
     protected function moveIfNeeded(WebDriverCoordinates $where = null)
     {
         if ($where) {
@@ -260,7 +245,6 @@ class RemoteMouse implements WebDriverMouse
     }
 
     /**
-     * @param WebDriverCoordinates $where
      * @param int|null $x_offset
      * @param int|null $y_offset
      *

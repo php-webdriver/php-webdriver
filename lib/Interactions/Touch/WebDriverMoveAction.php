@@ -10,7 +10,6 @@ class WebDriverMoveAction extends WebDriverTouchAction implements WebDriverActio
     private $y;
 
     /**
-     * @param WebDriverTouchScreen $touch_screen
      * @param int $x
      * @param int $y
      */

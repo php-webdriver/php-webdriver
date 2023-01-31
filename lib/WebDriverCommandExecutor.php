@@ -11,8 +11,6 @@ use Facebook\WebDriver\Remote\WebDriverResponse;
 interface WebDriverCommandExecutor
 {
     /**
-     * @param WebDriverCommand $command
-     *
      * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command);

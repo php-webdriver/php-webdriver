@@ -19,7 +19,6 @@ abstract class LocalWebDriver extends RemoteWebDriver
      * @param null $request_timeout_in_ms
      * @param null $http_proxy
      * @param null $http_proxy_port
-     * @param DesiredCapabilities|null $required_capabilities
      * @throws LogicException
      * @return RemoteWebDriver
      * @todo Remove in next major version (should not be inherited)

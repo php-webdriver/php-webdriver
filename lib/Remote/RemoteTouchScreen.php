@@ -15,17 +15,12 @@ class RemoteTouchScreen implements WebDriverTouchScreen
      */
     private $executor;
 
-    /**
-     * @param RemoteExecuteMethod $executor
-     */
     public function __construct(RemoteExecuteMethod $executor)
     {
         $this->executor = $executor;
     }
 
     /**
-     * @param WebDriverElement $element
-     *
      * @return RemoteTouchScreen The instance.
      */
     public function tap(WebDriverElement $element)
@@ -39,8 +34,6 @@ class RemoteTouchScreen implements WebDriverTouchScreen
     }
 
     /**
-     * @param WebDriverElement $element
-     *
      * @return RemoteTouchScreen The instance.
      */
     public function doubleTap(WebDriverElement $element)
@@ -86,7 +79,6 @@ class RemoteTouchScreen implements WebDriverTouchScreen
     }
 
     /**
-     * @param WebDriverElement $element
      * @param int $xoffset
      * @param int $yoffset
      * @param int $speed
@@ -106,8 +98,6 @@ class RemoteTouchScreen implements WebDriverTouchScreen
     }
 
     /**
-     * @param WebDriverElement $element
-     *
      * @return RemoteTouchScreen The instance.
      */
     public function longPress(WebDriverElement $element)
@@ -153,7 +143,6 @@ class RemoteTouchScreen implements WebDriverTouchScreen
     }
 
     /**
-     * @param WebDriverElement $element
      * @param int $xoffset
      * @param int $yoffset
      *
