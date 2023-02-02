@@ -22,7 +22,7 @@ class WebDriverOptionsTest extends TestCase
             ->getMock();
     }
 
-    public function testShouldAddCookieFromArray()
+    public function testShouldAddCookieFromArray(): void
     {
         $cookieInArray = [
             'name' => 'cookieName',
@@ -43,7 +43,7 @@ class WebDriverOptionsTest extends TestCase
         $options->addCookie($cookieInArray);
     }
 
-    public function testShouldAddCookieFromCookieObject()
+    public function testShouldAddCookieFromCookieObject(): void
     {
         $cookieObject = new Cookie('cookieName', 'someValue');
         $cookieObject->setPath('/bar');
@@ -71,7 +71,7 @@ class WebDriverOptionsTest extends TestCase
         $options->addCookie($cookieObject);
     }
 
-    public function testShouldNotAllowToCreateCookieFromDifferentObjectThanCookie()
+    public function testShouldNotAllowToCreateCookieFromDifferentObjectThanCookie(): void
     {
         $notCookie = new \stdClass();
 
@@ -82,7 +82,7 @@ class WebDriverOptionsTest extends TestCase
         $options->addCookie($notCookie);
     }
 
-    public function testShouldGetAllCookies()
+    public function testShouldGetAllCookies(): void
     {
         $this->executor->expects($this->once())
             ->method('execute')
@@ -118,7 +118,7 @@ class WebDriverOptionsTest extends TestCase
         $this->assertSame('secondCookie', $cookies[1]->getName());
     }
 
-    public function testShouldGetCookieByName()
+    public function testShouldGetCookieByName(): void
     {
         $this->executor->expects($this->once())
             ->method('execute')
@@ -157,7 +157,7 @@ class WebDriverOptionsTest extends TestCase
         $this->assertTrue($cookie->isSecure());
     }
 
-    public function testShouldReturnNullIfCookieWithNameNotFound()
+    public function testShouldReturnNullIfCookieWithNameNotFound(): void
     {
         $this->executor->expects($this->once())
             ->method('execute')
@@ -180,7 +180,7 @@ class WebDriverOptionsTest extends TestCase
         $this->assertNull($options->getCookieNamed('notExistingCookie'));
     }
 
-    public function testShouldReturnTimeoutsInstance()
+    public function testShouldReturnTimeoutsInstance(): void
     {
         $options = new WebDriverOptions($this->executor);
 
@@ -188,7 +188,7 @@ class WebDriverOptionsTest extends TestCase
         $this->assertInstanceOf(WebDriverTimeouts::class, $timeouts);
     }
 
-    public function testShouldReturnWindowInstance()
+    public function testShouldReturnWindowInstance(): void
     {
         $options = new WebDriverOptions($this->executor);
 

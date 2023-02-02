@@ -10,7 +10,6 @@ interface WebDriverSearchContext
     /**
      * Find the first WebDriverElement within this element using the given mechanism.
      *
-     * @param WebDriverBy $locator
      * @return WebDriverElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
@@ -19,7 +18,6 @@ interface WebDriverSearchContext
     /**
      * Find all WebDriverElements within this element using the given mechanism.
      *
-     * @param WebDriverBy $locator
      * @return WebDriverElement[] A list of all WebDriverElements, or an empty array if nothing matches
      * @see WebDriverBy
      */

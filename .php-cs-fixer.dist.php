@@ -62,6 +62,11 @@ return (new PhpCsFixer\Config())
         'no_leading_import_slash' => true,
         'no_leading_namespace_whitespace' => true,
         'no_singleline_whitespace_before_semicolons' => true,
+        'no_superfluous_phpdoc_tags' => [
+            'allow_mixed' => true,
+            'remove_inheritdoc' => true,
+            'allow_unused_params' => true, // Used in RemoteWebDriver::createBySessionID to maintain BC
+        ],
         'no_trailing_comma_in_singleline' => true,
         'no_unreachable_default_argument_value' => true,
         'no_unused_imports' => true,
@@ -96,8 +101,11 @@ return (new PhpCsFixer\Config())
         'phpdoc_scalar' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_trim' => true,
+        //'phpdoc_to_param_type' => true,
+        //'phpdoc_to_return_type' => true,
         'phpdoc_types' => true,
         'phpdoc_var_annotation_correct_order' => true,
+        //'pow_to_exponentiation' => true,
         'psr_autoloading' => true,
         'random_api_migration' => true,
         'self_accessor' => true,
@@ -118,6 +126,7 @@ return (new PhpCsFixer\Config())
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => ['elements' => ['method', 'property', 'const']],
+        //'void_return' => true,
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ])

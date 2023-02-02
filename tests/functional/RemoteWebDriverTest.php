@@ -13,7 +13,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     /**
      * @covers ::getTitle
      */
-    public function testShouldGetPageTitle()
+    public function testShouldGetPageTitle(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -27,7 +27,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::get
      * @covers ::getCurrentURL
      */
-    public function testShouldGetCurrentUrl()
+    public function testShouldGetCurrentUrl(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -37,7 +37,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     /**
      * @covers ::getPageSource
      */
-    public function testShouldGetPageSource()
+    public function testShouldGetPageSource(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -50,7 +50,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::getSessionID
      * @covers ::isW3cCompliant
      */
-    public function testShouldGetSessionId()
+    public function testShouldGetSessionId(): void
     {
         // This tests is intentionally included in another test, to not slow down build.
         // @TODO Remove following in 2.0
@@ -70,7 +70,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @group exclude-saucelabs
      * @covers ::getAllSessions
      */
-    public function testShouldGetAllSessions()
+    public function testShouldGetAllSessions(): void
     {
         self::skipForW3cProtocol();
 
@@ -89,7 +89,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::getCommandExecutor
      * @covers ::quit
      */
-    public function testShouldQuitAndUnsetExecutor()
+    public function testShouldQuitAndUnsetExecutor(): void
     {
         self::skipForW3cProtocol();
 
@@ -116,7 +116,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::getWindowHandle
      * @covers ::getWindowHandles
      */
-    public function testShouldGetWindowHandles()
+    public function testShouldGetWindowHandles(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::OPEN_NEW_WINDOW));
 
@@ -140,7 +140,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
     /**
      * @covers ::close
      */
-    public function testShouldCloseWindow()
+    public function testShouldCloseWindow(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::OPEN_NEW_WINDOW));
         $this->driver->findElement(WebDriverBy::cssSelector('a'))->click();
@@ -158,7 +158,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::executeScript
      * @group exclude-saucelabs
      */
-    public function testShouldExecuteScriptAndDoNotBlockExecution()
+    public function testShouldExecuteScriptAndDoNotBlockExecution(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
 
@@ -188,7 +188,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::executeAsyncScript
      * @covers \Facebook\WebDriver\WebDriverTimeouts::setScriptTimeout
      */
-    public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished()
+    public function testShouldExecuteAsyncScriptAndWaitUntilItIsFinished(): void
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
 
@@ -228,7 +228,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::prepareScriptArguments
      * @group exclude-saucelabs
      */
-    public function testShouldExecuteScriptWithParamsAndReturnValue()
+    public function testShouldExecuteScriptWithParamsAndReturnValue(): void
     {
         $this->driver->manage()->timeouts()->setScriptTimeout(1);
 
@@ -252,7 +252,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @covers ::takeScreenshot
      * @covers \Facebook\WebDriver\Support\ScreenshotHelper
      */
-    public function testShouldTakeScreenshot()
+    public function testShouldTakeScreenshot(): void
     {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
@@ -274,7 +274,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @group exclude-safari
      *        Safari is returning different color profile and it does not have way to configure "force-color-profile"
      */
-    public function testShouldSaveScreenshotToFile()
+    public function testShouldSaveScreenshotToFile(): void
     {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('GD extension must be enabled');
@@ -314,7 +314,7 @@ class RemoteWebDriverTest extends WebDriverTestCase
      * @group exclude-saucelabs
      * Status endpoint is not supported on Sauce Labs
      */
-    public function testShouldGetRemoteEndStatus()
+    public function testShouldGetRemoteEndStatus(): void
     {
         $status = $this->driver->getStatus();
 

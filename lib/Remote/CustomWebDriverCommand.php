@@ -19,7 +19,6 @@ class CustomWebDriverCommand extends WebDriverCommand
      * @param string $session_id
      * @param string $url
      * @param string $method
-     * @param array $parameters
      */
     public function __construct($session_id, $url, $method, array $parameters)
     {

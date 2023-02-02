@@ -25,7 +25,7 @@ class WebDriverActionsTest extends WebDriverTestCase
 {
     use RetrieveEventsTrait;
 
-    public function testShouldClickOnElement()
+    public function testShouldClickOnElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
@@ -47,7 +47,7 @@ class WebDriverActionsTest extends WebDriverTestCase
         $this->assertSame($logs, $loggedEvents);
     }
 
-    public function testShouldClickAndHoldOnElementAndRelease()
+    public function testShouldClickAndHoldOnElementAndRelease(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
@@ -72,7 +72,7 @@ class WebDriverActionsTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testShouldContextClickOnElement()
+    public function testShouldContextClickOnElement(): void
     {
         if ($this->desiredCapabilities->getBrowserName() === WebDriverBrowserType::MICROSOFT_EDGE) {
             $this->markTestSkipped('Getting stuck in EdgeDriver');
@@ -97,7 +97,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      * @group exclude-safari
      *        https://github.com/webdriverio/webdriverio/issues/231
      */
-    public function testShouldDoubleClickOnElement()
+    public function testShouldDoubleClickOnElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
@@ -113,7 +113,7 @@ class WebDriverActionsTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testShouldSendKeysUpAndDown()
+    public function testShouldSendKeysUpAndDown(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::EVENTS));
 
@@ -142,7 +142,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      * @group exclude-safari
      *        https://developer.apple.com/forums/thread/662677
      */
-    public function testShouldMoveToElement()
+    public function testShouldMoveToElement(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
@@ -165,7 +165,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      * @group exclude-safari
      *        https://developer.apple.com/forums/thread/662677
      */
-    public function testShouldMoveByOffset()
+    public function testShouldMoveByOffset(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
@@ -188,7 +188,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      *        https://developer.apple.com/forums/thread/662677
      * @group exclude-saucelabs
      */
-    public function testShouldDragAndDrop()
+    public function testShouldDragAndDrop(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
@@ -221,7 +221,7 @@ class WebDriverActionsTest extends WebDriverTestCase
      *        https://developer.apple.com/forums/thread/662677
      *        it does not work even with Python Selenium, looks like Safaridriver does not implements Interaction API
      */
-    public function testShouldDragAndDropBy()
+    public function testShouldDragAndDropBy(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::SORTABLE));
 
@@ -250,10 +250,7 @@ class WebDriverActionsTest extends WebDriverTestCase
         );
     }
 
-    /**
-     * @return array
-     */
-    private function retrieveListContent()
+    private function retrieveListContent(): array
     {
         return [
             $this->retrieveLoggerEvents(WebDriverBy::cssSelector('#sortable1')),

@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class WebDriverSingleKeyActionTest extends TestCase
 {
-    public function testShouldThrowExceptionWhenNotUsedForModifier()
+    public function testShouldThrowExceptionWhenNotUsedForModifier(): void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage(

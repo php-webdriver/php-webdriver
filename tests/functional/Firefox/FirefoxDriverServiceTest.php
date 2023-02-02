@@ -32,7 +32,7 @@ class FirefoxDriverServiceTest extends TestCase
         }
     }
 
-    public function testShouldStartAndStopServiceCreatedUsingShortcutConstructor()
+    public function testShouldStartAndStopServiceCreatedUsingShortcutConstructor(): void
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(FirefoxDriverService::WEBDRIVER_FIREFOX_DRIVER . '=' . getenv('GECKODRIVER_PATH'));
@@ -52,7 +52,7 @@ class FirefoxDriverServiceTest extends TestCase
         $this->assertInstanceOf(FirefoxDriverService::class, $this->driverService->stop());
     }
 
-    public function testShouldStartAndStopServiceCreatedUsingDefaultConstructor()
+    public function testShouldStartAndStopServiceCreatedUsingDefaultConstructor(): void
     {
         $this->driverService = new FirefoxDriverService(getenv('GECKODRIVER_PATH'), 9515, ['-p=9515']);
 
@@ -65,7 +65,7 @@ class FirefoxDriverServiceTest extends TestCase
         $this->assertFalse($this->driverService->isRunning());
     }
 
-    public function testShouldUseDefaultExecutableIfNoneProvided()
+    public function testShouldUseDefaultExecutableIfNoneProvided(): void
     {
         // Put path where geckodriver binary is actually located to system PATH, to make sure we can locate it
         putenv('PATH=' . getenv('PATH') . ':' . dirname(getenv('GECKODRIVER_PATH')));

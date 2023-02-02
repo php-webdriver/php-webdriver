@@ -22,7 +22,7 @@ class ChromeDevToolsDriverTest extends WebDriverTestCase
         }
     }
 
-    public function testShouldExecuteDevToolsCommandWithoutParameters()
+    public function testShouldExecuteDevToolsCommandWithoutParameters(): void
     {
         $devTools = new ChromeDevToolsDriver($this->driver);
 
@@ -31,7 +31,7 @@ class ChromeDevToolsDriverTest extends WebDriverTestCase
         $this->assertSame([], $result);
     }
 
-    public function testShouldExecuteDevToolsCommandWithParameters()
+    public function testShouldExecuteDevToolsCommandWithParameters(): void
     {
         $devTools = new ChromeDevToolsDriver($this->driver);
 

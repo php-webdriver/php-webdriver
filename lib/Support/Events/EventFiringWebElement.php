@@ -22,10 +22,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
      */
     protected $dispatcher;
 
-    /**
-     * @param WebDriverElement $element
-     * @param WebDriverDispatcher $dispatcher
-     */
     public function __construct(WebDriverElement $element, WebDriverDispatcher $dispatcher)
     {
         $this->element = $element;
@@ -88,7 +84,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * @param WebDriverBy $by
      * @throws WebDriverException
      * @return EventFiringWebElement
      */
@@ -119,7 +114,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * @param WebDriverBy $by
      * @throws WebDriverException
      * @return array
      */
@@ -355,7 +349,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Test if two element IDs refer to the same DOM element.
      *
-     * @param WebDriverElement $other
      * @return bool
      */
     public function equals(WebDriverElement $other)
@@ -388,9 +381,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
         }
     }
 
-    /**
-     * @param WebDriverException $exception
-     */
     protected function dispatchOnException(WebDriverException $exception)
     {
         $this->dispatch(
@@ -414,7 +404,6 @@ class EventFiringWebElement implements WebDriverElement, WebDriverLocatable
     }
 
     /**
-     * @param WebDriverElement $element
      * @return static
      */
     protected function newElement(WebDriverElement $element)

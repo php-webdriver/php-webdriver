@@ -78,11 +78,7 @@ class ReportSauceLabsStatusListener implements TestListener
     {
     }
 
-    /**
-     * @param int $testStatus
-     * @return bool
-     */
-    private function testWasSkippedOrIncomplete($testStatus)
+    private function testWasSkippedOrIncomplete(int $testStatus): bool
     {
         if ($testStatus === \PHPUnit\Runner\BaseTestRunner::STATUS_SKIPPED
             || $testStatus === \PHPUnit\Runner\BaseTestRunner::STATUS_INCOMPLETE) {
@@ -92,11 +88,7 @@ class ReportSauceLabsStatusListener implements TestListener
         return false;
     }
 
-    /**
-     * @param string $url
-     * @param array $data
-     */
-    private function submitToSauceLabs($url, array $data)
+    private function submitToSauceLabs(string $url, array $data): void
     {
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');

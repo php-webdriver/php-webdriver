@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CustomWebDriverCommandTest extends TestCase
 {
-    public function testShouldSetOptionsUsingConstructor()
+    public function testShouldSetOptionsUsingConstructor(): void
     {
         $command = new CustomWebDriverCommand(
             'session-id-123',
@@ -20,7 +20,7 @@ class CustomWebDriverCommandTest extends TestCase
         $this->assertSame('POST', $command->getCustomMethod());
     }
 
-    public function testCustomCommandInvalidUrlExceptionInit()
+    public function testCustomCommandInvalidUrlExceptionInit(): void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('URL of custom command has to start with / but is "url-without-leading-slash"');
@@ -28,7 +28,7 @@ class CustomWebDriverCommandTest extends TestCase
         new CustomWebDriverCommand('session-id-123', 'url-without-leading-slash', 'POST', []);
     }
 
-    public function testCustomCommandInvalidMethodExceptionInit()
+    public function testCustomCommandInvalidMethodExceptionInit(): void
     {
         $this->expectException(LogicException::class);
         $this->expectExceptionMessage('Invalid custom method "invalid-method", must be one of [GET, POST]');

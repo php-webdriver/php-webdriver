@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class DriverServerDiedExceptionTest extends TestCase
 {
-    public function testShouldCreateWithPreviousException()
+    public function testShouldCreateWithPreviousException(): void
     {
         $dummyPreviousException = UnexpectedResponseException::forError('CURL error');
 

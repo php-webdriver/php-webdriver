@@ -30,7 +30,7 @@ class ChromeDriverServiceTest extends TestCase
         }
     }
 
-    public function testShouldStartAndStopServiceCreatedUsingShortcutConstructor()
+    public function testShouldStartAndStopServiceCreatedUsingShortcutConstructor(): void
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . getenv('CHROMEDRIVER_PATH'));
@@ -50,7 +50,7 @@ class ChromeDriverServiceTest extends TestCase
         $this->assertInstanceOf(ChromeDriverService::class, $this->driverService->stop());
     }
 
-    public function testShouldStartAndStopServiceCreatedUsingDefaultConstructor()
+    public function testShouldStartAndStopServiceCreatedUsingDefaultConstructor(): void
     {
         $this->driverService = new ChromeDriverService(getenv('CHROMEDRIVER_PATH'), 9515, ['--port=9515']);
 
@@ -63,7 +63,7 @@ class ChromeDriverServiceTest extends TestCase
         $this->assertFalse($this->driverService->isRunning());
     }
 
-    public function testShouldThrowExceptionIfExecutableIsNotExecutable()
+    public function testShouldThrowExceptionIfExecutableIsNotExecutable(): void
     {
         putenv(ChromeDriverService::CHROME_DRIVER_EXECUTABLE . '=' . __FILE__);
 
@@ -72,7 +72,7 @@ class ChromeDriverServiceTest extends TestCase
         ChromeDriverService::createDefaultService();
     }
 
-    public function testShouldUseDefaultExecutableIfNoneProvided()
+    public function testShouldUseDefaultExecutableIfNoneProvided(): void
     {
         // Put path where ChromeDriver binary is actually located to system PATH, to make sure we can locate it
         putenv('PATH=' . getenv('PATH') . ':' . dirname(getenv('CHROMEDRIVER_PATH')));

@@ -18,7 +18,7 @@ class WebDriverAlertTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::ALERT));
     }
 
-    public function testShouldAcceptAlert()
+    public function testShouldAcceptAlert(): void
     {
         // Open alert (it is delayed for 1 second, to make sure following wait for alertIsPresent works properly)
         $this->driver->findElement(WebDriverBy::id('open-alert-delayed'))->click();
@@ -39,7 +39,7 @@ class WebDriverAlertTest extends WebDriverTestCase
         $this->driver->switchTo()->alert()->accept();
     }
 
-    public function testShouldAcceptAndDismissConfirmation()
+    public function testShouldAcceptAndDismissConfirmation(): void
     {
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-confirm'))->click();
@@ -61,7 +61,7 @@ class WebDriverAlertTest extends WebDriverTestCase
         $this->assertSame('dismissed', $this->getResultText());
     }
 
-    public function testShouldSubmitPromptText()
+    public function testShouldSubmitPromptText(): void
     {
         // Open confirmation
         $this->driver->findElement(WebDriverBy::id('open-prompt'))->click();
@@ -77,7 +77,7 @@ class WebDriverAlertTest extends WebDriverTestCase
         $this->assertSame('Text entered to prompt', $this->getResultText());
     }
 
-    private function getResultText()
+    private function getResultText(): string
     {
         return $this->driver
             ->findElement(WebDriverBy::id('result'))

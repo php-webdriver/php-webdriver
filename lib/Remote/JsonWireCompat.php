@@ -30,7 +30,6 @@ abstract class JsonWireCompat
     }
 
     /**
-     * @param WebDriverBy $by
      * @param bool $isW3cCompliant
      *
      * @return array

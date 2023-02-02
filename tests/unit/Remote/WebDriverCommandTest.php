@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class WebDriverCommandTest extends TestCase
 {
-    public function testShouldSetOptionsUsingConstructor()
+    public function testShouldSetOptionsUsingConstructor(): void
     {
         $command = new WebDriverCommand('session-id-123', 'bar-baz-name', ['foo' => 'bar']);
 
@@ -15,7 +15,7 @@ class WebDriverCommandTest extends TestCase
         $this->assertSame(['foo' => 'bar'], $command->getParameters());
     }
 
-    public function testShouldCreateNewSessionCommand()
+    public function testShouldCreateNewSessionCommand(): void
     {
         $command = WebDriverCommand::newSession(['bar' => 'baz']);
 

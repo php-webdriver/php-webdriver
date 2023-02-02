@@ -25,7 +25,7 @@ class WebDriverButtonReleaseActionTest extends TestCase
         );
     }
 
-    public function testPerformSendsMouseUpCommand()
+    public function testPerformSendsMouseUpCommand(): void
     {
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();

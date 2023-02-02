@@ -65,7 +65,6 @@ class ChromeOptions implements JsonSerializable
     }
 
     /**
-     * @param array $arguments
      * @return ChromeOptions
      */
     public function addArguments(array $arguments)
@@ -79,7 +78,6 @@ class ChromeOptions implements JsonSerializable
      * Add a Chrome extension to install on browser startup. Each path should be
      * a packed Chrome extension.
      *
-     * @param array $paths
      * @return ChromeOptions
      */
     public function addExtensions(array $paths)

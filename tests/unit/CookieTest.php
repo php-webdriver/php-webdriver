@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CookieTest extends TestCase
 {
-    public function testShouldSetAllProperties()
+    public function testShouldSetAllProperties(): Cookie
     {
         $cookie = new Cookie('cookieName', 'someValue');
         $cookie->setPath('/bar');
@@ -31,9 +31,8 @@ class CookieTest extends TestCase
 
     /**
      * @depends testShouldSetAllProperties
-     * @param Cookie $cookie
      */
-    public function testShouldBeConvertibleToArray(Cookie $cookie)
+    public function testShouldBeConvertibleToArray(Cookie $cookie): void
     {
         $this->assertSame(
             [
@@ -59,7 +58,7 @@ class CookieTest extends TestCase
      * https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol
      * https://w3c.github.io/webdriver/#add-cookie
      */
-    public function testShouldNotContainNullValues()
+    public function testShouldNotContainNullValues(): void
     {
         $cookie = new Cookie('cookieName', 'someValue');
 
@@ -75,9 +74,8 @@ class CookieTest extends TestCase
 
     /**
      * @depends testShouldSetAllProperties
-     * @param Cookie $cookie
      */
-    public function testShouldProvideArrayAccessToProperties(Cookie $cookie)
+    public function testShouldProvideArrayAccessToProperties(Cookie $cookie): void
     {
         $this->assertSame('cookieName', $cookie['name']);
         $this->assertSame('someValue', $cookie['value']);
@@ -94,7 +92,7 @@ class CookieTest extends TestCase
         $this->assertArrayNotHasKey('domain', $cookie);
     }
 
-    public function testShouldBeCreatableFromAnArrayWithBasicValues()
+    public function testShouldBeCreatableFromAnArrayWithBasicValues(): void
     {
         $sourceArray = [
             'name' => 'cookieName',
@@ -131,7 +129,7 @@ class CookieTest extends TestCase
         $this->assertNull($cookie->getSameSite());
     }
 
-    public function testShouldBeCreatableFromAnArrayWithAllValues()
+    public function testShouldBeCreatableFromAnArrayWithAllValues(): void
     {
         $sourceArray = [
             'name' => 'cookieName',
@@ -158,13 +156,13 @@ class CookieTest extends TestCase
 
     /**
      * @dataProvider provideInvalidCookie
-     * @param string $name
-     * @param string $value
-     * @param string $domain
-     * @param string $expectedMessage
      */
-    public function testShouldValidateCookieOnConstruction($name, $value, $domain, $expectedMessage)
-    {
+    public function testShouldValidateCookieOnConstruction(
+        ?string $name,
+        ?string $value,
+        ?string $domain,
+        ?string $expectedMessage
+    ): void {
         if ($expectedMessage) {
             $this->expectException(LogicException::class);
             $this->expectExceptionMessage($expectedMessage);
@@ -181,7 +179,7 @@ class CookieTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideInvalidCookie()
+    public function provideInvalidCookie(): array
     {
         return [
             // $name, $value, $domain, $expectedMessage

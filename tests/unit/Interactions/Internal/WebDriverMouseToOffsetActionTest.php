@@ -30,7 +30,7 @@ class WebDriverMouseToOffsetActionTest extends TestCase
         );
     }
 
-    public function testPerformFocusesOnElementAndSendPressKeyCommand()
+    public function testPerformFocusesOnElementAndSendPressKeyCommand(): void
     {
         $coords = $this->getMockBuilder(WebDriverCoordinates::class)
             ->disableOriginalConstructor()->getMock();

@@ -270,8 +270,6 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     }
 
     /**
-     * @param WebDriverCommand $command
-     *
      * @return WebDriverResponse
      */
     public function execute(WebDriverCommand $command)

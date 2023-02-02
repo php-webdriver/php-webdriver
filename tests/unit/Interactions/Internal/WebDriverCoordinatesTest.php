@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class WebDriverCoordinatesTest extends TestCase
 {
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $in_view_port = function () {
             return new WebDriverPoint(0, 0);

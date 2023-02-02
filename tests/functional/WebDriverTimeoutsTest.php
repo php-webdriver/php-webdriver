@@ -15,7 +15,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testShouldFailGettingDelayedElementWithoutWait()
+    public function testShouldFailGettingDelayedElementWithoutWait(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::DELAYED_ELEMENT));
 
@@ -27,7 +27,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
      * @covers ::__construct
      * @covers ::implicitlyWait
      */
-    public function testShouldGetDelayedElementWithImplicitWait()
+    public function testShouldGetDelayedElementWithImplicitWait(): void
     {
         $this->driver->get($this->getTestPageUrl(TestPage::DELAYED_ELEMENT));
 
@@ -42,7 +42,7 @@ class WebDriverTimeoutsTest extends WebDriverTestCase
      * @covers ::__construct
      * @covers ::pageLoadTimeout
      */
-    public function testShouldFailIfPageIsLoadingLongerThanPageLoadTimeout()
+    public function testShouldFailIfPageIsLoadingLongerThanPageLoadTimeout(): void
     {
         $this->driver->manage()->timeouts()->pageLoadTimeout(1);
 

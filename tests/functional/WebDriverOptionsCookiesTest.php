@@ -16,7 +16,7 @@ class WebDriverOptionsCookiesTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
     }
 
-    public function testShouldSetGetAndDeleteCookies()
+    public function testShouldSetGetAndDeleteCookies(): void
     {
         $cookie1 = new Cookie('cookie1', 'cookie1Value');
         $cookie2 = new Cookie('cookie2', 'cookie2Value');

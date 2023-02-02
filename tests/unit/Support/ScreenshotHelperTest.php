@@ -12,7 +12,7 @@ class ScreenshotHelperTest extends TestCase
     public const BLACK_PIXEL =
         'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 
-    public function testShouldSavePageScreenshotToSubdirectoryIfNotExists()
+    public function testShouldSavePageScreenshotToSubdirectoryIfNotExists(): void
     {
         $fullFilePath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-', true) . '/screenshot.png';
         $directoryPath = dirname($fullFilePath);
@@ -36,7 +36,7 @@ class ScreenshotHelperTest extends TestCase
         rmdir($directoryPath);
     }
 
-    public function testShouldOnlyReturnBase64IfDirectoryNotProvided()
+    public function testShouldOnlyReturnBase64IfDirectoryNotProvided(): void
     {
         $executorMock = $this->createMock(RemoteExecuteMethod::class);
         $executorMock->expects($this->once())
@@ -50,7 +50,7 @@ class ScreenshotHelperTest extends TestCase
         $this->assertSame(base64_decode(self::BLACK_PIXEL, true), $output);
     }
 
-    public function testShouldSaveElementScreenshotToSubdirectoryIfNotExists()
+    public function testShouldSaveElementScreenshotToSubdirectoryIfNotExists(): void
     {
         $fullFilePath = sys_get_temp_dir() . '/' . uniqid('php-webdriver-', true) . '/screenshot.png';
         $directoryPath = dirname($fullFilePath);
@@ -77,9 +77,8 @@ class ScreenshotHelperTest extends TestCase
     /**
      * @dataProvider provideInvalidData
      * @param mixed $data
-     * @param string $expectedExceptionMessage
      */
-    public function testShouldThrowExceptionWhenInvalidDataReceived($data, $expectedExceptionMessage)
+    public function testShouldThrowExceptionWhenInvalidDataReceived($data, string $expectedExceptionMessage): void
     {
         $executorMock = $this->createMock(RemoteExecuteMethod::class);
         $executorMock->expects($this->once())
@@ -94,7 +93,7 @@ class ScreenshotHelperTest extends TestCase
         $helper->takePageScreenshot();
     }
 
-    public function provideInvalidData()
+    public function provideInvalidData(): array
     {
         return [
             'empty response' => [null, 'Error taking screenshot, no data received from the remote end'],

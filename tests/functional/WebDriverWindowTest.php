@@ -10,7 +10,7 @@ class WebDriverWindowTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testShouldGetPosition()
+    public function testShouldGetPosition(): void
     {
         $position = $this->driver->manage()
             ->window()
@@ -20,7 +20,7 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertGreaterThanOrEqual(0, $position->getY());
     }
 
-    public function testShouldGetSize()
+    public function testShouldGetSize(): void
     {
         $size = $this->driver->manage()
             ->window()
@@ -30,7 +30,7 @@ class WebDriverWindowTest extends WebDriverTestCase
         $this->assertGreaterThan(0, $size->getHeight());
     }
 
-    public function testShouldMaximizeWindow()
+    public function testShouldMaximizeWindow(): void
     {
         $sizeBefore = $this->driver->manage()
             ->window()
@@ -52,7 +52,7 @@ class WebDriverWindowTest extends WebDriverTestCase
      * @group exclude-edge
      * @group exclude-saucelabs
      */
-    public function testShouldFullscreenWindow()
+    public function testShouldFullscreenWindow(): void
     {
         self::skipForJsonWireProtocol('"fullscreen" window is not supported in JsonWire protocol');
 
@@ -79,7 +79,7 @@ class WebDriverWindowTest extends WebDriverTestCase
      * @group exclude-safari
      * @group exclude-saucelabs
      */
-    public function testShouldMinimizeWindow()
+    public function testShouldMinimizeWindow(): void
     {
         self::skipForJsonWireProtocol('"minimize" window is not supported in JsonWire protocol');
 
@@ -95,7 +95,7 @@ class WebDriverWindowTest extends WebDriverTestCase
     /**
      * @group exclude-saucelabs
      */
-    public function testShouldSetSize()
+    public function testShouldSetSize(): void
     {
         $sizeBefore = $this->driver->manage()
             ->window()
@@ -118,7 +118,7 @@ class WebDriverWindowTest extends WebDriverTestCase
     /**
      * @todo Skip when running headless mode
      */
-    public function testShouldSetWindowPosition()
+    public function testShouldSetWindowPosition(): void
     {
         $this->driver->manage()
             ->window()

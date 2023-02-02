@@ -10,7 +10,6 @@ class WebDriverScrollAction extends WebDriverTouchAction implements WebDriverAct
     private $y;
 
     /**
-     * @param WebDriverTouchScreen $touch_screen
      * @param int $x
      * @param int $y
      */

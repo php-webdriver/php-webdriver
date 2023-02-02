@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class WebDriverExceptionTest extends TestCase
 {
-    public function testShouldStoreResultsOnInstantiation()
+    public function testShouldStoreResultsOnInstantiation(): void
     {
         $exception = new WebDriverException('exception message', ['foo', 'bar']);
 
@@ -18,11 +18,12 @@ class WebDriverExceptionTest extends TestCase
     /**
      * @dataProvider provideJsonWireStatusCode
      * @dataProvider provideW3CWebDriverErrorCode
-     * @param int $errorCode
-     * @param string $expectedExceptionType
+     * @param int|string $errorCode
      */
-    public function testShouldThrowProperExceptionBasedOnWebDriverErrorCode($errorCode, $expectedExceptionType)
-    {
+    public function testShouldThrowProperExceptionBasedOnWebDriverErrorCode(
+        $errorCode,
+        string $expectedExceptionType
+    ): void {
         try {
             WebDriverException::throwException($errorCode, 'exception message', ['results']);
         } catch (WebDriverException $e) {
@@ -36,7 +37,43 @@ class WebDriverExceptionTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideJsonWireStatusCode()
+    public function provideW3CWebDriverErrorCode(): array
+    {
+        return [
+                ['element click intercepted', ElementClickInterceptedException::class],
+                ['element not interactable', ElementNotInteractableException::class],
+                ['element not interactable', ElementNotInteractableException::class],
+                ['insecure certificate', InsecureCertificateException::class],
+                ['invalid argument', InvalidArgumentException::class],
+                ['invalid cookie domain', InvalidCookieDomainException::class],
+                ['invalid element state', InvalidElementStateException::class],
+                ['invalid selector', InvalidSelectorException::class],
+                ['invalid session id', InvalidSessionIdException::class],
+                ['javascript error', JavascriptErrorException::class],
+                ['move target out of bounds', MoveTargetOutOfBoundsException::class],
+                ['no such alert', NoSuchAlertException::class],
+                ['no such cookie', NoSuchCookieException::class],
+                ['no such element', NoSuchElementException::class],
+                ['no such frame', NoSuchFrameException::class],
+                ['no such window', NoSuchWindowException::class],
+                ['script timeout', ScriptTimeoutException::class],
+                ['session not created', SessionNotCreatedException::class],
+                ['stale element reference', StaleElementReferenceException::class],
+                ['timeout', TimeoutException::class],
+                ['unable to set cookie', UnableToSetCookieException::class],
+                ['unable to capture screen', UnableToCaptureScreenException::class],
+                ['unexpected alert open', UnexpectedAlertOpenException::class],
+                ['unknown command', UnknownCommandException::class],
+                ['unknown error', UnknownErrorException::class],
+                ['unknown method', UnknownMethodException::class],
+                ['unsupported operation', UnsupportedOperationException::class],
+        ];
+    }
+
+    /**
+     * @return array[]
+     */
+    public function provideJsonWireStatusCode(): array
     {
         return [
             [1337, UnrecognizedExceptionException::class],
@@ -74,42 +111,6 @@ class WebDriverExceptionTest extends TestCase
             [32, InvalidSelectorException::class],
             [33, SessionNotCreatedException::class],
             [34, MoveTargetOutOfBoundsException::class],
-        ];
-    }
-
-    /**
-     * @return array[]
-     */
-    public function provideW3CWebDriverErrorCode()
-    {
-        return [
-                ['element click intercepted', ElementClickInterceptedException::class],
-                ['element not interactable', ElementNotInteractableException::class],
-                ['element not interactable', ElementNotInteractableException::class],
-                ['insecure certificate', InsecureCertificateException::class],
-                ['invalid argument', InvalidArgumentException::class],
-                ['invalid cookie domain', InvalidCookieDomainException::class],
-                ['invalid element state', InvalidElementStateException::class],
-                ['invalid selector', InvalidSelectorException::class],
-                ['invalid session id', InvalidSessionIdException::class],
-                ['javascript error', JavascriptErrorException::class],
-                ['move target out of bounds', MoveTargetOutOfBoundsException::class],
-                ['no such alert', NoSuchAlertException::class],
-                ['no such cookie', NoSuchCookieException::class],
-                ['no such element', NoSuchElementException::class],
-                ['no such frame', NoSuchFrameException::class],
-                ['no such window', NoSuchWindowException::class],
-                ['script timeout', ScriptTimeoutException::class],
-                ['session not created', SessionNotCreatedException::class],
-                ['stale element reference', StaleElementReferenceException::class],
-                ['timeout', TimeoutException::class],
-                ['unable to set cookie', UnableToSetCookieException::class],
-                ['unable to capture screen', UnableToCaptureScreenException::class],
-                ['unexpected alert open', UnexpectedAlertOpenException::class],
-                ['unknown command', UnknownCommandException::class],
-                ['unknown error', UnknownErrorException::class],
-                ['unknown method', UnknownMethodException::class],
-                ['unsupported operation', UnsupportedOperationException::class],
         ];
     }
 }

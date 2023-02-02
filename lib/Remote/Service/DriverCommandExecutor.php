@@ -26,8 +26,6 @@ class DriverCommandExecutor extends HttpCommandExecutor
     }
 
     /**
-     * @param WebDriverCommand $command
-     *
      * @throws \Exception
      * @throws WebDriverException
      * @return WebDriverResponse

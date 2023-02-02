@@ -15,10 +15,6 @@ class RuntimeException extends \RuntimeException implements PhpWebDriverExceptio
         return new self($message);
     }
 
-    /**
-     * @param Process $process
-     * @return RuntimeException
-     */
     public static function forDriverError(Process $process): self
     {
         return new self(

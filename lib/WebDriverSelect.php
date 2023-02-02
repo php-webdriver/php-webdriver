@@ -223,7 +223,6 @@ class WebDriverSelect implements WebDriverSelectInterface
 
     /**
      * Mark option selected
-     * @param WebDriverElement $option
      */
     protected function selectOption(WebDriverElement $option)
     {
@@ -234,7 +233,6 @@ class WebDriverSelect implements WebDriverSelectInterface
 
     /**
      * Mark option not selected
-     * @param WebDriverElement $option
      */
     protected function deselectOption(WebDriverElement $option)
     {

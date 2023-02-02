@@ -19,16 +19,12 @@ class HttpCommandExecutorTest extends TestCase
 
     /**
      * @dataProvider provideCommand
-     * @param WebDriverCommand $command
-     * @param bool $shouldResetExpectHeader
-     * @param string $expectedUrl
-     * @param string|null $expectedPostData
      */
     public function testShouldSendRequestToAssembledUrl(
         WebDriverCommand $command,
-        $shouldResetExpectHeader,
-        $expectedUrl,
-        $expectedPostData
+        bool $shouldResetExpectHeader,
+        string $expectedUrl,
+        ?string $expectedPostData
     ): void {
         $expectedCurlSetOptCalls = [
             [$this->anything(), CURLOPT_URL, $expectedUrl],
@@ -65,7 +61,7 @@ class HttpCommandExecutorTest extends TestCase
     /**
      * @return array[]
      */
-    public function provideCommand()
+    public function provideCommand(): array
     {
         return [
             'POST command having :id placeholder in url' => [
