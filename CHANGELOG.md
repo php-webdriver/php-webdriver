@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.14.0 - 2023-02-09
 ### Added
 - `PhpWebDriverExceptionInterface` as a common interface to identify all exceptions thrown in php-webdriver
 
