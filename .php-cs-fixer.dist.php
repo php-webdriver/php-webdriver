@@ -18,6 +18,7 @@ return (new PhpCsFixer\Config())
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
         'declare_equal_normalize' => true,
+        //'declare_strict_types' => true, // TODO: used only in tests, use in lib in next major version
         'fopen_flag_order' => true,
         'fopen_flags' => true,
         'full_opening_tag' => true,
@@ -101,11 +102,11 @@ return (new PhpCsFixer\Config())
         'phpdoc_scalar' => true,
         'phpdoc_single_line_var_spacing' => true,
         'phpdoc_trim' => true,
-        //'phpdoc_to_param_type' => true,
-        //'phpdoc_to_return_type' => true,
+        //'phpdoc_to_param_type' => true, // TODO: used only in tests, use in lib in next major version
+        //'phpdoc_to_return_type' => true, // TODO: used only in tests, use in lib in next major version
         'phpdoc_types' => true,
         'phpdoc_var_annotation_correct_order' => true,
-        //'pow_to_exponentiation' => true,
+        'pow_to_exponentiation' => true,
         'psr_autoloading' => true,
         'random_api_migration' => true,
         'self_accessor' => true,
@@ -126,7 +127,7 @@ return (new PhpCsFixer\Config())
         'trim_array_spaces' => true,
         'unary_operator_spaces' => true,
         'visibility_required' => ['elements' => ['method', 'property', 'const']],
-        //'void_return' => true,
+        //'void_return' => true, // TODO: used only in tests, use in lib in next major version
         'whitespace_after_comma_in_array' => true,
         'yoda_style' => ['equal' => false, 'identical' => false, 'less_and_greater' => false],
     ])

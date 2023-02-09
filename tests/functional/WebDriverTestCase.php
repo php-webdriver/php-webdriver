@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Facebook\WebDriver;
 
@@ -89,7 +89,7 @@ class WebDriverTestCase extends TestCase
 
             if (getenv('BROWSER_NAME') === 'safari') {
                 // The Safari instance is already paired with another WebDriver session
-                usleep(2e5); // 200ms
+                usleep(200000); // 200ms
             }
         }
     }
