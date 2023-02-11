@@ -6,7 +6,6 @@ use Facebook\WebDriver\Exception\Internal\IOException;
 use Facebook\WebDriver\Exception\Internal\RuntimeException;
 use Facebook\WebDriver\Net\URLChecker;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 
 /**
  * Start local WebDriver service (when remote WebDriver server is not used).
@@ -153,23 +152,8 @@ class DriverService
         }
     }
 
-    /**
-     * @return Process
-     */
-    private function createProcess()
+    private function createProcess(): Process
     {
-        // BC: ProcessBuilder deprecated since Symfony 3.4 and removed in Symfony 4.0.
-        if (class_exists(ProcessBuilder::class)
-            && mb_strpos('@deprecated', (new \ReflectionClass(ProcessBuilder::class))->getDocComment()) === false
-        ) {
-            $processBuilder = (new ProcessBuilder())
-                ->setPrefix($this->executable)
-                ->setArguments($this->args)
-                ->addEnvironmentVariables($this->environment);
-
-            return $processBuilder->getProcess();
-        }
-        // Safe to use since Symfony 3.3
         $commandLine = array_merge([$this->executable], $this->args);
 
         return new Process($commandLine, null, $this->environment);
@@ -177,11 +161,8 @@ class DriverService
 
     /**
      * Check whether given file is executable directly or using system PATH
-     *
-     * @param string $filename
-     * @return bool
      */
-    private function isExecutable($filename)
+    private function isExecutable(string $filename): bool
     {
         if (is_executable($filename)) {
             return true;
