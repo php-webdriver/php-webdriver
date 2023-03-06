@@ -610,7 +610,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         return null;
     }
 
-    public function executeCpd($command_name, $params = [])
+    public function executeCdp($command_name, $params = [])
     {
         $command = new WebDriverCommand(
             $this->sessionID,
