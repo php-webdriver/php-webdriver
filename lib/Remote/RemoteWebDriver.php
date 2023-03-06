@@ -610,6 +610,23 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         return null;
     }
 
+    public function executeCpd($command_name, $params = [])
+    {
+        $command = new WebDriverCommand(
+            $this->sessionID,
+            $command_name,
+            $params
+        );
+
+        if ($this->executor) {
+            $response = $this->executor->execute($command, true);
+
+            return $response->getValue();
+        }
+
+        return null;
+    }
+
     /**
      * Execute custom commands on remote end.
      * For example vendor-specific commands or other commands not implemented by php-webdriver.

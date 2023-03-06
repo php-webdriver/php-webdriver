@@ -22,6 +22,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#command-reference
      */
     protected static $commands = [
+        DriverCommand::EXECUTE_CPD => ['method' => 'POST', 'url' => '/session/:sessionId/goog/cdp/execute'],
         DriverCommand::ACCEPT_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/accept_alert'],
         DriverCommand::ADD_COOKIE => ['method' => 'POST', 'url' => '/session/:sessionId/cookie'],
         DriverCommand::CLEAR_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'],
@@ -272,9 +273,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @return WebDriverResponse
      */
-    public function execute(WebDriverCommand $command)
+    public function execute(WebDriverCommand $command, $isCpd = false)
     {
-        $http_options = $this->getCommandHttpOptions($command);
+        $http_options = $this->getCommandHttpOptions($command, $isCpd);
         $http_method = $http_options['method'];
         $url = $http_options['url'];
 
@@ -290,6 +291,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         if (is_array($params) && !empty($params) && $http_method !== 'POST') {
             throw LogicException::forInvalidHttpMethod($url, $http_method, $params);
+        }
+        if ($isCpd) {
+            $params = ['cmd' => $command->getName(), 'params' => $command->getParameters()];
         }
 
         curl_setopt($this->curl, CURLOPT_URL, $this->url . $url);
@@ -313,7 +317,11 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         if ($http_method === 'POST') {
             if (is_array($params) && !empty($params)) {
-                $encoded_params = json_encode($params);
+                if ($isCpd) {
+                    $encoded_params = json_encode($params, JSON_FORCE_OBJECT);
+                } else {
+                    $encoded_params = json_encode($params);
+                }
             } elseif ($this->isW3cCompliant) {
                 // POST body must be valid JSON in W3C, even if empty: https://www.w3.org/TR/webdriver/#processing-model
                 $encoded_params = '{}';
@@ -383,8 +391,18 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @return array
      */
-    protected function getCommandHttpOptions(WebDriverCommand $command)
+    protected function getCommandHttpOptions(WebDriverCommand $command, $isCpd = false)
     {
+        if ($isCpd) {
+            if (!isset(self::$commands[DriverCommand::EXECUTE_CPD])) {
+                throw LogicException::forError($command->getName() . ' is not a valid command. CPD model: ' . DriverCommand::EXECUTE_CPD);
+            }
+            $raw = self::$commands[DriverCommand::EXECUTE_CPD];
+            return [
+                'url' => $raw['url'],
+                'method' => $raw['method'],
+            ];
+        }
         $commandName = $command->getName();
         if (!isset(self::$commands[$commandName])) {
             if ($this->isW3cCompliant && !isset(self::$w3cCompliantCommands[$commandName])) {
