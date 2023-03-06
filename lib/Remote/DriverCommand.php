@@ -10,10 +10,10 @@ namespace Facebook\WebDriver\Remote;
 class DriverCommand
 {
     /**
-     * CPD
+     * CDP
      * @see https://chromedevtools.github.io/devtools-protocol/
      */
-    public const EXECUTE_CPD = 'executeCpd';
+    public const EXECUTE_CDP = 'executeCdp';
 
     public const GET_ALL_SESSIONS = 'getAllSessions';
     public const GET_CAPABILITIES = 'getCapabilities';

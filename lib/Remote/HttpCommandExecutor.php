@@ -22,7 +22,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
      * @see https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol#command-reference
      */
     protected static $commands = [
-        DriverCommand::EXECUTE_CPD => ['method' => 'POST', 'url' => '/session/:sessionId/goog/cdp/execute'],
+        DriverCommand::EXECUTE_CDP => ['method' => 'POST', 'url' => '/session/:sessionId/goog/cdp/execute'],
         DriverCommand::ACCEPT_ALERT => ['method' => 'POST', 'url' => '/session/:sessionId/accept_alert'],
         DriverCommand::ADD_COOKIE => ['method' => 'POST', 'url' => '/session/:sessionId/cookie'],
         DriverCommand::CLEAR_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/:id/clear'],
@@ -273,9 +273,9 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @return WebDriverResponse
      */
-    public function execute(WebDriverCommand $command, $isCpd = false)
+    public function execute(WebDriverCommand $command, $isCdp = false)
     {
-        $http_options = $this->getCommandHttpOptions($command, $isCpd);
+        $http_options = $this->getCommandHttpOptions($command, $isCdp);
         $http_method = $http_options['method'];
         $url = $http_options['url'];
 
@@ -292,7 +292,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         if (is_array($params) && !empty($params) && $http_method !== 'POST') {
             throw LogicException::forInvalidHttpMethod($url, $http_method, $params);
         }
-        if ($isCpd) {
+        if ($isCdp) {
             $params = ['cmd' => $command->getName(), 'params' => $command->getParameters()];
         }
 
@@ -317,7 +317,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
 
         if ($http_method === 'POST') {
             if (is_array($params) && !empty($params)) {
-                if ($isCpd) {
+                if ($isCdp) {
                     $encoded_params = json_encode($params, JSON_FORCE_OBJECT);
                 } else {
                     $encoded_params = json_encode($params);
@@ -391,13 +391,13 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     /**
      * @return array
      */
-    protected function getCommandHttpOptions(WebDriverCommand $command, $isCpd = false)
+    protected function getCommandHttpOptions(WebDriverCommand $command, $isCdp = false)
     {
-        if ($isCpd) {
-            if (!isset(self::$commands[DriverCommand::EXECUTE_CPD])) {
-                throw LogicException::forError($command->getName() . ' is not a valid command. CPD model: ' . DriverCommand::EXECUTE_CPD);
+        if ($isCdp) {
+            if (!isset(self::$commands[DriverCommand::EXECUTE_CDP])) {
+                throw LogicException::forError($command->getName() . ' is not a valid command. CDP model: ' . DriverCommand::EXECUTE_CPD);
             }
-            $raw = self::$commands[DriverCommand::EXECUTE_CPD];
+            $raw = self::$commands[DriverCommand::EXECUTE_CDP];
             return [
                 'url' => $raw['url'],
                 'method' => $raw['method'],
