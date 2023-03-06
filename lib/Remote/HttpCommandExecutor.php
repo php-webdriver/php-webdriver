@@ -395,7 +395,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
     {
         if ($isCdp) {
             if (!isset(self::$commands[DriverCommand::EXECUTE_CDP])) {
-                throw LogicException::forError($command->getName() . ' is not a valid command. CDP model: ' . DriverCommand::EXECUTE_CPD);
+                throw LogicException::forError($command->getName() . ' is not a valid command. CDP model: ' . DriverCommand::EXECUTE_CDP);
             }
             $raw = self::$commands[DriverCommand::EXECUTE_CDP];
             return [
