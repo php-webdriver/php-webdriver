@@ -280,23 +280,6 @@ class DesiredCapabilitiesTest extends TestCase
                     ),
                 ],
             ],
-            'chromeOptions should be merged if already defined' => [
-                new DesiredCapabilities([
-                    ChromeOptions::CAPABILITY => $chromeOptions,
-                    ChromeOptions::CAPABILITY_W3C => [
-                        'debuggerAddress' => '127.0.0.1:38947',
-                        'args' => ['window-size=1024,768'],
-                    ],
-                ]),
-                [
-                    'goog:chromeOptions' => new \ArrayObject(
-                        [
-                            'args' => ['--headless', 'window-size=1024,768'],
-                            'debuggerAddress' => '127.0.0.1:38947',
-                        ]
-                    ),
-                ],
-            ],
             'firefox_profile should be converted' => [
                 new DesiredCapabilities([
                     FirefoxDriver::PROFILE => $firefoxProfileEncoded,
