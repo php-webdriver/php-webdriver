@@ -2,6 +2,7 @@
 
 namespace Facebook\WebDriver\Remote;
 
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Exception\UnknownErrorException;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverElement;
@@ -72,6 +73,12 @@ class ShadowRoot implements WebDriverSearchContext
             DriverCommand::FIND_ELEMENTS_FROM_SHADOW_ROOT,
             $params
         );
+
+        if (!is_array($rawElements)) {
+            throw UnexpectedResponseException::forError(
+                'Server response to findElementsFromShadowRoot command is not an array'
+            );
+        }
 
         $elements = [];
         foreach ($rawElements as $rawElement) {

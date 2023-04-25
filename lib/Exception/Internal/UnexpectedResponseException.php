@@ -14,6 +14,16 @@ class UnexpectedResponseException extends \RuntimeException implements PhpWebDri
         return new self($message);
     }
 
+    public static function forElementNotArray($response): self
+    {
+        return new self(
+            sprintf(
+                "Unexpected server response for getting an element. Expected array, but the response was: '%s'\n",
+                print_r($response, true)
+            )
+        );
+    }
+
     public static function forJsonDecodingError(int $jsonLastError, string $rawResults): self
     {
         return new self(

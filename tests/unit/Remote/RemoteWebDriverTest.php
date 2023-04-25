@@ -114,15 +114,11 @@ class RemoteWebDriverTest extends TestCase
     }
 
     /**
-     * @covers ::findElement
      * @covers ::findElements
      * @covers \Facebook\WebDriver\Exception\Internal\UnexpectedResponseException
-     * @dataProvider provideMethods
      */
-    public function testShouldThrowExceptionOnUnexpectedNullValueFromRemoteEnd(
-        string $method,
-        string $expectedExceptionMessage
-    ): void {
+    public function testShouldThrowExceptionOnUnexpectedValueFromRemoteEndWhenFindingElements(): void
+    {
         $executorMock = $this->createMock(HttpCommandExecutor::class);
         $executorMock->expects($this->once())
             ->method('execute')
@@ -132,15 +128,7 @@ class RemoteWebDriverTest extends TestCase
         $this->driver->setCommandExecutor($executorMock);
 
         $this->expectException(UnexpectedResponseException::class);
-        $this->expectExceptionMessage($expectedExceptionMessage);
-        call_user_func([$this->driver, $method], $this->createMock(WebDriverBy::class));
-    }
-
-    public function provideMethods(): array
-    {
-        return [
-            ['findElement', 'Unexpected server response to findElement command'],
-            ['findElements', 'Unexpected server response to findElements command'],
-        ];
+        $this->expectExceptionMessage('Server response to findElements command is not an array');
+        $this->driver->findElements($this->createMock(WebDriverBy::class));
     }
 }
