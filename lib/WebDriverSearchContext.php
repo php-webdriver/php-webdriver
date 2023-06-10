@@ -2,6 +2,8 @@
 
 namespace Facebook\WebDriver;
 
+use Facebook\WebDriver\Exception\NoSuchElementException;
+
 /**
  * The interface for WebDriver and WebDriverElement which is able to search for WebDriverElement inside.
  */
@@ -10,7 +12,8 @@ interface WebDriverSearchContext
     /**
      * Find the first WebDriverElement within this element using the given mechanism.
      *
-     * @return WebDriverElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
+     * @throws NoSuchElementException If no element is found
+     * @return WebDriverElement
      * @see WebDriverBy
      */
     public function findElement(WebDriverBy $locator);
