@@ -20,10 +20,13 @@ class WebDriverSelectTest extends WebDriverTestCase
         $this->driver->get($this->getTestPageUrl(TestPage::FORM));
     }
 
-    public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple(): void
+    /**
+     * @dataProvider multipleSelectDataProvider
+     */
+    public function testShouldCreateNewInstanceForSelectElementAndDetectIfItIsMultiple(string $selector): void
     {
         $originalElement = $this->driver->findElement(WebDriverBy::cssSelector('#select'));
-        $originalMultipleElement = $this->driver->findElement(WebDriverBy::cssSelector('#select-multiple'));
+        $originalMultipleElement = $this->driver->findElement(WebDriverBy::cssSelector($selector));
 
         $select = new WebDriverSelect($originalElement);
         $selectMultiple = new WebDriverSelect($originalMultipleElement);
@@ -33,6 +36,15 @@ class WebDriverSelectTest extends WebDriverTestCase
 
         $this->assertInstanceOf(WebDriverSelect::class, $selectMultiple);
         $this->assertTrue($selectMultiple->isMultiple());
+    }
+
+    public static function multipleSelectDataProvider(): array
+    {
+        return [
+            ['#select-multiple'],
+            ['#select-multiple-2'],
+            ['#select-multiple-3'],
+        ];
     }
 
     public function testShouldThrowExceptionWhenNotInstantiatedOnSelectElement(): void
