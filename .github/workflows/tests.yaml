@@ -160,7 +160,7 @@ jobs:
           # When running directly against Firefox, we test only using geckodriver (not against legacy Firefox =<45), so we must declare GECKODRIVER=1
           GECKODRIVER: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '1' || '0' }}"
           # Provide CHROMEDRIVER_PATH and GECKODRIVER_PATH so that tests for local web drivers are able to start the browser
-          CHROMEDRIVER_PATH: "${{ (matrix.browser == 'chrome' && !matrix.selenium-server) && '/usr/local/share/chrome_driver/chromedriver' || '' }}"
+          CHROMEDRIVER_PATH: "${{ (matrix.browser == 'chrome' && !matrix.selenium-server) && '/usr/local/share/chromedriver-linux64/chromedriver' || '' }}"
           GECKODRIVER_PATH: "${{ (matrix.browser == 'firefox' && !matrix.selenium-server) && '/usr/local/share/gecko_driver/geckodriver' || '' }}"
           DISABLE_W3C_PROTOCOL: "${{ matrix.w3c && '0' || '1' }}"
           SELENIUM_SERVER: "${{ matrix.selenium-server && '1' || '0' }}"
