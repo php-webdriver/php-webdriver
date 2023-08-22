@@ -470,8 +470,7 @@
                 <div class="col-md-8">
                     <a href="#method_create">create</a>(string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>|array $desired_capabilities = null, int|null $connection_timeout_in_ms = null, int|null $request_timeout_in_ms = null, string|null $http_proxy = null, int|null $http_proxy_port = null, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a> $required_capabilities = null)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p><p>Construct the RemoteWebDriver by a desired capabilities.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -481,8 +480,7 @@
                 <div class="col-md-8">
                     <a href="#method_createBySessionID">createBySessionID</a>(string $session_id, string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, int|null $connection_timeout_in_ms = null, int|null $request_timeout_in_ms = null)
         
-                                            <p class="no-description">No description</p>
-                                    </div>
+                                            <p><p>[Experimental] Construct the RemoteWebDriver by an existing session.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -970,7 +968,7 @@ DesiredCapabilities will be required.</p></p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_create">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Local/LocalWebDriver.php#L26">at line 26</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Local/LocalWebDriver.php#L16">at line 16</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>create</strong>(string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a>|array $desired_capabilities = null, int|null $connection_timeout_in_ms = null, int|null $request_timeout_in_ms = null, string|null $http_proxy = null, int|null $http_proxy_port = null, <a href="../../../Facebook/WebDriver/Remote/DesiredCapabilities.html"><abbr title="Facebook\WebDriver\Remote\DesiredCapabilities">DesiredCapabilities</abbr></a> $required_capabilities = null)
         </code>
@@ -980,15 +978,7 @@ DesiredCapabilities will be required.</p></p>                </div>
             
 
         <div class="method-description">
-                            <p class="no-description">No description</p>
-                    
-                    <p>
-                        
-                                    <tr>
-                        <td>Remove</td>
-                        <td>in next major version (should not be inherited)</td>
-                        </tr>
-                            </p>
+                            <p><p>Construct the RemoteWebDriver by a desired capabilities.</p></p>                        
         </div>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1042,15 +1032,6 @@ DesiredCapabilities will be required.</p></p>                </div>
     </table>
 
             
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../../Facebook/WebDriver/Exception/Internal/LogicException.html"><abbr title="Facebook\WebDriver\Exception\Internal\LogicException">LogicException</abbr></a></td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
                     </div>
@@ -1059,7 +1040,7 @@ DesiredCapabilities will be required.</p></p>                </div>
             </div>
                     <div class="method-item">
                     <h3 id="method_createBySessionID">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Local/LocalWebDriver.php#L47">at line 47</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Local/LocalWebDriver.php#L29">at line 29</a></div>
         <code>        static            <a href="../../../Facebook/WebDriver/Remote/RemoteWebDriver.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebDriver">RemoteWebDriver</abbr></a>
     <strong>createBySessionID</strong>(string $session_id, string $selenium_server_url = &#039;http://localhost:4444/wd/hub&#039;, int|null $connection_timeout_in_ms = null, int|null $request_timeout_in_ms = null)
         </code>
@@ -1069,15 +1050,13 @@ DesiredCapabilities will be required.</p></p>                </div>
             
 
         <div class="method-description">
-                            <p class="no-description">No description</p>
-                    
-                    <p>
-                        
-                                    <tr>
-                        <td>Remove</td>
-                        <td>in next major version (should not be inherited)</td>
-                        </tr>
-                            </p>
+                            <p><p>[Experimental] Construct the RemoteWebDriver by an existing session.</p></p>                <p><p>This constructor can boost the performance by reusing the same browser for the whole test suite. On the other
+hand, because the browser is not pristine, this may lead to flaky and dependent tests. So carefully
+consider the tradeoffs.</p>
+<p>To create the instance, we need to know Capabilities of the previously created session. You can either
+pass them in $existingCapabilities parameter, or we will attempt to receive them from the Selenium Grid server.
+However, if Capabilities were not provided and the attempt to get them was not successful,
+exception will be thrown.</p></p>        
         </div>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1116,15 +1095,6 @@ DesiredCapabilities will be required.</p></p>                </div>
     </table>
 
             
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../../Facebook/WebDriver/Exception/Internal/LogicException.html"><abbr title="Facebook\WebDriver\Exception\Internal\LogicException">LogicException</abbr></a></td>
-                <td></td>
-            </tr>
-            </table>
-
             
             
                     </div>
