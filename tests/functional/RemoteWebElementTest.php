@@ -515,8 +515,11 @@ class RemoteWebElementTest extends WebDriverTestCase
 
         // Assert string output
         $imageFromString = imagecreatefromstring($outputPngString);
-        $this->assertNotFalse($imageFromString);
-        $this->assertTrue(is_resource($imageFromString));
+        if (version_compare(phpversion(), '8.0.0', '>=')) {
+            $this->assertInstanceOf(\GdImage::class, $imageFromString);
+        } else {
+            $this->assertTrue(is_resource($imageFromString));
+        }
 
         if ($isSafari && !$isCi) {
             $this->assertEquals(10, imagesx($imageFromString));
