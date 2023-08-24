@@ -19,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.4'
+          php-version: '8.2'
           extensions: mbstring, intl, zip
 
       - name: Install PHP dependencies
@@ -46,11 +46,10 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.3', '7.4', '8.0']
+        php-version: ['7.3', '7.4', '8.0', '8.1', '8.2']
         dependencies: ['']
         include:
           - { php-version: '7.3', dependencies: '--prefer-lowest' }
-          - { php-version: '8.1', dependencies: '--ignore-platform-req=php' }
 
     steps:
       - uses: actions/checkout@v3
@@ -105,7 +104,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.2
           extensions: mbstring, intl, zip
           coverage: xdebug
 
