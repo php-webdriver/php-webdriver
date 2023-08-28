@@ -5,6 +5,7 @@ namespace Facebook\WebDriver\Remote;
 use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\Internal\IOException;
 use Facebook\WebDriver\Exception\Internal\LogicException;
+use Facebook\WebDriver\Exception\Internal\UnexpectedResponseException;
 use Facebook\WebDriver\Exception\PhpWebDriverExceptionInterface;
 use Facebook\WebDriver\Exception\UnsupportedOperationException;
 use Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates;
@@ -130,6 +131,10 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
             DriverCommand::FIND_CHILD_ELEMENTS,
             $params
         );
+
+        if (!is_array($raw_elements)) {
+            throw UnexpectedResponseException::forError('Server response to findChildElements command is not an array');
+        }
 
         $elements = [];
         foreach ($raw_elements as $raw_element) {

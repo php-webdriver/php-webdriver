@@ -6,9 +6,12 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 - Capability key `ChromeOptions::CAPABILITY_W3C` used to set ChromeOptions is now deprecated in favor of `ChromeOptions::CAPABILITY`, which now also contains the W3C compatible value (`goog:chromeOptions`).
 - ChromeOptions are now passed to the driver always as a W3C compatible key `goog:chromeOptions`, even in the deprecated OSS JsonWire payload (as ChromeDriver [supports](https://bugs.chromium.org/p/chromedriver/issues/detail?id=1786) this since 2017).
 
+### Fixed
+- Handle unexpected response when getting element(s) by throwing an exception, not triggering fatal error.
+
 ## 1.14.0 - 2023-02-09
 ### Added
-- `PhpWebDriverExceptionInterface` as a common interface to identify all exceptions thrown in php-webdriver
+- `PhpWebDriverExceptionInterface` as a common interface to identify all exceptions thrown in php-webdriver.
 
 ### Changed
 - Require PHP ^7.3.
