@@ -385,7 +385,7 @@
                     static&nbsp;
                 </div>
                 <div class="col-md-8">
-                    <a href="#method_getElement">getElement</a>(array $rawElement)
+                    <a href="#method_getElement">getElement</a>(mixed $rawElement)
         
                                             <p class="no-description">No description</p>
                                     </div>
@@ -410,9 +410,9 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_getElement">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Remote/JsonWireCompat.php#L21">at line 21</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Remote/JsonWireCompat.php#L26">at line 26</a></div>
         <code>        static            
-    <strong>getElement</strong>(array $rawElement)
+    <strong>getElement</strong>(mixed $rawElement)
         </code>
     </h3>
     <div class="details">    
@@ -428,14 +428,23 @@
 
                     <table class="table table-condensed">
                     <tr>
-                <td>array</td>
+                <td>mixed</td>
                 <td>$rawElement</td>
-                <td></td>
+                <td><p>Value is validated to by an array, exception is thrown otherwise</p></td>
             </tr>
             </table>
 
             
             
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/Exception/Internal/UnexpectedResponseException.html"><abbr title="Facebook\WebDriver\Exception\Internal\UnexpectedResponseException">UnexpectedResponseException</abbr></a></td>
+                <td></td>
+            </tr>
+            </table>
+
             
             
                     </div>
@@ -444,7 +453,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getUsing">
-        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Remote/JsonWireCompat.php#L37">at line 37</a></div>
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/main/lib/Remote/JsonWireCompat.php#L47">at line 47</a></div>
         <code>        static            array
     <strong>getUsing</strong>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by, bool $isW3cCompliant)
         </code>
