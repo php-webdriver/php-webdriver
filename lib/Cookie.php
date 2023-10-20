@@ -9,7 +9,7 @@ use Facebook\WebDriver\Exception\Internal\LogicException;
  *
  * Implements ArrayAccess for backwards compatibility.
  *
- * @see https://w3c.github.io/webdriver/webdriver-spec.html#cookies
+ * @see https://w3c.github.io/webdriver/#cookies
  */
 class Cookie implements \ArrayAccess
 {

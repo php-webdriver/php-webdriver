@@ -15,7 +15,7 @@ abstract class JsonWireCompat
     /**
      * Element identifier defined in the W3C's WebDriver protocol.
      *
-     * @see https://w3c.github.io/webdriver/webdriver-spec.html#elements
+     * @see https://w3c.github.io/webdriver/#elements
      */
     public const WEB_DRIVER_ELEMENT_IDENTIFIER = 'element-6066-11e4-a52e-4f735466cecf';
 
