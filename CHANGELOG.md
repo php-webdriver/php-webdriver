@@ -1,6 +1,11 @@
 # Changelog
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+## 1.15.1 - 2023-10-20
+- Update `symfony/process` dependency to support upcoming Symfony 7.
+
 ## 1.15.0 - 2023-08-29
 ### Changed
 - Capability key `ChromeOptions::CAPABILITY_W3C` used to set ChromeOptions is now deprecated in favor of `ChromeOptions::CAPABILITY`, which now also contains the W3C compatible value (`goog:chromeOptions`).
