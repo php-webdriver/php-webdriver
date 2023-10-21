@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Interfaces | php-webdriver API</title>
+
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/doctum.css">
+        <link rel="stylesheet" type="text/css" href="fonts/doctum-font.css">
+        <script src="js/jquery-3.5.1.slim.min.js"></script>
+        <script async defer src="doctum.js"></script>
+        <script async defer src="js/bootstrap.min.js"></script>
+        <script async defer src="js/autocomplete.min.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+        <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.0/opensearch.xml"
+          title="php-webdriver API (1.0.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.1/opensearch.xml"
+          title="php-webdriver API (1.0.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.2/opensearch.xml"
+          title="php-webdriver API (1.0.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.3/opensearch.xml"
+          title="php-webdriver API (1.0.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.4/opensearch.xml"
+          title="php-webdriver API (1.0.4)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.0/opensearch.xml"
+          title="php-webdriver API (1.1.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.1/opensearch.xml"
+          title="php-webdriver API (1.1.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.2/opensearch.xml"
+          title="php-webdriver API (1.1.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.3/opensearch.xml"
+          title="php-webdriver API (1.1.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.10.0/opensearch.xml"
+          title="php-webdriver API (1.10.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.2.0/opensearch.xml"
+          title="php-webdriver API (1.2.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.3.0/opensearch.xml"
+          title="php-webdriver API (1.3.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.4.0/opensearch.xml"
+          title="php-webdriver API (1.4.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.11.0/opensearch.xml"
+          title="php-webdriver API (1.11.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.12.0/opensearch.xml"
+          title="php-webdriver API (1.12.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.13.0/opensearch.xml"
+          title="php-webdriver API (1.13.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.15.0/opensearch.xml"
+          title="php-webdriver API (1.15.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.15.1/opensearch.xml"
+          title="php-webdriver API (1.15.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.4.1/opensearch.xml"
+          title="php-webdriver API (1.4.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.11.1/opensearch.xml"
+          title="php-webdriver API (1.11.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.5.0/opensearch.xml"
+          title="php-webdriver API (1.5.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.6.0/opensearch.xml"
+          title="php-webdriver API (1.6.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.7.0/opensearch.xml"
+          title="php-webdriver API (1.7.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.7.1/opensearch.xml"
+          title="php-webdriver API (1.7.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.0/opensearch.xml"
+          title="php-webdriver API (1.8.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.12.1/opensearch.xml"
+          title="php-webdriver API (1.12.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.1/opensearch.xml"
+          title="php-webdriver API (1.8.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.2/opensearch.xml"
+          title="php-webdriver API (1.8.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.13.1/opensearch.xml"
+          title="php-webdriver API (1.13.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.3/opensearch.xml"
+          title="php-webdriver API (1.8.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.9.0/opensearch.xml"
+          title="php-webdriver API (1.9.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.14.0/opensearch.xml"
+          title="php-webdriver API (1.14.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/main/opensearch.xml"
+          title="php-webdriver API (main)" />
+    </head>
+
+    <body id="interfaces" data-name="" data-root-path="" data-search-index-url="doctum-search.json">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#">
+                <select class="form-control" id="version-switcher" name="version">
+                                            <option
+                            value="../1.0.0/index.html"
+                            data-version="1.0.0" >1.0.0</option>
+                                            <option
+                            value="../1.0.1/index.html"
+                            data-version="1.0.1" >1.0.1</option>
+                                            <option
+                            value="../1.0.2/index.html"
+                            data-version="1.0.2" >1.0.2</option>
+                                            <option
+                            value="../1.0.3/index.html"
+                            data-version="1.0.3" >1.0.3</option>
+                                            <option
+                            value="../1.0.4/index.html"
+                            data-version="1.0.4" >1.0.4</option>
+                                            <option
+                            value="../1.1.0/index.html"
+                            data-version="1.1.0" >1.1.0</option>
+                                            <option
+                            value="../1.1.1/index.html"
+                            data-version="1.1.1" >1.1.1</option>
+                                            <option
+                            value="../1.1.2/index.html"
+                            data-version="1.1.2" >1.1.2</option>
+                                            <option
+                            value="../1.1.3/index.html"
+                            data-version="1.1.3" >1.1.3</option>
+                                            <option
+                            value="../1.10.0/index.html"
+                            data-version="1.10.0" >1.10.0</option>
+                                            <option
+                            value="../1.2.0/index.html"
+                            data-version="1.2.0" >1.2.0</option>
+                                            <option
+                            value="../1.3.0/index.html"
+                            data-version="1.3.0" >1.3.0</option>
+                                            <option
+                            value="../1.4.0/index.html"
+                            data-version="1.4.0" >1.4.0</option>
+                                            <option
+                            value="../1.11.0/index.html"
+                            data-version="1.11.0" >1.11.0</option>
+                                            <option
+                            value="../1.12.0/index.html"
+                            data-version="1.12.0" >1.12.0</option>
+                                            <option
+                            value="../1.13.0/index.html"
+                            data-version="1.13.0" >1.13.0</option>
+                                            <option
+                            value="../1.15.0/index.html"
+                            data-version="1.15.0" >1.15.0</option>
+                                            <option
+                            value="../1.15.1/index.html"
+                            data-version="1.15.1" selected>1.15.1</option>
+                                            <option
+                            value="../1.4.1/index.html"
+                            data-version="1.4.1" >1.4.1</option>
+                                            <option
+                            value="../1.11.1/index.html"
+                            data-version="1.11.1" >1.11.1</option>
+                                            <option
+                            value="../1.5.0/index.html"
+                            data-version="1.5.0" >1.5.0</option>
+                                            <option
+                            value="../1.6.0/index.html"
+                            data-version="1.6.0" >1.6.0</option>
+                                            <option
+                            value="../1.7.0/index.html"
+                            data-version="1.7.0" >1.7.0</option>
+                                            <option
+                            value="../1.7.1/index.html"
+                            data-version="1.7.1" >1.7.1</option>
+                                            <option
+                            value="../1.8.0/index.html"
+                            data-version="1.8.0" >1.8.0</option>
+                                            <option
+                            value="../1.12.1/index.html"
+                            data-version="1.12.1" >1.12.1</option>
+                                            <option
+                            value="../1.8.1/index.html"
+                            data-version="1.8.1" >1.8.1</option>
+                                            <option
+                            value="../1.8.2/index.html"
+                            data-version="1.8.2" >1.8.2</option>
+                                            <option
+                            value="../1.13.1/index.html"
+                            data-version="1.13.1" >1.13.1</option>
+                                            <option
+                            value="../1.8.3/index.html"
+                            data-version="1.8.3" >1.8.3</option>
+                                            <option
+                            value="../1.9.0/index.html"
+                            data-version="1.9.0" >1.9.0</option>
+                                            <option
+                            value="../1.14.0/index.html"
+                            data-version="1.14.0" >1.14.0</option>
+                                            <option
+                            value="../main/index.html"
+                            data-version="main" >main branch</option>
+                                    </select>
+            </form>
+                <div class="search-bar hidden" id="search-progress-bar-container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" id="search-progress-bar"
+                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+        </div>
+        <form id="search-form" action="search.html">
+            <span class="icon icon-search"></span>
+            <input name="search"
+                   id="doctum-search-auto-complete"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search"
+                   spellcheck="false"
+                   autocorrect="off"
+                   autocomplete="off"
+                   autocapitalize="off">
+            <div class="auto-complete-results" id="auto-complete-results"></div>
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">php-webdriver API</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                                        <li role="presentation" class="dropdown visible-xs-block visible-sm-block">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">Versions&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li ><a href="../1.0.0/index.html" data-version="1.0.0">1.0.0</a></li>
+                        <li ><a href="../1.0.1/index.html" data-version="1.0.1">1.0.1</a></li>
+                        <li ><a href="../1.0.2/index.html" data-version="1.0.2">1.0.2</a></li>
+                        <li ><a href="../1.0.3/index.html" data-version="1.0.3">1.0.3</a></li>
+                        <li ><a href="../1.0.4/index.html" data-version="1.0.4">1.0.4</a></li>
+                        <li ><a href="../1.1.0/index.html" data-version="1.1.0">1.1.0</a></li>
+                        <li ><a href="../1.1.1/index.html" data-version="1.1.1">1.1.1</a></li>
+                        <li ><a href="../1.1.2/index.html" data-version="1.1.2">1.1.2</a></li>
+                        <li ><a href="../1.1.3/index.html" data-version="1.1.3">1.1.3</a></li>
+                        <li ><a href="../1.10.0/index.html" data-version="1.10.0">1.10.0</a></li>
+                        <li ><a href="../1.2.0/index.html" data-version="1.2.0">1.2.0</a></li>
+                        <li ><a href="../1.3.0/index.html" data-version="1.3.0">1.3.0</a></li>
+                        <li ><a href="../1.4.0/index.html" data-version="1.4.0">1.4.0</a></li>
+                        <li ><a href="../1.11.0/index.html" data-version="1.11.0">1.11.0</a></li>
+                        <li ><a href="../1.12.0/index.html" data-version="1.12.0">1.12.0</a></li>
+                        <li ><a href="../1.13.0/index.html" data-version="1.13.0">1.13.0</a></li>
+                        <li ><a href="../1.15.0/index.html" data-version="1.15.0">1.15.0</a></li>
+                        <li class="active"><a href="../1.15.1/index.html" data-version="1.15.1">1.15.1</a></li>
+                        <li ><a href="../1.4.1/index.html" data-version="1.4.1">1.4.1</a></li>
+                        <li ><a href="../1.11.1/index.html" data-version="1.11.1">1.11.1</a></li>
+                        <li ><a href="../1.5.0/index.html" data-version="1.5.0">1.5.0</a></li>
+                        <li ><a href="../1.6.0/index.html" data-version="1.6.0">1.6.0</a></li>
+                        <li ><a href="../1.7.0/index.html" data-version="1.7.0">1.7.0</a></li>
+                        <li ><a href="../1.7.1/index.html" data-version="1.7.1">1.7.1</a></li>
+                        <li ><a href="../1.8.0/index.html" data-version="1.8.0">1.8.0</a></li>
+                        <li ><a href="../1.12.1/index.html" data-version="1.12.1">1.12.1</a></li>
+                        <li ><a href="../1.8.1/index.html" data-version="1.8.1">1.8.1</a></li>
+                        <li ><a href="../1.8.2/index.html" data-version="1.8.2">1.8.2</a></li>
+                        <li ><a href="../1.13.1/index.html" data-version="1.13.1">1.13.1</a></li>
+                        <li ><a href="../1.8.3/index.html" data-version="1.8.3">1.8.3</a></li>
+                        <li ><a href="../1.9.0/index.html" data-version="1.9.0">1.9.0</a></li>
+                        <li ><a href="../1.14.0/index.html" data-version="1.14.0">1.14.0</a></li>
+                        <li ><a href="../main/index.html" data-version="main">main branch</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="classes.html">Classes</a></li>
+                    <li><a href="namespaces.html">Namespaces</a></li>
+                    <li><a href="interfaces.html">Interfaces</a></li>
+                    <li><a href="traits.html">Traits</a></li>
+                    <li><a href="doc-index.html">Index</a></li>
+                    <li><a href="search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div id="page-content">    <div class="page-header">
+        <h1>Interfaces</h1>
+    </div>
+
+    
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/Exception/PhpWebDriverExceptionInterface.html"><abbr title="Facebook\WebDriver\Exception\PhpWebDriverExceptionInterface">PhpWebDriverExceptionInterface</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Common interface to identify all exceptions thrown in php-webdriver (both those of WebDriver protocol and internal).</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/Interactions/Touch/WebDriverTouchScreen.html"><abbr title="Facebook\WebDriver\Interactions\Touch\WebDriverTouchScreen">WebDriverTouchScreen</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface representing touch screen operations.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/Internal/WebDriverLocatable.html"><abbr title="Facebook\WebDriver\Internal\WebDriverLocatable">WebDriverLocatable</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface representing basic mouse operations.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/JavaScriptExecutor.html"><abbr title="Facebook\WebDriver\JavaScriptExecutor">JavaScriptExecutor</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>WebDriver interface implemented by drivers that support JavaScript.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/Remote/ExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\ExecuteMethod">ExecuteMethod</abbr></a></em>
+                        </div>
+                <div class="col-md-6"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a></em>
+                        </div>
+                <div class="col-md-6"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriver.html"><abbr title="Facebook\WebDriver\WebDriver">WebDriver</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>The interface for WebDriver.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverAction.html"><abbr title="Facebook\WebDriver\WebDriverAction">WebDriverAction</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface representing a single user-interaction action.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverCapabilities.html"><abbr title="Facebook\WebDriver\WebDriverCapabilities">WebDriverCapabilities</abbr></a></em>
+                        </div>
+                <div class="col-md-6"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverCommandExecutor.html"><abbr title="Facebook\WebDriver\WebDriverCommandExecutor">WebDriverCommandExecutor</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface for all command executor.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface for an HTML element in the WebDriver framework.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverEventListener.html"><abbr title="Facebook\WebDriver\WebDriverEventListener">WebDriverEventListener</abbr></a></em>
+                        </div>
+                <div class="col-md-6"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverHasInputDevices.html"><abbr title="Facebook\WebDriver\WebDriverHasInputDevices">WebDriverHasInputDevices</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface implemented by each driver that allows access to the input devices.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverKeyboard.html"><abbr title="Facebook\WebDriver\WebDriverKeyboard">WebDriverKeyboard</abbr></a></em>
+                        </div>
+                <div class="col-md-6"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverMouse.html"><abbr title="Facebook\WebDriver\WebDriverMouse">WebDriverMouse</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Interface representing basic mouse operations.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverNavigationInterface.html"><abbr title="Facebook\WebDriver\WebDriverNavigationInterface">WebDriverNavigationInterface</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>An abstraction allowing the driver to access the browser's history and to
+navigate to a given URL.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverSearchContext.html"><abbr title="Facebook\WebDriver\WebDriverSearchContext">WebDriverSearchContext</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>The interface for WebDriver and WebDriverElement which is able to search for WebDriverElement inside.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverSelectInterface.html"><abbr title="Facebook\WebDriver\WebDriverSelectInterface">WebDriverSelectInterface</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Models an element of select type, providing helper methods to select and deselect options.</p></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-6">
+                                            <em><a href="Facebook/WebDriver/WebDriverTargetLocator.html"><abbr title="Facebook\WebDriver\WebDriverTargetLocator">WebDriverTargetLocator</abbr></a></em>
+                        </div>
+                <div class="col-md-6"><p>Used to locate a given frame or window.</p></div>
+            </div>
+            </div>
+</div><div id="footer">
+        Generated by <a href="https://github.com/code-lts/doctum">Doctum, a API Documentation generator and fork of Sami</a>.</div></div>
+    </div>
+    </body>
+
+</html>

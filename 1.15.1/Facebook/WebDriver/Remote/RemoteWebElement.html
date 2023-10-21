@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Facebook\WebDriver\Remote\RemoteWebElement | php-webdriver API</title>
+
+            <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../../css/doctum.css">
+        <link rel="stylesheet" type="text/css" href="../../../fonts/doctum-font.css">
+        <script src="../../../js/jquery-3.5.1.slim.min.js"></script>
+        <script async defer src="../../../doctum.js"></script>
+        <script async defer src="../../../js/bootstrap.min.js"></script>
+        <script async defer src="../../../js/autocomplete.min.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+        <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.0/opensearch.xml"
+          title="php-webdriver API (1.0.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.1/opensearch.xml"
+          title="php-webdriver API (1.0.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.2/opensearch.xml"
+          title="php-webdriver API (1.0.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.3/opensearch.xml"
+          title="php-webdriver API (1.0.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.0.4/opensearch.xml"
+          title="php-webdriver API (1.0.4)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.0/opensearch.xml"
+          title="php-webdriver API (1.1.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.1/opensearch.xml"
+          title="php-webdriver API (1.1.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.2/opensearch.xml"
+          title="php-webdriver API (1.1.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.1.3/opensearch.xml"
+          title="php-webdriver API (1.1.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.10.0/opensearch.xml"
+          title="php-webdriver API (1.10.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.2.0/opensearch.xml"
+          title="php-webdriver API (1.2.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.3.0/opensearch.xml"
+          title="php-webdriver API (1.3.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.4.0/opensearch.xml"
+          title="php-webdriver API (1.4.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.11.0/opensearch.xml"
+          title="php-webdriver API (1.11.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.12.0/opensearch.xml"
+          title="php-webdriver API (1.12.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.13.0/opensearch.xml"
+          title="php-webdriver API (1.13.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.15.0/opensearch.xml"
+          title="php-webdriver API (1.15.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.15.1/opensearch.xml"
+          title="php-webdriver API (1.15.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.4.1/opensearch.xml"
+          title="php-webdriver API (1.4.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.11.1/opensearch.xml"
+          title="php-webdriver API (1.11.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.5.0/opensearch.xml"
+          title="php-webdriver API (1.5.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.6.0/opensearch.xml"
+          title="php-webdriver API (1.6.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.7.0/opensearch.xml"
+          title="php-webdriver API (1.7.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.7.1/opensearch.xml"
+          title="php-webdriver API (1.7.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.0/opensearch.xml"
+          title="php-webdriver API (1.8.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.12.1/opensearch.xml"
+          title="php-webdriver API (1.12.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.1/opensearch.xml"
+          title="php-webdriver API (1.8.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.2/opensearch.xml"
+          title="php-webdriver API (1.8.2)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.13.1/opensearch.xml"
+          title="php-webdriver API (1.13.1)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.8.3/opensearch.xml"
+          title="php-webdriver API (1.8.3)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.9.0/opensearch.xml"
+          title="php-webdriver API (1.9.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/1.14.0/opensearch.xml"
+          title="php-webdriver API (1.14.0)" />
+    <link rel="search"
+          type="application/opensearchdescription+xml"
+          href="https://php-webdriver.github.io/php-webdriver/main/opensearch.xml"
+          title="php-webdriver API (main)" />
+    </head>
+
+    <body id="class" data-name="class:Facebook_WebDriver_Remote_RemoteWebElement" data-root-path="../../../" data-search-index-url="../../../doctum-search.json">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#">
+                <select class="form-control" id="version-switcher" name="version">
+                                            <option
+                            value="../../../../1.0.0/index.html"
+                            data-version="1.0.0" >1.0.0</option>
+                                            <option
+                            value="../../../../1.0.1/index.html"
+                            data-version="1.0.1" >1.0.1</option>
+                                            <option
+                            value="../../../../1.0.2/index.html"
+                            data-version="1.0.2" >1.0.2</option>
+                                            <option
+                            value="../../../../1.0.3/index.html"
+                            data-version="1.0.3" >1.0.3</option>
+                                            <option
+                            value="../../../../1.0.4/index.html"
+                            data-version="1.0.4" >1.0.4</option>
+                                            <option
+                            value="../../../../1.1.0/index.html"
+                            data-version="1.1.0" >1.1.0</option>
+                                            <option
+                            value="../../../../1.1.1/index.html"
+                            data-version="1.1.1" >1.1.1</option>
+                                            <option
+                            value="../../../../1.1.2/index.html"
+                            data-version="1.1.2" >1.1.2</option>
+                                            <option
+                            value="../../../../1.1.3/index.html"
+                            data-version="1.1.3" >1.1.3</option>
+                                            <option
+                            value="../../../../1.10.0/index.html"
+                            data-version="1.10.0" >1.10.0</option>
+                                            <option
+                            value="../../../../1.2.0/index.html"
+                            data-version="1.2.0" >1.2.0</option>
+                                            <option
+                            value="../../../../1.3.0/index.html"
+                            data-version="1.3.0" >1.3.0</option>
+                                            <option
+                            value="../../../../1.4.0/index.html"
+                            data-version="1.4.0" >1.4.0</option>
+                                            <option
+                            value="../../../../1.11.0/index.html"
+                            data-version="1.11.0" >1.11.0</option>
+                                            <option
+                            value="../../../../1.12.0/index.html"
+                            data-version="1.12.0" >1.12.0</option>
+                                            <option
+                            value="../../../../1.13.0/index.html"
+                            data-version="1.13.0" >1.13.0</option>
+                                            <option
+                            value="../../../../1.15.0/index.html"
+                            data-version="1.15.0" >1.15.0</option>
+                                            <option
+                            value="../../../../1.15.1/index.html"
+                            data-version="1.15.1" selected>1.15.1</option>
+                                            <option
+                            value="../../../../1.4.1/index.html"
+                            data-version="1.4.1" >1.4.1</option>
+                                            <option
+                            value="../../../../1.11.1/index.html"
+                            data-version="1.11.1" >1.11.1</option>
+                                            <option
+                            value="../../../../1.5.0/index.html"
+                            data-version="1.5.0" >1.5.0</option>
+                                            <option
+                            value="../../../../1.6.0/index.html"
+                            data-version="1.6.0" >1.6.0</option>
+                                            <option
+                            value="../../../../1.7.0/index.html"
+                            data-version="1.7.0" >1.7.0</option>
+                                            <option
+                            value="../../../../1.7.1/index.html"
+                            data-version="1.7.1" >1.7.1</option>
+                                            <option
+                            value="../../../../1.8.0/index.html"
+                            data-version="1.8.0" >1.8.0</option>
+                                            <option
+                            value="../../../../1.12.1/index.html"
+                            data-version="1.12.1" >1.12.1</option>
+                                            <option
+                            value="../../../../1.8.1/index.html"
+                            data-version="1.8.1" >1.8.1</option>
+                                            <option
+                            value="../../../../1.8.2/index.html"
+                            data-version="1.8.2" >1.8.2</option>
+                                            <option
+                            value="../../../../1.13.1/index.html"
+                            data-version="1.13.1" >1.13.1</option>
+                                            <option
+                            value="../../../../1.8.3/index.html"
+                            data-version="1.8.3" >1.8.3</option>
+                                            <option
+                            value="../../../../1.9.0/index.html"
+                            data-version="1.9.0" >1.9.0</option>
+                                            <option
+                            value="../../../../1.14.0/index.html"
+                            data-version="1.14.0" >1.14.0</option>
+                                            <option
+                            value="../../../../main/index.html"
+                            data-version="main" >main branch</option>
+                                    </select>
+            </form>
+                <div class="search-bar hidden" id="search-progress-bar-container">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" id="search-progress-bar"
+                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+            </div>
+        </div>
+        <form id="search-form" action="../../../search.html">
+            <span class="icon icon-search"></span>
+            <input name="search"
+                   id="doctum-search-auto-complete"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search"
+                   spellcheck="false"
+                   autocorrect="off"
+                   autocomplete="off"
+                   autocapitalize="off">
+            <div class="auto-complete-results" id="auto-complete-results"></div>
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../../index.html">php-webdriver API</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                                        <li role="presentation" class="dropdown visible-xs-block visible-sm-block">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">Versions&nbsp;<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li ><a href="../../../../1.0.0/index.html" data-version="1.0.0">1.0.0</a></li>
+                        <li ><a href="../../../../1.0.1/index.html" data-version="1.0.1">1.0.1</a></li>
+                        <li ><a href="../../../../1.0.2/index.html" data-version="1.0.2">1.0.2</a></li>
+                        <li ><a href="../../../../1.0.3/index.html" data-version="1.0.3">1.0.3</a></li>
+                        <li ><a href="../../../../1.0.4/index.html" data-version="1.0.4">1.0.4</a></li>
+                        <li ><a href="../../../../1.1.0/index.html" data-version="1.1.0">1.1.0</a></li>
+                        <li ><a href="../../../../1.1.1/index.html" data-version="1.1.1">1.1.1</a></li>
+                        <li ><a href="../../../../1.1.2/index.html" data-version="1.1.2">1.1.2</a></li>
+                        <li ><a href="../../../../1.1.3/index.html" data-version="1.1.3">1.1.3</a></li>
+                        <li ><a href="../../../../1.10.0/index.html" data-version="1.10.0">1.10.0</a></li>
+                        <li ><a href="../../../../1.2.0/index.html" data-version="1.2.0">1.2.0</a></li>
+                        <li ><a href="../../../../1.3.0/index.html" data-version="1.3.0">1.3.0</a></li>
+                        <li ><a href="../../../../1.4.0/index.html" data-version="1.4.0">1.4.0</a></li>
+                        <li ><a href="../../../../1.11.0/index.html" data-version="1.11.0">1.11.0</a></li>
+                        <li ><a href="../../../../1.12.0/index.html" data-version="1.12.0">1.12.0</a></li>
+                        <li ><a href="../../../../1.13.0/index.html" data-version="1.13.0">1.13.0</a></li>
+                        <li ><a href="../../../../1.15.0/index.html" data-version="1.15.0">1.15.0</a></li>
+                        <li class="active"><a href="../../../../1.15.1/index.html" data-version="1.15.1">1.15.1</a></li>
+                        <li ><a href="../../../../1.4.1/index.html" data-version="1.4.1">1.4.1</a></li>
+                        <li ><a href="../../../../1.11.1/index.html" data-version="1.11.1">1.11.1</a></li>
+                        <li ><a href="../../../../1.5.0/index.html" data-version="1.5.0">1.5.0</a></li>
+                        <li ><a href="../../../../1.6.0/index.html" data-version="1.6.0">1.6.0</a></li>
+                        <li ><a href="../../../../1.7.0/index.html" data-version="1.7.0">1.7.0</a></li>
+                        <li ><a href="../../../../1.7.1/index.html" data-version="1.7.1">1.7.1</a></li>
+                        <li ><a href="../../../../1.8.0/index.html" data-version="1.8.0">1.8.0</a></li>
+                        <li ><a href="../../../../1.12.1/index.html" data-version="1.12.1">1.12.1</a></li>
+                        <li ><a href="../../../../1.8.1/index.html" data-version="1.8.1">1.8.1</a></li>
+                        <li ><a href="../../../../1.8.2/index.html" data-version="1.8.2">1.8.2</a></li>
+                        <li ><a href="../../../../1.13.1/index.html" data-version="1.13.1">1.13.1</a></li>
+                        <li ><a href="../../../../1.8.3/index.html" data-version="1.8.3">1.8.3</a></li>
+                        <li ><a href="../../../../1.9.0/index.html" data-version="1.9.0">1.9.0</a></li>
+                        <li ><a href="../../../../1.14.0/index.html" data-version="1.14.0">1.14.0</a></li>
+                        <li ><a href="../../../../main/index.html" data-version="main">main branch</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../../../classes.html">Classes</a></li>
+                    <li><a href="../../../namespaces.html">Namespaces</a></li>
+                    <li><a href="../../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../../traits.html">Traits</a></li>
+                    <li><a href="../../../doc-index.html">Index</a></li>
+                    <li><a href="../../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../../Facebook.html">Facebook</a></li><li class="backslash">\</li><li><a href="../../../Facebook/WebDriver.html">WebDriver</a></li><li class="backslash">\</li><li><a href="../../../Facebook/WebDriver/Remote.html">Remote</a></li><li class="backslash">\</li><li>RemoteWebElement</li>
+            </ol>
+        </div>
+                <div id="page-content">
+    <div class="page-header">
+        <h1>RemoteWebElement    
+            </h1>
+    </div>
+
+    
+    <p>        class
+    <strong>RemoteWebElement</strong>        implements        <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>, <a href="../../../Facebook/WebDriver/Internal/WebDriverLocatable.html"><abbr title="Facebook\WebDriver\Internal\WebDriverLocatable">WebDriverLocatable</abbr></a>        (<a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php">View source</a>)
+</p>
+
+        
+    
+        
+
+            <div class="description">
+            <p><p>Represents an HTML element.</p></p>                    </div>
+            
+        
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_executor">
+                                        protected                                        <a href="../../../Facebook/WebDriver/Remote/RemoteExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\RemoteExecuteMethod">RemoteExecuteMethod</abbr></a>
+                                                                                
+                                    </td>
+                <td>$executor</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_id">
+                                        protected                                        string
+                                                                                
+                                    </td>
+                <td>$id</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_fileDetector">
+                                        protected                                        <a href="../../../Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a>
+                                                                                
+                                    </td>
+                <td>$fileDetector</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_isW3cCompliant">
+                                        protected                                        bool
+                                                                                
+                                    </td>
+                <td>$isW3cCompliant</td>
+                <td class="last"></td>
+                <td></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method___construct">__construct</a>(<a href="../../../Facebook/WebDriver/Remote/RemoteExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\RemoteExecuteMethod">RemoteExecuteMethod</abbr></a> $executor, string $id, bool $isW3cCompliant = false)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_clear">clear</a>()
+        
+                                            <p><p>Clear content editable or resettable element</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_click">click</a>()
+        
+                                            <p><p>Click this element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_findElement">findElement</a>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
+        
+                                            <p><p>Find the first WebDriverElement within this element using the given mechanism.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>[]
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_findElements">findElements</a>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
+        
+                                            <p><p>Find all WebDriverElements within this element using the given mechanism.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string|null
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getAttribute">getAttribute</a>(string $attribute_name)
+        
+                                            <p><p>Get the value of the given attribute of the element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    mixed|null
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getDomProperty">getDomProperty</a>(string $propertyName)
+        
+                                            <p><p>Gets the value of a IDL JavaScript property of this element (for example <code>innerHTML</code>, <code>tagName</code> etc.).</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCSSValue">getCSSValue</a>(string $css_property_name)
+        
+                                            <p><p>Get the value of a given CSS property.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getLocation">getLocation</a>()
+        
+                                            <p><p>Get the location of element relative to the top-left corner of the page.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getLocationOnScreenOnceScrolledIntoView">getLocationOnScreenOnceScrolledIntoView</a>()
+        
+                                            <p><p>Try scrolling the element into the view port and return the location of
+element relative to the top-left corner of the page afterwards.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/Interactions/Internal/WebDriverCoordinates.html"><abbr title="Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates">WebDriverCoordinates</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCoordinates">getCoordinates</a>()
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverDimension.html"><abbr title="Facebook\WebDriver\WebDriverDimension">WebDriverDimension</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getSize">getSize</a>()
+        
+                                            <p><p>Get the size of element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getTagName">getTagName</a>()
+        
+                                            <p><p>Get the (lowercase) tag name of this element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getText">getText</a>()
+        
+                                            <p><p>Get the visible (i.e. not hidden by CSS) innerText of this element,
+including sub-elements, without any leading or trailing whitespace.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_isDisplayed">isDisplayed</a>()
+        
+                                            <p><p>Is this element displayed or not? This method avoids the problem of having
+to parse an element's &quot;style&quot; attribute.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_isEnabled">isEnabled</a>()
+        
+                                            <p><p>Is the element currently enabled or not? This will generally return true
+for everything but disabled input elements.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_isSelected">isSelected</a>()
+        
+                                            <p><p>Determine whether this element is selected or not.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_sendKeys">sendKeys</a>(mixed $value)
+        
+                                            <p><p>Simulate typing into an element, which may set its value.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setFileDetector">setFileDetector</a>(<a href="../../../Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a> $detector)
+        
+                                            <p><p>Set the fileDetector in order to let the RemoteWebElement to know that you are going to upload a file.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_submit">submit</a>()
+        
+                                            <p><p>If this current element is a form, or an element within a form, then this will be submitted to the remote server.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getID">getID</a>()
+        
+                                            <p><p>Get the opaque ID of the element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_takeElementScreenshot">takeElementScreenshot</a>(string $save_as = null)
+        
+                                            <p><p>Take a screenshot of a specific element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    bool
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_equals">equals</a>(<a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a> $other)
+        
+                                            <p><p>Test if two elements IDs refer to the same DOM element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/Remote/ShadowRoot.html"><abbr title="Facebook\WebDriver\Remote\ShadowRoot">ShadowRoot</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getShadowRoot">getShadowRoot</a>()
+        
+                                            <p><p>Get representation of an element's shadow root for accessing the shadow DOM of a web component.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_clickChildElement">clickChildElement</a>(<a href="../../../Facebook/WebDriver/Exception/ElementNotInteractableException.html"><abbr title="Facebook\WebDriver\Exception\ElementNotInteractableException">ElementNotInteractableException</abbr></a> $originalException)
+        
+                                            <p><p>Attempt to click on a child level element.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_newElement">newElement</a>(string $id)
+        
+                                            <p><p>Return the WebDriverElement with $id</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_upload">upload</a>(string $local_file)
+        
+                                            <p><p>Upload a local file to the server</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_createTemporaryZipArchive">createTemporaryZipArchive</a>(string $fileToZip)
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L47">at line 47</a></div>
+        <code>                    
+    <strong>__construct</strong>(<a href="../../../Facebook/WebDriver/Remote/RemoteExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\RemoteExecuteMethod">RemoteExecuteMethod</abbr></a> $executor, string $id, bool $isW3cCompliant = false)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p class="no-description">No description</p>
+                    
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/Remote/RemoteExecuteMethod.html"><abbr title="Facebook\WebDriver\Remote\RemoteExecuteMethod">RemoteExecuteMethod</abbr></a></td>
+                <td>$executor</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$id</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$isW3cCompliant</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_clear">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L60">at line 60</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+    <strong>clear</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Clear content editable or resettable element</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+            <td><p>The current instance.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_click">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L75">at line 75</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+    <strong>click</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Click this element.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+            <td><p>The current instance.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_findElement">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L102">at line 102</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+    <strong>findElement</strong>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Find the first WebDriverElement within this element using the given mechanism.</p></p>                <p><p>When using xpath be aware that webdriver follows standard conventions: a search prefixed with &quot;//&quot; will
+search the entire document from the root, not just the children (relative context) of this current node.
+Use &quot;.//&quot; to limit your search to the children of this element.</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a></td>
+                <td>$by</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_findElements">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L126">at line 126</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>[]
+    <strong>findElements</strong>(<a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a> $by)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Find all WebDriverElements within this element using the given mechanism.</p></p>                <p><p>When using xpath be aware that webdriver follows standard conventions: a search prefixed with &quot;//&quot; will
+search the entire document from the root, not just the children (relative context) of this current node.
+Use &quot;.//&quot; to limit your search to the children of this element.</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a></td>
+                <td>$by</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>[]</td>
+            <td><p>A list of all WebDriverElements, or an empty array if nothing matches</p></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../Facebook/WebDriver/WebDriverBy.html"><abbr title="Facebook\WebDriver\WebDriverBy">WebDriverBy</abbr></a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getAttribute">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L156">at line 156</a></div>
+        <code>                    string|null
+    <strong>getAttribute</strong>(string $attribute_name)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the value of the given attribute of the element.</p></p>                <p><p>Attribute is meant what is declared in the HTML markup of the element.
+To read a value of a IDL &quot;JavaScript&quot; property (like <code>innerHTML</code>), use <code>getDomProperty()</code> method.</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$attribute_name</td>
+                <td><p>The name of the attribute.</p></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string|null</td>
+            <td><p>The value of the attribute.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getDomProperty">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L190">at line 190</a></div>
+        <code>                    mixed|null
+    <strong>getDomProperty</strong>(string $propertyName)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Gets the value of a IDL JavaScript property of this element (for example <code>innerHTML</code>, <code>tagName</code> etc.).</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$propertyName</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>mixed|null</td>
+            <td><p>The property's current value or null if the value is not set or the property does not exist.</p></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="https://developer.mozilla.org/en-US/docs/Glossary/IDL">https://developer.mozilla.org/en-US/docs/Glossary/IDL</a>
+                                    </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>
+                                            <a href="https://developer.mozilla.org/en-US/docs/Web/API/Element#properties">https://developer.mozilla.org/en-US/docs/Web/API/Element#properties</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCSSValue">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L210">at line 210</a></div>
+        <code>                    string
+    <strong>getCSSValue</strong>(string $css_property_name)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the value of a given CSS property.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$css_property_name</td>
+                <td><p>The name of the CSS property.</p></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The value of the CSS property.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getLocation">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L228">at line 228</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a>
+    <strong>getLocation</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the location of element relative to the top-left corner of the page.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a></td>
+            <td><p>The location of the element.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getLocationOnScreenOnceScrolledIntoView">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L244">at line 244</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a>
+    <strong>getLocationOnScreenOnceScrolledIntoView</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Try scrolling the element into the view port and return the location of
+element relative to the top-left corner of the page afterwards.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverPoint.html"><abbr title="Facebook\WebDriver\WebDriverPoint">WebDriverPoint</abbr></a></td>
+            <td><p>The location of the element.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCoordinates">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L272">at line 272</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/Interactions/Internal/WebDriverCoordinates.html"><abbr title="Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates">WebDriverCoordinates</abbr></a>
+    <strong>getCoordinates</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p class="no-description">No description</p>
+                    
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/Interactions/Internal/WebDriverCoordinates.html"><abbr title="Facebook\WebDriver\Interactions\Internal\WebDriverCoordinates">WebDriverCoordinates</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getSize">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L298">at line 298</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverDimension.html"><abbr title="Facebook\WebDriver\WebDriverDimension">WebDriverDimension</abbr></a>
+    <strong>getSize</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the size of element.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverDimension.html"><abbr title="Facebook\WebDriver\WebDriverDimension">WebDriverDimension</abbr></a></td>
+            <td><p>The dimension of the element.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getTagName">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L313">at line 313</a></div>
+        <code>                    string
+    <strong>getTagName</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the (lowercase) tag name of this element.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The tag name.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getText">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L331">at line 331</a></div>
+        <code>                    string
+    <strong>getText</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the visible (i.e. not hidden by CSS) innerText of this element,
+including sub-elements, without any leading or trailing whitespace.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The visible innerText of this element.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isDisplayed">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L345">at line 345</a></div>
+        <code>                    bool
+    <strong>isDisplayed</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Is this element displayed or not? This method avoids the problem of having
+to parse an element's &quot;style&quot; attribute.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isEnabled">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L359">at line 359</a></div>
+        <code>                    bool
+    <strong>isEnabled</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Is the element currently enabled or not? This will generally return true
+for everything but disabled input elements.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_isSelected">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L372">at line 372</a></div>
+        <code>                    bool
+    <strong>isSelected</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Determine whether this element is selected or not.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendKeys">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L386">at line 386</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+    <strong>sendKeys</strong>(mixed $value)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Simulate typing into an element, which may set its value.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>mixed</td>
+                <td>$value</td>
+                <td><p>The data to be typed.</p></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+            <td><p>The current instance.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setFileDetector">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L451">at line 451</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a>
+    <strong>setFileDetector</strong>(<a href="../../../Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a> $detector)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Set the fileDetector in order to let the RemoteWebElement to know that you are going to upload a file.</p></p>                <p><p>Basically, if you want WebDriver trying to send a file, set the fileDetector
+to be LocalFileDetector. Otherwise, keep it UselessFileDetector.</p>
+<p>eg. <code>$element-&gt;setFileDetector(new LocalFileDetector);</code></p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a></td>
+                <td>$detector</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="../../../Facebook/WebDriver/Remote/FileDetector.html"><abbr title="Facebook\WebDriver\Remote\FileDetector">FileDetector</abbr></a>
+                                    </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>
+                                            <a href="../../../Facebook/WebDriver/Remote/LocalFileDetector.html"><abbr title="Facebook\WebDriver\Remote\LocalFileDetector">LocalFileDetector</abbr></a>
+                                    </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>
+                                            <a href="../../../Facebook/WebDriver/Remote/UselessFileDetector.html"><abbr title="Facebook\WebDriver\Remote\UselessFileDetector">UselessFileDetector</abbr></a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_submit">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L463">at line 463</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a>
+    <strong>submit</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>If this current element is a form, or an element within a form, then this will be submitted to the remote server.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+            <td><p>The current instance.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getID">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L502">at line 502</a></div>
+        <code>                    string
+    <strong>getID</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get the opaque ID of the element.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The opaque ID.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_takeElementScreenshot">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L513">at line 513</a></div>
+        <code>                    string
+    <strong>takeElementScreenshot</strong>(string $save_as = null)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Take a screenshot of a specific element.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$save_as</td>
+                <td><p>The path of the screenshot to be saved.</p></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The screenshot in PNG format.</p></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_equals">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L523">at line 523</a></div>
+        <code>                    bool
+    <strong>equals</strong>(<a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a> $other)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Test if two elements IDs refer to the same DOM element.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/WebDriverElement.html"><abbr title="Facebook\WebDriver\WebDriverElement">WebDriverElement</abbr></a></td>
+                <td>$other</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>bool</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getShadowRoot">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L540">at line 540</a></div>
+        <code>                    <a href="../../../Facebook/WebDriver/Remote/ShadowRoot.html"><abbr title="Facebook\WebDriver\Remote\ShadowRoot">ShadowRoot</abbr></a>
+    <strong>getShadowRoot</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Get representation of an element's shadow root for accessing the shadow DOM of a web component.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/Remote/ShadowRoot.html"><abbr title="Facebook\WebDriver\Remote\ShadowRoot">ShadowRoot</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_clickChildElement">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L569">at line 569</a></div>
+        <code>            protected        
+    <strong>clickChildElement</strong>(<a href="../../../Facebook/WebDriver/Exception/ElementNotInteractableException.html"><abbr title="Facebook\WebDriver\Exception\ElementNotInteractableException">ElementNotInteractableException</abbr></a> $originalException)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Attempt to click on a child level element.</p></p>                <p><p>This provides a workaround for geckodriver bug 653 whereby a link whose first element is a block-level element
+throws an ElementNotInteractableException could not scroll into view exception.</p>
+<p>The workaround provided here attempts to click on a child node of the element.
+In case the first child is hidden, other elements are processed until we run out of elements.</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/Exception/ElementNotInteractableException.html"><abbr title="Facebook\WebDriver\Exception\ElementNotInteractableException">ElementNotInteractableException</abbr></a></td>
+                <td>$originalException</td>
+                <td><p>The exception to throw if unable to click on any child</p></td>
+            </tr>
+            </table>
+
+            
+            
+            
+                            <h4>See also</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                            <a href="https://github.com/mozilla/geckodriver/issues/653">https://github.com/mozilla/geckodriver/issues/653</a>
+                                    </td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>
+                                            <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1374283">https://bugzilla.mozilla.org/show_bug.cgi?id=1374283</a>
+                                    </td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_newElement">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L597">at line 597</a></div>
+        <code>            protected        <a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a>
+    <strong>newElement</strong>(string $id)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Return the WebDriverElement with $id</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$id</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Facebook/WebDriver/Remote/RemoteWebElement.html"><abbr title="Facebook\WebDriver\Remote\RemoteWebElement">RemoteWebElement</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_upload">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L610">at line 610</a></div>
+        <code>            protected        string
+    <strong>upload</strong>(string $local_file)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>Upload a local file to the server</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$local_file</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td><p>The remote path of the file.</p></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../../Facebook/WebDriver/Exception/Internal/LogicException.html"><abbr title="Facebook\WebDriver\Exception\Internal\LogicException">LogicException</abbr></a></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_createTemporaryZipArchive">
+        <div class="location"><a href="https://github.com/php-webdriver/php-webdriver/blob/1.15.1/lib/Remote/RemoteWebElement.php#L632">at line 632</a></div>
+        <code>            protected        string
+    <strong>createTemporaryZipArchive</strong>(string $fileToZip)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p class="no-description">No description</p>
+                    
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$fileToZip</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+</div><div id="footer">
+        Generated by <a href="https://github.com/code-lts/doctum">Doctum, a API Documentation generator and fork of Sami</a>.</div></div>
+    </div>
+    </body>
+
+</html>
