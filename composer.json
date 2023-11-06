@@ -27,7 +27,7 @@
     "php-parallel-lint/php-parallel-lint": "^1.2",
     "phpunit/phpunit": "^9.3",
     "squizlabs/php_codesniffer": "^3.5",
-    "symfony/var-dumper": "^5.0 || ^6.0"
+    "symfony/var-dumper": "^5.0 || ^6.0 || ^7.0"
   },
   "replace": {
     "facebook/webdriver": "*"
