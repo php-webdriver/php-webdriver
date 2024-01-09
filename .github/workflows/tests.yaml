@@ -14,7 +14,7 @@ jobs:
     name: "Code style and static analysis"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -35,7 +35,7 @@ jobs:
     name: "Markdown link check"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: 'yes'
@@ -52,7 +52,7 @@ jobs:
           - { php-version: '7.3', dependencies: '--prefer-lowest' }
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -99,7 +99,7 @@ jobs:
     name: "Functional tests (${{ matrix.browser }}, Selenium server: ${{ matrix.selenium-server }}, W3C: ${{ matrix.w3c }})"
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -207,7 +207,7 @@ jobs:
         run: |
           mkdir -p ./data
           echo ${{ github.run_id }} > ./data/run_id
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: data
           path: data/
