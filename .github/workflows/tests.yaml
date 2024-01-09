@@ -19,7 +19,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           extensions: mbstring, intl, zip
 
       - name: Install PHP dependencies
@@ -46,7 +46,7 @@ jobs:
 
     strategy:
       matrix:
-        php-version: ['7.3', '7.4', '8.0', '8.1', '8.2']
+        php-version: ['7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
         dependencies: ['']
         include:
           - { php-version: '7.3', dependencies: '--prefer-lowest' }
@@ -82,7 +82,7 @@ jobs:
   functional-tests:
     runs-on: ${{ matrix.os }}
     env:
-      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.14.0/selenium-server-4.14.1.jar
+      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.15.0/selenium-server-4.15.0.jar
 
     strategy:
       fail-fast: false
@@ -104,7 +104,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: '8.3'
           extensions: mbstring, intl, zip
           coverage: xdebug
 
