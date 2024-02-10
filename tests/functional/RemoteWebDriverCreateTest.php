@@ -140,9 +140,6 @@ class RemoteWebDriverCreateTest extends WebDriverTestCase
 
         $expectedBrowserName = $this->desiredCapabilities->getBrowserName();
 
-        if ($this->isSauceLabsBuild() && $expectedBrowserName === 'MicrosoftEdge') {
-            $expectedBrowserName = 'msedge'; // SauceLabs for some reason reports MicrosoftEdge as msedge
-        }
         $this->assertEqualsIgnoringCase(
             $expectedBrowserName,
             $returnedCapabilities->getBrowserName()
