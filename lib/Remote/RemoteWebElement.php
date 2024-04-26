@@ -55,7 +55,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Clear content editable or resettable element
      *
-     * @return RemoteWebElement The current instance.
+     * @return $this The current instance.
      */
     public function clear()
     {
@@ -70,7 +70,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * Click this element.
      *
-     * @return RemoteWebElement The current instance.
+     * @return $this The current instance.
      */
     public function click()
     {
@@ -96,7 +96,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * search the entire document from the root, not just the children (relative context) of this current node.
      * Use ".//" to limit your search to the children of this element.
      *
-     * @return RemoteWebElement NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
+     * @return static NoSuchElementException is thrown in HttpCommandExecutor if no element is found.
      * @see WebDriverBy
      */
     public function findElement(WebDriverBy $by)
@@ -119,7 +119,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * search the entire document from the root, not just the children (relative context) of this current node.
      * Use ".//" to limit your search to the children of this element.
      *
-     * @return RemoteWebElement[] A list of all WebDriverElements, or an empty
+     * @return static[] A list of all WebDriverElements, or an empty
      *    array if nothing matches
      * @see WebDriverBy
      */
@@ -381,7 +381,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      * Simulate typing into an element, which may set its value.
      *
      * @param mixed $value The data to be typed.
-     * @return RemoteWebElement The current instance.
+     * @return static The current instance.
      */
     public function sendKeys($value)
     {
@@ -443,7 +443,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
      *
      *   eg. `$element->setFileDetector(new LocalFileDetector);`
      *
-     * @return RemoteWebElement
+     * @return $this
      * @see FileDetector
      * @see LocalFileDetector
      * @see UselessFileDetector
@@ -458,7 +458,7 @@ class RemoteWebElement implements WebDriverElement, WebDriverLocatable
     /**
      * If this current element is a form, or an element within a form, then this will be submitted to the remote server.
      *
-     * @return RemoteWebElement The current instance.
+     * @return $this The current instance.
      */
     public function submit()
     {
