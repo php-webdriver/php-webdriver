@@ -36,7 +36,7 @@ abstract class WebDriverSingleKeyAction extends WebDriverKeysRelatedAction imple
     public function __construct(
         WebDriverKeyboard $keyboard,
         WebDriverMouse $mouse,
-        WebDriverLocatable $location_provider = null,
+        ?WebDriverLocatable $location_provider = null,
         $key = ''
     ) {
         parent::__construct($keyboard, $mouse, $location_provider);

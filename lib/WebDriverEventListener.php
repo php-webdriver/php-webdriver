@@ -48,5 +48,5 @@ interface WebDriverEventListener
 
     public function afterChangeValueOf(EventFiringWebElement $element);
 
-    public function onException(WebDriverException $exception, EventFiringWebDriver $driver = null);
+    public function onException(WebDriverException $exception, ?EventFiringWebDriver $driver = null);
 }

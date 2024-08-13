@@ -21,8 +21,10 @@ class ChromeDriver extends LocalWebDriver
      * @todo Remove $service parameter. Use `ChromeDriver::startUsingDriverService` to pass custom $service instance.
      * @return static
      */
-    public static function start(DesiredCapabilities $desired_capabilities = null, ChromeDriverService $service = null)
-    {
+    public static function start(
+        ?DesiredCapabilities $desired_capabilities = null,
+        ?ChromeDriverService $service = null
+    ) {
         if ($service === null) { // TODO: Remove the condition (always create default service)
             $service = ChromeDriverService::createDefaultService();
         }
@@ -40,7 +42,7 @@ class ChromeDriver extends LocalWebDriver
      */
     public static function startUsingDriverService(
         ChromeDriverService $service,
-        DesiredCapabilities $capabilities = null
+        ?DesiredCapabilities $capabilities = null
     ) {
         if ($capabilities === null) {
             $capabilities = DesiredCapabilities::chrome();

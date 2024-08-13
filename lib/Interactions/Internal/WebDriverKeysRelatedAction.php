@@ -27,7 +27,7 @@ abstract class WebDriverKeysRelatedAction
     public function __construct(
         WebDriverKeyboard $keyboard,
         WebDriverMouse $mouse,
-        WebDriverLocatable $location_provider = null
+        ?WebDriverLocatable $location_provider = null
     ) {
         $this->keyboard = $keyboard;
         $this->mouse = $mouse;
