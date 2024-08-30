@@ -69,7 +69,7 @@ class FirefoxDriverTest extends TestCase
         );
     }
 
-    private function startFirefoxDriver(FirefoxOptions $firefoxOptions = null): void
+    private function startFirefoxDriver(?FirefoxOptions $firefoxOptions = null): void
     {
         // The createDefaultService() method expect path to the executable to be present in the environment variable
         putenv(FirefoxDriverService::WEBDRIVER_FIREFOX_DRIVER . '=' . getenv('GECKODRIVER_PATH'));

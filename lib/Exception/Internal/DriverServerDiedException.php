@@ -9,7 +9,7 @@ use Facebook\WebDriver\Exception\PhpWebDriverExceptionInterface;
  */
 class DriverServerDiedException extends \RuntimeException implements PhpWebDriverExceptionInterface
 {
-    public function __construct(\Exception $previous = null)
+    public function __construct(?\Exception $previous = null)
     {
         parent::__construct('The driver server has died.', 0, $previous);
     }

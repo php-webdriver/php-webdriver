@@ -23,7 +23,7 @@ class WebDriverMoveToOffsetAction extends WebDriverMouseAction implements WebDri
      */
     public function __construct(
         WebDriverMouse $mouse,
-        WebDriverLocatable $location_provider = null,
+        ?WebDriverLocatable $location_provider = null,
         $x_offset = null,
         $y_offset = null
     ) {

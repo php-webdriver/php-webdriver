@@ -20,7 +20,7 @@ class WebDriverSendKeysAction extends WebDriverKeysRelatedAction implements WebD
     public function __construct(
         WebDriverKeyboard $keyboard,
         WebDriverMouse $mouse,
-        WebDriverLocatable $location_provider = null,
+        ?WebDriverLocatable $location_provider = null,
         $keys = ''
     ) {
         parent::__construct($keyboard, $mouse, $location_provider);

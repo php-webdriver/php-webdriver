@@ -26,7 +26,7 @@ class EventFiringWebDriver implements WebDriver, JavaScriptExecutor
      */
     protected $dispatcher;
 
-    public function __construct(WebDriver $driver, WebDriverDispatcher $dispatcher = null)
+    public function __construct(WebDriver $driver, ?WebDriverDispatcher $dispatcher = null)
     {
         $this->dispatcher = $dispatcher ?: new WebDriverDispatcher();
         if (!$this->dispatcher->getDefaultDriver()) {
