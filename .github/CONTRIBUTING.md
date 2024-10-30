@@ -69,7 +69,7 @@ composer all
 composer test -- --testsuite functional
 ```
 
-If you want to run tests in different browser then "htmlunit" (Chrome or Firefox), you need to setup the browser driver (Chromedriver/Geckodriver), as it is [explained in wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome)
+If you want to run tests in different browser then "htmlunit" (Chrome or Firefox), you need to set up the browser driver (Chromedriver/Geckodriver), as it is [explained in wiki](https://github.com/php-webdriver/php-webdriver/wiki/Chrome)
 and then the `BROWSER_NAME` environment variable:
 
 ```sh
@@ -83,5 +83,12 @@ To test with Firefox/Geckodriver, you must also set `GECKODRIVER` environment va
 ```sh
 export GECKODRIVER=1
 export BROWSER_NAME="firefox"
+composer all
+```
+
+To see the tests as they are happening (in the browser window), you can disable headless mode. This is useful eg. when debugging the tests or writing a new one:
+
+```sh
+export DISABLE_HEADLESS="1"
 composer all
 ```

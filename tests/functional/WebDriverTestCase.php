@@ -38,6 +38,7 @@ class WebDriverTestCase extends TestCase
             $this->setUpSauceLabs();
         } else {
             $browserName = getenv('BROWSER_NAME');
+            $disableHeadless = filter_var(getenv('DISABLE_HEADLESS') ?: '', FILTER_VALIDATE_BOOLEAN);
             if ($browserName === '' || $browserName === false) {
                 $this->markTestSkipped(
                     'To execute functional tests browser name must be provided in BROWSER_NAME environment variable'
@@ -46,13 +47,17 @@ class WebDriverTestCase extends TestCase
 
             if ($browserName === WebDriverBrowserType::CHROME) {
                 $chromeOptions = new ChromeOptions();
+
                 $chromeOptions->addArguments([
-                    '--headless=new',
                     '--window-size=1024,768',
                     '--no-sandbox', // workaround for https://github.com/SeleniumHQ/selenium/issues/4961
                     '--force-color-profile=srgb',
                     '--disable-search-engine-choice-screen',
                 ]);
+
+                if (!$disableHeadless) {
+                    $chromeOptions->addArguments(['--headless=new']);
+                }
 
                 if (!static::isW3cProtocolBuild()) {
                     $chromeOptions->setExperimentalOption('w3c', false);
@@ -61,7 +66,11 @@ class WebDriverTestCase extends TestCase
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             } elseif ($browserName === WebDriverBrowserType::FIREFOX) {
                 $firefoxOptions = new FirefoxOptions();
-                $firefoxOptions->addArguments(['-headless']);
+
+                if (!$disableHeadless) {
+                    $firefoxOptions->addArguments(['-headless']);
+                }
+
                 $this->desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
             }
 
