@@ -82,7 +82,7 @@ jobs:
   functional-tests:
     runs-on: ${{ matrix.os }}
     env:
-      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.15.0/selenium-server-4.15.0.jar
+      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.26.0/selenium-server-4.26.0.jar
 
     strategy:
       fail-fast: false
@@ -127,7 +127,7 @@ jobs:
         run: |
           google-chrome --version
           xvfb-run --server-args="-screen 0, 1280x720x24" --auto-servernum \
-          chromedriver --port=4444 --url-base=/wd/hub &> ./logs/chromedriver.log &
+          chromedriver --port=4444 &> ./logs/chromedriver.log &
 
       - name: Start GeckoDriver
         if: ${{ !matrix.selenium-server && matrix.browser == 'firefox' }}
