@@ -22,7 +22,7 @@ class WebDriverTestCase extends TestCase
     /** @var bool Indicate whether WebDriver should be created on setUp */
     protected $createWebDriver = true;
     /** @var string */
-    protected $serverUrl = 'http://localhost:4444/wd/hub';
+    protected $serverUrl = 'http://localhost:4444';
     /** @var DesiredCapabilities */
     protected $desiredCapabilities;
     /** @var int */
@@ -60,15 +60,9 @@ class WebDriverTestCase extends TestCase
 
                 $this->desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
             } elseif ($browserName === WebDriverBrowserType::FIREFOX) {
-                if (getenv('GECKODRIVER') === '1') {
-                    $this->serverUrl = 'http://localhost:4444';
-                }
-
                 $firefoxOptions = new FirefoxOptions();
                 $firefoxOptions->addArguments(['-headless']);
                 $this->desiredCapabilities->setCapability(FirefoxOptions::CAPABILITY, $firefoxOptions);
-            } elseif ($browserName === WebDriverBrowserType::SAFARI) {
-                $this->serverUrl = 'http://localhost:4444';
             }
 
             $this->desiredCapabilities->setBrowserName($browserName);

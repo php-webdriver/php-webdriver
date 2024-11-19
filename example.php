@@ -10,8 +10,8 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
 
-// This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
-$host = 'http://localhost:4444/wd/hub';
+// This is where Selenium, Chromedriver and Geckodriver 4 listens by default. For Selenium 2/3, use http://localhost:4444/wd/hub
+$host = 'http://localhost:4444/';
 
 $capabilities = DesiredCapabilities::chrome();
 

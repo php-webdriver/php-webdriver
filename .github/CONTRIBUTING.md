@@ -61,7 +61,7 @@ then start the local PHP server which will serve the test pages and then run the
 
 ```sh
 export BROWSER_NAME="htmlunit" # see below for other browsers
-java -jar selenium-server-standalone-X.X.X.jar -log selenium.log &
+java -jar selenium-server-X.XX.0.jar standalone --log selenium.log &
 php -S localhost:8000 -t tests/functional/web/ &
 # Use following to run both unit and functional tests
 composer all
