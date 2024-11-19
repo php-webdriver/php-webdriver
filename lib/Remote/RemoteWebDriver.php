@@ -89,7 +89,7 @@ class RemoteWebDriver implements WebDriver, JavaScriptExecutor, WebDriverHasInpu
         $request_timeout_in_ms = null,
         $http_proxy = null,
         $http_proxy_port = null,
-        DesiredCapabilities $required_capabilities = null
+        ?DesiredCapabilities $required_capabilities = null
     ) {
         $selenium_server_url = preg_replace('#/+$#', '', $selenium_server_url);
 

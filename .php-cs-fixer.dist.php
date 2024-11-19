@@ -77,6 +77,10 @@ return (new PhpCsFixer\Config())
         'no_whitespace_before_comma_in_array' => ['after_heredoc' => true],
         'no_whitespace_in_blank_line' => true,
         'non_printable_character' => true,
+        'nullable_type_declaration' => [
+            'syntax' => 'question_mark',
+        ],
+        'nullable_type_declaration_for_default_null_value' => true,
         'object_operator_without_whitespace' => true,
         'ordered_class_elements' => true,
         'ordered_imports' => true,

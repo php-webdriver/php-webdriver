@@ -20,7 +20,7 @@ abstract class LocalWebDriver extends RemoteWebDriver
         $request_timeout_in_ms = null,
         $http_proxy = null,
         $http_proxy_port = null,
-        DesiredCapabilities $required_capabilities = null
+        ?DesiredCapabilities $required_capabilities = null
     ) {
         throw LogicException::forError('Use start() method to start local WebDriver.');
     }

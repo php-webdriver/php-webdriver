@@ -47,7 +47,7 @@ class WebDriverActions
      *
      * @return WebDriverActions
      */
-    public function click(WebDriverElement $element = null)
+    public function click(?WebDriverElement $element = null)
     {
         $this->action->addAction(
             new WebDriverClickAction($this->mouse, $element)
@@ -62,7 +62,7 @@ class WebDriverActions
      *
      * @return WebDriverActions
      */
-    public function clickAndHold(WebDriverElement $element = null)
+    public function clickAndHold(?WebDriverElement $element = null)
     {
         $this->action->addAction(
             new WebDriverClickAndHoldAction($this->mouse, $element)
@@ -77,7 +77,7 @@ class WebDriverActions
      *
      * @return WebDriverActions
      */
-    public function contextClick(WebDriverElement $element = null)
+    public function contextClick(?WebDriverElement $element = null)
     {
         $this->action->addAction(
             new WebDriverContextClickAction($this->mouse, $element)
@@ -92,7 +92,7 @@ class WebDriverActions
      *
      * @return WebDriverActions
      */
-    public function doubleClick(WebDriverElement $element = null)
+    public function doubleClick(?WebDriverElement $element = null)
     {
         $this->action->addAction(
             new WebDriverDoubleClickAction($this->mouse, $element)
@@ -186,7 +186,7 @@ class WebDriverActions
      *
      * @return WebDriverActions
      */
-    public function release(WebDriverElement $element = null)
+    public function release(?WebDriverElement $element = null)
     {
         $this->action->addAction(
             new WebDriverButtonReleaseAction($this->mouse, $element)
@@ -203,7 +203,7 @@ class WebDriverActions
      * @param string $key
      * @return WebDriverActions
      */
-    public function keyDown(WebDriverElement $element = null, $key = null)
+    public function keyDown(?WebDriverElement $element = null, $key = null)
     {
         $this->action->addAction(
             new WebDriverKeyDownAction($this->keyboard, $this->mouse, $element, $key)
@@ -220,7 +220,7 @@ class WebDriverActions
      * @param string $key
      * @return WebDriverActions
      */
-    public function keyUp(WebDriverElement $element = null, $key = null)
+    public function keyUp(?WebDriverElement $element = null, $key = null)
     {
         $this->action->addAction(
             new WebDriverKeyUpAction($this->keyboard, $this->mouse, $element, $key)
@@ -237,7 +237,7 @@ class WebDriverActions
      * @param string $keys
      * @return WebDriverActions
      */
-    public function sendKeys(WebDriverElement $element = null, $keys = null)
+    public function sendKeys(?WebDriverElement $element = null, $keys = null)
     {
         $this->action->addAction(
             new WebDriverSendKeysAction(
