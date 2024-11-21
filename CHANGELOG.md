@@ -3,6 +3,18 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Fixed
+- PHP 8.4 deprecation notices, especially in nullable return types.
+- Docs: Fix static return types in RemoteWebElement phpDoc.
+- Tests: Disable chrome 127+ search engine pop-up in tests
+- Tests: Enable Shadow DOM tests in Geckodriver
+
+### Added
+- Tests: Allow running tests in headfull (not headless) mode using `DISABLE_HEADLESS` environment variable.
+
+### Changed
+- Docs: Update selenium server host URL in example.
+
 ## 1.15.1 - 2023-10-20
 - Update `symfony/process` dependency to support upcoming Symfony 7.
 
