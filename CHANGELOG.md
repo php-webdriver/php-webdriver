@@ -3,8 +3,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 1.15.2 - 2024-11-21
 ### Fixed
-- PHP 8.4 deprecation notices, especially in nullable return types.
+- PHP 8.4 deprecation notices, especially in nullable type-hints.
 - Docs: Fix static return types in RemoteWebElement phpDoc.
 - Tests: Disable chrome 127+ search engine pop-up in tests
 - Tests: Enable Shadow DOM tests in Geckodriver
