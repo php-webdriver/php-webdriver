@@ -43,7 +43,7 @@ class WebDriverTimeouts
         }
 
         if ($seconds === null) {
-            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+            throw new \InvalidArgumentException('JsonWire Protocol implicit-wait-timeout value cannot be null');
         }
         $this->executor->execute(
             DriverCommand::IMPLICITLY_WAIT,
@@ -71,7 +71,7 @@ class WebDriverTimeouts
         }
 
         if ($seconds === null) {
-            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+            throw new \InvalidArgumentException('JsonWire Protocol script-timeout value cannot be null');
         }
         $this->executor->execute(
             DriverCommand::SET_SCRIPT_TIMEOUT,
@@ -99,7 +99,7 @@ class WebDriverTimeouts
         }
 
         if ($seconds === null) {
-            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+            throw new \InvalidArgumentException('JsonWire Protocol page-load-timeout value cannot be null');
         }
         $this->executor->execute(DriverCommand::SET_TIMEOUT, [
             'type' => 'page load',
