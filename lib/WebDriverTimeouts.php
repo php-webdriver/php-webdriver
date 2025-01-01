@@ -28,7 +28,7 @@ class WebDriverTimeouts
     /**
      * Specify the amount of time the driver should wait when searching for an element if it is not immediately present.
      *
-     * @param float $seconds Wait time in seconds.
+     * @param null|int|float $seconds Wait time in seconds.
      * @return WebDriverTimeouts The current instance.
      */
     public function implicitlyWait($seconds)
@@ -36,12 +36,15 @@ class WebDriverTimeouts
         if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::IMPLICITLY_WAIT,
-                ['implicit' => floor($seconds * 1000)]
+                ['implicit' => $seconds === null ? null : floor($seconds * 1000)]
             );
 
             return $this;
         }
 
+        if ($seconds === null) {
+            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+        }
         $this->executor->execute(
             DriverCommand::IMPLICITLY_WAIT,
             ['ms' => floor($seconds * 1000)]
@@ -53,7 +56,7 @@ class WebDriverTimeouts
     /**
      * Set the amount of time to wait for an asynchronous script to finish execution before throwing an error.
      *
-     * @param float $seconds Wait time in seconds.
+     * @param null|int|float $seconds Wait time in seconds.
      * @return WebDriverTimeouts The current instance.
      */
     public function setScriptTimeout($seconds)
@@ -61,12 +64,15 @@ class WebDriverTimeouts
         if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::SET_SCRIPT_TIMEOUT,
-                ['script' => floor($seconds * 1000)]
+                ['script' => $seconds === null ? null : floor($seconds * 1000)]
             );
 
             return $this;
         }
 
+        if ($seconds === null) {
+            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+        }
         $this->executor->execute(
             DriverCommand::SET_SCRIPT_TIMEOUT,
             ['ms' => floor($seconds * 1000)]
@@ -78,7 +84,7 @@ class WebDriverTimeouts
     /**
      * Set the amount of time to wait for a page load to complete before throwing an error.
      *
-     * @param float $seconds Wait time in seconds.
+     * @param null|int|float $seconds Wait time in seconds.
      * @return WebDriverTimeouts The current instance.
      */
     public function pageLoadTimeout($seconds)
@@ -86,12 +92,15 @@ class WebDriverTimeouts
         if ($this->isW3cCompliant) {
             $this->executor->execute(
                 DriverCommand::SET_SCRIPT_TIMEOUT,
-                ['pageLoad' => floor($seconds * 1000)]
+                ['pageLoad' => $seconds === null ? null : floor($seconds * 1000)]
             );
 
             return $this;
         }
 
+        if ($seconds === null) {
+            throw new \InvalidArgumentException('JsonWire Protocol timeout value cannot be null');
+        }
         $this->executor->execute(DriverCommand::SET_TIMEOUT, [
             'type' => 'page load',
             'ms' => floor($seconds * 1000),
