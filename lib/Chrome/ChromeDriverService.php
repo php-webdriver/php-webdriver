@@ -38,6 +38,7 @@ class ChromeDriverService extends DriverService
         if (!$port) {
             $port = static::DEFAULT_PORT;
         }
+        self::checkPortIsAvail($port);
         $args = ['--port=' . $port];
 
         return new static($pathToExecutable, $port, $args);

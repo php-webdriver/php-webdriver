@@ -35,6 +35,7 @@ class FirefoxDriverService extends DriverService
         if (!$port) {
             $port = static::DEFAULT_PORT;
         }
+        self::checkPortIsAvail($port);
         $args = ['-p=' . $port];
 
         return new static($pathToExecutable, $port, $args);
