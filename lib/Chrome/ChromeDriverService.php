@@ -14,10 +14,15 @@ class ChromeDriverService extends DriverService
     /** @var string The environment variable storing the path to the chrome driver executable */
     public const CHROME_DRIVER_EXECUTABLE = 'WEBDRIVER_CHROME_DRIVER';
     /**
+     * @var string Name of the environment variable which is the port for webdriver
+     */
+    public const CHROME_DRIVER_CUSTOM_PORT = 'WEBDRIVER_CHROME_CUSTOM_PORT';
+    /**
      * @var string Default executable used when no other is provided
      * @internal
      */
     public const DEFAULT_EXECUTABLE = 'chromedriver';
+    public const DEFAULT_PORT = 9515;
 
     /**
      * @return static
@@ -29,7 +34,10 @@ class ChromeDriverService extends DriverService
             $pathToExecutable = static::DEFAULT_EXECUTABLE;
         }
 
-        $port = 9515; // TODO: Get another port if the default port is used.
+        $port = intval(getenv(static::CHROME_DRIVER_CUSTOM_PORT));
+        if (!$port) {
+            $port = static::DEFAULT_PORT;
+        }
         $args = ['--port=' . $port];
 
         return new static($pathToExecutable, $port, $args);

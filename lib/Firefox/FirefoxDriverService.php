@@ -11,10 +11,15 @@ class FirefoxDriverService extends DriverService
      */
     public const WEBDRIVER_FIREFOX_DRIVER = 'WEBDRIVER_FIREFOX_DRIVER';
     /**
+     * @var string Name of the environment variable which is the port for webdriver
+     */
+    public const WEBDRIVER_FIREFOX_CUSTOM_PORT = 'WEBDRIVER_FIREFOX_CUSTOM_PORT';
+    /**
      * @var string Default executable used when no other is provided
      * @internal
      */
     public const DEFAULT_EXECUTABLE = 'geckodriver';
+    public const DEFAULT_PORT = 9515;
 
     /**
      * @return static
@@ -26,7 +31,10 @@ class FirefoxDriverService extends DriverService
             $pathToExecutable = static::DEFAULT_EXECUTABLE;
         }
 
-        $port = 9515; // TODO: Get another free port if the default port is used.
+        $port = intval(getenv(static::WEBDRIVER_FIREFOX_CUSTOM_PORT));
+        if (!$port) {
+            $port = static::DEFAULT_PORT;
+        }
         $args = ['-p=' . $port];
 
         return new static($pathToExecutable, $port, $args);
