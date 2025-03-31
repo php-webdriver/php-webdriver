@@ -157,7 +157,7 @@ class DriverService
      */
     protected static function checkPortIsAvail(int $port)
     {
-        $errTest = function ($sock) use ($port) {
+        $errTest = static function ($sock) use ($port) {
             if (!$sock) {
                 $errCode = socket_last_error();
                 $errMsg = $errCode ? socket_strerror($errCode) : 'Unknown';
