@@ -152,6 +152,27 @@ class DriverService
         }
     }
 
+    /**
+     * @throws RuntimeException
+     */
+    protected static function checkPortIsAvail(int $port)
+    {
+        $errTest = static function ($sock) use ($port) {
+            if (!$sock) {
+                $errCode = socket_last_error();
+                $errMsg = $errCode ? socket_strerror($errCode) : 'Unknown';
+                throw RuntimeException::forError("Port $port is not available: $errMsg");
+            }
+        };
+
+        $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        $errTest($sock);
+        $errTest(socket_set_option($sock, SOL_SOCKET, SO_REUSEADDR, 1));
+        $errTest(socket_bind($sock, '127.0.0.1', $port));
+        $errTest(socket_listen($sock));
+        socket_close($sock);
+    }
+
     private function createProcess(): Process
     {
         $commandLine = array_merge([$this->executable], $this->args);
