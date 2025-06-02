@@ -99,7 +99,7 @@ class HttpCommandExecutor implements WebDriverCommandExecutor
         DriverCommand::NEW_SESSION => ['method' => 'POST', 'url' => '/session'],
         DriverCommand::QUIT => ['method' => 'DELETE', 'url' => '/session/:sessionId'],
         DriverCommand::REFRESH => ['method' => 'POST', 'url' => '/session/:sessionId/refresh'],
-        DriverCommand::UPLOAD_FILE => ['method' => 'POST', 'url' => '/session/:sessionId/file'], // undocumented
+        DriverCommand::UPLOAD_FILE => ['method' => 'POST', 'url' => '/session/:sessionId/se/file'], // undocumented
         DriverCommand::SEND_KEYS_TO_ACTIVE_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/keys'],
         DriverCommand::SET_ALERT_VALUE => ['method' => 'POST', 'url' => '/session/:sessionId/alert_text'],
         DriverCommand::SEND_KEYS_TO_ELEMENT => ['method' => 'POST', 'url' => '/session/:sessionId/element/:id/value'],
