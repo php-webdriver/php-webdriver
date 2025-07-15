@@ -9,7 +9,7 @@ use ReturnTypeWillChange;
 /**
  * The class manages the capabilities in ChromeDriver.
  *
- * @see https://sites.google.com/a/chromium.org/chromedriver/capabilities
+ * @see https://sites.google.com/chromium.org/driver/capabilities
  */
 class ChromeOptions implements JsonSerializable
 {
