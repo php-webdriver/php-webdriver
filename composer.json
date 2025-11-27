@@ -33,7 +33,7 @@
     "facebook/webdriver": "*"
   },
   "suggest": {
-    "ext-SimpleXML": "For Firefox profile creation"
+    "ext-simplexml": "For Firefox profile creation"
   },
   "minimum-stability": "dev",
   "autoload": {
