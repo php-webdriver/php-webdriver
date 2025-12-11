@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      - uses: tcort/github-action-markdown-link-check@v1
         with:
           use-verbose-mode: 'yes'
 
@@ -82,7 +82,7 @@ jobs:
   functional-tests:
     runs-on: ${{ matrix.os }}
     env:
-      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.26.0/selenium-server-4.26.0.jar
+      SELENIUM_SERVER_DOWNLOAD_URL: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.38.0/selenium-server-4.38.0.jar
 
     strategy:
       fail-fast: false

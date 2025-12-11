@@ -50,6 +50,7 @@ class WebDriverWindowTest extends WebDriverTestCase
 
     /**
      * @group exclude-edge
+     * @group exclude-safari
      * @group exclude-saucelabs
      */
     public function testShouldFullscreenWindow(): void

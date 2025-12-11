@@ -87,7 +87,7 @@ class ChromeDriverTest extends TestCase
 
         // Add --no-sandbox as a workaround for Chrome crashing: https://github.com/SeleniumHQ/selenium/issues/4961
         $chromeOptions = new ChromeOptions();
-        $chromeOptions->addArguments(['--no-sandbox', '--headless=new', '--disable-search-engine-choice-screen']);
+        $chromeOptions->addArguments(['--no-sandbox', '--headless', '--disable-search-engine-choice-screen']);
         $chromeOptions->setExperimentalOption('w3c', $w3cDialect);
         $desiredCapabilities = DesiredCapabilities::chrome();
         $desiredCapabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
