@@ -1,0 +1,7 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://stackoverflow\\.com/questions/tagged/php\\+selenium-webdriver"
+    }
+  ]
+}

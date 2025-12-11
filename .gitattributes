@@ -12,3 +12,4 @@
 /phpstan.neon export-ignore
 /.coveralls.yml export-ignore
 /logs export-ignore
+/mlc_config.json export-ignore
