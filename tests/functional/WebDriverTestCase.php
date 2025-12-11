@@ -56,7 +56,7 @@ class WebDriverTestCase extends TestCase
                 ]);
 
                 if (!$disableHeadless) {
-                    $chromeOptions->addArguments(['--headless=new']);
+                    $chromeOptions->addArguments(['--headless']);
                 }
 
                 if (!static::isW3cProtocolBuild()) {
