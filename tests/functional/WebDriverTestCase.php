@@ -49,7 +49,7 @@ class WebDriverTestCase extends TestCase
                 $chromeOptions = new ChromeOptions();
 
                 $chromeOptions->addArguments([
-                    '--window-size=1024,768',
+                    '--screen-info={1280x720}',
                     '--no-sandbox', // workaround for https://github.com/SeleniumHQ/selenium/issues/4961
                     '--force-color-profile=srgb',
                     '--disable-search-engine-choice-screen',
