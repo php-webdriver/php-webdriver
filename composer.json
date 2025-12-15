@@ -36,6 +36,7 @@
     "ext-simplexml": "For Firefox profile creation"
   },
   "minimum-stability": "dev",
+  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "Facebook\\WebDriver\\": "lib/"
