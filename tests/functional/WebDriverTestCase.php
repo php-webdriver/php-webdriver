@@ -198,14 +198,14 @@ class WebDriverTestCase extends TestCase
         if ($ciDetector->isCiDetected()) {
             $ci = $ciDetector->detect();
             if (!empty($ci->getBuildNumber())) {
-                // SAUCE_TUNNEL_IDENTIFIER appended as a workaround for GH actions not having environment value
+                // SAUCE_TUNNEL_NAME appended as a workaround for GH actions not having environment value
                 // to distinguish runs of the matrix
-                $build = $ci->getBuildNumber() . '.' . getenv('SAUCE_TUNNEL_IDENTIFIER');
+                $build = $ci->getBuildNumber() . '.' . getenv('SAUCE_TUNNEL_NAME');
             }
         }
 
-        if (getenv('SAUCE_TUNNEL_IDENTIFIER')) {
-            $tunnelIdentifier = getenv('SAUCE_TUNNEL_IDENTIFIER');
+        if (getenv('SAUCE_TUNNEL_NAME')) {
+            $tunnelName = getenv('SAUCE_TUNNEL_NAME');
         }
 
         if (static::isW3cProtocolBuild()) {
@@ -216,16 +216,16 @@ class WebDriverTestCase extends TestCase
             if (isset($build)) {
                 $sauceOptions['build'] = $build;
             }
-            if (isset($tunnelIdentifier)) {
-                $sauceOptions['tunnelIdentifier'] = $tunnelIdentifier;
+            if (isset($tunnelName)) {
+                $sauceOptions['tunnelName'] = $tunnelName;
             }
             $this->desiredCapabilities->setCapability('sauce:options', (object) $sauceOptions);
         } else {
             $this->desiredCapabilities->setCapability('name', $name);
             $this->desiredCapabilities->setCapability('tags', $tags);
 
-            if (isset($tunnelIdentifier)) {
-                $this->desiredCapabilities->setCapability('tunnel-identifier', $tunnelIdentifier);
+            if (isset($tunnelName)) {
+                $this->desiredCapabilities->setCapability('tunnel-identifier', $tunnelName);
             }
             if (isset($build)) {
                 $this->desiredCapabilities->setCapability('build', $build);
