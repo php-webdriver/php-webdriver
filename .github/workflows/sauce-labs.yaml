@@ -20,12 +20,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        w3c: [true]
         include:
           # Chrome 74 is the last version which doesn't use W3C WebDriver by default and rather use OSS protocol
           - { name: "Chrome 74, OSS protocol", BROWSER_NAME: "chrome", VERSION: "74.0", PLATFORM: "Windows 11", w3c: false, tunnel-name: "gh-1-chrome-oss-legacy" }
-          - { name: "Chrome latest, W3C protocol", BROWSER_NAME: "chrome", VERSION: "latest", PLATFORM: "Windows 11", tunnel-name: "gh-2-chrome-w3c" }
-          - { name: "Edge latest, W3C protocol", BROWSER_NAME: "MicrosoftEdge", VERSION: "latest", PLATFORM: "Windows 11", tunnel-name: "gh-3-MicrosoftEdge" }
+          - { name: "Chrome latest, W3C protocol", BROWSER_NAME: "chrome", VERSION: "latest", PLATFORM: "Windows 11", w3c: true, tunnel-name: "gh-2-chrome-w3c" }
+          - { name: "Edge latest, W3C protocol", BROWSER_NAME: "MicrosoftEdge", VERSION: "latest", PLATFORM: "Windows 11", w3c: true, tunnel-name: "gh-3-MicrosoftEdge" }
 
     name: ${{ matrix.name }} (${{ matrix.tunnel-name }})
     steps:
