@@ -15,6 +15,7 @@
     "php": "^7.3 || ^8.0",
     "ext-curl": "*",
     "ext-json": "*",
+    "ext-sockets": "*",
     "ext-zip": "*",
     "symfony/polyfill-mbstring": "^1.12",
     "symfony/process": "^5.0 || ^6.0 || ^7.0 || ^8.0"
