@@ -2,6 +2,8 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+
+## 1.16.0 - 2025-12-29
 ### Fixed
 - Fix file upload endpoint for Selenium protocol (W3C WebDriver extension).
 - Docs: Fix incorrect link to driver capabilities docs.
