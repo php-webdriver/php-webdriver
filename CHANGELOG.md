@@ -2,6 +2,16 @@
 This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
+### Fixed
+- Fix file upload endpoint for Selenium protocol (W3C WebDriver extension).
+- Docs: Fix incorrect link to driver capabilities docs.
+
+### Changed
+- Exceptions thrown by the library are now always extends `\Throwable`, to allow better work with exception methods when catching `\PhpWebDriverExceptionInterface`.
+- Support Symfony 8.
+- Timeouts value types now properly supports and allow only `null|int|float` for W3C Webdriver (while keeping only `int|float` allowed for JsonWire protocol).
+- Tests: Update SauceLabs Connect and use new platform versions.
+- Tests: Remove `new` flag from headless chrome, as it is already default since Chromedriver 132.
 
 ## 1.15.2 - 2024-11-21
 ### Fixed
