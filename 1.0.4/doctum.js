@@ -72,8 +72,20 @@ var Doctum = {
         }
                         var versionSwitcher = document.getElementById('version-switcher');
         if (versionSwitcher !== null) {
-            versionSwitcher.addEventListener('change', function () {
-                window.location = this.value;
+            var currentVersion = versionSwitcher.options[versionSwitcher.selectedIndex].dataset.version;
+            versionSwitcher.addEventListener('change', function (event) {
+                var targetVersion = event.target.options[event.target.selectedIndex].dataset.version;
+                var candidateUrl = window.location.pathname.replace(currentVersion, targetVersion);
+                // Check if the page exists before redirecting to it
+                var testRequest = new XMLHttpRequest();
+                testRequest.open('HEAD', candidateUrl, false);
+                testRequest.send();
+                if (testRequest.status < 200 || testRequest.status > 399) {
+                    window.location = candidateUrl;
+                } else {
+                    // otherwise reroute to the home page of the new version
+                    window.location = this.value;
+                }
             });
         }
                 Doctum.listenersRegistered = true;
@@ -267,10 +279,13 @@ var Doctum = {
     /**
      * Clean the search query
      *
-     * @param string query
+     * @param string|null query
      * @return string
      */
     cleanSearchQuery: function (query) {
+        if (typeof query !== 'string') {
+            return '';
+        }
         // replace any chars that could lead to injecting code in our regex
         // remove start or end spaces
         // replace backslashes by an escaped version, use case in search: \myRootFunction
