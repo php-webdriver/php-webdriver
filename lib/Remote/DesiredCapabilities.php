@@ -216,6 +216,7 @@ class DesiredCapabilities implements WebDriverCapabilities
             'timeouts',
             'strictFileInteractability',
             'unhandledPromptBehavior',
+            'webSocketUrl',
         ];
 
         $ossCapabilities = $this->toArray();
