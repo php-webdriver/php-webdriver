@@ -94,6 +94,38 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
         $checkboxes->selectByValue('notexist');
     }
 
+    /**
+     * Regression test for falsy values values trying to select
+     *
+     * @see https://github.com/php-webdriver/php-webdriver/issues/1155
+     */
+    public function testSelectByValueFalsy(?string $value, array $expectedSelectedValues): void
+    {
+        $checkboxes = new WebDriverCheckboxes(
+            $this->driver->findElement(WebDriverBy::xpath('//input[@type="checkbox"][@name="j6"]'))
+        );
+
+        $checkboxes->selectByValue($value);
+
+        $selectedValues = [];
+        foreach ($checkboxes->getAllSelectedOptions() as $option) {
+            $selectedValues[] = $option->getAttribute('value');
+        }
+        $this->assertSame($expectedSelectedValues, $selectedValues);
+    }
+
+    /**
+     * @return array[]
+     */
+    public function provideSelectByValueFalsyData(): array
+    {
+        return [
+            ['', ['']],
+            ['0', ['0']],
+            [null, ['1', '0', '']],
+        ];
+    }
+
     public function testSelectByIndex(): void
     {
         $selectedOptions = [1 => 'j2b', 2 => 'j2c'];
