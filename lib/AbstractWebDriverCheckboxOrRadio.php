@@ -192,7 +192,7 @@ abstract class AbstractWebDriverCheckboxOrRadio implements WebDriverSelectInterf
      */
     protected function getRelatedElements($value = null)
     {
-        $valueSelector = $value ? sprintf(' and @value = %s', XPathEscaper::escapeQuotes($value)) : '';
+        $valueSelector = $value !== null ? sprintf(' and @value = %s', XPathEscaper::escapeQuotes($value)) : '';
         $formId = $this->element->getAttribute('form');
         if ($formId === null) {
             $form = $this->element->findElement(WebDriverBy::xpath('ancestor::form'));
