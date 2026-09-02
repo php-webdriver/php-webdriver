@@ -98,6 +98,8 @@ class WebDriverCheckboxesTest extends WebDriverTestCase
      * Regression test for falsy values values trying to select
      *
      * @see https://github.com/php-webdriver/php-webdriver/issues/1155
+     *
+     * @dataProvider provideSelectByValueFalsyData
      */
     public function testSelectByValueFalsy(?string $value, array $expectedSelectedValues): void
     {
