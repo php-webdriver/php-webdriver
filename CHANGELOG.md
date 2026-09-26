@@ -3,6 +3,9 @@ This project versioning adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Fixed
+- Compare `WebDriverPoint` coordinates consistently when they contain fractional values.
+
 ## 1.16.0 - 2025-12-29
 ### Fixed
 - Fix file upload endpoint for Selenium protocol (W3C WebDriver extension).

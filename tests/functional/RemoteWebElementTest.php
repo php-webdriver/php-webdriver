@@ -83,6 +83,27 @@ class RemoteWebElementTest extends WebDriverTestCase
     }
 
     /**
+     * @covers ::getLocation
+     */
+    public function testShouldCompareFractionalElementLocation(): void
+    {
+        $this->driver->get($this->getTestPageUrl(TestPage::INDEX));
+
+        $element = $this->driver->findElement(WebDriverBy::id('element-with-location'));
+        $this->driver->executeScript(
+            "arguments[0].style.left = '33.5px'; arguments[0].style.top = '550.75px';",
+            [$element]
+        );
+
+        $location = $element->getLocation();
+
+        $this->assertSame(33, $location->getX());
+        $this->assertSame(550, $location->getY());
+        $this->assertTrue($location->equals($location));
+        $this->assertTrue($location->equals(new WebDriverPoint(33, 550)));
+    }
+
+    /**
      * @covers ::getLocationOnScreenOnceScrolledIntoView
      */
     public function testShouldGetLocationOnScreenOnceScrolledIntoView(): void
