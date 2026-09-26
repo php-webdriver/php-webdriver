@@ -74,7 +74,7 @@ class WebDriverPoint
      */
     public function equals(self $point)
     {
-        return $this->x === $point->getX() &&
-        $this->y === $point->getY();
+        return $this->getX() === $point->getX() &&
+            $this->getY() === $point->getY();
     }
 }
